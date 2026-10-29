@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Roadmap
+    url: https://github.com/Nabzx/Kessel/blob/main/ROADMAP.md
+    about: What each phase ships and in what order.
+  - name: Architecture decisions
+    url: https://github.com/Nabzx/Kessel/tree/main/docs/adr
+    about: Why the demo is built the way it is.
