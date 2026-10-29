@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+
+# editors
+.idea/
+.vscode/
+*.swp
+
+# node (tooling only, e.g. playwright for local QA screenshots)
+node_modules/
+package-lock.json
+
+# local QA artefacts
+*.png
+!assets/**/*.png
+shot*.js
