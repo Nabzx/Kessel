@@ -8,6 +8,8 @@
   --text: #e8e6e1;
   --text-dim: #8a8d92;
   --border: rgba(255, 255, 255, 0.08);
+  --font-mono: "JetBrains Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-display: "Space Grotesk", "JetBrains Mono", ui-sans-serif, sans-serif;
   font-size: 16px;
 }
 
@@ -20,7 +22,7 @@ html, body {
   height: 100%;
   background: var(--bg);
   color: var(--text);
-  font-family: "SF Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -58,14 +60,17 @@ html, body {
 }
 
 .intro-eyebrow {
+  font-family: var(--font-display);
   letter-spacing: 0.3em;
   text-transform: uppercase;
   font-size: 0.75rem;
+  font-weight: 600;
   color: var(--amber);
   margin: 0 0 1rem 0;
 }
 
 .intro-card h1 {
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 4.2vw, 2.6rem);
   font-weight: 500;
   max-width: 18ch;
@@ -112,7 +117,19 @@ html, body {
 
 .panel-labels {
   display: flex;
+  align-items: center;
   padding: 0.6rem 1rem 0.3rem;
+  flex: 0 0 auto;
+  gap: 1rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--text);
+  opacity: 0.85;
   flex: 0 0 auto;
 }
 
@@ -138,6 +155,11 @@ html, body {
   flex: 1 1 auto;
   display: flex;
   min-height: 0;
+  margin: 0 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 #canvas-sim, #canvas-pred {
@@ -145,6 +167,38 @@ html, body {
   height: 100%;
   display: block;
   background: var(--panel-bg);
+}
+
+/* A restrained sci-fi treatment on the prediction panel only (ADR-0013):
+   faint scanlines (below) plus a 1-2px chromatic-aberration ShaderPass in
+   the pred composer chain (js/app.js). Deliberately barely visible -- the
+   wireframe and heatmap colour do the real work of signalling "this is a
+   prediction," this is a light garnish on top. */
+.pred-scanlines {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  z-index: 3;
+}
+
+/* Cinematic framing vignette across both panels. */
+.canvases::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  box-shadow: inset 0 0 14vmin 2vmin rgba(0, 0, 0, 0.55);
 }
 
 .divider {
@@ -155,7 +209,20 @@ html, body {
   width: 1px;
   background: var(--border);
   pointer-events: none;
+  z-index: 2;
 }
+
+.loop-veil {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+.loop-veil.active { opacity: 1; }
 
 /* ---------- HUD ---------- */
 
@@ -173,8 +240,36 @@ html, body {
 
 .hud-group { display: flex; flex-direction: column; gap: 0.15rem; min-width: 5.2rem; }
 .hud-key { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
-.hud-val { font-size: 0.95rem; font-weight: 600; color: var(--text); }
-.hud-val.offline { color: var(--red); display: flex; align-items: center; gap: 0.4rem; }
+.hud-val { font-size: 0.95rem; font-weight: 600; color: var(--text); transition: color 0.2s ease; }
+.hud-val.ticking { color: var(--cyan); }
+.hud-val.offline { color: var(--red); display: flex; align-items: center; gap: 0.4rem; position: relative; }
+
+.signal-sweep {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signal-sweep span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--red);
+  border-radius: 50%;
+  opacity: 0;
+  animation: sweep-pulse 1.8s ease-out 1;
+}
+
+.signal-sweep span:nth-child(1) { animation-delay: 0s; }
+.signal-sweep span:nth-child(2) { animation-delay: 0.25s; }
+.signal-sweep span:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes sweep-pulse {
+  0% { opacity: 0.8; transform: scale(0.3); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
 
 .blink-dot {
   width: 6px; height: 6px; border-radius: 50%;
@@ -221,8 +316,12 @@ html, body {
 }
 
 .boulder-btn:hover { background: var(--amber); transform: translateY(-1px); }
-.boulder-btn:active { transform: translateY(0); }
+.boulder-btn:active { transform: translateY(0) scale(0.97); }
 .boulder-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+.boulder-btn:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
 
 .scrubber-wrap {
   flex: 1 1 220px;
@@ -241,7 +340,14 @@ html, body {
 }
 
 #scrubber { flex: 1; accent-color: var(--cyan); }
-#scrubber-readout { font-size: 0.75rem; color: var(--cyan); min-width: 3.4rem; text-align: right; }
+#scrubber:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 2px; }
+#scrubber-readout {
+  font-size: 0.75rem;
+  color: var(--cyan);
+  min-width: 3.4rem;
+  text-align: right;
+  transition: color 0.15s ease;
+}
 
 /* ---------- Caption ---------- */
 
@@ -285,12 +391,14 @@ html, body {
 @media (max-width: 720px) {
   :root { font-size: 15px; }
   .panel-labels { padding: 0.5rem 0.7rem 0.2rem; }
+  .wordmark { display: none; }
   .hud { gap: 0.9rem; padding: 0.5rem 0.7rem; }
   .hud-group { min-width: 4.2rem; }
   .hud-illustrative { width: 100%; margin: 0.2rem 0 0 0; order: 99; }
   .controls { padding: 0.4rem 0.7rem 0.7rem; }
   .caption { font-size: 0.52rem; left: 0.7rem; right: 0.7rem; max-width: none; }
   .scrubber-wrap { flex-basis: 100%; }
+  .canvases { margin: 0 0.35rem; }
 }
 
 @media (max-width: 480px) {
@@ -298,4 +406,5 @@ html, body {
   #canvas-sim, #canvas-pred { width: 100%; height: 50%; }
   .divider { left: 0; right: 0; top: 50%; bottom: auto; height: 1px; width: auto; }
   .panel-labels { flex-direction: column; gap: 0.2rem; }
+  .pred-scanlines { top: 50%; left: 0; right: 0; width: 100%; height: 50%; }
 }
