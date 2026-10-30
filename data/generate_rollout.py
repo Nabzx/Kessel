@@ -2,10 +2,10 @@
 """Generate rollout.json: a scripted placeholder episode for the Kessel demo.
 
 This file is the ONLY thing standing between the front end and a real
-trained agent (ADR-0001). Every number the renderer draws (loader pose, rock
-positions, world-model prediction, prediction error, HUD values) comes from
-data/rollout.json. Swap this script's output for a logged rollout from the
-real RL policy + world model and the front end does not change.
+trained agent. Every number the renderer draws (loader pose, rock
+positions, world-model prediction, prediction error, HUD values) comes
+from data/rollout.json. Swap this script's output for a logged rollout
+from the real RL policy + world model and the front end does not change.
 
 Schema (ADR-0001, docs/adr/0001-rollout-data-schema.md):
 
@@ -19,12 +19,8 @@ Schema (ADR-0001, docs/adr/0001-rollout-data-schema.md):
       "loader": {"pos": [x,y,z], "heading": rad, "boom": rad, "bucket": rad},
       "rocks": [[x,y,z], ...],              # simulation ground truth, this frame
       "predicted_horizon": [               # world-model prediction, same length every frame
-        {"dt": float, "rocks": [[x,y,z], ...]},
-        ...
-      ],
-      "actual_horizon": [                   # ground truth at those same future times, for error calc
-        {"dt": float, "rocks": [[x,y,z], ...]},
-        ...
+        {"dt": float, "rocks": [[x,y,z], ...], "error": [float, ...]},  # error: per-rock
+        ...                                                              # distance vs ground truth at t+dt
       ],
       "hud": {
         "decision_ms": float,
@@ -44,12 +40,12 @@ import random
 
 random.seed(7)
 
-FPS = 30
-DURATION_S = 14.0
+FPS = 20
+DURATION_S = 12.0
 N_FRAMES = int(DURATION_S * FPS)
-N_ROCKS = 90
-HORIZON_STEPS = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0]  # seconds ahead
-BOULDER_EVENT_T = 8.0  # seconds into the episode
+N_ROCKS = 64
+HORIZON_STEPS = [0.6, 1.2, 1.8, 2.4]  # seconds ahead
+BOULDER_EVENT_T = 7.0  # seconds into the episode
 
 PILE_CENTER = (2.2, 0.0, -0.6)
 PILE_RADIUS = 1.9
@@ -110,10 +106,10 @@ def loader_pose(t):
 
     z = PILE_CENTER[2] + 0.4 * math.sin(phase * 0.15)
     return {
-        "pos": [round(x, 4), 0.0, round(z, 4)],
-        "heading": round(heading, 4),
-        "boom": round(boom, 4),
-        "bucket": round(bucket, 4),
+        "pos": [round(x, 3), 0.0, round(z, 3)],
+        "heading": round(heading, 3),
+        "boom": round(boom, 3),
+        "bucket": round(bucket, 3),
     }, phase, scoop_end, reverse_end
 
 
@@ -144,7 +140,7 @@ def simulate_rocks(t, halted_from=None):
         x = bx + settle * (0.9 + 0.3 * math.sin(i)) + jitter
         y = by - settle * by * 0.7
         z = bz + settle * 0.25 * math.cos(i * 1.7)
-        positions.append([round(x, 4), round(max(0.0, y), 4), round(z, 4)])
+        positions.append([round(x, 3), round(max(0.0, y), 4), round(z, 3)])
     return positions
 
 
@@ -160,7 +156,7 @@ def predicted_rocks(t, dt, noise_scale):
         ox = n * math.sin(i * 1.3 + t * 0.7)
         oy = n * 0.4 * math.cos(i * 0.9 + t)
         oz = n * math.sin(i * 0.6 + t * 0.5 + 1.0)
-        out.append([round(x + ox, 4), round(max(0.0, y + oy), 4), round(z + oz, 4)])
+        out.append([round(x + ox, 3), round(max(0.0, y + oy), 4), round(z + oz, 3)])
     return out
 
 
@@ -198,18 +194,19 @@ def build():
             boulder_active_until = BOULDER_EVENT_T + 3.4
 
         horizon = []
-        actual = []
         noise_scale = 0.22 if (boulder_active_until and t < boulder_active_until) else 0.07
         for dt in HORIZON_STEPS:
-            horizon.append({"dt": dt, "rocks": predicted_rocks(t if not halted else BOULDER_EVENT_T, dt, noise_scale)})
-            actual.append({"dt": dt, "rocks": simulate_rocks((t if not halted else BOULDER_EVENT_T) + dt)})
+            anchor = t if not halted else BOULDER_EVENT_T
+            pred = predicted_rocks(anchor, dt, noise_scale)
+            truth = simulate_rocks(anchor + dt)
+            err = [round(math.dist(p, a), 3) for p, a in zip(pred, truth)]
+            horizon.append({"dt": dt, "rocks": pred, "error": err})
 
         frames.append({
             "t": round(t, 3),
             "loader": loader,
             "rocks": rocks,
             "predicted_horizon": horizon,
-            "actual_horizon": actual,
             "hud": hud_for(t, episode, boulder_active_until),
         })
 
