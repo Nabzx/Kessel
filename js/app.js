@@ -307,3 +307,167 @@ function errorColor(e, maxE) {
   return new THREE.Color().lerpColors(
     new THREE.Color(0xf0a340), new THREE.Color(0xff4d3d), (t - 0.5) / 0.5);
 }
+
+/* ------------------------------ main ------------------------------ */
+
+const rolloutPromise = loadRollout();
+
+async function main() {
+  await rolloutPromise;
+
+  const canvasSim = document.getElementById("canvas-sim");
+  const canvasPred = document.getElementById("canvas-pred");
+
+  const sim = buildCommonScene({ wireframePile: false });
+  const pred = buildCommonScene({ wireframePile: true });
+  pred.loader.group.visible = true;
+
+  const rendererOpts = { antialias: !IS_MOBILE, powerPreference: "high-performance" };
+  const rendererSim = new THREE.WebGLRenderer({ canvas: canvasSim, ...rendererOpts });
+  const rendererPred = new THREE.WebGLRenderer({ canvas: canvasPred, ...rendererOpts });
+  rendererSim.setPixelRatio(Math.min(window.devicePixelRatio, DPR_CAP));
+  rendererPred.setPixelRatio(Math.min(window.devicePixelRatio, DPR_CAP));
+  rendererSim.toneMapping = THREE.ACESFilmicToneMapping;
+  rendererPred.toneMapping = THREE.ACESFilmicToneMapping;
+  rendererSim.toneMappingExposure = 1.05;
+  rendererPred.toneMappingExposure = 1.05;
+
+  const composerSim = new EffectComposer(rendererSim);
+  composerSim.addPass(new RenderPass(sim.scene, sim.camera));
+  const bloomSim = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.65, 0.5, 0.18);
+  composerSim.addPass(bloomSim);
+
+  const composerPred = new EffectComposer(rendererPred);
+  composerPred.addPass(new RenderPass(pred.scene, pred.camera));
+  const bloomPred = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.95, 0.55, 0.1);
+  composerPred.addPass(bloomPred);
+
+  function resize() {
+    for (const { canvas, camera, composer, bloom } of [
+      { canvas: canvasSim, camera: sim.camera, composer: composerSim, bloom: bloomSim },
+      { canvas: canvasPred, camera: pred.camera, composer: composerPred, bloom: bloomPred },
+    ]) {
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      camera.aspect = w / Math.max(h, 1);
+      camera.updateProjectionMatrix();
+      composer.setSize(w, h);
+      bloom.setSize(w, h);
+    }
+  }
+  window.addEventListener("resize", resize);
+  window.addEventListener("orientationchange", () => setTimeout(resize, 200));
+
+  const maxErrorSeen = { v: 0.3 };
+
+  function updateRocksSim(frame) {
+    const dummy = new THREE.Object3D();
+    const scales = state.rollout.rock_scale;
+    for (let i = 0; i < frame.rocks.length; i++) {
+      const [x, y, z] = frame.rocks[i];
+      dummy.position.set(x, y, z);
+      dummy.rotation.set(i * 0.7, i * 1.3, i * 0.4);
+      dummy.scale.setScalar(0.22 * scales[i]);
+      dummy.updateMatrix();
+      sim.rockMesh.setMatrixAt(i, dummy.matrix);
+    }
+    sim.rockMesh.instanceMatrix.needsUpdate = true;
+  }
+
+  function updateRocksPred(frame, horizonIdx) {
+    const dummy = new THREE.Object3D();
+    const scales = state.rollout.rock_scale;
+    const h = frame.predicted_horizon[horizonIdx];
+    for (let i = 0; i < h.rocks.length; i++) {
+      const [x, y, z] = h.rocks[i];
+      dummy.position.set(x, y, z);
+      dummy.rotation.set(i * 0.7, i * 1.3, i * 0.4);
+      dummy.scale.setScalar(0.22 * scales[i]);
+      dummy.updateMatrix();
+      pred.rockMesh.setMatrixAt(i, dummy.matrix);
+      const e = h.error[i];
+      maxErrorSeen.v = Math.max(maxErrorSeen.v * 0.998, e, 0.25);
+      const c = errorColor(e, maxErrorSeen.v);
+      pred.rockMesh.setColorAt(i, c);
+    }
+    pred.rockMesh.instanceMatrix.needsUpdate = true;
+    pred.rockMesh.instanceColor.needsUpdate = true;
+  }
+
+  function updateHud(frame, horizonIdx) {
+    const hud = frame.hud;
+    els.hudDecision.textContent = `${hud.decision_ms.toFixed(0)} ms`;
+    const h = frame.predicted_horizon[horizonIdx];
+    const meanErr = h.error.reduce((a, b) => a + b, 0) / h.error.length;
+    els.hudError.textContent = `${meanErr.toFixed(2)} m`;
+    els.hudEpisode.textContent = `#${hud.episode}`;
+    els.hudState.textContent = hud.state;
+    els.hudState.className = hud.state;
+  }
+
+  function updateDust(dust, seed, t) {
+    const pos = dust.geometry.attributes.position;
+    for (let i = 0; i < seed.length; i++) {
+      const s = seed[i];
+      pos.array[i * 3 + 1] += 0.0022;
+      pos.array[i * 3 + 0] += Math.sin(t * 0.6 + s) * 0.0007;
+      if (pos.array[i * 3 + 1] > 3.3) pos.array[i * 3 + 1] = 0.05;
+    }
+    pos.needsUpdate = true;
+  }
+
+  els.boulderBtn.addEventListener("click", () => {
+    const boulderFrame = state.rollout.boulder_event_frame;
+    const boulderT = (boulderFrame / state.frames.length) * state.duration;
+    state.virtualT = boulderT;
+    els.boulderBtn.disabled = true;
+    setTimeout(() => { els.boulderBtn.disabled = false; }, 3600);
+  });
+
+  els.scrubber.addEventListener("input", () => {
+    state.horizonIdx = Number(els.scrubber.value);
+    state.scrubbing = true;
+    const dt = state.rollout.meta.horizon_steps_s[state.horizonIdx];
+    els.scrubberReadout.textContent = `+${dt.toFixed(1)}s`;
+    clearTimeout(state._scrubTimer);
+    state._scrubTimer = setTimeout(() => { state.scrubbing = false; }, 2200);
+  });
+
+  resize();
+
+  let last = performance.now();
+  function tick(now) {
+    const dt = Math.min((now - last) / 1000, 0.08);
+    last = now;
+    state.virtualT = (state.virtualT + dt) % state.duration;
+
+    const { f0, f1, a } = frameAt(state.virtualT);
+
+    const loaderPos = lerpVec([0, 0, 0], f0.loader.pos, f1.loader.pos, a);
+    const loaderData = {
+      pos: loaderPos,
+      heading: lerp(f0.loader.heading, f1.loader.heading, a),
+      boom: lerp(f0.loader.boom, f1.loader.boom, a),
+      bucket: lerp(f0.loader.bucket, f1.loader.bucket, a),
+    };
+    applyLoaderPose(sim.loader, loaderData);
+    applyLoaderPose(pred.loader, loaderData);
+
+    updateRocksSim(f0);
+    updateRocksPred(f0, state.horizonIdx);
+    updateHud(f0, state.horizonIdx);
+
+    updateDust(sim.dust, sim.dustSeed, state.virtualT);
+    updateDust(pred.dust, pred.dustSeed, state.virtualT);
+
+    composerSim.render();
+    composerPred.render();
+
+    requestAnimationFrame(tick);
+  }
+
+  els.stage.classList.add("visible");
+  els.stage.setAttribute("aria-hidden", "false");
+  requestAnimationFrame(tick);
+}
+
+runIntro(() => { main(); });
