@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Kessel — concept visualization</title>
+<meta name="description" content="Kessel: physical AI for extreme environments. Concept visualization of a world-model-trained loader working underground, offline." />
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="intro" class="intro" aria-hidden="false">
+    <div class="intro-card" data-card="0">
+      <p class="intro-eyebrow">Kessel</p>
+      <h1>Underground: no GPS, no signal</h1>
+    </div>
+    <div class="intro-card" data-card="1">
+      <p class="intro-eyebrow">Kessel</p>
+      <h1>Train in a world model, not in the mine</h1>
+    </div>
+    <div class="intro-card" data-card="2">
+      <p class="intro-eyebrow">Kessel</p>
+      <h1>Runs offline on the machine</h1>
+    </div>
+    <button id="skip-intro" class="skip-btn" type="button" aria-label="Skip intro">Skip ›</button>
+  </div>
+
+  <main id="stage" class="stage" aria-hidden="true">
+
+    <header class="panel-labels">
+      <div class="panel-label left"><span class="dot dot-sim"></span>Simulation</div>
+      <div class="panel-label right"><span class="dot dot-pred"></span>World model prediction</div>
+    </header>
+
+    <div class="canvases">
+      <canvas id="canvas-sim"></canvas>
+      <canvas id="canvas-pred"></canvas>
+      <div class="divider"></div>
+      <div class="caption">
+        Concept visualization. Scripted animation illustrating how Kessel works.<br />
+        Not real model output.
+      </div>
+    </div>
+
+    <section class="hud" aria-label="Status">
+      <div class="hud-group">
+        <span class="hud-key">Connectivity</span>
+        <span class="hud-val offline"><span class="blink-dot"></span>OFFLINE</span>
+      </div>
+      <div class="hud-group">
+        <span class="hud-key">Decision time</span>
+        <span class="hud-val" id="hud-decision">— ms</span>
+      </div>
+      <div class="hud-group">
+        <span class="hud-key">Prediction error</span>
+        <span class="hud-val" id="hud-error">— m</span>
+      </div>
+      <div class="hud-group">
+        <span class="hud-key">Episode</span>
+        <span class="hud-val" id="hud-episode">—</span>
+      </div>
+      <div class="hud-group state">
+        <span class="hud-key">State</span>
+        <span class="hud-val" id="hud-state">nominal</span>
+      </div>
+      <p class="hud-illustrative">Illustrative values from a scripted rollout</p>
+    </section>
+
+    <section class="controls">
+      <button id="drop-boulder" class="boulder-btn" type="button">
+        Drop boulder
+      </button>
+      <div class="scrubber-wrap">
+        <label for="scrubber">Prediction horizon</label>
+        <input id="scrubber" type="range" min="0" max="3" step="1" value="0" />
+        <span id="scrubber-readout">+0.6s</span>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="loading" class="loading">Loading rollout…</div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
