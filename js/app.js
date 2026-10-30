@@ -56,14 +56,16 @@ async function loadRollout() {
   els.loading.classList.add("hidden");
 }
 
-function frameAt(t) {
+function frameAt(t, out) {
   const frames = state.frames;
   const n = frames.length;
   const fIdx = (t / state.duration) * n;
   const i0 = Math.floor(fIdx) % n;
   const i1 = (i0 + 1) % n;
-  const a = fIdx - Math.floor(fIdx);
-  return { f0: frames[i0], f1: frames[i1], a };
+  out.f0 = frames[i0];
+  out.f1 = frames[i1];
+  out.a = fIdx - Math.floor(fIdx);
+  return out;
 }
 
 function lerp(a, b, t) { return a + (b - a) * t; }
@@ -358,9 +360,9 @@ async function main() {
   window.addEventListener("orientationchange", () => setTimeout(resize, 200));
 
   const maxErrorSeen = { v: 0.3 };
+  const dummy = new THREE.Object3D();
 
   function updateRocksSim(frame) {
-    const dummy = new THREE.Object3D();
     const scales = state.rollout.rock_scale;
     for (let i = 0; i < frame.rocks.length; i++) {
       const [x, y, z] = frame.rocks[i];
@@ -374,7 +376,6 @@ async function main() {
   }
 
   function updateRocksPred(frame, horizonIdx) {
-    const dummy = new THREE.Object3D();
     const scales = state.rollout.rock_scale;
     const h = frame.predicted_horizon[horizonIdx];
     for (let i = 0; i < h.rocks.length; i++) {
@@ -434,23 +435,26 @@ async function main() {
 
   resize();
 
+  // Scratch objects reused every tick instead of allocated per frame --
+  // this loop runs at display refresh rate for the life of the page.
+  const _frame = { f0: null, f1: null, a: 0 };
+  const _loaderPos = [0, 0, 0];
+  const _loaderData = { pos: _loaderPos, heading: 0, boom: 0, bucket: 0 };
+
   let last = performance.now();
   function tick(now) {
     const dt = Math.min((now - last) / 1000, 0.08);
     last = now;
     state.virtualT = (state.virtualT + dt) % state.duration;
 
-    const { f0, f1, a } = frameAt(state.virtualT);
+    const { f0, f1, a } = frameAt(state.virtualT, _frame);
 
-    const loaderPos = lerpVec([0, 0, 0], f0.loader.pos, f1.loader.pos, a);
-    const loaderData = {
-      pos: loaderPos,
-      heading: lerp(f0.loader.heading, f1.loader.heading, a),
-      boom: lerp(f0.loader.boom, f1.loader.boom, a),
-      bucket: lerp(f0.loader.bucket, f1.loader.bucket, a),
-    };
-    applyLoaderPose(sim.loader, loaderData);
-    applyLoaderPose(pred.loader, loaderData);
+    lerpVec(_loaderPos, f0.loader.pos, f1.loader.pos, a);
+    _loaderData.heading = lerp(f0.loader.heading, f1.loader.heading, a);
+    _loaderData.boom = lerp(f0.loader.boom, f1.loader.boom, a);
+    _loaderData.bucket = lerp(f0.loader.bucket, f1.loader.bucket, a);
+    applyLoaderPose(sim.loader, _loaderData);
+    applyLoaderPose(pred.loader, _loaderData);
 
     updateRocksSim(f0);
     updateRocksPred(f0, state.horizonIdx);
