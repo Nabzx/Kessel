@@ -78,7 +78,21 @@ just a desktop browser check.
 **Done when:** the demo holds a smooth frame rate on a mid-range phone, and a
 resize or orientation change does not break either panel.
 
-### Phase 6 — Publish
+### Phase 6 — Visual fidelity and advanced polish
+
+Inserted ahead of publish on the maintainer's direction: the demo has to
+look as realistic and as high-tech as the product story it's telling before
+a public link goes out. Rendering realism (volumetric light, surface detail,
+environment props, post-processing), UI/branding polish (typography, the
+wordmark, micro-interactions, the sci-fi differentiation on the world-model
+panel), and a correctness pass (cross-browser, long-run stability, payload
+budget, cold-open timing) across everything built in Phases 1-5.
+
+**Done when:** the demo reads as a polished, high-production-value piece of
+software, not a prototype, without compromising the honesty invariants in
+`AGENTS.md` or the Phase 5 frame-budget work.
+
+### Phase 7 — Publish
 
 A public mirror repository that serves the built static site over GitHub
 Pages (this repo stays private), the CI workflow that syncs it on push to
@@ -87,7 +101,7 @@ Pages (this repo stays private), the CI workflow that syncs it on push to
 **Done when:** a stable public URL loads the demo, and a push to `main` here
 updates it without a manual step.
 
-### Phase 7 — Submission polish
+### Phase 8 — Submission polish
 
 README with real screenshots and a captured clip, hosting and
 screen-recording instructions, and a final honesty and QA pass against the
