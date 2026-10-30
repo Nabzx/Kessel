@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
 /* ------------------------------------------------------------------ *
  * Kessel concept demo — data-driven renderer.
@@ -28,6 +29,37 @@ const state = {
   scrubbing: false,
   boulderUntil: 0,
   boulderJumpT: null,
+};
+
+// ADR-0013: a restrained, edge-only chromatic aberration for the
+// world-model panel -- near zero at screen centre, 1-2px of RGB channel
+// split at the frame edges. A ShaderPass in the composer chain, not a
+// CSS/SVG filter (an SVG feColorMatrix/feBlend attempt badly corrupted
+// the canvas's actual pixel output -- this is the correct technique).
+const CHROMA_SHADER = {
+  uniforms: { tDiffuse: { value: null }, amount: { value: 0.0025 } },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform sampler2D tDiffuse;
+    uniform float amount;
+    varying vec2 vUv;
+    void main() {
+      vec2 centered = vUv - 0.5;
+      float edge = clamp(length(centered) * 1.6, 0.0, 1.0);
+      vec2 dir = normalize(centered + 1e-6) * amount * edge;
+      float r = texture2D(tDiffuse, vUv - dir).r;
+      float g = texture2D(tDiffuse, vUv).g;
+      float b = texture2D(tDiffuse, vUv + dir).b;
+      float a = texture2D(tDiffuse, vUv).a;
+      gl_FragColor = vec4(r, g, b, a);
+    }
+  `,
 };
 
 const els = {
@@ -343,6 +375,8 @@ async function main() {
   composerPred.addPass(new RenderPass(pred.scene, pred.camera));
   const bloomPred = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.95, 0.55, 0.1);
   composerPred.addPass(bloomPred);
+  const chromaPass = new ShaderPass(CHROMA_SHADER);
+  composerPred.addPass(chromaPass);
 
   function resize() {
     for (const { canvas, camera, composer, bloom } of [
