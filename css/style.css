@@ -212,17 +212,11 @@ html, body {
   z-index: 2;
 }
 
-.loop-veil {
-  position: absolute;
-  inset: 0;
-  background: var(--bg);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 5;
-  transition: opacity 0.3s ease;
-}
-
-.loop-veil.active { opacity: 1; }
+/* ADR-0012's loop-seam crossfade is implemented as a WebGL ShaderPass
+   (js/app.js, FADE_SHADER) rather than a DOM overlay here -- toggling a
+   CSS class on an element positioned over the WebGL canvases was found
+   to corrupt the canvases' compositing in this environment (confirmed by
+   isolating the exact classList.toggle call; see the commit message). */
 
 /* ---------- HUD ---------- */
 
