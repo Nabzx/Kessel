@@ -239,6 +239,10 @@ function buildCommonScene({ wireframePile }) {
   scene.add(rim);
 
   // ---- dust (#83: soft circular sprite, not the default square point) ----
+  // Textured + additively-blended point sprites measured as real cost on
+  // mobile (#95): recovered most of a 21fps -> 13fps regression by
+  // dropping the texture there specifically, more than size alone did.
+  // Desktop keeps the soft sprite; mobile keeps the original flat dot.
   const dustCount = IS_MOBILE ? 140 : 320;
   const dustGeo = new THREE.BufferGeometry();
   const dustPos = new Float32Array(dustCount * 3);
@@ -252,8 +256,8 @@ function buildCommonScene({ wireframePile }) {
   dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPos, 3));
   const dustMat = new THREE.PointsMaterial({
     color: 0xd8b98a,
-    map: dustSpriteTexture(),
-    size: IS_MOBILE ? 0.05 : 0.04,
+    map: IS_MOBILE ? null : dustSpriteTexture(),
+    size: IS_MOBILE ? 0.022 : 0.04,
     transparent: true,
     opacity: 0.4,
     depthWrite: false,
@@ -263,8 +267,12 @@ function buildCommonScene({ wireframePile }) {
   scene.add(dust);
 
   // ---- falling debris (#84): a sparser, gravity-biased sibling of the
-  // dust system, trickling down near the pile rather than drifting up ----
-  const debrisCount = IS_MOBILE ? 18 : 36;
+  // dust system, trickling down near the pile rather than drifting up.
+  // #95's throttled measurement found the cumulative cost of Phase 6's
+  // additions (not any single one) added up to a real regression on
+  // mobile -- zero debris there rather than trimming every item a
+  // little, per ADR-0014's fallback. ----
+  const debrisCount = IS_MOBILE ? 0 : 36;
   const debrisGeo = new THREE.BufferGeometry();
   const debrisPos = new Float32Array(debrisCount * 3);
   const debrisSeed = new Float32Array(debrisCount);
@@ -277,8 +285,8 @@ function buildCommonScene({ wireframePile }) {
   debrisGeo.setAttribute("position", new THREE.BufferAttribute(debrisPos, 3));
   const debrisMat = new THREE.PointsMaterial({
     color: 0x9c8a74,
-    map: dustSpriteTexture(),
-    size: IS_MOBILE ? 0.045 : 0.035,
+    map: IS_MOBILE ? null : dustSpriteTexture(),
+    size: IS_MOBILE ? 0.022 : 0.035,
     transparent: true,
     opacity: 0.55,
     depthWrite: false,
@@ -286,64 +294,73 @@ function buildCommonScene({ wireframePile }) {
   const debris = new THREE.Points(debrisGeo, debrisMat);
   scene.add(debris);
 
-  // ---- tunnel support beams (#75): instanced, cheap after setup ----
-  const beamGeo = new THREE.BoxGeometry(4.6, 0.14, 0.16);
-  const beamMat = new THREE.MeshStandardMaterial({ color: 0x241f18, roughness: 0.95 });
-  const beamCount = 6;
-  const beamMesh = new THREE.InstancedMesh(beamGeo, beamMat, beamCount);
-  const beamDummy = new THREE.Object3D();
-  for (let i = 0; i < beamCount; i++) {
-    beamDummy.position.set(1.2, 3.85, -9 + i * 3.1);
-    beamDummy.updateMatrix();
-    beamMesh.setMatrixAt(i, beamDummy.matrix);
-  }
-  scene.add(beamMesh);
+  // ---- tunnel support beams, rail track, contact shadows (#75-77) ----
+  // Desktop-only: see the debris comment above -- #95 found the combined
+  // cost of this detail pass regressed the mobile frame budget even
+  // though each item alone looked cheap.
+  let shadowMat = null;
+  if (!IS_MOBILE) {
+    const beamGeo = new THREE.BoxGeometry(4.6, 0.14, 0.16);
+    const beamMat = new THREE.MeshStandardMaterial({ color: 0x241f18, roughness: 0.95 });
+    const beamCount = 6;
+    const beamMesh = new THREE.InstancedMesh(beamGeo, beamMat, beamCount);
+    const beamDummy = new THREE.Object3D();
+    for (let i = 0; i < beamCount; i++) {
+      beamDummy.position.set(1.2, 3.85, -9 + i * 3.1);
+      beamDummy.updateMatrix();
+      beamMesh.setMatrixAt(i, beamDummy.matrix);
+    }
+    scene.add(beamMesh);
 
-  // ---- rail track (#76): two thin strips along the loader's travel path ----
-  const railMat = new THREE.MeshStandardMaterial({ color: 0x1c1a17, roughness: 0.6, metalness: 0.4 });
-  for (const zOff of [-0.95, -0.25]) {
-    const rail = new THREE.Mesh(new THREE.BoxGeometry(7.5, 0.04, 0.06), railMat);
-    rail.position.set(-1.6, 0.02, -0.6 + zOff);
-    scene.add(rail);
-  }
+    const railMat = new THREE.MeshStandardMaterial({ color: 0x1c1a17, roughness: 0.6, metalness: 0.4 });
+    for (const zOff of [-0.95, -0.25]) {
+      const rail = new THREE.Mesh(new THREE.BoxGeometry(7.5, 0.04, 0.06), railMat);
+      rail.position.set(-1.6, 0.02, -0.6 + zOff);
+      scene.add(rail);
+    }
 
-  // ---- contact shadow decals (#77): cheap alpha-mapped circles, not SSAO ----
-  const shadowMat = new THREE.MeshBasicMaterial({
-    map: shadowDecalTexture(),
-    transparent: true,
-    depthWrite: false,
-  });
-  const pileShadow = new THREE.Mesh(new THREE.CircleGeometry(1.5, 24), shadowMat);
-  pileShadow.rotation.x = -Math.PI / 2;
-  pileShadow.position.set(2.0, 0.015, -0.6);
-  scene.add(pileShadow);
+    shadowMat = new THREE.MeshBasicMaterial({
+      map: shadowDecalTexture(),
+      transparent: true,
+      depthWrite: false,
+    });
+    const pileShadow = new THREE.Mesh(new THREE.CircleGeometry(1.5, 24), shadowMat);
+    pileShadow.rotation.x = -Math.PI / 2;
+    pileShadow.position.set(2.0, 0.015, -0.6);
+    scene.add(pileShadow);
+  }
 
   // ---- loader ----
   const loader = buildLoader(wireframePile);
   scene.add(loader.group);
 
   if (!wireframePile) {
-    const loaderShadow = new THREE.Mesh(new THREE.CircleGeometry(1.3, 20), shadowMat.clone());
-    loaderShadow.rotation.x = -Math.PI / 2;
-    loaderShadow.position.y = 0.015;
-    loader.group.add(loaderShadow);
+    if (shadowMat) {
+      const loaderShadow = new THREE.Mesh(new THREE.CircleGeometry(1.3, 20), shadowMat.clone());
+      loaderShadow.rotation.x = -Math.PI / 2;
+      loaderShadow.position.y = 0.015;
+      loader.group.add(loaderShadow);
+    }
 
     // ---- volumetric headlamp beam (#72): additive cone, not a real
-    // volumetric pass -- cheap, reads as a light shaft once bloom picks
-    // it up (ADR-0010) ----
-    const beamTex = lightBeamTexture();
-    const beamConeMat = new THREE.MeshBasicMaterial({
-      map: beamTex,
-      transparent: true,
-      opacity: 0.5,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      side: THREE.DoubleSide,
-    });
-    const lightShaft = new THREE.Mesh(new THREE.ConeGeometry(0.9, 2.6, 16, 1, true), beamConeMat);
-    lightShaft.rotation.z = Math.PI / 2;
-    lightShaft.position.set(1.5, 1.15, 0.42);
-    loader.group.add(lightShaft);
+    // volumetric pass -- reads as a light shaft once bloom picks it up
+    // (ADR-0010). DoubleSide transparency overdraw measured as real cost
+    // on the Phase 5 throttled profile (#95) -- desktop-only. ----
+    if (!IS_MOBILE) {
+      const beamTex = lightBeamTexture();
+      const beamConeMat = new THREE.MeshBasicMaterial({
+        map: beamTex,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        side: THREE.DoubleSide,
+      });
+      const lightShaft = new THREE.Mesh(new THREE.ConeGeometry(0.9, 2.6, 16, 1, true), beamConeMat);
+      lightShaft.rotation.z = Math.PI / 2;
+      lightShaft.position.set(1.5, 1.15, 0.42);
+      loader.group.add(lightShaft);
+    }
   }
 
   // ---- rock pile ----
@@ -359,14 +376,15 @@ function buildCommonScene({ wireframePile }) {
     });
   } else {
     // #74: a procedural noise bump map so the pile reads as textured
-    // stone rather than flat-shaded polyhedra, at the cost of one small
-    // canvas texture shared across every rock instance.
+    // stone rather than flat-shaded polyhedra. Per-fragment bump
+    // sampling across 64 lit instances measured as real cost on the
+    // Phase 5 throttled profile (#95) -- desktop-only, same fallback as
+    // the shader passes above.
     rockMat = new THREE.MeshStandardMaterial({
       color: 0x8a7b68,
       roughness: 0.9,
       metalness: 0.08,
-      bumpMap: makeNoiseBumpTexture(),
-      bumpScale: 0.05,
+      ...(IS_MOBILE ? {} : { bumpMap: makeNoiseBumpTexture(), bumpScale: 0.05 }),
     });
   }
   const n = 64;
@@ -382,7 +400,7 @@ function buildCommonScene({ wireframePile }) {
   // emissive specks, catching the headlamp light. Sim panel only -- the
   // wireframe panel's own glow already reads as "lit." ----
   let glintMesh = null;
-  if (!wireframePile) {
+  if (!wireframePile && !IS_MOBILE) {
     const glintGeo = new THREE.SphereGeometry(0.035, 6, 6);
     const glintMat = new THREE.MeshBasicMaterial({ color: 0xfff1cf });
     glintMesh = new THREE.InstancedMesh(glintGeo, glintMat, GLINT_COUNT);
@@ -609,21 +627,27 @@ async function main() {
   rendererSim.toneMappingExposure = 1.05;
   rendererPred.toneMappingExposure = 1.05;
 
+  // ADR-0014's stated fallback, exercised for real: #95's throttled
+  // measurement showed a serious regression (~21fps -> ~8fps on the
+  // Phase 5 Pixel-5/4x-throttle profile) once the extra ShaderPass per
+  // composer were added. Mesh-based detail (Phase 6's environment props)
+  // stays on everywhere; these two full-screen passes become
+  // desktop-only rather than being cut outright.
   const composerSim = new EffectComposer(rendererSim);
   composerSim.addPass(new RenderPass(sim.scene, sim.camera));
   const bloomSim = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.65, 0.5, 0.18);
   composerSim.addPass(bloomSim);
   const fadeSim = new ShaderPass(FADE_SHADER);
-  composerSim.addPass(fadeSim);
+  if (!IS_MOBILE) composerSim.addPass(fadeSim);
 
   const composerPred = new EffectComposer(rendererPred);
   composerPred.addPass(new RenderPass(pred.scene, pred.camera));
   const bloomPred = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.95, 0.55, 0.1);
   composerPred.addPass(bloomPred);
   const chromaPass = new ShaderPass(CHROMA_SHADER);
-  composerPred.addPass(chromaPass);
+  if (!IS_MOBILE) composerPred.addPass(chromaPass);
   const fadePred = new ShaderPass(FADE_SHADER);
-  composerPred.addPass(fadePred);
+  if (!IS_MOBILE) composerPred.addPass(fadePred);
 
   function resize() {
     for (const { canvas, camera, composer, bloom, renderer } of [
