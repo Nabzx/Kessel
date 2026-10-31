@@ -79,14 +79,11 @@
       <button id="drop-boulder" class="boulder-btn" type="button">
         Drop boulder
       </button>
-      <div class="scrubber-wrap">
-        <label for="scrubber">Prediction horizon</label>
-        <input id="scrubber" type="range" min="0" max="3" step="1" value="0" />
-        <span id="scrubber-readout">+0.6s</span>
-      </div>
     </section>
 
   </main>
+
+  <div id="attempt-card" class="attempt-card" aria-hidden="true"><h1 id="attempt-card-text"></h1></div>
 
   <div id="loading" class="loading">Loading rollout…</div>
 
