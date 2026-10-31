@@ -7,10 +7,13 @@ positions, world-model prediction, prediction error, HUD values) comes
 from data/rollout.json. Swap this script's output for a logged rollout
 from the real RL policy + world model and the front end does not change.
 
-Schema (ADR-0001, docs/adr/0001-rollout-data-schema.md):
+Schema (ADR-0001; attempt_cards added Phase 6c, #113):
 
 {
-  "meta": {...},
+  "meta": {
+    ...,
+    "attempt_cards": [{"t": float, "duration": float, "text": str}, ...]
+  },
   "rocks_init": [[x, y, z], ...],          # N rocks, initial pile positions
   "boulder_event_frame": int,               # frame at which "Drop boulder" fires
   "frames": [
@@ -32,6 +35,15 @@ Schema (ADR-0001, docs/adr/0001-rollout-data-schema.md):
     ...
   ]
 }
+
+Phase 6c (#113, #114, #116): the episode is two named attempts, each a
+full approach-scoop-carry-drop-return cycle, separated by full-screen
+text cards (meta.attempt_cards). Attempt 1 fumbles the carry -- a subset
+of rocks spill partway to the dump point instead of arriving -- and runs
+a noisier, less accurate world-model prediction. Attempt 2 completes the
+same cycle cleanly with a tight, accurate prediction. The boulder/hazard
+event (ADR-0003) is unrelated to this narrative and still fires once per
+loop, inside attempt 2, plus on demand via the Drop boulder button.
 """
 
 import json
@@ -41,15 +53,27 @@ import random
 random.seed(7)
 
 FPS = 10
-DURATION_S = 30.0  # Phase 6b (#104): one full, slower cycle, not several short ones
+CARD_DURATION = 1.8
+ATTEMPT_DURATION = 13.2  # Phase 6c (#112): shorter sub-phases than Phase 6b, snappier motion
+DURATION_S = 2 * (CARD_DURATION + ATTEMPT_DURATION)  # 30.0, one full two-attempt episode
 N_FRAMES = int(DURATION_S * FPS)
 N_ROCKS = 64
 HORIZON_STEPS = [0.6, 1.2, 1.8, 2.4]  # seconds ahead
-BOULDER_EVENT_T = 18.0  # seconds into the episode
+CARRIED_COUNT = 10
+
+ATTEMPT2_START = CARD_DURATION + ATTEMPT_DURATION  # 15.0
+BOULDER_EVENT_T = ATTEMPT2_START + CARD_DURATION + 4.0  # 4s into attempt 2's carry phase
 
 PILE_CENTER = (2.2, 0.0, -0.6)
 PILE_RADIUS = 1.9
-TUNNEL_HALF_LENGTH = 6.0
+START_X = -1.6
+SCOOP_X = -0.6
+# The loader's own X travel stays inside ADR-0015's tunnel-radius
+# constraint throughout -- the dump point is reached by swinging the
+# bucket via heading, not by driving further, since the boom arm's ~2.3
+# unit fixed offset already dwarfs any further small X travel the tunnel
+# radius could safely allow. See loader_pose_for_attempt's carry phase.
+DUMP_HEADING = 1.25
 
 
 def rand_rock_init():
@@ -65,82 +89,193 @@ def rand_rock_init():
 rocks_init = [rand_rock_init() for _ in range(N_ROCKS)]
 rock_scale = [round(random.uniform(0.55, 1.35), 3) for _ in range(N_ROCKS)]
 
-
-def loader_pose(t):
-    """Scripted approach -> scoop -> reverse -> swing cycle, looping.
-
-    Phase 6b (#104, ADR-0015): one slower 30s cycle instead of several
-    rushed 11s ones, and a travel range compressed to fit inside the
-    tunnel's existing cross-section (radius 3.1 around x=1.2) now that
-    the camera actually follows the loader (#105) instead of sitting
-    static off to the side.
-    """
-    cycle = DURATION_S
-    phase = t % cycle
-
-    approach_end = 8.0
-    scoop_end = 15.0
-    reverse_end = 23.0
-    swing_end = cycle
-
-    start_x = -1.6
-    scoop_x = -0.6
-
-    if phase < approach_end:
-        u = phase / approach_end
-        x = start_x + (scoop_x - start_x) * ease_in_out(u)
-        heading = 0.0
-        boom = -0.08
-        bucket = 0.05
-    elif phase < scoop_end:
-        u = (phase - approach_end) / (scoop_end - approach_end)
-        x = scoop_x + 0.35 * ease_in_out(u)
-        heading = 0.0
-        boom = -0.08 + 0.55 * ease_in_out(u)
-        bucket = 0.05 + 0.9 * ease_in_out(u)
-    elif phase < reverse_end:
-        u = (phase - scoop_end) / (reverse_end - scoop_end)
-        x = (scoop_x + 0.35) + (start_x - (scoop_x + 0.35)) * ease_in_out(u)
-        heading = 0.25 * math.sin(u * math.pi)
-        boom = 0.47 - 0.1 * u
-        bucket = 0.95
-    else:
-        u = (phase - reverse_end) / (swing_end - reverse_end)
-        x = start_x
-        heading = 0.25 * (1 - u) * math.cos(u * math.pi)
-        boom = 0.37 + 0.2 * u
-        bucket = 0.95 - 0.9 * ease_in_out(u)
-
-    # frequency scaled down with the cycle (was tuned for an 11s cycle)
-    # so the lateral wiggle keeps roughly the same shape, just slower
-    z = PILE_CENTER[2] + 0.4 * math.sin(phase * 0.15 * (11.0 / cycle))
-    return {
-        "pos": [round(x, 3), 0.0, round(z, 3)],
-        "heading": round(heading, 3),
-        "boom": round(boom, 3),
-        "bucket": round(bucket, 3),
-    }, phase, scoop_end, reverse_end
+# Fixed once: the rocks nearest the scoop point are the ones the loader
+# picks up each attempt (#114). A deterministic choice against rocks_init,
+# not a function of time, so both attempts carry the same rocks.
+_carried_indices = sorted(
+    range(N_ROCKS),
+    key=lambda i: math.dist(rocks_init[i], (SCOOP_X, 0, PILE_CENTER[2])),
+)[:CARRIED_COUNT]
+_carried_set = set(_carried_indices)
 
 
 def ease_in_out(u):
     return 0.5 - 0.5 * math.cos(math.pi * max(0.0, min(1.0, u)))
 
 
-def scoop_influence(phase, scoop_end, reverse_end):
-    """How much a rock near the bucket gets displaced this instant."""
-    if scoop_end <= phase < reverse_end + 0.6:
-        u = (phase - scoop_end) / 0.8
+def attempt_and_local_t(t):
+    """Which attempt is active at time t, local time within it, and
+    whether t falls inside that attempt's lead-in text card."""
+    t = t % DURATION_S
+    segments = [
+        (1, CARD_DURATION, True),
+        (1, ATTEMPT_DURATION, False),
+        (2, CARD_DURATION, True),
+        (2, ATTEMPT_DURATION, False),
+    ]
+    acc = 0.0
+    for attempt, dur, in_card in segments:
+        if t < acc + dur:
+            local = 0.0 if in_card else (t - acc)
+            return attempt, local, in_card
+        acc += dur
+    return 2, ATTEMPT_DURATION, False  # float rounding fallback
+
+
+def loader_pose_for_attempt(local_t):
+    """One attempt's approach -> scoop -> carry -> drop -> return cycle.
+    Shorter sub-phases than Phase 6b (#112): more happens per second."""
+    approach_end = 3.0
+    scoop_end = 5.3
+    carry_end = 9.6
+    drop_end = 10.8
+    return_end = ATTEMPT_DURATION
+
+    if local_t < approach_end:
+        u = local_t / approach_end
+        x = START_X + (SCOOP_X - START_X) * ease_in_out(u)
+        heading, boom, bucket = 0.0, -0.08, 0.05
+    elif local_t < scoop_end:
+        u = (local_t - approach_end) / (scoop_end - approach_end)
+        x = SCOOP_X
+        heading = 0.0
+        boom = -0.08 + 0.55 * ease_in_out(u)
+        bucket = 0.05 + 0.9 * ease_in_out(u)
+    elif local_t < carry_end:
+        # swing the bucket to the dump point via heading, not by driving
+        # further -- the boom arm's fixed offset already moves the
+        # bucket's world position far more than the tunnel's radius
+        # constraint (ADR-0015) could safely let the loader body travel
+        u = (local_t - scoop_end) / (carry_end - scoop_end)
+        x = SCOOP_X
+        heading = DUMP_HEADING * ease_in_out(u)
+        boom, bucket = 0.47, 0.95
+    elif local_t < drop_end:
+        u = (local_t - carry_end) / (drop_end - carry_end)
+        x = SCOOP_X
+        heading = DUMP_HEADING
+        boom = 0.47 - 0.1 * ease_in_out(u)
+        bucket = 0.95 - 0.9 * ease_in_out(u)
+    else:
+        u = (local_t - drop_end) / (return_end - drop_end)
+        x = SCOOP_X + (START_X - SCOOP_X) * ease_in_out(u)
+        heading = DUMP_HEADING * (1 - ease_in_out(u))
+        boom = 0.37 - 0.45 * ease_in_out(u)
+        bucket = 0.05
+
+    z = PILE_CENTER[2] + 0.3 * math.sin(local_t * 0.35)
+    pose = {
+        "pos": [round(x, 3), 0.0, round(z, 3)],
+        "heading": round(heading, 3),
+        "boom": round(boom, 3),
+        "bucket": round(bucket, 3),
+    }
+    return pose, scoop_end, carry_end, drop_end
+
+
+def bucket_world_pos(pose):
+    """Approximate world position of the bucket, given a loader pose --
+    enough for carried rocks to visibly travel with it (#114), without
+    reproducing the renderer's full scene-graph math exactly."""
+    pos, heading, boom, bucket = pose["pos"], pose["heading"], pose["boom"], pose["bucket"]
+    boom_tip_x = 0.95 + 1.5 * math.cos(boom)
+    boom_tip_y = 0.85 + 1.5 * math.sin(boom)
+    ba = -bucket * 1.4
+    bucket_local_x = 0.3 * math.cos(ba) + 0.18 * math.sin(ba)
+    bucket_local_y = 0.3 * math.sin(ba) - 0.18 * math.cos(ba)
+    lx = boom_tip_x + bucket_local_x
+    ly = boom_tip_y + bucket_local_y
+    wx = pos[0] + lx * math.cos(heading)
+    wz = pos[2] - lx * math.sin(heading)
+    return (wx, ly, wz)
+
+
+def cluster_jitter(i):
+    """Small fixed per-rock offset so carried rocks read as a clump, not
+    one point."""
+    a = i * 2.399963  # golden-angle-ish spread, deterministic
+    r = 0.06 + 0.05 * ((i * 7) % 3)
+    return (r * math.cos(a), 0.04 * ((i * 3) % 2), r * math.sin(a) * 0.7)
+
+
+def dump_pile_offset(i):
+    a = i * 2.399963
+    r = 0.12 + 0.3 * ((i * 11) % 5) / 5
+    height = max(0.0, 0.5 - r) * 0.4
+    return (r * math.cos(a), height, r * math.sin(a) * 0.6)
+
+
+def spill_scatter_offset(i):
+    a = i * 1.877
+    r = 0.25 + 0.4 * ((i * 5) % 4) / 4
+    return (r * math.cos(a), 0.0, r * math.sin(a))
+
+
+def scoop_influence(local_t, scoop_end, carry_end):
+    """How much a non-carried rock near the bucket gets cosmetically
+    displaced during the scoop (unrelated to the carried subset)."""
+    if scoop_end <= local_t < carry_end:
+        u = (local_t - scoop_end) / max(0.5, (carry_end - scoop_end) * 0.4)
         return max(0.0, 1.0 - u) if u < 1.0 else 0.0
     return 0.0
 
 
-def simulate_rocks(t, halted_from=None):
+_pose_cache = {}
+
+
+def pose_at(attempt, local_t):
+    key = (attempt, round(local_t, 4))
+    if key not in _pose_cache:
+        _pose_cache[key] = loader_pose_for_attempt(local_t)
+    return _pose_cache[key]
+
+
+def simulate_rocks(t):
     """Ground-truth rock positions at time t (deterministic scripted physics)."""
-    _, phase, scoop_end, reverse_end = loader_pose(t if halted_from is None else halted_from)
-    influence = scoop_influence(phase, scoop_end, reverse_end)
+    attempt, local_t, in_card = attempt_and_local_t(t)
+    local_t = min(local_t, ATTEMPT_DURATION)
+    pose, scoop_end, carry_end, drop_end = pose_at(attempt, local_t)
+    influence = scoop_influence(local_t, scoop_end, carry_end)
+
+    spill_t = scoop_end + (carry_end - scoop_end) * 0.55
+    fall_duration = 0.4
+
     positions = []
     for i, (bx, by, bz) in enumerate(rocks_init):
-        dx = bx - (-0.6)
+        if i in _carried_set and local_t >= scoop_end and not in_card:
+            if attempt == 1 and local_t >= spill_t:
+                # fumbled: spilled on the floor near where the carry broke
+                spill_pose, _, _, _ = pose_at(attempt, spill_t)
+                sx, sy, sz = bucket_world_pos(spill_pose)
+                ox, _, oz = spill_scatter_offset(i)
+                if local_t < spill_t + fall_duration:
+                    fall_u = ease_in_out((local_t - spill_t) / fall_duration)
+                    y = sy * (1 - fall_u) + 0.04 * fall_u
+                else:
+                    y = 0.04
+                positions.append([round(sx + ox, 3), round(max(0.0, y), 3), round(sz + oz, 3)])
+            elif attempt == 2 and local_t >= drop_end:
+                # delivered cleanly -- anchored to the bucket's actual
+                # position at drop_end, not a separately guessed point,
+                # so the settled pile lines up with where it was carried
+                drop_pose, _, _, _ = pose_at(attempt, drop_end)
+                dx, dy, dz = bucket_world_pos(drop_pose)
+                ox, oh, oz = dump_pile_offset(i)
+                positions.append([
+                    round(dx + ox, 3),
+                    round(0.04 + oh, 3),
+                    round(dz + oz, 3),
+                ])
+            else:
+                # in transit, following the bucket
+                bx2, by2, bz2 = bucket_world_pos(pose)
+                jx, jy, jz = cluster_jitter(i)
+                positions.append([round(bx2 + jx, 3), round(max(0.0, by2 + jy), 3), round(bz2 + jz, 3)])
+            continue
+
+        # not carried (or not picked up yet this attempt): cosmetic settle
+        # near the bucket during the scoop, otherwise sits at its pile spot
+        dx = bx - SCOOP_X
         dz = bz - PILE_CENTER[2]
         dist = math.hypot(dx, dz)
         near_bucket = max(0.0, 1.0 - dist / 1.1)
@@ -149,7 +284,8 @@ def simulate_rocks(t, halted_from=None):
         x = bx + settle * (0.9 + 0.3 * math.sin(i)) + jitter
         y = by - settle * by * 0.7
         z = bz + settle * 0.25 * math.cos(i * 1.7)
-        positions.append([round(x, 3), round(max(0.0, y), 4), round(z, 3)])
+        positions.append([round(x, 3), round(max(0.0, y), 3), round(z, 3)])
+
     return positions
 
 
@@ -165,19 +301,33 @@ def predicted_rocks(t, dt, noise_scale):
         ox = n * math.sin(i * 1.3 + t * 0.7)
         oy = n * 0.4 * math.cos(i * 0.9 + t)
         oz = n * math.sin(i * 0.6 + t * 0.5 + 1.0)
-        out.append([round(x + ox, 3), round(max(0.0, y + oy), 4), round(z + oz, 3)])
+        out.append([round(x + ox, 3), round(max(0.0, y + oy), 3), round(z + oz, 3)])
     return out
 
 
-def hud_for(t, episode, boulder_active_until):
+def hud_for(t, boulder_active_until):
+    attempt, local_t, in_card = attempt_and_local_t(t)
+    episode = 1142 if attempt == 1 else 1143
+
     decision_ms = 38 + 14 * (0.5 + 0.5 * math.sin(t * 1.3)) + random.uniform(-2, 2)
-    base_err = 0.04 + 0.03 * math.sin(t * 0.4)
+    # Phase 6c (#116): attempt 1's fumble runs a visibly noisier, less
+    # accurate world model; attempt 2 is tight and accurate -- ties the
+    # heatmap to "trained on world models", not just the text card.
+    base_err = (0.09 if attempt == 1 else 0.025) + 0.02 * math.sin(t * 0.4)
+    state = "nominal"
+
+    _, scoop_end, carry_end, _ = pose_at(attempt, min(local_t, ATTEMPT_DURATION))
+    spill_t = scoop_end + (carry_end - scoop_end) * 0.55
+    if attempt == 1 and not in_card and spill_t - 0.3 <= local_t < spill_t + 0.9:
+        state = "replanning"
+        decision_ms += 40
+        base_err += 0.08
+
     if boulder_active_until is not None and t < boulder_active_until:
-        state = "replanning" if t < boulder_active_until - 1.2 else "halted" if t < boulder_active_until - 0.2 else "replanning"
+        state = "replanning" if t < boulder_active_until - 1.4 else "halted" if t < boulder_active_until - 0.3 else "replanning"
         decision_ms += 55
         base_err += 0.05
-    else:
-        state = "nominal"
+
     return {
         "decision_ms": round(max(4.0, decision_ms), 1),
         "prediction_error": round(max(0.01, base_err), 3),
@@ -189,38 +339,36 @@ def hud_for(t, episode, boulder_active_until):
 def build():
     frames = []
     boulder_active_until = None
-    episode = 1142
 
     for i in range(N_FRAMES):
         t = i / FPS
-        halted = boulder_active_until is not None and t < boulder_active_until
-        halted_from = BOULDER_EVENT_T if halted else None
+        attempt, local_t, in_card = attempt_and_local_t(t)
+        pose, _, _, _ = pose_at(attempt, min(local_t, ATTEMPT_DURATION))
 
-        loader, phase, scoop_end, reverse_end = loader_pose(t if not halted else BOULDER_EVENT_T)
-        rocks = simulate_rocks(t if not halted else BOULDER_EVENT_T)
+        rocks = simulate_rocks(t)
 
         if abs(t - BOULDER_EVENT_T) < (0.5 / FPS) and boulder_active_until is None:
-            boulder_active_until = BOULDER_EVENT_T + 5.0  # scaled with the longer cycle
+            boulder_active_until = BOULDER_EVENT_T + 5.0
+
+        attempt_now, local_now, _ = attempt_and_local_t(t)
+        noise_scale = 0.2 if attempt_now == 1 else 0.05
+        if boulder_active_until and t < boulder_active_until:
+            noise_scale = max(noise_scale, 0.22)
 
         horizon = []
-        noise_scale = 0.22 if (boulder_active_until and t < boulder_active_until) else 0.07
         for dt in HORIZON_STEPS:
-            anchor = t if not halted else BOULDER_EVENT_T
-            pred = predicted_rocks(anchor, dt, noise_scale)
-            truth = simulate_rocks(anchor + dt)
+            pred = predicted_rocks(t, dt, noise_scale)
+            truth = simulate_rocks(t + dt)
             err = [round(math.dist(p, a), 3) for p, a in zip(pred, truth)]
             horizon.append({"dt": dt, "rocks": pred, "error": err})
 
         frames.append({
             "t": round(t, 3),
-            "loader": loader,
+            "loader": pose,
             "rocks": rocks,
             "predicted_horizon": horizon,
-            "hud": hud_for(t, episode, boulder_active_until),
+            "hud": hud_for(t, boulder_active_until),
         })
-
-        if boulder_active_until is not None and abs(t - boulder_active_until) < (0.5 / FPS):
-            episode += 1
 
     return {
         "meta": {
@@ -232,6 +380,10 @@ def build():
             "horizon_steps_s": HORIZON_STEPS,
             "rock_count": N_ROCKS,
             "source": "scripted",
+            "attempt_cards": [
+                {"t": 0.0, "duration": CARD_DURATION, "text": "First attempt"},
+                {"t": ATTEMPT2_START, "duration": CARD_DURATION, "text": "Trained on world models"},
+            ],
         },
         "rocks_init": rocks_init,
         "rock_scale": rock_scale,
