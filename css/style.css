@@ -297,7 +297,10 @@ html, body {
 
 .boulder-btn {
   background: var(--amber-dim);
-  color: #15100a;
+  /* #93: #15100a against --amber-dim measured 4.48:1, just under WCAG AA's
+     4.5:1 for normal text (the button's bold 12.8px doesn't meet the
+     "large text" 3:1 exemption). Pure black clears it at 4.97:1. */
+  color: #000;
   border: none;
   font-family: inherit;
   font-weight: 700;
