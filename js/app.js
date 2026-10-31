@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
 /* ------------------------------------------------------------------ *
  * Kessel concept demo — data-driven renderer.
@@ -12,6 +13,8 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
  * episode from the real policy + world model and nothing here needs
  * to change — see docs/ARCHITECTURE.md.
  * ------------------------------------------------------------------ */
+
+const LOOP_VEIL_WINDOW_S = 0.3; // ADR-0012: crossfade window either side of the loop seam
 
 const IS_MOBILE = matchMedia("(max-width: 720px)").matches ||
   /iPhone|iPad|Android/i.test(navigator.userAgent);
@@ -25,9 +28,65 @@ const state = {
   virtualT: 0,
   lastRAF: 0,
   horizonIdx: 0,
+  horizonTransition: null,
   scrubbing: false,
   boulderUntil: 0,
   boulderJumpT: null,
+};
+
+// ADR-0013: a restrained, edge-only chromatic aberration for the
+// world-model panel -- near zero at screen centre, 1-2px of RGB channel
+// split at the frame edges. A ShaderPass in the composer chain, not a
+// CSS/SVG filter (an SVG feColorMatrix/feBlend attempt badly corrupted
+// the canvas's actual pixel output -- this is the correct technique).
+const CHROMA_SHADER = {
+  uniforms: { tDiffuse: { value: null }, amount: { value: 0.0025 } },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform sampler2D tDiffuse;
+    uniform float amount;
+    varying vec2 vUv;
+    void main() {
+      vec2 centered = vUv - 0.5;
+      float edge = clamp(length(centered) * 1.6, 0.0, 1.0);
+      vec2 dir = normalize(centered + 1e-6) * amount * edge;
+      float r = texture2D(tDiffuse, vUv - dir).r;
+      float g = texture2D(tDiffuse, vUv).g;
+      float b = texture2D(tDiffuse, vUv + dir).b;
+      float a = texture2D(tDiffuse, vUv).a;
+      gl_FragColor = vec4(r, g, b, a);
+    }
+  `,
+};
+
+// ADR-0012: crossfade the loop seam. A ShaderPass in both composer
+// chains, not a DOM overlay -- a CSS class toggle on a div positioned
+// over the WebGL canvases was found to corrupt their compositing in
+// this environment (reproduced by isolating that exact call).
+const FADE_SHADER = {
+  uniforms: { tDiffuse: { value: null }, amount: { value: 0.0 } },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform sampler2D tDiffuse;
+    uniform float amount;
+    varying vec2 vUv;
+    void main() {
+      vec4 c = texture2D(tDiffuse, vUv);
+      gl_FragColor = vec4(c.rgb * (1.0 - amount), c.a);
+    }
+  `,
 };
 
 const els = {
@@ -60,7 +119,7 @@ function frameAt(t, out) {
   const frames = state.frames;
   const n = frames.length;
   const fIdx = (t / state.duration) * n;
-  const i0 = Math.floor(fIdx) % n;
+  const i0 = ((Math.floor(fIdx) % n) + n) % n;
   const i1 = (i0 + 1) % n;
   out.f0 = frames[i0];
   out.f1 = frames[i1];
@@ -338,16 +397,22 @@ async function main() {
   composerSim.addPass(new RenderPass(sim.scene, sim.camera));
   const bloomSim = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.65, 0.5, 0.18);
   composerSim.addPass(bloomSim);
+  const fadeSim = new ShaderPass(FADE_SHADER);
+  composerSim.addPass(fadeSim);
 
   const composerPred = new EffectComposer(rendererPred);
   composerPred.addPass(new RenderPass(pred.scene, pred.camera));
   const bloomPred = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.95, 0.55, 0.1);
   composerPred.addPass(bloomPred);
+  const chromaPass = new ShaderPass(CHROMA_SHADER);
+  composerPred.addPass(chromaPass);
+  const fadePred = new ShaderPass(FADE_SHADER);
+  composerPred.addPass(fadePred);
 
   function resize() {
-    for (const { canvas, camera, composer, bloom } of [
-      { canvas: canvasSim, camera: sim.camera, composer: composerSim, bloom: bloomSim },
-      { canvas: canvasPred, camera: pred.camera, composer: composerPred, bloom: bloomPred },
+    for (const { canvas, camera, composer, bloom, renderer } of [
+      { canvas: canvasSim, camera: sim.camera, composer: composerSim, bloom: bloomSim, renderer: rendererSim },
+      { canvas: canvasPred, camera: pred.camera, composer: composerPred, bloom: bloomPred, renderer: rendererPred },
     ]) {
       const w = canvas.clientWidth, h = canvas.clientHeight;
       camera.aspect = w / Math.max(h, 1);
@@ -375,17 +440,39 @@ async function main() {
     sim.rockMesh.instanceMatrix.needsUpdate = true;
   }
 
-  function updateRocksPred(frame, horizonIdx) {
+  // #91: scrubbing the horizon tweens between the previous and new
+  // predicted state over ~250ms instead of popping instantly.
+  const HORIZON_TWEEN_MS = 250;
+
+  function updateRocksPred(frame, horizonIdx, now) {
     const scales = state.rollout.rock_scale;
-    const h = frame.predicted_horizon[horizonIdx];
-    for (let i = 0; i < h.rocks.length; i++) {
-      const [x, y, z] = h.rocks[i];
+    const target = frame.predicted_horizon[horizonIdx];
+
+    let from = null, tweenT = 1;
+    const tr = state.horizonTransition;
+    if (tr && tr.to === horizonIdx) {
+      tweenT = Math.min(1, (now - tr.t0) / HORIZON_TWEEN_MS);
+      if (tweenT < 1) from = frame.predicted_horizon[tr.from];
+      else state.horizonTransition = null;
+    }
+
+    for (let i = 0; i < target.rocks.length; i++) {
+      let x, y, z, e;
+      if (from) {
+        const fx = from.rocks[i], tx = target.rocks[i];
+        x = lerp(fx[0], tx[0], tweenT);
+        y = lerp(fx[1], tx[1], tweenT);
+        z = lerp(fx[2], tx[2], tweenT);
+        e = lerp(from.error[i], target.error[i], tweenT);
+      } else {
+        [x, y, z] = target.rocks[i];
+        e = target.error[i];
+      }
       dummy.position.set(x, y, z);
       dummy.rotation.set(i * 0.7, i * 1.3, i * 0.4);
       dummy.scale.setScalar(0.22 * scales[i]);
       dummy.updateMatrix();
       pred.rockMesh.setMatrixAt(i, dummy.matrix);
-      const e = h.error[i];
       maxErrorSeen.v = Math.max(maxErrorSeen.v * 0.998, e, 0.25);
       const c = errorColor(e, maxErrorSeen.v);
       pred.rockMesh.setColorAt(i, c);
@@ -394,12 +481,26 @@ async function main() {
     pred.rockMesh.instanceColor.needsUpdate = true;
   }
 
+  // #88: HUD numbers ease toward their target each frame rather than
+  // snapping, reading as a live-ticking instrument. A brief "ticking"
+  // colour cue shows while a value is still catching up to its target.
+  const hudDisplay = { decision_ms: 0, prediction_error: 0 };
+
   function updateHud(frame, horizonIdx) {
     const hud = frame.hud;
-    els.hudDecision.textContent = `${hud.decision_ms.toFixed(0)} ms`;
     const h = frame.predicted_horizon[horizonIdx];
     const meanErr = h.error.reduce((a, b) => a + b, 0) / h.error.length;
-    els.hudError.textContent = `${meanErr.toFixed(2)} m`;
+
+    hudDisplay.decision_ms += (hud.decision_ms - hudDisplay.decision_ms) * 0.18;
+    hudDisplay.prediction_error += (meanErr - hudDisplay.prediction_error) * 0.18;
+
+    const decisionSettled = Math.abs(hud.decision_ms - hudDisplay.decision_ms) < 0.3;
+    const errorSettled = Math.abs(meanErr - hudDisplay.prediction_error) < 0.003;
+
+    els.hudDecision.textContent = `${hudDisplay.decision_ms.toFixed(0)} ms`;
+    els.hudDecision.classList.toggle("ticking", !decisionSettled);
+    els.hudError.textContent = `${hudDisplay.prediction_error.toFixed(2)} m`;
+    els.hudError.classList.toggle("ticking", !errorSettled);
     els.hudEpisode.textContent = `#${hud.episode}`;
     els.hudState.textContent = hud.state;
     els.hudState.className = hud.state;
@@ -425,7 +526,11 @@ async function main() {
   });
 
   els.scrubber.addEventListener("input", () => {
-    state.horizonIdx = Number(els.scrubber.value);
+    const newIdx = Number(els.scrubber.value);
+    if (newIdx !== state.horizonIdx) {
+      state.horizonTransition = { from: state.horizonIdx, to: newIdx, t0: performance.now() };
+    }
+    state.horizonIdx = newIdx;
     state.scrubbing = true;
     const dt = state.rollout.meta.horizon_steps_s[state.horizonIdx];
     els.scrubberReadout.textContent = `+${dt.toFixed(1)}s`;
@@ -443,7 +548,7 @@ async function main() {
 
   let last = performance.now();
   function tick(now) {
-    const dt = Math.min((now - last) / 1000, 0.08);
+    const dt = Math.max(0, Math.min((now - last) / 1000, 0.08));
     last = now;
     state.virtualT = (state.virtualT + dt) % state.duration;
 
@@ -457,15 +562,23 @@ async function main() {
     applyLoaderPose(pred.loader, _loaderData);
 
     updateRocksSim(f0);
-    updateRocksPred(f0, state.horizonIdx);
+    updateRocksPred(f0, state.horizonIdx, now);
     updateHud(f0, state.horizonIdx);
 
     updateDust(sim.dust, sim.dustSeed, state.virtualT);
     updateDust(pred.dust, pred.dustSeed, state.virtualT);
 
+    // ADR-0012: crossfade the loop seam instead of a visible pose snap.
+    // distToSeam is 0 at the very start/end of the loop and
+    // LOOP_VEIL_WINDOW_S away from it; smoothstep turns that into a
+    // 0-1 fade amount for the FADE_SHADER uniform on both composers.
+    const distToSeam = Math.min(state.virtualT, state.duration - state.virtualT);
+    const veilAmount = 1 - THREE.MathUtils.smoothstep(distToSeam, 0, LOOP_VEIL_WINDOW_S);
+    fadeSim.uniforms.amount.value = veilAmount;
+    fadePred.uniforms.amount.value = veilAmount;
+
     composerSim.render();
     composerPred.render();
-
     requestAnimationFrame(tick);
   }
 

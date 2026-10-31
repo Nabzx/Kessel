@@ -6,6 +6,9 @@
 <title>Kessel — concept visualization</title>
 <meta name="description" content="Kessel: physical AI for extreme environments. Concept visualization of a world-model-trained loader working underground, offline." />
 <link rel="icon" href="data:," />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -29,6 +32,7 @@
   <main id="stage" class="stage" aria-hidden="true">
 
     <header class="panel-labels">
+      <div class="wordmark">KESSEL</div>
       <div class="panel-label left"><span class="dot dot-sim"></span>Simulation</div>
       <div class="panel-label right"><span class="dot dot-pred"></span>World model prediction</div>
     </header>
@@ -37,6 +41,7 @@
       <canvas id="canvas-sim"></canvas>
       <canvas id="canvas-pred"></canvas>
       <div class="divider"></div>
+      <div class="pred-scanlines" aria-hidden="true"></div>
       <div class="caption">
         Concept visualization. Scripted animation illustrating how Kessel works.<br />
         Not real model output.
@@ -46,7 +51,10 @@
     <section class="hud" aria-label="Status">
       <div class="hud-group">
         <span class="hud-key">Connectivity</span>
-        <span class="hud-val offline"><span class="blink-dot"></span>OFFLINE</span>
+        <span class="hud-val offline" id="hud-connectivity">
+          <span class="signal-sweep" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="blink-dot"></span>OFFLINE
+        </span>
       </div>
       <div class="hud-group">
         <span class="hud-key">Decision time</span>
