@@ -40,12 +40,12 @@ import random
 
 random.seed(7)
 
-FPS = 20
-DURATION_S = 12.0
+FPS = 10
+DURATION_S = 30.0  # Phase 6b (#104): one full, slower cycle, not several short ones
 N_FRAMES = int(DURATION_S * FPS)
 N_ROCKS = 64
 HORIZON_STEPS = [0.6, 1.2, 1.8, 2.4]  # seconds ahead
-BOULDER_EVENT_T = 7.0  # seconds into the episode
+BOULDER_EVENT_T = 18.0  # seconds into the episode
 
 PILE_CENTER = (2.2, 0.0, -0.6)
 PILE_RADIUS = 1.9
@@ -67,16 +67,23 @@ rock_scale = [round(random.uniform(0.55, 1.35), 3) for _ in range(N_ROCKS)]
 
 
 def loader_pose(t):
-    """Scripted approach -> scoop -> reverse -> swing cycle, looping."""
-    cycle = 11.0
+    """Scripted approach -> scoop -> reverse -> swing cycle, looping.
+
+    Phase 6b (#104, ADR-0015): one slower 30s cycle instead of several
+    rushed 11s ones, and a travel range compressed to fit inside the
+    tunnel's existing cross-section (radius 3.1 around x=1.2) now that
+    the camera actually follows the loader (#105) instead of sitting
+    static off to the side.
+    """
+    cycle = DURATION_S
     phase = t % cycle
 
-    approach_end = 3.2
-    scoop_end = 5.6
-    reverse_end = 8.4
+    approach_end = 8.0
+    scoop_end = 15.0
+    reverse_end = 23.0
     swing_end = cycle
 
-    start_x = -4.6
+    start_x = -1.6
     scoop_x = -0.6
 
     if phase < approach_end:
@@ -104,7 +111,9 @@ def loader_pose(t):
         boom = 0.37 + 0.2 * u
         bucket = 0.95 - 0.9 * ease_in_out(u)
 
-    z = PILE_CENTER[2] + 0.4 * math.sin(phase * 0.15)
+    # frequency scaled down with the cycle (was tuned for an 11s cycle)
+    # so the lateral wiggle keeps roughly the same shape, just slower
+    z = PILE_CENTER[2] + 0.4 * math.sin(phase * 0.15 * (11.0 / cycle))
     return {
         "pos": [round(x, 3), 0.0, round(z, 3)],
         "heading": round(heading, 3),
@@ -191,7 +200,7 @@ def build():
         rocks = simulate_rocks(t if not halted else BOULDER_EVENT_T)
 
         if abs(t - BOULDER_EVENT_T) < (0.5 / FPS) and boulder_active_until is None:
-            boulder_active_until = BOULDER_EVENT_T + 3.4
+            boulder_active_until = BOULDER_EVENT_T + 5.0  # scaled with the longer cycle
 
         horizon = []
         noise_scale = 0.22 if (boulder_active_until and t < boulder_active_until) else 0.07

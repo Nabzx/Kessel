@@ -16,6 +16,19 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
 const LOOP_VEIL_WINDOW_S = 0.3; // ADR-0012: crossfade window either side of the loop seam
 const WHEEL_SPIN_AXIS = new THREE.Vector3(0, 1, 0);
+// Phase 6b (#105): fixed offset from the loader's world position to the
+// chase camera's target position -- above and behind-to-the-side, for a
+// three-quarter angle rather than the Phase 6 static side-on shot.
+// The loader's "forward" (where the boom/bucket/headlamp point) is local
+// +X, +Z-ish. A chase camera needs to sit BEHIND that, not alongside it --
+// an earlier +X/+Z offset put the camera roughly where the headlamp
+// itself points, staring back into an intensity-7 point light at close
+// range (found via the cycle screenshots: a lens-flare-sized bloom
+// blowout once the headlamp was correctly parented to the loader, see
+// the comment at its creation above).
+const CHASE_OFFSET = new THREE.Vector3(-3.2, 2.6, 3.6);
+const CHASE_LOOKAHEAD = new THREE.Vector3(0.5, 0.5, 0);
+const CHASE_SMOOTH_BASE = 0.0008; // lower = snappier; framerate-independent via dt
 const GLINT_STRIDE = 7;
 const GLINT_COUNT = Math.ceil(64 / GLINT_STRIDE); // #82: every 7th rock doubles as a mineral glint
 
@@ -175,7 +188,9 @@ function runIntro(onDone) {
 
 function buildCommonScene({ wireframePile }) {
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x05060a, 0.045);
+  // Phase 6b (#103): lighter fog so geometry stays legible further out --
+  // maintainer feedback was that the scene read too dark overall.
+  scene.fog = new THREE.FogExp2(0x0a0d12, 0.03);
 
   const camera = new THREE.PerspectiveCamera(58, 1, 0.1, 100);
   camera.position.set(0.5, 1.95, 5.2);
@@ -183,7 +198,7 @@ function buildCommonScene({ wireframePile }) {
 
   // ---- tunnel shell ----
   const tunnelMat = new THREE.MeshStandardMaterial({
-    color: 0x6b5f4d,
+    color: 0x857760, // Phase 6b (#103): lightened from 0x6b5f4d
     roughness: 0.92,
     metalness: 0.05,
     side: THREE.BackSide,
@@ -212,19 +227,19 @@ function buildCommonScene({ wireframePile }) {
     floorPos.setZ(i, Math.sin(x * 0.8 + y * 0.3) * 0.05 + Math.sin(y * 1.3) * 0.04);
   }
   floorGeo.computeVertexNormals();
-  const floorMat = new THREE.MeshStandardMaterial({ color: 0x4a4136, roughness: 1, metalness: 0 });
+  // Phase 6b (#103): lightened from 0x4a4136
+  const floorMat = new THREE.MeshStandardMaterial({ color: 0x5e5344, roughness: 1, metalness: 0 });
   const floor = new THREE.Mesh(floorGeo, floorMat);
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(1.2, 0, -2);
   scene.add(floor);
 
   // ---- lighting ----
-  scene.add(new THREE.AmbientLight(0x3a4a5e, 1.6));
-  scene.add(new THREE.HemisphereLight(0x55697e, 0x0a0806, 0.9));
-
-  const headlamp = new THREE.PointLight(0xffc07a, 7, 11, 2);
-  headlamp.position.set(-1.6, 2.2, 3);
-  scene.add(headlamp);
+  // Phase 6b (#103): lifted further from the Phase 6 baseline (ADR-0005)
+  // per direct maintainer feedback -- noticeably brighter overall while
+  // the headlamp stays the clear focal light.
+  scene.add(new THREE.AmbientLight(0x4a5c73, 2.3));
+  scene.add(new THREE.HemisphereLight(0x6d84a0, 0x16130f, 1.3));
 
   const keyFill = new THREE.PointLight(0xffd9a8, 4.5, 8, 2);
   keyFill.position.set(0.6, 2.6, 2.4);
@@ -334,6 +349,23 @@ function buildCommonScene({ wireframePile }) {
   const loader = buildLoader(wireframePile);
   scene.add(loader.group);
 
+  // Phase 6b bugfix (found while debugging #105): this light was
+  // previously a fixed scene light, not parented to the loader --
+  // harmless when the loader stayed near its old static-camera-era
+  // position, but once the chase camera (and the compressed travel
+  // range, ADR-0015) moved the loader near this light's old fixed
+  // coordinates, the camera could end up right next to an intensity-7
+  // point light, blowing out as a lens-flare-like bloom. Matches the
+  // headlamp mesh's local position below.
+  // Intensity 7 was tuned for the Phase 6 static camera, typically 8-10
+  // units from the light. The chase camera sits 3-5 units away -- with
+  // physically based quadratic falloff that is several times brighter at
+  // the same intensity, which is what blew out as a lens-flare-sized
+  // bloom in the cycle screenshots. Re-tuned for the new viewing distance.
+  const headlamp = new THREE.PointLight(0xffc07a, 2.2, 11, 2);
+  headlamp.position.set(0.78, 1.15, 0.42);
+  loader.group.add(headlamp);
+
   if (!wireframePile) {
     if (shadowMat) {
       const loaderShadow = new THREE.Mesh(new THREE.CircleGeometry(1.3, 20), shadowMat.clone());
@@ -381,7 +413,7 @@ function buildCommonScene({ wireframePile }) {
     // Phase 5 throttled profile (#95) -- desktop-only, same fallback as
     // the shader passes above.
     rockMat = new THREE.MeshStandardMaterial({
-      color: 0x8a7b68,
+      color: 0xa5937c, // Phase 6b (#103): lightened from 0x8a7b68
       roughness: 0.9,
       metalness: 0.08,
       ...(IS_MOBILE ? {} : { bumpMap: makeNoiseBumpTexture(), bumpScale: 0.05 }),
@@ -419,10 +451,10 @@ function buildLoader(ghost) {
     : new THREE.MeshStandardMaterial({ color: 0xcf7a2b, roughness: 0.55, metalness: 0.35 });
   const darkMat = ghost
     ? baseMat
-    : new THREE.MeshStandardMaterial({ color: 0x5a5244, roughness: 0.75, metalness: 0.25 });
+    : new THREE.MeshStandardMaterial({ color: 0x6e6555, roughness: 0.75, metalness: 0.25 });
   const wheelMat = ghost
     ? baseMat
-    : new THREE.MeshStandardMaterial({ color: 0x2e2c29, roughness: 0.85 });
+    : new THREE.MeshStandardMaterial({ color: 0x3e3b36, roughness: 0.85 });
 
   const body = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.7, 1.1), baseMat);
   body.position.set(0, 0.75, 0);
@@ -611,11 +643,16 @@ async function main() {
   const pred = buildCommonScene({ wireframePile: true });
   pred.loader.group.visible = true;
 
-  // #73: a slow, small, looping positional drift so the scene doesn't
-  // read as a frozen diorama. Base positions captured once; tick() adds
-  // a bounded offset on top rather than accumulating drift.
-  const simBasePos = sim.camera.position.clone();
-  const predBasePos = pred.camera.position.clone();
+  // Phase 6b (#105): a three-quarter chase camera, replacing the static
+  // camera + sine-wave parallax from Phase 6 (#73). Position and lookAt
+  // are both smoothed (exponential, framerate-independent) toward a
+  // target derived from the loader's current world position each tick,
+  // rather than snapping straight to it -- a hard cut every frame would
+  // read as jittery, not cinematic.
+  const simCamPos = sim.camera.position.clone();
+  const predCamPos = pred.camera.position.clone();
+  const simLookAt = new THREE.Vector3(1.0, 0.9, -1.4);
+  const predLookAt = simLookAt.clone();
 
   const rendererOpts = { antialias: !IS_MOBILE, powerPreference: "high-performance" };
   const rendererSim = new THREE.WebGLRenderer({ canvas: canvasSim, ...rendererOpts });
@@ -787,7 +824,7 @@ async function main() {
     const boulderT = (boulderFrame / state.frames.length) * state.duration;
     state.virtualT = boulderT;
     els.boulderBtn.disabled = true;
-    setTimeout(() => { els.boulderBtn.disabled = false; }, 3600);
+    setTimeout(() => { els.boulderBtn.disabled = false; }, 5200); // matches the 5.0s boulder window (data/generate_rollout.py)
   });
 
   els.scrubber.addEventListener("input", () => {
@@ -810,6 +847,9 @@ async function main() {
   const _frame = { f0: null, f1: null, a: 0 };
   const _loaderPos = [0, 0, 0];
   const _loaderData = { pos: _loaderPos, heading: 0, boom: 0, bucket: 0 };
+  const _loaderWorld = new THREE.Vector3();
+  const _targetPos = new THREE.Vector3();
+  const _targetLookAt = new THREE.Vector3();
 
   let last = performance.now();
   function tick(now) {
@@ -835,19 +875,25 @@ async function main() {
     updateDebris(sim.debris, sim.debrisSeed, state.virtualT);
     updateDebris(pred.debris, pred.debrisSeed, state.virtualT);
 
-    // #73: camera parallax, phased off wall-clock time (not virtualT) so
-    // Drop boulder's playback jump doesn't also jump the camera drift.
-    const pt = now / 1000;
-    sim.camera.position.set(
-      simBasePos.x + Math.sin(pt * 0.11) * 0.05,
-      simBasePos.y + Math.sin(pt * 0.07 + 1.3) * 0.03,
-      simBasePos.z
-    );
-    pred.camera.position.set(
-      predBasePos.x + Math.sin(pt * 0.11) * 0.05,
-      predBasePos.y + Math.sin(pt * 0.07 + 1.3) * 0.03,
-      predBasePos.z
-    );
+    // Phase 6b (#105): three-quarter chase camera. Target position and
+    // lookAt are derived from the loader's current (interpolated) world
+    // position each tick, then both camera position and lookAt are
+    // exponentially smoothed toward their targets -- framerate-independent
+    // via dt, so this behaves the same at 30fps or 120fps.
+    _loaderWorld.set(_loaderPos[0], _loaderPos[1], _loaderPos[2]);
+    const smoothT = 1 - Math.pow(CHASE_SMOOTH_BASE, dt);
+
+    _targetPos.copy(_loaderWorld).add(CHASE_OFFSET);
+    simCamPos.lerp(_targetPos, smoothT);
+    predCamPos.lerp(_targetPos, smoothT);
+    sim.camera.position.copy(simCamPos);
+    pred.camera.position.copy(predCamPos);
+
+    _targetLookAt.copy(_loaderWorld).add(CHASE_LOOKAHEAD);
+    simLookAt.lerp(_targetLookAt, smoothT);
+    predLookAt.lerp(_targetLookAt, smoothT);
+    sim.camera.lookAt(simLookAt);
+    pred.camera.lookAt(predLookAt);
 
     // ADR-0012: crossfade the loop seam instead of a visible pose snap.
     // distToSeam is 0 at the very start/end of the loop and

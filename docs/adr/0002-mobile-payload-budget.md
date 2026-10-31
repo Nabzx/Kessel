@@ -41,3 +41,19 @@ rollout needs a longer horizon or finer sampling, these five knobs
 (`FPS`, `DURATION_S`, `N_ROCKS`, `HORIZON_STEPS`, coordinate rounding) are
 where that budget gets spent, and the real pipeline should be held to a
 similar ceiling for the same reason this one is.
+
+## Addendum: revised for Phase 6b's pacing correction
+
+Direct maintainer feedback (#101) asked for a significantly longer,
+slower episode (one 30s cycle, not several rushed 12s ones). Holding
+`FPS` at 20 would have grown the file to ~5MB for the same sampling
+density. Dropping `FPS` to 10 instead -- halving sampling density, not
+quality, per this ADR's original "lower sampling, not visual quality"
+principle -- lands the regenerated file at ~2.9MB (300 frames). The
+renderer's frame interpolation (unchanged) covers the lower sample rate
+just as it did at 20fps; if anything a 10fps sample of genuinely slower
+motion is a smaller per-frame step than a 20fps sample of the old faster
+cycle was. 2.9MB is accepted as the revised ceiling for this build,
+~25% over the original ~2.3MB target but still a fast mobile load, and
+still well under the original 13MB naive encoding this ADR exists to
+avoid.
