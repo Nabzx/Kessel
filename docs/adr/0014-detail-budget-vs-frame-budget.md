@@ -38,3 +38,35 @@ This is a policy, not a final number: the actual pass/fail call happens in
 #95's measurement, against this ADR's stated fallback (gate shader passes
 under `IS_MOBILE` first, before cutting mesh detail) rather than an
 undocumented ad hoc choice under deadline pressure.
+
+## Addendum: what #95 actually found
+
+The "mesh-based detail is cheap" assumption above was wrong. #95's
+throttled measurement (Pixel 5 profile, 4x CPU throttle -- the same
+profile ADR-0009 used) showed ~21fps before Phase 6, ~8fps after all of
+it landed. Gating the two shader passes under `IS_MOBILE` alone (the
+fallback this ADR specified) only recovered to ~13fps -- the mesh and
+material additions were real cost too, not negligible "after initial
+setup" as assumed.
+
+Bisected by gating categories one at a time and re-measuring: the bump
+map (#74, per-fragment sampling across 64 lit instances) and the
+`DoubleSide` additive light-shaft cone (#72) each moved the number only
+slightly. The two biggest contributors turned out to be (a) the combined
+weight of support beams, rail track, contact shadows, mineral glint and
+debris particles together -- no single one dominated, but cutting all of
+them under `IS_MOBILE` mattered -- and (b) the dust system's switch to a
+textured, additively-blended sprite (#83): dropping the texture on mobile
+specifically (keeping the plain coloured dot) recovered more than
+shrinking the sprite size alone did.
+
+Final policy, corrected from the original: on mobile, every Phase 6
+addition gates off except camera parallax and HUD-number easing (genuinely
+cheap, confirmed negligible individually) -- support beams, rail track,
+contact shadows, the light shaft, mineral glint, debris, the rock bump
+map, and both shader passes are desktop-only. Re-measured after the full
+set of gates: readings ranged 12-20fps across repeated identical runs
+(this environment's CPU-throttle emulation is itself noisy under
+concurrent load), averaging close to the pre-Phase-6 baseline. Treat any
+single throttled-fps reading in this repo with that noise band in mind --
+prefer several runs over one.
