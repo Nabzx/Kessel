@@ -15,7 +15,7 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
  * ------------------------------------------------------------------ */
 
 const LOOP_VEIL_WINDOW_S = 0.3; // ADR-0012: crossfade window either side of the loop seam
-const WHEEL_SPIN_AXIS = new THREE.Vector3(0, 1, 0);
+const Y_AXIS = new THREE.Vector3(0, 1, 0);
 // Phase 6b (#105): fixed offset from the loader's world position to the
 // chase camera's target position -- above and behind-to-the-side, for a
 // three-quarter angle rather than the Phase 6 static side-on shot.
@@ -43,9 +43,6 @@ const state = {
   duration: 0,
   virtualT: 0,
   lastRAF: 0,
-  horizonIdx: 0,
-  horizonTransition: null,
-  scrubbing: false,
   boulderUntil: 0,
   boulderJumpT: null,
 };
@@ -115,8 +112,8 @@ const els = {
   hudEpisode: document.getElementById("hud-episode"),
   hudState: document.getElementById("hud-state"),
   boulderBtn: document.getElementById("drop-boulder"),
-  scrubber: document.getElementById("scrubber"),
-  scrubberReadout: document.getElementById("scrubber-readout"),
+  attemptCard: document.getElementById("attempt-card"),
+  attemptCardText: document.getElementById("attempt-card-text"),
 };
 
 /* ------------------------------ data ------------------------------ */
@@ -366,6 +363,16 @@ function buildCommonScene({ wireframePile }) {
   headlamp.position.set(0.78, 1.15, 0.42);
   loader.group.add(headlamp);
 
+  // #111: the headlamp pool reads well but the loader's body/cab/wheels
+  // still blend into shadow outside it, especially from behind (the
+  // chase camera's usual angle) or once the loader turns away from the
+  // scene's other fixed lights. A soft cool fill parented above the cab,
+  // opposite the warm headlamp, keeps the full silhouette legible
+  // regardless of which way the loader is facing.
+  const loaderFill = new THREE.PointLight(0xaebfd6, 1.6, 6, 2);
+  loaderFill.position.set(-0.3, 2.0, -0.3);
+  loader.group.add(loaderFill);
+
   if (!wireframePile) {
     if (shadowMat) {
       const loaderShadow = new THREE.Mesh(new THREE.CircleGeometry(1.3, 20), shadowMat.clone());
@@ -543,7 +550,7 @@ function applyLoaderPose(loaderRig, loaderData) {
     // independent of Euler composition order -- safer than touching
     // .rotation.y directly given the wheel already carries a fixed
     // 90-degree lie-flat rotation on X.
-    for (const w of wheels) w.rotateOnAxis(WHEEL_SPIN_AXIS, spin);
+    for (const w of wheels) w.rotateOnAxis(Y_AXIS, spin);
   }
   loaderRig.prevWorldX = loaderData.pos[0];
 }
@@ -555,6 +562,26 @@ function errorColor(e, maxE) {
     new THREE.Color(0x4fd6e6), new THREE.Color(0xf0a340), t / 0.5);
   return new THREE.Color().lerpColors(
     new THREE.Color(0xf0a340), new THREE.Color(0xff4d3d), (t - 0.5) / 0.5);
+}
+
+// #115: which attempt-transition card (if any) is active at time t, and
+// its opacity -- fades in/out over CARD_FADE seconds at each edge of the
+// card's window rather than a hard cut, computed as a continuous value
+// each tick rather than driven by a CSS transition.
+const CARD_FADE_S = 0.3;
+
+function attemptCardAt(t, cards) {
+  if (!cards) return null;
+  for (const c of cards) {
+    if (t >= c.t && t < c.t + c.duration) {
+      const local = t - c.t;
+      let opacity = 1;
+      if (local < CARD_FADE_S) opacity = local / CARD_FADE_S;
+      else if (local > c.duration - CARD_FADE_S) opacity = (c.duration - local) / CARD_FADE_S;
+      return { text: c.text, opacity: THREE.MathUtils.clamp(opacity, 0, 1) };
+    }
+  }
+  return null;
 }
 
 /* ---------------------------- textures ---------------------------- */
@@ -725,34 +752,17 @@ async function main() {
     if (sim.glintMesh) sim.glintMesh.instanceMatrix.needsUpdate = true;
   }
 
-  // #91: scrubbing the horizon tweens between the previous and new
-  // predicted state over ~250ms instead of popping instantly.
-  const HORIZON_TWEEN_MS = 250;
-
-  function updateRocksPred(frame, horizonIdx, now) {
+  // #110: the horizon was a fixed single prediction step by default
+  // anyway (ADR-0007); the manual scrubber wasn't obvious as a control
+  // and is removed rather than explained. The world-model panel always
+  // shows HORIZON_STEPS[0] (ADR-0001) now.
+  function updateRocksPred(frame) {
     const scales = state.rollout.rock_scale;
-    const target = frame.predicted_horizon[horizonIdx];
-
-    let from = null, tweenT = 1;
-    const tr = state.horizonTransition;
-    if (tr && tr.to === horizonIdx) {
-      tweenT = Math.min(1, (now - tr.t0) / HORIZON_TWEEN_MS);
-      if (tweenT < 1) from = frame.predicted_horizon[tr.from];
-      else state.horizonTransition = null;
-    }
+    const target = frame.predicted_horizon[0];
 
     for (let i = 0; i < target.rocks.length; i++) {
-      let x, y, z, e;
-      if (from) {
-        const fx = from.rocks[i], tx = target.rocks[i];
-        x = lerp(fx[0], tx[0], tweenT);
-        y = lerp(fx[1], tx[1], tweenT);
-        z = lerp(fx[2], tx[2], tweenT);
-        e = lerp(from.error[i], target.error[i], tweenT);
-      } else {
-        [x, y, z] = target.rocks[i];
-        e = target.error[i];
-      }
+      const [x, y, z] = target.rocks[i];
+      const e = target.error[i];
       dummy.position.set(x, y, z);
       dummy.rotation.set(i * 0.7, i * 1.3, i * 0.4);
       dummy.scale.setScalar(0.22 * scales[i]);
@@ -771,9 +781,9 @@ async function main() {
   // colour cue shows while a value is still catching up to its target.
   const hudDisplay = { decision_ms: 0, prediction_error: 0 };
 
-  function updateHud(frame, horizonIdx) {
+  function updateHud(frame) {
     const hud = frame.hud;
-    const h = frame.predicted_horizon[horizonIdx];
+    const h = frame.predicted_horizon[0];
     const meanErr = h.error.reduce((a, b) => a + b, 0) / h.error.length;
 
     hudDisplay.decision_ms += (hud.decision_ms - hudDisplay.decision_ms) * 0.18;
@@ -827,19 +837,6 @@ async function main() {
     setTimeout(() => { els.boulderBtn.disabled = false; }, 5200); // matches the 5.0s boulder window (data/generate_rollout.py)
   });
 
-  els.scrubber.addEventListener("input", () => {
-    const newIdx = Number(els.scrubber.value);
-    if (newIdx !== state.horizonIdx) {
-      state.horizonTransition = { from: state.horizonIdx, to: newIdx, t0: performance.now() };
-    }
-    state.horizonIdx = newIdx;
-    state.scrubbing = true;
-    const dt = state.rollout.meta.horizon_steps_s[state.horizonIdx];
-    els.scrubberReadout.textContent = `+${dt.toFixed(1)}s`;
-    clearTimeout(state._scrubTimer);
-    state._scrubTimer = setTimeout(() => { state.scrubbing = false; }, 2200);
-  });
-
   resize();
 
   // Scratch objects reused every tick instead of allocated per frame --
@@ -850,6 +847,9 @@ async function main() {
   const _loaderWorld = new THREE.Vector3();
   const _targetPos = new THREE.Vector3();
   const _targetLookAt = new THREE.Vector3();
+  const _rotatedOffset = new THREE.Vector3();
+  const _rotatedLookahead = new THREE.Vector3();
+  let _lastCardOpacity = 0;
 
   let last = performance.now();
   function tick(now) {
@@ -867,29 +867,48 @@ async function main() {
     applyLoaderPose(pred.loader, _loaderData);
 
     updateRocksSim(f0);
-    updateRocksPred(f0, state.horizonIdx, now);
-    updateHud(f0, state.horizonIdx);
+    updateRocksPred(f0);
+    updateHud(f0);
 
     updateDust(sim.dust, sim.dustSeed, state.virtualT);
     updateDust(pred.dust, pred.dustSeed, state.virtualT);
     updateDebris(sim.debris, sim.debrisSeed, state.virtualT);
     updateDebris(pred.debris, pred.debrisSeed, state.virtualT);
 
+    const card = attemptCardAt(state.virtualT, state.rollout.meta.attempt_cards);
+    if (card) {
+      if (els.attemptCardText.textContent !== card.text) els.attemptCardText.textContent = card.text;
+      els.attemptCard.style.opacity = card.opacity;
+    } else if (_lastCardOpacity !== 0) {
+      els.attemptCard.style.opacity = 0;
+    }
+    _lastCardOpacity = card ? card.opacity : 0;
+
     // Phase 6b (#105): three-quarter chase camera. Target position and
     // lookAt are derived from the loader's current (interpolated) world
     // position each tick, then both camera position and lookAt are
     // exponentially smoothed toward their targets -- framerate-independent
     // via dt, so this behaves the same at 30fps or 120fps.
+    //
+    // Phase 6c bugfix: CHASE_OFFSET/CHASE_LOOKAHEAD must be rotated by the
+    // loader's current heading, not added as fixed world-space vectors.
+    // Found while building the carry-to-dump motion (#114): once the
+    // loader's heading swings significantly (picking up and relocating a
+    // payload), a heading-independent camera stops following the turn at
+    // all, and whatever the loader swings to face -- the whole point of
+    // showing a delivery -- ends up out of frame.
     _loaderWorld.set(_loaderPos[0], _loaderPos[1], _loaderPos[2]);
     const smoothT = 1 - Math.pow(CHASE_SMOOTH_BASE, dt);
 
-    _targetPos.copy(_loaderWorld).add(CHASE_OFFSET);
+    _rotatedOffset.copy(CHASE_OFFSET).applyAxisAngle(Y_AXIS, _loaderData.heading);
+    _targetPos.copy(_loaderWorld).add(_rotatedOffset);
     simCamPos.lerp(_targetPos, smoothT);
     predCamPos.lerp(_targetPos, smoothT);
     sim.camera.position.copy(simCamPos);
     pred.camera.position.copy(predCamPos);
 
-    _targetLookAt.copy(_loaderWorld).add(CHASE_LOOKAHEAD);
+    _rotatedLookahead.copy(CHASE_LOOKAHEAD).applyAxisAngle(Y_AXIS, _loaderData.heading);
+    _targetLookAt.copy(_loaderWorld).add(_rotatedLookahead);
     simLookAt.lerp(_targetLookAt, smoothT);
     predLookAt.lerp(_targetLookAt, smoothT);
     sim.camera.lookAt(simLookAt);
