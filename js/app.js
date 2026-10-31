@@ -15,6 +15,9 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
  * ------------------------------------------------------------------ */
 
 const LOOP_VEIL_WINDOW_S = 0.3; // ADR-0012: crossfade window either side of the loop seam
+const WHEEL_SPIN_AXIS = new THREE.Vector3(0, 1, 0);
+const GLINT_STRIDE = 7;
+const GLINT_COUNT = Math.ceil(64 / GLINT_STRIDE); // #82: every 7th rock doubles as a mineral glint
 
 const IS_MOBILE = matchMedia("(max-width: 720px)").matches ||
   /iPhone|iPad|Android/i.test(navigator.userAgent);
@@ -235,7 +238,7 @@ function buildCommonScene({ wireframePile }) {
   rim.position.set(-3, 4, 4);
   scene.add(rim);
 
-  // ---- dust ----
+  // ---- dust (#83: soft circular sprite, not the default square point) ----
   const dustCount = IS_MOBILE ? 140 : 320;
   const dustGeo = new THREE.BufferGeometry();
   const dustPos = new Float32Array(dustCount * 3);
@@ -249,18 +252,99 @@ function buildCommonScene({ wireframePile }) {
   dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPos, 3));
   const dustMat = new THREE.PointsMaterial({
     color: 0xd8b98a,
-    size: IS_MOBILE ? 0.028 : 0.022,
+    map: dustSpriteTexture(),
+    size: IS_MOBILE ? 0.05 : 0.04,
     transparent: true,
-    opacity: 0.35,
+    opacity: 0.4,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
   });
   const dust = new THREE.Points(dustGeo, dustMat);
   scene.add(dust);
 
+  // ---- falling debris (#84): a sparser, gravity-biased sibling of the
+  // dust system, trickling down near the pile rather than drifting up ----
+  const debrisCount = IS_MOBILE ? 18 : 36;
+  const debrisGeo = new THREE.BufferGeometry();
+  const debrisPos = new Float32Array(debrisCount * 3);
+  const debrisSeed = new Float32Array(debrisCount);
+  for (let i = 0; i < debrisCount; i++) {
+    debrisPos[i * 3 + 0] = THREE.MathUtils.randFloat(0.4, 2.6);
+    debrisPos[i * 3 + 1] = THREE.MathUtils.randFloat(0.3, 1.6);
+    debrisPos[i * 3 + 2] = THREE.MathUtils.randFloat(-1.6, 0.4);
+    debrisSeed[i] = Math.random() * Math.PI * 2;
+  }
+  debrisGeo.setAttribute("position", new THREE.BufferAttribute(debrisPos, 3));
+  const debrisMat = new THREE.PointsMaterial({
+    color: 0x9c8a74,
+    map: dustSpriteTexture(),
+    size: IS_MOBILE ? 0.045 : 0.035,
+    transparent: true,
+    opacity: 0.55,
+    depthWrite: false,
+  });
+  const debris = new THREE.Points(debrisGeo, debrisMat);
+  scene.add(debris);
+
+  // ---- tunnel support beams (#75): instanced, cheap after setup ----
+  const beamGeo = new THREE.BoxGeometry(4.6, 0.14, 0.16);
+  const beamMat = new THREE.MeshStandardMaterial({ color: 0x241f18, roughness: 0.95 });
+  const beamCount = 6;
+  const beamMesh = new THREE.InstancedMesh(beamGeo, beamMat, beamCount);
+  const beamDummy = new THREE.Object3D();
+  for (let i = 0; i < beamCount; i++) {
+    beamDummy.position.set(1.2, 3.85, -9 + i * 3.1);
+    beamDummy.updateMatrix();
+    beamMesh.setMatrixAt(i, beamDummy.matrix);
+  }
+  scene.add(beamMesh);
+
+  // ---- rail track (#76): two thin strips along the loader's travel path ----
+  const railMat = new THREE.MeshStandardMaterial({ color: 0x1c1a17, roughness: 0.6, metalness: 0.4 });
+  for (const zOff of [-0.95, -0.25]) {
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(7.5, 0.04, 0.06), railMat);
+    rail.position.set(-1.6, 0.02, -0.6 + zOff);
+    scene.add(rail);
+  }
+
+  // ---- contact shadow decals (#77): cheap alpha-mapped circles, not SSAO ----
+  const shadowMat = new THREE.MeshBasicMaterial({
+    map: shadowDecalTexture(),
+    transparent: true,
+    depthWrite: false,
+  });
+  const pileShadow = new THREE.Mesh(new THREE.CircleGeometry(1.5, 24), shadowMat);
+  pileShadow.rotation.x = -Math.PI / 2;
+  pileShadow.position.set(2.0, 0.015, -0.6);
+  scene.add(pileShadow);
+
   // ---- loader ----
   const loader = buildLoader(wireframePile);
   scene.add(loader.group);
+
+  if (!wireframePile) {
+    const loaderShadow = new THREE.Mesh(new THREE.CircleGeometry(1.3, 20), shadowMat.clone());
+    loaderShadow.rotation.x = -Math.PI / 2;
+    loaderShadow.position.y = 0.015;
+    loader.group.add(loaderShadow);
+
+    // ---- volumetric headlamp beam (#72): additive cone, not a real
+    // volumetric pass -- cheap, reads as a light shaft once bloom picks
+    // it up (ADR-0010) ----
+    const beamTex = lightBeamTexture();
+    const beamConeMat = new THREE.MeshBasicMaterial({
+      map: beamTex,
+      transparent: true,
+      opacity: 0.5,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    const lightShaft = new THREE.Mesh(new THREE.ConeGeometry(0.9, 2.6, 16, 1, true), beamConeMat);
+    lightShaft.rotation.z = Math.PI / 2;
+    lightShaft.position.set(1.5, 1.15, 0.42);
+    loader.group.add(lightShaft);
+  }
 
   // ---- rock pile ----
   const rockGeo = new THREE.IcosahedronGeometry(0.22, 0);
@@ -274,10 +358,15 @@ function buildCommonScene({ wireframePile }) {
       vertexColors: true,
     });
   } else {
+    // #74: a procedural noise bump map so the pile reads as textured
+    // stone rather than flat-shaded polyhedra, at the cost of one small
+    // canvas texture shared across every rock instance.
     rockMat = new THREE.MeshStandardMaterial({
       color: 0x8a7b68,
       roughness: 0.9,
       metalness: 0.08,
+      bumpMap: makeNoiseBumpTexture(),
+      bumpScale: 0.05,
     });
   }
   const n = 64;
@@ -289,7 +378,19 @@ function buildCommonScene({ wireframePile }) {
   }
   scene.add(rockMesh);
 
-  return { scene, camera, tunnel, dust, dustSeed, loader, rockMesh, rockGeo };
+  // ---- mineral glint (#82): a handful of rock positions double as tiny
+  // emissive specks, catching the headlamp light. Sim panel only -- the
+  // wireframe panel's own glow already reads as "lit." ----
+  let glintMesh = null;
+  if (!wireframePile) {
+    const glintGeo = new THREE.SphereGeometry(0.035, 6, 6);
+    const glintMat = new THREE.MeshBasicMaterial({ color: 0xfff1cf });
+    glintMesh = new THREE.InstancedMesh(glintGeo, glintMat, GLINT_COUNT);
+    glintMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(glintMesh);
+  }
+
+  return { scene, camera, tunnel, dust, dustSeed, debris, debrisSeed, loader, rockMesh, rockGeo, glintMesh };
 }
 
 function buildLoader(ghost) {
@@ -313,16 +414,20 @@ function buildLoader(ghost) {
   cab.position.set(0.25, 1.33, 0);
   group.add(cab);
 
-  const wheelGeo = new THREE.CylinderGeometry(0.34, 0.34, 0.26, 14);
+  const wheelRadius = 0.34;
+  const wheelGeo = new THREE.CylinderGeometry(wheelRadius, wheelRadius, 0.26, 14);
   const wheelOffsets = [
     [0.62, 0.34, 0.62], [0.62, 0.34, -0.62],
     [-0.62, 0.34, 0.62], [-0.62, 0.34, -0.62],
   ];
+  // #81: kept separately so applyLoaderPose can spin them with travel speed
+  const wheels = [];
   for (const [x, y, z] of wheelOffsets) {
     const w = new THREE.Mesh(wheelGeo, wheelMat);
     w.rotation.x = Math.PI / 2;
     w.position.set(x, y, z);
     group.add(w);
+    wheels.push(w);
   }
 
   // articulated boom + bucket, pivoted at the front of the body
@@ -349,15 +454,48 @@ function buildLoader(ghost) {
   headlampMesh.position.set(0.78, 1.15, 0.42);
   if (!ghost) group.add(headlampMesh);
 
-  return { group, boomPivot, bucketPivot, body };
+  // #80: the Kessel retrofit kit -- a rugged sensor pod bolted onto the
+  // cab roof, visually distinct (dark, matte) from the loader's own
+  // bodywork, with a small status LED. Ties the visual directly back to
+  // the product: this is a retrofit, not an OEM part.
+  if (!ghost) {
+    const podMat = new THREE.MeshStandardMaterial({ color: 0x18191b, roughness: 0.5, metalness: 0.6 });
+    const pod = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.14, 0.2), podMat);
+    pod.position.set(0.1, 1.68, -0.1);
+    group.add(pod);
+    const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.22, 6), podMat);
+    antenna.position.set(0.02, 1.86, -0.15);
+    group.add(antenna);
+    const led = new THREE.Mesh(
+      new THREE.SphereGeometry(0.018, 6, 6),
+      new THREE.MeshBasicMaterial({ color: 0x4fd6e6 })
+    );
+    led.position.set(0.1, 1.68, 0.01);
+    group.add(led);
+  }
+
+  return { group, boomPivot, bucketPivot, body, wheels, wheelRadius, prevWorldX: null };
 }
 
 function applyLoaderPose(loaderRig, loaderData) {
-  const { group, boomPivot, bucketPivot } = loaderRig;
+  const { group, boomPivot, bucketPivot, wheels, wheelRadius } = loaderRig;
   group.position.set(loaderData.pos[0], loaderData.pos[1], loaderData.pos[2]);
   group.rotation.y = loaderData.heading;
   boomPivot.rotation.z = loaderData.boom;
   bucketPivot.rotation.z = -loaderData.bucket * 1.4;
+
+  // #81: spin the wheels with actual travel speed rather than leaving
+  // them static while the loader moves.
+  if (wheels && loaderRig.prevWorldX !== null) {
+    const dx = loaderData.pos[0] - loaderRig.prevWorldX;
+    const spin = dx / wheelRadius;
+    // rotateOnAxis spins about the wheel's own current local axis,
+    // independent of Euler composition order -- safer than touching
+    // .rotation.y directly given the wheel already carries a fixed
+    // 90-degree lie-flat rotation on X.
+    for (const w of wheels) w.rotateOnAxis(WHEEL_SPIN_AXIS, spin);
+  }
+  loaderRig.prevWorldX = loaderData.pos[0];
 }
 
 function errorColor(e, maxE) {
@@ -367,6 +505,78 @@ function errorColor(e, maxE) {
     new THREE.Color(0x4fd6e6), new THREE.Color(0xf0a340), t / 0.5);
   return new THREE.Color().lerpColors(
     new THREE.Color(0xf0a340), new THREE.Color(0xff4d3d), (t - 0.5) / 0.5);
+}
+
+/* ---------------------------- textures ---------------------------- */
+// Small canvas-generated textures -- no external assets, consistent with
+// the "no build step" invariant. Each is built once and reused across
+// both scenes.
+
+function makeRadialGradientTexture({ size = 64, inner = "rgba(255,255,255,1)", outer = "rgba(255,255,255,0)" }) {
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const ctx = c.getContext("2d");
+  const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  g.addColorStop(0, inner);
+  g.addColorStop(1, outer);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+function makeNoiseBumpTexture(size = 128) {
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const ctx = c.getContext("2d");
+  const img = ctx.createImageData(size, size);
+  for (let i = 0; i < size * size; i++) {
+    const v = 90 + Math.random() * 110;
+    img.data[i * 4] = img.data[i * 4 + 1] = img.data[i * 4 + 2] = v;
+    img.data[i * 4 + 3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(4, 4);
+  return tex;
+}
+
+let _dustSpriteTex = null;
+function dustSpriteTexture() {
+  if (!_dustSpriteTex) {
+    _dustSpriteTex = makeRadialGradientTexture({
+      size: 32,
+      inner: "rgba(255,245,225,0.9)",
+      outer: "rgba(255,245,225,0)",
+    });
+  }
+  return _dustSpriteTex;
+}
+
+let _shadowDecalTex = null;
+function shadowDecalTexture() {
+  if (!_shadowDecalTex) {
+    _shadowDecalTex = makeRadialGradientTexture({
+      size: 64,
+      inner: "rgba(0,0,0,0.55)",
+      outer: "rgba(0,0,0,0)",
+    });
+  }
+  return _shadowDecalTex;
+}
+
+let _beamTex = null;
+function lightBeamTexture() {
+  if (!_beamTex) {
+    _beamTex = makeRadialGradientTexture({
+      size: 64,
+      inner: "rgba(255,210,150,0.5)",
+      outer: "rgba(255,210,150,0)",
+    });
+  }
+  return _beamTex;
 }
 
 /* ------------------------------ main ------------------------------ */
@@ -382,6 +592,12 @@ async function main() {
   const sim = buildCommonScene({ wireframePile: false });
   const pred = buildCommonScene({ wireframePile: true });
   pred.loader.group.visible = true;
+
+  // #73: a slow, small, looping positional drift so the scene doesn't
+  // read as a frozen diorama. Base positions captured once; tick() adds
+  // a bounded offset on top rather than accumulating drift.
+  const simBasePos = sim.camera.position.clone();
+  const predBasePos = pred.camera.position.clone();
 
   const rendererOpts = { antialias: !IS_MOBILE, powerPreference: "high-performance" };
   const rendererSim = new THREE.WebGLRenderer({ canvas: canvasSim, ...rendererOpts });
@@ -436,8 +652,16 @@ async function main() {
       dummy.scale.setScalar(0.22 * scales[i]);
       dummy.updateMatrix();
       sim.rockMesh.setMatrixAt(i, dummy.matrix);
+      if (sim.glintMesh && i % GLINT_STRIDE === 0) {
+        const gi = i / GLINT_STRIDE;
+        dummy.scale.setScalar(1); // glint geometry is already sized; don't inherit the rock's scale
+        dummy.position.set(x, y + 0.05, z);
+        dummy.updateMatrix();
+        sim.glintMesh.setMatrixAt(gi, dummy.matrix);
+      }
     }
     sim.rockMesh.instanceMatrix.needsUpdate = true;
+    if (sim.glintMesh) sim.glintMesh.instanceMatrix.needsUpdate = true;
   }
 
   // #91: scrubbing the horizon tweens between the previous and new
@@ -517,6 +741,23 @@ async function main() {
     pos.needsUpdate = true;
   }
 
+  // #84: debris trickles DOWN from near the pile and recycles to the
+  // top, the inverse of the dust system's slow upward drift.
+  function updateDebris(debris, seed, t) {
+    const pos = debris.geometry.attributes.position;
+    for (let i = 0; i < seed.length; i++) {
+      const s = seed[i];
+      pos.array[i * 3 + 1] -= 0.006 + 0.003 * Math.sin(t * 2 + s);
+      pos.array[i * 3 + 0] += Math.sin(t * 1.3 + s) * 0.0015;
+      if (pos.array[i * 3 + 1] < 0.02) {
+        pos.array[i * 3 + 1] = THREE.MathUtils.randFloat(1.1, 1.6);
+        pos.array[i * 3 + 0] = THREE.MathUtils.randFloat(0.4, 2.6);
+        pos.array[i * 3 + 2] = THREE.MathUtils.randFloat(-1.6, 0.4);
+      }
+    }
+    pos.needsUpdate = true;
+  }
+
   els.boulderBtn.addEventListener("click", () => {
     const boulderFrame = state.rollout.boulder_event_frame;
     const boulderT = (boulderFrame / state.frames.length) * state.duration;
@@ -567,6 +808,22 @@ async function main() {
 
     updateDust(sim.dust, sim.dustSeed, state.virtualT);
     updateDust(pred.dust, pred.dustSeed, state.virtualT);
+    updateDebris(sim.debris, sim.debrisSeed, state.virtualT);
+    updateDebris(pred.debris, pred.debrisSeed, state.virtualT);
+
+    // #73: camera parallax, phased off wall-clock time (not virtualT) so
+    // Drop boulder's playback jump doesn't also jump the camera drift.
+    const pt = now / 1000;
+    sim.camera.position.set(
+      simBasePos.x + Math.sin(pt * 0.11) * 0.05,
+      simBasePos.y + Math.sin(pt * 0.07 + 1.3) * 0.03,
+      simBasePos.z
+    );
+    pred.camera.position.set(
+      predBasePos.x + Math.sin(pt * 0.11) * 0.05,
+      predBasePos.y + Math.sin(pt * 0.07 + 1.3) * 0.03,
+      predBasePos.z
+    );
 
     // ADR-0012: crossfade the loop seam instead of a visible pose snap.
     // distToSeam is 0 at the very start/end of the loop and
