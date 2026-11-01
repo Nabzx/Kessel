@@ -446,7 +446,12 @@ function resize() {
   const height = innerHeight;
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.position.z = width <= 760 ? 9.8 : 8.4;
+  if (experience.classList.contains("surface-arrived")) {
+    camera.position.set(0, width <= 760 ? 3100 : 2600, width <= 760 ? 3000 : 2500);
+    camera.lookAt(0, 100, 0);
+  } else {
+    camera.position.z = width <= 760 ? 9.8 : 8.4;
+  }
   earthRoot.position.x = width <= 760 ? 0 : 1.55;
   camera.updateProjectionMatrix();
 }
