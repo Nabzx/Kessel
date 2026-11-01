@@ -355,5 +355,46 @@
     "mobile_viewport": "390 x 844, device scale 2, CPU throttled 4 times; Apple M1 GPU, not a physical phone",
     "slow_network": "1.6 Mbit/s download, 0.76 Mbit/s upload, 150 ms latency, cache disabled",
     "gpu_memory": "Estimated referenced RGBA texture storage plus mipmaps, not measured process RSS or driver allocation"
+  },
+  "follow_up_checks": {
+    "description": "Final stationary departure alignment, actual displacement heading and supported tipping bay. Performance samples above were recorded at 83d7004 before this motion correction.",
+    "direction": {
+      "minForward": 0.9784563766860169,
+      "minUp": 0.9930200340967753,
+      "maxReturnBed": 1.541327204945302e-05,
+      "worst": {
+        "i": 275,
+        "phase": "returning",
+        "distance": 420.1718330795054,
+        "j": 16,
+        "tangent": [
+          0.12656627745700996,
+          -0.07910392341063123,
+          -0.9887990426328903
+        ],
+        "facing": [
+          -0.0807830062662812,
+          -0.07107809208043832,
+          -0.9941941514235466
+        ]
+      },
+      "phases": [
+        "loading",
+        "hauling",
+        "tipping",
+        "returning"
+      ]
+    },
+    "layouts": {
+      "viewports": [
+        "1280 x 720",
+        "1440 x 900",
+        "390 x 844",
+        "844 x 390"
+      ],
+      "opening_controls_overlap": false,
+      "document_overflow": false,
+      "full_current_browser_flow": "passed at 1280 x 720"
+    }
   }
 }

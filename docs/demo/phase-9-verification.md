@@ -16,6 +16,8 @@ viewport. Physical-phone performance remains unverified.
 - Three prediction horizons, error scale and clear scripted labels.
 - Sources dialog; Escape closes the dialog before returning from truck inspection.
 - Portrait and landscape layouts without document overflow.
+- Opening copy and environment controls remain separate at 1280 x 720,
+  1440 x 900, 390 x 844 and 844 x 390; flight skip stays clear of Sources.
 - No page errors on desktop, mobile or the throttled-network mission.
 - No external requests for the complete core flow with `?offline=1`.
 - Mission graph validation and JavaScript syntax checks.
@@ -24,7 +26,10 @@ viewport. Physical-phone performance remains unverified.
 
 A 120-second deterministic route exercise visited all four haul phases.
 The truck tipped its bed, returned empty and retained finite coordinates.
-The minimum world-up component was 0.9968, confirming the return journey
+A final displacement-based heading check returned a minimum forward dot
+product of 0.9785. Return departure begins with the bed lowered; the maximum
+remaining angle was 0.000016 radians.
+The final minimum world-up component was 0.9930, confirming the return journey
 does not invert the vehicle on the 8% decline. Heading uses the directed
 route and a stable world-up vector; the headlights and cab face the same
 forward axis. Wheels roll with distance travelled.
@@ -55,6 +60,11 @@ is outside these local-asset totals. No Google imagery or map screenshot is
 committed as a local asset.
 
 ## Rendering samples
+
+Performance samples refer to implementation commit `83d7004`. The final
+departure correction was checked separately through the full native browser
+flow and a deterministic route exercise. It adds a two-triangle tipping pad
+to the existing combined floor, with no extra draw call or texture.
 
 These short samples include scene entry and shader compilation. The primary
 profile uses the native **Apple M1 Metal GPU** in headless Chromium. Mobile

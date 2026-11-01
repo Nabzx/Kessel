@@ -434,3 +434,33 @@ h1 span { display: block; white-space: nowrap; }
   .earth-readout { display: none; }
   .world-model-panel > p.eyebrow { display: flex; font-size: 6px; }
 }
+/* Keep transition controls above the permanent caption at shorter heights. */
+#skip-flight { bottom: 76px; }
+@media (max-width: 760px) { #skip-flight { bottom: 64px; } }
+@media (min-width: 761px) and (max-height: 800px) {
+  .opening-copy { top: 20%; transform: none; }
+  .opening-copy .eyebrow { margin-bottom: 16px; font-size: 8px; }
+  h1 { font-size: clamp(40px, 4.1vw, 56px); line-height: 1.04; }
+  .intro-copy { margin-top: 16px; font-size: 12px; line-height: 1.5; }
+  .environment-picker { bottom: 128px; }
+  .environment-option { min-height: 54px; padding: 8px 10px; }
+  .option-summary { font-size: 9px; }
+  .picker-heading .eyebrow { margin-bottom: 6px; }
+}
+@media (min-width: 761px) and (max-height: 600px) {
+  .opening-copy { top: 112px; left: 7vw; width: 42vw; }
+  h1 { font-size: 34px; }
+  .opening-copy .eyebrow { font-size: 6px; }
+  .intro-copy { font-size: 10px; }
+  .environment-picker { left: 53vw; top: 120px; bottom: auto; width: 41vw; }
+  .picker-heading h2 { display: none; }
+  .environment-option { min-height: 48px; font-size: 7px; }
+  .option-summary { font-size: 8px; }
+  .picker-status { font-size: 6px; }
+}
+@media (min-width: 761px) and (max-height: 600px) {
+  .bottom-bar, .surface-credit { display: none; }
+  .surface-console { top: 96px; max-height: calc(100dvh - 150px); overflow: auto; padding: 12px; }
+  .surface-map { top: 96px; bottom: 40px; }
+  .map-heading, .surface-map > p { padding: 8px; }
+}
