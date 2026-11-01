@@ -1,73 +1,18 @@
 import * as THREE from "three";
-
-function makeTruck(id, model) {
-  const root = new THREE.Group();
-  root.name = id;
-  root.userData.vehicleId = id;
-  root.userData.selectable = true;
-  const materials = Object.fromEntries(Object.entries(model.materials).map(([name, spec]) => [name, new THREE.MeshStandardMaterial({
-    color: spec.colour, roughness: spec.roughness ?? 0.8, metalness: spec.metalness ?? 0,
-    ...(spec.emissive ? { emissive: spec.emissive } : {}),
-  })]));
-  materials.lamp = new THREE.MeshBasicMaterial({ color: model.materials.lamp.colour, toneMapped: false });
-  const addBox = (spec, parent = root) => {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(...spec.size_m), materials[spec.material]);
-    mesh.position.fromArray(spec.position_m);
-    mesh.castShadow = false;
-    mesh.userData.vehicleId = id;
-    parent.add(mesh);
-    return mesh;
-  };
-  for (const part of model.parts) if (part.type === "box") addBox(part);
-  const bedConfig = model.dump_bed;
-  const dumpBed = new THREE.Group();
-  dumpBed.position.fromArray(bedConfig.position_m);
-  dumpBed.name = `${id}-dump-bed`;
-  root.add(dumpBed);
-  const bedMesh = new THREE.Mesh(new THREE.BoxGeometry(...bedConfig.body_size_m), materials.body);
-  bedMesh.position.fromArray(bedConfig.body_position_m);
-  dumpBed.add(bedMesh);
-  const cargoMeshes = [];
-  for (const panel of bedConfig.panels) {
-    addBox(panel, dumpBed);
-  }
-  for (const cargo of bedConfig.cargo_rocks) {
-    const rock = new THREE.Mesh(new THREE.IcosahedronGeometry(cargo.radius_m, 0), materials.cargo);
-    rock.position.fromArray(cargo.position_m);
-    dumpBed.add(rock);
-    cargoMeshes.push(rock);
-  }
-  const wheelConfig = model.wheels;
-  for (const side of [-1, 1]) {
-    for (const z of wheelConfig.axle_z_m) {
-      const wheel = new THREE.Mesh(new THREE.CylinderGeometry(wheelConfig.radius_m, wheelConfig.radius_m, wheelConfig.width_m, wheelConfig.segments), materials[wheelConfig.material]);
-      wheel.rotation.z = Math.PI / 2;
-      wheel.position.set(side * wheelConfig.side_offset_m, wheelConfig.centre_y_m, z);
-      wheel.userData.vehicleId = id;
-      root.add(wheel);
-      const hub = new THREE.Mesh(new THREE.CylinderGeometry(wheelConfig.hub_radius_m, wheelConfig.hub_radius_m, 0.07, wheelConfig.segments), materials.body);
-      hub.rotation.z = Math.PI / 2;
-      hub.position.set(side * (wheelConfig.side_offset_m + 0.16), wheelConfig.centre_y_m, z);
-      root.add(hub);
-    }
-    const headlight = new THREE.Mesh(new THREE.SphereGeometry(model.headlights.radius_m, 8, 6), materials.lamp);
-    headlight.position.set(side * model.headlights.side_offset_m, ...model.headlights.position_m);
-    root.add(headlight);
-    const beamConfig = model.headlights;
-    const beam = new THREE.SpotLight(beamConfig.beam_colour, beamConfig.beam_intensity, beamConfig.beam_distance_m, beamConfig.beam_angle_radians, beamConfig.beam_penumbra, beamConfig.beam_decay);
-    beam.position.set(side * beamConfig.side_offset_m, ...beamConfig.beam_position_m);
-    beam.target.position.set(side * beamConfig.side_offset_m, ...beamConfig.beam_target_m);
-    root.add(beam, beam.target);
-  }
-  root.userData.unselect = () => { root.scale.setScalar(1); };
-  root.userData.select = () => { root.scale.setScalar(model.selection_scale); };
-  return { root, forward: new THREE.Vector3(...model.forward_axis), dumpBed, cargoMeshes };
+import { createVehicle } from "./vehicle.js";
+const headingMatrix = new THREE.Matrix4();
+const headingOrigin = new THREE.Vector3();
+const headingUp = new THREE.Vector3(0, 1, 0);
+function orient(quaternion, direction) {
+  // Preserve world up on descending and returning routes, including a 180° turn.
+  return quaternion.setFromRotationMatrix(headingMatrix.lookAt(direction, headingOrigin, headingUp));
 }
 
 function routePoints(network, route) {
   const segments = new Map(network.segments.map((segment) => [segment.id, segment]));
   const edges = new Map(network.graph.edges.map((edge) => [edge.id, edge]));
   const points = [];
+  const nodePointIndices = [0];
   route.edge_ids.forEach((edgeId, index) => {
     const edge = edges.get(edgeId);
     const segment = edge && segments.get(edge.segment_id);
@@ -81,10 +26,12 @@ function routePoints(network, route) {
       const point = new THREE.Vector3(...coordinate);
       if (!points.length || points[points.length - 1].distanceToSquared(point) > 1e-6) points.push(point);
     }
+    nodePointIndices.push(points.length - 1);
   });
   const cumulative = [0];
   for (let i = 1; i < points.length; i += 1) cumulative.push(cumulative[i - 1] + points[i].distanceTo(points[i - 1]));
-  return { points, cumulative, length: cumulative.at(-1) || 1 };
+  const tipIndex=route.node_ids.findIndex(id=>network.nodes.find(node=>node.id===id)?.kind==="tipping_point");
+  return { points, cumulative, length: cumulative.at(-1) || 1, tipDistance: cumulative[nodePointIndices[tipIndex]] };
 }
 
 function pointAt(path, distance, target) {
@@ -100,9 +47,9 @@ function pointAt(path, distance, target) {
 }
 
 function makeRouteRibbon(path, routeIndex, routeCount, materialColour, network) {
-  const laneSpacing = Math.max(0.04, Math.min(0.36, (network.design.cross_section.width_m - 0.4) / routeCount));
+  const laneSpacing = Math.max(0.04, Math.min(0.8, (network.design.cross_section.width_m - 0.4) / routeCount));
   const laneOffset = (routeIndex - (routeCount - 1) / 2) * laneSpacing;
-  const halfWidth = Math.min(0.56, laneSpacing * 1.55) / 2;
+  const halfWidth = Math.min(1.1, laneSpacing * 1.35) / 2;
   const positions = [];
   const indices = [];
   for (let index = 0; index < path.points.length; index += 1) {
@@ -127,101 +74,141 @@ function makeRouteRibbon(path, routeIndex, routeCount, materialColour, network) 
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
   geometry.setIndex(indices);
   geometry.computeBoundingSphere();
-  const material = new THREE.MeshBasicMaterial({ color: materialColour, side: THREE.DoubleSide, transparent: true, opacity: 0.94, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, toneMapped: false });
+  const material = new THREE.MeshBasicMaterial({ color: materialColour, side: THREE.DoubleSide, transparent: true, opacity: 0.9, depthTest: false, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1, toneMapped: false });
   return new THREE.Mesh(geometry, material);
 }
 
-export function createFleet(network, routes, fleetConfig, vehicleModel, routeRibbons) {
+export function createFleet(network, routes, fleetConfig, vehicleModel, routeRibbons, predictionPreview, textures = {}) {
   const group = new THREE.Group();
   group.name = "scripted-haul-fleet";
   const entries = routes.map((route, index) => {
-    const { root: truck, forward, dumpBed, cargoMeshes } = makeTruck(route.vehicle_id, vehicleModel);
-    group.add(truck);
-    const prediction = new THREE.Mesh(
-      new THREE.BoxGeometry(...vehicleModel.prediction_dimensions_m),
-      new THREE.MeshBasicMaterial({ color: vehicleModel.prediction_colour, wireframe: true, transparent: true, opacity: vehicleModel.prediction_opacity, depthWrite: false, toneMapped: false }),
-    );
+    const vehicle = createVehicle(route.vehicle_id, vehicleModel, textures);
+    group.add(vehicle.root);
+    const prediction = new THREE.Mesh(new THREE.BoxGeometry(...vehicleModel.prediction_dimensions_m), new THREE.MeshBasicMaterial({ color: 0x74d7e8, wireframe: true, transparent: true, opacity: .5, depthWrite: false, toneMapped: false }));
     prediction.visible = false;
     prediction.name = `${route.vehicle_id}-prediction-preview`;
-    prediction.userData.vehicleId = route.vehicle_id;
     group.add(prediction);
     const path = routePoints(network, route);
-    return {
-      id: route.vehicle_id,
-      route,
-      path,
-      truck,
-      forward,
-      dumpBed,
-      cargoMeshes,
-      prediction,
-      distance: (fleetConfig.vehicles.find((vehicle) => vehicle.id === route.vehicle_id)?.phase_offset ?? index / routes.length) * path.length,
-      speed: fleetConfig.speed_mps.unoptimised + index * fleetConfig.vehicle_speed_variation_mps,
-    };
+    const distance = (fleetConfig.vehicles[index]?.phase_offset ?? index / routes.length) * path.length;
+    return { ...vehicle, truck: vehicle.root, id: route.vehicle_id, route, path, prediction, distance, phase: distance > path.tipDistance ? "returning" : "hauling", dwell: 0, queued: false, speed: fleetConfig.speed_mps.unoptimised + index * fleetConfig.vehicle_speed_variation_mps };
   });
-  const tangent = new THREE.Vector3();
-  const gradePosition = new THREE.Vector3();
   let selectedId = null;
   let optimised = false;
+  let inspectionPlayback = false;
+  let sampleIndex = 1;
   const optimisedRibbons = [];
-  const visitCounts = new Map();
-  routes.forEach((route) => route.node_ids.forEach((id) => visitCounts.set(id, (visitCounts.get(id) || 0) + 1)));
-  const sharedJunctions = network.nodes.filter((node) => visitCounts.get(node.id) > 1 && ["junction", "portal"].includes(node.kind)).map((node) => new THREE.Vector3(...node.position_m));
+  const tangent = new THREE.Vector3();
+  const targetRotation = new THREE.Quaternion();
+  const samplePosition = new THREE.Vector3();
+  const maxError = Math.max(.25, ...predictionPreview.samples.map(sample => sample.error_m));
+  const cyan = new THREE.Color(0x74d7e8), amber = new THREE.Color(0xefbb66), red = new THREE.Color(0xed6b58);
+  for (const entry of entries) {
+    tangent.copy(pointAt(entry.path, entry.distance, entry.truck.position));
+    orient(entry.truck.quaternion, tangent);
+  }
   function update(delta) {
     for (const entry of entries) {
-      const atChoke = sharedJunctions.some((node) => entry.truck.position.distanceTo(node) < fleetConfig.congestion_radius_m);
-      const queued = !optimised && atChoke && entries.some((other) => other !== entry && other.truck.position.distanceTo(entry.truck.position) < fleetConfig.queue_radius_m);
-      const slope = pointAt(entry.path, entry.distance, gradePosition).y;
-      const gradeFactor = 1 - Math.min(fleetConfig.max_grade_speed_reduction, Math.abs(slope) * fleetConfig.grade_speed_sensitivity);
-      entry.distance += delta * entry.speed * fleetConfig.time_scale * gradeFactor * (queued ? fleetConfig.queued_speed_factor : 1);
+      const previousDistance = entry.distance;
+      const moving = entry.phase === "hauling" || entry.phase === "returning";
+      entry.queued = false;
+      if (moving) {
+        tangent.copy(pointAt(entry.path, entry.distance, samplePosition));
+        entry.queued = !optimised && entries.some(other => {
+          if (other === entry) return false;
+          const separation = other.truck.position.clone().sub(entry.truck.position);
+          return separation.length() < fleetConfig.queue_radius_m && separation.dot(tangent) > 1;
+        });
+        const scale = inspectionPlayback && selectedId === entry.id ? fleetConfig.inspection_time_scale : fleetConfig.time_scale;
+        const gradeFactor = 1 - Math.min(fleetConfig.max_grade_speed_reduction, Math.abs(tangent.y) * fleetConfig.grade_speed_sensitivity);
+        entry.distance += delta * entry.speed * scale * gradeFactor * (entry.queued ? fleetConfig.queued_speed_factor : 1);
+        if (entry.phase === "hauling" && entry.distance >= entry.path.tipDistance) {
+          entry.distance = entry.path.tipDistance;
+          entry.phase = "tipping"; entry.dwell = 0;
+        } else if (entry.phase === "returning" && entry.distance >= entry.path.length) {
+          entry.distance = 0; entry.phase = "loading"; entry.dwell = 0;
+        }
+      } else {
+        entry.dwell += delta;
+        const dwellSeconds = fleetConfig.dwell_seconds[entry.phase];
+        if (entry.dwell >= dwellSeconds) {
+          entry.phase = entry.phase === "loading" ? "hauling" : "returning";
+          entry.distance += .02;
+          entry.dwell = 0;
+        }
+      }
       tangent.copy(pointAt(entry.path, entry.distance, entry.truck.position));
-      entry.truck.quaternion.setFromUnitVectors(entry.forward, tangent);
-      const cycle = THREE.MathUtils.euclideanModulo(entry.distance, entry.path.length) / entry.path.length;
-      const phase = Object.entries(fleetConfig.phase_ranges).find(([, range]) => cycle >= range[0] && cycle < range[1])?.[0] || "returning";
-      entry.truck.userData.phase = phase;
-      entry.dumpBed.rotation.x = phase === "tipping" ? vehicleModel.dump_bed.tip_angle_radians : 0;
-      entry.cargoMeshes.forEach((rock) => { rock.visible = phase !== "returning"; });
-      const predicted = pointAt(entry.path, entry.distance + fleetConfig.prediction_horizon_m, entry.prediction.position);
-      entry.prediction.position.y += 1.2;
-      entry.prediction.quaternion.setFromUnitVectors(new THREE.Vector3(...vehicleModel.forward_axis), predicted);
+      orient(targetRotation, tangent);
+      entry.truck.quaternion.slerp(targetRotation, 1 - Math.exp(-delta * 7));
+      entry.truck.userData.phase = entry.queued ? "queued" : entry.phase;
+      const tipProgress = entry.phase === "tipping" ? Math.min(1, entry.dwell / fleetConfig.dwell_seconds.tipping) : 0;
+      const bedAngle = entry.phase === "tipping" ? Math.sin(tipProgress * Math.PI) * vehicleModel.dump_bed.tip_angle_radians : 0;
+      entry.dumpBed.rotation.x = THREE.MathUtils.damp(entry.dumpBed.rotation.x, bedAngle, 8, delta);
+      const load = entry.phase === "loading" ? Math.min(1, entry.dwell / fleetConfig.dwell_seconds.loading) : entry.phase === "returning" ? 0 : entry.phase === "tipping" ? 1 - THREE.MathUtils.smoothstep(tipProgress, .25, .7) : 1;
+      entry.cargo.visible = load > .01;
+      entry.cargo.scale.y = Math.max(.01, load);
+      entry.proxyCargo.visible = load > .01;
+      entry.load = load;
+      const travelled = moving ? Math.max(0, entry.distance - previousDistance) : 0;
+      for (const wheel of entry.wheels) wheel.rotation.x += travelled / vehicleModel.wheels.radius_m;
+      if (entry.prediction.visible) {
+        const sample = predictionPreview.samples[sampleIndex];
+        const sampleDistance = moving ? entry.distance + entry.speed * sample.horizon_seconds : entry.distance;
+        const heading = pointAt(entry.path, sampleDistance, entry.prediction.position);
+        entry.prediction.position.x += sample.error_m;
+        entry.prediction.position.y += vehicleModel.prediction_dimensions_m[1] / 2;
+        orient(entry.prediction.quaternion, heading);
+        const normalised = Math.min(1, sample.error_m / maxError);
+        entry.prediction.material.color.copy(normalised < .5 ? cyan.clone().lerp(amber, normalised * 2) : amber.clone().lerp(red, (normalised - .5) * 2));
+      }
     }
   }
   function select(id) {
     selectedId = id;
-    for (const entry of entries) {
-      entry.truck.scale.setScalar(entry.id === id ? 1.12 : 1);
-      entry.prediction.visible = entry.id === id;
+    inspectionPlayback = false;
+    for (const entry of entries) { entry.prediction.visible = entry.id === id; entry.detail.visible=entry.id===id; entry.overview.visible=entry.id!==id; }
+    return entries.find(entry => entry.id === id) || null;
+  }
+  function nearestDistance(path, position, returning) {
+    let best = Infinity, distance = 0;
+    for (let i = 1; i < path.points.length; i += 1) {
+      if (returning ? path.cumulative[i] < path.tipDistance : path.cumulative[i-1] >= path.tipDistance) continue;
+      const a = path.points[i - 1], b = path.points[i];
+      const direction = b.clone().sub(a);
+      const t = THREE.MathUtils.clamp(position.clone().sub(a).dot(direction) / direction.lengthSq(), 0, 1);
+      const point = a.clone().addScaledVector(direction, t);
+      const error = point.distanceToSquared(position);
+      if (error < best) { best = error; distance = path.cumulative[i - 1] + t * direction.length(); }
     }
-    return entries.find((entry) => entry.id === id) || null;
+    return distance;
   }
   function setOptimised(value) {
+    if (optimised === value) return;
     optimised = value;
-    if (value) {
-      routeRibbons.visible = false;
-      entries.forEach((entry, index) => {
-        const distanceRatio = THREE.MathUtils.euclideanModulo(entry.distance, entry.path.length) / entry.path.length;
-        entry.path = routePoints(network, { ...entry.route, edge_ids: entry.route.optimised_edge_ids });
-        entry.distance = distanceRatio * entry.path.length;
-        const ribbon = makeRouteRibbon(entry.path, index, entries.length, 0xff4038, network);
-        ribbon.name = `optimised-route-${entry.id}`;
+    routeRibbons.visible = !value;
+    for (const ribbon of optimisedRibbons) { group.remove(ribbon); ribbon.geometry.dispose(); ribbon.material.dispose(); }
+    optimisedRibbons.length = 0;
+    entries.forEach((entry, index) => {
+      const wasReturning = entry.phase === "returning";
+      entry.path = routePoints(network, value ? { ...entry.route, edge_ids: entry.route.optimised_edge_ids } : entry.route);
+      const distance = nearestDistance(entry.path, entry.truck.position, wasReturning);
+      entry.distance = distance;
+      entry.speed = (value ? fleetConfig.speed_mps.converged : fleetConfig.speed_mps.unoptimised) + index * fleetConfig.vehicle_speed_variation_mps;
+      if (value) {
+        const ribbon = makeRouteRibbon(entry.path, index, entries.length, 0xff735f, network);
+        ribbon.renderOrder = 5;
         ribbon.userData.routeId = entry.route.id;
         ribbon.userData.vehicleId = entry.id;
-        group.add(ribbon);
-        optimisedRibbons.push(ribbon);
-      });
-    } else {
-      routeRibbons.visible = true;
-      for (const ribbon of optimisedRibbons) {
-        group.remove(ribbon);
-        ribbon.geometry.dispose();
-        ribbon.material.dispose();
+        group.add(ribbon); optimisedRibbons.push(ribbon);
       }
-      optimisedRibbons.length = 0;
-      entries.forEach((entry) => {
-        entry.path = routePoints(network, entry.route);
-      });
-    }
-    entries.forEach((entry, index) => { entry.speed = (value ? fleetConfig.speed_mps.converged : fleetConfig.speed_mps.unoptimised) + index * fleetConfig.vehicle_speed_variation_mps; });
+    });
   }
-  return { group, entries, update, select, get selectedId() { return selectedId; }, get optimised() { return optimised; }, setOptimised };
+  function watchCycle() {
+    const entry = entries.find(item => item.id === selectedId);
+    if (!entry) return;
+    entry.distance = 0; entry.phase = "loading"; entry.dwell = 0;
+    inspectionPlayback = true;
+    tangent.copy(pointAt(entry.path, 0, entry.truck.position));
+    orient(entry.truck.quaternion, tangent);
+  }
+  return { group, entries, update, select, watchCycle, setOptimised, setPredictionSample(index) { sampleIndex = index; }, get selectedId() { return selectedId; }, get optimised() { return optimised; } };
 }

@@ -2,7 +2,7 @@
   "meta": {
     "id": "kessel-phase-9-opening",
     "source": "scripted",
-    "description": "Illustrative opening scene for the Kessel concept visualisation."
+    "description": "Interactive concept mission for offline physical AI. Real surface context and an illustrative underground fleet."
   },
   "location": {
     "id": "rutongo",
@@ -35,20 +35,151 @@
       "imagery_date": "2026-08-14",
       "imagery_source": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_35MRU_20260814_0_L2A",
       "site_layout_source": "illustrative",
-      "site_layout_note": "Portal, access road and service yard are not survey data."
+      "site_layout_note": "Portal, access road and service yard are not survey data.",
+      "site": {
+        "source": "illustrative",
+        "access_road_m": [
+          [
+            -820,
+            0,
+            1900
+          ],
+          [
+            -1030,
+            0,
+            1430
+          ],
+          [
+            -900,
+            0,
+            1100
+          ],
+          [
+            -820,
+            0,
+            760
+          ],
+          [
+            -800,
+            0,
+            715
+          ]
+        ],
+        "road_half_width_m": 8,
+        "yard_size_m": [
+          92,
+          74
+        ],
+        "yard_offset_m": [
+          35,
+          -20
+        ],
+        "sheds": [
+          {
+            "offset_m": [
+              36,
+              -24
+            ],
+            "size_m": [
+              18,
+              6,
+              12
+            ]
+          },
+          {
+            "offset_m": [
+              61,
+              -19
+            ],
+            "size_m": [
+              12,
+              4,
+              9
+            ]
+          },
+          {
+            "offset_m": [
+              35,
+              -47
+            ],
+            "size_m": [
+              24,
+              5,
+              10
+            ]
+          }
+        ],
+        "tanks": [
+          {
+            "offset_m": [
+              72,
+              -41
+            ],
+            "radius_m": 3.2,
+            "height_m": 9
+          },
+          {
+            "offset_m": [
+              81,
+              -41
+            ],
+            "radius_m": 3.2,
+            "height_m": 9
+          }
+        ],
+        "stockpile": {
+          "offset_m": [
+            18,
+            -42
+          ],
+          "radius_m": 10,
+          "height_m": 6
+        },
+        "ground_detail": "assets/textures/brown_mud_dry_diff.jpg"
+      },
+      "satellite_embed": {
+        "provider": "Google Maps",
+        "url": "https://www.google.com/maps?q=-1.8175,30.059167&t=k&z=17&output=embed&hl=en",
+        "source": "https://support.google.com/maps/answer/7101463",
+        "note": "Live embedded satellite map. Imagery and provider attribution are rendered by Google. An internet connection is required."
+      }
     },
     "underground": {
       "network_geometry": "data/tunnel-network.json",
       "geometry_source": "scripted",
-      "renderer": "js/underground.js"
+      "renderer": "js/underground.js",
+      "loading_bay": {
+        "source": "illustrative",
+        "width_m": 14,
+        "height_m": 5.5,
+        "length_behind_m": 11,
+        "length_ahead_m": 12
+      },
+      "excavator": {
+        "model": "assets/models/excavator/excavator.gltf",
+        "vehicle_id": "truck-01",
+        "offset_m": [
+          3.6,
+          0,
+          -1.3
+        ],
+        "length_m": 6.2,
+        "boom_bone_index": 1,
+        "bucket_bone_index": 5,
+        "credit": "Excavator 3d Rigging by mohamed.salaah880, CC BY 4.0",
+        "source": "https://sketchfab.com/3d-models/excavator-3d-rigging-f82f787abd304dea89667e078ccf7052"
+      }
     },
     "fleet_vehicle_model": "assets/models/haul-truck.json",
     "deposit_markers": "data/mineral-deposits.json"
   },
   "fleet": {
     "source": "scripted",
-    "time_scale": 4,
-    "speed_mps": { "unoptimised": 1.7, "converged": 2.65 },
+    "time_scale": 12,
+    "speed_mps": {
+      "unoptimised": 1.7,
+      "converged": 2.65
+    },
     "vehicle_speed_variation_mps": 0.12,
     "phase_offset_basis": "Illustrative initial positions stage empty trucks nose-to-tail at the shared Level 1 ramp to show congestion before optimisation.",
     "grade_speed_sensitivity": 0.25,
@@ -58,33 +189,63 @@
     "queue_radius_m": 10,
     "queued_speed_factor": 0.12,
     "vehicles": [
-      { "id": "truck-01", "phase_offset": 0.853 },
-      { "id": "truck-02", "phase_offset": 0.717 },
-      { "id": "truck-03", "phase_offset": 0.659 }
+      {
+        "id": "truck-01",
+        "phase_offset": 0.853
+      },
+      {
+        "id": "truck-02",
+        "phase_offset": 0.717
+      },
+      {
+        "id": "truck-03",
+        "phase_offset": 0.659
+      }
     ],
-    "phase_ranges": {
-      "loading": [0, 0.1],
-      "hauling": [0.1, 0.46],
-      "tipping": [0.46, 0.55],
-      "returning": [0.55, 1]
-    }
+    "dwell_seconds": {
+      "loading": 4,
+      "tipping": 3
+    },
+    "inspection_time_scale": 24
   },
   "optimiser_trace": {
     "source": "scripted",
     "run_count": 100000,
     "fleet_size": 3,
     "vehicle_payload_t": 15,
-    "throughput_basis": "fleet_size × payload_t × 60 / cycle_minutes × utilisation_percent / 100; rounded to whole tonnes per hour.",
+    "throughput_basis": "fleet_size \u00d7 payload_t \u00d7 60 / cycle_minutes \u00d7 utilisation_percent / 100; rounded to whole tonnes per hour.",
     "citation": "https://ltu.diva-portal.org/smash/get/diva2%3A1856905/FULLTEXT01.pdf",
     "citation_label": "Tariq et al., 2025",
     "citation_summary": "21 t semi-autonomous LHDs at LKAB: median loading of 42 to 68 seconds and median dumping of 71 to 106 seconds.",
     "steps": [
-      { "iterations": 18432, "rollouts": 184320, "elapsed_ms": 40 },
-      { "iterations": 56109, "rollouts": 561090, "elapsed_ms": 105 },
-      { "iterations": 100000, "rollouts": 1000000, "elapsed_ms": 184 }
+      {
+        "iterations": 18432,
+        "rollouts": 184320,
+        "elapsed_ms": 40
+      },
+      {
+        "iterations": 56109,
+        "rollouts": 561090,
+        "elapsed_ms": 105
+      },
+      {
+        "iterations": 100000,
+        "rollouts": 1000000,
+        "elapsed_ms": 184
+      }
     ],
-    "before": { "throughput_tph": 70, "cycle_minutes": 18.4, "utilisation_percent": 48, "queue_delay_minutes": 4.2 },
-    "after": { "throughput_tph": 163, "cycle_minutes": 12.6, "utilisation_percent": 76, "queue_delay_minutes": 1.8 }
+    "before": {
+      "throughput_tph": 70,
+      "cycle_minutes": 18.4,
+      "utilisation_percent": 48,
+      "queue_delay_minutes": 4.2
+    },
+    "after": {
+      "throughput_tph": 163,
+      "cycle_minutes": 12.6,
+      "utilisation_percent": 76,
+      "queue_delay_minutes": 1.8
+    }
   },
   "routes": [
     {
@@ -92,27 +253,147 @@
       "vehicle_id": "truck-01",
       "source": "scripted",
       "status": "unoptimised",
-      "node_ids": ["draw-point-L1-south", "crosscut-L1-south-start", "turn-L1-south", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "turn-L1-south", "crosscut-L1-south-start", "draw-point-L1-south"],
-      "edge_ids": ["draw-crosscut-L1-south", "junction-turn-L1-south", "haulage-drift-L1-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "haulage-drift-L1-2", "junction-turn-L1-south", "draw-crosscut-L1-south"],
-      "optimised_edge_ids": ["draw-crosscut-L1-south", "junction-turn-L1-south", "haulage-drift-L1-2", "decline-bypass-L1", "portal-tipping-bay", "portal-tipping-bay", "decline-bypass-L1", "haulage-drift-L1-2", "junction-turn-L1-south", "draw-crosscut-L1-south"]
+      "node_ids": [
+        "draw-point-L1-south",
+        "crosscut-L1-south-start",
+        "turn-L1-south",
+        "ramp-L1",
+        "portal",
+        "tip-surface",
+        "portal",
+        "ramp-L1",
+        "turn-L1-south",
+        "crosscut-L1-south-start",
+        "draw-point-L1-south"
+      ],
+      "edge_ids": [
+        "draw-crosscut-L1-south",
+        "junction-turn-L1-south",
+        "haulage-drift-L1-2",
+        "decline-1",
+        "portal-tipping-bay",
+        "portal-tipping-bay",
+        "decline-1",
+        "haulage-drift-L1-2",
+        "junction-turn-L1-south",
+        "draw-crosscut-L1-south"
+      ],
+      "optimised_edge_ids": [
+        "draw-crosscut-L1-south",
+        "junction-turn-L1-south",
+        "haulage-drift-L1-2",
+        "decline-bypass-L1",
+        "portal-tipping-bay",
+        "portal-tipping-bay",
+        "decline-bypass-L1",
+        "haulage-drift-L1-2",
+        "junction-turn-L1-south",
+        "draw-crosscut-L1-south"
+      ]
     },
     {
       "id": "haul-cycle-02",
       "vehicle_id": "truck-02",
       "source": "scripted",
       "status": "unoptimised",
-      "node_ids": ["draw-point-L2-north", "crosscut-L2-north-start", "turn-L2-north", "ramp-L2", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "ramp-L2", "turn-L2-north", "crosscut-L2-north-start", "draw-point-L2-north"],
-      "edge_ids": ["draw-crosscut-L2-north", "junction-turn-L2-north", "haulage-drift-L2-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "haulage-drift-L2-3", "junction-turn-L2-north", "draw-crosscut-L2-north"],
-      "optimised_edge_ids": ["draw-crosscut-L2-north", "junction-turn-L2-north", "haulage-drift-L2-3", "decline-2", "decline-bypass-L1", "portal-tipping-bay", "portal-tipping-bay", "decline-bypass-L1", "decline-2", "haulage-drift-L2-3", "junction-turn-L2-north", "draw-crosscut-L2-north"]
+      "node_ids": [
+        "draw-point-L2-north",
+        "crosscut-L2-north-start",
+        "turn-L2-north",
+        "ramp-L2",
+        "ramp-L1",
+        "portal",
+        "tip-surface",
+        "portal",
+        "ramp-L1",
+        "ramp-L2",
+        "turn-L2-north",
+        "crosscut-L2-north-start",
+        "draw-point-L2-north"
+      ],
+      "edge_ids": [
+        "draw-crosscut-L2-north",
+        "junction-turn-L2-north",
+        "haulage-drift-L2-3",
+        "decline-2",
+        "decline-1",
+        "portal-tipping-bay",
+        "portal-tipping-bay",
+        "decline-1",
+        "decline-2",
+        "haulage-drift-L2-3",
+        "junction-turn-L2-north",
+        "draw-crosscut-L2-north"
+      ],
+      "optimised_edge_ids": [
+        "draw-crosscut-L2-north",
+        "junction-turn-L2-north",
+        "haulage-drift-L2-3",
+        "decline-2",
+        "decline-bypass-L1",
+        "portal-tipping-bay",
+        "portal-tipping-bay",
+        "decline-bypass-L1",
+        "decline-2",
+        "haulage-drift-L2-3",
+        "junction-turn-L2-north",
+        "draw-crosscut-L2-north"
+      ]
     },
     {
       "id": "haul-cycle-03",
       "vehicle_id": "truck-03",
       "source": "scripted",
       "status": "unoptimised",
-      "node_ids": ["draw-point-L3-south", "crosscut-L3-south-start", "turn-L3-south", "ramp-L3", "ramp-L2", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "ramp-L2", "ramp-L3", "turn-L3-south", "crosscut-L3-south-start", "draw-point-L3-south"],
-      "edge_ids": ["draw-crosscut-L3-south", "junction-turn-L3-south", "haulage-drift-L3-2", "decline-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "decline-3", "haulage-drift-L3-2", "junction-turn-L3-south", "draw-crosscut-L3-south"],
-      "optimised_edge_ids": ["draw-crosscut-L3-south", "junction-turn-L3-south", "haulage-drift-L3-2", "decline-3", "decline-2", "decline-bypass-L1", "portal-tipping-bay", "portal-tipping-bay", "decline-bypass-L1", "decline-2", "decline-3", "haulage-drift-L3-2", "junction-turn-L3-south", "draw-crosscut-L3-south"]
+      "node_ids": [
+        "draw-point-L3-south",
+        "crosscut-L3-south-start",
+        "turn-L3-south",
+        "ramp-L3",
+        "ramp-L2",
+        "ramp-L1",
+        "portal",
+        "tip-surface",
+        "portal",
+        "ramp-L1",
+        "ramp-L2",
+        "ramp-L3",
+        "turn-L3-south",
+        "crosscut-L3-south-start",
+        "draw-point-L3-south"
+      ],
+      "edge_ids": [
+        "draw-crosscut-L3-south",
+        "junction-turn-L3-south",
+        "haulage-drift-L3-2",
+        "decline-3",
+        "decline-2",
+        "decline-1",
+        "portal-tipping-bay",
+        "portal-tipping-bay",
+        "decline-1",
+        "decline-2",
+        "decline-3",
+        "haulage-drift-L3-2",
+        "junction-turn-L3-south",
+        "draw-crosscut-L3-south"
+      ],
+      "optimised_edge_ids": [
+        "draw-crosscut-L3-south",
+        "junction-turn-L3-south",
+        "haulage-drift-L3-2",
+        "decline-3",
+        "decline-2",
+        "decline-bypass-L1",
+        "portal-tipping-bay",
+        "portal-tipping-bay",
+        "decline-bypass-L1",
+        "decline-2",
+        "decline-3",
+        "haulage-drift-L3-2",
+        "junction-turn-L3-south",
+        "draw-crosscut-L3-south"
+      ]
     }
   ],
   "environments": [
@@ -144,5 +425,23 @@
       "status": "planned",
       "glyph": "G"
     }
-  ]
+  ],
+  "prediction_preview": {
+    "source": "scripted",
+    "description": "Authored future positions compared with the scripted route; not learned inference.",
+    "samples": [
+      {
+        "horizon_seconds": 1,
+        "error_m": 0.06
+      },
+      {
+        "horizon_seconds": 2,
+        "error_m": 0.12
+      },
+      {
+        "horizon_seconds": 3,
+        "error_m": 0.23
+      }
+    ]
+  }
 }

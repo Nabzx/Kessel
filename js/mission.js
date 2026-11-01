@@ -3,9 +3,9 @@ import * as THREE from "three";
 const canvas = document.getElementById("space-canvas");
 const experience = document.getElementById("mission");
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const mobile = matchMedia("(max-width: 760px)").matches;
+let mobile = matchMedia("(max-width: 760px)").matches;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: !mobile, alpha: true, powerPreference: "high-performance" });
-renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobile ? 1.5 : 1.8));
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobile ? 1.25 : 1.5));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.12;
@@ -87,6 +87,7 @@ const cloudMaterial = new THREE.MeshBasicMaterial({
 });
 const cloudEarth = new THREE.Mesh(new THREE.SphereGeometry(2.405, mobile ? 72 : 112, mobile ? 48 : 80), cloudMaterial);
 cloudEarth.rotation.y = earth.rotation.y;
+cloudEarth.visible = false;
 cloudEarth.renderOrder = 2;
 earthRoot.add(cloudEarth);
 
@@ -175,6 +176,11 @@ const metricUtilisation = document.getElementById("metric-utilisation");
 const metricQueue = document.getElementById("metric-queue");
 const cycleReference = document.getElementById("cycle-reference");
 const cycleReferenceLink = document.getElementById("cycle-reference-link");
+const surfaceMap=document.getElementById("surface-map");
+const satelliteMap=document.getElementById("satellite-map");
+const viewSatellite=document.getElementById("view-satellite");
+const viewSite=document.getElementById("view-site");
+const onlineMapAllowed=!new URLSearchParams(location.search).has("offline");
 let chooseUnderground = null;
 let missionState = "biome-select";
 let missionLocation = null;
@@ -192,6 +198,19 @@ let surfacePortal = null;
 let simTimeouts = [];
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
+const roster = document.getElementById("fleet-roster");
+const labels = document.getElementById("truck-labels");
+const insight = document.getElementById("mission-insight");
+const steps = document.getElementById("mission-steps");
+const simulationProgress = document.getElementById("simulation-progress");
+const horizonSlider = document.getElementById("prediction-horizon");
+const tagElements = new Map();
+const rosterElements = new Map();
+const followPosition = new THREE.Vector3();
+const followTarget = new THREE.Vector3();
+const labelPosition = new THREE.Vector3();
+let hudUpdated = 0;
+let visiblePage = true;
 const surfaceLookTarget = new THREE.Vector3(-700, 370, 500);
 
 function prepareSurfaceTerrain(surfaceAssets) {
@@ -207,24 +226,36 @@ function prepareSurfaceTerrain(surfaceAssets) {
   ]);
   image.src = surfaceAssets.satellite_image;
   heightImage.src = surfaceAssets.elevation_heightmap;
-  loaded.then(() => {
+  loaded.then(async () => {
+    const groundDetail=await textureLoader.loadAsync(surfaceAssets.site.ground_detail);
+    groundDetail.wrapS=groundDetail.wrapT=THREE.RepeatWrapping;
+    groundDetail.colorSpace=THREE.SRGBColorSpace;
+    groundDetail.anisotropy=4;
     const heightCanvas = document.createElement("canvas");
     heightCanvas.width = heightImage.naturalWidth;
     heightCanvas.height = heightImage.naturalHeight;
     const context = heightCanvas.getContext("2d", { willReadFrequently: true });
     context.drawImage(heightImage, 0, 0);
     const samples = context.getImageData(0, 0, heightCanvas.width, heightCanvas.height).data;
-    const elevationAt = (x, z) => {
-      const px = Math.round(((x + width / 2) / width) * (heightCanvas.width - 1));
-      const py = Math.round(((z + width / 2) / width) * (heightCanvas.height - 1));
-      return surfaceAssets.elevation_min_m + (samples[(py * heightCanvas.width + px) * 4] / 255) * elevationRange;
+    const rawElevationAt = (x, z) => {
+      const fx = THREE.MathUtils.clamp(((x+width/2)/width)*(heightCanvas.width-1),0,heightCanvas.width-1);
+      const fy = THREE.MathUtils.clamp(((z+width/2)/width)*(heightCanvas.height-1),0,heightCanvas.height-1);
+      const x0=Math.floor(fx), y0=Math.floor(fy), x1=Math.min(x0+1,heightCanvas.width-1), y1=Math.min(y0+1,heightCanvas.height-1);
+      const sample=(px,py)=>samples[(py*heightCanvas.width+px)*4]/255;
+      const value=THREE.MathUtils.lerp(THREE.MathUtils.lerp(sample(x0,y0),sample(x1,y0),fx-x0),THREE.MathUtils.lerp(sample(x0,y1),sample(x1,y1),fx-x0),fy-y0);
+      return surfaceAssets.elevation_min_m+value*elevationRange;
+    };
+    const portalGround = rawElevationAt(surfaceAssets.portal.x_m, surfaceAssets.portal.z_m);
+    const elevationAt = (x,z) => {
+      const distance = Math.hypot(x-surfaceAssets.portal.x_m,z-surfaceAssets.portal.z_m);
+      return THREE.MathUtils.lerp(portalGround,rawElevationAt(x,z),THREE.MathUtils.smoothstep(distance,110,170));
     };
     const segments = heightCanvas.width - 1;
     const geometry = new THREE.PlaneGeometry(width, width, segments, heightCanvas.height - 1);
     geometry.rotateX(-Math.PI / 2);
     const positions = geometry.attributes.position;
     for (let i = 0; i < positions.count; i += 1) {
-      positions.setY(i, surfaceAssets.elevation_min_m + (samples[i * 4] / 255) * elevationRange);
+      positions.setY(i, elevationAt(positions.getX(i), positions.getZ(i)));
     }
     positions.needsUpdate = true;
     geometry.computeVertexNormals();
@@ -232,6 +263,11 @@ function prepareSurfaceTerrain(surfaceAssets) {
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.needsUpdate = true;
     const terrain = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ map: texture, roughness: 1, metalness: 0 }));
+    terrain.material.userData.detailMap=groundDetail;
+    terrain.material.onBeforeCompile=shader=>{
+      shader.uniforms.detailMap={value:groundDetail};
+      shader.fragmentShader="uniform sampler2D detailMap;\n"+shader.fragmentShader.replace("#include <map_fragment>","#include <map_fragment>\ndiffuseColor.rgb *= mix(vec3(1.0), texture2D(detailMap, vMapUv * 420.0).rgb * 2.0, 0.5);");
+    };
     terrain.receiveShadow = false;
     surfaceRoot.add(terrain);
     const base = new THREE.Mesh(new THREE.PlaneGeometry(30000, 30000), new THREE.MeshStandardMaterial({ color: 0x625d48, roughness: 1 }));
@@ -243,21 +279,18 @@ function prepareSurfaceTerrain(surfaceAssets) {
     sun.position.set(-1800, 2600, 1200);
     surfaceRoot.add(sun);
 
-    const road = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-820, 0, 1900), new THREE.Vector3(-1030, 0, 1430),
-      new THREE.Vector3(-900, 0, 1100), new THREE.Vector3(-820, 0, 760),
-      new THREE.Vector3(-800, 0, 715),
-    ]);
+    const site=surfaceAssets.site;
+    const road = new THREE.CatmullRomCurve3(site.access_road_m.map(point=>new THREE.Vector3(...point)));
     const roadVertices = [];
     const roadIndices = [];
-    const roadSteps = 64;
+    const roadSteps = 256;
     for (let i = 0; i <= roadSteps; i += 1) {
       const t = i / roadSteps;
       const point = road.getPoint(t);
       const tangent = road.getTangent(t);
-      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize().multiplyScalar(8);
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize().multiplyScalar(site.road_half_width_m);
       const y = elevationAt(point.x, point.z) + 0.8;
-      roadVertices.push(point.x + side.x, y, point.z + side.z, point.x - side.x, y, point.z - side.z);
+      roadVertices.push(point.x + side.x, elevationAt(point.x+side.x,point.z+side.z)+.55, point.z + side.z, point.x - side.x, elevationAt(point.x-side.x,point.z-side.z)+.55, point.z - side.z);
       if (i < roadSteps) {
         const start = i * 2;
         roadIndices.push(start, start + 2, start + 1, start + 1, start + 2, start + 3);
@@ -326,11 +359,24 @@ function prepareSurfaceTerrain(surfaceAssets) {
       const roof = new THREE.Mesh(new THREE.BoxGeometry(width + 2, 1, depth + 2), new THREE.MeshStandardMaterial({ color: 0x343b3c, roughness: 0.88 }));
       roof.position.y = height + 0.5;
       shed.add(roof);
+      const ridges=new THREE.InstancedMesh(new THREE.BoxGeometry(.12,.16,depth+2),roof.material,12);
+      const ridgePose=new THREE.Object3D();
+      for(let i=0;i<12;i++){ridgePose.position.set((i/11-.5)*width,height+1.04,0);ridgePose.updateMatrix();ridges.setMatrixAt(i,ridgePose.matrix);} shed.add(ridges);
+      const door=new THREE.Mesh(new THREE.PlaneGeometry(width*.35,height*.7),new THREE.MeshStandardMaterial({color:0x394b50,roughness:.8,side:THREE.DoubleSide}));
+      door.position.set(0,height*.35,depth/2+.02);shed.add(door);
     };
-    addServiceShed(-525, 420, 24, 9, 18);
-    addServiceShed(-485, 460, 16, 6, 12);
-    const stockpile = new THREE.Mesh(new THREE.ConeGeometry(10, 6, 12), new THREE.MeshStandardMaterial({ color: 0x625b4d, roughness: 1 }));
-    stockpile.position.set(-510, elevationAt(-510, 380) + 3, 380);
+    for(const shed of site.sheds) addServiceShed(portalX+shed.offset_m[0],portalZ+shed.offset_m[1],...shed.size_m);
+    const tankMaterial = new THREE.MeshStandardMaterial({color:0xa5a89a,roughness:.65,metalness:.3});
+    for (const spec of site.tanks) {
+      const tank = new THREE.Mesh(new THREE.CylinderGeometry(spec.radius_m,spec.radius_m,spec.height_m,16),tankMaterial);
+      const x=portalX+spec.offset_m[0], z=portalZ+spec.offset_m[1];
+      tank.position.set(x,elevationAt(x,z)+spec.height_m/2,z); surfaceRoot.add(tank);
+    }
+    const yard = new THREE.Mesh(new THREE.PlaneGeometry(...site.yard_size_m),new THREE.MeshStandardMaterial({color:0x8b8372,roughness:1,side:THREE.DoubleSide}));
+    const yardMap=groundDetail.clone(); yardMap.repeat.set(14,12); yard.material.map=yardMap;
+    yard.rotation.x=-Math.PI/2; yard.position.set(portalX+site.yard_offset_m[0],portal.position.y+.2,portalZ+site.yard_offset_m[1]); surfaceRoot.add(yard);
+    const stockpile = new THREE.Mesh(new THREE.ConeGeometry(site.stockpile.radius_m, site.stockpile.height_m, 12), new THREE.MeshStandardMaterial({ color: 0x625b4d, roughness: 1 }));
+    stockpile.position.set(portalX + site.stockpile.offset_m[0], portal.position.y + site.stockpile.height_m/2, portalZ + site.stockpile.offset_m[1]);
     surfaceRoot.add(stockpile);
     resolve();
   }).catch(reject);
@@ -345,7 +391,9 @@ async function finishGlobeFlight() {
   try {
     await prepareSurfaceTerrain(missionManifest.assets.surface);
   } catch (error) {
-    skipFlightButton.hidden = true;
+    cameraTransition = completedTransition;
+    skipFlightButton.hidden = false;
+    skipFlightButton.textContent = "RETRY DESCENT";
     flightStatus.textContent = "SURFACE DATA UNAVAILABLE";
     console.error("Rutongo surface data could not be loaded", error);
     return;
@@ -361,10 +409,10 @@ async function finishGlobeFlight() {
   scene.fog = new THREE.Fog(0x7c8982, 3800, 11500);
   camera.near = 1;
   camera.far = 40000;
-  camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-350, 700, 700));
+  camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-100, 145, 210));
   camera.fov = 47;
   camera.updateProjectionMatrix();
-  surfaceLookTarget.copy(surfacePortal.position).add(new THREE.Vector3(150, 0, -115));
+  surfaceLookTarget.copy(surfacePortal.position).add(new THREE.Vector3(24, 0, -20));
   camera.lookAt(surfaceLookTarget);
   cameraTransition = null;
   skipFlightButton.hidden = true;
@@ -375,6 +423,12 @@ async function finishGlobeFlight() {
   surfaceCredit.hidden = false;
   missionState = "surface-arrived";
   enterUndergroundButton.hidden = false;
+  document.getElementById("restart-mission").hidden = false;
+  document.querySelector(".mission-index").hidden = true;
+  targetButton.innerHTML = 'MINE PORTAL <span>ENTER UNDERGROUND</span>';
+  targetButton.hidden = false;
+  disposeGlobeStage();
+  if (onlineMapAllowed && navigator.onLine) setSurfaceView("satellite");
   await new Promise((resolve) => setTimeout(resolve, 820));
   experience.classList.remove("surface-transition");
   window.dispatchEvent(new CustomEvent("kessel:surface-arrival", { detail: { location: missionLocation } }));
@@ -511,6 +565,8 @@ async function loadMission() {
     if (!response.ok) throw new Error(`Mission data request failed: ${response.status}`);
     const mission = await response.json();
     missionManifest = mission;
+    horizonSlider.max = String(mission.prediction_preview.samples.length - 1);
+    horizonSlider.value = String(Math.min(1, mission.prediction_preview.samples.length - 1));
     displayMetrics(mission.optimiser_trace.before);
     fleetMode.textContent = mission.routes[0]?.status.replaceAll("_", " ").toUpperCase() || "SCRIPTED";
     runOptimiserButton.textContent = `RUN ${mission.optimiser_trace.run_count.toLocaleString()} SIMULATIONS`;
@@ -526,7 +582,10 @@ async function loadMission() {
     targetName.textContent = `TARGET / ${location.name}, ${location.country}`;
     earth.rotation.y = -THREE.MathUtils.degToRad(location.longitude + 90);
     const globeAssets = mission.assets.globe;
-    textureLoader.load(globeAssets.day_map, (texture) => {
+    textureLoader.load(globeAssets.day_map, async (texture) => {
+      if (typeof createImageBitmap === "function") {
+        try { texture.image=await createImageBitmap(texture.image,{resizeWidth:mobile?2048:4096,resizeHeight:mobile?1024:2048,resizeQuality:"high"}); } catch { /* Retain the source if bitmap resizing is unavailable. */ }
+      }
       texture.colorSpace = THREE.SRGBColorSpace;
       texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
       earthMaterial.map = texture;
@@ -535,17 +594,17 @@ async function loadMission() {
       const warp = document.getElementById("warp");
       if (!reducedMotion) warp.classList.add("active");
       const defer = window.requestIdleCallback || ((callback) => setTimeout(callback, 1200));
+      defer(() => {
+        if(mobile || missionState !== "biome-select") return;
+        textureLoader.load(globeAssets.night_lights,async texture=>{
+          if(typeof createImageBitmap === "function") { try { texture.image=await createImageBitmap(texture.image,{resizeWidth:2048,resizeHeight:1024}); } catch {} }
+          nightUniforms.nightMap.value=texture;nightEarth.visible=true;
+        });
+        textureLoader.load(globeAssets.clouds,texture=>{cloudMaterial.alphaMap=texture;cloudMaterial.needsUpdate=true;cloudEarth.visible=true;});
+      },{timeout:2500});
       defer(() => loadDepositMarkers(mission.assets.deposit_markers, location), { timeout: 1800 });
     }, undefined, () => {
       document.getElementById("loading-status").textContent = "EARTH TEXTURE UNAVAILABLE";
-    });
-    textureLoader.load(globeAssets.night_lights, (texture) => {
-      nightUniforms.nightMap.value = texture;
-      nightEarth.visible = true;
-    });
-    textureLoader.load(globeAssets.clouds, (texture) => {
-      cloudMaterial.alphaMap = texture;
-      cloudMaterial.needsUpdate = true;
     });
     for (const environment of mission.environments) {
       const live = environment.status === "available";
@@ -574,7 +633,7 @@ async function loadMission() {
       picker.append(button);
     }
     pickerStatus.textContent = "Underground is available. Other environments are planned.";
-    targetButton.addEventListener("click", () => chooseUnderground?.());
+    targetButton.addEventListener("click", () => missionState === "surface-arrived" ? beginPortalTransition() : chooseUnderground?.());
   } catch (error) {
     pickerStatus.textContent = "Mission information is unavailable.";
     console.error(error);
@@ -597,6 +656,9 @@ async function prepareUndergroundStage() {
       routes: missionManifest.routes,
       fleet: missionManifest.fleet,
       vehicleModel,
+      predictionPreview: missionManifest.prediction_preview,
+      loadingBay: assets.loading_bay,
+      excavatorConfig: assets.excavator,
     });
     if (!surfacePortal) throw new Error("Mine entrance is not ready");
     undergroundRoot.position.copy(surfacePortal.position);
@@ -639,19 +701,58 @@ function displayMetrics(values) {
   metricQueue.textContent = `${values.queue_delay_minutes} min`;
 }
 
-function showFleetOverview(duration = 1700) {
-  const origin = undergroundRoot.position.clone();
-  const mobileFactor = mobile ? 1.22 : 1;
-  const position = origin.clone().add(new THREE.Vector3(150 * mobileFactor, 110 * mobileFactor, 150 * mobileFactor));
-  const target = origin.clone().add(new THREE.Vector3(0, -30, -380));
-  camera.fov = mobile ? 58 : 52;
-  camera.far = 1400;
-  if (scene.fog) {
-    scene.fog.near = 70;
-    scene.fog.far = 1400;
+function setInsight(index, title, copy) {
+  document.getElementById("insight-index").textContent = index;
+  document.getElementById("insight-title").textContent = title;
+  document.getElementById("insight-copy").textContent = copy;
+}
+
+function applyViewport() {
+  camera.clearViewOffset();
+  if (["fleet", "truck"].includes(missionState)) {
+    // Reserve room for the console without distorting the vehicle or network.
+    camera.setViewOffset(innerWidth, innerHeight, mobile ? 0 : -innerWidth * .15, mobile ? innerHeight * .16 : 0, innerWidth, innerHeight);
   }
-  camera.updateProjectionMatrix();
-  moveMissionCamera(position, target, reducedMotion ? 150 : duration);
+}
+
+function showFleetOverview(duration = 1700) {
+  fleetStage()?.userData.setInspection(false);
+  const network = fleetStage()?.userData.network;
+  const bounds = new THREE.Box3();
+  for (const node of network.nodes) bounds.expandByPoint(new THREE.Vector3(...node.position_m));
+  const centre = bounds.getCenter(new THREE.Vector3()).add(undergroundRoot.position);
+  const length = bounds.getSize(new THREE.Vector3()).z;
+  const position = centre.clone().add(new THREE.Vector3(length * .73, length * .72, length * .42));
+  if (mobile) position.add(new THREE.Vector3(length*.26,length*.24,length*.15));
+  camera.fov = mobile ? 59 : 47;
+  camera.near = .1; camera.far = 2500;
+  scene.fog = new THREE.Fog(0x07111c,900,2300);
+  scene.background.set(0x07111c);
+  applyViewport(); camera.updateProjectionMatrix();
+  const previousPosition=camera.position.clone(),previousQuaternion=camera.quaternion.clone();
+  for(let attempt=0;attempt<24;attempt++) {
+    camera.position.copy(position);camera.lookAt(centre);camera.updateMatrixWorld(true);
+    const fits=network.nodes.every(node=>{
+      const point=new THREE.Vector3(...node.position_m).add(undergroundRoot.position).project(camera);
+      return point.x>(mobile?-.88:-.42)&&point.x<.9&&point.y>(mobile?.02:-.6)&&point.y<(mobile?.72:.67);
+    });
+    if(fits) break;
+    position.sub(centre).multiplyScalar(1.1).add(centre);
+  }
+  camera.position.copy(previousPosition);camera.quaternion.copy(previousQuaternion);camera.updateMatrixWorld(true);
+  moveMissionCamera(position, centre, reducedMotion ? 150 : duration);
+}
+
+function buildFleetControls() {
+  const fleet = fleetStage().userData.fleet;
+  for (const entry of fleet.entries) {
+    const shortName = entry.id.replace("truck-", "HT-").toUpperCase();
+    const button = document.createElement("button"); button.type="button";
+    button.setAttribute("aria-label", `Inspect ${shortName}`); button.setAttribute("aria-pressed","false");
+    button.innerHTML = `<i class="roster-dot"></i><span>${shortName}</span><span class="roster-phase">HAULING</span><span class="roster-arrow">↗</span>`;
+    button.addEventListener("click",()=>selectTruck(entry.id)); roster.append(button); rosterElements.set(entry.id,button);
+    const tag = document.createElement("span"); tag.className="truck-tag"; tag.innerHTML=`${shortName}<b>HAUL</b>`; labels.append(tag); tagElements.set(entry.id,tag);
+  }
 }
 
 function startOptimisation() {
@@ -659,11 +760,17 @@ function startOptimisation() {
   if (!trace || !fleetStage() || fleetStage().userData.fleet.optimised || simTimeouts.length) return;
   const fleet = fleetStage().userData.fleet;
   runOptimiserButton.disabled = true;
+  for(const button of rosterElements.values()) button.disabled=true;
   experience.classList.add("simulation-running");
+  setInsight("02 / TRAIN", "A world to learn in.", "Evaluate policies inside a model of the mine. Learn how the fleet can move together before deploying to a machine.");
   simulationStatus.textContent = `DISPLAYING PRE-COMPUTED TRACE · ${trace.run_count.toLocaleString()} ITERATIONS · ILLUSTRATIVE`;
-  const started = performance.now();
   trace.steps.forEach((snapshot, index) => {
     simTimeouts.push(setTimeout(() => {
+      const fraction=snapshot.iterations/trace.run_count;
+      displayMetrics({throughput_tph:Math.round(THREE.MathUtils.lerp(trace.before.throughput_tph,trace.after.throughput_tph,fraction)),cycle_minutes:THREE.MathUtils.lerp(trace.before.cycle_minutes,trace.after.cycle_minutes,fraction).toFixed(1),utilisation_percent:Math.round(THREE.MathUtils.lerp(trace.before.utilisation_percent,trace.after.utilisation_percent,fraction)),queue_delay_minutes:THREE.MathUtils.lerp(trace.before.queue_delay_minutes,trace.after.queue_delay_minutes,fraction).toFixed(1)});
+      const progress = Math.round(fraction * 100);
+      simulationProgress.setAttribute("aria-valuenow", String(progress));
+      simulationProgress.querySelector("i").style.width = `${progress}%`;
       simulationStatus.textContent = `ITERATIONS ${snapshot.iterations.toLocaleString()} / ${trace.run_count.toLocaleString()} · ROLL-OUTS ${snapshot.rollouts.toLocaleString()} · ${snapshot.elapsed_ms} ms REPORTED`;
       if (index === trace.steps.length - 1) {
         fleet.setOptimised(true);
@@ -676,15 +783,25 @@ function startOptimisation() {
             object.userData.status = "converged";
             if (routeIndex !== routeMeshes.length - 1) return;
             fleetMode.textContent = "CONVERGED";
-            fleetCaption.textContent = "Pre-computed scripted result. Routes are illustrative, not learned policy output.";
-            metricThroughput.textContent = `${trace.before.throughput_tph} → ${trace.after.throughput_tph} t/h`;
-            metricCycle.textContent = `${trace.before.cycle_minutes} → ${trace.after.cycle_minutes} min`;
-            metricUtilisation.textContent = `${trace.before.utilisation_percent} → ${trace.after.utilisation_percent}%`;
-            metricQueue.textContent = `${trace.before.queue_delay_minutes} → ${trace.after.queue_delay_minutes} min`;
-            simulationStatus.textContent = `PRE-COMPUTED RESULT DISPLAYED IN ${(performance.now() - started).toFixed(0)} ms · ${trace.source.toUpperCase()} VALUES`;
+            fleetCaption.textContent = "Coordinated routes. Less time waiting. Select a machine to see the policy at work.";
+            setInsight("03 / DEPLOY", "Intelligence on the machine.", "Compress the trained policy onto rugged compute. Retrofit the existing fleet. Operate without GPS or a cloud connection.");
+            metricThroughput.textContent = `${trace.after.throughput_tph} t/h`;
+            metricCycle.textContent = `${trace.after.cycle_minutes} min`;
+            metricUtilisation.textContent = `${trace.after.utilisation_percent}%`;
+            metricQueue.textContent = `${trace.after.queue_delay_minutes} min`;
+            simulationStatus.textContent = `+${Math.round((trace.after.throughput_tph / trace.before.throughput_tph - 1) * 100)}% THROUGHPUT · PRE-COMPUTED RESULT`;
+            metricThroughput.dataset.change=`FROM ${trace.before.throughput_tph} t/h`;
+            metricCycle.dataset.change=`FROM ${trace.before.cycle_minutes} min`;
+            metricUtilisation.dataset.change=`FROM ${trace.before.utilisation_percent}%`;
+            metricQueue.dataset.change=`FROM ${trace.before.queue_delay_minutes} min`;
+            metricThroughput.title = `Before: ${trace.before.throughput_tph} t/h`;
+            metricCycle.title = `Before: ${trace.before.cycle_minutes} min`;
+            metricUtilisation.title = `Before: ${trace.before.utilisation_percent}%`;
+            metricQueue.title = `Before: ${trace.before.queue_delay_minutes} min`;
             runOptimiserButton.textContent = "SIMULATION COMPLETE";
-            runOptimiserButton.disabled = false;
+            runOptimiserButton.hidden = true;
             experience.classList.remove("simulation-running");
+            for(const button of rosterElements.values()) button.disabled=false;
             simTimeouts = [];
           }, 320 * (routeIndex + 1)));
         });
@@ -694,45 +811,54 @@ function startOptimisation() {
 }
 
 function selectTruck(id) {
-  const fleet = fleetStage()?.userData.fleet;
-  if (!fleet) return;
+  const stage = fleetStage(); const fleet = stage?.userData.fleet;
+  if (!fleet || simTimeouts.length) return;
   const entry = fleet.select(id);
   if (!entry) return;
   missionState = "truck";
-  if (scene.fog) {
-    scene.fog.near = 12;
-    scene.fog.far = 140;
-  }
-  returnFleetButton.hidden = false;
-  runOptimiserButton.hidden = true;
-  worldModelNote.hidden = false;
-  flightStatus.hidden = false;
-  flightStatus.textContent = `SELECTED / ${id.toUpperCase()}`;
-  const offset = new THREE.Vector3(0, 2.35, -15).applyQuaternion(entry.truck.quaternion);
-  const position = entry.truck.position.clone().add(offset).add(undergroundRoot.position);
-  const target = entry.truck.position.clone().add(new THREE.Vector3(0, 1.2, 1.8)).add(undergroundRoot.position);
-  moveMissionCamera(position, target, reducedMotion ? 150 : 1400);
+  simulationStatus.setAttribute("aria-live","off");
+  stage.userData.setInspection(true);
+  scene.background.set(0x10171b);
+  scene.fog = new THREE.Fog(0x10171b,18,100);
+  camera.fov = mobile ? 66 : 58;
+  camera.far=500; applyViewport(); camera.updateProjectionMatrix();
+  returnFleetButton.hidden=false; runOptimiserButton.hidden=true; worldModelNote.hidden=false;
+  flightStatus.hidden=false; flightStatus.textContent=`${id.replace("truck-","HT-").toUpperCase()} / ONBOARD POLICY`;
+  for (const [vehicleId,button] of rosterElements) button.setAttribute("aria-pressed",String(vehicleId===id));
+  const offset = new THREE.Vector3(.25,2.65,-9).applyQuaternion(entry.truck.quaternion);
+  const position=entry.truck.position.clone().add(offset).add(undergroundRoot.position);
+  const target=entry.truck.position.clone().add(new THREE.Vector3(0,1.25,2).applyQuaternion(entry.truck.quaternion)).add(undergroundRoot.position);
+  moveMissionCamera(position,target,reducedMotion?150:1400);
   undergroundConsole.classList.add("truck-selected");
-  simulationStatus.textContent = `FOLLOWING ${id.toUpperCase()} · PRESS ESC TO RETURN`;
+  fleetMode.textContent="OFFLINE";
+  setInsight("04 / AUTONOMY", "The mine goes offline. Work continues.", "The policy runs on the vehicle. Sensors inform the next action locally. Deployment data improves the world model when a connection returns.");
+  steps.children[4].className="is-complete"; steps.children[6].className="is-active";
+  updateHorizon();
 }
 
 function returnToFleet() {
   const fleet = fleetStage()?.userData.fleet;
   if (!fleet) return;
   missionState = "fleet";
+  simulationStatus.setAttribute("aria-live","polite");
   fleet.select(null);
+  fleetMode.textContent = fleet.optimised ? "CONVERGED" : "UNOPTIMISED";
+  simulationStatus.textContent = fleet.optimised ? "PRE-COMPUTED RESULT · ILLUSTRATIVE VALUES" : "PRE-COMPUTED TRACE · ILLUSTRATIVE SCENARIO";
+  if (fleet.optimised) setInsight("03 / DEPLOY", "Intelligence on the machine.", "Compress the trained policy onto rugged compute. Retrofit the existing fleet. Operate without GPS or a cloud connection.");
+  else setInsight("01 / OBSERVE", "A shared bottleneck.", "Uncoordinated machines compete for the same decline. Queues build. Productive time falls.");
+  for (const button of rosterElements.values()) button.setAttribute("aria-pressed","false");
   returnFleetButton.hidden = true;
   runOptimiserButton.hidden = fleet.optimised;
   worldModelNote.hidden = true;
   undergroundConsole.classList.remove("truck-selected");
-  flightStatus.textContent = "FLEET OVERVIEW";
+  flightStatus.textContent = "ILLUSTRATIVE CUTAWAY / THREE LEVELS";
   showFleetOverview();
 }
 
 runOptimiserButton.addEventListener("click", startOptimisation);
 returnFleetButton.addEventListener("click", returnToFleet);
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && missionState === "truck") returnToFleet();
+  if (event.key === "Escape" && missionState === "truck" && !document.getElementById("sources-dialog").open) returnToFleet();
 });
 canvas.addEventListener("click", (event) => {
   if (!["fleet", "truck"].includes(missionState) || !undergroundRoot.visible) return;
@@ -746,6 +872,20 @@ canvas.addEventListener("click", (event) => {
   if (vehicle) selectTruck(vehicle);
 });
 
+function disposeGlobeStage() {
+  const geometries=new Set(), materials=new Set(), textures=new Set();
+  for (const root of [earthRoot,stars]) root.traverse(object=>{
+    if(object.geometry) geometries.add(object.geometry);
+    if(object.material) {
+      materials.add(object.material);
+      for(const value of Object.values(object.material)) if(value?.isTexture) textures.add(value);
+    }
+  });
+  if(nightUniforms.nightMap.value) textures.add(nightUniforms.nightMap.value);
+  geometries.forEach(item=>item.dispose()); materials.forEach(item=>item.dispose()); textures.forEach(item=>item.dispose());
+  scene.remove(earthRoot,stars);
+}
+
 function disposeSurfaceStage() {
   const geometries = new Set();
   const materials = new Set();
@@ -756,7 +896,7 @@ function disposeSurfaceStage() {
     for (const material of list) {
       if (!material) continue;
       materials.add(material);
-      for (const value of Object.values(material)) {
+      for (const value of [...Object.values(material), ...Object.values(material.userData || {})]) {
         if (value?.isTexture) textures.add(value);
       }
     }
@@ -784,6 +924,9 @@ async function beginPortalTransition() {
   }
   if (missionState !== "surface-arrived" || !surfacePortal) return;
   missionState = "surface-transition";
+  surfaceMap.hidden=true;
+  satelliteMap.removeAttribute("src");
+  targetButton.hidden = true;
   const fromPosition = camera.position.clone();
   const fromLookTarget = surfaceLookTarget.clone();
   const targetPosition = surfacePortal.position.clone().add(new THREE.Vector3(0, 1.5, -5));
@@ -819,7 +962,7 @@ function updatePortalTransition(now) {
     portalTransition.switched = true;
     surfaceRoot.visible = false;
     undergroundRoot.visible = true;
-    scene.background.set(0x07090a);
+    scene.background.set(0x07111c);
     scene.fog = new THREE.Fog(0x07090a, 75, 310);
     camera.near = 0.1;
     camera.far = 600;
@@ -830,6 +973,9 @@ function updatePortalTransition(now) {
     portalTransition = null;
     missionState = "fleet";
     showFleetOverview(1900);
+    buildFleetControls();
+    insight.hidden = false; steps.hidden = false;
+    document.querySelector(".topbar-readout").innerHTML = '<span class="status-light"></span> AUTONOMY / OFFLINE<br /><span class="readout-sub">ILLUSTRATIVE MISSION</span>';
     experience.classList.add("underground-active");
     returnFleetButton.hidden = true;
     runOptimiserButton.hidden = false;
@@ -840,7 +986,7 @@ function updatePortalTransition(now) {
     surfaceConsole.hidden = true;
     surfaceCredit.hidden = true;
     undergroundConsole.hidden = false;
-    flightStatus.textContent = "UNDERGROUND / LEVEL 01";
+    flightStatus.textContent = "ILLUSTRATIVE CUTAWAY / THREE LEVELS";
     window.dispatchEvent(new CustomEvent("kessel:descentcomplete", { detail: { location: missionLocation } }));
   }
 }
@@ -855,51 +1001,159 @@ enterUndergroundButton.addEventListener("click", beginPortalTransition);
 function resize() {
   const width = innerWidth;
   const height = innerHeight;
+  mobile = width <= 760;
+  adaptiveRatio = Math.min(devicePixelRatio || 1, mobile ? 1.25 : 1.5);
+  renderer.setPixelRatio(adaptiveRatio);
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
   if (portalTransition) {
     camera.updateProjectionMatrix();
   } else if (missionState === "surface-arrived") {
-    if (surfacePortal) camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-350, width <= 760 ? 900 : 700, width <= 760 ? 850 : 700));
+    if (surfacePortal) camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-100, mobile ? 210 : 145, mobile ? 270 : 210));
     camera.lookAt(surfaceLookTarget);
   } else if (missionState !== "fleet" && missionState !== "truck") {
     camera.position.z = width <= 760 ? 9.8 : 8.4;
   }
+  applyViewport();
   earthRoot.position.x = width <= 760 ? 0 : 1.55;
   camera.updateProjectionMatrix();
 }
 addEventListener("resize", resize, { passive: true });
-resize();
 
 let lastTime = 0;
+let sampledState = "";
+let frameTimes = [];
+let qualitySample = [];
+let adaptiveRatio = Math.min(devicePixelRatio || 1, mobile ? 1.25 : 1.5);
+resize();
 const earthWorldPosition = new THREE.Vector3();
 function render(time) {
   requestAnimationFrame(render);
-  const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
+  const frameMs = lastTime ? time - lastTime : 0;
+  if (sampledState !== missionState) { sampledState = missionState; frameTimes = []; qualitySample = []; }
+  if(frameMs > 0 && visiblePage) {
+    frameTimes.push(frameMs); if(frameTimes.length > 180) frameTimes.shift();
+    qualitySample.push(frameMs);
+    if(qualitySample.length >= 20) {
+      const mean=qualitySample.reduce((sum,value)=>sum+value,0)/qualitySample.length;
+      if(mean > 40 && adaptiveRatio > .76) { adaptiveRatio=Math.max(.75,adaptiveRatio*.8);renderer.setPixelRatio(adaptiveRatio); }
+      else if(mean < 20) {
+        const cap=Math.min(devicePixelRatio||1,mobile?1.25:1.5);
+        if(adaptiveRatio < cap) { adaptiveRatio=Math.min(cap,adaptiveRatio*1.08);renderer.setPixelRatio(adaptiveRatio); }
+      }
+      qualitySample=[];
+    }
+  }
+  const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.2) : 0;
   lastTime = time;
   if (!reducedMotion && missionState === "biome-select") earth.rotation.y += delta * 0.025;
+  if(missionState==="truck"&&cameraTransition?.kind==="mission-view") {
+    const entry=fleetStage()?.userData.fleet.entries.find(item=>item.id===fleetStage().userData.fleet.selectedId);
+    if(entry) {
+      cameraTransition.toCameraPosition.set(.25,2.65,-9).applyQuaternion(entry.truck.quaternion).add(entry.truck.position).add(undergroundRoot.position);
+      cameraTransition.toLookTarget.set(0,1.25,2).applyQuaternion(entry.truck.quaternion).add(entry.truck.position).add(undergroundRoot.position);
+    }
+  }
   updateCameraTransition(time);
   updatePortalTransition(time);
-  if (undergroundRoot.visible) fleetStage()?.userData.fleet.update(delta);
+  if (!visiblePage) return;
+  if (undergroundRoot.visible) {
+    const stage=fleetStage(); const fleet=stage.userData.fleet;
+    fleet.update(delta);
+    const entry = fleet.entries.find(item=>item.id===fleet.selectedId);
+    if (entry && missionState==="truck") {
+      stage.userData.updateInspection(entry, delta);
+      if (!cameraTransition) {
+        followPosition.set(.25,2.65,-9).applyQuaternion(entry.truck.quaternion).add(entry.truck.position).add(undergroundRoot.position);
+        followTarget.set(0,1.25,2).applyQuaternion(entry.truck.quaternion).add(entry.truck.position).add(undergroundRoot.position);
+        camera.position.lerp(followPosition,1-Math.exp(-delta*5));
+        flightLookTarget.copy(followTarget); camera.lookAt(flightLookTarget);
+      }
+      const phases={loading:"LOADING ORE",hauling:"HAULING",tipping:"TIPPING ORE",returning:"RETURNING EMPTY",queued:"WAITING AT DECLINE"};
+      simulationStatus.textContent=`${entry.id.replace("truck-","HT-").toUpperCase()} · ${phases[entry.truck.userData.phase]} · ${Math.round(entry.load*100)}% PAYLOAD`;
+    }
+    if(time-hudUpdated>120) {
+      hudUpdated=time;
+      for(const [truckIndex,truck] of fleet.entries.entries()) {
+        const phase=truck.truck.userData.phase;
+        rosterElements.get(truck.id)?.querySelector(".roster-phase").replaceChildren(phase.toUpperCase());
+        const tag=tagElements.get(truck.id);
+        if(!tag) continue;
+        labelPosition.copy(truck.truck.position).add(undergroundRoot.position).add(new THREE.Vector3(0,4,0)).project(camera);
+        tag.hidden=missionState!=="fleet"||labelPosition.z>1||Math.abs(labelPosition.x)>1||Math.abs(labelPosition.y)>1;
+        tag.style.left=`${(labelPosition.x*.5+.5)*innerWidth}px`; tag.style.top=`${(-labelPosition.y*.5+.5)*innerHeight-12-truckIndex*23}px`;
+        tag.querySelector("b").textContent=phase==="queued"?"QUEUE":phase.toUpperCase();
+      }
+    }
+  }
   nightEarth.rotation.y = earth.rotation.y;
   surfaceMarkers.rotation.y = earth.rotation.y;
   cloudEarth.rotation.y = earth.rotation.y + (reducedMotion ? 0 : Math.sin(time * 0.000012) * 0.012);
   earthRoot.getWorldPosition(earthWorldPosition);
   nightUniforms.sunDirection.value.copy(sun.position).sub(earthWorldPosition).normalize();
-  if (missionLocation && !targetButton.hidden) {
-    targetWorldPosition.copy(geographicNormal(missionLocation.latitude, missionLocation.longitude)).multiplyScalar(2.44);
-    targetWorldPosition.applyAxisAngle(Y_AXIS, earth.rotation.y).applyQuaternion(earthRoot.quaternion).add(earthRoot.position);
-    targetWorldNormal.copy(geographicNormal(missionLocation.latitude, missionLocation.longitude));
-    targetWorldNormal.applyAxisAngle(Y_AXIS, earth.rotation.y).applyQuaternion(earthRoot.quaternion);
-    projectedTarget.copy(targetWorldPosition).project(camera);
-    cameraToTarget.copy(camera.position).sub(targetWorldPosition);
-    const visible = targetWorldNormal.dot(cameraToTarget) > 0 && projectedTarget.z >= -1 && projectedTarget.z <= 1;
-    targetButton.hidden = !visible;
-    if (visible) {
-      targetButton.style.left = `${(projectedTarget.x * 0.5 + 0.5) * innerWidth}px`;
-      targetButton.style.top = `${(-projectedTarget.y * 0.5 + 0.5) * innerHeight}px`;
+  if (missionLocation && ["biome-select","surface-arrived"].includes(missionState)) {
+    if(missionState==="surface-arrived"&&surfacePortal) {
+      projectedTarget.copy(surfacePortal.position).add(new THREE.Vector3(0,6,0)).project(camera);
+      targetButton.hidden=!surfaceMap.hidden||projectedTarget.z>1;
+    } else {
+      targetWorldPosition.copy(geographicNormal(missionLocation.latitude,missionLocation.longitude)).multiplyScalar(2.44).applyAxisAngle(Y_AXIS,earth.rotation.y).applyQuaternion(earthRoot.quaternion).add(earthRoot.position);
+      targetWorldNormal.copy(geographicNormal(missionLocation.latitude,missionLocation.longitude)).applyAxisAngle(Y_AXIS,earth.rotation.y).applyQuaternion(earthRoot.quaternion);
+      projectedTarget.copy(targetWorldPosition).project(camera);
+      cameraToTarget.copy(camera.position).sub(targetWorldPosition);
+      targetButton.hidden=targetWorldNormal.dot(cameraToTarget)<=0||projectedTarget.z < -1||projectedTarget.z>1;
     }
+    if(!targetButton.hidden) { targetButton.style.left=`${(projectedTarget.x*.5+.5)*innerWidth}px`; targetButton.style.top=`${(-projectedTarget.y*.5+.5)*innerHeight}px`; }
   }
   renderer.render(scene, camera);
 }
 requestAnimationFrame(render);
+
+function updateHorizon() {
+  const index=Number(horizonSlider.value);
+  const sample=missionManifest?.prediction_preview.samples[index];
+  if(!sample) return;
+  document.getElementById("horizon-value").textContent=`+${sample.horizon_seconds} s`;
+  document.getElementById("prediction-error").textContent=`${sample.error_m.toFixed(2)} m`;
+  fleetStage()?.userData.fleet.setPredictionSample(index);
+}
+horizonSlider.addEventListener("input",updateHorizon);
+document.getElementById("watch-cycle").addEventListener("click",()=>{
+  fleetStage()?.userData.fleet.watchCycle();
+  cameraTransition=null;
+});
+document.getElementById("restart-mission").addEventListener("click",()=>location.reload());
+const sourcesDialog=document.getElementById("sources-dialog");
+document.getElementById("open-sources").addEventListener("click",()=>sourcesDialog.showModal());
+document.getElementById("close-sources").addEventListener("click",()=>sourcesDialog.close());
+sourcesDialog.addEventListener("click",event=>{if(event.target===sourcesDialog){const box=sourcesDialog.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)sourcesDialog.close();}});
+document.addEventListener("visibilitychange",()=>{visiblePage=!document.hidden;lastTime=0;});
+
+// Read-only measurements for the release verification report.
+export function getMissionDiagnostics() {
+  const textures=new Set();
+  scene.traverse(object=>{
+    const materials=Array.isArray(object.material)?object.material:[object.material];
+    for(const material of materials) if(material) {
+      for(const value of [...Object.values(material),...Object.values(material.userData||{})]) if(value?.isTexture) textures.add(value);
+      for(const uniform of Object.values(material.uniforms||{})) if(uniform.value?.isTexture) textures.add(uniform.value);
+    }
+  });
+  const textureBytes=[...textures].reduce((sum,texture)=>sum+(texture.image?.width||0)*(texture.image?.height||0)*4*(texture.generateMipmaps?4/3:1),0);
+  const sorted=[...frameTimes].sort((a,b)=>a-b);
+  const gl=renderer.getContext(), debug=gl.getExtension("WEBGL_debug_renderer_info");
+  const fleet=fleetStage()?.userData.fleet;
+  return {state:missionState,pixelRatio:renderer.getPixelRatio(),drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,gpuTextures:renderer.info.memory.textures,estimatedTextureMiB:Number((textureBytes/1048576).toFixed(2)),frameSamples:sorted.length,meanFps:sorted.length?Number((1000/(sorted.reduce((a,b)=>a+b,0)/sorted.length)).toFixed(1)):null,p95FrameMs:sorted[Math.floor(sorted.length*.95)]||null,renderer:debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):"not exposed",selected:fleet?.selectedId,vehicles:fleet?.entries.map(entry=>({id:entry.id,phase:entry.phase,distance:entry.distance,load:entry.load,position:entry.truck.position.toArray(),up:new THREE.Vector3(0,1,0).applyQuaternion(entry.truck.quaternion).toArray()}))};
+}
+
+function setSurfaceView(view) {
+  const satellite=view==="satellite";
+  surfaceMap.hidden=!satellite;
+  viewSatellite.setAttribute("aria-pressed",String(satellite));
+  viewSite.setAttribute("aria-pressed",String(!satellite));
+  document.getElementById("surface-view-description").textContent=satellite?"Satellite imagery of the Rutongo area. Explore the site from above.":"Local terrain model · illustrative mine portal and service yard";
+  if(satellite && !satelliteMap.src) satelliteMap.src=missionManifest.assets.surface.satellite_embed.url;
+  targetButton.hidden=satellite;
+  if(!satellite) satelliteMap.removeAttribute("src");
+}
+viewSatellite.addEventListener("click",()=>setSurfaceView("satellite"));
+viewSite.addEventListener("click",()=>setSurfaceView("site"));

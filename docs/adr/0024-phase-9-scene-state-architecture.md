@@ -1,6 +1,6 @@
 # ADR-0024: Phase 9 scene and state architecture
 
-Status: Accepted
+Status: Accepted; override state superseded by [ADR-0026](0026-phase-9-autonomous-operation.md), presentation extended by [ADR-0027](0027-phase-9-demo-completion.md).
 
 ## Context
 

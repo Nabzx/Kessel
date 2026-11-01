@@ -40,21 +40,17 @@ stage during verification, including compressed transfer size and decoded
 texture memory. An optional visual layer can be omitted on constrained
 devices without blocking the mission.
 
-## Local verification sample
+## Final Phase 9 verification
 
-On 1 November 2026, a headless Chromium run over localhost reported these
-same-origin encoded transfer sizes, excluding CDN modules:
+The [verification report](../demo/phase-9-verification.md) records the final
+stage transfers, decoded texture estimates, frame samples, mobile CPU profile
+and slow-network timing, including the retained excavator asset. The mission
+passes the 3/3/4 MiB stage transfer targets and the 10 MiB total. Optional
+globe layers loaded after first interaction are reported separately. Libraries
+and fonts are vendored locally and listed separately from mission assets.
 
-| Stage | Added bytes | Added MiB | Cumulative MiB |
-| --- | ---: | ---: | ---: |
-| Globe, before first interactive view | 2,879,155 | 2.75 | 2.75 |
-| Surface | 805,287 | 0.77 | 3.52 |
-| Underground | 604,047 | 0.58 | 4.09 |
-
-The transfer targets are met in this sample. A three-second requestAnimationFrame
-sample reported 4.3 fps at 1440 x 1000 and 35.3 fps at 390 x 844 with DPR 1.5.
-Both used headless Chromium with SwiftShader software rendering, so these are
-not representative device frame rates. They flag the render path for a real
-mid-range phone check. The local flows completed without page errors or mobile
-overflow. Decoded texture memory, real-device frame rate and throttled-network
-descent timing remain unmeasured.
+The software-rendered browser samples do not meet a 30 fps smoothness target.
+They are disclosed as a shortfall, not substituted for physical-phone results.
+A real mid-range phone measurement remains outstanding. The core flow runs
+without external requests using `?offline=1`; Google satellite reconnaissance
+is optional online content with its own service attribution.

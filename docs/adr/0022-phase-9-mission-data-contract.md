@@ -56,3 +56,13 @@ Phase 9 build replaces it. It is not the Phase 9 data contract. The mission
 manifest can describe many vehicles and routes without duplicating static
 scene data per animation frame. The new contract needs a validator and a
 documented example before the renderer switches to it.
+
+## Phase 9 completion fields
+
+ADR-0027 adds `fleet.dwell_seconds` for stationary loading and tipping,
+`fleet.inspection_time_scale` for the complete-cycle preview, and
+`prediction_preview.samples` containing `horizon_seconds` and `error_m`.
+The renderer finds the tipping distance from the route's tipping node, rather
+than assuming a fixed fraction of the route length. The surface site props,
+map embed URL, loading bay dimensions and excavator placement are asset
+configuration in the mission manifest. All remain labelled illustrative.

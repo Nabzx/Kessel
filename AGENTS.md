@@ -47,8 +47,8 @@ For the Phase 9 mission demo, `index.html`, `css/`, and `js/app.js` do not
 hardcode authored scene content. The mission manifest and stage assets provide
 mine geometry, vehicle poses, routes, and HUD values as defined in ADR-0022.
 Swapping the scripted mission dataset for a conforming logged dataset must
-require zero changes to the renderer. User waypoint input is transient session
-state and is computed by generic route code over the supplied graph. The old
+require zero changes to the renderer. The mission demonstrates offline autonomy
+without manual waypoint controls (ADR-0026). The old
 `data/rollout.json` contract applies only to the earlier demo and is superseded
 for Phase 9 by ADR-0022.
 

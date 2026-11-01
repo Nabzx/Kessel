@@ -1,0 +1,20 @@
+name: Static demo checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: for file in js/*.js; do node --check "$file"; done
+      - name: Validate the mission and network
+        run: python3 data/validate_tunnel_network.py
+      - name: Check whitespace
+        run: git diff --check

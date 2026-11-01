@@ -99,6 +99,26 @@ def validate(network, mission=None):
         route_vehicle_ids = {route.get("vehicle_id") for route in routes}
         if fleet_ids != route_vehicle_ids:
             errors.append("fleet vehicle IDs must match mission route vehicle IDs")
+        fleet = mission.get("fleet", {})
+        for phase in ("loading", "tipping"):
+            if fleet.get("dwell_seconds", {}).get(phase, 0) <= 0:
+                errors.append(f"fleet must define a positive {phase} dwell")
+        if fleet.get("inspection_time_scale", 0) <= 0:
+            errors.append("fleet inspection_time_scale must be positive")
+        prediction = mission.get("prediction_preview", {})
+        samples = prediction.get("samples", [])
+        if prediction.get("source") != "scripted" or not samples:
+            errors.append("prediction preview must identify its scripted samples")
+        if any(sample.get("horizon_seconds", 0) <= 0 or sample.get("error_m", -1) < 0 for sample in samples):
+            errors.append("prediction samples need positive horizons and non-negative errors")
+        for route in routes:
+            node_ids = route.get("node_ids", [])
+            if not node_ids or node_ids[0] != node_ids[-1]:
+                errors.append("haul routes must return to their loading point")
+            elif node_by_id.get(node_ids[0], {}).get("kind") != "draw_point":
+                errors.append("haul routes must begin at a draw point")
+            if not any(node_by_id.get(node_id, {}).get("kind") == "tipping_point" for node_id in node_ids):
+                errors.append("haul routes must include a tipping point")
         trace = mission.get("optimiser_trace", {})
         steps = trace.get("steps", [])
         if trace.get("source") != "scripted":

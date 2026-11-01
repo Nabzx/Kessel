@@ -56,14 +56,43 @@ rights reserved.” The official [Sentinel data notice](https://cds.climate.cope
 and [Copernicus DEM notice](https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM)
 are documented there.
 
-## Illustrative haul truck
+## Original haul truck and mine assets
 
-`models/haul-truck.json` describes a small procedural truck mesh assembled by
-the renderer from boxes, wheels, lamps, and a rock load. It is a temporary
-stand-in rather than a sourced manufacturer model. The envelope uses the
-published 7.71 m × 2.274 m × 2.395 m dimensions and 15 t payload of the
-[Sandvik TH315](https://www.mining.sandvik/en/products/equipment/trucks/th315-underground-truck/).
-The shape, wheelbase, lights, motion, and loading cycle are illustrative and
-are not a TH315 digital twin or a Rutongo equipment record. The data-defined
-model has its forward axis, lamp direction, bed position, and articulation
-angle recorded in the asset file so the renderer does not infer its heading.
+`models/haul-truck.json` defines an original Kessel vehicle. Geometry, wheel tread, contact shadow, lamps,
+identification plate and articulated dump bed are assembled by `js/vehicle.js`.
+The original geometry is copyright Nabil Shah / Kessel under the repository
+licence. It is not a manufacturer model or a Rutongo vehicle record. The
+published compact-truck envelope remains the dimensional reference. Distant
+vehicles use a silhouette with the same envelope; the full rig appears during
+inspection. Initial-pose physical mesh bounds are checked without the shadow.
+
+The loading scene uses the existing
+[Excavator 3d Rigging asset and CC BY 4.0 credit](models/excavator/README.md).
+Its geometry is normalised and its documented boom and bucket joints are
+animated. The loading chamber and placement are illustrative. The
+[Poly Haven material sets](textures/README.md) supply wall, mud and ore diffuse
+maps, with normal maps enabled on desktop.
+
+## Google satellite view
+
+The surface stage can display an embedded Google Maps satellite map of the
+Rutongo area. Google renders the imagery and provider attributions in the
+iframe; they remain visible and unobscured. No Google tiles, screenshots or
+map imagery are bundled as a terrain texture. The local Copernicus model is
+independently selectable. The map requires an internet connection; open the
+mission with `?offline=1` to use only the local assets.
+
+[Google's map sharing and embedding instructions](https://support.google.com/maps/answer/7101463).
+
+## Local rendering dependencies
+
+Three.js 0.160.0, RoundedBoxGeometry, GLTFLoader and BufferGeometryUtils are
+served from `vendor/`, retaining the
+[Three.js MIT licence](vendor/THREE-LICENSE.txt). They were downloaded from
+the matching version on unpkg. The vendored files are unchanged.
+
+Latin subsets of Space Grotesk and JetBrains Mono are served from `fonts/`.
+They were fetched through Google Fonts on 1 November 2026. Their OFL notices
+are retained as `fonts/SPACE-GROTESK-OFL.txt` and
+`fonts/JETBRAINS-MONO-OFL.txt`. Font and library transfers are reported
+separately from Kessel mission assets in the verification report.

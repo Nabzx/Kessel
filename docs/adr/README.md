@@ -3,7 +3,8 @@
 Phase 9 decisions: [mission data contract](0022-phase-9-mission-data-contract.md),
 [progressive payload](0023-phase-9-progressive-payload.md), and
 [scene/state architecture](0024-phase-9-scene-state-architecture.md),
-[autonomous operation](0026-phase-9-autonomous-operation.md).
+[autonomous operation](0026-phase-9-autonomous-operation.md), and
+[demo completion](0027-phase-9-demo-completion.md).
 
 An ADR is written before code for anything touching the rollout data schema,
 the sim/world-model panel split, the renderer's public shape, or the

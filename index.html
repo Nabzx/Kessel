@@ -7,9 +7,7 @@
   <title>Kessel | Physical AI for extreme environments</title>
   <meta name="description" content="Explore how Kessel trains physical AI for machines in extreme environments." />
   <link rel="icon" href="data:," />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/mission.css" />
 </head>
 <body>
@@ -23,13 +21,13 @@
     <header class="topbar">
       <a class="wordmark" href="./" aria-label="Kessel home">KESSEL<span class="wordmark-dot">.</span></a>
       <div class="topbar-readout"><span class="status-light"></span> EXTREME ENVIRONMENTS<br /><span class="readout-sub">PHYSICAL AI SYSTEMS</span></div>
-      <div class="mission-index">WORLD / 01</div>
+      <div class="mission-index" id="mission-index">WORLD / 01</div><button class="restart-mission" id="restart-mission" type="button" hidden>MISSION SELECT <span>↗</span></button>
     </header>
 
     <section class="opening-copy" aria-labelledby="opening-title">
       <p class="eyebrow"><span class="eyebrow-line"></span> MACHINE INTELLIGENCE, OFFLINE</p>
-      <h1 id="opening-title">The next frontier<br />is <span>unconnected.</span></h1>
-      <p class="intro-copy">Training physical AI for the places where machines cannot rely on a signal.</p>
+      <h1 id="opening-title">Intelligence<br />beyond <span>the signal.</span></h1>
+      <p class="intro-copy">Physical AI for extreme environments.<br />Trained in simulation. Deployed offline.</p>
     </section>
 
     <div class="earth-readout" aria-hidden="true">
@@ -45,29 +43,54 @@
     <div class="flight-status" id="flight-status" role="status" aria-live="polite" hidden>ROUTING TO RUTONGO</div>
     <section class="surface-console" id="surface-console" aria-live="polite" hidden>
       <p class="eyebrow"><span class="eyebrow-line"></span> SURFACE RECONNAISSANCE / RWANDA</p>
-      <h2>Rutongo <span>surface model</span></h2>
-      <p>Satellite ground view · 4 km terrain tile · elevation relief</p>
+      <h2>Rutongo <span>reconnaissance</span></h2>
+      <div class="surface-view-controls" role="group" aria-label="Surface view"><button id="view-satellite" type="button" aria-pressed="false">SATELLITE</button><button id="view-site" type="button" aria-pressed="true">3D SITE</button></div>
+      <p id="surface-view-description">Satellite ground view · 4 km terrain tile · elevation relief</p>
       <p class="surface-model-note">Illustrative portal and service yard. The layout is not a surveyed Rutongo plan.</p>
       <button class="enter-underground" id="enter-underground" type="button" hidden>ENTER THE MINE <span>DESCEND ›</span></button>
     </section>
-    <section class="underground-console" id="underground-console" aria-live="polite" hidden>
-      <p class="eyebrow"><span class="eyebrow-line"></span> UNDERGROUND / RUTONGO SCENARIO</p>
-      <h2>Haulage network <span id="fleet-mode">Loading</span></h2>
-      <p id="fleet-caption">Time-compressed scripted truck motion. Select a truck to inspect.</p>
-      <div class="fleet-metrics" aria-live="polite">
-        <span>THROUGHPUT <b id="metric-throughput">--</b></span>
-        <span>MEAN CYCLE <b id="metric-cycle">--</b></span>
-        <span>UTILISATION <b id="metric-utilisation">--</b></span>
-        <span>QUEUE DELAY <b id="metric-queue">--</b></span>
+    <section class="surface-map" id="surface-map" hidden aria-label="Rutongo satellite reconnaissance"><div class="map-heading"><span>RUTONGO / SATELLITE RECONNAISSANCE</span><span>01.82° S / 30.06° E</span></div><iframe id="satellite-map" title="Google Maps satellite view of the Rutongo area, Rwanda" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><p>PUBLIC SURFACE CONTEXT <span>Underground workings are illustrative.</span></p></section>
+    <section class="underground-console" id="underground-console" hidden aria-labelledby="fleet-heading">
+      <p class="eyebrow"><span class="eyebrow-line"></span> RUTONGO / RWANDA</p>
+      <div class="console-title"><h2 id="fleet-heading">Autonomous haulage</h2><span class="mode-chip" id="fleet-mode">Loading</span></div>
+      <p id="fleet-caption">Three machines. One shared decline.<br /> See what changes when they learn together.</p>
+      <div class="offline-status"><span class="status-light"></span> NO GPS <span>/</span> NO CLOUD <strong>ONBOARD AUTONOMY</strong></div>
+      <p class="metrics-label">SCENARIO PERFORMANCE <span>ILLUSTRATIVE</span></p>
+      <div class="fleet-metrics">
+        <span>Throughput <b id="metric-throughput">--</b></span>
+        <span>Mean cycle <b id="metric-cycle">--</b></span>
+        <span>Utilisation <b id="metric-utilisation">--</b></span>
+        <span>Queue delay <b id="metric-queue">--</b></span>
       </div>
-      <p class="metrics-source">All values are illustrative scenario inputs, not mine telemetry. <span id="cycle-reference"></span> <a id="cycle-reference-link" target="_blank" rel="noreferrer"></a></p>
       <div class="fleet-controls">
-        <button id="run-optimiser" type="button">RUN 100,000 SIMULATIONS</button>
+        <button id="run-optimiser" type="button">RUN 100,000 SIMULATIONS <span>↗</span></button>
         <button id="return-fleet" type="button" hidden>FLEET OVERVIEW <kbd>ESC</kbd></button>
       </div>
-      <p id="simulation-status" class="simulation-status" role="status" aria-live="polite">Loading scripted mission data</p>
-      <p class="world-model-note" id="world-model-note" hidden>WORLD MODEL / scripted prediction preview, not a learned model output.</p>
+      <div class="simulation-progress" id="simulation-progress" role="progressbar" aria-label="Scripted optimisation playback" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+      <p id="simulation-status" class="simulation-status" role="status" aria-live="polite">Pre-computed trace · illustrative scenario</p>
+      <div class="fleet-roster" id="fleet-roster" aria-label="Inspect a haul truck"></div>
+      <div class="world-model-panel" id="world-model-note" hidden>
+        <p class="eyebrow">WORLD MODEL / PREDICTION PREVIEW</p>
+        <p>Learn the environment in simulation.<br />Run the policy on the machine.</p>
+        <label for="prediction-horizon">Look ahead <output id="horizon-value">+2 s</output></label>
+        <input id="prediction-horizon" type="range" min="0" max="2" value="1" step="1" />
+        <div class="prediction-scale"><span>LOW ERROR</span><i></i><span>HIGH</span></div>
+        <p class="prediction-reading">Position error <b id="prediction-error">0.12 m</b><span>Scripted prediction and comparison</span></p>
+        <button id="watch-cycle" type="button">WATCH A COMPLETE HAUL CYCLE <span>↗</span></button>
+      </div>
+      <details class="metrics-source"><summary>Scenario basis and references</summary><p>Illustrative inputs, not mine telemetry. <span id="cycle-reference"></span> <a id="cycle-reference-link" target="_blank" rel="noreferrer"></a></p></details>
     </section>
+    <div class="truck-labels" id="truck-labels" aria-hidden="true"></div>
+    <aside class="mission-insight" id="mission-insight" hidden>
+      <span class="insight-index" id="insight-index">01 / OBSERVE</span>
+      <h3 id="insight-title">A shared bottleneck.</h3>
+      <p id="insight-copy">Uncoordinated machines compete for the same decline. Queues build. Productive time falls.</p>
+      <div class="insight-rule"></div>
+      <span class="insight-foot">TRAIN IN SIMULATION. OPERATE OFFLINE.</span>
+    </aside>
+    <div class="mission-steps" id="mission-steps" hidden aria-label="Mission progress"><span class="is-complete">01 <b>EARTH</b></span><i></i><span class="is-complete">02 <b>RUTONGO</b></span><i></i><span class="is-active">03 <b>OPTIMISE</b></span><i></i><span>04 <b>DEPLOY</b></span></div>
+    <div class="demo-caption"><span class="caption-dot"></span> CONCEPT DEMO <span class="caption-detail">/ SCRIPTED SCENARIO</span><button id="open-sources" type="button">SOURCES ↗</button></div>
+    <dialog id="sources-dialog" class="sources-dialog" aria-labelledby="sources-title"><button id="close-sources" type="button" aria-label="Close sources">×</button><p class="eyebrow">WHAT YOU ARE SEEING</p><h2 id="sources-title">Real location. Illustrative mission.</h2><p>Kessel is developing physical AI for extreme environments. This concept demo uses a scripted scenario to explain the approach. It does not run a trained policy or 100,000 live simulations.</p><dl><dt>Location</dt><dd>Rutongo Mines, Rwanda. Public coordinates and satellite terrain; the portal, workings and fleet are illustrative. <a href="https://trinity-metals.com/en/projects/rutongo-mine" target="_blank" rel="noreferrer">Trinity Metals ↗</a></dd><dt>Earth and terrain</dt><dd>NASA Blue Marble and Black Marble, historical USGS MRDS mineral occurrences, modified Copernicus Sentinel data 2026 and Copernicus WorldDEM-30. <a href="assets/README.md" target="_blank">Full asset credits ↗</a></dd><dt>Vehicles and results</dt><dd>Original Kessel vehicle geometry, with a compact 15 t underground-truck reference envelope. Routes, cycle times, prediction errors and performance improvements are authored scenario inputs. <a href="https://www.mining.sandvik/en/products/equipment/trucks/th315-underground-truck/" target="_blank" rel="noreferrer">Equipment reference ↗</a></dd><dt>Mine assets</dt><dd>Rock Wall 09, Brown Mud Dry and Aerial Rocks 02 by Poly Haven, CC0. Excavator 3d Rigging by mohamed.salaah880, CC BY 4.0; scaled and animated for the loading scene. <a href="assets/models/excavator/README.md" target="_blank">Excavator attribution ↗</a></dd><dt>Surface satellite view</dt><dd>Google Maps supplies the embedded satellite map and its provider credits. The local 3D site uses the separate Copernicus terrain source. No Google imagery is stored in this repository.</dd><dt>The product</dt><dd>Train inside a learned world model. Compress the policy onto a rugged retrofit computer. Operate offline. Improve the world model from deployment data when a connection becomes available.</dd></dl></dialog>
     <p class="surface-credit" id="surface-credit" hidden>Contains modified Copernicus Sentinel data 2026 · produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.</p>
 
     <footer class="bottom-bar">
@@ -89,7 +112,10 @@
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        "three": "./assets/vendor/three.module.js",
+        "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
+        "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
+        "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js"
       }
     }
   </script>

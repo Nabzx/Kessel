@@ -1,51 +1,755 @@
 {
   "meta": {
-    "id": "procedural-underground-haul-truck",
-    "source": "scripted",
-    "description": "Data-defined placeholder haul truck for the Kessel concept visualisation. Not a manufacturer model."
+    "id": "kessel-compact-haul-truck",
+    "source": "original",
+    "description": "Original Kessel articulated concept vehicle. Reference envelope only; not a manufacturer digital twin.",
+    "author": "Nabil Shah / Kessel",
+    "licence": "Repository LICENSE",
+    "reference": "https://www.mining.sandvik/globalassets/products/underground-loaders-and-trucks/pdf/th315-specification-sheet-english.pdf"
   },
-  "dimensions_m": { "length": 7.71, "width": 2.274, "height": 2.395 },
-  "forward_axis": [0, 0, 1],
+  "dimensions_m": {
+    "length": 7.71,
+    "width": 2.274,
+    "height": 2.395
+  },
+  "forward_axis": [
+    0,
+    0,
+    1
+  ],
   "materials": {
-    "body": { "colour": 14190385, "roughness": 0.76, "metalness": 0.22 },
-    "dark": { "colour": 2109998, "roughness": 0.86, "metalness": 0.12 },
-    "glass": { "colour": 2443339, "roughness": 0.24, "metalness": 0.34, "emissive": 597034 },
-    "cargo": { "colour": 6702161, "roughness": 1 },
-    "lamp": { "colour": 14284031 },
-    "rear_lamp": { "colour": 16725819, "emissive": 9372172, "roughness": 0.3 }
+    "body": {
+      "colour": 14190385,
+      "roughness": 0.76,
+      "metalness": 0.22
+    },
+    "dark": {
+      "colour": 2109998,
+      "roughness": 0.86,
+      "metalness": 0.12
+    },
+    "glass": {
+      "colour": 2443339,
+      "roughness": 0.24,
+      "metalness": 0.34,
+      "emissive": 597034
+    },
+    "cargo": {
+      "colour": 6702161,
+      "roughness": 1
+    },
+    "lamp": {
+      "colour": 14284031
+    },
+    "rear_lamp": {
+      "colour": 16725819,
+      "emissive": 9372172,
+      "roughness": 0.3
+    }
   },
   "parts": [
-    { "type": "box", "size_m": [2.05, 0.38, 7.71], "position_m": [0, 0.82, -0.05], "material": "body" },
-    { "type": "box", "size_m": [1.92, 0.13, 3.0], "position_m": [0, 1.43, -0.85], "material": "dark" },
-    { "type": "box", "size_m": [1.84, 1.25, 1.48], "position_m": [0, 1.72, 1.55], "material": "body" },
-    { "type": "box", "size_m": [1.62, 0.61, 0.07], "position_m": [0, 1.75, 2.32], "material": "glass" },
-    { "type": "box", "size_m": [1.84, 0.12, 0.12], "position_m": [0, 0.93, 2.64], "material": "dark" },
-    { "type": "box", "size_m": [2.12, 0.16, 0.18], "position_m": [0, 0.49, -3.91], "material": "dark" },
-    { "type": "box", "size_m": [0.18, 0.3, 0.1], "position_m": [-0.78, 0.94, -3.91], "material": "rear_lamp" },
-    { "type": "box", "size_m": [0.18, 0.3, 0.1], "position_m": [0.78, 0.94, -3.91], "material": "rear_lamp" }
+    {
+      "type": "box",
+      "size_m": [
+        1.9,
+        0.32,
+        7.4
+      ],
+      "position_m": [
+        0,
+        0.72,
+        0
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        1.95,
+        0.23,
+        3.1
+      ],
+      "position_m": [
+        0,
+        0.97,
+        2.05
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        1.72,
+        1.12,
+        1.58
+      ],
+      "position_m": [
+        0,
+        1.65,
+        2.35
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        1.56,
+        0.6,
+        0.05
+      ],
+      "position_m": [
+        0,
+        1.77,
+        3.15
+      ],
+      "material": "glass"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.57,
+        1.28
+      ],
+      "position_m": [
+        -0.89,
+        1.78,
+        2.33
+      ],
+      "material": "glass"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.57,
+        1.28
+      ],
+      "position_m": [
+        0.89,
+        1.78,
+        2.33
+      ],
+      "material": "glass"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        1.92,
+        0.12,
+        1.85
+      ],
+      "position_m": [
+        0,
+        2.25,
+        2.32
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        1.94,
+        0.38,
+        0.6
+      ],
+      "position_m": [
+        0,
+        1.24,
+        3.4
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        2.16,
+        0.22,
+        0.2
+      ],
+      "position_m": [
+        0,
+        0.65,
+        3.7
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        2.1,
+        0.18,
+        0.14
+      ],
+      "position_m": [
+        0,
+        0.72,
+        -3.7
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.17,
+        0.22,
+        0.08
+      ],
+      "position_m": [
+        -0.84,
+        1,
+        -3.71
+      ],
+      "material": "rear_lamp"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.17,
+        0.22,
+        0.08
+      ],
+      "position_m": [
+        0.84,
+        1,
+        -3.71
+      ],
+      "material": "rear_lamp"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.5,
+        0.36,
+        1.4
+      ],
+      "position_m": [
+        -0.64,
+        1.25,
+        0.86
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.5,
+        0.36,
+        1.4
+      ],
+      "position_m": [
+        0.64,
+        1.25,
+        0.86
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.38,
+        0.1,
+        1.5
+      ],
+      "position_m": [
+        -0.82,
+        1.12,
+        -2.5
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.38,
+        0.1,
+        1.5
+      ],
+      "position_m": [
+        -0.82,
+        1.12,
+        2.55
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.38,
+        0.1,
+        1.5
+      ],
+      "position_m": [
+        0.82,
+        1.12,
+        -2.5
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.38,
+        0.1,
+        1.5
+      ],
+      "position_m": [
+        0.82,
+        1.12,
+        2.55
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        -1.02,
+        1.76,
+        -2.4
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        1.02,
+        1.76,
+        -2.4
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        -1.02,
+        1.76,
+        -1.6
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        1.02,
+        1.76,
+        -1.6
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        -1.02,
+        1.76,
+        -0.8
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        1.02,
+        1.76,
+        -0.8
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        -1.02,
+        1.76,
+        0
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        1.02,
+        1.76,
+        0
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        -1.02,
+        1.76,
+        0.8
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.05,
+        0.65,
+        0.07
+      ],
+      "position_m": [
+        1.02,
+        1.76,
+        0.8
+      ],
+      "material": "body"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.07,
+        0.2,
+        0.03
+      ],
+      "position_m": [
+        -0.5,
+        1.25,
+        3.72
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.07,
+        0.2,
+        0.03
+      ],
+      "position_m": [
+        -0.25,
+        1.25,
+        3.72
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.07,
+        0.2,
+        0.03
+      ],
+      "position_m": [
+        0,
+        1.25,
+        3.72
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.07,
+        0.2,
+        0.03
+      ],
+      "position_m": [
+        0.25,
+        1.25,
+        3.72
+      ],
+      "material": "dark"
+    },
+    {
+      "type": "box",
+      "size_m": [
+        0.07,
+        0.2,
+        0.03
+      ],
+      "position_m": [
+        0.5,
+        1.25,
+        3.72
+      ],
+      "material": "dark"
+    }
   ],
   "dump_bed": {
-    "position_m": [0, 1.46, -2.3],
-    "body_size_m": [1.98, 0.19, 3.2],
-    "body_position_m": [0, 0.12, 1.5],
-    "panels": [
-      { "type": "box", "size_m": [0.12, 0.86, 3.0], "position_m": [-0.93, 0.52, 1.5], "material": "body" },
-      { "type": "box", "size_m": [0.12, 0.86, 3.0], "position_m": [0.93, 0.52, 1.5], "material": "body" },
-      { "type": "box", "size_m": [1.86, 0.86, 0.12], "position_m": [0, 0.52, 0.06], "material": "body" },
-      { "type": "box", "size_m": [1.86, 0.86, 0.12], "position_m": [0, 0.52, 2.94], "material": "body" }
+    "position_m": [
+      0,
+      1.15,
+      -3.55
     ],
-    "tip_angle_radians": -0.34,
+    "body_size_m": [
+      1.98,
+      0.16,
+      4.55
+    ],
+    "body_position_m": [
+      0,
+      0.05,
+      2.2
+    ],
+    "panels": [
+      {
+        "type": "box",
+        "size_m": [
+          0.12,
+          0.87,
+          4.5
+        ],
+        "position_m": [
+          -0.93,
+          0.48,
+          2.2
+        ],
+        "material": "body"
+      },
+      {
+        "type": "box",
+        "size_m": [
+          0.12,
+          0.87,
+          4.5
+        ],
+        "position_m": [
+          0.93,
+          0.48,
+          2.2
+        ],
+        "material": "body"
+      },
+      {
+        "type": "box",
+        "size_m": [
+          1.86,
+          0.87,
+          0.12
+        ],
+        "position_m": [
+          0,
+          0.48,
+          0
+        ],
+        "material": "body"
+      },
+      {
+        "type": "box",
+        "size_m": [
+          1.86,
+          0.87,
+          0.12
+        ],
+        "position_m": [
+          0,
+          0.48,
+          4.4
+        ],
+        "material": "body"
+      }
+    ],
+    "tip_angle_radians": -0.65,
     "cargo_rocks": [
-      { "position_m": [-0.48, 0.38, 0.65], "radius_m": 0.38 },
-      { "position_m": [0.08, 0.42, 1.0], "radius_m": 0.46 },
-      { "position_m": [0.5, 0.35, 0.54], "radius_m": 0.32 },
-      { "position_m": [-0.18, 0.4, 1.55], "radius_m": 0.3 }
+      {
+        "position_m": [
+          -0.48,
+          0.58,
+          0.48
+        ],
+        "radius_m": 0.32
+      },
+      {
+        "position_m": [
+          0.45,
+          0.7,
+          0.48
+        ],
+        "radius_m": 0.355
+      },
+      {
+        "position_m": [
+          0,
+          0.58,
+          0.48
+        ],
+        "radius_m": 0.39
+      },
+      {
+        "position_m": [
+          -0.48,
+          0.7,
+          1.33
+        ],
+        "radius_m": 0.32
+      },
+      {
+        "position_m": [
+          0.45,
+          0.58,
+          1.33
+        ],
+        "radius_m": 0.355
+      },
+      {
+        "position_m": [
+          0,
+          0.7,
+          1.33
+        ],
+        "radius_m": 0.39
+      },
+      {
+        "position_m": [
+          -0.48,
+          0.58,
+          2.1799999999999997
+        ],
+        "radius_m": 0.32
+      },
+      {
+        "position_m": [
+          0.45,
+          0.7,
+          2.1799999999999997
+        ],
+        "radius_m": 0.355
+      },
+      {
+        "position_m": [
+          0,
+          0.58,
+          2.1799999999999997
+        ],
+        "radius_m": 0.39
+      },
+      {
+        "position_m": [
+          -0.48,
+          0.7,
+          3.03
+        ],
+        "radius_m": 0.32
+      },
+      {
+        "position_m": [
+          0.45,
+          0.58,
+          3.03
+        ],
+        "radius_m": 0.355
+      },
+      {
+        "position_m": [
+          0,
+          0.7,
+          3.03
+        ],
+        "radius_m": 0.39
+      },
+      {
+        "position_m": [
+          -0.48,
+          0.58,
+          3.88
+        ],
+        "radius_m": 0.32
+      },
+      {
+        "position_m": [
+          0.45,
+          0.7,
+          3.88
+        ],
+        "radius_m": 0.355
+      },
+      {
+        "position_m": [
+          0,
+          0.58,
+          3.88
+        ],
+        "radius_m": 0.39
+      }
     ]
   },
-  "wheels": { "radius_m": 0.51, "width_m": 0.274, "hub_radius_m": 0.2, "segments": 16, "axle_z_m": [-2.55, 2.55], "side_offset_m": 1.0, "centre_y_m": 0.55, "material": "dark" },
-  "headlights": { "radius_m": 0.11, "side_offset_m": 0.72, "position_m": [0, 1.13, 2.68], "beam_position_m": [0, 1.13, 2.72], "beam_target_m": [0, 0.9, 10], "beam_colour": 12185599, "beam_intensity": 16, "beam_distance_m": 22, "beam_angle_radians": 0.6283, "beam_penumbra": 0.7, "beam_decay": 1.4 },
-  "prediction_dimensions_m": [2.05, 1.35, 5.25],
+  "wheels": {
+    "radius_m": 0.51,
+    "width_m": 0.274,
+    "hub_radius_m": 0.2,
+    "segments": 16,
+    "axle_z_m": [
+      -2.55,
+      2.55
+    ],
+    "side_offset_m": 1.0,
+    "centre_y_m": 0.55,
+    "material": "dark"
+  },
+  "headlights": {
+    "radius_m": 0.11,
+    "side_offset_m": 0.72,
+    "position_m": [
+      1.17,
+      3.72
+    ],
+    "beam_position_m": [
+      1.17,
+      3.76
+    ],
+    "beam_target_m": [
+      0.25,
+      15
+    ],
+    "beam_colour": 12185599,
+    "beam_intensity": 28,
+    "beam_distance_m": 22,
+    "beam_angle_radians": 0.6283,
+    "beam_penumbra": 0.7,
+    "beam_decay": 1.4
+  },
+  "prediction_dimensions_m": [
+    2.16,
+    2.2,
+    7.5
+  ],
   "prediction_colour": 6540010,
   "prediction_opacity": 0.3,
-  "selection_scale": 1.12
+  "selection_scale": 1
 }
