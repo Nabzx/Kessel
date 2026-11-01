@@ -5,8 +5,8 @@
   --muted: #8194a4;
   --cyan: #74d7e8;
   --hairline: rgba(170, 218, 233, .19);
-  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --display: "Arial Narrow", "Aptos Display", "Helvetica Neue", sans-serif;
+  --mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --display: "Space Grotesk", "Helvetica Neue", sans-serif;
   font-family: var(--mono);
   background: var(--ink);
   color: var(--paper);
@@ -47,8 +47,25 @@ body { background: var(--ink); }
   background: linear-gradient(90deg, rgba(3,7,13,.72), transparent 48%), linear-gradient(0deg, rgba(3,7,13,.9), transparent 28%, transparent 72%, rgba(3,7,13,.42));
 }
 
+.frame-corners {
+  position: absolute;
+  z-index: 2;
+  inset: 15px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--cyan), var(--cyan)) left top / 30px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) left top / 1px 30px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right top / 30px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right top / 1px 30px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) left bottom / 30px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) left bottom / 1px 30px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right bottom / 30px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) right bottom / 1px 30px no-repeat;
+  opacity: .58;
+}
+
 .topbar, .bottom-bar { position: absolute; z-index: 2; left: clamp(22px, 5.1vw, 84px); right: clamp(22px, 5.1vw, 84px); display: flex; align-items: center; justify-content: space-between; }
-.topbar { top: clamp(22px, 5vh, 58px); }
+.topbar { top: clamp(22px, 5vh, 58px); padding-bottom: 14px; border-bottom: 1px solid var(--hairline); }
 .wordmark { color: var(--paper); font: 600 19px/1 var(--display); letter-spacing: .43em; text-decoration: none; }
 .wordmark-dot { color: var(--cyan); }
 .topbar-readout, .mission-index { color: #b7c7d1; font-size: 9px; line-height: 1.7; letter-spacing: .15em; }
@@ -60,7 +77,7 @@ body { background: var(--ink); }
 .opening-copy { position: absolute; z-index: 1; top: 50%; left: clamp(22px, 11vw, 180px); width: min(37vw, 520px); transform: translateY(-48%); pointer-events: none; }
 .eyebrow { display: flex; align-items: center; gap: 12px; color: var(--cyan); font-size: 9px; letter-spacing: .19em; margin: 0 0 25px; }
 .eyebrow-line { width: 27px; height: 1px; background: var(--cyan); box-shadow: 0 0 10px rgba(116, 215, 232, .55); }
-h1 { margin: 0; font: 300 clamp(40px, 5.4vw, 78px)/.99 var(--display); letter-spacing: -.055em; }
+h1 { margin: 0; font: 400 clamp(40px, 5.4vw, 78px)/.99 var(--display); letter-spacing: -.055em; }
 h1 span { color: #7acddd; }
 .intro-copy { max-width: 340px; margin: 25px 0 0; color: #99aebc; font: 13px/1.8 var(--display); letter-spacing: .02em; }
 
@@ -68,7 +85,7 @@ h1 span { color: #7acddd; }
 .earth-readout strong { color: #e4f2f8; font: 400 14px/1.2 var(--display); letter-spacing: .32em; }
 .earth-readout b { color: var(--cyan); font-weight: 400; }
 
-.bottom-bar { bottom: clamp(22px, 4.5vh, 54px); align-items: flex-end; }
+.bottom-bar { bottom: clamp(22px, 4.5vh, 54px); align-items: flex-end; padding-top: 14px; border-top: 1px solid var(--hairline); }
 .coordinates { display: grid; grid-template-columns: 16px auto; column-gap: 9px; color: #b8cbd5; font-size: 10px; line-height: 1.6; letter-spacing: .05em; }
 .coordinate-mark { grid-row: span 2; color: var(--cyan); font-size: 17px; line-height: 1.2; }
 .coordinates small { grid-column: 2; color: #718695; font-size: 8px; letter-spacing: .15em; }
@@ -83,6 +100,8 @@ h1 span { color: #7acddd; }
 
 @media (max-width: 760px) {
   .topbar-readout { display: none; }
+  .frame-corners { inset: 10px; }
+  .frame-corners { background-size: 18px 1px, 1px 18px, 18px 1px, 1px 18px, 18px 1px, 1px 18px, 18px 1px, 1px 18px; }
   .opening-copy { top: 27%; left: 7vw; width: 75vw; transform: none; }
   h1 { font-size: clamp(38px, 10vw, 61px); }
   .intro-copy { max-width: 270px; font-size: 12px; }
