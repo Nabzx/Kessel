@@ -184,9 +184,8 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
     const segment = network.segments.find((item) => item.id === edge.segment_id);
     const distance = edge.length_m || segmentLengths.get(edge.segment_id) || 1;
     const grade = Math.abs(edge.grade_percent || 0) / 100;
-    const cost = distance * (1 + grade * fleetConfig.path_cost_weights.grade + (traffic.get(edge.id) || 0) * fleetConfig.path_cost_weights.route_traffic);
-    adjacency.get(edge.from)?.push({ nodeId: edge.to, edge, distance, cost, reverse: false });
-    if (!edge.one_way) adjacency.get(edge.to)?.push({ nodeId: edge.from, edge, distance, cost, reverse: true });
+    adjacency.get(edge.from)?.push({ nodeId: edge.to, edge, distance, grade, reverse: false });
+    if (!edge.one_way) adjacency.get(edge.to)?.push({ nodeId: edge.from, edge, distance, grade, reverse: true });
   }
   let overrideLine = null;
   const optimisedRibbons = [];
@@ -217,7 +216,8 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       }
       open.delete(current);
       for (const link of adjacency.get(current) || []) {
-        const score = g.get(current) + link.cost;
+        const edgeCost = link.distance * (1 + link.grade * fleetConfig.path_cost_weights.grade + (traffic.get(link.edge.id) || 0) * fleetConfig.path_cost_weights.route_traffic);
+        const score = g.get(current) + edgeCost;
         if (score >= (g.get(link.nodeId) ?? Infinity)) continue;
         cameFrom.set(link.nodeId, { nodeId: current, edge: link.edge });
         g.set(link.nodeId, score);
@@ -336,6 +336,8 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
         group.add(ribbon);
         optimisedRibbons.push(ribbon);
       });
+      traffic.clear();
+      entries.forEach((entry) => entry.activeRoute.edge_ids.forEach((id) => traffic.set(id, (traffic.get(id) || 0) + 1)));
     } else {
       routeRibbons.visible = true;
       for (const ribbon of optimisedRibbons) {
@@ -348,6 +350,8 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
         entry.activeRoute = entry.route;
         entry.path = routePoints(network, entry.activeRoute);
       });
+      traffic.clear();
+      entries.forEach((entry) => entry.activeRoute.edge_ids.forEach((id) => traffic.set(id, (traffic.get(id) || 0) + 1)));
     }
     entries.forEach((entry, index) => { entry.speed = (value ? fleetConfig.speed_mps.converged : fleetConfig.speed_mps.unoptimised) + index * fleetConfig.vehicle_speed_variation_mps; });
   }
