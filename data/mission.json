@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "id": "kessel-phase-9-opening",
+    "source": "scripted",
+    "description": "Illustrative opening scene for the Kessel concept visualisation."
+  },
+  "location": {
+    "id": "rutongo",
+    "name": "Rutongo Mines",
+    "country": "Rwanda",
+    "latitude": -1.8175,
+    "longitude": 30.059167,
+    "source": "https://www.rema.gov.rw/fileadmin/user_upload/REMA/Publications/Reports/Nile_Nyabarongo_Lower_Integrated_Pollution_Management_Plan-Final__Jan._2021_.pdf"
+  },
+  "environments": [
+    {
+      "id": "space",
+      "label": "Space",
+      "summary": "Autonomy beyond reliable communications.",
+      "status": "planned",
+      "glyph": "S"
+    },
+    {
+      "id": "deep-sea",
+      "label": "Deep sea",
+      "summary": "Pressure, darkness, and intermittent links.",
+      "status": "planned",
+      "glyph": "D"
+    },
+    {
+      "id": "underground",
+      "label": "Underground",
+      "summary": "No GPS. No reliable connection.",
+      "status": "available",
+      "glyph": "U"
+    },
+    {
+      "id": "glaciers",
+      "label": "Glaciers",
+      "summary": "Changing terrain. Sparse infrastructure.",
+      "status": "planned",
+      "glyph": "G"
+    }
+  ]
+}

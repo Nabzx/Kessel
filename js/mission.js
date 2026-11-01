@@ -27,7 +27,7 @@ const earthMaterial = new THREE.MeshStandardMaterial({
   color: 0xffffff,
 });
 const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-earth.rotation.y = Math.PI * 0.16;
+earth.rotation.y = -THREE.MathUtils.degToRad(30.058333);
 earthRoot.add(earth);
 
 const nightUniforms = {
@@ -161,6 +161,56 @@ textureLoader.load("assets/earth-clouds.jpg", (texture) => {
   cloudMaterial.alphaMap = texture;
   cloudMaterial.needsUpdate = true;
 });
+
+const picker = document.getElementById("environment-options");
+const pickerStatus = document.getElementById("picker-status");
+const targetCoordinates = document.getElementById("target-coordinates");
+const targetName = document.getElementById("target-name");
+let missionState = "biome-select";
+
+async function loadMission() {
+  try {
+    const response = await fetch("data/mission.json");
+    if (!response.ok) throw new Error(`Mission data request failed: ${response.status}`);
+    const mission = await response.json();
+    const location = mission.location;
+    const latitude = Math.abs(location.latitude).toFixed(2);
+    const longitude = Math.abs(location.longitude).toFixed(2);
+    targetCoordinates.innerHTML = `${latitude}° ${location.latitude < 0 ? "S" : "N"}<br />${longitude}° ${location.longitude < 0 ? "W" : "E"}`;
+    targetName.textContent = `TARGET / ${location.name}, ${location.country}`;
+    earth.rotation.y = -THREE.MathUtils.degToRad(location.longitude);
+    for (const environment of mission.environments) {
+      const live = environment.status === "available";
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `environment-option ${live ? "is-live" : "is-locked"}`;
+      button.dataset.environment = environment.id;
+      button.setAttribute("aria-disabled", String(!live));
+      button.setAttribute("aria-pressed", "false");
+      button.setAttribute("aria-describedby", "picker-status");
+      button.title = live ? `${environment.label} is available` : `${environment.label} is planned and not available yet`;
+      const stateLabel = live ? "AVAILABLE" : "PLANNED";
+      button.innerHTML = `<span class="option-glyph" aria-hidden="true">${environment.glyph}</span><span class="option-label">${environment.label}<span class="option-state">${stateLabel}</span></span><span class="option-summary">${environment.summary}</span>`;
+      button.addEventListener("click", () => {
+        if (!live) {
+          pickerStatus.textContent = `${environment.label} is planned. Underground is the only available environment.`;
+          return;
+        }
+        if (missionState !== "biome-select") return;
+        missionState = "surface-descent";
+        pickerStatus.textContent = `Underground selected. Preparing descent to ${location.name}.`;
+        for (const option of picker.children) option.setAttribute("aria-pressed", String(option === button));
+        window.dispatchEvent(new CustomEvent("kessel:statechange", { detail: { from: "biome-select", to: missionState, location } }));
+      });
+      picker.append(button);
+    }
+    pickerStatus.textContent = "Underground is available. Other environments are planned.";
+  } catch (error) {
+    pickerStatus.textContent = "Mission information is unavailable.";
+    console.error(error);
+  }
+}
+loadMission();
 
 function resize() {
   const width = innerWidth;
