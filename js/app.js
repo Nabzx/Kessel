@@ -128,6 +128,33 @@ async function loadRollout() {
   els.loading.classList.add("hidden");
 }
 
+// #122: Poly Haven CC0 PBR sets, re-exported at 512px/q72 (see
+// assets/textures/README.md) to keep the fetch cost small and
+// predictable rather than shipping Poly Haven's full 1k originals
+// (~4.5MB for the three sets combined vs. ~0.8MB re-exported) --
+// same "trim the payload, not the quality bar" principle as ADR-0002.
+// Normal maps are desktop-only, mirroring the existing bump-map
+// fallback (#74/#95) -- mobile gets the diffuse map only.
+const TEXTURE_SETS = {
+  tunnel: "rock_wall_09",
+  floor: "brown_mud_dry",
+  rock: "aerial_rocks_02",
+};
+
+const textureLoader = new THREE.TextureLoader();
+function loadTextureSet(slug) {
+  const diff = textureLoader.load(`assets/textures/${slug}_diff.jpg`);
+  diff.colorSpace = THREE.SRGBColorSpace;
+  const nor = IS_MOBILE ? null : textureLoader.load(`assets/textures/${slug}_nor_gl.jpg`);
+  return { diff, nor };
+}
+
+const textures = {
+  tunnel: loadTextureSet(TEXTURE_SETS.tunnel),
+  floor: loadTextureSet(TEXTURE_SETS.floor),
+  rock: loadTextureSet(TEXTURE_SETS.rock),
+};
+
 function frameAt(t, out) {
   const frames = state.frames;
   const n = frames.length;
@@ -194,8 +221,20 @@ function buildCommonScene({ wireframePile }) {
   camera.lookAt(1.0, 0.9, -1.4);
 
   // ---- tunnel shell ----
+  // #122: real rock-wall PBR (Poly Haven CC0, see assets/textures/README.md)
+  // in place of the flat colour this material carried before. Tiled 3x6
+  // across the partial-cylinder shell -- picked by eye against the
+  // tunnel's actual proportions, not derived from the texture's own scale.
+  textures.tunnel.diff.wrapS = textures.tunnel.diff.wrapT = THREE.RepeatWrapping;
+  textures.tunnel.diff.repeat.set(3, 6);
+  if (textures.tunnel.nor) {
+    textures.tunnel.nor.wrapS = textures.tunnel.nor.wrapT = THREE.RepeatWrapping;
+    textures.tunnel.nor.repeat.set(3, 6);
+  }
   const tunnelMat = new THREE.MeshStandardMaterial({
-    color: 0x857760, // Phase 6b (#103): lightened from 0x6b5f4d
+    map: textures.tunnel.diff,
+    normalMap: textures.tunnel.nor || null,
+    color: 0x857760, // Phase 6b (#103): lightened from 0x6b5f4d -- now a tint over the map
     roughness: 0.92,
     metalness: 0.05,
     side: THREE.BackSide,
@@ -224,8 +263,22 @@ function buildCommonScene({ wireframePile }) {
     floorPos.setZ(i, Math.sin(x * 0.8 + y * 0.3) * 0.05 + Math.sin(y * 1.3) * 0.04);
   }
   floorGeo.computeVertexNormals();
-  // Phase 6b (#103): lightened from 0x4a4136
-  const floorMat = new THREE.MeshStandardMaterial({ color: 0x5e5344, roughness: 1, metalness: 0 });
+  // #122: Poly Haven CC0 dirt PBR (assets/textures/README.md) in place of
+  // the flat colour. Tiled 4x10 across the 10x24 floor plane.
+  textures.floor.diff.wrapS = textures.floor.diff.wrapT = THREE.RepeatWrapping;
+  textures.floor.diff.repeat.set(4, 10);
+  if (textures.floor.nor) {
+    textures.floor.nor.wrapS = textures.floor.nor.wrapT = THREE.RepeatWrapping;
+    textures.floor.nor.repeat.set(4, 10);
+  }
+  // Phase 6b (#103): lightened from 0x4a4136 -- now a tint over the map
+  const floorMat = new THREE.MeshStandardMaterial({
+    map: textures.floor.diff,
+    normalMap: textures.floor.nor || null,
+    color: 0x5e5344,
+    roughness: 1,
+    metalness: 0,
+  });
   const floor = new THREE.Mesh(floorGeo, floorMat);
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(1.2, 0, -2);
@@ -414,16 +467,18 @@ function buildCommonScene({ wireframePile }) {
       vertexColors: true,
     });
   } else {
-    // #74: a procedural noise bump map so the pile reads as textured
-    // stone rather than flat-shaded polyhedra. Per-fragment bump
-    // sampling across 64 lit instances measured as real cost on the
-    // Phase 5 throttled profile (#95) -- desktop-only, same fallback as
-    // the shader passes above.
+    // #122: real rock PBR (Poly Haven CC0, assets/textures/README.md)
+    // replaces #74's procedural noise bump map -- same desktop-only
+    // normal-map split as before (#95's throttled profile), but every
+    // instance now also carries the real diffuse map, not a flat colour,
+    // since that costs nothing extra on the GPU side mobile was being
+    // protected from.
     rockMat = new THREE.MeshStandardMaterial({
-      color: 0xa5937c, // Phase 6b (#103): lightened from 0x8a7b68
+      map: textures.rock.diff,
+      normalMap: textures.rock.nor || null,
+      color: 0xa5937c, // Phase 6b (#103): lightened from 0x8a7b68 -- now a tint over the map
       roughness: 0.9,
       metalness: 0.08,
-      ...(IS_MOBILE ? {} : { bumpMap: makeNoiseBumpTexture(), bumpScale: 0.05 }),
     });
   }
   const n = 64;
@@ -584,10 +639,12 @@ function attemptCardAt(t, cards) {
   return null;
 }
 
-/* ---------------------------- textures ---------------------------- */
-// Small canvas-generated textures -- no external assets, consistent with
-// the "no build step" invariant. Each is built once and reused across
-// both scenes.
+/* ------------------------- canvas textures ------------------------- */
+// Small canvas-generated sprites/decals -- fine-grained, resolution-
+// independent shapes a static image wouldn't suit. The Poly Haven PBR
+// sets (#122) are fetched as plain image files instead, both still
+// "no build step" per AGENTS.md: a GLTFLoader/TextureLoader fetch is
+// plain JavaScript, no bundler required (ADR-0004's framing).
 
 function makeRadialGradientTexture({ size = 64, inner = "rgba(255,255,255,1)", outer = "rgba(255,255,255,0)" }) {
   const c = document.createElement("canvas");
@@ -600,23 +657,6 @@ function makeRadialGradientTexture({ size = 64, inner = "rgba(255,255,255,1)", o
   ctx.fillRect(0, 0, size, size);
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
-
-function makeNoiseBumpTexture(size = 128) {
-  const c = document.createElement("canvas");
-  c.width = c.height = size;
-  const ctx = c.getContext("2d");
-  const img = ctx.createImageData(size, size);
-  for (let i = 0; i < size * size; i++) {
-    const v = 90 + Math.random() * 110;
-    img.data[i * 4] = img.data[i * 4 + 1] = img.data[i * 4 + 2] = v;
-    img.data[i * 4 + 3] = 255;
-  }
-  ctx.putImageData(img, 0, 0);
-  const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(4, 4);
   return tex;
 }
 
