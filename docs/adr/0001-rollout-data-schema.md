@@ -1,6 +1,6 @@
 # ADR-0001: Rollout data schema
 
-Status: Accepted
+Status: Superseded by [ADR-0022](0022-phase-9-mission-data-contract.md)
 
 ## Context
 

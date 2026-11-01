@@ -1,6 +1,6 @@
 # ADR-0002: Mobile payload budget for rollout.json
 
-Status: Accepted
+Status: Superseded by [ADR-0023](0023-phase-9-progressive-payload.md)
 
 ## Context
 

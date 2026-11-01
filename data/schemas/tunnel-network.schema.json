@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Kessel illustrative tunnel network",
+  "description": "Geometry and pathfinding graph for a scripted underground mine scenario.",
+  "type": "object",
+  "required": ["meta", "design", "levels", "nodes", "segments", "graph"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": { "$ref": "#/$defs/meta" },
+    "design": { "$ref": "#/$defs/design" },
+    "levels": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/level" }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/node" }
+    },
+    "segments": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/segment" }
+    },
+    "graph": { "$ref": "#/$defs/graph" }
+  },
+  "$defs": {
+    "vector3": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "number" },
+        { "type": "number" },
+        { "type": "number" }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "meta": {
+      "type": "object",
+      "required": ["id", "source", "description", "generator", "generator_version", "seed", "units", "sources", "caveat"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "source": { "const": "scripted" },
+        "description": { "type": "string", "minLength": 1 },
+        "generator": { "type": "string", "minLength": 1 },
+        "generator_version": { "type": "integer", "minimum": 1 },
+        "seed": { "type": "integer" },
+        "units": { "const": "metres" },
+        "sources": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "string", "format": "uri" }
+        },
+        "caveat": { "type": "string", "minLength": 1 }
+      }
+    },
+    "design": {
+      "type": "object",
+      "required": ["cross_section", "vehicle_envelope", "parameters"],
+      "additionalProperties": false,
+      "properties": {
+        "cross_section": {
+          "type": "object",
+          "required": ["profile", "width_m", "height_m"],
+          "additionalProperties": false,
+          "properties": {
+            "profile": { "const": "flat_floor_arched_back" },
+            "width_m": { "type": "number", "exclusiveMinimum": 0 },
+            "height_m": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        },
+        "vehicle_envelope": {
+          "type": "object",
+          "required": ["reference", "length_m", "width_m", "height_m", "payload_kg", "clearance_each_side_m", "clearance_overhead_m"],
+          "additionalProperties": false,
+          "properties": {
+            "reference": { "type": "string", "minLength": 1 },
+            "length_m": { "type": "number", "exclusiveMinimum": 0 },
+            "width_m": { "type": "number", "exclusiveMinimum": 0 },
+            "height_m": { "type": "number", "exclusiveMinimum": 0 },
+            "payload_kg": { "type": "integer", "exclusiveMinimum": 0 },
+            "clearance_each_side_m": { "type": "number", "minimum": 0 },
+            "clearance_overhead_m": { "type": "number", "minimum": 0 }
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "required": ["level_count", "level_spacing_m", "level_spacing_basis", "decline_grade_percent", "decline_grade_basis", "haulage_drainage_grade_percent", "drainage_grade_basis", "minimum_ramp_curve_radius_m", "curve_radius_basis", "draw_crosscut_length_range_m"],
+          "additionalProperties": false,
+          "properties": {
+            "level_count": { "type": "integer", "minimum": 1 },
+            "level_spacing_m": { "type": "number", "exclusiveMinimum": 0 },
+            "level_spacing_basis": { "type": "string", "minLength": 1 },
+            "decline_grade_percent": { "type": "number", "exclusiveMinimum": 0 },
+            "decline_grade_basis": { "type": "string", "minLength": 1 },
+            "haulage_drainage_grade_percent": { "type": "number", "exclusiveMinimum": 0 },
+            "drainage_grade_basis": { "type": "string", "minLength": 1 },
+            "minimum_ramp_curve_radius_m": { "type": "number", "exclusiveMinimum": 0 },
+            "curve_radius_basis": { "type": "string", "minLength": 1 },
+            "draw_crosscut_length_range_m": {
+              "type": "array",
+              "prefixItems": [
+                { "type": "number", "exclusiveMinimum": 0 },
+                { "type": "number", "exclusiveMinimum": 0 }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        }
+      }
+    },
+    "level": {
+      "type": "object",
+      "required": ["id", "level_offset_m", "ramp_station_m"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "level_offset_m": { "type": "number" },
+        "ramp_station_m": { "type": "number" }
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": ["id", "kind", "position_m", "level"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["portal", "junction", "draw_point", "tipping_point"] },
+        "position_m": { "$ref": "#/$defs/vector3" },
+        "level": { "type": ["string", "null"] }
+      }
+    },
+    "segment": {
+      "type": "object",
+      "required": ["id", "kind", "from", "to", "grade_percent", "width_m", "height_m", "minimum_curve_radius_m", "centerline_m"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["surface_tipping_bay", "decline", "haulage_drift", "junction_turn", "draw_crosscut"] },
+        "from": { "type": "string", "minLength": 1 },
+        "to": { "type": "string", "minLength": 1 },
+        "grade_percent": { "type": "number" },
+        "width_m": { "type": "number", "exclusiveMinimum": 0 },
+        "height_m": { "type": "number", "exclusiveMinimum": 0 },
+        "minimum_curve_radius_m": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "centerline_m": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/vector3" }
+        }
+      }
+    },
+    "graph": {
+      "type": "object",
+      "required": ["directed", "nodes", "edges"],
+      "additionalProperties": false,
+      "properties": {
+        "directed": { "const": true },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/node" }
+        },
+        "edges": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/edge" }
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "required": ["id", "segment_id", "kind", "from", "to", "length_m", "grade_percent", "width_m", "one_way"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "segment_id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["surface_tipping_bay", "decline", "haulage_drift", "junction_turn", "draw_crosscut"] },
+        "from": { "type": "string", "minLength": 1 },
+        "to": { "type": "string", "minLength": 1 },
+        "length_m": { "type": "number", "exclusiveMinimum": 0 },
+        "grade_percent": { "type": "number" },
+        "width_m": { "type": "number", "exclusiveMinimum": 0 },
+        "one_way": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -43,13 +43,14 @@ rollout to imply it is real — needs an ADR, not a drive-by edit.
 
 ### The front end is data-only
 
-`index.html`, `css/`, and `js/app.js` never hardcode scene content. Everything
-the renderer draws — loader pose, rock positions, predicted horizon, HUD
-values — comes from `data/rollout.json`, in the schema documented in
-`data/generate_rollout.py`'s docstring and `CONTEXT.md`. Swapping the scripted
-rollout for a logged rollout from the real policy and world model must require
-zero changes to the front end. If an implementation needs the front end to
-change to consume real data, the schema was wrong, not the invariant.
+For the Phase 9 mission demo, `index.html`, `css/`, and `js/app.js` do not
+hardcode authored scene content. The mission manifest and stage assets provide
+mine geometry, vehicle poses, routes, and HUD values as defined in ADR-0022.
+Swapping the scripted mission dataset for a conforming logged dataset must
+require zero changes to the renderer. The mission demonstrates offline autonomy
+without manual waypoint controls (ADR-0026). The old
+`data/rollout.json` contract applies only to the earlier demo and is superseded
+for Phase 9 by ADR-0022.
 
 ### No build step
 

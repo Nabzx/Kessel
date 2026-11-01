@@ -1,0 +1,37 @@
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+export async function createLoadingMachine(config, drawPoint) {
+  const gltf=await new GLTFLoader().loadAsync(config.model);
+  const model=gltf.scene;
+  const bones=[];
+  model.traverse(object=>{
+    if(object.isBone) bones.push(object);
+    if(object.isMesh) { object.frustumCulled=false; object.castShadow=false; }
+  });
+  model.updateMatrixWorld(true);
+  const bounds=new THREE.Box3().setFromObject(model);
+  const size=bounds.getSize(new THREE.Vector3());
+  model.scale.multiplyScalar(config.length_m/Math.max(size.x,size.z));
+  // Point the bucket towards the truck; use the documented rig joints rather
+  // than inferring forward from the glTF root's arbitrary export rotation.
+  const bucket=bones[config.bucket_bone_index], tracks=bones[9]||bones[0];
+  const direction=bucket.getWorldPosition(new THREE.Vector3()).sub(tracks.getWorldPosition(new THREE.Vector3()));
+  model.rotation.y += -Math.PI/2-Math.atan2(direction.x,direction.z);
+  model.updateMatrixWorld(true);
+  bounds.setFromObject(model);
+  const centre=bounds.getCenter(new THREE.Vector3());
+  model.position.x-=centre.x; model.position.z-=centre.z; model.position.y-=bounds.min.y;
+  const root=new THREE.Group(); root.name="licensed-loading-excavator";
+  root.position.fromArray(drawPoint.position_m).add(new THREE.Vector3(...config.offset_m));
+  root.add(model);
+  const boom=bones[config.boom_bone_index];
+  const boomBase=boom.quaternion.clone(),bucketBase=bucket.quaternion.clone();
+  const axis=new THREE.Vector3(1,0,0),rotation=new THREE.Quaternion();
+  return {root,update(entry){
+    const loading=entry?.phase==="loading";
+    const phase=loading?entry.load*Math.PI*2:0;
+    boom.quaternion.copy(boomBase).multiply(rotation.setFromAxisAngle(axis,loading?Math.sin(phase)*.2:0));
+    bucket.quaternion.copy(bucketBase).multiply(rotation.setFromAxisAngle(axis,loading?Math.sin(phase+.6)*.3:0));
+  }};
+}

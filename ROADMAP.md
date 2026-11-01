@@ -109,3 +109,19 @@ application use case.
 
 **Done when:** the repo reads well cold, the README link works, and the demo
 is ready to attach to the YC and EWOR applications.
+
+### Phase 9: Interactive mission
+
+Replace the earlier single-loader sequence with Earth, environment selection,
+a descent to Rutongo, an illustrative fleet, a pre-computed optimisation
+preview and truck inspection. The loading scene reuses the licensed excavator
+and PBR mine assets. Google satellite reconnaissance and a local terrain
+alternative provide the surface context. Offline machine autonomy is the
+product story; manual waypoint controls are removed.
+
+**Done when:** the complete story is usable on localhost, all active controls
+work, the retained assets are credited, the original truck is correctly
+oriented through a full haul cycle, and payload and browser measurements are
+reported honestly. See [ADR-0027](docs/adr/0027-phase-9-demo-completion.md) and
+the [verification report](docs/demo/phase-9-verification.md). Real-device
+performance evidence must be distinguished from browser emulation.
