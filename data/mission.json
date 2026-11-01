@@ -168,6 +168,11 @@
         "bucket_bone_index": 5,
         "credit": "Excavator 3d Rigging by mohamed.salaah880, CC BY 4.0",
         "source": "https://sketchfab.com/3d-models/excavator-3d-rigging-f82f787abd304dea89667e078ccf7052"
+      },
+      "tipping_bay": {
+        "source": "illustrative",
+        "width_m": 18,
+        "length_m": 24
       }
     },
     "fleet_vehicle_model": "assets/models/haul-truck.json",

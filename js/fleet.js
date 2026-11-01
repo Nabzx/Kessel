@@ -109,6 +109,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
   function update(delta) {
     for (const entry of entries) {
       const previousDistance = entry.distance;
+      const previousPosition = entry.truck.position.clone();
       const moving = entry.phase === "hauling" || entry.phase === "returning";
       entry.queued = false;
       if (moving) {
@@ -137,13 +138,25 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
         }
       }
       tangent.copy(pointAt(entry.path, entry.distance, entry.truck.position));
-      orient(targetRotation, tangent);
-      entry.truck.quaternion.slerp(targetRotation, 1 - Math.exp(-delta * 7));
-      entry.truck.userData.phase = entry.queued ? "queued" : entry.phase;
+      const displacement = entry.truck.position.clone().sub(previousPosition);
+      const travelling = moving && ["hauling", "returning"].includes(entry.phase) && displacement.lengthSq() > 1e-10;
+      const travelDirection = travelling ? displacement.normalize() : tangent;
+      orient(targetRotation, travelDirection);
       const tipProgress = entry.phase === "tipping" ? Math.min(1, entry.dwell / fleetConfig.dwell_seconds.tipping) : 0;
-      const bedAngle = entry.phase === "tipping" ? Math.sin(tipProgress * Math.PI) * vehicleModel.dump_bed.tip_angle_radians : 0;
+      // Lower the bed and align for the return leg before the truck moves.
+      // This avoids driving backwards while easing through a 180-degree turn.
+      if (entry.phase === "tipping" && tipProgress > .65) {
+        orient(targetRotation, pointAt(entry.path, entry.distance + .02, samplePosition));
+      }
+      const directionRate = moving ? 7 * Math.max(1, (inspectionPlayback && selectedId === entry.id ? fleetConfig.inspection_time_scale : fleetConfig.time_scale) / 4) : 7;
+      entry.truck.quaternion.slerp(targetRotation, 1 - Math.exp(-delta * directionRate));
+      if (travelling && new THREE.Vector3(0, 0, 1).applyQuaternion(entry.truck.quaternion).dot(travelDirection) < .95) {
+        entry.truck.quaternion.copy(targetRotation);
+      }
+      entry.truck.userData.phase = entry.queued ? "queued" : entry.phase;
+      const bedAngle = entry.phase === "tipping" ? Math.sin(Math.min(1, tipProgress / .65) * Math.PI) * vehicleModel.dump_bed.tip_angle_radians : 0;
       entry.dumpBed.rotation.x = THREE.MathUtils.damp(entry.dumpBed.rotation.x, bedAngle, 8, delta);
-      const load = entry.phase === "loading" ? Math.min(1, entry.dwell / fleetConfig.dwell_seconds.loading) : entry.phase === "returning" ? 0 : entry.phase === "tipping" ? 1 - THREE.MathUtils.smoothstep(tipProgress, .25, .7) : 1;
+      const load = entry.phase === "loading" ? THREE.MathUtils.clamp((entry.dwell / fleetConfig.dwell_seconds.loading - .25) / .75, 0, 1) : entry.phase === "returning" ? 0 : entry.phase === "tipping" ? 1 - THREE.MathUtils.smoothstep(tipProgress, .15, .45) : 1;
       entry.cargo.visible = load > .01;
       entry.cargo.scale.y = Math.max(.01, load);
       entry.proxyCargo.visible = load > .01;

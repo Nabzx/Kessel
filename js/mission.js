@@ -658,6 +658,7 @@ async function prepareUndergroundStage() {
       vehicleModel,
       predictionPreview: missionManifest.prediction_preview,
       loadingBay: assets.loading_bay,
+      tippingBay: assets.tipping_bay,
       excavatorConfig: assets.excavator,
     });
     if (!surfacePortal) throw new Error("Mine entrance is not ready");

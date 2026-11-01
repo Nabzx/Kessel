@@ -214,7 +214,7 @@ function makeLowWalls(segment, material) {
   return new THREE.Mesh(geometry, material);
 }
 
-export async function createUndergroundStage(network, { mobile = false, routes = [], fleet: fleetConfig, vehicleModel, predictionPreview, loadingBay, excavatorConfig } = {}) {
+export async function createUndergroundStage(network, { mobile = false, routes = [], fleet: fleetConfig, vehicleModel, predictionPreview, loadingBay, tippingBay, excavatorConfig } = {}) {
   const root = new THREE.Group(); root.name = "illustrative-underground-network";
   const loader = new THREE.TextureLoader();
   const [rockMap, floorMap, rockNormal, floorNormal, oreMap, oreNormal] = await Promise.all([
@@ -274,6 +274,12 @@ export async function createUndergroundStage(network, { mobile = false, routes =
     bulkhead.userData.localCap=true;interiors.add(bulkhead);
 
     const shell=makeTunnelShell(bay,bay.width_m,bay.height_m,rockMaterial);shell.geometry.computeBoundingSphere();interiors.add(shell);
+  }
+  for(const node of network.nodes.filter(item=>item.kind==="tipping_point")) {
+    const geometry=new THREE.PlaneGeometry(tippingBay.width_m,tippingBay.length_m);
+    geometry.rotateX(-Math.PI/2);geometry.translate(node.position_m[0],node.position_m[1]+.03,node.position_m[2]);
+    const uv=geometry.attributes.uv;for(let index=0;index<uv.count;index++) uv.setXY(index,uv.getX(index)*3,uv.getY(index)*4);
+    floorGeometries.push(geometry);
   }
   const floorGeometry=mergeGeometries(floorGeometries);floorGeometries.forEach(geometry=>geometry.dispose());
   const overviewFloorMaterial=new THREE.MeshBasicMaterial({map:floorMap,color:0x879a9b,side:THREE.DoubleSide});
