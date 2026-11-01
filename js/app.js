@@ -197,7 +197,7 @@ async function loadRockGeometry() {
     metalnessMap: arm,
     roughness: 1,
     metalness: 0, // matches the source glTF's metallicFactor: 0 -- this is rock, not ore
-    color: 0xc9bca6, // ADR-0018: lightened (was 0xa5937c)
+    color: 0xaa9d87, // ADR-0018 revised: pulled back down, see the ambient-light comment above -- 0xc9bca6 overexposed these small instances to near-white
   });
 
   return { geometry, material };
@@ -361,10 +361,17 @@ function buildCommonScene({ wireframePile, rockModel }) {
   // across every angle the chase camera can end up at. Ambient has no
   // direction at all, so it is the reliable way to put a uniform
   // brightness floor under every surface regardless of its normal.
-  scene.add(new THREE.AmbientLight(0x9aa6b8, 7.5));
-  scene.add(new THREE.HemisphereLight(0xcdd8ec, 0x5c5040, 4.5));
+  // Pulled back down from 7.5/4.5: that level read fine on the large
+  // floor/wall surfaces but completely blew out the much smaller rock
+  // instances (#123) -- up close they rendered as a near-white blob with
+  // no visible texture detail at all, confirmed via an isolated render
+  // of the rock material alone at both intensities. Dialed to a level
+  // that keeps the floor/wall clearly lit without crushing texture
+  // contrast on anything smaller.
+  scene.add(new THREE.AmbientLight(0x9aa6b8, 3.2));
+  scene.add(new THREE.HemisphereLight(0xcdd8ec, 0x5c5040, 2.0));
 
-  const workLight = new THREE.DirectionalLight(0xfff2de, 2.4);
+  const workLight = new THREE.DirectionalLight(0xfff2de, 1.6);
   workLight.position.set(1.0, 8, 2.5);
   workLight.target.position.set(1.2, 0, -3);
   scene.add(workLight);
@@ -580,7 +587,7 @@ function buildCommonScene({ wireframePile, rockModel }) {
     rockMat = new THREE.MeshStandardMaterial({
       map: textures.rock.diff,
       normalMap: textures.rock.nor || null,
-      color: 0xc9bca6, // ADR-0018: lightened again (was 0xa5937c)
+      color: 0xaa9d87, // ADR-0018 revised: pulled back down, see the ambient-light comment above -- 0xc9bca6 overexposed these small instances to near-white
       roughness: 0.9,
       metalness: 0.08,
     });
@@ -838,8 +845,8 @@ async function main() {
   rendererSim.toneMapping = THREE.ACESFilmicToneMapping;
   rendererPred.toneMapping = THREE.ACESFilmicToneMapping;
   // ADR-0018: well-lit product-demo exposure, up from 1.05.
-  rendererSim.toneMappingExposure = 1.3;
-  rendererPred.toneMappingExposure = 1.3;
+  rendererSim.toneMappingExposure = 1.05;
+  rendererPred.toneMappingExposure = 1.05;
 
   // ADR-0014's stated fallback, exercised for real: #95's throttled
   // measurement showed a serious regression (~21fps -> ~8fps on the
