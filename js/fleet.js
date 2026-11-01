@@ -102,7 +102,7 @@ function pointAt(path, distance, target) {
 function makeRouteRibbon(path, routeIndex, routeCount, materialColour, network) {
   const laneSpacing = Math.max(0.04, Math.min(0.36, (network.design.cross_section.width_m - 0.4) / routeCount));
   const laneOffset = (routeIndex - (routeCount - 1) / 2) * laneSpacing;
-  const halfWidth = Math.min(0.26, laneSpacing * 0.76) / 2;
+  const halfWidth = Math.min(0.56, laneSpacing * 1.55) / 2;
   const positions = [];
   const indices = [];
   for (let index = 0; index < path.points.length; index += 1) {
@@ -134,22 +134,6 @@ function makeRouteRibbon(path, routeIndex, routeCount, materialColour, network) 
 export function createFleet(network, routes, fleetConfig, vehicleModel, routeRibbons) {
   const group = new THREE.Group();
   group.name = "scripted-haul-fleet";
-  const waypointTargets = new THREE.Group();
-  waypointTargets.name = "valid-waypoint-targets";
-  waypointTargets.visible = false;
-  group.add(waypointTargets);
-  const targetById = new Map();
-  for (const node of network.nodes.filter((item) => ["junction", "draw_point", "tipping_point"].includes(item.kind))) {
-    const marker = new THREE.Mesh(new THREE.RingGeometry(0.7, 1.05, 24), new THREE.MeshBasicMaterial({ color: 0x70d7e8, side: THREE.DoubleSide, transparent: true, opacity: 0.92, depthWrite: false, toneMapped: false }));
-    marker.rotation.x = -Math.PI / 2;
-    marker.position.fromArray(node.position_m);
-    marker.position.y += 0.3;
-    marker.userData.nodeId = node.id;
-    marker.userData.baseColour = 0x70d7e8;
-    marker.visible = true;
-    waypointTargets.add(marker);
-    targetById.set(node.id, marker);
-  }
   const entries = routes.map((route, index) => {
     const { root: truck, forward, dumpBed, cargoMeshes } = makeTruck(route.vehicle_id, vehicleModel);
     group.add(truck);
@@ -165,7 +149,6 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
     return {
       id: route.vehicle_id,
       route,
-      activeRoute: route,
       path,
       truck,
       forward,
@@ -180,127 +163,10 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
   const gradePosition = new THREE.Vector3();
   let selectedId = null;
   let optimised = false;
-  const nodes = new Map(network.nodes.map((node) => [node.id, node]));
-  const segmentLengths = new Map(network.segments.map((segment) => {
-    const points = segment.centerline_m.map((coords) => new THREE.Vector3(...coords));
-    return [segment.id, points.slice(1).reduce((total, point, index) => total + point.distanceTo(points[index]), 0)];
-  }));
-  const traffic = new Map();
-  routes.forEach((route) => route.edge_ids.forEach((id) => traffic.set(id, (traffic.get(id) || 0) + 1)));
-  const adjacency = new Map(network.nodes.map((node) => [node.id, []]));
-  for (const edge of network.graph.edges) {
-    const segment = network.segments.find((item) => item.id === edge.segment_id);
-    const distance = edge.length_m || segmentLengths.get(edge.segment_id) || 1;
-    const grade = Math.abs(edge.grade_percent || 0) / 100;
-    adjacency.get(edge.from)?.push({ nodeId: edge.to, edge, distance, grade, reverse: false });
-    if (!edge.one_way) adjacency.get(edge.to)?.push({ nodeId: edge.from, edge, distance, grade, reverse: true });
-  }
-  let overrideLine = null;
   const optimisedRibbons = [];
-  let originalPath = null;
-  let activeEntry = null;
-  let pendingWaypointId = null;
   const visitCounts = new Map();
   routes.forEach((route) => route.node_ids.forEach((id) => visitCounts.set(id, (visitCounts.get(id) || 0) + 1)));
   const sharedJunctions = network.nodes.filter((node) => visitCounts.get(node.id) > 1 && ["junction", "portal"].includes(node.kind)).map((node) => new THREE.Vector3(...node.position_m));
-  function shortestPath(startId, goalId) {
-    const open = new Set([startId]);
-    const cameFrom = new Map();
-    const g = new Map([[startId, 0]]);
-    const f = new Map([[startId, nodes.get(startId).position_m && new THREE.Vector3(...nodes.get(startId).position_m).distanceTo(new THREE.Vector3(...nodes.get(goalId).position_m))]]);
-    while (open.size) {
-      let current = null;
-      for (const id of open) if (current === null || f.get(id) < f.get(current)) current = id;
-      if (current === goalId) {
-        const nodeIds = [goalId];
-        const edgeIds = [];
-        while (cameFrom.has(current)) {
-          const previous = cameFrom.get(current);
-          edgeIds.unshift(previous.edge.id);
-          current = previous.nodeId;
-          nodeIds.unshift(current);
-        }
-        return { nodeIds, edgeIds };
-      }
-      open.delete(current);
-      for (const link of adjacency.get(current) || []) {
-        const edgeCost = link.distance * (1 + link.grade * fleetConfig.path_cost_weights.grade + (traffic.get(link.edge.id) || 0) * fleetConfig.path_cost_weights.route_traffic);
-        const score = g.get(current) + edgeCost;
-        if (score >= (g.get(link.nodeId) ?? Infinity)) continue;
-        cameFrom.set(link.nodeId, { nodeId: current, edge: link.edge });
-        g.set(link.nodeId, score);
-        const a = new THREE.Vector3(...nodes.get(link.nodeId).position_m);
-        const b = new THREE.Vector3(...nodes.get(goalId).position_m);
-        f.set(link.nodeId, score + a.distanceTo(b));
-        open.add(link.nodeId);
-      }
-    }
-    return null;
-  }
-  function nearestNode(position) {
-    let nearest = null;
-    let distance = Infinity;
-    for (const node of network.nodes) {
-      const candidate = new THREE.Vector3(...node.position_m).distanceToSquared(position);
-      if (candidate < distance) { distance = candidate; nearest = node; }
-    }
-    return nearest?.id;
-  }
-  function plannedPathTo(route, targetNodeId) {
-    for (let index = 1; index < route.node_ids.length; index += 1) {
-      if (route.node_ids[index] === targetNodeId) {
-        return {
-          nodeIds: route.node_ids.slice(0, index + 1),
-          edgeIds: route.edge_ids.slice(0, index),
-        };
-      }
-    }
-    return null;
-  }
-  function makeOverride(entry, waypointId) {
-    const startId = nearestNode(entry.truck.position);
-    const goalId = entry.route.node_ids[0];
-    const first = shortestPath(startId, waypointId);
-    const second = shortestPath(waypointId, goalId);
-    const third = plannedPathTo(entry.activeRoute, startId) || shortestPath(goalId, startId);
-    if (!first || !second || !third) return null;
-    const nodeIds = [...first.nodeIds, ...second.nodeIds.slice(1), ...third.nodeIds.slice(1)];
-    const edgeIds = [...first.edgeIds, ...second.edgeIds, ...third.edgeIds];
-    const path = routePoints(network, { id: "operator-override", node_ids: nodeIds, edge_ids: edgeIds });
-    return { path, nodeIds, edgeIds };
-  }
-  function applyWaypoint(waypointId) {
-    if (originalPath) revertRoute();
-    activeEntry = entries.find((entry) => entry.id === selectedId);
-    if (!activeEntry || !nodes.has(waypointId)) return null;
-    const result = makeOverride(activeEntry, waypointId);
-    if (!result) return null;
-    if (overrideLine) { group.remove(overrideLine); overrideLine.geometry.dispose(); overrideLine.material.dispose(); }
-    const geometry = new THREE.BufferGeometry().setFromPoints(result.path.points.map((point) => point.clone().add(new THREE.Vector3(0, 0.32, 0))));
-    overrideLine = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x60e2ed, linewidth: 2, depthTest: false, toneMapped: false }));
-    overrideLine.renderOrder = 12;
-    group.add(overrideLine);
-    originalPath = activeEntry.path;
-    const baselineRemaining = originalPath.length;
-    activeEntry.path = result.path;
-    activeEntry.distance = 0;
-    return { distance: result.path.length, baseline: baselineRemaining, nodeIds: result.nodeIds };
-  }
-  function revertRoute() {
-    if (!activeEntry || !originalPath) return false;
-    activeEntry.path = originalPath;
-    activeEntry.distance = 0;
-    if (overrideLine) { group.remove(overrideLine); overrideLine.geometry.dispose(); overrideLine.material.dispose(); overrideLine = null; }
-    originalPath = null;
-    return true;
-  }
-  function setPendingWaypoint(id, committed = false) {
-    pendingWaypointId = id || null;
-    for (const [nodeId, marker] of targetById) {
-      marker.material.color.setHex(nodeId === pendingWaypointId ? (committed ? 0x60e2ed : 0xffc879) : marker.userData.baseColour);
-      marker.scale.setScalar(nodeId === pendingWaypointId ? 1.45 : 1);
-    }
-  }
   function update(delta) {
     for (const entry of entries) {
       const atChoke = sharedJunctions.some((node) => entry.truck.position.distanceTo(node) < fleetConfig.congestion_radius_m);
@@ -322,7 +188,6 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
   }
   function select(id) {
     selectedId = id;
-    waypointTargets.visible = Boolean(id);
     for (const entry of entries) {
       entry.truck.scale.setScalar(entry.id === id ? 1.12 : 1);
       entry.prediction.visible = entry.id === id;
@@ -335,8 +200,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       routeRibbons.visible = false;
       entries.forEach((entry, index) => {
         const distanceRatio = THREE.MathUtils.euclideanModulo(entry.distance, entry.path.length) / entry.path.length;
-        entry.activeRoute = { ...entry.route, edge_ids: entry.route.optimised_edge_ids };
-        entry.path = routePoints(network, entry.activeRoute);
+        entry.path = routePoints(network, { ...entry.route, edge_ids: entry.route.optimised_edge_ids });
         entry.distance = distanceRatio * entry.path.length;
         const ribbon = makeRouteRibbon(entry.path, index, entries.length, 0xff4038, network);
         ribbon.name = `optimised-route-${entry.id}`;
@@ -345,8 +209,6 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
         group.add(ribbon);
         optimisedRibbons.push(ribbon);
       });
-      traffic.clear();
-      entries.forEach((entry) => entry.activeRoute.edge_ids.forEach((id) => traffic.set(id, (traffic.get(id) || 0) + 1)));
     } else {
       routeRibbons.visible = true;
       for (const ribbon of optimisedRibbons) {
@@ -356,13 +218,10 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       }
       optimisedRibbons.length = 0;
       entries.forEach((entry) => {
-        entry.activeRoute = entry.route;
-        entry.path = routePoints(network, entry.activeRoute);
+        entry.path = routePoints(network, entry.route);
       });
-      traffic.clear();
-      entries.forEach((entry) => entry.activeRoute.edge_ids.forEach((id) => traffic.set(id, (traffic.get(id) || 0) + 1)));
     }
     entries.forEach((entry, index) => { entry.speed = (value ? fleetConfig.speed_mps.converged : fleetConfig.speed_mps.unoptimised) + index * fleetConfig.vehicle_speed_variation_mps; });
   }
-  return { group, entries, update, select, get selectedId() { return selectedId; }, get optimised() { return optimised; }, setOptimised, applyWaypoint, revertRoute, setPendingWaypoint, nodes: network.nodes };
+  return { group, entries, update, select, get selectedId() { return selectedId; }, get optimised() { return optimised; }, setOptimised };
 }

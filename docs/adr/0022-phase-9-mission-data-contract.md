@@ -1,6 +1,6 @@
 # ADR-0022: Phase 9 mission data contract
 
-Status: Accepted
+Status: Accepted; interactive waypoint decision superseded by [ADR-0026](0026-phase-9-autonomous-operation.md).
 
 Supersedes [ADR-0001](0001-rollout-data-schema.md) for the Phase 9 mission demo.
 
@@ -27,9 +27,9 @@ that the demo's optimiser trace is a live run of 100,000 simulations.
 The renderer consumes this contract without hardcoding mine geometry, vehicle
 poses, routes, or HUD values. A logged dataset can replace the scripted
 dataset without renderer changes if it conforms to the same contract.
-Interactive waypoint input and its A* result are transient user-session state,
-computed by generic code over the directed graph rather than written back to
-the authored manifest. Prediction data is scoped to the selected truck view.
+The mission does not accept interactive waypoint input. The selected truck
+view may show a clearly labelled scripted prediction preview. See ADR-0026 for
+the decision to keep this demonstration focused on autonomous operation.
 
 Mission route records carry an ID, vehicle ID, source label, route status,
 ordered `node_ids`, and matching `edge_ids`. The renderer resolves these IDs

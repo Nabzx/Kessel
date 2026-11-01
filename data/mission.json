@@ -50,17 +50,17 @@
     "time_scale": 4,
     "speed_mps": { "unoptimised": 1.7, "converged": 2.65 },
     "vehicle_speed_variation_mps": 0.12,
+    "phase_offset_basis": "Illustrative initial positions stage empty trucks nose-to-tail at the shared Level 1 ramp to show congestion before optimisation.",
     "grade_speed_sensitivity": 0.25,
     "max_grade_speed_reduction": 0.3,
-    "path_cost_weights": { "grade": 0.08, "route_traffic": 0.12 },
     "prediction_horizon_m": 8,
     "congestion_radius_m": 18,
     "queue_radius_m": 10,
     "queued_speed_factor": 0.12,
     "vehicles": [
-      { "id": "truck-01", "phase_offset": 0.0 },
-      { "id": "truck-02", "phase_offset": 0.333 },
-      { "id": "truck-03", "phase_offset": 0.666 }
+      { "id": "truck-01", "phase_offset": 0.853 },
+      { "id": "truck-02", "phase_offset": 0.717 },
+      { "id": "truck-03", "phase_offset": 0.659 }
     ],
     "phase_ranges": {
       "loading": [0, 0.1],

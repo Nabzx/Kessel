@@ -63,24 +63,21 @@ body { background: var(--ink); }
 .enter-underground:hover, .enter-underground:focus-visible { background: rgba(26,76,88,.84); outline: 2px solid var(--cyan); outline-offset: 2px; }
 .enter-underground:disabled { cursor: wait; opacity: .65; }
 .underground-console { position: absolute; z-index: 2; top: clamp(96px, 15vh, 150px); left: clamp(22px, 5vw, 72px); padding: 18px 22px; border-left: 1px solid var(--cyan); background: linear-gradient(90deg, rgba(3,7,13,.82), transparent); }
-.underground-console h2 { margin: 10px 0 4px; font: 500 clamp(22px, 3vw, 38px)/1.1 var(--display); letter-spacing: -.04em; }
+.underground-console h2 { margin: 10px 0 4px; font: 500 clamp(22px, 2.6vw, 32px)/1.1 var(--display); letter-spacing: -.04em; }
 .underground-console h2 span { color: var(--cyan); }
 .underground-console p:last-child { margin: 0; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .underground-console { max-width: min(560px, 43vw); max-height: 76vh; overflow: auto; }
 .fleet-metrics { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 9px 22px; margin: 17px 0 8px; color: #8194a4; font-size: 8px; letter-spacing: .1em; }
 .fleet-metrics span { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--hairline); padding-bottom: 5px; }
 .fleet-metrics b { color: var(--paper); font-weight: 500; }
-.metrics-source, .simulation-status, .override-controls p, .world-model-note { color: #91a6b2; font-size: 8px; letter-spacing: .04em; line-height: 1.6; }
+.metrics-source, .simulation-status, .world-model-note { color: #91a6b2; font-size: 8px; letter-spacing: .04em; line-height: 1.6; }
 .metrics-source a { color: #a9dbe6; text-underline-offset: 2px; }
 .fleet-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
-.fleet-controls button, .override-controls button, .override-controls select { min-height: 36px; padding: 0 12px; border: 1px solid rgba(116,215,232,.55); background: rgba(5,16,22,.9); color: var(--paper); font: 500 8px var(--mono); letter-spacing: .08em; cursor: pointer; }
+.fleet-controls button { min-height: 36px; padding: 0 12px; border: 1px solid rgba(116,215,232,.55); background: rgba(5,16,22,.9); color: var(--paper); font: 500 8px var(--mono); letter-spacing: .08em; cursor: pointer; }
 .fleet-controls button:first-child { background: rgba(13,75,86,.8); box-shadow: 0 0 22px rgba(116,215,232,.16); }
-.fleet-controls button:hover, .override-controls button:hover, .override-controls select:focus-visible { outline: 1px solid var(--cyan); outline-offset: 2px; }
+.fleet-controls button:hover { outline: 1px solid var(--cyan); outline-offset: 2px; }
 .fleet-controls kbd { margin-left: 7px; color: var(--cyan); font: inherit; }
 .simulation-status { min-height: 14px; color: var(--cyan); }
-.override-controls { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hairline); }
-.override-controls label { display: block; margin-bottom: 7px; color: var(--cyan); font-size: 8px; letter-spacing: .12em; }
-.override-controls select { width: 100%; margin-bottom: 7px; }
 .world-model-note { max-width: 38ch; margin-top: 13px; color: #a8d5e0; }
 .simulation-running { color: #b9f0fa; text-shadow: 0 0 12px rgba(116,215,232,.65); }
 .route-converging .fleet-metrics b { transition: color .2s ease; color: #8ce2b3; }
@@ -89,8 +86,8 @@ body { background: var(--ink); }
   .underground-console h2 { font-size: 20px; }
   .underground-console .eyebrow { margin-bottom: 10px; font-size: 7px; }
   .fleet-metrics { gap: 6px 10px; margin: 10px 0 5px; font-size: 7px; }
-  .metrics-source, .simulation-status, .override-controls p, .world-model-note { font-size: 7px; }
-  .fleet-controls button, .override-controls button, .override-controls select { min-height: 34px; font-size: 7px; }
+  .metrics-source, .simulation-status, .world-model-note { font-size: 7px; }
+  .fleet-controls button { min-height: 34px; font-size: 7px; }
 }
 .surface-credit { position: absolute; z-index: 2; right: 18px; bottom: 14px; max-width: min(650px, 74vw); margin: 0; color: rgba(231,240,246,.72); font: 9px/1.5 var(--mono); text-align: right; text-shadow: 0 1px 4px #03070d; }
 .mission.portal-entering::after { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; background: #020407; animation: portal-blackout var(--portal-duration, 4200ms) ease-in-out both; }

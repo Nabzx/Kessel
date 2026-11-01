@@ -168,9 +168,6 @@ const fleetCaption = document.getElementById("fleet-caption");
 const runOptimiserButton = document.getElementById("run-optimiser");
 const returnFleetButton = document.getElementById("return-fleet");
 const simulationStatus = document.getElementById("simulation-status");
-const waypointSelect = document.getElementById("waypoint-select");
-const overrideControls = document.getElementById("override-controls");
-const overrideStatus = document.getElementById("override-status");
 const worldModelNote = document.getElementById("world-model-note");
 const metricThroughput = document.getElementById("metric-throughput");
 const metricCycle = document.getElementById("metric-cycle");
@@ -270,7 +267,7 @@ function prepareSurfaceTerrain(surfaceAssets) {
     roadGeometry.setAttribute("position", new THREE.Float32BufferAttribute(roadVertices, 3));
     roadGeometry.setIndex(roadIndices);
     roadGeometry.computeVertexNormals();
-    surfaceRoot.add(new THREE.Mesh(roadGeometry, new THREE.MeshStandardMaterial({ color: 0x4e4c43, roughness: 1 })));
+    surfaceRoot.add(new THREE.Mesh(roadGeometry, new THREE.MeshStandardMaterial({ color: 0x746b58, roughness: 1, side: THREE.DoubleSide })));
 
     const portalConfig = surfaceAssets.portal;
     const portalX = portalConfig.x_m;
@@ -364,10 +361,10 @@ async function finishGlobeFlight() {
   scene.fog = new THREE.Fog(0x7c8982, 3800, 11500);
   camera.near = 1;
   camera.far = 40000;
-  camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-400, 850, 900));
+  camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-350, 700, 700));
   camera.fov = 47;
   camera.updateProjectionMatrix();
-  surfaceLookTarget.copy(surfacePortal.position);
+  surfaceLookTarget.copy(surfacePortal.position).add(new THREE.Vector3(150, 0, -115));
   camera.lookAt(surfaceLookTarget);
   cameraTransition = null;
   skipFlightButton.hidden = true;
@@ -708,7 +705,6 @@ function selectTruck(id) {
   }
   returnFleetButton.hidden = false;
   runOptimiserButton.hidden = true;
-  overrideControls.hidden = false;
   worldModelNote.hidden = false;
   flightStatus.hidden = false;
   flightStatus.textContent = `SELECTED / ${id.toUpperCase()}`;
@@ -717,90 +713,35 @@ function selectTruck(id) {
   const target = entry.truck.position.clone().add(new THREE.Vector3(0, 1.2, 1.8)).add(undergroundRoot.position);
   moveMissionCamera(position, target, reducedMotion ? 150 : 1400);
   undergroundConsole.classList.add("truck-selected");
-  waypointSelect.replaceChildren(new Option("Choose a network node", ""));
-  for (const node of fleet.nodes) {
-    if (!["junction", "draw_point", "tipping_point"].includes(node.kind)) continue;
-    waypointSelect.add(new Option(`${node.id} · ${node.level || "surface"}`, node.id));
-  }
   simulationStatus.textContent = `FOLLOWING ${id.toUpperCase()} · PRESS ESC TO RETURN`;
 }
 
 function returnToFleet() {
   const fleet = fleetStage()?.userData.fleet;
   if (!fleet) return;
-  fleet.revertRoute();
-  fleet.setPendingWaypoint(null);
-  waypointSelect.value = "";
   missionState = "fleet";
   fleet.select(null);
   returnFleetButton.hidden = true;
   runOptimiserButton.hidden = fleet.optimised;
-  overrideControls.hidden = true;
   worldModelNote.hidden = true;
   undergroundConsole.classList.remove("truck-selected");
   flightStatus.textContent = "FLEET OVERVIEW";
   showFleetOverview();
 }
 
-function applyOperatorWaypoint() {
-  const fleet = fleetStage()?.userData.fleet;
-  if (!fleet?.selectedId || !waypointSelect.value) {
-    overrideStatus.textContent = "Select a truck and waypoint first.";
-    return;
-  }
-  const started = performance.now();
-  const result = fleet.applyWaypoint(waypointSelect.value);
-  if (!result) {
-    overrideStatus.textContent = "No valid route connects this truck to the waypoint.";
-    return;
-  }
-  const delta = ((result.distance / result.baseline - 1) * 100);
-  fleet.setPendingWaypoint(waypointSelect.value, true);
-  overrideStatus.textContent = `LIVE A* · ${(performance.now() - started).toFixed(2)} ms · ${delta >= 0 ? `${delta.toFixed(0)}% longer` : `${Math.abs(delta).toFixed(0)}% shorter`} than the planned route.`;
-  simulationStatus.textContent = "CYAN LINE: OPERATOR ROUTE · GREEN/RED: PLANNED ROUTE";
-  missionState = "override";
-}
-
 runOptimiserButton.addEventListener("click", startOptimisation);
 returnFleetButton.addEventListener("click", returnToFleet);
-document.getElementById("apply-waypoint").addEventListener("click", applyOperatorWaypoint);
-waypointSelect.addEventListener("change", () => {
-  const fleet = fleetStage()?.userData.fleet;
-  fleet?.setPendingWaypoint(waypointSelect.value);
-  overrideStatus.textContent = waypointSelect.value
-    ? `Pending waypoint: ${waypointSelect.value}. Compute the route to commit, or cancel it.`
-    : "Select a network node to preview a waypoint.";
-});
-document.getElementById("cancel-waypoint").addEventListener("click", () => {
-  fleetStage()?.userData.fleet.setPendingWaypoint(null);
-  waypointSelect.value = "";
-  overrideStatus.textContent = "Pending waypoint cancelled. The planned route is unchanged.";
-});
-document.getElementById("revert-route").addEventListener("click", () => {
-  fleetStage()?.userData.fleet.revertRoute();
-  fleetStage()?.userData.fleet.setPendingWaypoint(null);
-  waypointSelect.value = "";
-  missionState = "truck";
-  overrideStatus.textContent = "Planned route restored. The fleet optimisation result is unchanged.";
-});
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && ["truck", "override"].includes(missionState)) returnToFleet();
+  if (event.key === "Escape" && missionState === "truck") returnToFleet();
 });
 canvas.addEventListener("click", (event) => {
-  if (!["fleet", "truck", "override"].includes(missionState) || !undergroundRoot.visible) return;
+  if (!["fleet", "truck"].includes(missionState) || !undergroundRoot.visible) return;
   const rect = canvas.getBoundingClientRect();
   pointer.set(((event.clientX - rect.left) / rect.width) * 2 - 1, -((event.clientY - rect.top) / rect.height) * 2 + 1);
   raycaster.setFromCamera(pointer, camera);
   const fleet = fleetStage()?.userData.fleet;
   const hits = raycaster.intersectObjects(fleet?.group.children || [], true);
-  if (["truck", "override"].includes(missionState)) {
-    const waypointId = hits.map((hit) => hit.object.userData.nodeId).find(Boolean);
-    if (waypointId) {
-      waypointSelect.value = waypointId;
-      waypointSelect.dispatchEvent(new Event("change", { bubbles: true }));
-    }
-    return;
-  }
+  if (missionState === "truck") return;
   const vehicle = hits.map((hit) => hit.object.userData.vehicleId || hit.object.parent?.userData.vehicleId).find(Boolean);
   if (vehicle) selectTruck(vehicle);
 });
@@ -919,9 +860,9 @@ function resize() {
   if (portalTransition) {
     camera.updateProjectionMatrix();
   } else if (missionState === "surface-arrived") {
-    if (surfacePortal) camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-400, width <= 760 ? 1100 : 850, width <= 760 ? 1250 : 900));
+    if (surfacePortal) camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-350, width <= 760 ? 900 : 700, width <= 760 ? 850 : 700));
     camera.lookAt(surfaceLookTarget);
-  } else if (missionState !== "fleet" && missionState !== "truck" && missionState !== "override") {
+  } else if (missionState !== "fleet" && missionState !== "truck") {
     camera.position.z = width <= 760 ? 9.8 : 8.4;
   }
   earthRoot.position.x = width <= 760 ? 0 : 1.55;

@@ -39,3 +39,22 @@ must handle loading and failure states. Asset totals need to be recorded per
 stage during verification, including compressed transfer size and decoded
 texture memory. An optional visual layer can be omitted on constrained
 devices without blocking the mission.
+
+## Local verification sample
+
+On 1 November 2026, a headless Chromium run over localhost reported these
+same-origin encoded transfer sizes, excluding CDN modules:
+
+| Stage | Added bytes | Added MiB | Cumulative MiB |
+| --- | ---: | ---: | ---: |
+| Globe, before first interactive view | 2,879,155 | 2.75 | 2.75 |
+| Surface | 805,287 | 0.77 | 3.52 |
+| Underground | 604,047 | 0.58 | 4.09 |
+
+The transfer targets are met in this sample. A three-second requestAnimationFrame
+sample reported 4.3 fps at 1440 x 1000 and 35.3 fps at 390 x 844 with DPR 1.5.
+Both used headless Chromium with SwiftShader software rendering, so these are
+not representative device frame rates. They flag the render path for a real
+mid-range phone check. The local flows completed without page errors or mobile
+overflow. Decoded texture memory, real-device frame rate and throttled-network
+descent timing remain unmeasured.
