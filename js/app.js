@@ -3,6 +3,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 /* ------------------------------------------------------------------ *
  * Kessel concept demo — data-driven renderer.
@@ -155,6 +156,53 @@ const textures = {
   rock: loadTextureSet(TEXTURE_SETS.rock),
 };
 
+// #123: a real CC0 photoscanned boulder (Poly Haven's moon_rock_02 --
+// see assets/models/moon_rock_02/README.md) replaces the procedural
+// IcosahedronGeometry rock instances, desktop-only -- mobile keeps the
+// icosahedron fallback (#122's aerial_rocks_02 texture over it), same
+// "mesh-based detail is desktop-only" pattern as #95/ADR-0014. At
+// ~3.3k triangles the model is light enough to instance directly
+// rather than needing a separate decimation pass.
+const ROCK_MODEL_PATH = "assets/models/moon_rock_02/moon_rock_02_1k.gltf";
+const ROCK_MODEL_TEXTURE_BASE = "assets/models/moon_rock_02/textures/moon_rock_02";
+// The old IcosahedronGeometry(0.22, 0) had a 0.22 circumradius, and the
+// per-instance scale formula (0.22 * rock_scale[i], see updateRocksSim)
+// was tuned against that. Rescaling the loaded geometry to the same
+// bounding-sphere radius keeps that formula -- and the resulting pile
+// size -- unchanged rather than needing to retune it for the new mesh's
+// native ~0.125 half-extent.
+const ROCK_MODEL_TARGET_RADIUS = 0.22;
+
+async function loadRockGeometry() {
+  const gltf = await new GLTFLoader().loadAsync(ROCK_MODEL_PATH);
+  let geometry = null;
+  gltf.scene.traverse((obj) => { if (obj.isMesh && !geometry) geometry = obj.geometry; });
+  geometry.computeBoundingSphere();
+  const scale = ROCK_MODEL_TARGET_RADIUS / geometry.boundingSphere.radius;
+  geometry.scale(scale, scale, scale);
+  geometry.computeBoundingSphere();
+
+  const diff = textureLoader.load(`${ROCK_MODEL_TEXTURE_BASE}_diff_1k.jpg`);
+  diff.colorSpace = THREE.SRGBColorSpace;
+  const nor = textureLoader.load(`${ROCK_MODEL_TEXTURE_BASE}_nor_gl_1k.jpg`);
+  // "arm" = ambient occlusion / roughness / metalness packed in R/G/B
+  // (standard glTF channel packing). aoMap needs a second UV set this
+  // model doesn't ship, so only the roughness/metalness channels are
+  // used -- both read from the same primary UV as .map.
+  const arm = textureLoader.load(`${ROCK_MODEL_TEXTURE_BASE}_arm_1k.jpg`);
+  const material = new THREE.MeshStandardMaterial({
+    map: diff,
+    normalMap: nor,
+    roughnessMap: arm,
+    metalnessMap: arm,
+    roughness: 1,
+    metalness: 0, // matches the source glTF's metallicFactor: 0 -- this is rock, not ore
+    color: 0xa5937c, // same tint as the mobile/icosahedron rock material (#103/#122)
+  });
+
+  return { geometry, material };
+}
+
 function frameAt(t, out) {
   const frames = state.frames;
   const n = frames.length;
@@ -210,7 +258,7 @@ function runIntro(onDone) {
 
 /* ------------------------------ scene ------------------------------ */
 
-function buildCommonScene({ wireframePile }) {
+function buildCommonScene({ wireframePile, rockModel }) {
   const scene = new THREE.Scene();
   // Phase 6b (#103): lighter fog so geometry stays legible further out --
   // maintainer feedback was that the scene read too dark overall.
@@ -456,7 +504,13 @@ function buildCommonScene({ wireframePile }) {
   }
 
   // ---- rock pile ----
-  const rockGeo = new THREE.IcosahedronGeometry(0.22, 0);
+  // #123: the wireframe prediction panel keeps the icosahedron -- a
+  // dense 3.3k-tri organic mesh reads as a tangled blob in wireframe,
+  // where the low-poly facets of the icosahedron read cleanly as the
+  // sci-fi "ghost" silhouette (ADR-0013). The real geometry/material
+  // (rockModel, desktop-only, see loadRockGeometry) is used for the
+  // solid sim panel pile only.
+  const rockGeo = (!wireframePile && rockModel) ? rockModel.geometry : new THREE.IcosahedronGeometry(0.22, 0);
   let rockMat, rockMesh, rockColors;
   if (wireframePile) {
     rockMat = new THREE.MeshBasicMaterial({
@@ -466,13 +520,16 @@ function buildCommonScene({ wireframePile }) {
       opacity: 0.9,
       vertexColors: true,
     });
+  } else if (rockModel) {
+    rockMat = rockModel.material;
   } else {
     // #122: real rock PBR (Poly Haven CC0, assets/textures/README.md)
     // replaces #74's procedural noise bump map -- same desktop-only
     // normal-map split as before (#95's throttled profile), but every
     // instance now also carries the real diffuse map, not a flat colour,
     // since that costs nothing extra on the GPU side mobile was being
-    // protected from.
+    // protected from. Mobile fallback now that desktop has moved on to
+    // the real rock model (#123).
     rockMat = new THREE.MeshStandardMaterial({
       map: textures.rock.diff,
       normalMap: textures.rock.nor || null,
@@ -702,12 +759,17 @@ const rolloutPromise = loadRollout();
 
 async function main() {
   await rolloutPromise;
+  // #123: desktop-only real rock geometry -- loaded once, shared across
+  // all 64 instances. Falls back to the procedural icosahedron (passing
+  // rockModel: null) on mobile and if the fetch fails for any reason,
+  // rather than blocking the whole demo on an optional asset.
+  const rockModel = IS_MOBILE ? null : await loadRockGeometry().catch(() => null);
 
   const canvasSim = document.getElementById("canvas-sim");
   const canvasPred = document.getElementById("canvas-pred");
 
-  const sim = buildCommonScene({ wireframePile: false });
-  const pred = buildCommonScene({ wireframePile: true });
+  const sim = buildCommonScene({ wireframePile: false, rockModel });
+  const pred = buildCommonScene({ wireframePile: true, rockModel });
   pred.loader.group.visible = true;
 
   // Phase 6b (#105): a three-quarter chase camera, replacing the static
