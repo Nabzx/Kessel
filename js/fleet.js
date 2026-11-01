@@ -32,8 +32,6 @@ function makeTruck(id, model) {
     rock.position.fromArray(cargo.position_m);
     dumpBed.add(rock);
   }
-  dumpBed.userData.tip = () => { dumpBed.rotation.x = bedConfig.tip_angle_radians; };
-  dumpBed.userData.level = () => { dumpBed.rotation.x = 0; };
   const wheelConfig = model.wheels;
   for (const side of [-1, 1]) {
     for (const z of wheelConfig.axle_z_m) {
@@ -54,8 +52,7 @@ function makeTruck(id, model) {
   }
   root.userData.unselect = () => { root.scale.setScalar(1); };
   root.userData.select = () => { root.scale.setScalar(model.selection_scale); };
-  root.userData.dumpBed = dumpBed;
-  return { root, forward: new THREE.Vector3(...model.forward_axis) };
+  return { root, forward: new THREE.Vector3(...model.forward_axis), dumpBed };
 }
 
 function routePoints(network, route) {
@@ -145,7 +142,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
     targetById.set(node.id, marker);
   }
   const entries = routes.map((route, index) => {
-    const { root: truck, forward } = makeTruck(route.vehicle_id, vehicleModel);
+    const { root: truck, forward, dumpBed } = makeTruck(route.vehicle_id, vehicleModel);
     group.add(truck);
     const prediction = new THREE.Mesh(
       new THREE.BoxGeometry(...vehicleModel.prediction_dimensions_m),
@@ -163,6 +160,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       path,
       truck,
       forward,
+      dumpBed,
       prediction,
       distance: (fleetConfig.vehicles.find((vehicle) => vehicle.id === route.vehicle_id)?.phase_offset ?? index / routes.length) * path.length,
       speed: fleetConfig.speed_mps.unoptimised + index * fleetConfig.vehicle_speed_variation_mps,
@@ -305,7 +303,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       const cycle = THREE.MathUtils.euclideanModulo(entry.distance, entry.path.length) / entry.path.length;
       const phase = Object.entries(fleetConfig.phase_ranges).find(([, range]) => cycle >= range[0] && cycle < range[1])?.[0] || "returning";
       entry.truck.userData.phase = phase;
-      if (phase === "tipping") entry.truck.userData.dumpBed.tip(); else entry.truck.userData.dumpBed.level();
+      entry.dumpBed.rotation.x = phase === "tipping" ? vehicleModel.dump_bed.tip_angle_radians : 0;
       const predicted = pointAt(entry.path, entry.distance + fleetConfig.prediction_horizon_m, entry.prediction.position);
       entry.prediction.position.y += 1.2;
       entry.prediction.quaternion.setFromUnitVectors(new THREE.Vector3(...vehicleModel.forward_axis), predicted);

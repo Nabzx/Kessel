@@ -338,6 +338,7 @@ function prepareSurfaceTerrain(surfaceAssets) {
     resolve();
   }).catch(reject);
   });
+  return surfaceTerrainPromise;
 }
 
 async function finishGlobeFlight() {
@@ -601,7 +602,7 @@ async function prepareUndergroundStage() {
       vehicleModel,
     });
     if (!surfacePortal) throw new Error("Mine entrance is not ready");
-    root.position.copy(surfacePortal.position);
+    undergroundRoot.position.copy(surfacePortal.position);
     undergroundRoot.add(root);
     undergroundRoot.visible = false;
     undergroundRoot.userData.dispose = () => rendererModule.disposeUndergroundStage(root);
@@ -644,10 +645,14 @@ function displayMetrics(values) {
 function showFleetOverview(duration = 1700) {
   const origin = undergroundRoot.position.clone();
   const mobileFactor = mobile ? 1.22 : 1;
-  const position = origin.clone().add(new THREE.Vector3(300 * mobileFactor, 220 * mobileFactor, 290 * mobileFactor));
+  const position = origin.clone().add(new THREE.Vector3(150 * mobileFactor, 110 * mobileFactor, 150 * mobileFactor));
   const target = origin.clone().add(new THREE.Vector3(0, -30, -380));
-  camera.fov = mobile ? 64 : 56;
+  camera.fov = mobile ? 58 : 52;
   camera.far = 1400;
+  if (scene.fog) {
+    scene.fog.near = 70;
+    scene.fog.far = 1400;
+  }
   camera.updateProjectionMatrix();
   moveMissionCamera(position, target, reducedMotion ? 150 : duration);
 }
@@ -697,6 +702,10 @@ function selectTruck(id) {
   const entry = fleet.select(id);
   if (!entry) return;
   missionState = "truck";
+  if (scene.fog) {
+    scene.fog.near = 12;
+    scene.fog.far = 140;
+  }
   returnFleetButton.hidden = false;
   runOptimiserButton.hidden = true;
   overrideControls.hidden = false;
@@ -880,6 +889,7 @@ function updatePortalTransition(now) {
     portalTransition = null;
     missionState = "fleet";
     showFleetOverview(1900);
+    experience.classList.add("underground-active");
     returnFleetButton.hidden = true;
     runOptimiserButton.hidden = false;
     runOptimiserButton.disabled = false;

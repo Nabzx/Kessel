@@ -203,8 +203,9 @@ export async function createUndergroundStage(network, { mobile = false, routes =
   const baseWidth = network.design.cross_section.width_m;
   const baseHeight = network.design.cross_section.height_m;
 
-  root.add(new THREE.AmbientLight(0x8c97a1, 0.42));
-  const fill = new THREE.DirectionalLight(0xb9c5cc, 0.36);
+  root.add(new THREE.HemisphereLight(0xbacbd4, 0x28231d, 1.15));
+  root.add(new THREE.AmbientLight(0x8c97a1, 0.32));
+  const fill = new THREE.DirectionalLight(0xb9c5cc, 1.05);
   fill.position.set(-80, 110, 140);
   root.add(fill);
 
