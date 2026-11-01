@@ -128,6 +128,22 @@ function makeRouteRibbon(path, routeIndex, routeCount, materialColour, network) 
 export function createFleet(network, routes, fleetConfig, vehicleModel, routeRibbons) {
   const group = new THREE.Group();
   group.name = "scripted-haul-fleet";
+  const waypointTargets = new THREE.Group();
+  waypointTargets.name = "valid-waypoint-targets";
+  waypointTargets.visible = false;
+  group.add(waypointTargets);
+  const targetById = new Map();
+  for (const node of network.nodes.filter((item) => ["junction", "draw_point", "tipping_point"].includes(item.kind))) {
+    const marker = new THREE.Mesh(new THREE.RingGeometry(0.7, 1.05, 24), new THREE.MeshBasicMaterial({ color: 0x70d7e8, side: THREE.DoubleSide, transparent: true, opacity: 0.92, depthWrite: false, toneMapped: false }));
+    marker.rotation.x = -Math.PI / 2;
+    marker.position.fromArray(node.position_m);
+    marker.position.y += 0.3;
+    marker.userData.nodeId = node.id;
+    marker.userData.baseColour = 0x70d7e8;
+    marker.visible = true;
+    waypointTargets.add(marker);
+    targetById.set(node.id, marker);
+  }
   const entries = routes.map((route, index) => {
     const { root: truck, forward } = makeTruck(route.vehicle_id, vehicleModel);
     group.add(truck);
@@ -176,6 +192,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
   const optimisedRibbons = [];
   let originalPath = null;
   let activeEntry = null;
+  let pendingWaypointId = null;
   const visitCounts = new Map();
   routes.forEach((route) => route.node_ids.forEach((id) => visitCounts.set(id, (visitCounts.get(id) || 0) + 1)));
   const sharedJunctions = network.nodes.filter((node) => visitCounts.get(node.id) > 1 && ["junction", "portal"].includes(node.kind)).map((node) => new THREE.Vector3(...node.position_m));
@@ -269,6 +286,13 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
     originalPath = null;
     return true;
   }
+  function setPendingWaypoint(id, committed = false) {
+    pendingWaypointId = id || null;
+    for (const [nodeId, marker] of targetById) {
+      marker.material.color.setHex(nodeId === pendingWaypointId ? (committed ? 0x60e2ed : 0xffc879) : marker.userData.baseColour);
+      marker.scale.setScalar(nodeId === pendingWaypointId ? 1.45 : 1);
+    }
+  }
   function update(delta) {
     for (const entry of entries) {
       const atChoke = sharedJunctions.some((node) => entry.truck.position.distanceTo(node) < fleetConfig.congestion_radius_m);
@@ -289,6 +313,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
   }
   function select(id) {
     selectedId = id;
+    waypointTargets.visible = Boolean(id);
     for (const entry of entries) {
       entry.truck.scale.setScalar(entry.id === id ? 1.12 : 1);
       entry.prediction.visible = entry.id === id;
@@ -326,5 +351,5 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
     }
     entries.forEach((entry, index) => { entry.speed = (value ? fleetConfig.speed_mps.converged : fleetConfig.speed_mps.unoptimised) + index * fleetConfig.vehicle_speed_variation_mps; });
   }
-  return { group, entries, update, select, get selectedId() { return selectedId; }, get optimised() { return optimised; }, setOptimised, applyWaypoint, revertRoute, nodes: network.nodes };
+  return { group, entries, update, select, get selectedId() { return selectedId; }, get optimised() { return optimised; }, setOptimised, applyWaypoint, revertRoute, setPendingWaypoint, nodes: network.nodes };
 }

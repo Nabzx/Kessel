@@ -720,6 +720,8 @@ function returnToFleet() {
   const fleet = fleetStage()?.userData.fleet;
   if (!fleet) return;
   fleet.revertRoute();
+  fleet.setPendingWaypoint(null);
+  waypointSelect.value = "";
   missionState = "fleet";
   fleet.select(null);
   returnFleetButton.hidden = true;
@@ -744,6 +746,7 @@ function applyOperatorWaypoint() {
     return;
   }
   const delta = ((result.distance / result.baseline - 1) * 100);
+  fleet.setPendingWaypoint(waypointSelect.value, true);
   overrideStatus.textContent = `LIVE A* · ${(performance.now() - started).toFixed(2)} ms · ${delta >= 0 ? `${delta.toFixed(0)}% longer` : `${Math.abs(delta).toFixed(0)}% shorter`} than the planned route.`;
   simulationStatus.textContent = "CYAN LINE: OPERATOR ROUTE · GREEN/RED: PLANNED ROUTE";
   missionState = "override";
@@ -752,8 +755,22 @@ function applyOperatorWaypoint() {
 runOptimiserButton.addEventListener("click", startOptimisation);
 returnFleetButton.addEventListener("click", returnToFleet);
 document.getElementById("apply-waypoint").addEventListener("click", applyOperatorWaypoint);
+waypointSelect.addEventListener("change", () => {
+  const fleet = fleetStage()?.userData.fleet;
+  fleet?.setPendingWaypoint(waypointSelect.value);
+  overrideStatus.textContent = waypointSelect.value
+    ? `Pending waypoint: ${waypointSelect.value}. Compute the route to commit, or cancel it.`
+    : "Select a network node to preview a waypoint.";
+});
+document.getElementById("cancel-waypoint").addEventListener("click", () => {
+  fleetStage()?.userData.fleet.setPendingWaypoint(null);
+  waypointSelect.value = "";
+  overrideStatus.textContent = "Pending waypoint cancelled. The planned route is unchanged.";
+});
 document.getElementById("revert-route").addEventListener("click", () => {
   fleetStage()?.userData.fleet.revertRoute();
+  fleetStage()?.userData.fleet.setPendingWaypoint(null);
+  waypointSelect.value = "";
   missionState = "truck";
   overrideStatus.textContent = "Planned route restored. The fleet optimisation result is unchanged.";
 });
@@ -761,12 +778,20 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && ["truck", "override"].includes(missionState)) returnToFleet();
 });
 canvas.addEventListener("click", (event) => {
-  if (missionState !== "fleet" || !undergroundRoot.visible) return;
+  if (!["fleet", "truck", "override"].includes(missionState) || !undergroundRoot.visible) return;
   const rect = canvas.getBoundingClientRect();
   pointer.set(((event.clientX - rect.left) / rect.width) * 2 - 1, -((event.clientY - rect.top) / rect.height) * 2 + 1);
   raycaster.setFromCamera(pointer, camera);
   const fleet = fleetStage()?.userData.fleet;
   const hits = raycaster.intersectObjects(fleet?.group.children || [], true);
+  if (["truck", "override"].includes(missionState)) {
+    const waypointId = hits.map((hit) => hit.object.userData.nodeId).find(Boolean);
+    if (waypointId) {
+      waypointSelect.value = waypointId;
+      waypointSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    return;
+  }
   const vehicle = hits.map((hit) => hit.object.userData.vehicleId || hit.object.parent?.userData.vehicleId).find(Boolean);
   if (vehicle) selectTruck(vehicle);
 });
