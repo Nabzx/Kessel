@@ -40,6 +40,16 @@ body { background: var(--ink); }
 }
 .warp.active { animation: warp-in 1.7s cubic-bezier(.16,.75,.25,1) both; }
 @keyframes warp-in { 0% { opacity: .8; transform: scale(.12); } 68% { opacity: .35; } 100% { opacity: 0; transform: scale(1.3); } }
+.mission.surface-transition::after { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; background: #03070d; animation: surface-reveal 1.5s ease-in-out both; }
+@keyframes surface-reveal { 0%, 100% { opacity: 0; } 45%, 55% { opacity: 1; } }
+.mission.surface-arrived { background: #66716a; }
+.mission.surface-arrived .space-canvas { opacity: 1; }
+.mission.surface-arrived .opening-copy, .mission.surface-arrived .environment-picker, .mission.surface-arrived .bottom-bar, .mission.surface-arrived .earth-readout, .mission.surface-arrived .deposit-legend, .mission.surface-arrived .mission-index { opacity: 0; pointer-events: none; }
+.surface-console { position: absolute; z-index: 2; top: clamp(96px, 15vh, 150px); left: clamp(22px, 8vw, 120px); padding: 18px 22px; border-left: 1px solid var(--cyan); background: linear-gradient(90deg, rgba(3,7,13,.76), transparent); }
+.surface-console h2 { margin: 10px 0 4px; font: 500 clamp(22px, 3vw, 38px)/1.1 var(--display); letter-spacing: -.04em; }
+.surface-console h2 span { color: var(--cyan); }
+.surface-console p:last-child { margin: 0; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.surface-credit { position: absolute; z-index: 2; right: 18px; bottom: 14px; max-width: min(650px, 74vw); margin: 0; color: rgba(231,240,246,.72); font: 9px/1.5 var(--mono); text-align: right; text-shadow: 0 1px 4px #03070d; }
 
 .vignette {
   pointer-events: none;
@@ -150,6 +160,8 @@ h1 span { color: #7acddd; }
   .skip-flight { right: 7vw; bottom: max(18px, env(safe-area-inset-bottom)); }
   .site-target { font-size: 7px; padding: 6px 7px; }
   .environment-picker { left: 7vw; right: 7vw; bottom: 116px; width: auto; }
+  .surface-console { top: 88px; left: 7vw; right: 7vw; padding: 12px 16px; }
+  .surface-credit { right: 7vw; bottom: 10px; max-width: 86vw; font-size: 8px; }
   .picker-heading .eyebrow { margin-bottom: 5px; font-size: 8px; }
   .picker-heading h2 { max-width: 31ch; margin-bottom: 8px; font-size: 12px; }
   .environment-options { gap: 5px; }

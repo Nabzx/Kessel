@@ -19,6 +19,15 @@
       "night_lights": "assets/earth-black-marble-2016.jpg",
       "clouds": "assets/earth-clouds.jpg"
     },
+    "surface": {
+      "satellite_image": "assets/rutongo/satellite-2026-08-14.webp",
+      "elevation_heightmap": "assets/rutongo/elevation-30m-4km.png",
+      "width_m": 4096,
+      "elevation_min_m": 1468.55,
+      "elevation_max_m": 1897.49,
+      "imagery_date": "2026-08-14",
+      "imagery_source": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_35MRU_20260814_0_L2A"
+    },
     "deposit_markers": "data/mineral-deposits.json"
   },
   "environments": [

@@ -21,6 +21,9 @@ const earthRoot = new THREE.Group();
 earthRoot.rotation.z = THREE.MathUtils.degToRad(23.44);
 earthRoot.position.x = innerWidth <= 760 ? 0 : 1.55;
 scene.add(earthRoot);
+const surfaceRoot = new THREE.Group();
+surfaceRoot.visible = false;
+scene.add(surfaceRoot);
 
 const earthGeometry = new THREE.SphereGeometry(2.38, mobile ? 72 : 112, mobile ? 48 : 80);
 const earthMaterial = new THREE.MeshStandardMaterial({
@@ -153,6 +156,8 @@ const targetName = document.getElementById("target-name");
 const targetButton = document.getElementById("rutongo-marker");
 const skipFlightButton = document.getElementById("skip-flight");
 const flightStatus = document.getElementById("flight-status");
+const surfaceConsole = document.getElementById("surface-console");
+const surfaceCredit = document.getElementById("surface-credit");
 let chooseUnderground = null;
 let missionState = "biome-select";
 let missionLocation = null;
@@ -162,22 +167,99 @@ const targetWorldNormal = new THREE.Vector3();
 const projectedTarget = new THREE.Vector3();
 const cameraToTarget = new THREE.Vector3();
 const flightLookTarget = new THREE.Vector3();
+let surfaceTerrainPromise = null;
 
-function finishGlobeFlight() {
+function prepareSurfaceTerrain() {
+  if (surfaceTerrainPromise) return surfaceTerrainPromise;
+  surfaceTerrainPromise = new Promise((resolve, reject) => {
+  const image = new Image();
+  const heightImage = new Image();
+  const loaded = Promise.all([
+    new Promise((imageReady, imageError) => { image.onload = imageReady; image.onerror = imageError; }),
+    new Promise((imageReady, imageError) => { heightImage.onload = imageReady; heightImage.onerror = imageError; }),
+  ]);
+  image.src = "assets/rutongo/satellite-2026-08-14.webp";
+  heightImage.src = "assets/rutongo/elevation-30m-4km.png";
+  loaded.then(() => {
+    const heightCanvas = document.createElement("canvas");
+    heightCanvas.width = heightImage.naturalWidth;
+    heightCanvas.height = heightImage.naturalHeight;
+    const context = heightCanvas.getContext("2d", { willReadFrequently: true });
+    context.drawImage(heightImage, 0, 0);
+    const samples = context.getImageData(0, 0, heightCanvas.width, heightCanvas.height).data;
+    const segments = heightCanvas.width - 1;
+    const geometry = new THREE.PlaneGeometry(4096, 4096, segments, heightCanvas.height - 1);
+    geometry.rotateX(-Math.PI / 2);
+    const positions = geometry.attributes.position;
+    for (let i = 0; i < positions.count; i += 1) {
+      positions.setY(i, (samples[i * 4] / 255) * 429);
+    }
+    positions.needsUpdate = true;
+    geometry.computeVertexNormals();
+    const texture = new THREE.Texture(image);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.needsUpdate = true;
+    const terrain = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ map: texture, roughness: 1, metalness: 0 }));
+    terrain.receiveShadow = false;
+    surfaceRoot.add(terrain);
+    const base = new THREE.Mesh(new THREE.PlaneGeometry(30000, 30000), new THREE.MeshStandardMaterial({ color: 0x625d48, roughness: 1 }));
+    base.rotation.x = -Math.PI / 2;
+    base.position.y = -4;
+    surfaceRoot.add(base);
+    surfaceRoot.add(new THREE.HemisphereLight(0xd5e6ef, 0x5c4e3a, 1.6));
+    const sun = new THREE.DirectionalLight(0xffe4bc, 2.2);
+    sun.position.set(-1800, 2600, 1200);
+    surfaceRoot.add(sun);
+    resolve();
+  }).catch(reject);
+  });
+}
+
+async function finishGlobeFlight() {
   if (!cameraTransition) return;
-  earth.rotation.y = cameraTransition.toEarthRotation;
-  camera.position.copy(cameraTransition.toCameraPosition);
-  camera.fov = cameraTransition.toFov;
+  const completedTransition = cameraTransition;
+  cameraTransition = null;
+  try {
+    await prepareSurfaceTerrain();
+  } catch (error) {
+    skipFlightButton.hidden = true;
+    flightStatus.textContent = "SURFACE DATA UNAVAILABLE";
+    console.error("Rutongo surface data could not be loaded", error);
+    return;
+  }
+  experience.classList.add("surface-transition");
+  await new Promise((resolve) => setTimeout(resolve, 680));
+  earth.rotation.y = completedTransition.toEarthRotation;
+  earthRoot.visible = false;
+  surfaceMarkers.visible = false;
+  stars.visible = false;
+  surfaceRoot.visible = true;
+  scene.background.set(0x7c8982);
+  scene.fog = new THREE.Fog(0x7c8982, 3800, 11500);
+  camera.near = 1;
+  camera.far = 40000;
+  camera.position.set(0, 2600, 2500);
+  camera.fov = 47;
   camera.updateProjectionMatrix();
-  camera.lookAt(cameraTransition.toLookTarget);
+  camera.lookAt(0, 100, 0);
   cameraTransition = null;
   skipFlightButton.hidden = true;
   flightStatus.textContent = `ARRIVED / ${missionLocation.name.toUpperCase()}`;
+  experience.classList.remove("descending");
+  experience.classList.add("surface-arrived");
+  surfaceConsole.hidden = false;
+  surfaceCredit.hidden = false;
+  await new Promise((resolve) => setTimeout(resolve, 820));
+  experience.classList.remove("surface-transition");
   window.dispatchEvent(new CustomEvent("kessel:descentcomplete", { detail: { location: missionLocation } }));
 }
 
 function beginGlobeFlight(location) {
   if (cameraTransition) return;
+  prepareSurfaceTerrain().catch((error) => {
+    flightStatus.textContent = "SURFACE DATA UNAVAILABLE";
+    console.error("Rutongo surface data could not be loaded", error);
+  });
   const baseRotation = -THREE.MathUtils.degToRad(location.longitude + 90);
   const fullTurn = Math.PI * 2;
   const nearestTurn = Math.round((earth.rotation.y - baseRotation) / fullTurn);
