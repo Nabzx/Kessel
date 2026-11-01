@@ -712,9 +712,9 @@ function selectTruck(id) {
   worldModelNote.hidden = false;
   flightStatus.hidden = false;
   flightStatus.textContent = `SELECTED / ${id.toUpperCase()}`;
-  const offset = new THREE.Vector3(0, 5, -13).applyQuaternion(entry.truck.quaternion);
+  const offset = new THREE.Vector3(0, 2.35, -15).applyQuaternion(entry.truck.quaternion);
   const position = entry.truck.position.clone().add(offset).add(undergroundRoot.position);
-  const target = entry.truck.position.clone().add(new THREE.Vector3(0, 1.2, 1.2)).add(undergroundRoot.position);
+  const target = entry.truck.position.clone().add(new THREE.Vector3(0, 1.2, 1.8)).add(undergroundRoot.position);
   moveMissionCamera(position, target, reducedMotion ? 150 : 1400);
   undergroundConsole.classList.add("truck-selected");
   waypointSelect.replaceChildren(new Option("Choose a network node", ""));

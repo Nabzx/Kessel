@@ -62,11 +62,11 @@ body { background: var(--ink); }
 .enter-underground span { color: var(--cyan); }
 .enter-underground:hover, .enter-underground:focus-visible { background: rgba(26,76,88,.84); outline: 2px solid var(--cyan); outline-offset: 2px; }
 .enter-underground:disabled { cursor: wait; opacity: .65; }
-.underground-console { position: absolute; z-index: 2; top: clamp(96px, 15vh, 150px); left: clamp(22px, 8vw, 120px); padding: 18px 22px; border-left: 1px solid var(--cyan); background: linear-gradient(90deg, rgba(3,7,13,.82), transparent); }
+.underground-console { position: absolute; z-index: 2; top: clamp(96px, 15vh, 150px); left: clamp(22px, 5vw, 72px); padding: 18px 22px; border-left: 1px solid var(--cyan); background: linear-gradient(90deg, rgba(3,7,13,.82), transparent); }
 .underground-console h2 { margin: 10px 0 4px; font: 500 clamp(22px, 3vw, 38px)/1.1 var(--display); letter-spacing: -.04em; }
 .underground-console h2 span { color: var(--cyan); }
 .underground-console p:last-child { margin: 0; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
-.underground-console { max-width: min(620px, 48vw); max-height: 76vh; overflow: auto; }
+.underground-console { max-width: min(560px, 43vw); max-height: 76vh; overflow: auto; }
 .fleet-metrics { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 9px 22px; margin: 17px 0 8px; color: #8194a4; font-size: 8px; letter-spacing: .1em; }
 .fleet-metrics span { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--hairline); padding-bottom: 5px; }
 .fleet-metrics b { color: var(--paper); font-weight: 500; }

@@ -27,19 +27,28 @@ function makeTruck(id, model) {
   const bedMesh = new THREE.Mesh(new THREE.BoxGeometry(...bedConfig.body_size_m), materials.body);
   bedMesh.position.fromArray(bedConfig.body_position_m);
   dumpBed.add(bedMesh);
+  const cargoMeshes = [];
+  for (const panel of bedConfig.panels) {
+    addBox(panel, dumpBed);
+  }
   for (const cargo of bedConfig.cargo_rocks) {
     const rock = new THREE.Mesh(new THREE.IcosahedronGeometry(cargo.radius_m, 0), materials.cargo);
     rock.position.fromArray(cargo.position_m);
     dumpBed.add(rock);
+    cargoMeshes.push(rock);
   }
   const wheelConfig = model.wheels;
   for (const side of [-1, 1]) {
     for (const z of wheelConfig.axle_z_m) {
       const wheel = new THREE.Mesh(new THREE.CylinderGeometry(wheelConfig.radius_m, wheelConfig.radius_m, wheelConfig.width_m, wheelConfig.segments), materials[wheelConfig.material]);
-      wheel.rotation.x = Math.PI / 2;
+      wheel.rotation.z = Math.PI / 2;
       wheel.position.set(side * wheelConfig.side_offset_m, wheelConfig.centre_y_m, z);
       wheel.userData.vehicleId = id;
       root.add(wheel);
+      const hub = new THREE.Mesh(new THREE.CylinderGeometry(wheelConfig.hub_radius_m, wheelConfig.hub_radius_m, 0.07, wheelConfig.segments), materials.body);
+      hub.rotation.z = Math.PI / 2;
+      hub.position.set(side * (wheelConfig.side_offset_m + 0.16), wheelConfig.centre_y_m, z);
+      root.add(hub);
     }
     const headlight = new THREE.Mesh(new THREE.SphereGeometry(model.headlights.radius_m, 8, 6), materials.lamp);
     headlight.position.set(side * model.headlights.side_offset_m, ...model.headlights.position_m);
@@ -52,7 +61,7 @@ function makeTruck(id, model) {
   }
   root.userData.unselect = () => { root.scale.setScalar(1); };
   root.userData.select = () => { root.scale.setScalar(model.selection_scale); };
-  return { root, forward: new THREE.Vector3(...model.forward_axis), dumpBed };
+  return { root, forward: new THREE.Vector3(...model.forward_axis), dumpBed, cargoMeshes };
 }
 
 function routePoints(network, route) {
@@ -142,7 +151,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
     targetById.set(node.id, marker);
   }
   const entries = routes.map((route, index) => {
-    const { root: truck, forward, dumpBed } = makeTruck(route.vehicle_id, vehicleModel);
+    const { root: truck, forward, dumpBed, cargoMeshes } = makeTruck(route.vehicle_id, vehicleModel);
     group.add(truck);
     const prediction = new THREE.Mesh(
       new THREE.BoxGeometry(...vehicleModel.prediction_dimensions_m),
@@ -161,6 +170,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       truck,
       forward,
       dumpBed,
+      cargoMeshes,
       prediction,
       distance: (fleetConfig.vehicles.find((vehicle) => vehicle.id === route.vehicle_id)?.phase_offset ?? index / routes.length) * path.length,
       speed: fleetConfig.speed_mps.unoptimised + index * fleetConfig.vehicle_speed_variation_mps,
@@ -304,6 +314,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       const phase = Object.entries(fleetConfig.phase_ranges).find(([, range]) => cycle >= range[0] && cycle < range[1])?.[0] || "returning";
       entry.truck.userData.phase = phase;
       entry.dumpBed.rotation.x = phase === "tipping" ? vehicleModel.dump_bed.tip_angle_radians : 0;
+      entry.cargoMeshes.forEach((rock) => { rock.visible = phase !== "returning"; });
       const predicted = pointAt(entry.path, entry.distance + fleetConfig.prediction_horizon_m, entry.prediction.position);
       entry.prediction.position.y += 1.2;
       entry.prediction.quaternion.setFromUnitVectors(new THREE.Vector3(...vehicleModel.forward_axis), predicted);
