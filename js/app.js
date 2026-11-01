@@ -3,6 +3,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 /* ------------------------------------------------------------------ *
  * Kessel concept demo — data-driven renderer.
@@ -128,6 +129,80 @@ async function loadRollout() {
   els.loading.classList.add("hidden");
 }
 
+// #122: Poly Haven CC0 PBR sets, re-exported at 512px/q72 (see
+// assets/textures/README.md) to keep the fetch cost small and
+// predictable rather than shipping Poly Haven's full 1k originals
+// (~4.5MB for the three sets combined vs. ~0.8MB re-exported) --
+// same "trim the payload, not the quality bar" principle as ADR-0002.
+// Normal maps are desktop-only, mirroring the existing bump-map
+// fallback (#74/#95) -- mobile gets the diffuse map only.
+const TEXTURE_SETS = {
+  tunnel: "rock_wall_09",
+  floor: "brown_mud_dry",
+  rock: "aerial_rocks_02",
+};
+
+const textureLoader = new THREE.TextureLoader();
+function loadTextureSet(slug) {
+  const diff = textureLoader.load(`assets/textures/${slug}_diff.jpg`);
+  diff.colorSpace = THREE.SRGBColorSpace;
+  const nor = IS_MOBILE ? null : textureLoader.load(`assets/textures/${slug}_nor_gl.jpg`);
+  return { diff, nor };
+}
+
+const textures = {
+  tunnel: loadTextureSet(TEXTURE_SETS.tunnel),
+  floor: loadTextureSet(TEXTURE_SETS.floor),
+  rock: loadTextureSet(TEXTURE_SETS.rock),
+};
+
+// #123: a real CC0 photoscanned boulder (Poly Haven's moon_rock_02 --
+// see assets/models/moon_rock_02/README.md) replaces the procedural
+// IcosahedronGeometry rock instances, desktop-only -- mobile keeps the
+// icosahedron fallback (#122's aerial_rocks_02 texture over it), same
+// "mesh-based detail is desktop-only" pattern as #95/ADR-0014. At
+// ~3.3k triangles the model is light enough to instance directly
+// rather than needing a separate decimation pass.
+const ROCK_MODEL_PATH = "assets/models/moon_rock_02/moon_rock_02_1k.gltf";
+const ROCK_MODEL_TEXTURE_BASE = "assets/models/moon_rock_02/textures/moon_rock_02";
+// The old IcosahedronGeometry(0.22, 0) had a 0.22 circumradius, and the
+// per-instance scale formula (0.22 * rock_scale[i], see updateRocksSim)
+// was tuned against that. Rescaling the loaded geometry to the same
+// bounding-sphere radius keeps that formula -- and the resulting pile
+// size -- unchanged rather than needing to retune it for the new mesh's
+// native ~0.125 half-extent.
+const ROCK_MODEL_TARGET_RADIUS = 0.22;
+
+async function loadRockGeometry() {
+  const gltf = await new GLTFLoader().loadAsync(ROCK_MODEL_PATH);
+  let geometry = null;
+  gltf.scene.traverse((obj) => { if (obj.isMesh && !geometry) geometry = obj.geometry; });
+  geometry.computeBoundingSphere();
+  const scale = ROCK_MODEL_TARGET_RADIUS / geometry.boundingSphere.radius;
+  geometry.scale(scale, scale, scale);
+  geometry.computeBoundingSphere();
+
+  const diff = textureLoader.load(`${ROCK_MODEL_TEXTURE_BASE}_diff_1k.jpg`);
+  diff.colorSpace = THREE.SRGBColorSpace;
+  const nor = textureLoader.load(`${ROCK_MODEL_TEXTURE_BASE}_nor_gl_1k.jpg`);
+  // "arm" = ambient occlusion / roughness / metalness packed in R/G/B
+  // (standard glTF channel packing). aoMap needs a second UV set this
+  // model doesn't ship, so only the roughness/metalness channels are
+  // used -- both read from the same primary UV as .map.
+  const arm = textureLoader.load(`${ROCK_MODEL_TEXTURE_BASE}_arm_1k.jpg`);
+  const material = new THREE.MeshStandardMaterial({
+    map: diff,
+    normalMap: nor,
+    roughnessMap: arm,
+    metalnessMap: arm,
+    roughness: 1,
+    metalness: 0, // matches the source glTF's metallicFactor: 0 -- this is rock, not ore
+    color: 0xa5937c, // same tint as the mobile/icosahedron rock material (#103/#122)
+  });
+
+  return { geometry, material };
+}
+
 function frameAt(t, out) {
   const frames = state.frames;
   const n = frames.length;
@@ -183,7 +258,7 @@ function runIntro(onDone) {
 
 /* ------------------------------ scene ------------------------------ */
 
-function buildCommonScene({ wireframePile }) {
+function buildCommonScene({ wireframePile, rockModel }) {
   const scene = new THREE.Scene();
   // Phase 6b (#103): lighter fog so geometry stays legible further out --
   // maintainer feedback was that the scene read too dark overall.
@@ -194,8 +269,20 @@ function buildCommonScene({ wireframePile }) {
   camera.lookAt(1.0, 0.9, -1.4);
 
   // ---- tunnel shell ----
+  // #122: real rock-wall PBR (Poly Haven CC0, see assets/textures/README.md)
+  // in place of the flat colour this material carried before. Tiled 3x6
+  // across the partial-cylinder shell -- picked by eye against the
+  // tunnel's actual proportions, not derived from the texture's own scale.
+  textures.tunnel.diff.wrapS = textures.tunnel.diff.wrapT = THREE.RepeatWrapping;
+  textures.tunnel.diff.repeat.set(3, 6);
+  if (textures.tunnel.nor) {
+    textures.tunnel.nor.wrapS = textures.tunnel.nor.wrapT = THREE.RepeatWrapping;
+    textures.tunnel.nor.repeat.set(3, 6);
+  }
   const tunnelMat = new THREE.MeshStandardMaterial({
-    color: 0x857760, // Phase 6b (#103): lightened from 0x6b5f4d
+    map: textures.tunnel.diff,
+    normalMap: textures.tunnel.nor || null,
+    color: 0x857760, // Phase 6b (#103): lightened from 0x6b5f4d -- now a tint over the map
     roughness: 0.92,
     metalness: 0.05,
     side: THREE.BackSide,
@@ -224,8 +311,22 @@ function buildCommonScene({ wireframePile }) {
     floorPos.setZ(i, Math.sin(x * 0.8 + y * 0.3) * 0.05 + Math.sin(y * 1.3) * 0.04);
   }
   floorGeo.computeVertexNormals();
-  // Phase 6b (#103): lightened from 0x4a4136
-  const floorMat = new THREE.MeshStandardMaterial({ color: 0x5e5344, roughness: 1, metalness: 0 });
+  // #122: Poly Haven CC0 dirt PBR (assets/textures/README.md) in place of
+  // the flat colour. Tiled 4x10 across the 10x24 floor plane.
+  textures.floor.diff.wrapS = textures.floor.diff.wrapT = THREE.RepeatWrapping;
+  textures.floor.diff.repeat.set(4, 10);
+  if (textures.floor.nor) {
+    textures.floor.nor.wrapS = textures.floor.nor.wrapT = THREE.RepeatWrapping;
+    textures.floor.nor.repeat.set(4, 10);
+  }
+  // Phase 6b (#103): lightened from 0x4a4136 -- now a tint over the map
+  const floorMat = new THREE.MeshStandardMaterial({
+    map: textures.floor.diff,
+    normalMap: textures.floor.nor || null,
+    color: 0x5e5344,
+    roughness: 1,
+    metalness: 0,
+  });
   const floor = new THREE.Mesh(floorGeo, floorMat);
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(1.2, 0, -2);
@@ -403,7 +504,13 @@ function buildCommonScene({ wireframePile }) {
   }
 
   // ---- rock pile ----
-  const rockGeo = new THREE.IcosahedronGeometry(0.22, 0);
+  // #123: the wireframe prediction panel keeps the icosahedron -- a
+  // dense 3.3k-tri organic mesh reads as a tangled blob in wireframe,
+  // where the low-poly facets of the icosahedron read cleanly as the
+  // sci-fi "ghost" silhouette (ADR-0013). The real geometry/material
+  // (rockModel, desktop-only, see loadRockGeometry) is used for the
+  // solid sim panel pile only.
+  const rockGeo = (!wireframePile && rockModel) ? rockModel.geometry : new THREE.IcosahedronGeometry(0.22, 0);
   let rockMat, rockMesh, rockColors;
   if (wireframePile) {
     rockMat = new THREE.MeshBasicMaterial({
@@ -413,17 +520,22 @@ function buildCommonScene({ wireframePile }) {
       opacity: 0.9,
       vertexColors: true,
     });
+  } else if (rockModel) {
+    rockMat = rockModel.material;
   } else {
-    // #74: a procedural noise bump map so the pile reads as textured
-    // stone rather than flat-shaded polyhedra. Per-fragment bump
-    // sampling across 64 lit instances measured as real cost on the
-    // Phase 5 throttled profile (#95) -- desktop-only, same fallback as
-    // the shader passes above.
+    // #122: real rock PBR (Poly Haven CC0, assets/textures/README.md)
+    // replaces #74's procedural noise bump map -- same desktop-only
+    // normal-map split as before (#95's throttled profile), but every
+    // instance now also carries the real diffuse map, not a flat colour,
+    // since that costs nothing extra on the GPU side mobile was being
+    // protected from. Mobile fallback now that desktop has moved on to
+    // the real rock model (#123).
     rockMat = new THREE.MeshStandardMaterial({
-      color: 0xa5937c, // Phase 6b (#103): lightened from 0x8a7b68
+      map: textures.rock.diff,
+      normalMap: textures.rock.nor || null,
+      color: 0xa5937c, // Phase 6b (#103): lightened from 0x8a7b68 -- now a tint over the map
       roughness: 0.9,
       metalness: 0.08,
-      ...(IS_MOBILE ? {} : { bumpMap: makeNoiseBumpTexture(), bumpScale: 0.05 }),
     });
   }
   const n = 64;
@@ -584,10 +696,12 @@ function attemptCardAt(t, cards) {
   return null;
 }
 
-/* ---------------------------- textures ---------------------------- */
-// Small canvas-generated textures -- no external assets, consistent with
-// the "no build step" invariant. Each is built once and reused across
-// both scenes.
+/* ------------------------- canvas textures ------------------------- */
+// Small canvas-generated sprites/decals -- fine-grained, resolution-
+// independent shapes a static image wouldn't suit. The Poly Haven PBR
+// sets (#122) are fetched as plain image files instead, both still
+// "no build step" per AGENTS.md: a GLTFLoader/TextureLoader fetch is
+// plain JavaScript, no bundler required (ADR-0004's framing).
 
 function makeRadialGradientTexture({ size = 64, inner = "rgba(255,255,255,1)", outer = "rgba(255,255,255,0)" }) {
   const c = document.createElement("canvas");
@@ -600,23 +714,6 @@ function makeRadialGradientTexture({ size = 64, inner = "rgba(255,255,255,1)", o
   ctx.fillRect(0, 0, size, size);
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
-
-function makeNoiseBumpTexture(size = 128) {
-  const c = document.createElement("canvas");
-  c.width = c.height = size;
-  const ctx = c.getContext("2d");
-  const img = ctx.createImageData(size, size);
-  for (let i = 0; i < size * size; i++) {
-    const v = 90 + Math.random() * 110;
-    img.data[i * 4] = img.data[i * 4 + 1] = img.data[i * 4 + 2] = v;
-    img.data[i * 4 + 3] = 255;
-  }
-  ctx.putImageData(img, 0, 0);
-  const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(4, 4);
   return tex;
 }
 
@@ -662,12 +759,17 @@ const rolloutPromise = loadRollout();
 
 async function main() {
   await rolloutPromise;
+  // #123: desktop-only real rock geometry -- loaded once, shared across
+  // all 64 instances. Falls back to the procedural icosahedron (passing
+  // rockModel: null) on mobile and if the fetch fails for any reason,
+  // rather than blocking the whole demo on an optional asset.
+  const rockModel = IS_MOBILE ? null : await loadRockGeometry().catch(() => null);
 
   const canvasSim = document.getElementById("canvas-sim");
   const canvasPred = document.getElementById("canvas-pred");
 
-  const sim = buildCommonScene({ wireframePile: false });
-  const pred = buildCommonScene({ wireframePile: true });
+  const sim = buildCommonScene({ wireframePile: false, rockModel });
+  const pred = buildCommonScene({ wireframePile: true, rockModel });
   pred.loader.group.visible = true;
 
   // Phase 6b (#105): a three-quarter chase camera, replacing the static
