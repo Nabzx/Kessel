@@ -30,6 +30,11 @@
       "site_layout_source": "illustrative",
       "site_layout_note": "Portal, access road and service yard are not survey data."
     },
+    "underground": {
+      "network_geometry": "data/tunnel-network.json",
+      "geometry_source": "scripted",
+      "renderer": "js/underground.js"
+    },
     "deposit_markers": "data/mineral-deposits.json"
   },
   "environments": [

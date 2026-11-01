@@ -245,6 +245,8 @@ function prepareSurfaceTerrain() {
     const portalX = -800;
     const portalZ = 650;
     const portal = new THREE.Group();
+    portal.name = "illustrative-mine-portal";
+    portal.userData.isMineEntrance = true;
     portal.position.set(portalX, elevationAt(portalX, portalZ), portalZ);
     surfaceRoot.add(portal);
     const apron = new THREE.Mesh(new THREE.BoxGeometry(38, 1.2, 34), new THREE.MeshStandardMaterial({ color: 0x635f53, roughness: 1 }));
