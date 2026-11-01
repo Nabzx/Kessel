@@ -34,6 +34,13 @@ maps linearly to 1,468.55-1,897.49 m above sea level for the Three.js terrain
 mesh. The DSM includes buildings, vegetation, and other surface features; it
 is not a bare-earth terrain model.
 
+The portal, service access road, sheds, and stockpile drawn over the crop are
+scripted illustrative props. [Trinity Metals](https://trinity-metals.com/en/projects/rutongo-mine)
+identifies Rutongo as six underground mines, but the public sources reviewed do not provide an as-built
+surface plan or verified portal coordinate. The map layer metadata exposed by
+the Rwanda government does not establish a redistributable portal dataset.
+The scene labels this layout as illustrative.
+
 The image and height field are derived crops and are loaded after the visitor
 selects Underground. Combined size: 157,798 bytes before HTTP compression.
 Regenerate them with `python3 data/build_rutongo_surface.py` after installing

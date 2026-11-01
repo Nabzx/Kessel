@@ -187,6 +187,11 @@ function prepareSurfaceTerrain() {
     const context = heightCanvas.getContext("2d", { willReadFrequently: true });
     context.drawImage(heightImage, 0, 0);
     const samples = context.getImageData(0, 0, heightCanvas.width, heightCanvas.height).data;
+    const elevationAt = (x, z) => {
+      const px = Math.round(((x + 2048) / 4096) * (heightCanvas.width - 1));
+      const py = Math.round(((z + 2048) / 4096) * (heightCanvas.height - 1));
+      return (samples[(py * heightCanvas.width + px) * 4] / 255) * 429;
+    };
     const segments = heightCanvas.width - 1;
     const geometry = new THREE.PlaneGeometry(4096, 4096, segments, heightCanvas.height - 1);
     geometry.rotateX(-Math.PI / 2);
@@ -210,6 +215,82 @@ function prepareSurfaceTerrain() {
     const sun = new THREE.DirectionalLight(0xffe4bc, 2.2);
     sun.position.set(-1800, 2600, 1200);
     surfaceRoot.add(sun);
+
+    const road = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-820, 0, 1900), new THREE.Vector3(-1030, 0, 1430),
+      new THREE.Vector3(-900, 0, 1100), new THREE.Vector3(-820, 0, 760),
+      new THREE.Vector3(-800, 0, 715),
+    ]);
+    const roadVertices = [];
+    const roadIndices = [];
+    const roadSteps = 64;
+    for (let i = 0; i <= roadSteps; i += 1) {
+      const t = i / roadSteps;
+      const point = road.getPoint(t);
+      const tangent = road.getTangent(t);
+      const side = new THREE.Vector3(-tangent.z, 0, tangent.x).normalize().multiplyScalar(8);
+      const y = elevationAt(point.x, point.z) + 0.8;
+      roadVertices.push(point.x + side.x, y, point.z + side.z, point.x - side.x, y, point.z - side.z);
+      if (i < roadSteps) {
+        const start = i * 2;
+        roadIndices.push(start, start + 2, start + 1, start + 1, start + 2, start + 3);
+      }
+    }
+    const roadGeometry = new THREE.BufferGeometry();
+    roadGeometry.setAttribute("position", new THREE.Float32BufferAttribute(roadVertices, 3));
+    roadGeometry.setIndex(roadIndices);
+    roadGeometry.computeVertexNormals();
+    surfaceRoot.add(new THREE.Mesh(roadGeometry, new THREE.MeshStandardMaterial({ color: 0x4e4c43, roughness: 1 })));
+
+    const portalX = -800;
+    const portalZ = 650;
+    const portal = new THREE.Group();
+    portal.position.set(portalX, elevationAt(portalX, portalZ), portalZ);
+    surfaceRoot.add(portal);
+    const apron = new THREE.Mesh(new THREE.BoxGeometry(38, 1.2, 34), new THREE.MeshStandardMaterial({ color: 0x635f53, roughness: 1 }));
+    apron.position.set(0, 0.2, 2);
+    portal.add(apron);
+
+    const openingShape = new THREE.Shape();
+    openingShape.moveTo(-7, 0);
+    openingShape.lineTo(-7, 5.2);
+    openingShape.quadraticCurveTo(-7, 9, 0, 9);
+    openingShape.quadraticCurveTo(7, 9, 7, 5.2);
+    openingShape.lineTo(7, 0);
+    openingShape.closePath();
+    const opening = new THREE.Mesh(new THREE.ShapeGeometry(openingShape), new THREE.MeshBasicMaterial({ color: 0x030405, side: THREE.DoubleSide }));
+    opening.position.set(0, 0.8, 0.5);
+    portal.add(opening);
+    const arch = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-8, 0.6, 0.75), new THREE.Vector3(-8, 5, 0.75),
+      new THREE.Vector3(-6.5, 8, 0.75), new THREE.Vector3(-3, 9.7, 0.75),
+      new THREE.Vector3(0, 10, 0.75), new THREE.Vector3(3, 9.7, 0.75),
+      new THREE.Vector3(6.5, 8, 0.75), new THREE.Vector3(8, 5, 0.75),
+      new THREE.Vector3(8, 0.6, 0.75),
+    ]);
+    portal.add(new THREE.Mesh(new THREE.TubeGeometry(arch, 40, 0.6, 8, false), new THREE.MeshStandardMaterial({ color: 0x9a8060, metalness: 0.5, roughness: 0.62 })));
+    for (const side of [-1, 1]) {
+      const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.55, 1.5, 0.45), new THREE.MeshBasicMaterial({ color: 0xffbd68 }));
+      lamp.position.set(side * 9.2, 7.8, 1);
+      portal.add(lamp);
+    }
+
+    const addServiceShed = (x, z, width, height, depth) => {
+      const shed = new THREE.Group();
+      shed.position.set(x, elevationAt(x, z), z);
+      surfaceRoot.add(shed);
+      const building = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), new THREE.MeshStandardMaterial({ color: 0x77776d, roughness: 0.92 }));
+      building.position.y = height / 2;
+      shed.add(building);
+      const roof = new THREE.Mesh(new THREE.BoxGeometry(width + 2, 1, depth + 2), new THREE.MeshStandardMaterial({ color: 0x343b3c, roughness: 0.88 }));
+      roof.position.y = height + 0.5;
+      shed.add(roof);
+    };
+    addServiceShed(-525, 420, 24, 9, 18);
+    addServiceShed(-485, 460, 16, 6, 12);
+    const stockpile = new THREE.Mesh(new THREE.ConeGeometry(10, 6, 12), new THREE.MeshStandardMaterial({ color: 0x625b4d, roughness: 1 }));
+    stockpile.position.set(-510, elevationAt(-510, 380) + 3, 380);
+    surfaceRoot.add(stockpile);
     resolve();
   }).catch(reject);
   });
@@ -238,10 +319,10 @@ async function finishGlobeFlight() {
   scene.fog = new THREE.Fog(0x7c8982, 3800, 11500);
   camera.near = 1;
   camera.far = 40000;
-  camera.position.set(0, 2600, 2500);
+  camera.position.set(-400, 1200, 1300);
   camera.fov = 47;
   camera.updateProjectionMatrix();
-  camera.lookAt(0, 100, 0);
+  camera.lookAt(-700, 370, 500);
   cameraTransition = null;
   skipFlightButton.hidden = true;
   flightStatus.textContent = `ARRIVED / ${missionLocation.name.toUpperCase()}`;
@@ -447,8 +528,8 @@ function resize() {
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
   if (experience.classList.contains("surface-arrived")) {
-    camera.position.set(0, width <= 760 ? 3100 : 2600, width <= 760 ? 3000 : 2500);
-    camera.lookAt(0, 100, 0);
+    camera.position.set(-400, width <= 760 ? 1500 : 1200, width <= 760 ? 1600 : 1300);
+    camera.lookAt(-700, 370, 500);
   } else {
     camera.position.z = width <= 760 ? 9.8 : 8.4;
   }

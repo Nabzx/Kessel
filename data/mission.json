@@ -26,7 +26,9 @@
       "elevation_min_m": 1468.55,
       "elevation_max_m": 1897.49,
       "imagery_date": "2026-08-14",
-      "imagery_source": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_35MRU_20260814_0_L2A"
+      "imagery_source": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_35MRU_20260814_0_L2A",
+      "site_layout_source": "illustrative",
+      "site_layout_note": "Portal, access road and service yard are not survey data."
     },
     "deposit_markers": "data/mineral-deposits.json"
   },

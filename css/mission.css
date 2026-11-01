@@ -49,6 +49,7 @@ body { background: var(--ink); }
 .surface-console h2 { margin: 10px 0 4px; font: 500 clamp(22px, 3vw, 38px)/1.1 var(--display); letter-spacing: -.04em; }
 .surface-console h2 span { color: var(--cyan); }
 .surface-console p:last-child { margin: 0; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.surface-console .surface-model-note { margin-top: 9px; max-width: 470px; color: #ffc67a; font-size: 9px; line-height: 1.5; letter-spacing: .04em; }
 .surface-credit { position: absolute; z-index: 2; right: 18px; bottom: 14px; max-width: min(650px, 74vw); margin: 0; color: rgba(231,240,246,.72); font: 9px/1.5 var(--mono); text-align: right; text-shadow: 0 1px 4px #03070d; }
 
 .vignette {
