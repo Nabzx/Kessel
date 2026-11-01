@@ -197,7 +197,7 @@ async function loadRockGeometry() {
     metalnessMap: arm,
     roughness: 1,
     metalness: 0, // matches the source glTF's metallicFactor: 0 -- this is rock, not ore
-    color: 0xa5937c, // same tint as the mobile/icosahedron rock material (#103/#122)
+    color: 0xaa9d87, // ADR-0018 revised: pulled back down, see the ambient-light comment above -- 0xc9bca6 overexposed these small instances to near-white
   });
 
   return { geometry, material };
@@ -260,9 +260,11 @@ function runIntro(onDone) {
 
 function buildCommonScene({ wireframePile, rockModel }) {
   const scene = new THREE.Scene();
-  // Phase 6b (#103): lighter fog so geometry stays legible further out --
-  // maintainer feedback was that the scene read too dark overall.
-  scene.fog = new THREE.FogExp2(0x0a0d12, 0.03);
+  // ADR-0018: sharply lighter again -- the Phase 6b fog (#103) still
+  // faded the tunnel to near-black well within camera range once the
+  // scene moved to a well-lit product-demo look rather than an
+  // atmospheric one.
+  scene.fog = new THREE.FogExp2(0x1a1d24, 0.008);
 
   const camera = new THREE.PerspectiveCamera(58, 1, 0.1, 100);
   camera.position.set(0.5, 1.95, 5.2);
@@ -274,21 +276,34 @@ function buildCommonScene({ wireframePile, rockModel }) {
   // across the partial-cylinder shell -- picked by eye against the
   // tunnel's actual proportions, not derived from the texture's own scale.
   textures.tunnel.diff.wrapS = textures.tunnel.diff.wrapT = THREE.RepeatWrapping;
-  textures.tunnel.diff.repeat.set(3, 6);
+  textures.tunnel.diff.repeat.set(6, 8);
   if (textures.tunnel.nor) {
     textures.tunnel.nor.wrapS = textures.tunnel.nor.wrapT = THREE.RepeatWrapping;
-    textures.tunnel.nor.repeat.set(3, 6);
+    textures.tunnel.nor.repeat.set(6, 8);
   }
   const tunnelMat = new THREE.MeshStandardMaterial({
     map: textures.tunnel.diff,
     normalMap: textures.tunnel.nor || null,
-    color: 0x857760, // Phase 6b (#103): lightened from 0x6b5f4d -- now a tint over the map
+    color: 0xd6cdb8, // ADR-0018: lightened again (was 0x857760) -- well-lit look needs the tint itself lighter, not just more light
     roughness: 0.92,
     metalness: 0.05,
     side: THREE.BackSide,
   });
-  const tunnelGeo = new THREE.CylinderGeometry(3.1, 3.1, 24, 20, 1, true,
-    THREE.MathUtils.degToRad(162), THREE.MathUtils.degToRad(216));
+  // ADR-0018: radius up from 3.1 -- the chase camera's offset
+  // (CHASE_OFFSET, ~5.5 units from the loader) routinely sat outside a
+  // 3.1-radius shell, meaning most of the frame was never modelled
+  // geometry at all, just empty background. No lighting change could
+  // have fixed that; this is the actual fix. 6.5 gives real margin at
+  // the chase camera's typical distance from the tunnel axis.
+  // ADR-0018: a full closed tube, not a partial angular wedge. The old
+  // 216-degree wedge (#17's original framing) left a 144-degree gap the
+  // chase camera routinely looked straight through once it moved freely
+  // around the loader (Phase 6b, #105) rather than sitting at a single
+  // fixed angle -- confirmed by swapping the material to a flat colour
+  // and watching most of the frame read as that colour, not shaded
+  // geometry. A full tube is also just a more honest shape for an
+  // actual mine bore than an open notch.
+  const tunnelGeo = new THREE.CylinderGeometry(6.5, 6.5, 40, 24, 1, true);
   // perturb the tunnel wall vertices for a hand-hewn look
   const posAttr = tunnelGeo.attributes.position;
   for (let i = 0; i < posAttr.count; i++) {
@@ -304,7 +319,9 @@ function buildCommonScene({ wireframePile, rockModel }) {
   tunnel.position.set(1.2, 1.9, -2);
   scene.add(tunnel);
 
-  const floorGeo = new THREE.PlaneGeometry(10, 24, 24, 24);
+  // ADR-0018: widened from 10x24 to match the enlarged tunnel radius --
+  // the floor previously ended well short of the tunnel walls either side.
+  const floorGeo = new THREE.PlaneGeometry(14, 40, 24, 24);
   const floorPos = floorGeo.attributes.position;
   for (let i = 0; i < floorPos.count; i++) {
     const x = floorPos.getX(i), y = floorPos.getY(i);
@@ -312,18 +329,18 @@ function buildCommonScene({ wireframePile, rockModel }) {
   }
   floorGeo.computeVertexNormals();
   // #122: Poly Haven CC0 dirt PBR (assets/textures/README.md) in place of
-  // the flat colour. Tiled 4x10 across the 10x24 floor plane.
+  // the flat colour. Tiled wider to match the enlarged floor.
   textures.floor.diff.wrapS = textures.floor.diff.wrapT = THREE.RepeatWrapping;
-  textures.floor.diff.repeat.set(4, 10);
+  textures.floor.diff.repeat.set(6, 12);
   if (textures.floor.nor) {
     textures.floor.nor.wrapS = textures.floor.nor.wrapT = THREE.RepeatWrapping;
-    textures.floor.nor.repeat.set(4, 10);
+    textures.floor.nor.repeat.set(6, 12);
   }
   // Phase 6b (#103): lightened from 0x4a4136 -- now a tint over the map
   const floorMat = new THREE.MeshStandardMaterial({
     map: textures.floor.diff,
     normalMap: textures.floor.nor || null,
-    color: 0x5e5344,
+    color: 0x9c8f78, // ADR-0018: lightened (was 0x5e5344)
     roughness: 1,
     metalness: 0,
   });
@@ -333,21 +350,53 @@ function buildCommonScene({ wireframePile, rockModel }) {
   scene.add(floor);
 
   // ---- lighting ----
-  // Phase 6b (#103): lifted further from the Phase 6 baseline (ADR-0005)
-  // per direct maintainer feedback -- noticeably brighter overall while
-  // the headlamp stays the clear focal light.
-  scene.add(new THREE.AmbientLight(0x4a5c73, 2.3));
-  scene.add(new THREE.HemisphereLight(0x6d84a0, 0x16130f, 1.3));
+  // ADR-0018: well-lit product-demo rig, superseding ADR-0005's
+  // headlamp-dominant mood. A broad overhead work-light is now the
+  // thing actually illuminating the tunnel; the headlamp (below, still
+  // parented to the loader) stays as a narrative accent rather than
+  // doing the real lighting work.
+  // ADR-0018: pushed much higher again -- directional lights only lift
+  // surfaces whose normals face roughly toward them, and no single
+  // direction could be found that evenly lit the tunnel's curved wall
+  // across every angle the chase camera can end up at. Ambient has no
+  // direction at all, so it is the reliable way to put a uniform
+  // brightness floor under every surface regardless of its normal.
+  // Pulled back down from 7.5/4.5: that level read fine on the large
+  // floor/wall surfaces but completely blew out the much smaller rock
+  // instances (#123) -- up close they rendered as a near-white blob with
+  // no visible texture detail at all, confirmed via an isolated render
+  // of the rock material alone at both intensities. Dialed to a level
+  // that keeps the floor/wall clearly lit without crushing texture
+  // contrast on anything smaller.
+  scene.add(new THREE.AmbientLight(0x9aa6b8, 3.2));
+  scene.add(new THREE.HemisphereLight(0xcdd8ec, 0x5c5040, 2.0));
 
-  const keyFill = new THREE.PointLight(0xffd9a8, 4.5, 8, 2);
+  const workLight = new THREE.DirectionalLight(0xfff2de, 1.6);
+  workLight.position.set(1.0, 8, 2.5);
+  workLight.target.position.set(1.2, 0, -3);
+  scene.add(workLight);
+  scene.add(workLight.target);
+
+  // ADR-0018: the overhead workLight hits the floor's up-facing normal
+  // well but only grazes the tunnel's curved wall surfaces at a shallow
+  // angle -- a second, more horizontal directional light specifically
+  // for the walls, since they otherwise stayed noticeably darker than
+  // the floor even after the floor read clearly lit.
+  const wallLight = new THREE.DirectionalLight(0xe8ecf4, 1.8);
+  wallLight.position.set(6, 2.4, -2);
+  wallLight.target.position.set(0, 1.9, -2);
+  scene.add(wallLight);
+  scene.add(wallLight.target);
+
+  const keyFill = new THREE.PointLight(0xffd9a8, 0.6, 10, 2);
   keyFill.position.set(0.6, 2.6, 2.4);
   scene.add(keyFill);
 
-  const farGlow = new THREE.PointLight(0x4fd6e6, 2.2, 12, 2);
-  farGlow.position.set(3.4, 2.2, -5.6);
+  const farGlow = new THREE.PointLight(0x7fd6e6, 2.6, 16, 2);
+  farGlow.position.set(3.4, 2.4, -5.6);
   scene.add(farGlow);
 
-  const rim = new THREE.DirectionalLight(0x9fb3cc, 0.7);
+  const rim = new THREE.DirectionalLight(0x9fb3cc, 1.1);
   rim.position.set(-3, 4, 4);
   scene.add(rim);
 
@@ -460,7 +509,12 @@ function buildCommonScene({ wireframePile, rockModel }) {
   // physically based quadratic falloff that is several times brighter at
   // the same intensity, which is what blew out as a lens-flare-sized
   // bloom in the cycle screenshots. Re-tuned for the new viewing distance.
-  const headlamp = new THREE.PointLight(0xffc07a, 2.2, 11, 2);
+  // ADR-0018: cut hard from 2.2 -- now that the scene has real ambient
+  // light, this is a narrative accent (the loader's working headlamp),
+  // not the thing doing the illuminating. At the old intensity, stacked
+  // on top of the new ambient/hemisphere, the loader blew out to a flat
+  // white-orange blob at close chase-cam range.
+  const headlamp = new THREE.PointLight(0xffc07a, 0.4, 11, 2);
   headlamp.position.set(0.78, 1.15, 0.42);
   loader.group.add(headlamp);
 
@@ -533,7 +587,7 @@ function buildCommonScene({ wireframePile, rockModel }) {
     rockMat = new THREE.MeshStandardMaterial({
       map: textures.rock.diff,
       normalMap: textures.rock.nor || null,
-      color: 0xa5937c, // Phase 6b (#103): lightened from 0x8a7b68 -- now a tint over the map
+      color: 0xaa9d87, // ADR-0018 revised: pulled back down, see the ambient-light comment above -- 0xc9bca6 overexposed these small instances to near-white
       roughness: 0.9,
       metalness: 0.08,
     });
@@ -790,6 +844,7 @@ async function main() {
   rendererPred.setPixelRatio(Math.min(window.devicePixelRatio, DPR_CAP));
   rendererSim.toneMapping = THREE.ACESFilmicToneMapping;
   rendererPred.toneMapping = THREE.ACESFilmicToneMapping;
+  // ADR-0018: well-lit product-demo exposure, up from 1.05.
   rendererSim.toneMappingExposure = 1.05;
   rendererPred.toneMappingExposure = 1.05;
 
@@ -801,14 +856,20 @@ async function main() {
   // desktop-only rather than being cut outright.
   const composerSim = new EffectComposer(rendererSim);
   composerSim.addPass(new RenderPass(sim.scene, sim.camera));
-  const bloomSim = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.65, 0.5, 0.18);
+  // ADR-0018: threshold raised from 0.18 -- against the new, brighter
+  // ambient base, the old low threshold bloomed most of the lit scene,
+  // not just genuine highlights.
+  const bloomSim = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.5, 0.5, 0.55);
   composerSim.addPass(bloomSim);
   const fadeSim = new ShaderPass(FADE_SHADER);
   if (!IS_MOBILE) composerSim.addPass(fadeSim);
 
   const composerPred = new EffectComposer(rendererPred);
   composerPred.addPass(new RenderPass(pred.scene, pred.camera));
-  const bloomPred = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.95, 0.55, 0.1);
+  // ADR-0018: threshold raised from 0.1, same reasoning as bloomSim --
+  // against the brighter base scene the old threshold bloomed the whole
+  // lit floor, not just the wireframe's own glow.
+  const bloomPred = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.8, 0.55, 0.32);
   composerPred.addPass(bloomPred);
   const chromaPass = new ShaderPass(CHROMA_SHADER);
   if (!IS_MOBILE) composerPred.addPass(chromaPass);
@@ -952,6 +1013,15 @@ async function main() {
   const _rotatedOffset = new THREE.Vector3();
   const _rotatedLookahead = new THREE.Vector3();
   let _lastCardOpacity = 0;
+  // ADR-0019: "work" mode (scoop/carry/drop) freezes the camera offset at
+  // whatever heading was active when the work phase began, instead of
+  // continuously re-rotating it -- the loader doesn't translate during
+  // these phases, only turns in place, so a live-rotating offset just
+  // orbits the camera around a near-stationary subject. null when not
+  // currently in a work phase, so it re-anchors fresh each time one starts.
+  const _workAnchorOffset = new THREE.Vector3();
+  const _workAnchorLookahead = new THREE.Vector3();
+  let _workAnchored = false;
 
   let last = performance.now();
   function tick(now) {
@@ -999,17 +1069,38 @@ async function main() {
     // payload), a heading-independent camera stops following the turn at
     // all, and whatever the loader swings to face -- the whole point of
     // showing a delivery -- ends up out of frame.
+    //
+    // ADR-0019: that live rotation is right while the loader is actually
+    // driving (approach/return), but during scoop/carry/drop the loader's
+    // position barely changes -- only its heading sweeps -- so rotating
+    // the offset live just orbits the camera around a near-stationary
+    // subject. In those phases the offset freezes at whatever heading was
+    // active when the phase began, giving a static, legible shot of the
+    // loader turning in view instead.
     _loaderWorld.set(_loaderPos[0], _loaderPos[1], _loaderPos[2]);
     const smoothT = 1 - Math.pow(CHASE_SMOOTH_BASE, dt);
 
-    _rotatedOffset.copy(CHASE_OFFSET).applyAxisAngle(Y_AXIS, _loaderData.heading);
+    const isWorkPhase = f0.loader.phase === "scoop" || f0.loader.phase === "carry" || f0.loader.phase === "drop";
+    if (isWorkPhase) {
+      if (!_workAnchored) {
+        _workAnchorOffset.copy(CHASE_OFFSET).applyAxisAngle(Y_AXIS, _loaderData.heading);
+        _workAnchorLookahead.copy(CHASE_LOOKAHEAD).applyAxisAngle(Y_AXIS, _loaderData.heading);
+        _workAnchored = true;
+      }
+      _rotatedOffset.copy(_workAnchorOffset);
+      _rotatedLookahead.copy(_workAnchorLookahead);
+    } else {
+      _workAnchored = false;
+      _rotatedOffset.copy(CHASE_OFFSET).applyAxisAngle(Y_AXIS, _loaderData.heading);
+      _rotatedLookahead.copy(CHASE_LOOKAHEAD).applyAxisAngle(Y_AXIS, _loaderData.heading);
+    }
+
     _targetPos.copy(_loaderWorld).add(_rotatedOffset);
     simCamPos.lerp(_targetPos, smoothT);
     predCamPos.lerp(_targetPos, smoothT);
     sim.camera.position.copy(simCamPos);
     pred.camera.position.copy(predCamPos);
 
-    _rotatedLookahead.copy(CHASE_LOOKAHEAD).applyAxisAngle(Y_AXIS, _loaderData.heading);
     _targetLookAt.copy(_loaderWorld).add(_rotatedLookahead);
     simLookAt.lerp(_targetLookAt, smoothT);
     predLookAt.lerp(_targetLookAt, smoothT);
