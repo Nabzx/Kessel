@@ -1006,6 +1006,15 @@ async function main() {
   const _rotatedOffset = new THREE.Vector3();
   const _rotatedLookahead = new THREE.Vector3();
   let _lastCardOpacity = 0;
+  // ADR-0019: "work" mode (scoop/carry/drop) freezes the camera offset at
+  // whatever heading was active when the work phase began, instead of
+  // continuously re-rotating it -- the loader doesn't translate during
+  // these phases, only turns in place, so a live-rotating offset just
+  // orbits the camera around a near-stationary subject. null when not
+  // currently in a work phase, so it re-anchors fresh each time one starts.
+  const _workAnchorOffset = new THREE.Vector3();
+  const _workAnchorLookahead = new THREE.Vector3();
+  let _workAnchored = false;
 
   let last = performance.now();
   function tick(now) {
@@ -1053,17 +1062,38 @@ async function main() {
     // payload), a heading-independent camera stops following the turn at
     // all, and whatever the loader swings to face -- the whole point of
     // showing a delivery -- ends up out of frame.
+    //
+    // ADR-0019: that live rotation is right while the loader is actually
+    // driving (approach/return), but during scoop/carry/drop the loader's
+    // position barely changes -- only its heading sweeps -- so rotating
+    // the offset live just orbits the camera around a near-stationary
+    // subject. In those phases the offset freezes at whatever heading was
+    // active when the phase began, giving a static, legible shot of the
+    // loader turning in view instead.
     _loaderWorld.set(_loaderPos[0], _loaderPos[1], _loaderPos[2]);
     const smoothT = 1 - Math.pow(CHASE_SMOOTH_BASE, dt);
 
-    _rotatedOffset.copy(CHASE_OFFSET).applyAxisAngle(Y_AXIS, _loaderData.heading);
+    const isWorkPhase = f0.loader.phase === "scoop" || f0.loader.phase === "carry" || f0.loader.phase === "drop";
+    if (isWorkPhase) {
+      if (!_workAnchored) {
+        _workAnchorOffset.copy(CHASE_OFFSET).applyAxisAngle(Y_AXIS, _loaderData.heading);
+        _workAnchorLookahead.copy(CHASE_LOOKAHEAD).applyAxisAngle(Y_AXIS, _loaderData.heading);
+        _workAnchored = true;
+      }
+      _rotatedOffset.copy(_workAnchorOffset);
+      _rotatedLookahead.copy(_workAnchorLookahead);
+    } else {
+      _workAnchored = false;
+      _rotatedOffset.copy(CHASE_OFFSET).applyAxisAngle(Y_AXIS, _loaderData.heading);
+      _rotatedLookahead.copy(CHASE_LOOKAHEAD).applyAxisAngle(Y_AXIS, _loaderData.heading);
+    }
+
     _targetPos.copy(_loaderWorld).add(_rotatedOffset);
     simCamPos.lerp(_targetPos, smoothT);
     predCamPos.lerp(_targetPos, smoothT);
     sim.camera.position.copy(simCamPos);
     pred.camera.position.copy(predCamPos);
 
-    _rotatedLookahead.copy(CHASE_LOOKAHEAD).applyAxisAngle(Y_AXIS, _loaderData.heading);
     _targetLookAt.copy(_loaderWorld).add(_rotatedLookahead);
     simLookAt.lerp(_targetLookAt, smoothT);
     predLookAt.lerp(_targetLookAt, smoothT);

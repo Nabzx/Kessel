@@ -7,7 +7,8 @@ positions, world-model prediction, prediction error, HUD values) comes
 from data/rollout.json. Swap this script's output for a logged rollout
 from the real RL policy + world model and the front end does not change.
 
-Schema (ADR-0001; attempt_cards added Phase 6c, #113):
+Schema (ADR-0001; attempt_cards added Phase 6c, #113; loader.phase
+added ADR-0019):
 
 {
   "meta": {
@@ -19,7 +20,10 @@ Schema (ADR-0001; attempt_cards added Phase 6c, #113):
   "frames": [
     {
       "t": float,                           # seconds
-      "loader": {"pos": [x,y,z], "heading": rad, "boom": rad, "bucket": rad},
+      "loader": {
+        "pos": [x,y,z], "heading": rad, "boom": rad, "bucket": rad,
+        "phase": "approach" | "scoop" | "carry" | "drop" | "return",
+      },
       "rocks": [[x,y,z], ...],              # simulation ground truth, this frame
       "predicted_horizon": [               # world-model prediction, same length every frame
         {"dt": float, "rocks": [[x,y,z], ...], "error": [float, ...]},  # error: per-rock
@@ -135,12 +139,14 @@ def loader_pose_for_attempt(local_t):
         u = local_t / approach_end
         x = START_X + (SCOOP_X - START_X) * ease_in_out(u)
         heading, boom, bucket = 0.0, -0.08, 0.05
+        phase = "approach"
     elif local_t < scoop_end:
         u = (local_t - approach_end) / (scoop_end - approach_end)
         x = SCOOP_X
         heading = 0.0
         boom = -0.08 + 0.55 * ease_in_out(u)
         bucket = 0.05 + 0.9 * ease_in_out(u)
+        phase = "scoop"
     elif local_t < carry_end:
         # swing the bucket to the dump point via heading, not by driving
         # further -- the boom arm's fixed offset already moves the
@@ -150,25 +156,32 @@ def loader_pose_for_attempt(local_t):
         x = SCOOP_X
         heading = DUMP_HEADING * ease_in_out(u)
         boom, bucket = 0.47, 0.95
+        phase = "carry"
     elif local_t < drop_end:
         u = (local_t - carry_end) / (drop_end - carry_end)
         x = SCOOP_X
         heading = DUMP_HEADING
         boom = 0.47 - 0.1 * ease_in_out(u)
         bucket = 0.95 - 0.9 * ease_in_out(u)
+        phase = "drop"
     else:
         u = (local_t - drop_end) / (return_end - drop_end)
         x = SCOOP_X + (START_X - SCOOP_X) * ease_in_out(u)
         heading = DUMP_HEADING * (1 - ease_in_out(u))
         boom = 0.37 - 0.45 * ease_in_out(u)
         bucket = 0.05
+        phase = "return"
 
     z = PILE_CENTER[2] + 0.3 * math.sin(local_t * 0.35)
+    # ADR-0019: phase drives the renderer's camera mode -- "drive" (chase
+    # follow) during approach/return, "work" (fixed world-space framing)
+    # during scoop/carry/drop, since the loader doesn't translate there.
     pose = {
         "pos": [round(x, 3), 0.0, round(z, 3)],
         "heading": round(heading, 3),
         "boom": round(boom, 3),
         "bucket": round(bucket, 3),
+        "phase": phase,
     }
     return pose, scoop_end, carry_end, drop_end
 
