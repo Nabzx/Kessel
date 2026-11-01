@@ -49,8 +49,9 @@ passes the 3/3/4 MiB stage transfer targets and the 10 MiB total. Optional
 globe layers loaded after first interaction are reported separately. Libraries
 and fonts are vendored locally and listed separately from mission assets.
 
-The software-rendered browser samples do not meet a 30 fps smoothness target.
-They are disclosed as a shortfall, not substituted for physical-phone results.
+The native Apple M1 Metal profile measured 51.9-60 fps across desktop stages
+and 55.4-60 fps with mobile viewport and 4x CPU throttling. SwiftShader
+software rendering falls below the 30 fps target and is reported separately.
 A real mid-range phone measurement remains outstanding. The core flow runs
 without external requests using `?offline=1`; Google satellite reconnaissance
 is optional online content with its own service attribution.

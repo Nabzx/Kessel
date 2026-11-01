@@ -1,0 +1,359 @@
+{
+  "date": "2026-11-01T22:44:28.419Z",
+  "desktop": {
+    "firstReadyMs": 503,
+    "beforeOptionalBytes": {
+      "mission": 1736424,
+      "dependencies": 1326632
+    },
+    "globe": {
+      "state": "biome-select",
+      "pixelRatio": 1,
+      "drawCalls": 9,
+      "triangles": 71112,
+      "gpuTextures": 3,
+      "estimatedTextureMiB": 64,
+      "frameSamples": 180,
+      "meanFps": 60,
+      "p95FrameMs": 16.799999999999727,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    "openingBytes": {
+      "mission": 3578935,
+      "dependencies": 1326632
+    },
+    "surface": {
+      "state": "surface-arrived",
+      "pixelRatio": 1,
+      "drawCalls": 26,
+      "triangles": 132197,
+      "gpuTextures": 2,
+      "estimatedTextureMiB": 8,
+      "frameSamples": 180,
+      "meanFps": 60,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    "surfaceBytes": {
+      "mission": 3883267,
+      "dependencies": 1326632
+    },
+    "fleet": {
+      "state": "fleet",
+      "pixelRatio": 1,
+      "drawCalls": 43,
+      "triangles": 27750,
+      "gpuTextures": 8,
+      "estimatedTextureMiB": 13.02,
+      "frameSamples": 180,
+      "meanFps": 60,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "selected": null,
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "returning",
+          "distance": 734.5901349484053,
+          "load": 0,
+          "position": [
+            0,
+            -21.864876222710883,
+            -293.8900444622139
+          ],
+          "up": [
+            2.7545799759663015e-07,
+            0.9996220893901798,
+            -0.027489605365220784
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 1010.3852099535188,
+          "load": 0,
+          "position": [
+            0,
+            -26.842930669564105,
+            -335.5366333695513
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1280.0525790533,
+          "load": 0,
+          "position": [
+            0,
+            -28.18806422044083,
+            -352.35080275551036
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "undergroundBytes": {
+      "mission": 7497953,
+      "dependencies": 1471685
+    },
+    "truck": {
+      "state": "truck",
+      "pixelRatio": 1,
+      "drawCalls": 39,
+      "triangles": 27232,
+      "gpuTextures": 13,
+      "estimatedTextureMiB": 14.35,
+      "frameSamples": 180,
+      "meanFps": 51.9,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "selected": "truck-01",
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "hauling",
+          "distance": 36.86292846033146,
+          "load": 1,
+          "position": [
+            0,
+            -21.603652566922943,
+            -284.39100243356154
+          ],
+          "up": [
+            -7.442964270518467e-28,
+            0.9996220893327035,
+            -0.02748960745664932
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 1208.5055565920134,
+          "load": 0,
+          "position": [
+            28.340205246533433,
+            -40.01724221268628,
+            -492.4256357779719
+          ],
+          "up": [
+            0.01826353347465507,
+            0.999665396102466,
+            0.018317728579709695
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1487.0112295801405,
+          "load": 0,
+          "position": [
+            0,
+            -44.52988695924845,
+            -556.6235869906056
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "horizon": "+3 s",
+    "dialogEscapePreservesTruck": true,
+    "returnMode": "CONVERGED",
+    "physics": {
+      "phases": [
+        "loading",
+        "hauling",
+        "tipping",
+        "returning"
+      ],
+      "minUp": 0.9968152785814897,
+      "tipped": true,
+      "returnEmpty": true,
+      "envelope": [
+        2.2739999890327454,
+        2.356936837360263,
+        7.710000038146973
+      ],
+      "withinEnvelope": true,
+      "finitePositions": true
+    },
+    "errors": [],
+    "externalRequests": []
+  },
+  "mobile": {
+    "globe": {
+      "state": "biome-select",
+      "pixelRatio": 1.25,
+      "drawCalls": 7,
+      "triangles": 13864,
+      "gpuTextures": 1,
+      "estimatedTextureMiB": 10.67,
+      "frameSamples": 180,
+      "meanFps": 60,
+      "p95FrameMs": 16.700000000000273,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    "fleet": {
+      "state": "fleet",
+      "pixelRatio": 1.25,
+      "drawCalls": 43,
+      "triangles": 27750,
+      "gpuTextures": 7,
+      "estimatedTextureMiB": 10.35,
+      "frameSamples": 180,
+      "meanFps": 60,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "selected": null,
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "returning",
+          "distance": 729.2691328479065,
+          "load": 0,
+          "position": [
+            0,
+            -21.718603963692164,
+            -288.5710532251695
+          ],
+          "up": [
+            1.6867613178281395e-06,
+            0.9996220896555099,
+            -0.02748959566648146
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 1005.3891215388703,
+          "load": 0,
+          "position": [
+            0,
+            -26.44451648839299,
+            -330.55645610491234
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1274.7250704180333,
+          "load": 0,
+          "position": [
+            0,
+            -27.76322086010749,
+            -347.0402607513437
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "truck": {
+      "state": "truck",
+      "pixelRatio": 1.25,
+      "drawCalls": 31,
+      "triangles": 20052,
+      "gpuTextures": 10,
+      "estimatedTextureMiB": 10.35,
+      "frameSamples": 180,
+      "meanFps": 55.4,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "selected": "truck-02",
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "hauling",
+          "distance": 40.54532641890746,
+          "load": 1,
+          "position": [
+            0,
+            -21.50242489254252,
+            -280.70999609245524
+          ],
+          "up": [
+            -2.85524506859252e-28,
+            0.9996220893327035,
+            -0.02748960745664932
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 1213.093276424254,
+          "load": 0,
+          "position": [
+            30.04753155051271,
+            -40.1438092123899,
+            -488.1929080704546
+          ],
+          "up": [
+            0.013334417848819675,
+            0.999635886171892,
+            0.023458226232377217
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1491.7273313600322,
+          "load": 0,
+          "position": [
+            0,
+            -44.90597354399465,
+            -561.3246692999331
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "noOverflow": true,
+    "landscapeNoOverflow": true,
+    "errors": []
+  },
+  "slow": {
+    "firstReadyMs": 16524,
+    "surfaceMs": 7031,
+    "undergroundMs": 27647,
+    "errors": []
+  },
+  "satellite": {
+    "visible": true,
+    "providerText": "Keyboard shortcuts\nMap data \u00a92026 Google Imagery \u00a92026 Airbus, CNES / Airbus, Maxar Technologies\nTerms\nReport a map error",
+    "localToggle": true
+  },
+  "method": {
+    "implementation_commit": "83d7004",
+    "navigation_bytes": 11764,
+    "transfer": "Resource Timing encoded response bodies plus the static HTML body. Localhost serves without gzip; HTTP headers excluded.",
+    "renderer": "Native Apple M1 via ANGLE Metal in headless Chromium.",
+    "desktop_viewport": "1440 x 1000, device scale 1",
+    "mobile_viewport": "390 x 844, device scale 2, CPU throttled 4 times; Apple M1 GPU, not a physical phone",
+    "slow_network": "1.6 Mbit/s download, 0.76 Mbit/s upload, 150 ms latency, cache disabled",
+    "gpu_memory": "Estimated referenced RGBA texture storage plus mipmaps, not measured process RSS or driver allocation"
+  }
+}

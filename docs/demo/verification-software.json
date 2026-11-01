@@ -1,0 +1,358 @@
+{
+  "date": "2026-11-01T22:37:31.175Z",
+  "desktop": {
+    "firstReadyMs": 3568,
+    "beforeOptionalBytes": {
+      "mission": 1736202,
+      "dependencies": 1326632
+    },
+    "globe": {
+      "state": "biome-select",
+      "pixelRatio": 0.8,
+      "drawCalls": 9,
+      "triangles": 71112,
+      "gpuTextures": 3,
+      "estimatedTextureMiB": 64,
+      "frameSamples": 23,
+      "meanFps": 4.7,
+      "p95FrameMs": 683.3999999999996,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "openingBytes": {
+      "mission": 3578713,
+      "dependencies": 1326632
+    },
+    "surface": {
+      "state": "surface-arrived",
+      "pixelRatio": 0.75,
+      "drawCalls": 26,
+      "triangles": 132197,
+      "gpuTextures": 2,
+      "estimatedTextureMiB": 8,
+      "frameSamples": 28,
+      "meanFps": 4.2,
+      "p95FrameMs": 1049.8999999999996,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "surfaceBytes": {
+      "mission": 3883045,
+      "dependencies": 1326632
+    },
+    "fleet": {
+      "state": "fleet",
+      "pixelRatio": 0.75,
+      "drawCalls": 43,
+      "triangles": 27750,
+      "gpuTextures": 8,
+      "estimatedTextureMiB": 13.02,
+      "frameSamples": 38,
+      "meanFps": 8.4,
+      "p95FrameMs": 583.2999999999993,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "selected": null,
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "returning",
+          "distance": 694.6103422051364,
+          "load": 0,
+          "position": [
+            -4.060634169695364,
+            -20.765657892360384,
+            -254.95522980072437
+          ],
+          "up": [
+            0.021120731955566484,
+            0.9996202108413269,
+            -0.017701659786649202
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 967.519947752201,
+          "load": 0,
+          "position": [
+            0,
+            -23.42463080710565,
+            -292.8078850888206
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1236.7001201330206,
+          "load": 0,
+          "position": [
+            0,
+            -24.7309127473333,
+            -309.1364093416662
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "undergroundBytes": {
+      "mission": 7497731,
+      "dependencies": 1471685
+    },
+    "truck": {
+      "state": "truck",
+      "pixelRatio": 0.75,
+      "drawCalls": 34,
+      "triangles": 25533,
+      "gpuTextures": 13,
+      "estimatedTextureMiB": 14.35,
+      "frameSamples": 15,
+      "meanFps": 3.9,
+      "p95FrameMs": 1699.8999999999942,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "selected": "truck-01",
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "loading",
+          "distance": 0,
+          "load": 0.6458500000000014,
+          "position": [
+            0,
+            -22.617,
+            -321.24
+          ],
+          "up": [
+            -1.1192544679303218e-19,
+            0.9996220893327035,
+            -0.027489607456649322
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 1125.9195431415965,
+          "load": 0,
+          "position": [
+            0,
+            -35.894100900130624,
+            -448.6762612516328
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1402.7206908102987,
+          "load": 0,
+          "position": [
+            0,
+            -37.80811920870285,
+            -472.6014901087856
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "horizon": "+3 s",
+    "dialogEscapePreservesTruck": true,
+    "returnMode": "CONVERGED",
+    "physics": {
+      "phases": [
+        "loading",
+        "hauling",
+        "tipping",
+        "returning"
+      ],
+      "minUp": 0.9968152785814897,
+      "tipped": true,
+      "returnEmpty": true,
+      "envelope": [
+        2.2739999890327454,
+        2.356936837360263,
+        7.710000038146973
+      ],
+      "withinEnvelope": true,
+      "finitePositions": true
+    },
+    "errors": [],
+    "externalRequests": []
+  },
+  "mobile": {
+    "globe": {
+      "state": "biome-select",
+      "pixelRatio": 1,
+      "drawCalls": 7,
+      "triangles": 13864,
+      "gpuTextures": 1,
+      "estimatedTextureMiB": 10.67,
+      "frameSamples": 106,
+      "meanFps": 22.6,
+      "p95FrameMs": 50,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "fleet": {
+      "state": "fleet",
+      "pixelRatio": 0.75,
+      "drawCalls": 43,
+      "triangles": 27750,
+      "gpuTextures": 7,
+      "estimatedTextureMiB": 10.35,
+      "frameSamples": 93,
+      "meanFps": 20.5,
+      "p95FrameMs": 116.69999999999891,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "selected": null,
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "returning",
+          "distance": 709.7305519352341,
+          "load": 0,
+          "position": [
+            0,
+            -21.18149604414282,
+            -269.0398561506479
+          ],
+          "up": [
+            0.0014051124360727582,
+            0.9996223696458543,
+            -0.02744346484409559
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 982.556587371986,
+          "load": 0,
+          "position": [
+            0,
+            -24.623730975973125,
+            -307.7966371996641
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1250.3850866402463,
+          "load": 0,
+          "position": [
+            0,
+            -25.82222344338593,
+            -322.77779304232416
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "truck": {
+      "state": "truck",
+      "pixelRatio": 0.75,
+      "drawCalls": 37,
+      "triangles": 26062,
+      "gpuTextures": 10,
+      "estimatedTextureMiB": 10.35,
+      "frameSamples": 71,
+      "meanFps": 17.7,
+      "p95FrameMs": 300,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "selected": "truck-02",
+      "vehicles": [
+        {
+          "id": "truck-01",
+          "phase": "loading",
+          "distance": 0,
+          "load": 0.9082999999999994,
+          "position": [
+            0,
+            -22.617,
+            -321.24
+          ],
+          "up": [
+            -4.608026737137436e-20,
+            0.9996220893327035,
+            -0.027489607456649336
+          ]
+        },
+        {
+          "id": "truck-02",
+          "phase": "returning",
+          "distance": 1159.8411947400348,
+          "load": 0,
+          "position": [
+            0,
+            -38.599190547050824,
+            -482.48988183813526
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        },
+        {
+          "id": "truck-03",
+          "phase": "returning",
+          "distance": 1436.2781501126535,
+          "load": 0,
+          "position": [
+            0,
+            -40.48416626001816,
+            -506.05207825022705
+          ],
+          "up": [
+            0,
+            0.996815278536125,
+            -0.07974522228289
+          ]
+        }
+      ]
+    },
+    "noOverflow": true,
+    "landscapeNoOverflow": true,
+    "errors": []
+  },
+  "slow": {
+    "firstReadyMs": 16188,
+    "surfaceMs": 8284,
+    "undergroundMs": 28391,
+    "errors": []
+  },
+  "satellite": {
+    "visible": true,
+    "providerText": "Keyboard shortcuts\nMap data \u00a92026 Google Imagery \u00a92026 Airbus, CNES / Airbus, Maxar Technologies\nTerms\nReport a map error",
+    "localToggle": true
+  },
+  "method": {
+    "navigation_bytes": 11764,
+    "transfer": "Resource Timing encoded response bodies plus the static HTML body. The localhost server does not gzip. HTTP headers are excluded.",
+    "renderer": "Headless Chromium with SwiftShader software rendering; not hardware device results.",
+    "desktop_viewport": "1440 x 1000, device scale 1, adaptive WebGL pixel ratio",
+    "mobile_viewport": "390 x 844, device scale 2, CPU throttled 4 times; portrait and landscape checked",
+    "slow_network": "1.6 Mbit/s download, 0.76 Mbit/s upload, 150 ms latency, cache disabled",
+    "gpu_memory": "Estimated referenced texture storage, RGBA plus mipmaps. Not measured process RSS or GPU allocation."
+  }
+}
