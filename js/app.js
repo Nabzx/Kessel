@@ -4,6 +4,7 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { clone as cloneSkinned } from "three/addons/utils/SkeletonUtils.js";
 
 /* ------------------------------------------------------------------ *
  * Kessel concept demo — data-driven renderer.
@@ -203,6 +204,32 @@ async function loadRockGeometry() {
   return { geometry, material };
 }
 
+// #124: a real CC-BY excavator (mohamed.salaah880's "Excavator 3d
+// Rigging" on Sketchfab, see assets/models/excavator/README.md)
+// replaces the primitive box-built loader rig, desktop solid-panel
+// only -- same pattern as the rock model (#123): mobile and the
+// wireframe prediction panel keep the cheap primitive rig.
+const EXCAVATOR_MODEL_PATH = "assets/models/excavator/excavator.gltf";
+// Found by loading the model and rotating each bone individually,
+// screenshotting, and reading off which one moved the boom vs the
+// bucket (the source has no bone names -- every one is just "Bone").
+// Index is model.traverse()'s bone-encounter order, not the glTF
+// node index, and is only valid for this specific file.
+const EXCAVATOR_BOOM_BONE_INDEX = 1;
+const EXCAVATOR_BUCKET_BONE_INDEX = 5;
+
+async function loadExcavatorModel() {
+  const gltf = await new GLTFLoader().loadAsync(EXCAVATOR_MODEL_PATH);
+  const scene = gltf.scene;
+  const bones = [];
+  scene.traverse((o) => { if (o.isBone) bones.push(o); });
+  return {
+    scene,
+    boomBone: bones[EXCAVATOR_BOOM_BONE_INDEX],
+    bucketBone: bones[EXCAVATOR_BUCKET_BONE_INDEX],
+  };
+}
+
 function frameAt(t, out) {
   const frames = state.frames;
   const n = frames.length;
@@ -258,7 +285,7 @@ function runIntro(onDone) {
 
 /* ------------------------------ scene ------------------------------ */
 
-function buildCommonScene({ wireframePile, rockModel }) {
+function buildCommonScene({ wireframePile, rockModel, excavatorModel }) {
   const scene = new THREE.Scene();
   // ADR-0018: sharply lighter again -- the Phase 6b fog (#103) still
   // faded the tunnel to near-black well within camera range once the
@@ -493,7 +520,7 @@ function buildCommonScene({ wireframePile, rockModel }) {
   }
 
   // ---- loader ----
-  const loader = buildLoader(wireframePile);
+  const loader = buildLoader(wireframePile, excavatorModel);
   scene.add(loader.group);
 
   // Phase 6b bugfix (found while debugging #105): this light was
@@ -616,7 +643,9 @@ function buildCommonScene({ wireframePile, rockModel }) {
   return { scene, camera, tunnel, dust, dustSeed, debris, debrisSeed, loader, rockMesh, rockGeo, glintMesh };
 }
 
-function buildLoader(ghost) {
+function buildLoader(ghost, excavatorModel) {
+  if (!ghost && excavatorModel) return buildExcavatorLoader(excavatorModel);
+
   const group = new THREE.Group();
 
   const baseMat = ghost
@@ -697,15 +726,66 @@ function buildLoader(ghost) {
     group.add(led);
   }
 
-  return { group, boomPivot, bucketPivot, body, wheels, wheelRadius, prevWorldX: null };
+  return {
+    group, boomPivot, bucketPivot, body, wheels, wheelRadius, prevWorldX: null,
+    boomAxis: "z", boomScale: 1, boomOffset: 0,
+    bucketAxis: "z", bucketScale: -1.4, bucketOffset: 0,
+  };
+}
+
+// #124: the excavator model's own container -- rotation/scale/position
+// here are calibration constants tuned by eye (same approach as the
+// chase camera offset, the tunnel radius, etc. elsewhere in this file)
+// so the model's body/cab roughly occupies the space buildCommonScene's
+// headlamp/sensor-pod offsets already assume, without having to make
+// those rig-specific too.
+const EXCAVATOR_SCALE = 1.3;
+const EXCAVATOR_ROTATION_Y = Math.PI / 2;
+const EXCAVATOR_OFFSET = new THREE.Vector3(0, 0.75, 0);
+// The bone rotation deltas found during calibration (see the bone-id
+// test referenced in assets/models/excavator/README.md) were measured
+// against this model's own bind pose, not our boom/bucket data's 0
+// baseline -- these convert one to the other.
+const EXCAVATOR_BOOM_SCALE = 1;
+const EXCAVATOR_BOOM_OFFSET = 0;
+const EXCAVATOR_BUCKET_SCALE = 1;
+const EXCAVATOR_BUCKET_OFFSET = 0;
+
+function buildExcavatorLoader(excavatorModel) {
+  const group = new THREE.Group();
+  // SkeletonUtils.clone, not Object3D.clone(true) -- a naive deep clone
+  // copies the bone hierarchy but doesn't rebuild the SkinnedMesh's
+  // binding to the new bones, so the skin stays attached to the
+  // original skeleton and both sim-panel loaders move together.
+  const inner = cloneSkinned(excavatorModel.scene);
+  inner.scale.setScalar(EXCAVATOR_SCALE);
+  inner.rotation.y = EXCAVATOR_ROTATION_Y;
+  inner.position.copy(EXCAVATOR_OFFSET);
+  group.add(inner);
+
+  // clone(true) deep-clones the skeleton's bone hierarchy along with
+  // the mesh, so the bones captured at load time (on the original,
+  // unparented scene) aren't the ones actually driving this instance
+  // -- both sim-panel loaders would otherwise fight over one skeleton.
+  // Re-resolve by traversal order on the clone instead.
+  const bones = [];
+  inner.traverse((o) => { if (o.isBone) bones.push(o); });
+  const boomPivot = bones[EXCAVATOR_BOOM_BONE_INDEX];
+  const bucketPivot = bones[EXCAVATOR_BUCKET_BONE_INDEX];
+
+  return {
+    group, boomPivot, bucketPivot, body: inner, wheels: null, wheelRadius: 0, prevWorldX: null,
+    boomAxis: "x", boomScale: EXCAVATOR_BOOM_SCALE, boomOffset: EXCAVATOR_BOOM_OFFSET,
+    bucketAxis: "x", bucketScale: EXCAVATOR_BUCKET_SCALE, bucketOffset: EXCAVATOR_BUCKET_OFFSET,
+  };
 }
 
 function applyLoaderPose(loaderRig, loaderData) {
   const { group, boomPivot, bucketPivot, wheels, wheelRadius } = loaderRig;
   group.position.set(loaderData.pos[0], loaderData.pos[1], loaderData.pos[2]);
   group.rotation.y = loaderData.heading;
-  boomPivot.rotation.z = loaderData.boom;
-  bucketPivot.rotation.z = -loaderData.bucket * 1.4;
+  boomPivot.rotation[loaderRig.boomAxis] = loaderData.boom * loaderRig.boomScale + loaderRig.boomOffset;
+  bucketPivot.rotation[loaderRig.bucketAxis] = loaderData.bucket * loaderRig.bucketScale + loaderRig.bucketOffset;
 
   // #81: spin the wheels with actual travel speed rather than leaving
   // them static while the loader moves.
@@ -818,12 +898,15 @@ async function main() {
   // rockModel: null) on mobile and if the fetch fails for any reason,
   // rather than blocking the whole demo on an optional asset.
   const rockModel = IS_MOBILE ? null : await loadRockGeometry().catch(() => null);
+  // #124: same pattern -- desktop-only, falls back to the primitive
+  // rig (excavatorModel: null) on mobile and if the fetch fails.
+  const excavatorModel = IS_MOBILE ? null : await loadExcavatorModel().catch(() => null);
 
   const canvasSim = document.getElementById("canvas-sim");
   const canvasPred = document.getElementById("canvas-pred");
 
-  const sim = buildCommonScene({ wireframePile: false, rockModel });
-  const pred = buildCommonScene({ wireframePile: true, rockModel });
+  const sim = buildCommonScene({ wireframePile: false, rockModel, excavatorModel });
+  const pred = buildCommonScene({ wireframePile: true, rockModel, excavatorModel });
   pred.loader.group.visible = true;
 
   // Phase 6b (#105): a three-quarter chase camera, replacing the static
