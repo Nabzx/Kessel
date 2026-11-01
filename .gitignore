@@ -15,3 +15,6 @@ package-lock.json
 !assets/**/*.png
 shot*.js
 __pycache__/
+
+# python (data/generate_rollout.py's pybullet dependency, ADR-0020)
+.venv/

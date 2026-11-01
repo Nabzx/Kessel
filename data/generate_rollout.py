@@ -54,6 +54,8 @@ import json
 import math
 import random
 
+import pybullet as p
+
 random.seed(7)
 
 FPS = 10
@@ -79,19 +81,92 @@ SCOOP_X = -0.6
 # radius could safely allow. See loader_pose_for_attempt's carry phase.
 DUMP_HEADING = 1.25
 
+# Phase boundaries, hoisted out of loader_pose_for_attempt so the physics
+# routines below (spill scatter, dump pile) can compute release points
+# without re-deriving them.
+APPROACH_END = 3.0
+SCOOP_END = 5.3
+CARRY_END = 9.6
+DROP_END = 10.8
+RETURN_END = ATTEMPT_DURATION
+SPILL_T = SCOOP_END + (CARRY_END - SCOOP_END) * 0.55  # moment attempt 1's carry fumbles
 
-def rand_rock_init():
+# ADR-0020: real rigid-body physics (pybullet, headless/DIRECT mode),
+# baked once at generation time -- the renderer never runs physics
+# itself (ADR-0016). Replaces the hand-tuned pile placement (#125) and
+# the fumbled-carry spill scatter (#126), the two moments that read
+# most obviously as scripted rather than physical.
+ROCK_BASE_RADIUS = 0.11  # matches js/app.js's ROCK_MODEL_TARGET_RADIUS (0.22) halved for a sphere approximation
+PHYSICS_FPS = 240  # pybullet's default fixed timestep
+
+
+def _settle(start_positions, scales, start_velocities=None, max_steps=500, record_every=None):
+    """Drop rigid spheres (one per scale, approximating each rock's
+    render-time bounding sphere) from start_positions under gravity,
+    step until they come to rest or max_steps is hit.
+
+    Returns the final settled [x, y, z] positions. If record_every is
+    given, also returns a list of per-step position snapshots (one
+    every `record_every` physics steps), for callers that need the
+    actual fall/tumble motion rather than just the end state.
+    """
+    cid = p.connect(p.DIRECT)
+    p.setGravity(0, -9.8, 0, physicsClientId=cid)
+    # pybullet's GEOM_PLANE default normal is +Z, not +Y -- without
+    # planeNormal the "ground" doesn't actually block anything falling
+    # along -Y, and bodies fall through it indefinitely.
+    ground = p.createCollisionShape(p.GEOM_PLANE, planeNormal=[0, 1, 0], physicsClientId=cid)
+    p.createMultiBody(0, ground, basePosition=[0, 0, 0], physicsClientId=cid)
+
+    bodies = []
+    for pos, scale in zip(start_positions, scales):
+        radius = ROCK_BASE_RADIUS * scale
+        shape = p.createCollisionShape(p.GEOM_SPHERE, radius=radius, physicsClientId=cid)
+        mass = 0.6 * scale ** 3  # roughly volume-proportional
+        body = p.createMultiBody(mass, shape, basePosition=list(pos), physicsClientId=cid)
+        p.changeDynamics(body, -1, restitution=0.12, lateralFriction=0.85,
+                          rollingFriction=0.04, spinningFriction=0.02, physicsClientId=cid)
+        bodies.append(body)
+    if start_velocities is not None:
+        for body, vel in zip(bodies, start_velocities):
+            p.resetBaseVelocity(body, linearVelocity=list(vel), physicsClientId=cid)
+
+    snapshots = []
+    for step in range(max_steps):
+        p.stepSimulation(physicsClientId=cid)
+        if record_every and step % record_every == 0:
+            snapshots.append([list(p.getBasePositionAndOrientation(b, physicsClientId=cid)[0]) for b in bodies])
+        if step > 30 and step % 15 == 0:
+            max_speed_sq = max(
+                sum(v * v for v in p.getBaseVelocity(b, physicsClientId=cid)[0]) for b in bodies
+            )
+            if max_speed_sq < 0.0009:  # settled, ~0.03 m/s
+                break
+
+    final = [list(p.getBasePositionAndOrientation(b, physicsClientId=cid)[0]) for b in bodies]
+    p.disconnect(physicsClientId=cid)
+    if record_every:
+        if not snapshots or snapshots[-1] != final:
+            snapshots.append(final)
+        return final, snapshots
+    return final
+
+
+def _rough_pile_scatter():
+    """XZ placement (same disk distribution as the old rand_rock_init)
+    and a drop height -- a STARTING point for the physics settle pass
+    below, not the final answer the way it used to be."""
     r = PILE_RADIUS * math.sqrt(random.random())
     theta = random.uniform(0, 2 * math.pi)
     x = PILE_CENTER[0] + r * math.cos(theta)
     z = PILE_CENTER[2] + r * math.sin(theta) * 0.6
-    height_bias = max(0.0, 1.0 - r / PILE_RADIUS)
-    y = height_bias * random.uniform(0.0, 1.4) + random.uniform(0.0, 0.08)
+    y = random.uniform(1.2, 2.6)
     return [x, y, z]
 
 
-rocks_init = [rand_rock_init() for _ in range(N_ROCKS)]
 rock_scale = [round(random.uniform(0.55, 1.35), 3) for _ in range(N_ROCKS)]
+_rough_positions = [_rough_pile_scatter() for _ in range(N_ROCKS)]
+rocks_init = [[round(c, 3) for c in pos] for pos in _settle(_rough_positions, rock_scale)]
 
 # Fixed once: the rocks nearest the scoop point are the ones the loader
 # picks up each attempt (#114). A deterministic choice against rocks_init,
@@ -101,6 +176,7 @@ _carried_indices = sorted(
     key=lambda i: math.dist(rocks_init[i], (SCOOP_X, 0, PILE_CENTER[2])),
 )[:CARRIED_COUNT]
 _carried_set = set(_carried_indices)
+_carried_slot = {idx: slot for slot, idx in enumerate(_carried_indices)}
 
 
 def ease_in_out(u):
@@ -211,17 +287,54 @@ def cluster_jitter(i):
     return (r * math.cos(a), 0.04 * ((i * 3) % 2), r * math.sin(a) * 0.7)
 
 
-def dump_pile_offset(i):
-    a = i * 2.399963
-    r = 0.12 + 0.3 * ((i * 11) % 5) / 5
-    height = max(0.0, 0.5 - r) * 0.4
-    return (r * math.cos(a), height, r * math.sin(a) * 0.6)
+_dump_pile_cache = None
+_spill_trajectory_cache = None
+SPILL_SAMPLE_DT = 1.0 / FPS  # one physics snapshot per generator frame interval
 
 
-def spill_scatter_offset(i):
-    a = i * 1.877
-    r = 0.25 + 0.4 * ((i * 5) % 4) / 4
-    return (r * math.cos(a), 0.0, r * math.sin(a))
+def _dump_pile():
+    """ADR-0020: attempt 2's delivered rocks, physically dropped and
+    settled at the bucket's drop_end position -- replaces the old
+    hand-authored dump_pile_offset formula."""
+    global _dump_pile_cache
+    if _dump_pile_cache is None:
+        drop_pose, _, _, _ = pose_at(2, DROP_END)
+        dx, dy, dz = bucket_world_pos(drop_pose)
+        positions, scales = [], []
+        for i in _carried_indices:
+            jx, jy, jz = cluster_jitter(i)
+            positions.append([dx + jx, dy + max(0.0, jy) + 0.25, dz + jz])
+            scales.append(rock_scale[i])
+        _dump_pile_cache = _settle(positions, scales, max_steps=300)
+    return _dump_pile_cache
+
+
+def _spill_trajectory():
+    """ADR-0020: attempt 1's fumble -- the carried rocks released at
+    the bucket's position/approximate momentum at SPILL_T, physically
+    tumbling and settling rather than following a scripted fall curve.
+    Replaces spill_scatter_offset. Sampled at the generator's own FPS
+    so simulate_rocks can index straight into it."""
+    global _spill_trajectory_cache
+    if _spill_trajectory_cache is None:
+        spill_pose, _, _, _ = pose_at(1, SPILL_T)
+        sx, sy, sz = bucket_world_pos(spill_pose)
+        positions, velocities, scales = [], [], []
+        for i in _carried_indices:
+            jx, jy, jz = cluster_jitter(i)
+            positions.append([sx + jx, sy + max(0.0, jy), sz + jz])
+            # a modest outward/forward scatter velocity, approximating
+            # the carry swing's momentum at the moment it fumbles --
+            # not derived from the swing's actual angular rate, since
+            # the point is a believable tumble, not a precise one
+            ang = i * 2.399963
+            velocities.append([0.6 * math.cos(ang), 0.25, 0.6 * math.sin(ang) * 0.7])
+            scales.append(rock_scale[i])
+        record_every = max(1, round(SPILL_SAMPLE_DT * PHYSICS_FPS))
+        _, snapshots = _settle(positions, scales, start_velocities=velocities,
+                                max_steps=200, record_every=record_every)
+        _spill_trajectory_cache = snapshots
+    return _spill_trajectory_cache
 
 
 def scoop_influence(local_t, scoop_end, carry_end):
@@ -250,35 +363,28 @@ def simulate_rocks(t):
     pose, scoop_end, carry_end, drop_end = pose_at(attempt, local_t)
     influence = scoop_influence(local_t, scoop_end, carry_end)
 
-    spill_t = scoop_end + (carry_end - scoop_end) * 0.55
-    fall_duration = 0.4
+    spill_t = SPILL_T
 
     positions = []
     for i, (bx, by, bz) in enumerate(rocks_init):
         if i in _carried_set and local_t >= scoop_end and not in_card:
             if attempt == 1 and local_t >= spill_t:
-                # fumbled: spilled on the floor near where the carry broke
-                spill_pose, _, _, _ = pose_at(attempt, spill_t)
-                sx, sy, sz = bucket_world_pos(spill_pose)
-                ox, _, oz = spill_scatter_offset(i)
-                if local_t < spill_t + fall_duration:
-                    fall_u = ease_in_out((local_t - spill_t) / fall_duration)
-                    y = sy * (1 - fall_u) + 0.04 * fall_u
-                else:
-                    y = 0.04
-                positions.append([round(sx + ox, 3), round(max(0.0, y), 3), round(sz + oz, 3)])
+                # ADR-0020: fumbled -- physically tumbled and settled,
+                # not a scripted fall curve. Indexes straight into the
+                # precomputed per-frame snapshot nearest this instant;
+                # the simulation naturally holds its last snapshot once
+                # the rocks have come to rest (_settle stops stepping).
+                snapshots = _spill_trajectory()
+                elapsed = local_t - spill_t
+                idx = min(round(elapsed / SPILL_SAMPLE_DT), len(snapshots) - 1)
+                x, y, z = snapshots[idx][_carried_slot[i]]
+                positions.append([round(x, 3), round(max(0.0, y), 3), round(z, 3)])
             elif attempt == 2 and local_t >= drop_end:
-                # delivered cleanly -- anchored to the bucket's actual
-                # position at drop_end, not a separately guessed point,
-                # so the settled pile lines up with where it was carried
-                drop_pose, _, _, _ = pose_at(attempt, drop_end)
-                dx, dy, dz = bucket_world_pos(drop_pose)
-                ox, oh, oz = dump_pile_offset(i)
-                positions.append([
-                    round(dx + ox, 3),
-                    round(0.04 + oh, 3),
-                    round(dz + oz, 3),
-                ])
+                # ADR-0020: delivered cleanly -- physically dropped and
+                # settled at the bucket's drop_end position, replacing
+                # the old hand-authored dump_pile_offset formula.
+                x, y, z = _dump_pile()[_carried_slot[i]]
+                positions.append([round(x, 3), round(max(0.0, y), 3), round(z, 3)])
             else:
                 # in transit, following the bucket
                 bx2, by2, bz2 = bucket_world_pos(pose)
