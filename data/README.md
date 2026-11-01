@@ -50,6 +50,11 @@ scenario inputs, not Rutongo traffic-plan data. Graph nodes duplicate the
 geometry nodes so consumers can load the graph directly; the validator checks
 that the two lists match exactly.
 
+The mission manifest's `routes` records identify a vehicle, status, ordered
+node IDs, and the graph edge IDs between them. The tunnel validator checks
+that every route edge exists, each route has one more node than edge, and all
+traversals respect the edge's direction and `one_way` value.
+
 The generated network is a scripted example, not a surveyed Rutongo plan.
 See [ADR-0025](../docs/adr/0025-phase-9-illustrative-underground-network.md)
 for the cited engineering references and scenario assumptions.

@@ -18,7 +18,7 @@ def polyline_length(points):
     return sum(math.dist(start, end) for start, end in zip(points, points[1:]))
 
 
-def validate(network):
+def validate(network, mission=None):
     errors = []
     nodes = network.get("nodes", [])
     segments = network.get("segments", [])
@@ -66,18 +66,46 @@ def validate(network):
         if edge.get("length_m") != expected_length:
             errors.append(f"edge {segment_id}: length_m does not match centerline length")
 
+    if mission is not None:
+        routes = mission.get("routes", [])
+        route_ids = [route.get("id") for route in routes]
+        if len(set(route_ids)) != len(route_ids):
+            errors.append("mission route IDs must be unique")
+        for route in routes:
+            route_id = route.get("id", "<unnamed>")
+            route_nodes = route.get("node_ids", [])
+            route_edges = route.get("edge_ids", [])
+            if len(route_nodes) != len(route_edges) + 1:
+                errors.append(f"route {route_id}: expected one more node than edge")
+                continue
+            for index, edge_id in enumerate(route_edges):
+                edge = edge_by_id.get(edge_id)
+                start, end = route_nodes[index:index + 2]
+                if edge is None:
+                    errors.append(f"route {route_id}: unknown edge {edge_id}")
+                    continue
+                if start not in node_by_id or end not in node_by_id:
+                    errors.append(f"route {route_id}: unknown node in {start} -> {end}")
+                    continue
+                forward = edge["from"] == start and edge["to"] == end
+                reverse = edge["to"] == start and edge["from"] == end
+                if not forward and (not reverse or edge["one_way"]):
+                    errors.append(f"route {route_id}: invalid traversal direction for {edge_id}")
+
     return errors
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("path", nargs="?", type=Path, default=DEFAULT_INPUT)
+    parser.add_argument("--mission", type=Path, default=ROOT / "data" / "mission.json")
     args = parser.parse_args()
     network = json.loads(args.path.read_text(encoding="utf-8"))
-    errors = validate(network)
+    mission = json.loads(args.mission.read_text(encoding="utf-8"))
+    errors = validate(network, mission)
     if errors:
         raise SystemExit("Invalid tunnel network:\n- " + "\n- ".join(errors))
-    print(f"Valid tunnel network: {len(network['nodes'])} nodes, {len(network['segments'])} segments, {len(network['graph']['edges'])} graph edges")
+    print(f"Valid network and routes: {len(network['nodes'])} nodes, {len(network['segments'])} segments, {len(network['graph']['edges'])} graph edges, {len(mission.get('routes', []))} mission routes")
 
 
 if __name__ == "__main__":

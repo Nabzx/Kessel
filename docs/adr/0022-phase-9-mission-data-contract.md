@@ -31,6 +31,13 @@ Interactive waypoint input and its A* result are transient user-session state,
 computed by generic code over the directed graph rather than written back to
 the authored manifest. Prediction data is scoped to the selected truck view.
 
+Mission route records carry an ID, vehicle ID, source label, route status,
+ordered `node_ids`, and matching `edge_ids`. The renderer resolves these IDs
+against the tunnel graph and geometric segments. Route direction follows the
+ordered nodes; it may traverse a segment in reverse only when the graph edge is
+not one-way. Scripted route statuses such as `unoptimised` must remain clearly
+separate from logged or live policy output.
+
 The tunnel network asset carries both geometric `segments` and a pathfinding
 `graph`. Each graph edge refers to one segment and copies its ordered endpoints,
 kind, grade, and width, while adding centreline length and a `one_way` flag.

@@ -93,7 +93,90 @@ async function loadTexture(loader, path, mobile) {
   return texture;
 }
 
-export async function createUndergroundStage(network, { mobile = false } = {}) {
+export function createRouteRibbons(network, routes = []) {
+  const routeRoot = new THREE.Group();
+  routeRoot.name = "scripted-route-ribbons";
+  if (!routes.length) return routeRoot;
+
+  const segments = new Map(network.segments.map((segment) => [segment.id, segment]));
+  const edges = new Map(network.graph.edges.map((edge) => [edge.id, edge]));
+  const narrowestHeading = Math.min(...network.graph.edges.map((edge) => edge.width_m));
+  const laneSpacing = Math.max(0.04, Math.min(0.36, (narrowestHeading - 0.4) / routes.length));
+  const ribbonWidth = Math.min(0.26, laneSpacing * 0.76);
+
+  routes.forEach((route, routeIndex) => {
+    if (route.node_ids.length !== route.edge_ids.length + 1) {
+      throw new Error(`Route ${route.id} must have one more node than edge`);
+    }
+    const points = [];
+    route.edge_ids.forEach((edgeId, index) => {
+      const edge = edges.get(edgeId);
+      const segment = edge && segments.get(edge.segment_id);
+      const startNode = route.node_ids[index];
+      const endNode = route.node_ids[index + 1];
+      if (!edge || !segment) throw new Error(`Route ${route.id} refers to missing edge ${edgeId}`);
+      const forward = edge.from === startNode && edge.to === endNode;
+      const reverse = edge.to === startNode && edge.from === endNode;
+      if (!forward && (!reverse || edge.one_way)) {
+        throw new Error(`Route ${route.id} has an invalid direction on ${edgeId}`);
+      }
+      const centreline = forward ? segment.centerline_m : [...segment.centerline_m].reverse();
+      for (const coordinate of centreline) {
+        const point = new THREE.Vector3(...coordinate);
+        if (!points.length || points[points.length - 1].distanceToSquared(point) > 1e-6) points.push(point);
+      }
+    });
+    if (points.length < 2) throw new Error(`Route ${route.id} has no drawable centreline`);
+
+    const laneOffset = (routeIndex - (routes.length - 1) / 2) * laneSpacing;
+    const positions = [];
+    const indices = [];
+    for (let pointIndex = 0; pointIndex < points.length; pointIndex += 1) {
+      const previous = points[Math.max(0, pointIndex - 1)];
+      const next = points[Math.min(points.length - 1, pointIndex + 1)];
+      const tangent = next.clone().sub(previous);
+      tangent.y = 0;
+      if (tangent.lengthSq() < 1e-8) tangent.set(0, 0, -1);
+      tangent.normalize();
+      const lateral = new THREE.Vector3(-tangent.z, 0, tangent.x);
+      const centre = points[pointIndex].clone().addScaledVector(lateral, laneOffset);
+      centre.y += 0.18;
+      const halfWidth = ribbonWidth / 2;
+      const left = centre.clone().addScaledVector(lateral, halfWidth);
+      const right = centre.clone().addScaledVector(lateral, -halfWidth);
+      positions.push(left.x, left.y, left.z, right.x, right.y, right.z);
+      if (pointIndex < points.length - 1) {
+        const vertex = pointIndex * 2;
+        indices.push(vertex, vertex + 2, vertex + 1, vertex + 1, vertex + 2, vertex + 3);
+      }
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setIndex(indices);
+    geometry.computeBoundingSphere();
+    const colour = route.status === "converged" ? 0x65d79a : route.status === "operator_override" ? 0x69d9e8 : 0xff4038;
+    const material = new THREE.MeshBasicMaterial({
+      color: colour,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.94,
+      depthWrite: false,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      toneMapped: false,
+    });
+    const ribbon = new THREE.Mesh(geometry, material);
+    ribbon.name = `route-ribbon-${route.id}`;
+    ribbon.userData.routeId = route.id;
+    ribbon.userData.vehicleId = route.vehicle_id;
+    ribbon.userData.status = route.status;
+    routeRoot.add(ribbon);
+  });
+  return routeRoot;
+}
+
+export async function createUndergroundStage(network, { mobile = false, routes = [] } = {}) {
   const root = new THREE.Group();
   root.name = "illustrative-underground-network";
   const loader = new THREE.TextureLoader();
@@ -126,6 +209,7 @@ export async function createUndergroundStage(network, { mobile = false } = {}) {
     }
     root.add(makeFloor(segment, floorMaterial));
   }
+  root.add(createRouteRibbons(network, routes));
 
   for (const node of network.nodes) {
     if (node.kind !== "draw_point" && node.kind !== "tipping_point") continue;

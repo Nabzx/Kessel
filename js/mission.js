@@ -555,7 +555,7 @@ async function prepareUndergroundStage() {
     if (!response.ok) throw new Error(`Tunnel network request failed: ${response.status}`);
     const network = await response.json();
     const rendererModule = await import(new URL(assets.renderer, document.baseURI));
-    const root = await rendererModule.createUndergroundStage(network, { mobile });
+    const root = await rendererModule.createUndergroundStage(network, { mobile, routes: missionManifest.routes });
     if (!surfacePortal) throw new Error("Mine entrance is not ready");
     root.position.copy(surfacePortal.position);
     undergroundRoot.add(root);

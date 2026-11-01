@@ -44,6 +44,32 @@
     },
     "deposit_markers": "data/mineral-deposits.json"
   },
+  "routes": [
+    {
+      "id": "haul-cycle-01",
+      "vehicle_id": "truck-01",
+      "source": "scripted",
+      "status": "unoptimised",
+      "node_ids": ["draw-point-L1-south", "crosscut-L1-south-start", "turn-L1-south", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "turn-L1-south", "crosscut-L1-south-start", "draw-point-L1-south"],
+      "edge_ids": ["draw-crosscut-L1-south", "junction-turn-L1-south", "haulage-drift-L1-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "haulage-drift-L1-2", "junction-turn-L1-south", "draw-crosscut-L1-south"]
+    },
+    {
+      "id": "haul-cycle-02",
+      "vehicle_id": "truck-02",
+      "source": "scripted",
+      "status": "unoptimised",
+      "node_ids": ["draw-point-L2-north", "crosscut-L2-north-start", "turn-L2-north", "ramp-L2", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "ramp-L2", "turn-L2-north", "crosscut-L2-north-start", "draw-point-L2-north"],
+      "edge_ids": ["draw-crosscut-L2-north", "junction-turn-L2-north", "haulage-drift-L2-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "haulage-drift-L2-3", "junction-turn-L2-north", "draw-crosscut-L2-north"]
+    },
+    {
+      "id": "haul-cycle-03",
+      "vehicle_id": "truck-03",
+      "source": "scripted",
+      "status": "unoptimised",
+      "node_ids": ["draw-point-L3-south", "crosscut-L3-south-start", "turn-L3-south", "ramp-L3", "ramp-L2", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "ramp-L2", "ramp-L3", "turn-L3-south", "crosscut-L3-south-start", "draw-point-L3-south"],
+      "edge_ids": ["draw-crosscut-L3-south", "junction-turn-L3-south", "haulage-drift-L3-2", "decline-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "decline-3", "haulage-drift-L3-2", "junction-turn-L3-south", "draw-crosscut-L3-south"]
+    }
+  ],
   "environments": [
     {
       "id": "space",
