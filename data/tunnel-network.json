@@ -4,7 +4,7 @@
     "source": "scripted",
     "description": "Seeded mechanised-mine scenario, not a Rutongo mine-plan reconstruction.",
     "generator": "data/generate_tunnel_network.py",
-    "generator_version": 1,
+    "generator_version": 2,
     "seed": 2026,
     "units": "metres",
     "sources": {
@@ -1182,5 +1182,610 @@
         ]
       ]
     }
-  ]
+  ],
+  "graph": {
+    "directed": true,
+    "nodes": [
+      {
+        "id": "portal",
+        "kind": "portal",
+        "position_m": [
+          0,
+          0,
+          0
+        ],
+        "level": null
+      },
+      {
+        "id": "tip-surface",
+        "kind": "tipping_point",
+        "position_m": [
+          35,
+          0,
+          0
+        ],
+        "level": null
+      },
+      {
+        "id": "ramp-L1",
+        "kind": "junction",
+        "position_m": [
+          0,
+          -20.0,
+          -250.0
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "ramp-L2",
+        "kind": "junction",
+        "position_m": [
+          0,
+          -40.0,
+          -500.0
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "ramp-L3",
+        "kind": "junction",
+        "position_m": [
+          0,
+          -60.0,
+          -750.0
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "haulage-L1-west",
+        "kind": "junction",
+        "position_m": [
+          -100.0,
+          -22.75,
+          -250.0
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "haulage-L1-east",
+        "kind": "junction",
+        "position_m": [
+          100.0,
+          -17.25,
+          -250.0
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "turn-L1-south",
+        "kind": "junction",
+        "position_m": [
+          -15.24,
+          -20.419,
+          -250.0
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "turn-L1-north",
+        "kind": "junction",
+        "position_m": [
+          15.24,
+          -19.581,
+          -250.0
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "crosscut-L1-south-start",
+        "kind": "junction",
+        "position_m": [
+          0.0,
+          -21.077,
+          -265.24
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "draw-point-L1-south",
+        "kind": "draw_point",
+        "position_m": [
+          0.0,
+          -22.617,
+          -321.24
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "crosscut-L1-north-start",
+        "kind": "junction",
+        "position_m": [
+          30.48,
+          -20.239,
+          -234.76
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "draw-point-L1-north",
+        "kind": "draw_point",
+        "position_m": [
+          30.48,
+          -21.889,
+          -174.76
+        ],
+        "level": "L1"
+      },
+      {
+        "id": "haulage-L2-west",
+        "kind": "junction",
+        "position_m": [
+          -100.0,
+          -42.75,
+          -500.0
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "haulage-L2-east",
+        "kind": "junction",
+        "position_m": [
+          100.0,
+          -37.25,
+          -500.0
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "turn-L2-south",
+        "kind": "junction",
+        "position_m": [
+          -15.24,
+          -40.419,
+          -500.0
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "turn-L2-north",
+        "kind": "junction",
+        "position_m": [
+          15.24,
+          -39.581,
+          -500.0
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "crosscut-L2-south-start",
+        "kind": "junction",
+        "position_m": [
+          0.0,
+          -41.077,
+          -515.24
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "draw-point-L2-south",
+        "kind": "draw_point",
+        "position_m": [
+          0.0,
+          -42.809,
+          -578.24
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "crosscut-L2-north-start",
+        "kind": "junction",
+        "position_m": [
+          30.48,
+          -40.239,
+          -484.76
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "draw-point-L2-north",
+        "kind": "draw_point",
+        "position_m": [
+          30.48,
+          -41.971,
+          -421.76
+        ],
+        "level": "L2"
+      },
+      {
+        "id": "haulage-L3-west",
+        "kind": "junction",
+        "position_m": [
+          -100.0,
+          -62.75,
+          -750.0
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "haulage-L3-east",
+        "kind": "junction",
+        "position_m": [
+          100.0,
+          -57.25,
+          -750.0
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "turn-L3-south",
+        "kind": "junction",
+        "position_m": [
+          -15.24,
+          -60.419,
+          -750.0
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "turn-L3-north",
+        "kind": "junction",
+        "position_m": [
+          15.24,
+          -59.581,
+          -750.0
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "crosscut-L3-south-start",
+        "kind": "junction",
+        "position_m": [
+          0.0,
+          -61.077,
+          -765.24
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "draw-point-L3-south",
+        "kind": "draw_point",
+        "position_m": [
+          0.0,
+          -62.864,
+          -830.24
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "crosscut-L3-north-start",
+        "kind": "junction",
+        "position_m": [
+          30.48,
+          -60.239,
+          -734.76
+        ],
+        "level": "L3"
+      },
+      {
+        "id": "draw-point-L3-north",
+        "kind": "draw_point",
+        "position_m": [
+          30.48,
+          -61.779,
+          -678.76
+        ],
+        "level": "L3"
+      }
+    ],
+    "edges": [
+      {
+        "id": "portal-tipping-bay",
+        "segment_id": "portal-tipping-bay",
+        "kind": "surface_tipping_bay",
+        "from": "portal",
+        "to": "tip-surface",
+        "length_m": 35.0,
+        "grade_percent": 0,
+        "width_m": 6,
+        "one_way": false
+      },
+      {
+        "id": "decline-1",
+        "segment_id": "decline-1",
+        "kind": "decline",
+        "from": "portal",
+        "to": "ramp-L1",
+        "length_m": 250.799,
+        "grade_percent": -8.0,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "decline-2",
+        "segment_id": "decline-2",
+        "kind": "decline",
+        "from": "ramp-L1",
+        "to": "ramp-L2",
+        "length_m": 250.799,
+        "grade_percent": -8.0,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "decline-3",
+        "segment_id": "decline-3",
+        "kind": "decline",
+        "from": "ramp-L2",
+        "to": "ramp-L3",
+        "length_m": 250.799,
+        "grade_percent": -8.0,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L1-1",
+        "segment_id": "haulage-drift-L1-1",
+        "kind": "haulage_drift",
+        "from": "haulage-L1-west",
+        "to": "turn-L1-south",
+        "length_m": 84.792,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L1-2",
+        "segment_id": "haulage-drift-L1-2",
+        "kind": "haulage_drift",
+        "from": "turn-L1-south",
+        "to": "ramp-L1",
+        "length_m": 15.246,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L1-3",
+        "segment_id": "haulage-drift-L1-3",
+        "kind": "haulage_drift",
+        "from": "ramp-L1",
+        "to": "turn-L1-north",
+        "length_m": 15.246,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L1-4",
+        "segment_id": "haulage-drift-L1-4",
+        "kind": "haulage_drift",
+        "from": "turn-L1-north",
+        "to": "haulage-L1-east",
+        "length_m": 84.792,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "junction-turn-L1-south",
+        "segment_id": "junction-turn-L1-south",
+        "kind": "junction_turn",
+        "from": "turn-L1-south",
+        "to": "crosscut-L1-south-start",
+        "length_m": 23.91,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "draw-crosscut-L1-south",
+        "segment_id": "draw-crosscut-L1-south",
+        "kind": "draw_crosscut",
+        "from": "crosscut-L1-south-start",
+        "to": "draw-point-L1-south",
+        "length_m": 56.021,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "junction-turn-L1-north",
+        "segment_id": "junction-turn-L1-north",
+        "kind": "junction_turn",
+        "from": "turn-L1-north",
+        "to": "crosscut-L1-north-start",
+        "length_m": 23.91,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "draw-crosscut-L1-north",
+        "segment_id": "draw-crosscut-L1-north",
+        "kind": "draw_crosscut",
+        "from": "crosscut-L1-north-start",
+        "to": "draw-point-L1-north",
+        "length_m": 60.023,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L2-1",
+        "segment_id": "haulage-drift-L2-1",
+        "kind": "haulage_drift",
+        "from": "haulage-L2-west",
+        "to": "turn-L2-south",
+        "length_m": 84.792,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L2-2",
+        "segment_id": "haulage-drift-L2-2",
+        "kind": "haulage_drift",
+        "from": "turn-L2-south",
+        "to": "ramp-L2",
+        "length_m": 15.246,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L2-3",
+        "segment_id": "haulage-drift-L2-3",
+        "kind": "haulage_drift",
+        "from": "ramp-L2",
+        "to": "turn-L2-north",
+        "length_m": 15.246,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L2-4",
+        "segment_id": "haulage-drift-L2-4",
+        "kind": "haulage_drift",
+        "from": "turn-L2-north",
+        "to": "haulage-L2-east",
+        "length_m": 84.792,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "junction-turn-L2-south",
+        "segment_id": "junction-turn-L2-south",
+        "kind": "junction_turn",
+        "from": "turn-L2-south",
+        "to": "crosscut-L2-south-start",
+        "length_m": 23.91,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "draw-crosscut-L2-south",
+        "segment_id": "draw-crosscut-L2-south",
+        "kind": "draw_crosscut",
+        "from": "crosscut-L2-south-start",
+        "to": "draw-point-L2-south",
+        "length_m": 63.024,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "junction-turn-L2-north",
+        "segment_id": "junction-turn-L2-north",
+        "kind": "junction_turn",
+        "from": "turn-L2-north",
+        "to": "crosscut-L2-north-start",
+        "length_m": 23.91,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "draw-crosscut-L2-north",
+        "segment_id": "draw-crosscut-L2-north",
+        "kind": "draw_crosscut",
+        "from": "crosscut-L2-north-start",
+        "to": "draw-point-L2-north",
+        "length_m": 63.024,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L3-1",
+        "segment_id": "haulage-drift-L3-1",
+        "kind": "haulage_drift",
+        "from": "haulage-L3-west",
+        "to": "turn-L3-south",
+        "length_m": 84.792,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L3-2",
+        "segment_id": "haulage-drift-L3-2",
+        "kind": "haulage_drift",
+        "from": "turn-L3-south",
+        "to": "ramp-L3",
+        "length_m": 15.246,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L3-3",
+        "segment_id": "haulage-drift-L3-3",
+        "kind": "haulage_drift",
+        "from": "ramp-L3",
+        "to": "turn-L3-north",
+        "length_m": 15.246,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "haulage-drift-L3-4",
+        "segment_id": "haulage-drift-L3-4",
+        "kind": "haulage_drift",
+        "from": "turn-L3-north",
+        "to": "haulage-L3-east",
+        "length_m": 84.792,
+        "grade_percent": 2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "junction-turn-L3-south",
+        "segment_id": "junction-turn-L3-south",
+        "kind": "junction_turn",
+        "from": "turn-L3-south",
+        "to": "crosscut-L3-south-start",
+        "length_m": 23.91,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "draw-crosscut-L3-south",
+        "segment_id": "draw-crosscut-L3-south",
+        "kind": "draw_crosscut",
+        "from": "crosscut-L3-south-start",
+        "to": "draw-point-L3-south",
+        "length_m": 65.025,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "junction-turn-L3-north",
+        "segment_id": "junction-turn-L3-north",
+        "kind": "junction_turn",
+        "from": "turn-L3-north",
+        "to": "crosscut-L3-north-start",
+        "length_m": 23.91,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      },
+      {
+        "id": "draw-crosscut-L3-north",
+        "segment_id": "draw-crosscut-L3-north",
+        "kind": "draw_crosscut",
+        "from": "crosscut-L3-north-start",
+        "to": "draw-point-L3-north",
+        "length_m": 56.021,
+        "grade_percent": -2.75,
+        "width_m": 3.0,
+        "one_way": false
+      }
+    ]
+  }
 }

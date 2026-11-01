@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "data" / "tunnel-network.json"
 DEFAULT_SEED = 2026
+GENERATOR_VERSION = 2
 SECTION_WIDTH_M = 3.0
 SECTION_HEIGHT_M = 3.0
 RAMP_GRADE_PERCENT = 8.0
@@ -31,6 +32,34 @@ def add_node(nodes, node_id, kind, position, level=None):
         "position_m": point(*position),
         "level": level,
     })
+
+
+def polyline_length(points):
+    return sum(
+        math.dist(start, end)
+        for start, end in zip(points, points[1:])
+    )
+
+
+def make_graph(nodes, segments):
+    edges = []
+    for segment in segments:
+        edges.append({
+            "id": segment["id"],
+            "segment_id": segment["id"],
+            "kind": segment["kind"],
+            "from": segment["from"],
+            "to": segment["to"],
+            "length_m": round(polyline_length(segment["centerline_m"]), 3),
+            "grade_percent": segment["grade_percent"],
+            "width_m": segment["width_m"],
+            "one_way": False,
+        })
+    return {
+        "directed": True,
+        "nodes": [dict(node) for node in nodes],
+        "edges": edges,
+    }
 
 
 def make_network(seed):
@@ -171,7 +200,7 @@ def make_network(seed):
             "source": "scripted",
             "description": "Seeded mechanised-mine scenario, not a Rutongo mine-plan reconstruction.",
             "generator": "data/generate_tunnel_network.py",
-            "generator_version": 1,
+            "generator_version": GENERATOR_VERSION,
             "seed": seed,
             "units": "metres",
             "sources": {
@@ -216,6 +245,7 @@ def make_network(seed):
         ],
         "nodes": nodes,
         "segments": segments,
+        "graph": make_graph(nodes, segments),
     }
 
 

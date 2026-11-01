@@ -31,6 +31,17 @@ Interactive waypoint input and its A* result are transient user-session state,
 computed by generic code over the directed graph rather than written back to
 the authored manifest. Prediction data is scoped to the selected truck view.
 
+The tunnel network asset carries both geometric `segments` and a pathfinding
+`graph`. Each graph edge refers to one segment and copies its ordered endpoints,
+kind, grade, and width, while adding centreline length and a `one_way` flag.
+Graph node records match geometry node records exactly. `from` to `to` defines
+the stored grade orientation; reverse traversal negates the grade. The
+committed network marks its segments bidirectional as a scenario input because
+no Rutongo traffic plan is public. The Draft 2020-12 JSON Schema is at
+[`data/schemas/tunnel-network.schema.json`](../../data/schemas/tunnel-network.schema.json);
+the standard-library validator checks cross-references that the schema cannot
+express on its own.
+
 ## Consequences
 
 The old `data/rollout.json` remains available for the earlier demo until the
