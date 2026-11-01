@@ -24,6 +24,9 @@ scene.add(earthRoot);
 const surfaceRoot = new THREE.Group();
 surfaceRoot.visible = false;
 scene.add(surfaceRoot);
+const undergroundRoot = new THREE.Group();
+undergroundRoot.visible = false;
+scene.add(undergroundRoot);
 
 const earthGeometry = new THREE.SphereGeometry(2.38, mobile ? 72 : 112, mobile ? 48 : 80);
 const earthMaterial = new THREE.MeshStandardMaterial({
@@ -158,19 +161,28 @@ const skipFlightButton = document.getElementById("skip-flight");
 const flightStatus = document.getElementById("flight-status");
 const surfaceConsole = document.getElementById("surface-console");
 const surfaceCredit = document.getElementById("surface-credit");
+const enterUndergroundButton = document.getElementById("enter-underground");
+const undergroundConsole = document.getElementById("underground-console");
 let chooseUnderground = null;
 let missionState = "biome-select";
 let missionLocation = null;
+let missionManifest = null;
 let cameraTransition = null;
+let portalTransition = null;
+let undergroundStagePromise = null;
 const targetWorldPosition = new THREE.Vector3();
 const targetWorldNormal = new THREE.Vector3();
 const projectedTarget = new THREE.Vector3();
 const cameraToTarget = new THREE.Vector3();
 const flightLookTarget = new THREE.Vector3();
 let surfaceTerrainPromise = null;
+let surfacePortal = null;
+const surfaceLookTarget = new THREE.Vector3(-700, 370, 500);
 
-function prepareSurfaceTerrain() {
+function prepareSurfaceTerrain(surfaceAssets) {
   if (surfaceTerrainPromise) return surfaceTerrainPromise;
+  const width = surfaceAssets.width_m;
+  const elevationRange = surfaceAssets.elevation_max_m - surfaceAssets.elevation_min_m;
   surfaceTerrainPromise = new Promise((resolve, reject) => {
   const image = new Image();
   const heightImage = new Image();
@@ -178,8 +190,8 @@ function prepareSurfaceTerrain() {
     new Promise((imageReady, imageError) => { image.onload = imageReady; image.onerror = imageError; }),
     new Promise((imageReady, imageError) => { heightImage.onload = imageReady; heightImage.onerror = imageError; }),
   ]);
-  image.src = "assets/rutongo/satellite-2026-08-14.webp";
-  heightImage.src = "assets/rutongo/elevation-30m-4km.png";
+  image.src = surfaceAssets.satellite_image;
+  heightImage.src = surfaceAssets.elevation_heightmap;
   loaded.then(() => {
     const heightCanvas = document.createElement("canvas");
     heightCanvas.width = heightImage.naturalWidth;
@@ -188,16 +200,16 @@ function prepareSurfaceTerrain() {
     context.drawImage(heightImage, 0, 0);
     const samples = context.getImageData(0, 0, heightCanvas.width, heightCanvas.height).data;
     const elevationAt = (x, z) => {
-      const px = Math.round(((x + 2048) / 4096) * (heightCanvas.width - 1));
-      const py = Math.round(((z + 2048) / 4096) * (heightCanvas.height - 1));
-      return (samples[(py * heightCanvas.width + px) * 4] / 255) * 429;
+      const px = Math.round(((x + width / 2) / width) * (heightCanvas.width - 1));
+      const py = Math.round(((z + width / 2) / width) * (heightCanvas.height - 1));
+      return surfaceAssets.elevation_min_m + (samples[(py * heightCanvas.width + px) * 4] / 255) * elevationRange;
     };
     const segments = heightCanvas.width - 1;
-    const geometry = new THREE.PlaneGeometry(4096, 4096, segments, heightCanvas.height - 1);
+    const geometry = new THREE.PlaneGeometry(width, width, segments, heightCanvas.height - 1);
     geometry.rotateX(-Math.PI / 2);
     const positions = geometry.attributes.position;
     for (let i = 0; i < positions.count; i += 1) {
-      positions.setY(i, (samples[i * 4] / 255) * 429);
+      positions.setY(i, surfaceAssets.elevation_min_m + (samples[i * 4] / 255) * elevationRange);
     }
     positions.needsUpdate = true;
     geometry.computeVertexNormals();
@@ -242,40 +254,52 @@ function prepareSurfaceTerrain() {
     roadGeometry.computeVertexNormals();
     surfaceRoot.add(new THREE.Mesh(roadGeometry, new THREE.MeshStandardMaterial({ color: 0x4e4c43, roughness: 1 })));
 
-    const portalX = -800;
-    const portalZ = 650;
+    const portalConfig = surfaceAssets.portal;
+    const portalX = portalConfig.x_m;
+    const portalZ = portalConfig.z_m;
     const portal = new THREE.Group();
     portal.name = "illustrative-mine-portal";
     portal.userData.isMineEntrance = true;
     portal.position.set(portalX, elevationAt(portalX, portalZ), portalZ);
+    surfacePortal = portal;
     surfaceRoot.add(portal);
     const apron = new THREE.Mesh(new THREE.BoxGeometry(38, 1.2, 34), new THREE.MeshStandardMaterial({ color: 0x635f53, roughness: 1 }));
     apron.position.set(0, 0.2, 2);
     portal.add(apron);
 
     const openingShape = new THREE.Shape();
-    openingShape.moveTo(-7, 0);
-    openingShape.lineTo(-7, 5.2);
-    openingShape.quadraticCurveTo(-7, 9, 0, 9);
-    openingShape.quadraticCurveTo(7, 9, 7, 5.2);
-    openingShape.lineTo(7, 0);
+    const halfAperture = portalConfig.aperture_width_m / 2;
+    const apertureHeight = portalConfig.aperture_height_m;
+    openingShape.moveTo(-halfAperture, 0);
+    openingShape.lineTo(-halfAperture, apertureHeight / 2);
+    openingShape.quadraticCurveTo(-halfAperture, apertureHeight, 0, apertureHeight);
+    openingShape.quadraticCurveTo(halfAperture, apertureHeight, halfAperture, apertureHeight / 2);
+    openingShape.lineTo(halfAperture, 0);
     openingShape.closePath();
     const opening = new THREE.Mesh(new THREE.ShapeGeometry(openingShape), new THREE.MeshBasicMaterial({ color: 0x030405, side: THREE.DoubleSide }));
-    opening.position.set(0, 0.8, 0.5);
+    opening.position.set(0, 0, 0.5);
     portal.add(opening);
     const arch = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-8, 0.6, 0.75), new THREE.Vector3(-8, 5, 0.75),
-      new THREE.Vector3(-6.5, 8, 0.75), new THREE.Vector3(-3, 9.7, 0.75),
-      new THREE.Vector3(0, 10, 0.75), new THREE.Vector3(3, 9.7, 0.75),
-      new THREE.Vector3(6.5, 8, 0.75), new THREE.Vector3(8, 5, 0.75),
-      new THREE.Vector3(8, 0.6, 0.75),
+      new THREE.Vector3(-1.9, 0.1, 0.75), new THREE.Vector3(-1.9, 1.5, 0.75),
+      new THREE.Vector3(-1.65, 2.45, 0.75), new THREE.Vector3(-0.8, 3.35, 0.75),
+      new THREE.Vector3(0, 3.55, 0.75), new THREE.Vector3(0.8, 3.35, 0.75),
+      new THREE.Vector3(1.65, 2.45, 0.75), new THREE.Vector3(1.9, 1.5, 0.75),
+      new THREE.Vector3(1.9, 0.1, 0.75),
     ]);
-    portal.add(new THREE.Mesh(new THREE.TubeGeometry(arch, 40, 0.6, 8, false), new THREE.MeshStandardMaterial({ color: 0x9a8060, metalness: 0.5, roughness: 0.62 })));
+    portal.add(new THREE.Mesh(new THREE.TubeGeometry(arch, 40, 0.18, 8, false), new THREE.MeshStandardMaterial({ color: 0x9a8060, metalness: 0.5, roughness: 0.62 })));
     for (const side of [-1, 1]) {
-      const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.55, 1.5, 0.45), new THREE.MeshBasicMaterial({ color: 0xffbd68 }));
-      lamp.position.set(side * 9.2, 7.8, 1);
+      const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.75, 0.2), new THREE.MeshBasicMaterial({ color: 0xffbd68 }));
+      lamp.position.set(side * 2.3, 2.8, 1);
       portal.add(lamp);
     }
+    const portalMarker = new THREE.Mesh(
+      new THREE.RingGeometry(portalConfig.marker_radius_m - 1, portalConfig.marker_radius_m, 64),
+      new THREE.MeshBasicMaterial({ color: 0xffbd68, transparent: true, opacity: 0.68, side: THREE.DoubleSide, depthWrite: false }),
+    );
+    portalMarker.rotation.x = -Math.PI / 2;
+    portalMarker.position.y = 1.4;
+    portalMarker.name = "illustrative-portal-marker";
+    portal.add(portalMarker);
 
     const addServiceShed = (x, z, width, height, depth) => {
       const shed = new THREE.Group();
@@ -303,7 +327,7 @@ async function finishGlobeFlight() {
   const completedTransition = cameraTransition;
   cameraTransition = null;
   try {
-    await prepareSurfaceTerrain();
+    await prepareSurfaceTerrain(missionManifest.assets.surface);
   } catch (error) {
     skipFlightButton.hidden = true;
     flightStatus.textContent = "SURFACE DATA UNAVAILABLE";
@@ -321,10 +345,11 @@ async function finishGlobeFlight() {
   scene.fog = new THREE.Fog(0x7c8982, 3800, 11500);
   camera.near = 1;
   camera.far = 40000;
-  camera.position.set(-400, 1200, 1300);
+  camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-400, 850, 900));
   camera.fov = 47;
   camera.updateProjectionMatrix();
-  camera.lookAt(-700, 370, 500);
+  surfaceLookTarget.copy(surfacePortal.position);
+  camera.lookAt(surfaceLookTarget);
   cameraTransition = null;
   skipFlightButton.hidden = true;
   flightStatus.textContent = `ARRIVED / ${missionLocation.name.toUpperCase()}`;
@@ -332,14 +357,16 @@ async function finishGlobeFlight() {
   experience.classList.add("surface-arrived");
   surfaceConsole.hidden = false;
   surfaceCredit.hidden = false;
+  missionState = "surface-arrived";
+  enterUndergroundButton.hidden = false;
   await new Promise((resolve) => setTimeout(resolve, 820));
   experience.classList.remove("surface-transition");
-  window.dispatchEvent(new CustomEvent("kessel:descentcomplete", { detail: { location: missionLocation } }));
+  window.dispatchEvent(new CustomEvent("kessel:surface-arrival", { detail: { location: missionLocation } }));
 }
 
 function beginGlobeFlight(location) {
   if (cameraTransition) return;
-  prepareSurfaceTerrain().catch((error) => {
+  prepareSurfaceTerrain(missionManifest.assets.surface).catch((error) => {
     flightStatus.textContent = "SURFACE DATA UNAVAILABLE";
     console.error("Rutongo surface data could not be loaded", error);
   });
@@ -456,6 +483,7 @@ async function loadMission() {
     const response = await fetch("data/mission.json");
     if (!response.ok) throw new Error(`Mission data request failed: ${response.status}`);
     const mission = await response.json();
+    missionManifest = mission;
     const location = mission.location;
     missionLocation = location;
     const latitude = Math.abs(location.latitude).toFixed(2);
@@ -518,21 +546,143 @@ async function loadMission() {
     console.error(error);
   }
 }
+
+async function prepareUndergroundStage() {
+  if (undergroundStagePromise) return undergroundStagePromise;
+  undergroundStagePromise = (async () => {
+    const assets = missionManifest.assets.underground;
+    const response = await fetch(assets.network_geometry);
+    if (!response.ok) throw new Error(`Tunnel network request failed: ${response.status}`);
+    const network = await response.json();
+    const rendererModule = await import(new URL(assets.renderer, document.baseURI));
+    const root = await rendererModule.createUndergroundStage(network, { mobile });
+    if (!surfacePortal) throw new Error("Mine entrance is not ready");
+    root.position.copy(surfacePortal.position);
+    undergroundRoot.add(root);
+    undergroundRoot.visible = false;
+    undergroundRoot.userData.dispose = () => rendererModule.disposeUndergroundStage(root);
+    undergroundRoot.userData.stage = root;
+    return root;
+  })();
+  try {
+    return await undergroundStagePromise;
+  } catch (error) {
+    undergroundStagePromise = null;
+    throw error;
+  }
+}
+
+function disposeSurfaceStage() {
+  const geometries = new Set();
+  const materials = new Set();
+  const textures = new Set();
+  surfaceRoot.traverse((object) => {
+    if (object.geometry) geometries.add(object.geometry);
+    const list = Array.isArray(object.material) ? object.material : [object.material];
+    for (const material of list) {
+      if (!material) continue;
+      materials.add(material);
+      for (const value of Object.values(material)) {
+        if (value?.isTexture) textures.add(value);
+      }
+    }
+  });
+  for (const geometry of geometries) geometry.dispose();
+  for (const texture of textures) texture.dispose();
+  for (const material of materials) material.dispose();
+  surfaceRoot.clear();
+  scene.remove(surfaceRoot);
+}
+
+async function beginPortalTransition() {
+  if (missionState !== "surface-arrived" || portalTransition) return;
+  enterUndergroundButton.disabled = true;
+  enterUndergroundButton.querySelector("span").textContent = "PREPARING";
+  flightStatus.textContent = "PREPARING TUNNEL NETWORK";
+  try {
+    await prepareUndergroundStage();
+  } catch (error) {
+    enterUndergroundButton.disabled = false;
+    enterUndergroundButton.querySelector("span").textContent = "DESCEND ›";
+    flightStatus.textContent = "TUNNEL DATA UNAVAILABLE";
+    console.error("Underground stage could not be loaded", error);
+    return;
+  }
+  if (missionState !== "surface-arrived" || !surfacePortal) return;
+  missionState = "surface-transition";
+  const fromPosition = camera.position.clone();
+  const fromLookTarget = surfaceLookTarget.clone();
+  const targetPosition = surfacePortal.position.clone().add(new THREE.Vector3(0, 1.5, -5));
+  const targetLook = surfacePortal.position.clone().add(new THREE.Vector3(0, 1.5, -34));
+  const duration = reducedMotion ? 650 : 4200;
+  portalTransition = {
+    start: performance.now(),
+    duration,
+    fromPosition,
+    fromLookTarget,
+    targetPosition,
+    targetLook,
+    fromFov: camera.fov,
+    switched: false,
+  };
+  experience.style.setProperty("--portal-duration", `${duration}ms`);
+  experience.classList.add("portal-entering");
+  enterUndergroundButton.hidden = true;
+  flightStatus.textContent = "ENTERING / RUTONGO SCENARIO";
+}
+
+function updatePortalTransition(now) {
+  if (!portalTransition) return;
+  const progress = Math.min((now - portalTransition.start) / portalTransition.duration, 1);
+  const eased = progress * progress * (3 - 2 * progress);
+  camera.position.lerpVectors(portalTransition.fromPosition, portalTransition.targetPosition, eased);
+  flightLookTarget.lerpVectors(portalTransition.fromLookTarget, portalTransition.targetLook, eased);
+  camera.fov = THREE.MathUtils.lerp(portalTransition.fromFov, 56, eased);
+  camera.updateProjectionMatrix();
+  camera.lookAt(flightLookTarget);
+
+  if (!portalTransition.switched && progress >= 0.9) {
+    portalTransition.switched = true;
+    surfaceRoot.visible = false;
+    undergroundRoot.visible = true;
+    scene.background.set(0x07090a);
+    scene.fog = new THREE.Fog(0x07090a, 75, 310);
+    camera.near = 0.1;
+    camera.far = 600;
+    camera.updateProjectionMatrix();
+    disposeSurfaceStage();
+  }
+  if (progress >= 1) {
+    portalTransition = null;
+    missionState = "fleet";
+    experience.classList.remove("portal-entering");
+    experience.classList.remove("surface-arrived");
+    surfaceConsole.hidden = true;
+    surfaceCredit.hidden = true;
+    undergroundConsole.hidden = false;
+    flightStatus.textContent = "UNDERGROUND / LEVEL 01";
+    window.dispatchEvent(new CustomEvent("kessel:descentcomplete", { detail: { location: missionLocation } }));
+  }
+}
+
 loadMission();
 window.addEventListener("kessel:statechange", (event) => {
   if (event.detail.to === "surface-descent") beginGlobeFlight(event.detail.location);
 });
 skipFlightButton.addEventListener("click", finishGlobeFlight);
+enterUndergroundButton.addEventListener("click", beginPortalTransition);
 
 function resize() {
   const width = innerWidth;
   const height = innerHeight;
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  if (experience.classList.contains("surface-arrived")) {
-    camera.position.set(-400, width <= 760 ? 1500 : 1200, width <= 760 ? 1600 : 1300);
-    camera.lookAt(-700, 370, 500);
-  } else {
+  if (portalTransition) {
+    camera.updateProjectionMatrix();
+  } else if (missionState === "surface-arrived") {
+    if (surfacePortal) camera.position.copy(surfacePortal.position).add(new THREE.Vector3(-400, width <= 760 ? 1100 : 850, width <= 760 ? 1250 : 900));
+    camera.lookAt(surfaceLookTarget);
+  } else if (missionState !== "fleet" && missionState !== "truck" && missionState !== "override") {
     camera.position.z = width <= 760 ? 9.8 : 8.4;
   }
   earthRoot.position.x = width <= 760 ? 0 : 1.55;
@@ -549,6 +699,7 @@ function render(time) {
   lastTime = time;
   if (!reducedMotion && missionState === "biome-select") earth.rotation.y += delta * 0.025;
   updateCameraTransition(time);
+  updatePortalTransition(time);
   nightEarth.rotation.y = earth.rotation.y;
   surfaceMarkers.rotation.y = earth.rotation.y;
   cloudEarth.rotation.y = earth.rotation.y + (reducedMotion ? 0 : Math.sin(time * 0.000012) * 0.012);

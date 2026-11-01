@@ -50,7 +50,18 @@ body { background: var(--ink); }
 .surface-console h2 span { color: var(--cyan); }
 .surface-console p:last-child { margin: 0; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .surface-console .surface-model-note { margin-top: 9px; max-width: 470px; color: #ffc67a; font-size: 9px; line-height: 1.5; letter-spacing: .04em; }
+.enter-underground { display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 44px; margin-top: 18px; padding: 0 15px; border: 1px solid rgba(116,215,232,.65); background: rgba(5,16,22,.88); color: var(--paper); font: 500 10px var(--mono); letter-spacing: .1em; cursor: pointer; }
+.enter-underground span { color: var(--cyan); }
+.enter-underground:hover, .enter-underground:focus-visible { background: rgba(26,76,88,.84); outline: 2px solid var(--cyan); outline-offset: 2px; }
+.enter-underground:disabled { cursor: wait; opacity: .65; }
+.underground-console { position: absolute; z-index: 2; top: clamp(96px, 15vh, 150px); left: clamp(22px, 8vw, 120px); padding: 18px 22px; border-left: 1px solid var(--cyan); background: linear-gradient(90deg, rgba(3,7,13,.82), transparent); }
+.underground-console h2 { margin: 10px 0 4px; font: 500 clamp(22px, 3vw, 38px)/1.1 var(--display); letter-spacing: -.04em; }
+.underground-console h2 span { color: var(--cyan); }
+.underground-console p:last-child { margin: 0; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .surface-credit { position: absolute; z-index: 2; right: 18px; bottom: 14px; max-width: min(650px, 74vw); margin: 0; color: rgba(231,240,246,.72); font: 9px/1.5 var(--mono); text-align: right; text-shadow: 0 1px 4px #03070d; }
+.mission.portal-entering::after { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; background: #020407; animation: portal-blackout var(--portal-duration, 4200ms) ease-in-out both; }
+@keyframes portal-blackout { 0%, 72% { opacity: 0; } 82%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .mission.portal-entering::after { animation-duration: 650ms; } }
 
 .vignette {
   pointer-events: none;
@@ -162,6 +173,7 @@ h1 span { color: #7acddd; }
   .site-target { font-size: 7px; padding: 6px 7px; }
   .environment-picker { left: 7vw; right: 7vw; bottom: 116px; width: auto; }
   .surface-console { top: 88px; left: 7vw; right: 7vw; padding: 12px 16px; }
+  .underground-console { top: 88px; left: 7vw; right: 7vw; padding: 12px 16px; }
   .surface-credit { right: 7vw; bottom: 10px; max-width: 86vw; font-size: 8px; }
   .picker-heading .eyebrow { margin-bottom: 5px; font-size: 8px; }
   .picker-heading h2 { max-width: 31ch; margin-bottom: 8px; font-size: 12px; }

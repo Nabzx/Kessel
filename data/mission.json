@@ -25,6 +25,13 @@
       "width_m": 4096,
       "elevation_min_m": 1468.55,
       "elevation_max_m": 1897.49,
+      "portal": {
+        "x_m": -800,
+        "z_m": 650,
+        "aperture_width_m": 3,
+        "aperture_height_m": 3,
+        "marker_radius_m": 22
+      },
       "imagery_date": "2026-08-14",
       "imagery_source": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_35MRU_20260814_0_L2A",
       "site_layout_source": "illustrative",
