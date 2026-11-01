@@ -90,6 +90,15 @@ h1 span { color: #7acddd; }
 .legend-dot.tin { color: #38bdcf; background: #38bdcf; }
 .legend-dot.tantalum { color: #ff8a3d; background: #ff8a3d; }
 .deposit-legend small { color: #667c89; font: inherit; font-size: 6px; }
+.flight-status { position: absolute; z-index: 4; top: clamp(92px, 13vh, 140px); right: clamp(22px, 5.1vw, 84px); color: var(--cyan); font-size: 8px; letter-spacing: .18em; }
+.flight-status[hidden], .skip-flight[hidden] { display: none; }
+.skip-flight { position: absolute; z-index: 5; right: clamp(22px, 5.1vw, 84px); bottom: clamp(22px, 4.5vh, 54px); padding: 11px 14px; border: 1px solid rgba(116, 215, 232, .42); background: rgba(4, 12, 19, .82); color: var(--paper); font: 8px/1 var(--mono); letter-spacing: .15em; cursor: pointer; }
+.skip-flight span { padding-left: 8px; color: var(--cyan); }
+.skip-flight:hover, .skip-flight:focus-visible { outline: 1px solid var(--cyan); outline-offset: 3px; background: rgba(11, 34, 44, .94); }
+.opening-copy, .environment-picker, .bottom-bar, .earth-readout, .deposit-legend, .mission-index { transition: opacity .7s ease, transform .7s ease; }
+.mission.descending .opening-copy, .mission.descending .environment-picker, .mission.descending .bottom-bar, .mission.descending .earth-readout, .mission.descending .deposit-legend, .mission.descending .mission-index { opacity: 0; pointer-events: none; }
+.mission.descending .opening-copy { transform: translate(-12px, -30%); }
+.mission.descending .environment-picker { transform: translateY(10px); }
 .site-target { position: absolute; z-index: 4; display: flex; align-items: center; gap: 7px; padding: 7px 9px; border: 1px solid rgba(116, 215, 232, .7); background: rgba(4, 14, 20, .88); color: var(--cyan); font: 500 8px/1 var(--mono); letter-spacing: .12em; white-space: nowrap; cursor: pointer; box-shadow: 0 0 16px rgba(66, 199, 227, .18); transform: translate(-50%, -50%); }
 .site-target[hidden] { display: none; }
 .site-target::before { content: ""; position: absolute; inset: -5px; border: 1px solid rgba(116, 215, 232, .24); animation: target-pulse 2.2s ease-out infinite; }
@@ -137,6 +146,8 @@ h1 span { color: #7acddd; }
   .intro-copy { max-width: 270px; font-size: 12px; }
   .earth-readout { top: auto; right: 7vw; bottom: 29%; transform: none; }
   .deposit-legend { top: 76px; right: 7vw; gap: 6px; font-size: 6px; }
+  .flight-status { top: 76px; right: 7vw; font-size: 7px; }
+  .skip-flight { right: 7vw; bottom: max(18px, env(safe-area-inset-bottom)); }
   .site-target { font-size: 7px; padding: 6px 7px; }
   .environment-picker { left: 7vw; right: 7vw; bottom: 116px; width: auto; }
   .picker-heading .eyebrow { margin-bottom: 5px; font-size: 8px; }

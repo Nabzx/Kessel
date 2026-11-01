@@ -15,6 +15,7 @@ scene.background = new THREE.Color(0x03070d);
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
 camera.position.set(0, 0, 8.4);
+camera.lookAt(0, 0, 0);
 
 const earthRoot = new THREE.Group();
 earthRoot.rotation.z = THREE.MathUtils.degToRad(23.44);
@@ -150,13 +151,78 @@ const pickerStatus = document.getElementById("picker-status");
 const targetCoordinates = document.getElementById("target-coordinates");
 const targetName = document.getElementById("target-name");
 const targetButton = document.getElementById("rutongo-marker");
+const skipFlightButton = document.getElementById("skip-flight");
+const flightStatus = document.getElementById("flight-status");
 let chooseUnderground = null;
 let missionState = "biome-select";
 let missionLocation = null;
+let cameraTransition = null;
 const targetWorldPosition = new THREE.Vector3();
 const targetWorldNormal = new THREE.Vector3();
 const projectedTarget = new THREE.Vector3();
 const cameraToTarget = new THREE.Vector3();
+const flightLookTarget = new THREE.Vector3();
+
+function finishGlobeFlight() {
+  if (!cameraTransition) return;
+  earth.rotation.y = cameraTransition.toEarthRotation;
+  camera.position.copy(cameraTransition.toCameraPosition);
+  camera.fov = cameraTransition.toFov;
+  camera.updateProjectionMatrix();
+  camera.lookAt(cameraTransition.toLookTarget);
+  cameraTransition = null;
+  skipFlightButton.hidden = true;
+  flightStatus.textContent = `ARRIVED / ${missionLocation.name.toUpperCase()}`;
+  window.dispatchEvent(new CustomEvent("kessel:descentcomplete", { detail: { location: missionLocation } }));
+}
+
+function beginGlobeFlight(location) {
+  if (cameraTransition) return;
+  const baseRotation = -THREE.MathUtils.degToRad(location.longitude + 90);
+  const fullTurn = Math.PI * 2;
+  const nearestTurn = Math.round((earth.rotation.y - baseRotation) / fullTurn);
+  const toEarthRotation = baseRotation + nearestTurn * fullTurn;
+  const targetNormal = geographicNormal(location.latitude, location.longitude)
+    .applyAxisAngle(Y_AXIS, toEarthRotation)
+    .applyQuaternion(earthRoot.quaternion)
+    .normalize();
+  const earthCentre = earthRoot.getWorldPosition(new THREE.Vector3());
+  const toLookTarget = earthCentre.clone().addScaledVector(targetNormal, 2.38);
+  const toCameraPosition = earthCentre.clone().addScaledVector(targetNormal, 3.85);
+  const duration = reducedMotion ? 240 : 6200;
+  cameraTransition = {
+    start: performance.now(),
+    duration,
+    fromEarthRotation: earth.rotation.y,
+    toEarthRotation,
+    fromCameraPosition: camera.position.clone(),
+    toCameraPosition,
+    fromLookTarget: new THREE.Vector3(0, 0, 0),
+    toLookTarget,
+    fromFov: camera.fov,
+    toFov: reducedMotion ? camera.fov : 24,
+  };
+  experience.classList.add("descending");
+  targetButton.hidden = true;
+  skipFlightButton.hidden = false;
+  flightStatus.hidden = false;
+  flightStatus.textContent = `DESCENDING / ${location.name.toUpperCase()}`;
+}
+
+function updateCameraTransition(now) {
+  if (!cameraTransition) return;
+  const progress = Math.min((now - cameraTransition.start) / cameraTransition.duration, 1);
+  const eased = progress < 0.5
+    ? 4 * progress * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+  earth.rotation.y = THREE.MathUtils.lerp(cameraTransition.fromEarthRotation, cameraTransition.toEarthRotation, eased);
+  camera.position.lerpVectors(cameraTransition.fromCameraPosition, cameraTransition.toCameraPosition, eased);
+  flightLookTarget.lerpVectors(cameraTransition.fromLookTarget, cameraTransition.toLookTarget, eased);
+  camera.fov = THREE.MathUtils.lerp(cameraTransition.fromFov, cameraTransition.toFov, eased);
+  camera.updateProjectionMatrix();
+  camera.lookAt(flightLookTarget);
+  if (progress >= 1) finishGlobeFlight();
+}
 
 function geographicNormal(latitude, longitude) {
   const lat = THREE.MathUtils.degToRad(latitude);
@@ -288,6 +354,10 @@ async function loadMission() {
   }
 }
 loadMission();
+window.addEventListener("kessel:statechange", (event) => {
+  if (event.detail.to === "surface-descent") beginGlobeFlight(event.detail.location);
+});
+skipFlightButton.addEventListener("click", finishGlobeFlight);
 
 function resize() {
   const width = innerWidth;
@@ -307,7 +377,8 @@ function render(time) {
   requestAnimationFrame(render);
   const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
   lastTime = time;
-  if (!reducedMotion) earth.rotation.y += delta * 0.025;
+  if (!reducedMotion && missionState === "biome-select") earth.rotation.y += delta * 0.025;
+  updateCameraTransition(time);
   nightEarth.rotation.y = earth.rotation.y;
   surfaceMarkers.rotation.y = earth.rotation.y;
   cloudEarth.rotation.y = earth.rotation.y + (reducedMotion ? 0 : Math.sin(time * 0.000012) * 0.012);
