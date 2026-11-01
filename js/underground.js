@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { createFleet } from "./fleet.js";
 
 function centrelinePoints(segment) {
   const points = segment.centerline_m.map((coordinates) => new THREE.Vector3(...coordinates));
@@ -176,7 +177,16 @@ export function createRouteRibbons(network, routes = []) {
   return routeRoot;
 }
 
-export async function createUndergroundStage(network, { mobile = false, routes = [] } = {}) {
+export function setRouteStatus(root, status) {
+  root.traverse((object) => {
+    if (!object.userData?.routeId || !object.material?.color) return;
+    const colour = status === "converged" ? 0x65d79a : 0xff4038;
+    object.material.color.setHex(colour);
+    object.userData.status = status;
+  });
+}
+
+export async function createUndergroundStage(network, { mobile = false, routes = [], fleet: fleetConfig, vehicleModel } = {}) {
   const root = new THREE.Group();
   root.name = "illustrative-underground-network";
   const loader = new THREE.TextureLoader();
@@ -209,7 +219,12 @@ export async function createUndergroundStage(network, { mobile = false, routes =
     }
     root.add(makeFloor(segment, floorMaterial));
   }
-  root.add(createRouteRibbons(network, routes));
+  const routeRibbons = createRouteRibbons(network, routes);
+  root.add(routeRibbons);
+  root.userData.routeRibbons = routeRibbons;
+  const fleet = createFleet(network, routes, fleetConfig, vehicleModel, routeRibbons);
+  root.add(fleet.group);
+  root.userData.fleet = fleet;
 
   for (const node of network.nodes) {
     if (node.kind !== "draw_point" && node.kind !== "tipping_point") continue;

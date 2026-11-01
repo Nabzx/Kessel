@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "id": "procedural-underground-haul-truck",
+    "source": "scripted",
+    "description": "Data-defined placeholder haul truck for the Kessel concept visualisation. Not a manufacturer model."
+  },
+  "dimensions_m": { "length": 7.71, "width": 2.274, "height": 2.395 },
+  "forward_axis": [0, 0, 1],
+  "materials": {
+    "body": { "colour": 14190385, "roughness": 0.76, "metalness": 0.22 },
+    "dark": { "colour": 2109998, "roughness": 0.86, "metalness": 0.12 },
+    "glass": { "colour": 2443339, "roughness": 0.24, "metalness": 0.34, "emissive": 597034 },
+    "cargo": { "colour": 6702161, "roughness": 1 },
+    "lamp": { "colour": 14284031 }
+  },
+  "parts": [
+    { "type": "box", "size_m": [2.05, 0.55, 7.71], "position_m": [0, 1.05, -0.05], "material": "body" },
+    { "type": "box", "size_m": [1.92, 0.13, 3.0], "position_m": [0, 1.43, -0.85], "material": "dark" },
+    { "type": "box", "size_m": [1.84, 1.25, 1.48], "position_m": [0, 1.72, 1.55], "material": "body" },
+    { "type": "box", "size_m": [1.62, 0.61, 0.07], "position_m": [0, 1.75, 2.32], "material": "glass" },
+    { "type": "box", "size_m": [1.84, 0.12, 0.12], "position_m": [0, 0.93, 2.64], "material": "dark" }
+  ],
+  "dump_bed": {
+    "position_m": [0, 1.46, -2.3],
+    "body_size_m": [1.98, 0.19, 3.2],
+    "body_position_m": [0, 0.12, 1.5],
+    "tip_angle_radians": -0.34,
+    "cargo_rocks": [
+      { "position_m": [-0.48, 0.38, 0.65], "radius_m": 0.38 },
+      { "position_m": [0.08, 0.42, 1.0], "radius_m": 0.46 },
+      { "position_m": [0.5, 0.35, 0.54], "radius_m": 0.32 },
+      { "position_m": [-0.18, 0.4, 1.55], "radius_m": 0.3 }
+    ]
+  },
+  "wheels": { "radius_m": 0.51, "width_m": 0.274, "segments": 12, "axle_z_m": [-2.55, 0.25, 2.55], "side_offset_m": 1.0, "centre_y_m": 0.55, "material": "dark" },
+  "headlights": { "radius_m": 0.11, "side_offset_m": 0.72, "position_m": [0, 1.13, 2.68], "beam_position_m": [0, 1.13, 2.72], "beam_target_m": [0, 0.9, 10], "beam_colour": 12185599, "beam_intensity": 16, "beam_distance_m": 22, "beam_angle_radians": 0.6283, "beam_penumbra": 0.7, "beam_decay": 1.4 },
+  "prediction_dimensions_m": [2.05, 1.35, 5.25],
+  "prediction_colour": 6540010,
+  "prediction_opacity": 0.3,
+  "selection_scale": 1.12
+}

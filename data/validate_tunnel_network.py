@@ -74,23 +74,47 @@ def validate(network, mission=None):
         for route in routes:
             route_id = route.get("id", "<unnamed>")
             route_nodes = route.get("node_ids", [])
-            route_edges = route.get("edge_ids", [])
-            if len(route_nodes) != len(route_edges) + 1:
-                errors.append(f"route {route_id}: expected one more node than edge")
-                continue
-            for index, edge_id in enumerate(route_edges):
-                edge = edge_by_id.get(edge_id)
-                start, end = route_nodes[index:index + 2]
-                if edge is None:
-                    errors.append(f"route {route_id}: unknown edge {edge_id}")
+            for field in ("edge_ids", "optimised_edge_ids"):
+                if field not in route:
                     continue
-                if start not in node_by_id or end not in node_by_id:
-                    errors.append(f"route {route_id}: unknown node in {start} -> {end}")
+                route_edges = route[field]
+                if len(route_nodes) != len(route_edges) + 1:
+                    errors.append(f"route {route_id} {field}: expected one more node than edge")
                     continue
-                forward = edge["from"] == start and edge["to"] == end
-                reverse = edge["to"] == start and edge["from"] == end
-                if not forward and (not reverse or edge["one_way"]):
-                    errors.append(f"route {route_id}: invalid traversal direction for {edge_id}")
+                for index, edge_id in enumerate(route_edges):
+                    edge = edge_by_id.get(edge_id)
+                    start, end = route_nodes[index:index + 2]
+                    if edge is None:
+                        errors.append(f"route {route_id} {field}: unknown edge {edge_id}")
+                        continue
+                    if start not in node_by_id or end not in node_by_id:
+                        errors.append(f"route {route_id} {field}: unknown node in {start} -> {end}")
+                        continue
+                    forward = edge["from"] == start and edge["to"] == end
+                    reverse = edge["to"] == start and edge["from"] == end
+                    if not forward and (not reverse or edge["one_way"]):
+                        errors.append(f"route {route_id} {field}: invalid traversal direction for {edge_id}")
+
+        fleet_ids = {vehicle.get("id") for vehicle in mission.get("fleet", {}).get("vehicles", [])}
+        route_vehicle_ids = {route.get("vehicle_id") for route in routes}
+        if fleet_ids != route_vehicle_ids:
+            errors.append("fleet vehicle IDs must match mission route vehicle IDs")
+        trace = mission.get("optimiser_trace", {})
+        steps = trace.get("steps", [])
+        if trace.get("source") != "scripted":
+            errors.append("the concept optimiser trace must be labelled scripted")
+        if not steps or steps[-1].get("iterations") != trace.get("run_count"):
+            errors.append("the final scripted optimiser step must match run_count")
+        model_reference = mission.get("assets", {}).get("fleet_vehicle_model")
+        if not model_reference or not (ROOT / model_reference).is_file():
+            errors.append("the configured fleet vehicle model asset must exist")
+        else:
+            model = json.loads((ROOT / model_reference).read_text(encoding="utf-8"))
+            material_names = set(model.get("materials", {}))
+            if any(part.get("material") not in material_names for part in model.get("parts", [])):
+                errors.append("fleet vehicle parts must refer to defined materials")
+            if len(model.get("forward_axis", [])) != 3:
+                errors.append("fleet vehicle model must define a three-axis forward direction")
 
     return errors
 
@@ -105,7 +129,7 @@ def main():
     errors = validate(network, mission)
     if errors:
         raise SystemExit("Invalid tunnel network:\n- " + "\n- ".join(errors))
-    print(f"Valid network and routes: {len(network['nodes'])} nodes, {len(network['segments'])} segments, {len(network['graph']['edges'])} graph edges, {len(mission.get('routes', []))} mission routes")
+    print(f"Valid mission: {len(network['nodes'])} nodes, {len(network['segments'])} segments, {len(network['graph']['edges'])} graph edges, {len(mission.get('routes', []))} routes, {len(mission.get('fleet', {}).get('vehicles', []))} vehicles")
 
 
 if __name__ == "__main__":

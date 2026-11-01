@@ -44,8 +44,11 @@ replace a TH315 swept-path check.
 
 The geometry generator emits named nodes and segments with ordered metre
 coordinates, grades, section dimensions, curve constraints, source links,
-and the seed. The machine-readable mission graph and its schema are handled
-separately under #153.
+and the seed. A parallel illustrative decline between the portal and Level 1
+provides a genuine alternate route for the scripted optimiser and live A*
+override. It is a scenario feature, not a surveyed Rutongo working. The
+machine-readable mission graph and its schema are handled separately under
+#153.
 
 ## Consequences
 

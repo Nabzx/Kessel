@@ -51,9 +51,17 @@ geometry nodes so consumers can load the graph directly; the validator checks
 that the two lists match exactly.
 
 The mission manifest's `routes` records identify a vehicle, status, ordered
-node IDs, and the graph edge IDs between them. The tunnel validator checks
-that every route edge exists, each route has one more node than edge, and all
-traversals respect the edge's direction and `one_way` value.
+node IDs, and graph edge IDs for both the initial and pre-computed optimised
+path. The validator checks both path variants, vehicle IDs, the optimiser
+trace count, and the referenced data-defined truck model. Every route edge
+must exist, each route must have one more node than edge, and traversals must
+respect the edge's direction and `one_way` value.
+
+The mission also references `assets/models/haul-truck.json`. It defines a
+procedural placeholder, not a licensed or manufacturer-authentic truck model.
+Fleet state, route variants, telemetry, motion parameters, and the illustrative
+optimiser trace live in `mission.json`; the renderer reads these values rather
+than defining the scene in code.
 
 The generated network is a scripted example, not a surveyed Rutongo plan.
 See [ADR-0025](../docs/adr/0025-phase-9-illustrative-underground-network.md)

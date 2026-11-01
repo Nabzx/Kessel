@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "data" / "tunnel-network.json"
 DEFAULT_SEED = 2026
-GENERATOR_VERSION = 2
+GENERATOR_VERSION = 3
 SECTION_WIDTH_M = 3.0
 SECTION_HEIGHT_M = 3.0
 RAMP_GRADE_PERCENT = 8.0
@@ -103,6 +103,24 @@ def make_network(seed):
             "minimum_curve_radius_m": MINIMUM_RAMP_RADIUS_M,
             "centerline_m": [point(0, previous_y, previous_z), point(0, level_y, level_z)],
         })
+
+        if index == 1:
+            segments.append({
+                "id": "decline-bypass-L1",
+                "kind": "decline_bypass",
+                "from": "portal",
+                "to": "ramp-L1",
+                "grade_percent": -RAMP_GRADE_PERCENT,
+                "width_m": SECTION_WIDTH_M,
+                "height_m": SECTION_HEIGHT_M,
+                "minimum_curve_radius_m": MINIMUM_RAMP_RADIUS_M,
+                "centerline_m": [
+                    point(0, 0, 0),
+                    point(8, -5, -62.5),
+                    point(8, -15, -187.5),
+                    point(0, level_y, level_z),
+                ],
+            })
 
     for level_id, level_y, level_z in level_positions:
         half_span = 100.0

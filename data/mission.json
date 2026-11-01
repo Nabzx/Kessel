@@ -42,7 +42,49 @@
       "geometry_source": "scripted",
       "renderer": "js/underground.js"
     },
+    "fleet_vehicle_model": "assets/models/haul-truck.json",
     "deposit_markers": "data/mineral-deposits.json"
+  },
+  "fleet": {
+    "source": "scripted",
+    "time_scale": 4,
+    "speed_mps": { "unoptimised": 1.7, "converged": 2.65 },
+    "vehicle_speed_variation_mps": 0.12,
+    "grade_speed_sensitivity": 0.25,
+    "max_grade_speed_reduction": 0.3,
+    "path_cost_weights": { "grade": 0.08, "route_traffic": 0.12 },
+    "prediction_horizon_m": 8,
+    "congestion_radius_m": 18,
+    "queue_radius_m": 10,
+    "queued_speed_factor": 0.12,
+    "vehicles": [
+      { "id": "truck-01", "phase_offset": 0.0 },
+      { "id": "truck-02", "phase_offset": 0.333 },
+      { "id": "truck-03", "phase_offset": 0.666 }
+    ],
+    "phase_ranges": {
+      "loading": [0, 0.1],
+      "hauling": [0.1, 0.46],
+      "tipping": [0.46, 0.55],
+      "returning": [0.55, 1]
+    }
+  },
+  "optimiser_trace": {
+    "source": "scripted",
+    "run_count": 100000,
+    "fleet_size": 3,
+    "vehicle_payload_t": 15,
+    "throughput_basis": "fleet_size × payload_t × 60 / cycle_minutes × utilisation_percent / 100; rounded to whole tonnes per hour.",
+    "citation": "https://ltu.diva-portal.org/smash/get/diva2%3A1856905/FULLTEXT01.pdf",
+    "citation_label": "Tariq et al., 2025",
+    "citation_summary": "21 t semi-autonomous LHDs at LKAB: median loading of 42 to 68 seconds and median dumping of 71 to 106 seconds.",
+    "steps": [
+      { "iterations": 18432, "rollouts": 184320, "elapsed_ms": 40 },
+      { "iterations": 56109, "rollouts": 561090, "elapsed_ms": 105 },
+      { "iterations": 100000, "rollouts": 1000000, "elapsed_ms": 184 }
+    ],
+    "before": { "throughput_tph": 70, "cycle_minutes": 18.4, "utilisation_percent": 48, "queue_delay_minutes": 4.2 },
+    "after": { "throughput_tph": 163, "cycle_minutes": 12.6, "utilisation_percent": 76, "queue_delay_minutes": 1.8 }
   },
   "routes": [
     {
@@ -51,7 +93,8 @@
       "source": "scripted",
       "status": "unoptimised",
       "node_ids": ["draw-point-L1-south", "crosscut-L1-south-start", "turn-L1-south", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "turn-L1-south", "crosscut-L1-south-start", "draw-point-L1-south"],
-      "edge_ids": ["draw-crosscut-L1-south", "junction-turn-L1-south", "haulage-drift-L1-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "haulage-drift-L1-2", "junction-turn-L1-south", "draw-crosscut-L1-south"]
+      "edge_ids": ["draw-crosscut-L1-south", "junction-turn-L1-south", "haulage-drift-L1-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "haulage-drift-L1-2", "junction-turn-L1-south", "draw-crosscut-L1-south"],
+      "optimised_edge_ids": ["draw-crosscut-L1-south", "junction-turn-L1-south", "haulage-drift-L1-2", "decline-bypass-L1", "portal-tipping-bay", "portal-tipping-bay", "decline-bypass-L1", "haulage-drift-L1-2", "junction-turn-L1-south", "draw-crosscut-L1-south"]
     },
     {
       "id": "haul-cycle-02",
@@ -59,7 +102,8 @@
       "source": "scripted",
       "status": "unoptimised",
       "node_ids": ["draw-point-L2-north", "crosscut-L2-north-start", "turn-L2-north", "ramp-L2", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "ramp-L2", "turn-L2-north", "crosscut-L2-north-start", "draw-point-L2-north"],
-      "edge_ids": ["draw-crosscut-L2-north", "junction-turn-L2-north", "haulage-drift-L2-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "haulage-drift-L2-3", "junction-turn-L2-north", "draw-crosscut-L2-north"]
+      "edge_ids": ["draw-crosscut-L2-north", "junction-turn-L2-north", "haulage-drift-L2-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "haulage-drift-L2-3", "junction-turn-L2-north", "draw-crosscut-L2-north"],
+      "optimised_edge_ids": ["draw-crosscut-L2-north", "junction-turn-L2-north", "haulage-drift-L2-3", "decline-2", "decline-bypass-L1", "portal-tipping-bay", "portal-tipping-bay", "decline-bypass-L1", "decline-2", "haulage-drift-L2-3", "junction-turn-L2-north", "draw-crosscut-L2-north"]
     },
     {
       "id": "haul-cycle-03",
@@ -67,7 +111,8 @@
       "source": "scripted",
       "status": "unoptimised",
       "node_ids": ["draw-point-L3-south", "crosscut-L3-south-start", "turn-L3-south", "ramp-L3", "ramp-L2", "ramp-L1", "portal", "tip-surface", "portal", "ramp-L1", "ramp-L2", "ramp-L3", "turn-L3-south", "crosscut-L3-south-start", "draw-point-L3-south"],
-      "edge_ids": ["draw-crosscut-L3-south", "junction-turn-L3-south", "haulage-drift-L3-2", "decline-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "decline-3", "haulage-drift-L3-2", "junction-turn-L3-south", "draw-crosscut-L3-south"]
+      "edge_ids": ["draw-crosscut-L3-south", "junction-turn-L3-south", "haulage-drift-L3-2", "decline-3", "decline-2", "decline-1", "portal-tipping-bay", "portal-tipping-bay", "decline-1", "decline-2", "decline-3", "haulage-drift-L3-2", "junction-turn-L3-south", "draw-crosscut-L3-south"],
+      "optimised_edge_ids": ["draw-crosscut-L3-south", "junction-turn-L3-south", "haulage-drift-L3-2", "decline-3", "decline-2", "decline-bypass-L1", "portal-tipping-bay", "portal-tipping-bay", "decline-bypass-L1", "decline-2", "decline-3", "haulage-drift-L3-2", "junction-turn-L3-south", "draw-crosscut-L3-south"]
     }
   ],
   "environments": [

@@ -55,3 +55,15 @@ GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all
 rights reserved.” The official [Sentinel data notice](https://cds.climate.copernicus.eu/licences/ec-sentinel)
 and [Copernicus DEM notice](https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM)
 are documented there.
+
+## Illustrative haul truck
+
+`models/haul-truck.json` describes a small procedural truck mesh assembled by
+the renderer from boxes, wheels, lamps, and a rock load. It is a temporary
+stand-in rather than a sourced manufacturer model. The envelope uses the
+published 7.71 m × 2.274 m × 2.395 m dimensions and 15 t payload of the
+[Sandvik TH315](https://www.mining.sandvik/en/products/equipment/trucks/th315-underground-truck/).
+The shape, wheelbase, lights, motion, and loading cycle are illustrative and
+are not a TH315 digital twin or a Rutongo equipment record. The data-defined
+model has its forward axis, lamp direction, bed position, and articulation
+angle recorded in the asset file so the renderer does not infer its heading.
