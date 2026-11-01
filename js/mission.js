@@ -30,6 +30,91 @@ const earth = new THREE.Mesh(earthGeometry, earthMaterial);
 earth.rotation.y = Math.PI * 0.16;
 earthRoot.add(earth);
 
+const nightUniforms = {
+  nightMap: { value: null },
+  sunDirection: { value: new THREE.Vector3(-5.5, 3.8, 7.5).normalize() },
+};
+const nightMaterial = new THREE.ShaderMaterial({
+  uniforms: nightUniforms,
+  vertexShader: `
+    varying vec2 vUv;
+    varying vec3 vNormalWorld;
+    void main() {
+      vUv = uv;
+      vNormalWorld = normalize(mat3(modelMatrix) * normal);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform sampler2D nightMap;
+    uniform vec3 sunDirection;
+    varying vec2 vUv;
+    varying vec3 vNormalWorld;
+    void main() {
+      float daylight = dot(normalize(vNormalWorld), normalize(sunDirection));
+      float night = 1.0 - smoothstep(-0.13, 0.12, daylight);
+      float cityLight = dot(texture2D(nightMap, vUv).rgb, vec3(0.299, 0.587, 0.114));
+      vec3 glow = vec3(1.0, 0.56, 0.24) * cityLight * night * 1.8;
+      gl_FragColor = vec4(glow, cityLight * night);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }
+  `,
+  transparent: true,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+});
+const nightEarth = new THREE.Mesh(new THREE.SphereGeometry(2.386, mobile ? 72 : 112, mobile ? 48 : 80), nightMaterial);
+nightEarth.rotation.y = earth.rotation.y;
+nightEarth.visible = false;
+nightEarth.renderOrder = 1;
+earthRoot.add(nightEarth);
+
+const cloudMaterial = new THREE.MeshBasicMaterial({
+  color: 0xc2e5ef,
+  transparent: true,
+  opacity: 0.23,
+  alphaTest: 0.025,
+  depthWrite: false,
+});
+const cloudEarth = new THREE.Mesh(new THREE.SphereGeometry(2.405, mobile ? 72 : 112, mobile ? 48 : 80), cloudMaterial);
+cloudEarth.rotation.y = earth.rotation.y;
+cloudEarth.renderOrder = 2;
+earthRoot.add(cloudEarth);
+
+const atmosphereMaterial = new THREE.ShaderMaterial({
+  vertexShader: `
+    varying vec3 vNormalWorld;
+    varying vec3 vPositionWorld;
+    void main() {
+      vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+      vPositionWorld = worldPosition.xyz;
+      vNormalWorld = normalize(mat3(modelMatrix) * normal);
+      gl_Position = projectionMatrix * viewMatrix * worldPosition;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vNormalWorld;
+    varying vec3 vPositionWorld;
+    void main() {
+      vec3 viewDirection = normalize(cameraPosition - vPositionWorld);
+      float rim = pow(1.0 - max(dot(normalize(vNormalWorld), viewDirection), 0.0), 3.2);
+      float daylight = max(dot(normalize(vNormalWorld), normalize(vec3(-0.5, 0.35, 0.8))), 0.0);
+      vec3 hue = mix(vec3(0.06, 0.25, 0.5), vec3(0.16, 0.62, 0.84), daylight);
+      gl_FragColor = vec4(hue, rim * 0.42);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }
+  `,
+  side: THREE.BackSide,
+  transparent: true,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+});
+const atmosphere = new THREE.Mesh(new THREE.SphereGeometry(2.49, mobile ? 72 : 112, mobile ? 48 : 80), atmosphereMaterial);
+atmosphere.renderOrder = 3;
+earthRoot.add(atmosphere);
+
 scene.add(new THREE.AmbientLight(0x263746, 0.44));
 const sun = new THREE.DirectionalLight(0xfff2da, 3.0);
 sun.position.set(-5.5, 3.8, 7.5);
@@ -68,6 +153,15 @@ textureLoader.load("assets/earth-blue-marble-july.jpg", (texture) => {
   document.getElementById("loading-status").textContent = "EARTH TEXTURE UNAVAILABLE";
 });
 
+textureLoader.load("assets/earth-black-marble-2016.jpg", (texture) => {
+  nightUniforms.nightMap.value = texture;
+  nightEarth.visible = true;
+});
+textureLoader.load("assets/earth-clouds.jpg", (texture) => {
+  cloudMaterial.alphaMap = texture;
+  cloudMaterial.needsUpdate = true;
+});
+
 function resize() {
   const width = innerWidth;
   const height = innerHeight;
@@ -81,11 +175,16 @@ addEventListener("resize", resize, { passive: true });
 resize();
 
 let lastTime = 0;
+const earthWorldPosition = new THREE.Vector3();
 function render(time) {
   requestAnimationFrame(render);
   const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
   lastTime = time;
   if (!reducedMotion) earth.rotation.y += delta * 0.025;
+  nightEarth.rotation.y = earth.rotation.y;
+  cloudEarth.rotation.y = earth.rotation.y + (reducedMotion ? 0 : Math.sin(time * 0.000012) * 0.012);
+  earthRoot.getWorldPosition(earthWorldPosition);
+  nightUniforms.sunDirection.value.copy(sun.position).sub(earthWorldPosition).normalize();
   renderer.render(scene, camera);
 }
 requestAnimationFrame(render);
