@@ -84,6 +84,18 @@ h1 span { color: #7acddd; }
 .earth-readout { position: absolute; z-index: 2; top: 50%; right: clamp(22px, 6.5vw, 108px); display: grid; gap: 8px; transform: translateY(-50%); color: #8ba2b1; text-align: right; font-size: 8px; letter-spacing: .16em; pointer-events: none; }
 .earth-readout strong { color: #e4f2f8; font: 400 14px/1.2 var(--display); letter-spacing: .32em; }
 .earth-readout b { color: var(--cyan); font-weight: 400; }
+.deposit-legend { position: absolute; z-index: 2; top: clamp(86px, 13vh, 132px); right: clamp(22px, 5.1vw, 84px); display: grid; gap: 8px; color: #9eb1bd; font-size: 7px; letter-spacing: .1em; }
+.deposit-legend > span { display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 5px; height: 5px; border-radius: 50%; box-shadow: 0 0 7px currentColor; }
+.legend-dot.tin { color: #38bdcf; background: #38bdcf; }
+.legend-dot.tantalum { color: #ff8a3d; background: #ff8a3d; }
+.deposit-legend small { color: #667c89; font: inherit; font-size: 6px; }
+.site-target { position: absolute; z-index: 4; display: flex; align-items: center; gap: 7px; padding: 7px 9px; border: 1px solid rgba(116, 215, 232, .7); background: rgba(4, 14, 20, .88); color: var(--cyan); font: 500 8px/1 var(--mono); letter-spacing: .12em; white-space: nowrap; cursor: pointer; box-shadow: 0 0 16px rgba(66, 199, 227, .18); transform: translate(-50%, -50%); }
+.site-target[hidden] { display: none; }
+.site-target::before { content: ""; position: absolute; inset: -5px; border: 1px solid rgba(116, 215, 232, .24); animation: target-pulse 2.2s ease-out infinite; }
+.site-target span { color: #d2e4eb; font-size: 6px; }
+.site-target:hover, .site-target:focus-visible { outline: 1px solid var(--paper); outline-offset: 3px; background: rgba(10, 38, 49, .96); }
+@keyframes target-pulse { 0% { opacity: .65; transform: scale(.92); } 100% { opacity: 0; transform: scale(1.25); } }
 
 .environment-picker { position: absolute; z-index: 2; left: clamp(22px, 11vw, 180px); bottom: clamp(104px, 13vh, 142px); width: min(500px, 44vw); }
 .picker-heading .eyebrow { margin-bottom: 8px; }
@@ -124,6 +136,8 @@ h1 span { color: #7acddd; }
   h1 { font-size: clamp(38px, 10vw, 61px); }
   .intro-copy { max-width: 270px; font-size: 12px; }
   .earth-readout { top: auto; right: 7vw; bottom: 29%; transform: none; }
+  .deposit-legend { top: 76px; right: 7vw; gap: 6px; font-size: 6px; }
+  .site-target { font-size: 7px; padding: 6px 7px; }
   .environment-picker { left: 7vw; right: 7vw; bottom: 116px; width: auto; }
   .picker-heading .eyebrow { margin-bottom: 5px; font-size: 8px; }
   .picker-heading h2 { max-width: 31ch; margin-bottom: 8px; font-size: 12px; }

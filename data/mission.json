@@ -10,7 +10,16 @@
     "country": "Rwanda",
     "latitude": -1.8175,
     "longitude": 30.059167,
-    "source": "https://www.rema.gov.rw/fileadmin/user_upload/REMA/Publications/Reports/Nile_Nyabarongo_Lower_Integrated_Pollution_Management_Plan-Final__Jan._2021_.pdf"
+    "source": "https://trinity-metals.com/en/projects/rutongo-mine",
+    "coordinate_source": "https://www.rema.gov.rw/fileadmin/user_upload/REMA/Publications/Reports/Nile_Nyabarongo_Lower_Integrated_Pollution_Management_Plan-Final__Jan._2021_.pdf"
+  },
+  "assets": {
+    "globe": {
+      "day_map": "assets/earth-blue-marble-july.jpg",
+      "night_lights": "assets/earth-black-marble-2016.jpg",
+      "clouds": "assets/earth-clouds.jpg"
+    },
+    "deposit_markers": "data/mineral-deposits.json"
   },
   "environments": [
     {

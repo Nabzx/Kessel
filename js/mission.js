@@ -12,12 +12,13 @@ renderer.toneMappingExposure = 1.12;
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x03070d);
+const Y_AXIS = new THREE.Vector3(0, 1, 0);
 const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
 camera.position.set(0, 0, 8.4);
 
 const earthRoot = new THREE.Group();
 earthRoot.rotation.z = THREE.MathUtils.degToRad(23.44);
-earthRoot.position.x = innerWidth < 760 ? 0 : 1.55;
+earthRoot.position.x = innerWidth <= 760 ? 0 : 1.55;
 scene.add(earthRoot);
 
 const earthGeometry = new THREE.SphereGeometry(2.38, mobile ? 72 : 112, mobile ? 48 : 80);
@@ -27,7 +28,7 @@ const earthMaterial = new THREE.MeshStandardMaterial({
   color: 0xffffff,
 });
 const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-earth.rotation.y = -THREE.MathUtils.degToRad(30.058333);
+earth.rotation.y = 0;
 earthRoot.add(earth);
 
 const nightUniforms = {
@@ -81,6 +82,9 @@ const cloudEarth = new THREE.Mesh(new THREE.SphereGeometry(2.405, mobile ? 72 : 
 cloudEarth.rotation.y = earth.rotation.y;
 cloudEarth.renderOrder = 2;
 earthRoot.add(cloudEarth);
+
+const surfaceMarkers = new THREE.Group();
+earthRoot.add(surfaceMarkers);
 
 const atmosphereMaterial = new THREE.ShaderMaterial({
   vertexShader: `
@@ -141,32 +145,80 @@ const stars = new THREE.Points(starsGeometry, new THREE.PointsMaterial({ color: 
 scene.add(stars);
 
 const textureLoader = new THREE.TextureLoader();
-textureLoader.load("assets/earth-blue-marble-july.jpg", (texture) => {
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
-  earthMaterial.map = texture;
-  earthMaterial.needsUpdate = true;
-  experience.classList.add("ready");
-  const warp = document.getElementById("warp");
-  if (!reducedMotion) warp.classList.add("active");
-}, undefined, () => {
-  document.getElementById("loading-status").textContent = "EARTH TEXTURE UNAVAILABLE";
-});
-
-textureLoader.load("assets/earth-black-marble-2016.jpg", (texture) => {
-  nightUniforms.nightMap.value = texture;
-  nightEarth.visible = true;
-});
-textureLoader.load("assets/earth-clouds.jpg", (texture) => {
-  cloudMaterial.alphaMap = texture;
-  cloudMaterial.needsUpdate = true;
-});
-
 const picker = document.getElementById("environment-options");
 const pickerStatus = document.getElementById("picker-status");
 const targetCoordinates = document.getElementById("target-coordinates");
 const targetName = document.getElementById("target-name");
+const targetButton = document.getElementById("rutongo-marker");
+let chooseUnderground = null;
 let missionState = "biome-select";
+let missionLocation = null;
+const targetWorldPosition = new THREE.Vector3();
+const targetWorldNormal = new THREE.Vector3();
+const projectedTarget = new THREE.Vector3();
+const cameraToTarget = new THREE.Vector3();
+
+function geographicNormal(latitude, longitude) {
+  const lat = THREE.MathUtils.degToRad(latitude);
+  const lon = THREE.MathUtils.degToRad(longitude);
+  const cosLat = Math.cos(lat);
+  return new THREE.Vector3(cosLat * Math.cos(lon), Math.sin(lat), -cosLat * Math.sin(lon));
+}
+
+async function loadDepositMarkers(path, location) {
+  try {
+    const response = await fetch(path);
+    if (!response.ok) throw new Error(`Deposit data request failed: ${response.status}`);
+    const depositData = await response.json();
+    const positions = new Float32Array(depositData.markers.length * 3);
+    const colors = new Float32Array(depositData.markers.length * 3);
+    depositData.markers.forEach((marker, index) => {
+      const point = geographicNormal(marker.latitude, marker.longitude).multiplyScalar(2.425);
+      positions.set([point.x, point.y, point.z], index * 3);
+      const tin = marker.commodities.includes("tin");
+      const tantalum = marker.commodities.includes("tantalum");
+      const color = tin && tantalum ? [0.82, 0.9, 0.78] : tin ? [0.22, 0.74, 0.86] : [1, 0.54, 0.2];
+      colors.set(color, index * 3);
+    });
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    const material = new THREE.PointsMaterial({
+      size: mobile ? 2.5 : 3.2,
+      sizeAttenuation: false,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.88,
+      depthWrite: false,
+    });
+    surfaceMarkers.add(new THREE.Points(geometry, material));
+
+    const targetNormal = geographicNormal(location.latitude, location.longitude);
+    const target = new THREE.Group();
+    target.position.copy(targetNormal).multiplyScalar(2.435);
+    target.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), targetNormal);
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(0.025, 0.04, 40),
+      new THREE.MeshBasicMaterial({ color: 0x74d7e8, side: THREE.DoubleSide, transparent: true, opacity: 0.9 }),
+    );
+    ring.position.z = 0.003;
+    target.add(ring);
+    const targetLight = new THREE.Mesh(
+      new THREE.SphereGeometry(0.018, 12, 8),
+      new THREE.MeshBasicMaterial({ color: 0xd7fbff }),
+    );
+    targetLight.position.z = 0.008;
+    target.add(targetLight);
+    surfaceMarkers.add(target);
+    targetButton.hidden = false;
+    if (missionState === "biome-select") {
+      pickerStatus.textContent = `${depositData.markers.length.toLocaleString()} historical tin and tantalum locations loaded. Rutongo is the selected target.`;
+    }
+  } catch (error) {
+    pickerStatus.textContent = "The globe is ready. Deposit markers could not be loaded.";
+    console.error(error);
+  }
+}
 
 async function loadMission() {
   try {
@@ -174,11 +226,34 @@ async function loadMission() {
     if (!response.ok) throw new Error(`Mission data request failed: ${response.status}`);
     const mission = await response.json();
     const location = mission.location;
+    missionLocation = location;
     const latitude = Math.abs(location.latitude).toFixed(2);
     const longitude = Math.abs(location.longitude).toFixed(2);
     targetCoordinates.innerHTML = `${latitude}° ${location.latitude < 0 ? "S" : "N"}<br />${longitude}° ${location.longitude < 0 ? "W" : "E"}`;
     targetName.textContent = `TARGET / ${location.name}, ${location.country}`;
-    earth.rotation.y = -THREE.MathUtils.degToRad(location.longitude);
+    earth.rotation.y = -THREE.MathUtils.degToRad(location.longitude + 90);
+    const globeAssets = mission.assets.globe;
+    textureLoader.load(globeAssets.day_map, (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+      earthMaterial.map = texture;
+      earthMaterial.needsUpdate = true;
+      experience.classList.add("ready");
+      const warp = document.getElementById("warp");
+      if (!reducedMotion) warp.classList.add("active");
+      const defer = window.requestIdleCallback || ((callback) => setTimeout(callback, 1200));
+      defer(() => loadDepositMarkers(mission.assets.deposit_markers, location), { timeout: 1800 });
+    }, undefined, () => {
+      document.getElementById("loading-status").textContent = "EARTH TEXTURE UNAVAILABLE";
+    });
+    textureLoader.load(globeAssets.night_lights, (texture) => {
+      nightUniforms.nightMap.value = texture;
+      nightEarth.visible = true;
+    });
+    textureLoader.load(globeAssets.clouds, (texture) => {
+      cloudMaterial.alphaMap = texture;
+      cloudMaterial.needsUpdate = true;
+    });
     for (const environment of mission.environments) {
       const live = environment.status === "available";
       const button = document.createElement("button");
@@ -202,9 +277,11 @@ async function loadMission() {
         for (const option of picker.children) option.setAttribute("aria-pressed", String(option === button));
         window.dispatchEvent(new CustomEvent("kessel:statechange", { detail: { from: "biome-select", to: missionState, location } }));
       });
+      if (live) chooseUnderground = () => button.click();
       picker.append(button);
     }
     pickerStatus.textContent = "Underground is available. Other environments are planned.";
+    targetButton.addEventListener("click", () => chooseUnderground?.());
   } catch (error) {
     pickerStatus.textContent = "Mission information is unavailable.";
     console.error(error);
@@ -217,8 +294,8 @@ function resize() {
   const height = innerHeight;
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.position.z = width < 760 ? 9.8 : 8.4;
-  earthRoot.position.x = width < 760 ? 0 : 1.55;
+  camera.position.z = width <= 760 ? 9.8 : 8.4;
+  earthRoot.position.x = width <= 760 ? 0 : 1.55;
   camera.updateProjectionMatrix();
 }
 addEventListener("resize", resize, { passive: true });
@@ -232,9 +309,24 @@ function render(time) {
   lastTime = time;
   if (!reducedMotion) earth.rotation.y += delta * 0.025;
   nightEarth.rotation.y = earth.rotation.y;
+  surfaceMarkers.rotation.y = earth.rotation.y;
   cloudEarth.rotation.y = earth.rotation.y + (reducedMotion ? 0 : Math.sin(time * 0.000012) * 0.012);
   earthRoot.getWorldPosition(earthWorldPosition);
   nightUniforms.sunDirection.value.copy(sun.position).sub(earthWorldPosition).normalize();
+  if (missionLocation && !targetButton.hidden) {
+    targetWorldPosition.copy(geographicNormal(missionLocation.latitude, missionLocation.longitude)).multiplyScalar(2.44);
+    targetWorldPosition.applyAxisAngle(Y_AXIS, earth.rotation.y).applyQuaternion(earthRoot.quaternion).add(earthRoot.position);
+    targetWorldNormal.copy(geographicNormal(missionLocation.latitude, missionLocation.longitude));
+    targetWorldNormal.applyAxisAngle(Y_AXIS, earth.rotation.y).applyQuaternion(earthRoot.quaternion);
+    projectedTarget.copy(targetWorldPosition).project(camera);
+    cameraToTarget.copy(camera.position).sub(targetWorldPosition);
+    const visible = targetWorldNormal.dot(cameraToTarget) > 0 && projectedTarget.z >= -1 && projectedTarget.z <= 1;
+    targetButton.hidden = !visible;
+    if (visible) {
+      targetButton.style.left = `${(projectedTarget.x * 0.5 + 0.5) * innerWidth}px`;
+      targetButton.style.top = `${(-projectedTarget.y * 0.5 + 0.5) * innerHeight}px`;
+    }
+  }
   renderer.render(scene, camera);
 }
 requestAnimationFrame(render);
