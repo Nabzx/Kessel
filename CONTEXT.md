@@ -15,23 +15,45 @@ partners) who cannot visit a mine or read a policy's weights.
 
 ## Glossary
 
+**Mission dataset** — the Phase 9 authored data contract in
+`data/mission.json`. It describes the location, staged scene references,
+tunnel graph, fleet, haul cycles, routes, and compact optimiser trace. See
+[ADR-0022](docs/adr/0022-phase-9-mission-data-contract.md). It replaces the
+single-loader rollout contract for the mission demo.
+
+**Scripted mission** — the illustrative dataset shipped with the concept
+visualisation. Its optimiser trace is pre-baked; it does not represent a live
+run of 100,000 simulations or output from a trained policy.
+
+**Logged mission** — mission data recorded from a real deployment or model
+run, using the same contract as the scripted mission. The renderer should
+consume either without code changes.
+
+**Directed tunnel edge** — an ordered path between two tunnel graph nodes.
+Its order defines vehicle travel direction and is the source for heading,
+forward-facing lights, and loading approach.
+
+**Illustrative underground scene** — the Phase 9 underground network and
+fleet, authored as a research-informed mechanised scenario located at
+Rutongo. It is not a survey or reconstruction of Rutongo's current workings.
+
 **World model** — a learned simulation of the environment that the policy is
 trained and evaluated inside, instead of the real mine. The reason training can
 happen at all: real underground data collection is too slow, too dangerous and
 too disconnected to generate at scale.
 
-**Rollout** — one played episode: a timestamped sequence of loader pose, rock
+**Earlier-demo rollout** — one played episode: a timestamped sequence of loader pose, rock
 state, world-model predictions and HUD values. On disk this is
 `data/rollout.json`, consumed by the renderer as the single source of truth for
 everything drawn on screen. Schema: [ADR-0001](docs/adr/0001-rollout-data-schema.md);
 mobile payload budget: [ADR-0002](docs/adr/0002-mobile-payload-budget.md).
 
-**Scripted rollout** — the rollout this repo ships today, produced
+**Scripted rollout** — the earlier-demo rollout this repo ships today, produced
 deterministically by `data/generate_rollout.py`. It is placeholder data built
 to be visually honest about the shape of the real pipeline, not a measurement
 of anything. _Avoid: "real data", "live rollout", "model output" for this._
 
-**Logged rollout** — a rollout recorded from the real trained policy and world
+**Logged rollout** — an earlier-demo rollout recorded from the real trained policy and world
 model, in the same schema as the scripted one. Dropping a logged rollout in
 place of the scripted one should require no change to the renderer
 (`js/app.js`). This is the architectural point of the schema boundary.

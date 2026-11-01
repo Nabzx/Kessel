@@ -1,5 +1,9 @@
 # Architecture decision records
 
+Phase 9 decisions: [mission data contract](0022-phase-9-mission-data-contract.md),
+[progressive payload](0023-phase-9-progressive-payload.md), and
+[scene/state architecture](0024-phase-9-scene-state-architecture.md).
+
 An ADR is written before code for anything touching the rollout data schema,
 the sim/world-model panel split, the renderer's public shape, or the
 hosting/publish mechanism (see `AGENTS.md`). Most ADRs here resolve a

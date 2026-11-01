@@ -1,100 +1,54 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Kessel — concept visualization</title>
-<meta name="description" content="Kessel: physical AI for extreme environments. Concept visualization of a world-model-trained loader working underground, offline." />
-<link rel="icon" href="data:," />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#03070d" />
+  <title>Kessel | Physical AI for extreme environments</title>
+  <meta name="description" content="Explore how Kessel trains physical AI for machines in extreme environments." />
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="css/mission.css" />
 </head>
 <body>
+  <main class="mission" id="mission">
+    <canvas class="space-canvas" id="space-canvas" aria-label="A rotating view of Earth from space"></canvas>
+    <div class="warp" id="warp" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
 
-  <div id="intro" class="intro" aria-hidden="false">
-    <div class="intro-card" data-card="0">
-      <p class="intro-eyebrow">Kessel</p>
-      <h1>Underground: no GPS, no signal</h1>
-    </div>
-    <div class="intro-card" data-card="1">
-      <p class="intro-eyebrow">Kessel</p>
-      <h1>Train in a world model, not in the mine</h1>
-    </div>
-    <div class="intro-card" data-card="2">
-      <p class="intro-eyebrow">Kessel</p>
-      <h1>Runs offline on the machine</h1>
-    </div>
-    <button id="skip-intro" class="skip-btn" type="button" aria-label="Skip intro">Skip ›</button>
-  </div>
-
-  <main id="stage" class="stage" aria-hidden="true">
-
-    <header class="panel-labels">
-      <div class="wordmark">KESSEL</div>
-      <div class="panel-label left"><span class="dot dot-sim"></span>Simulation</div>
-      <div class="panel-label right"><span class="dot dot-pred"></span>World model prediction</div>
+    <header class="topbar">
+      <a class="wordmark" href="./" aria-label="Kessel home">KESSEL<span class="wordmark-dot">.</span></a>
+      <div class="topbar-readout"><span class="status-light"></span> EXTREME ENVIRONMENTS<br /><span class="readout-sub">PHYSICAL AI SYSTEMS</span></div>
+      <div class="mission-index">WORLD / 01</div>
     </header>
 
-    <div class="canvases">
-      <canvas id="canvas-sim"></canvas>
-      <canvas id="canvas-pred"></canvas>
-      <div class="divider"></div>
-      <div class="pred-scanlines" aria-hidden="true"></div>
-      <div class="caption">
-        Concept visualization. Scripted animation illustrating how Kessel works.<br />
-        Not real model output.
-      </div>
+    <section class="opening-copy" aria-labelledby="opening-title">
+      <p class="eyebrow"><span class="eyebrow-line"></span> MACHINE INTELLIGENCE, OFFLINE</p>
+      <h1 id="opening-title">The next frontier<br />is <span>unconnected.</span></h1>
+      <p class="intro-copy">Training physical AI for the places where machines cannot rely on a signal.</p>
+    </section>
+
+    <div class="earth-readout" aria-hidden="true">
+      <span>PLANETARY SYSTEM</span>
+      <strong>EARTH</strong>
+      <span>ROTATION <b>SIDEREAL / 23.4°</b></span>
     </div>
 
-    <section class="hud" aria-label="Status">
-      <div class="hud-group">
-        <span class="hud-key">Connectivity</span>
-        <span class="hud-val offline" id="hud-connectivity">
-          <span class="signal-sweep" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span class="blink-dot"></span>OFFLINE
-        </span>
-      </div>
-      <div class="hud-group">
-        <span class="hud-key">Decision time</span>
-        <span class="hud-val" id="hud-decision">— ms</span>
-      </div>
-      <div class="hud-group">
-        <span class="hud-key">Prediction error</span>
-        <span class="hud-val" id="hud-error">— m</span>
-      </div>
-      <div class="hud-group">
-        <span class="hud-key">Episode</span>
-        <span class="hud-val" id="hud-episode">—</span>
-      </div>
-      <div class="hud-group state">
-        <span class="hud-key">State</span>
-        <span class="hud-val" id="hud-state">nominal</span>
-      </div>
-      <p class="hud-illustrative">Illustrative values from a scripted rollout</p>
-    </section>
+    <footer class="bottom-bar">
+      <div class="coordinates"><span class="coordinate-mark">+</span><span>01°49′ S<br />30°03′ E</span><small>RUTONGO, RWANDA</small></div>
+      <div class="scene-progress"><span class="progress-label">MISSION SELECT</span><span class="progress-rule"><i></i></span><span class="progress-count">01 <b>/</b> 04</span></div>
+      <p class="source-credit">Earth imagery: NASA Blue Marble: Next Generation, July base map.<br />Concept visualisation. Underground scene and mission data are illustrative.</p>
+    </footer>
 
-    <section class="controls">
-      <button id="drop-boulder" class="boulder-btn" type="button">
-        Drop boulder
-      </button>
-    </section>
-
+    <div class="loading-status" id="loading-status" role="status">ESTABLISHING VISUAL LINK</div>
   </main>
-
-  <div id="attempt-card" class="attempt-card" aria-hidden="true"><h1 id="attempt-card-text"></h1></div>
-
-  <div id="loading" class="loading">Loading rollout…</div>
 
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
       }
     }
   </script>
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/mission.js"></script>
 </body>
 </html>
