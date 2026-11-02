@@ -1,124 +1,442 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#03070d" />
-  <title>Kessel | Physical AI for extreme environments</title>
-  <meta name="description" content="Explore how Kessel trains physical AI for machines in extreme environments." />
-  <link rel="icon" href="data:," />
-  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="css/mission.css" />
-</head>
-<body>
-  <main class="mission" id="mission">
-    <canvas class="space-canvas" id="space-canvas" aria-label="A rotating view of Earth from space"></canvas>
-    <div class="warp" id="warp" aria-hidden="true"></div>
-    <div class="vignette" aria-hidden="true"></div>
-    <div class="frame-corners" aria-hidden="true"></div>
-    <button class="site-target" id="rutongo-marker" type="button" hidden aria-label="Select Rutongo underground mission">RUTONGO <span>SELECT TARGET</span></button>
-
-    <header class="topbar">
-      <a class="wordmark" href="./" aria-label="Kessel home">KESSEL<span class="wordmark-dot">.</span></a>
-      <div class="topbar-readout"><span class="status-light"></span> EXTREME ENVIRONMENTS<br /><span class="readout-sub">PHYSICAL AI SYSTEMS</span></div>
-      <div class="mission-index" id="mission-index">WORLD / 01</div><button class="restart-mission" id="restart-mission" type="button" hidden>MISSION SELECT <span>↗</span></button>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#030506" />
+    <title>Kessel | Offline autonomy</title>
+    <meta
+      name="description"
+      content="Physical AI for extreme environments. Explore Kessel's underground autonomy concept."
+    />
+    <link rel="icon" href="data:," />
+    <link
+      rel="preload"
+      href="assets/fonts/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/experience.css" />
+  </head>
+  <body class="story-locked">
+    <canvas
+      id="world-canvas"
+      aria-label="Kessel interactive Earth and mine experience"
+    ></canvas>
+    <div class="cinema-shade" aria-hidden="true"></div>
+    <header class="navigation" id="navigation">
+      <button
+        class="brand-button"
+        id="restart"
+        aria-label="Restart the experience"
+      >
+        <img src="assets/brand/kessel-wordmark.svg" alt="Kessel" /></button
+      ><span id="nav-location"></span
+      ><button class="text-button" id="sources-open">Sources</button>
     </header>
-
-    <section class="opening-copy" aria-labelledby="opening-title">
-      <p class="eyebrow"><span class="eyebrow-line"></span> MACHINE INTELLIGENCE, OFFLINE</p>
-      <h1 id="opening-title">Intelligence<br />beyond <span>the signal.</span></h1>
-      <p class="intro-copy">Physical AI for extreme environments.<br />Trained in simulation. Deployed offline.</p>
+    <main id="experience" data-stage="welcome">
+      <section
+        class="welcome scene-panel"
+        id="welcome"
+        aria-label="Welcome to Kessel"
+      >
+        <img
+          class="welcome-wordmark"
+          src="assets/brand/kessel-wordmark.svg"
+          alt="Kessel"
+        />
+        <button class="primary start-button" id="start-experience" disabled>
+          Preparing Earth
+        </button>
+      </section>
+      <section
+        class="selector scene-panel"
+        id="selector"
+        hidden
+        aria-label="Choose a deployment environment"
+      >
+        <p class="section-label">Deployment environments</p>
+        <div
+          class="environment-illustration"
+          id="environment-icon"
+          aria-hidden="true"
+        ></div>
+        <div class="environment-title">
+          <h1 id="environment-name">Glacier</h1>
+          <span id="environment-status">Planned</span>
+        </div>
+        <p class="environment-description" id="environment-description"></p>
+        <div class="carousel-navigation">
+          <button
+            class="round-button"
+            id="environment-prev"
+            aria-label="Previous environment"
+          >
+            &#8592;</button
+          ><span id="environment-count">01 / 05</span
+          ><button
+            class="round-button"
+            id="environment-next"
+            aria-label="Next environment"
+          >
+            &#8594;
+          </button>
+        </div>
+        <button class="primary deploy-button" id="deploy-underground" hidden>
+          Explore underground
+        </button>
+      </section>
+      <div class="globe-label" id="globe-label" hidden>
+        <i></i><span id="globe-label-name"></span>
+      </div>
+      <section class="surface-panel scene-panel" id="surface-panel" hidden>
+        <p class="section-label">01.82° S, 30.06° E</p>
+        <h1>Rutongo.<br />Below the surface.</h1>
+        <p>Rwanda / illustrative mine site</p>
+        <button class="primary" id="enter-mine">Enter the mine</button>
+      </section>
+      <aside
+        class="operations scene-panel"
+        id="operations"
+        hidden
+        aria-labelledby="operations-title"
+      >
+        <div class="operations-heading">
+          <div>
+            <p class="section-label">Rutongo, Rwanda</p>
+            <h1 id="operations-title">Underground.</h1>
+          </div>
+          <span class="state-label" id="comparison-state">Baseline</span>
+        </div>
+        <div class="connectivity">
+          <span class="signal-bars" aria-hidden="true"
+            ><i></i><i></i><i></i><i></i></span
+          ><span>Weak connectivity</span
+          ><span class="local-status" id="local-status">No GPS</span>
+        </div>
+        <div class="metrics" id="metrics">
+          <div class="metric">
+            <span>Ore hauled</span
+            ><strong id="value-throughput">88 <small>t/h</small></strong
+            ><span class="metric-delta" id="delta-throughput"></span>
+          </div>
+          <div class="metric">
+            <span>Schedule</span
+            ><strong id="value-schedule">1h <small>late</small></strong
+            ><span class="metric-delta" id="delta-schedule"></span>
+          </div>
+          <div class="metric">
+            <span>Idle time</span
+            ><strong id="value-idle">38<small>%</small></strong
+            ><span class="metric-delta" id="delta-idle"></span>
+          </div>
+          <div class="metric">
+            <span>Operating cost</span
+            ><strong id="value-cost">£12.95<small>/t</small></strong
+            ><span class="metric-delta" id="delta-cost"></span>
+          </div>
+          <div class="metric">
+            <span>Money saved</span><strong id="value-money">£0</strong
+            ><span class="metric-delta">Same ore batch</span>
+          </div>
+          <div class="metric">
+            <span>Time saved</span
+            ><strong id="value-time">0<small>min</small></strong
+            ><span class="metric-delta">Same ore batch</span>
+          </div>
+        </div>
+        <div
+          class="comparison-switch"
+          id="comparison-switch"
+          hidden
+          role="group"
+          aria-label="Compare site policies"
+        >
+          <button id="show-before" aria-pressed="false">Before</button
+          ><button id="show-after" aria-pressed="true">Trained site</button>
+        </div>
+        <button class="primary" id="compare-trained">
+          View the trained site
+        </button>
+        <button class="secondary" id="explore-world-model" hidden>
+          Explore the world model <span>↗</span>
+        </button>
+        <p class="scenario-note">Illustrative operating scenario</p>
+        <button class="scroll-product" id="scroll-product" hidden>
+          Discover Kessel <span>↓</span>
+        </button>
+      </aside>
+      <section
+        class="model-transition"
+        id="model-transition"
+        hidden
+        aria-live="polite"
+      >
+        <p>Deploying the trained policy</p>
+        <div class="transition-flow">
+          <span>World model</span><i></i><span>Policy</span><i></i
+          ><span>Onboard</span>
+        </div>
+        <p class="small">Comparing an illustrative trained policy</p>
+      </section>
+      <p class="flight-label" id="flight-label" hidden role="status">
+        Approaching Rwanda
+      </p>
+      <button class="skip-button" id="skip-transition" hidden>
+        Skip flight
+      </button>
+    </main>
+    <article id="product" class="product" hidden>
+      <section class="product-overview" id="product-overview">
+        <div class="product-heading">
+          <p class="section-label">Physical AI. Existing machines.</p>
+          <h2>Autonomy.<br />Underground.</h2>
+          <p>Train in simulation. Run on existing machines, offline.</p>
+        </div>
+        <div
+          class="pipeline"
+          aria-label="World model, reinforcement learning, policy distillation and offline deployment"
+        >
+          <div class="pipeline-node">
+            <span class="pipeline-index">01</span>
+            <div class="model-glyph" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </div>
+            <h3>World model</h3>
+            <p>Predict environment dynamics.</p>
+            <code>zₜ, aₜ → zₜ₊₁</code>
+          </div>
+          <div class="pipeline-link" aria-hidden="true"></div>
+          <div class="pipeline-node">
+            <span class="pipeline-index">02</span
+            ><svg class="policy-glyph" viewBox="0 0 100 80" aria-hidden="true">
+              <path
+                d="M10 40H32M32 40L55 15M32 40L55 40M32 40L55 65M55 15L85 40M55 40H85M55 65L85 40"
+              />
+              <circle cx="10" cy="40" r="4" />
+              <circle cx="32" cy="40" r="4" />
+              <circle cx="55" cy="15" r="4" />
+              <circle cx="55" cy="40" r="4" />
+              <circle cx="55" cy="65" r="4" />
+              <circle cx="85" cy="40" r="5" />
+            </svg>
+            <h3>Reinforcement learning</h3>
+            <p>Improve through imagined outcomes.</p>
+            <code>max E[Σ γᵗrₜ]</code>
+          </div>
+          <div class="pipeline-link" aria-hidden="true"></div>
+          <div class="pipeline-node">
+            <span class="pipeline-index">03</span
+            ><svg class="distil-glyph" viewBox="0 0 100 80" aria-hidden="true">
+              <path
+                d="M8 18H38V62H8ZM62 29H87V51H62M38 40H62M12 25H33M12 32H33M12 39H33M12 46H33M12 53H33M69 35H81M69 41H81M69 47H81"
+              />
+            </svg>
+            <h3>Policy distillation</h3>
+            <p>Compress into a compact policy.</p>
+            <code>πteacher → πonboard</code>
+          </div>
+          <div class="pipeline-link" aria-hidden="true"></div>
+          <div class="pipeline-node">
+            <span class="pipeline-index">04</span>
+            <div class="compute-glyph" aria-hidden="true"><i></i></div>
+            <h3>Onboard autonomy</h3>
+            <p>Sense and act without a connection.</p>
+            <code>aₜ = π(oₜ)</code>
+          </div>
+        </div>
+        <div class="feedback-loop">
+          <span>Machine data</span><i aria-hidden="true"></i
+          ><span>World-model updates when connected</span>
+        </div>
+        <div class="pipeline-foot">
+          <span>Deployment data returns when a connection does.</span
+          ><button class="secondary" id="product-world-model">
+            Explore the world model <span>↗</span>
+          </button>
+        </div>
+      </section>
+      <section class="kit-section" id="kit-section">
+        <div class="kit-copy">
+          <p class="section-label">Proposed retrofit kit</p>
+          <h2>An onboard<br />retrofit.</h2>
+          <p>
+            Local sensing. Rugged compute.<br />Connected to the controls
+            already there.
+          </p>
+          <div class="kit-components" id="kit-components"></div>
+          <button class="secondary" id="assemble-kit">Assemble the kit</button>
+        </div>
+        <div
+          class="kit-window"
+          id="kit-window"
+          aria-label="Exploded concept view of the retrofit kit"
+        ></div>
+        <p class="kit-note">
+          Concept assembly. Components and enclosure are proposed.
+        </p>
+      </section>
+      <footer class="product-footer">
+        <img src="assets/brand/kessel-wordmark.svg" alt="Kessel" /><span
+          >Physical AI for extreme environments.</span
+        ><button class="text-button" id="replay-experience">
+          Replay experience
+        </button>
+      </footer>
+    </article>
+    <section
+      id="learning-ui"
+      class="learning-ui"
+      hidden
+      aria-labelledby="learning-title"
+    >
+      <header class="learning-header">
+        <button class="text-button" id="exit-world-model">
+          ← Return to mine</button
+        ><span>World-model simulation</span
+        ><span class="replay-label">Illustrative training replay</span>
+      </header>
+      <aside class="learning-panel">
+        <p class="section-label">Reinforcement learning</p>
+        <h1 id="learning-title">Scoop<br />and haul.</h1>
+        <div class="episode-number">
+          <strong id="episode-count">0</strong><span>represented episodes</span>
+        </div>
+        <div
+          class="checkpoint-controls"
+          role="group"
+          aria-label="Policy checkpoint"
+        >
+          <button data-checkpoint="0">Early</button
+          ><button data-checkpoint="1">Learning</button
+          ><button data-checkpoint="2">Trained</button>
+        </div>
+        <svg
+          class="reward-chart"
+          viewBox="0 0 300 72"
+          role="img"
+          aria-label="Illustrative reward improvement over training"
+        >
+          <path class="chart-axis" d="M0 68H300M0 0V68" />
+          <path class="chart-line" id="reward-path" d="M0 65L300 5" />
+          <circle id="reward-point" cx="0" cy="65" r="3" />
+        </svg>
+        <div class="chart-legend">
+          <span>Reward</span><strong id="reward-value">−0.12</strong>
+        </div>
+        <dl class="rl-readouts">
+          <div>
+            <dt>Observation</dt>
+            <dd>Geometry + machine pose</dd>
+          </div>
+          <div>
+            <dt>Action</dt>
+            <dd id="action-value">Approach the ore</dd>
+          </div>
+          <div>
+            <dt>Reward</dt>
+            <dd id="reward-explanation">Ore − spillage − delay</dd>
+          </div>
+          <div title="The policy maps observations to machine actions.">
+            <dt>Policy</dt>
+            <dd id="policy-value">Early checkpoint</dd>
+          </div>
+        </dl>
+        <p id="checkpoint-outcome" class="checkpoint-outcome">
+          Bucket too high. No ore collected.
+        </p>
+        <div class="training-controls">
+          <button class="primary" id="replay-training">Replay training</button
+          ><button class="secondary" id="pause-training">Pause</button>
+        </div>
+      </aside>
+      <div class="simulation-caption">
+        <span id="training-status">Imagined rollouts</span
+        ><span id="payload-readout">Payload 0 / 3.5 t</span>
+      </div>
     </section>
-
-    <div class="earth-readout" aria-hidden="true">
-      <span>PLANETARY SYSTEM</span>
-      <strong>EARTH</strong>
-      <span>AXIAL TILT <b>23.4°</b></span>
+    <div class="permanent-caption">
+      <span class="caption-dot"></span><span>Concept demonstration</span
+      ><span id="caption-detail">Public geography. Illustrative mission.</span
+      ><button class="text-button" id="caption-sources">Sources</button>
     </div>
-    <div class="deposit-legend" aria-label="Historical deposit marker legend">
-      <span><i class="legend-dot tin"></i>TIN OCCURRENCES</span>
-      <span><i class="legend-dot tantalum"></i>TANTALUM OCCURRENCES</span>
-      <small>HISTORICAL MRDS LOCATIONS</small>
-    </div>
-    <div class="flight-status" id="flight-status" role="status" aria-live="polite" hidden>ROUTING TO RUTONGO</div>
-    <section class="surface-console" id="surface-console" aria-live="polite" hidden>
-      <p class="eyebrow"><span class="eyebrow-line"></span> SURFACE RECONNAISSANCE / RWANDA</p>
-      <h2>Rutongo <span>reconnaissance</span></h2>
-      <div class="surface-view-controls" role="group" aria-label="Surface view"><button id="view-satellite" type="button" aria-pressed="false">SATELLITE</button><button id="view-site" type="button" aria-pressed="true">3D SITE</button></div>
-      <p id="surface-view-description">Satellite ground view · 4 km terrain tile · elevation relief</p>
-      <p class="surface-model-note">Illustrative portal and service yard. The layout is not a surveyed Rutongo plan.</p>
-      <button class="enter-underground" id="enter-underground" type="button" hidden>ENTER THE MINE <span>DESCEND ›</span></button>
-    </section>
-    <section class="surface-map" id="surface-map" hidden aria-label="Rutongo satellite reconnaissance"><div class="map-heading"><span>RUTONGO / SATELLITE RECONNAISSANCE</span><span>01.82° S / 30.06° E</span></div><iframe id="satellite-map" title="Google Maps satellite view of the Rutongo area, Rwanda" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><p>PUBLIC SURFACE CONTEXT <span>Underground workings are illustrative.</span></p></section>
-    <section class="underground-console" id="underground-console" hidden aria-labelledby="fleet-heading">
-      <p class="eyebrow"><span class="eyebrow-line"></span> RUTONGO / RWANDA</p>
-      <div class="console-title"><h2 id="fleet-heading">Autonomous haulage</h2><span class="mode-chip" id="fleet-mode">Loading</span></div>
-      <p id="fleet-caption">Three machines. One shared decline.<br /> See what changes when they learn together.</p>
-      <div class="offline-status"><span class="status-light"></span> NO GPS <span>/</span> NO CLOUD <strong>ONBOARD AUTONOMY</strong></div>
-      <p class="metrics-label">SCENARIO PERFORMANCE <span>ILLUSTRATIVE</span></p>
-      <div class="fleet-metrics">
-        <span>Throughput <b id="metric-throughput">--</b></span>
-        <span>Mean cycle <b id="metric-cycle">--</b></span>
-        <span>Utilisation <b id="metric-utilisation">--</b></span>
-        <span>Queue delay <b id="metric-queue">--</b></span>
-      </div>
-      <div class="fleet-controls">
-        <button id="run-optimiser" type="button">RUN 100,000 SIMULATIONS <span>↗</span></button>
-        <button id="return-fleet" type="button" hidden>FLEET OVERVIEW <kbd>ESC</kbd></button>
-      </div>
-      <div class="simulation-progress" id="simulation-progress" role="progressbar" aria-label="Scripted optimisation playback" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
-      <p id="simulation-status" class="simulation-status" role="status" aria-live="polite">Pre-computed trace · illustrative scenario</p>
-      <div class="fleet-roster" id="fleet-roster" aria-label="Inspect a haul truck"></div>
-      <div class="world-model-panel" id="world-model-note" hidden>
-        <p class="eyebrow">WORLD MODEL / PREDICTION PREVIEW</p>
-        <p>Learn the environment in simulation.<br />Run the policy on the machine.</p>
-        <label for="prediction-horizon">Look ahead <output id="horizon-value">+2 s</output></label>
-        <input id="prediction-horizon" type="range" min="0" max="2" value="1" step="1" />
-        <div class="prediction-scale"><span>LOW ERROR</span><i></i><span>HIGH</span></div>
-        <p class="prediction-reading">Position error <b id="prediction-error">0.12 m</b><span>Scripted prediction and comparison</span></p>
-        <button id="watch-cycle" type="button">WATCH A COMPLETE HAUL CYCLE <span>↗</span></button>
-      </div>
-      <details class="metrics-source"><summary>Scenario basis and references</summary><p>Illustrative inputs, not mine telemetry. <span id="cycle-reference"></span> <a id="cycle-reference-link" target="_blank" rel="noreferrer"></a></p></details>
-    </section>
-    <div class="truck-labels" id="truck-labels" aria-hidden="true"></div>
-    <aside class="mission-insight" id="mission-insight" hidden>
-      <span class="insight-index" id="insight-index">01 / OBSERVE</span>
-      <h3 id="insight-title">A shared bottleneck.</h3>
-      <p id="insight-copy">Uncoordinated machines compete for the same decline. Queues build. Productive time falls.</p>
-      <div class="insight-rule"></div>
-      <span class="insight-foot">TRAIN IN SIMULATION. OPERATE OFFLINE.</span>
-    </aside>
-    <div class="mission-steps" id="mission-steps" hidden aria-label="Mission progress"><span class="is-complete">01 <b>EARTH</b></span><i></i><span class="is-complete">02 <b>RUTONGO</b></span><i></i><span class="is-active">03 <b>OPTIMISE</b></span><i></i><span>04 <b>DEPLOY</b></span></div>
-    <div class="demo-caption"><span class="caption-dot"></span> CONCEPT DEMO <span class="caption-detail">/ SCRIPTED SCENARIO</span><button id="open-sources" type="button">SOURCES ↗</button></div>
-    <dialog id="sources-dialog" class="sources-dialog" aria-labelledby="sources-title"><button id="close-sources" type="button" aria-label="Close sources">×</button><p class="eyebrow">WHAT YOU ARE SEEING</p><h2 id="sources-title">Real location. Illustrative mission.</h2><p>Kessel is developing physical AI for extreme environments. This concept demo uses a scripted scenario to explain the approach. It does not run a trained policy or 100,000 live simulations.</p><dl><dt>Location</dt><dd>Rutongo Mines, Rwanda. Public coordinates and satellite terrain; the portal, workings and fleet are illustrative. <a href="https://trinity-metals.com/en/projects/rutongo-mine" target="_blank" rel="noreferrer">Trinity Metals ↗</a></dd><dt>Earth and terrain</dt><dd>NASA Blue Marble and Black Marble, historical USGS MRDS mineral occurrences, modified Copernicus Sentinel data 2026 and Copernicus WorldDEM-30. <a href="assets/README.md" target="_blank">Full asset credits ↗</a></dd><dt>Vehicles and results</dt><dd>Original Kessel vehicle geometry, with a compact 15 t underground-truck reference envelope. Routes, cycle times, prediction errors and performance improvements are authored scenario inputs. <a href="https://www.mining.sandvik/en/products/equipment/trucks/th315-underground-truck/" target="_blank" rel="noreferrer">Equipment reference ↗</a></dd><dt>Mine assets</dt><dd>Rock Wall 09, Brown Mud Dry and Aerial Rocks 02 by Poly Haven, CC0. Excavator 3d Rigging by mohamed.salaah880, CC BY 4.0; scaled and animated for the loading scene. <a href="assets/models/excavator/README.md" target="_blank">Excavator attribution ↗</a></dd><dt>Surface satellite view</dt><dd>Google Maps supplies the embedded satellite map and its provider credits. The local 3D site uses the separate Copernicus terrain source. No Google imagery is stored in this repository.</dd><dt>The product</dt><dd>Train inside a learned world model. Compress the policy onto a rugged retrofit computer. Operate offline. Improve the world model from deployment data when a connection becomes available.</dd></dl></dialog>
-    <p class="surface-credit" id="surface-credit" hidden>Contains modified Copernicus Sentinel data 2026 · produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.</p>
-
-    <footer class="bottom-bar">
-    <div class="coordinates"><span class="coordinate-mark">+</span><span id="target-coordinates">Loading target</span><small id="target-name">MISSION TARGET</small></div>
-      <div class="scene-progress"><span class="progress-label">MISSION SELECT</span><span class="progress-rule"><i></i></span><span class="progress-count">01 <b>/</b> 04</span></div>
-      <p class="source-credit">Earth imagery: NASA Blue Marble: Next Generation, July base map. Night lights: NASA Black Marble, 2016 composite.<br />Deposit markers: historical USGS MRDS occurrences, not a current mine inventory.<br />Concept visualisation. Underground scene and mission data are illustrative.</p>
-    </footer>
-
-    <section class="environment-picker" aria-labelledby="environment-heading">
-      <div class="picker-heading"><p class="eyebrow"><span class="eyebrow-line"></span> CHOOSE YOUR OPERATING ENVIRONMENT</p><h2 id="environment-heading">Where machines go beyond the signal.</h2></div>
-      <div class="environment-options" id="environment-options"></div>
-      <p class="picker-status" id="picker-status" role="status" aria-live="polite">Loading environments</p>
-    </section>
-    <button class="skip-flight" id="skip-flight" type="button" hidden>SKIP FLIGHT <span>›</span></button>
-
-    <div class="loading-status" id="loading-status" role="status">ESTABLISHING VISUAL LINK</div>
-  </main>
-
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "./assets/vendor/three.module.js",
-        "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
-        "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
-        "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js"
+    <dialog id="sources-dialog">
+      <button
+        class="dialog-close"
+        id="sources-close"
+        aria-label="Close sources"
+      >
+        ×
+      </button>
+      <p class="section-label">What you are seeing</p>
+      <h2>A real location.<br />An illustrative mission.</h2>
+      <p>
+        Kessel is developing physical AI for extreme environments. This
+        experience illustrates the approach. It does not run a trained policy or
+        millions of live simulations.
+      </p>
+      <dl>
+        <dt>Geography</dt>
+        <dd>
+          NASA Blue Marble, Black Marble and clouds; modified Copernicus
+          Sentinel data 2026 and Copernicus WorldDEM-30. The portal, site layout
+          and underground cutaway are authored.
+          <a
+            href="https://trinity-metals.com/en/projects/rutongo-mine"
+            target="_blank"
+            rel="noreferrer"
+            >Rutongo Mines</a
+          >
+        </dd>
+        <dt>Mine assets</dt>
+        <dd>
+          Poly Haven Rock Wall 09, Brown Mud Dry and Aerial Rocks 02, CC0.
+          Excavator 3d Rigging by mohamed.salaah880, CC BY 4.0; scaled and
+          animated. The truck and training loader are original Kessel geometry.
+          <a
+            href="https://sketchfab.com/3d-models/excavator-3d-rigging-f82f787abd304dea89667e078ccf7052"
+            target="_blank"
+            rel="noreferrer"
+            >Excavator source</a
+          >
+        </dd>
+        <dt>Learning and performance</dt>
+        <dd>
+          Training checkpoints, episode counts, rewards, operating figures and
+          savings are authored scenario data. The proposed pipeline distils a
+          policy for onboard operation; the displayed kit is proposed.
+          <a
+            href="https://danijar.com/project/dreamerv3/"
+            target="_blank"
+            rel="noreferrer"
+            >World-model research</a
+          >;
+          <a
+            href="https://arxiv.org/abs/1511.06295"
+            target="_blank"
+            rel="noreferrer"
+            >policy distillation</a
+          >.
+        </dd>
+      </dl>
+      <p class="source-small">
+        Contains modified Copernicus Sentinel data 2026. Produced using
+        Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and
+        Space GmbH 2014-2018, provided under COPERNICUS by the European Union
+        and ESA; all rights reserved.
+      </p>
+    </dialog>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./assets/vendor/three.module.js",
+          "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
+          "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
+          "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js"
+        }
       }
-    }
-  </script>
-  <script type="module" src="js/mission.js"></script>
-</body>
+    </script>
+    <script type="module" src="js/experience.js"></script>
+  </body>
 </html>

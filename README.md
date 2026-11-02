@@ -2,76 +2,82 @@
 
 Physical AI for extreme environments, starting underground.
 
-This repository is Kessel's interactive concept demo. It explains training
-machine policies in a world model, compressing them onto rugged retrofit
-compute and operating without GPS or a cloud connection. The training stack
-and onboard runtime are separate products.
+An interactive concept experience for Kessel's proposed offline autonomy
+system. Earth leads into an illustrative mine at Rutongo, Rwanda. Compare an
+inefficient fleet with a trained-site scenario, explore loader learning, then
+scroll through the training pipeline and proposed retrofit kit.
 
-![Kessel mission selection](docs/demo/globe.jpg)
+![Centred Earth and Kessel wordmark](docs/phase-10/frames/welcome.jpg)
 
 ## Run locally
-
-From this directory:
 
 ```sh
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-Open [localhost:8080](http://localhost:8080). No installation or build is
-needed. Use a recent browser with WebGL enabled.
+Open [localhost:8080](http://localhost:8080) in Chrome. No installation, API key
+or build step is needed. The presentation target is a MacBook Pro M1. Fonts,
+Three.js, geographic textures, mine materials and models are served locally.
+Use a static server rather than opening `index.html` directly.
 
-The surface stage uses an embedded Google Maps satellite view when online.
-Choose **3D site** for the local terrain view. For a presentation without
-internet access, open [localhost:8080/?offline=1](http://localhost:8080/?offline=1).
-The core mission, fonts, rendering library, textures and vehicle models are
-served locally. Do not open the HTML directly through a `file:` URL.
+## Experience
 
-## Demo sequence
+1. Start below the rotating Earth. Browse five deployment environments.
+2. Choose **Underground**. Follow the continuous camera journey into Rwanda.
+3. **Enter the mine** to reveal a tilted rock cutaway with four haul trucks
+   and the licensed loading excavator. Red routes show the baseline queue.
+4. **View the trained site**. Compare green haul loops and all six operating
+   measures. Weak connectivity stays unchanged. Before/after is repeatable.
+5. Optionally **Explore the world model**. An eight-second replay represents
+   2.4 million authored episodes. Compare failed, improving and trained loader
+   checkpoints, pause the replay, then return to the same mine or page position.
+6. Scroll into world-model dynamics, reinforcement learning, policy
+   distillation and onboard autonomy. Inspect and assemble the proposed kit.
 
-1. Select **Underground** from Earth. The other environments are planned.
-2. Fly to Rutongo, Rwanda. Inspect the satellite map or the local 3D site.
-3. Enter the mine. See three trucks sharing a constrained haulage network.
-4. Run the **100,000 simulations** preview. Routes converge from red to
-   green and the illustrative performance figures improve.
-5. Select a truck through its fleet card or on the scene. Inspect the
-   scripted prediction horizon and watch a full loading, haul, tip and
-   empty-return cycle. HT-01's loading bay uses the licensed excavator.
-6. Press **Escape** or **Fleet overview** to return. The result is preserved.
-   **Mission select** restarts the experience.
+Allow about 60 seconds for the main story. Optional exploration is separate.
+There is no manual override, chase-camera flow or pricing section.
 
-![Optimised fleet cutaway](docs/demo/fleet.jpg)
+![Trained mine and six operating measures](docs/phase-10/frames/trained.jpg)
 
-![Truck and excavator loading scene](docs/demo/truck.jpg)
+![Optional technical learning view](docs/phase-10/frames/learning.jpg)
 
 ## What is real
 
-Rutongo is a real underground tin operation. The location, NASA Earth imagery,
-USGS historical mineral occurrences and Copernicus surface context are public
-sources. Google supplies its own satellite imagery and attribution through
-the embedded map.
+Rutongo is a real tin operation. NASA Earth imagery, Copernicus surface
+imagery and elevation provide public geographic context. The detailed site,
+portal, underground layout, vehicles' behaviour, training results and operating
+figures are authored. Public imagery is regional context, not a surveyed mine
+reconstruction. The surface view uses one renderer and no embedded map.
 
-The underground layout, traffic, policy behaviour, predictions, optimisation
-trace and performance values are illustrative. Pressing the button plays an
-authored result; it does not train a policy or execute 100,000 simulations.
-The permanent caption and Sources panel make this visible throughout.
+This repository contains neither a learned dynamics model nor a trained
+machine policy. It does not perform millions of simulations in the browser.
+The permanent concept caption, illustrative labels and Sources explain this.
+The kit is a proposed assembly, not selected or validated hardware.
 
 See [asset credits](assets/README.md), the
-[presentation guide](docs/demo/presenter-guide.md), and the
-[Phase 9 verification report](docs/demo/phase-9-verification.md).
+[presenter guide](docs/phase-10/presenter-guide.md),
+[visual review](docs/phase-10/visual-review.md) and
+[verification report](docs/phase-10/verification.md).
 
-## Structure
+## Structure and checks
 
-- `data/mission.json`: mission, asset references, routes and illustrative results.
-- `data/tunnel-network.json`: deterministic geometry and matching directed graph.
-- `js/mission.js`: stage loading, transitions, HUD and camera.
-- `js/underground.js`: cutaway and tunnel materials, loading scene and fleet.
-- `js/fleet.js`: route following, haul phases and prediction preview.
-- `js/vehicle.js`: original data-defined Kessel truck and its distance detail.
-- `js/loading-machine.js`: the credited excavator's loading rig.
-- `docs/adr/`: decisions, assumptions and source references.
+`data/experience.json` owns the geographic context, themes, scene poses, rock
+mass, directed haul routes, operating assumptions, loader keyframes,
+checkpoints and kit components. `js/experience.js` controls one persistent
+renderer and camera. Stage modules own their scene roots. The earlier Phase 9
+mission and source modules remain for provenance.
 
-Validate the mission with `python3 data/validate_tunnel_network.py`.
-JavaScript syntax and mission validation also run in GitHub Actions.
+```sh
+python3 data/validate_experience.py
+python3 data/validate_tunnel_network.py
+for file in js/*.js; do node --check "$file"; done
+```
+
+CI runs both data validators and JavaScript syntax checks. For the local
+browser acceptance, install Playwright in a parent tooling directory and run
+`node scripts/verify-experience.cjs` with the server running. It uses installed
+Google Chrome with native Metal graphics on macOS, captures frames and a
+walkthrough, and records measurements under `/private/tmp`.
 
 Copyright 2026 Nabil Shah / Kessel. Original work is proprietary. Third-party
 assets retain the licences listed in their credit files.

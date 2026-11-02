@@ -43,30 +43,29 @@ rollout to imply it is real — needs an ADR, not a drive-by edit.
 
 ### The front end is data-only
 
-For the Phase 9 mission demo, `index.html`, `css/`, and `js/app.js` do not
-hardcode authored scene content. The mission manifest and stage assets provide
-mine geometry, vehicle poses, routes, and HUD values as defined in ADR-0022.
-Swapping the scripted mission dataset for a conforming logged dataset must
-require zero changes to the renderer. The mission demonstrates offline autonomy
-without manual waypoint controls (ADR-0026). The old
-`data/rollout.json` contract applies only to the earlier demo and is superseded
-for Phase 9 by ADR-0022.
+The current cinematic experience reads authored scene content from
+`data/experience.json` under ADR-0030. This includes site geometry, vehicle
+routes, operating assumptions, training keyframes and proposed kit components.
+Rendering modules consume that content. The Phase 9 mission and earlier
+rollout contracts remain historical references. No manual machine controls or
+chase-camera flow belongs in the current experience.
 
 ### No build step
 
-The site is plain HTML, CSS and JavaScript, loaded via an import map and CDN
+The site is plain HTML, CSS and JavaScript, loaded via an import map and locally vendored
 ES modules (Three.js). No bundler, no transpiler, no `node_modules` in the
 shipped site — it must run by opening `index.html` on a static file server, and
 deploy as-is to GitHub Pages. Tooling used only for local QA (Playwright
 screenshots, a lint script) lives outside what gets published and is excluded
 in `.gitignore`.
 
-### Runs smoothly on a phone
+### Target presentation hardware
 
-The demo must hold a smooth frame rate on a mid-range mobile device, not just
-a development laptop. Pixel ratio is capped, particle counts and
-post-processing scale down under `IS_MOBILE`, and any change that adds
-per-frame cost needs to be checked against that budget before it merges.
+For Phase 10 the maintainer explicitly targets MacBook Pro M1 and Chrome,
+superseding the earlier phone-first requirement through ADR-0030. Target 60 fps
+with an acceptance mean of at least 30 fps. Cap DPR, load stages progressively,
+and report frame-time tails and native GPU identity. Keep keyboard controls,
+visible focus and reduced-motion support. Do not claim phone qualification.
 
 ## House style
 

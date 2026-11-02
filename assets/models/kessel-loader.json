@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "id": "kessel-lhd-03",
+    "source": "original",
+    "author": "Nabil Shah / Kessel",
+    "licence": "Repository LICENSE",
+    "reference": "https://www.mining.sandvik/en/products/equipment/loaders/lh203-underground-lhd/",
+    "description": "Original illustrative loader, not a manufacturer digital twin."
+  },
+  "dimensions_m": [
+    7.1,
+    1.5,
+    1.9
+  ],
+  "capacity_t": 3.5,
+  "forward_axis": [
+    0,
+    0,
+    1
+  ],
+  "paint": "#d0a052",
+  "body_parts": [
+    {
+      "size": [
+        1.28,
+        0.32,
+        5.5
+      ],
+      "position": [
+        0,
+        0.62,
+        -0.7
+      ],
+      "material": "dark"
+    },
+    {
+      "size": [
+        1.25,
+        0.7,
+        2.35
+      ],
+      "position": [
+        0,
+        1,
+        -1.65
+      ],
+      "material": "paint"
+    },
+    {
+      "size": [
+        1.16,
+        0.78,
+        1.12
+      ],
+      "position": [
+        0,
+        1.35,
+        -0.25
+      ],
+      "material": "paint"
+    },
+    {
+      "size": [
+        1.25,
+        0.1,
+        1.35
+      ],
+      "position": [
+        0,
+        1.79,
+        -0.25
+      ],
+      "material": "paint"
+    },
+    {
+      "size": [
+        1,
+        0.47,
+        0.06
+      ],
+      "position": [
+        0,
+        1.42,
+        0.33
+      ],
+      "material": "glass"
+    },
+    {
+      "size": [
+        0.06,
+        0.45,
+        0.96
+      ],
+      "position": [
+        -0.6,
+        1.42,
+        -0.25
+      ],
+      "material": "glass"
+    },
+    {
+      "size": [
+        0.06,
+        0.45,
+        0.96
+      ],
+      "position": [
+        0.6,
+        1.42,
+        -0.25
+      ],
+      "material": "glass"
+    },
+    {
+      "size": [
+        1.32,
+        0.15,
+        0.12
+      ],
+      "position": [
+        0,
+        0.47,
+        -3.48
+      ],
+      "material": "dark"
+    }
+  ],
+  "wheels": {
+    "radius": 0.43,
+    "width": 0.29,
+    "side": 0.59,
+    "axles": [
+      -1.9,
+      1.25
+    ],
+    "y": 0.46
+  },
+  "boom": {
+    "pivot": [
+      0,
+      0.75,
+      0.65
+    ],
+    "length": 1.95,
+    "width": 0.9
+  },
+  "bucket": {
+    "width": 1.48,
+    "depth": 0.85,
+    "height": 0.48
+  }
+}

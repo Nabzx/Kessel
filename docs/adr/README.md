@@ -1,6 +1,10 @@
 # Architecture decision records
 
-Phase 9 decisions: [mission data contract](0022-phase-9-mission-data-contract.md),
+Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
+[learning presentation](0029-world-model-learning-presentation.md) and
+[cinematic architecture](0030-cinematic-experience-architecture.md).
+
+Historical Phase 9 decisions: [mission data contract](0022-phase-9-mission-data-contract.md),
 [progressive payload](0023-phase-9-progressive-payload.md), and
 [scene/state architecture](0024-phase-9-scene-state-architecture.md),
 [autonomous operation](0026-phase-9-autonomous-operation.md), and

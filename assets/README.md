@@ -73,9 +73,9 @@ animated. The loading chamber and placement are illustrative. The
 [Poly Haven material sets](textures/README.md) supply wall, mud and ore diffuse
 maps, with normal maps enabled on desktop.
 
-## Google satellite view
+## Historical Phase 9 Google satellite view
 
-The surface stage can display an embedded Google Maps satellite map of the
+The historical Phase 9 surface stage could display an embedded Google Maps satellite map of the
 Rutongo area. Google renders the imagery and provider attributions in the
 iframe; they remain visible and unobscured. No Google tiles, screenshots or
 map imagery are bundled as a terrain texture. The local Copernicus model is
@@ -96,3 +96,24 @@ They were fetched through Google Fonts on 1 November 2026. Their OFL notices
 are retained as `fonts/SPACE-GROTESK-OFL.txt` and
 `fonts/JETBRAINS-MONO-OFL.txt`. Font and library transfers are reported
 separately from Kessel mission assets in the verification report.
+
+## Phase 10 original assets
+
+`brand/kessel-wordmark.svg` is an original Kessel wordmark by Nabil Shah.
+`models/kessel-loader.json` defines the original articulated training loader,
+built by `js/loader-stage.js`. It uses the public compact
+[Sandvik LH203 envelope](https://www.mining.sandvik/en/products/equipment/loaders/lh203-underground-lhd/)
+as a reference, not manufacturer geometry or branding. Original loader,
+surface props, cutaway, learning visualisations, studio reflection map and
+proposed kit geometry are copyright Nabil Shah / Kessel under the repository
+licence. No extra third-party geometry or texture is introduced in Phase 10.
+
+The current surface uses local NASA/Copernicus geographic context and authored
+foreground detail in one Three.js renderer. No Google imagery is bundled or
+embedded by the current experience. Retained Poly Haven material sets and the
+CC BY 4.0 excavator remain credited above and in the in-app Sources dialog.
+
+`lighting/kit-studio.bin` is original Kessel studio illumination baked from
+six procedural canvas faces into a 384 x 512 RGBA half-float CubeUV texture.
+This keeps reflection prefiltering out of the live presentation. It contains
+no third-party environment imagery.

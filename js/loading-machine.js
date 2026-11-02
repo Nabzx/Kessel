@@ -17,7 +17,10 @@ export async function createLoadingMachine(config, drawPoint) {
   // than inferring forward from the glTF root's arbitrary export rotation.
   const bucket=bones[config.bucket_bone_index], tracks=bones[9]||bones[0];
   const direction=bucket.getWorldPosition(new THREE.Vector3()).sub(tracks.getWorldPosition(new THREE.Vector3()));
-  model.rotation.y += -Math.PI/2-Math.atan2(direction.x,direction.z);
+  const targetHeading=config.target_offset_m
+    ? Math.atan2(config.target_offset_m[0]-config.offset_m[0],config.target_offset_m[2]-config.offset_m[2])
+    : -Math.PI/2;
+  model.rotation.y += targetHeading-Math.atan2(direction.x,direction.z);
   model.updateMatrixWorld(true);
   bounds.setFromObject(model);
   const centre=bounds.getCenter(new THREE.Vector3());

@@ -1,0 +1,1691 @@
+{
+  "meta": {
+    "version": 10,
+    "source": "scripted",
+    "description": "Illustrative Kessel cinematic experience. Public geography; authored site, operations and training replay."
+  },
+  "location": {
+    "id": "rutongo",
+    "name": "Rutongo Mines",
+    "country": "Rwanda",
+    "latitude": -1.8175,
+    "longitude": 30.059167,
+    "source": "https://trinity-metals.com/en/projects/rutongo-mine",
+    "coordinate_source": "https://www.rema.gov.rw/fileadmin/user_upload/REMA/Publications/Reports/Nile_Nyabarongo_Lower_Integrated_Pollution_Management_Plan-Final__Jan._2021_.pdf"
+  },
+  "environments": [
+    {
+      "id": "glacier",
+      "label": "Glacier",
+      "description": "Autonomy on shifting ground.",
+      "place": "Kalaallit Nunaat, Greenland",
+      "latitude": 69.2,
+      "longitude": -49.8,
+      "colour": "#54808c",
+      "background": "#071116",
+      "available": false,
+      "glyph": "glacier"
+    },
+    {
+      "id": "desert",
+      "label": "Desert",
+      "description": "Heat. Dust. Distance.",
+      "place": "Sahara, North Africa",
+      "latitude": 23.4,
+      "longitude": 12.5,
+      "colour": "#bd9965",
+      "background": "#17110b",
+      "available": false,
+      "glyph": "desert"
+    },
+    {
+      "id": "space",
+      "label": "Space",
+      "description": "Beyond the reach of a signal.",
+      "place": "Lunar surface",
+      "latitude": 0,
+      "longitude": 0,
+      "colour": "#9da2b8",
+      "background": "#07070e",
+      "available": false,
+      "glyph": "space"
+    },
+    {
+      "id": "underground",
+      "label": "Underground",
+      "description": "No GPS. No reliable connection.",
+      "place": "Rutongo, Rwanda",
+      "latitude": -1.8175,
+      "longitude": 30.059167,
+      "colour": "#d5ac6c",
+      "background": "#100e0a",
+      "available": true,
+      "glyph": "mine"
+    },
+    {
+      "id": "deep-sea",
+      "label": "Deep sea",
+      "description": "Pressure. Darkness. Isolation.",
+      "place": "Mariana Trench, Pacific Ocean",
+      "latitude": 11.35,
+      "longitude": 142.2,
+      "colour": "#4f8796",
+      "background": "#020e17",
+      "available": false,
+      "glyph": "sea"
+    }
+  ],
+  "assets": {
+    "globe": {
+      "day_map": "assets/earth-blue-marble-july.jpg",
+      "night_lights": "assets/earth-black-marble-2016.jpg",
+      "clouds": "assets/earth-clouds.jpg"
+    },
+    "surface": {
+      "satellite_image": "assets/rutongo/satellite-2026-08-14.webp",
+      "elevation_heightmap": "assets/rutongo/elevation-30m-4km.png",
+      "width_m": 4096,
+      "elevation_min_m": 1468.55,
+      "elevation_max_m": 1897.49,
+      "portal": {
+        "x_m": -800,
+        "z_m": 650,
+        "aperture_width_m": 3,
+        "aperture_height_m": 3,
+        "marker_radius_m": 22
+      },
+      "imagery_date": "2026-08-14",
+      "imagery_source": "https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a/items/S2B_35MRU_20260814_0_L2A",
+      "site_layout_source": "illustrative",
+      "site_layout_note": "Portal, access road and service yard are not survey data.",
+      "site": {
+        "source": "illustrative",
+        "access_road_m": [
+          [
+            -820,
+            0,
+            1900
+          ],
+          [
+            -1030,
+            0,
+            1430
+          ],
+          [
+            -900,
+            0,
+            1100
+          ],
+          [
+            -820,
+            0,
+            760
+          ],
+          [
+            -800,
+            0,
+            715
+          ]
+        ],
+        "road_half_width_m": 8,
+        "yard_size_m": [
+          92,
+          74
+        ],
+        "yard_offset_m": [
+          35,
+          -20
+        ],
+        "sheds": [
+          {
+            "offset_m": [
+              36,
+              -24
+            ],
+            "size_m": [
+              18,
+              6,
+              12
+            ]
+          },
+          {
+            "offset_m": [
+              61,
+              -19
+            ],
+            "size_m": [
+              12,
+              4,
+              9
+            ]
+          },
+          {
+            "offset_m": [
+              35,
+              -47
+            ],
+            "size_m": [
+              24,
+              5,
+              10
+            ]
+          }
+        ],
+        "tanks": [
+          {
+            "offset_m": [
+              72,
+              -41
+            ],
+            "radius_m": 3.2,
+            "height_m": 9
+          },
+          {
+            "offset_m": [
+              81,
+              -41
+            ],
+            "radius_m": 3.2,
+            "height_m": 9
+          }
+        ],
+        "stockpile": {
+          "offset_m": [
+            18,
+            -42
+          ],
+          "radius_m": 10,
+          "height_m": 6
+        },
+        "ground_detail": "assets/textures/brown_mud_dry_diff.jpg"
+      },
+      "camera": [
+        155,
+        170,
+        215
+      ],
+      "target": [
+        0,
+        3,
+        -8
+      ],
+      "site_origin_m": [
+        -800,
+        0,
+        650
+      ],
+      "yard_size_m": [
+        170,
+        145
+      ],
+      "buildings": [
+        {
+          "position": [
+            -45,
+            0,
+            -38
+          ],
+          "size": [
+            26,
+            8,
+            15
+          ]
+        },
+        {
+          "position": [
+            38,
+            0,
+            -36
+          ],
+          "size": [
+            32,
+            9,
+            17
+          ]
+        },
+        {
+          "position": [
+            40,
+            0,
+            26
+          ],
+          "size": [
+            20,
+            6,
+            12
+          ]
+        }
+      ],
+      "portal_position": [
+        0,
+        0,
+        -58
+      ],
+      "tree_seed": 7431,
+      "tree_count": 170,
+      "detail_map": "assets/textures/brown_mud_dry_diff.jpg"
+    },
+    "wall": "assets/textures/rock_wall_09_diff.jpg",
+    "wall_normal": "assets/textures/rock_wall_09_nor_gl.jpg",
+    "floor": "assets/textures/brown_mud_dry_diff.jpg",
+    "floor_normal": "assets/textures/brown_mud_dry_nor_gl.jpg",
+    "ore": "assets/textures/aerial_rocks_02_diff.jpg",
+    "ore_normal": "assets/textures/aerial_rocks_02_nor_gl.jpg",
+    "truck": "assets/models/haul-truck.json",
+    "loader": "assets/models/kessel-loader.json"
+  },
+  "space": {
+    "satellites": 2,
+    "asteroids": [
+      [
+        -6,
+        2,
+        -10,
+        0.32
+      ],
+      [
+        7,
+        -2,
+        -8,
+        0.21
+      ],
+      [
+        -7,
+        -3,
+        -16,
+        0.5
+      ],
+      [
+        6,
+        4,
+        -22,
+        0.48
+      ]
+    ],
+    "star_seed": 741,
+    "star_count": 1100
+  },
+  "timing": {
+    "nominal_story_seconds": 60,
+    "start_seconds": 1.8,
+    "flight_seconds": 7,
+    "entrance_seconds": 3.4,
+    "model_glimpse_seconds": 3.8
+  },
+  "mine": {
+    "floor_y": -12,
+    "base": {
+      "position": [
+        0,
+        -22,
+        0
+      ],
+      "size": [
+        164,
+        20,
+        132
+      ]
+    },
+    "floor_size": [
+      164,
+      132
+    ],
+    "pillars": [
+      {
+        "position": [
+          -33,
+          -6,
+          -25
+        ],
+        "size": [
+          38,
+          12,
+          27
+        ]
+      },
+      {
+        "position": [
+          28,
+          -6,
+          -25
+        ],
+        "size": [
+          42,
+          12,
+          27
+        ]
+      },
+      {
+        "position": [
+          -33,
+          -6,
+          29
+        ],
+        "size": [
+          38,
+          12,
+          28
+        ]
+      },
+      {
+        "position": [
+          28,
+          -6,
+          29
+        ],
+        "size": [
+          42,
+          12,
+          28
+        ]
+      }
+    ],
+    "camera": [
+      100,
+      280,
+      150
+    ],
+    "target": [
+      -4,
+      -10,
+      0
+    ],
+    "rims": [
+      {
+        "position": [
+          0,
+          -5,
+          -64
+        ],
+        "size": [
+          164,
+          14,
+          4
+        ]
+      },
+      {
+        "position": [
+          -80,
+          -5,
+          0
+        ],
+        "size": [
+          4,
+          14,
+          132
+        ]
+      },
+      {
+        "position": [
+          80,
+          -5,
+          0
+        ],
+        "size": [
+          4,
+          14,
+          132
+        ]
+      }
+    ],
+    "excavator": {
+      "model": "assets/models/excavator/excavator.gltf",
+      "vehicle_id": "haul-01",
+      "offset_m": [
+        2,
+        0,
+        -6
+      ],
+      "length_m": 7,
+      "boom_bone_index": 1,
+      "bucket_bone_index": 5,
+      "target_offset_m": [
+        -2,
+        0,
+        0
+      ]
+    },
+    "ore_piles": [
+      [
+        -59,
+        -12,
+        -1
+      ],
+      [
+        39,
+        -12,
+        -55
+      ],
+      [
+        39,
+        -12,
+        55
+      ]
+    ],
+    "lamps": [
+      [
+        -61,
+        3,
+        -42
+      ],
+      [
+        62,
+        3,
+        -42
+      ],
+      [
+        -61,
+        3,
+        43
+      ],
+      [
+        62,
+        3,
+        43
+      ]
+    ],
+    "network": {
+      "meta": {
+        "id": "phase10-cutaway",
+        "seed": 2026
+      },
+      "design": {
+        "cross_section": {
+          "width_m": 12,
+          "height_m": 5
+        }
+      },
+      "nodes": [
+        {
+          "id": "draw",
+          "kind": "draw_point",
+          "position_m": [
+            -50,
+            -12,
+            2
+          ]
+        },
+        {
+          "id": "tip-north",
+          "kind": "tipping_point",
+          "position_m": [
+            36,
+            -12,
+            -52
+          ]
+        },
+        {
+          "id": "tip-south",
+          "kind": "tipping_point",
+          "position_m": [
+            36,
+            -12,
+            52
+          ]
+        }
+      ],
+      "segments": [
+        {
+          "id": "north-out",
+          "from": "draw",
+          "to": "tip-north",
+          "centerline_m": [
+            [
+              -50,
+              -12,
+              2
+            ],
+            [
+              -20,
+              -12,
+              2
+            ],
+            [
+              20,
+              -12,
+              2
+            ],
+            [
+              50,
+              -12,
+              2
+            ],
+            [
+              57,
+              -12,
+              -1
+            ],
+            [
+              62,
+              -12,
+              -6
+            ],
+            [
+              64,
+              -12,
+              -12
+            ],
+            [
+              64,
+              -12,
+              -36
+            ],
+            [
+              62,
+              -12,
+              -44
+            ],
+            [
+              56,
+              -12,
+              -50
+            ],
+            [
+              50,
+              -12,
+              -52
+            ],
+            [
+              36,
+              -12,
+              -52
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        },
+        {
+          "id": "north-back",
+          "from": "tip-north",
+          "to": "draw",
+          "centerline_m": [
+            [
+              36,
+              -12,
+              -52
+            ],
+            [
+              -48,
+              -12,
+              -52
+            ],
+            [
+              -56,
+              -12,
+              -50
+            ],
+            [
+              -62,
+              -12,
+              -44
+            ],
+            [
+              -64,
+              -12,
+              -36
+            ],
+            [
+              -64,
+              -12,
+              -12
+            ],
+            [
+              -62,
+              -12,
+              -6
+            ],
+            [
+              -57,
+              -12,
+              -1
+            ],
+            [
+              -50,
+              -12,
+              2
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        },
+        {
+          "id": "south-out",
+          "from": "draw",
+          "to": "tip-south",
+          "centerline_m": [
+            [
+              -50,
+              -12,
+              2
+            ],
+            [
+              -20,
+              -12,
+              2
+            ],
+            [
+              20,
+              -12,
+              2
+            ],
+            [
+              50,
+              -12,
+              2
+            ],
+            [
+              57,
+              -12,
+              5
+            ],
+            [
+              62,
+              -12,
+              10
+            ],
+            [
+              64,
+              -12,
+              16
+            ],
+            [
+              64,
+              -12,
+              36
+            ],
+            [
+              62,
+              -12,
+              44
+            ],
+            [
+              56,
+              -12,
+              50
+            ],
+            [
+              50,
+              -12,
+              52
+            ],
+            [
+              36,
+              -12,
+              52
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        },
+        {
+          "id": "south-back",
+          "from": "tip-south",
+          "to": "draw",
+          "centerline_m": [
+            [
+              36,
+              -12,
+              52
+            ],
+            [
+              -48,
+              -12,
+              52
+            ],
+            [
+              -56,
+              -12,
+              50
+            ],
+            [
+              -62,
+              -12,
+              44
+            ],
+            [
+              -64,
+              -12,
+              36
+            ],
+            [
+              -64,
+              -12,
+              16
+            ],
+            [
+              -62,
+              -12,
+              10
+            ],
+            [
+              -57,
+              -12,
+              5
+            ],
+            [
+              -50,
+              -12,
+              2
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        },
+        {
+          "id": "north-fast-out",
+          "from": "draw",
+          "to": "tip-north",
+          "centerline_m": [
+            [
+              -50,
+              -12,
+              2
+            ],
+            [
+              -20,
+              -12,
+              0
+            ],
+            [
+              20,
+              -12,
+              0
+            ],
+            [
+              50,
+              -12,
+              2
+            ],
+            [
+              57,
+              -12,
+              -1
+            ],
+            [
+              62,
+              -12,
+              -6
+            ],
+            [
+              64,
+              -12,
+              -12
+            ],
+            [
+              64,
+              -12,
+              -36
+            ],
+            [
+              62,
+              -12,
+              -44
+            ],
+            [
+              56,
+              -12,
+              -50
+            ],
+            [
+              50,
+              -12,
+              -52
+            ],
+            [
+              36,
+              -12,
+              -52
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        },
+        {
+          "id": "north-fast-back",
+          "from": "tip-north",
+          "to": "draw",
+          "centerline_m": [
+            [
+              36,
+              -12,
+              -52
+            ],
+            [
+              -48,
+              -12,
+              -52
+            ],
+            [
+              -56,
+              -12,
+              -50
+            ],
+            [
+              -62,
+              -12,
+              -44
+            ],
+            [
+              -64,
+              -12,
+              -36
+            ],
+            [
+              -64,
+              -12,
+              -12
+            ],
+            [
+              -62,
+              -12,
+              -6
+            ],
+            [
+              -57,
+              -12,
+              -1
+            ],
+            [
+              -50,
+              -12,
+              2
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        },
+        {
+          "id": "south-fast-out",
+          "from": "draw",
+          "to": "tip-south",
+          "centerline_m": [
+            [
+              -50,
+              -12,
+              2
+            ],
+            [
+              -20,
+              -12,
+              4
+            ],
+            [
+              20,
+              -12,
+              4
+            ],
+            [
+              50,
+              -12,
+              2
+            ],
+            [
+              57,
+              -12,
+              5
+            ],
+            [
+              62,
+              -12,
+              10
+            ],
+            [
+              64,
+              -12,
+              16
+            ],
+            [
+              64,
+              -12,
+              36
+            ],
+            [
+              62,
+              -12,
+              44
+            ],
+            [
+              56,
+              -12,
+              50
+            ],
+            [
+              50,
+              -12,
+              52
+            ],
+            [
+              36,
+              -12,
+              52
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        },
+        {
+          "id": "south-fast-back",
+          "from": "tip-south",
+          "to": "draw",
+          "centerline_m": [
+            [
+              36,
+              -12,
+              52
+            ],
+            [
+              -48,
+              -12,
+              52
+            ],
+            [
+              -56,
+              -12,
+              50
+            ],
+            [
+              -62,
+              -12,
+              44
+            ],
+            [
+              -64,
+              -12,
+              36
+            ],
+            [
+              -64,
+              -12,
+              16
+            ],
+            [
+              -62,
+              -12,
+              10
+            ],
+            [
+              -57,
+              -12,
+              5
+            ],
+            [
+              -50,
+              -12,
+              2
+            ]
+          ],
+          "width_m": 12,
+          "height_m": 5,
+          "kind": "haulage_drift",
+          "grade_percent": 0
+        }
+      ],
+      "graph": {
+        "directed": true,
+        "nodes": [
+          {
+            "id": "draw",
+            "kind": "draw_point",
+            "position_m": [
+              -50,
+              -12,
+              2
+            ]
+          },
+          {
+            "id": "tip-north",
+            "kind": "tipping_point",
+            "position_m": [
+              36,
+              -12,
+              -52
+            ]
+          },
+          {
+            "id": "tip-south",
+            "kind": "tipping_point",
+            "position_m": [
+              36,
+              -12,
+              52
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "id": "north-out",
+            "segment_id": "north-out",
+            "from": "draw",
+            "to": "tip-north",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          },
+          {
+            "id": "north-back",
+            "segment_id": "north-back",
+            "from": "tip-north",
+            "to": "draw",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          },
+          {
+            "id": "south-out",
+            "segment_id": "south-out",
+            "from": "draw",
+            "to": "tip-south",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          },
+          {
+            "id": "south-back",
+            "segment_id": "south-back",
+            "from": "tip-south",
+            "to": "draw",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          },
+          {
+            "id": "north-fast-out",
+            "segment_id": "north-fast-out",
+            "from": "draw",
+            "to": "tip-north",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          },
+          {
+            "id": "north-fast-back",
+            "segment_id": "north-fast-back",
+            "from": "tip-north",
+            "to": "draw",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          },
+          {
+            "id": "south-fast-out",
+            "segment_id": "south-fast-out",
+            "from": "draw",
+            "to": "tip-south",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          },
+          {
+            "id": "south-fast-back",
+            "segment_id": "south-fast-back",
+            "from": "tip-south",
+            "to": "draw",
+            "one_way": true,
+            "width_m": 12,
+            "grade_percent": 0
+          }
+        ]
+      }
+    },
+    "routes": [
+      {
+        "id": "cycle-1",
+        "vehicle_id": "haul-01",
+        "source": "scripted",
+        "status": "unoptimised",
+        "node_ids": [
+          "draw",
+          "tip-north",
+          "draw"
+        ],
+        "edge_ids": [
+          "north-out",
+          "north-back"
+        ],
+        "optimised_node_ids": [
+          "draw",
+          "tip-north",
+          "draw"
+        ],
+        "optimised_edge_ids": [
+          "north-out",
+          "north-back"
+        ]
+      },
+      {
+        "id": "cycle-2",
+        "vehicle_id": "haul-02",
+        "source": "scripted",
+        "status": "unoptimised",
+        "node_ids": [
+          "draw",
+          "tip-north",
+          "draw"
+        ],
+        "edge_ids": [
+          "north-out",
+          "north-back"
+        ],
+        "optimised_node_ids": [
+          "draw",
+          "tip-south",
+          "draw"
+        ],
+        "optimised_edge_ids": [
+          "south-out",
+          "south-back"
+        ]
+      },
+      {
+        "id": "cycle-3",
+        "vehicle_id": "haul-03",
+        "source": "scripted",
+        "status": "unoptimised",
+        "node_ids": [
+          "draw",
+          "tip-north",
+          "draw"
+        ],
+        "edge_ids": [
+          "north-out",
+          "north-back"
+        ],
+        "optimised_node_ids": [
+          "draw",
+          "tip-north",
+          "draw"
+        ],
+        "optimised_edge_ids": [
+          "north-fast-out",
+          "north-fast-back"
+        ]
+      },
+      {
+        "id": "cycle-4",
+        "vehicle_id": "haul-04",
+        "source": "scripted",
+        "status": "unoptimised",
+        "node_ids": [
+          "draw",
+          "tip-north",
+          "draw"
+        ],
+        "edge_ids": [
+          "north-out",
+          "north-back"
+        ],
+        "optimised_node_ids": [
+          "draw",
+          "tip-south",
+          "draw"
+        ],
+        "optimised_edge_ids": [
+          "south-fast-out",
+          "south-fast-back"
+        ]
+      }
+    ],
+    "fleet": {
+      "time_scale": 3.4,
+      "speed_mps": {
+        "unoptimised": 1.8,
+        "converged": 2.4
+      },
+      "vehicle_speed_variation_mps": 0.06,
+      "grade_speed_sensitivity": 0.25,
+      "max_grade_speed_reduction": 0.3,
+      "prediction_horizon_m": 8,
+      "queue_radius_m": 13,
+      "queued_speed_factor": 0.08,
+      "dwell_seconds": {
+        "loading": 3.8,
+        "tipping": 3.2
+      },
+      "inspection_time_scale": 3.4,
+      "vehicles": [
+        {
+          "id": "haul-01",
+          "phase_offset": 0
+        },
+        {
+          "id": "haul-02",
+          "phase_offset": 0.09
+        },
+        {
+          "id": "haul-03",
+          "phase_offset": 0.12
+        },
+        {
+          "id": "haul-04",
+          "phase_offset": 0.62
+        }
+      ]
+    },
+    "trained_offsets": [
+      0,
+      0.32,
+      0.58,
+      0.81
+    ],
+    "baseline_holds": [
+      {
+        "vehicle_id": "haul-03",
+        "period_seconds": 16,
+        "hold_seconds": 8
+      }
+    ],
+    "prediction_preview": {
+      "source": "scripted",
+      "description": "Authored future positions compared with the scripted route; not learned inference.",
+      "samples": [
+        {
+          "horizon_seconds": 1,
+          "error_m": 0.06
+        },
+        {
+          "horizon_seconds": 2,
+          "error_m": 0.12
+        },
+        {
+          "horizon_seconds": 3,
+          "error_m": 0.23
+        }
+      ]
+    }
+  },
+  "operations": {
+    "source": "illustrative",
+    "currency": "GBP",
+    "fleet_size": 4,
+    "payload_t": 12,
+    "batch_t": 704,
+    "planned_batch_hours": 7,
+    "overhead_gbp_hour": 180,
+    "before": {
+      "cycle_minutes": 18,
+      "utilisation": 0.55,
+      "machine_cost_hour": 240,
+      "idle_percent": 38
+    },
+    "after": {
+      "cycle_minutes": 15,
+      "utilisation": 0.6875,
+      "machine_cost_hour": 220,
+      "idle_percent": 14
+    },
+    "assumptions_note": "Illustrative mechanised tin-ore scenario, not Rutongo mine telemetry. Compare the same 704 t ore batch; rates are scenario assumptions, not a supplier quote.",
+    "labels": [
+      "Ore hauled",
+      "Schedule",
+      "Idle time",
+      "Operating cost",
+      "Money saved",
+      "Time saved"
+    ]
+  },
+  "training": {
+    "source": "illustrative",
+    "replay_seconds": 8,
+    "episodes": 2400000,
+    "task": "Scoop and haul",
+    "capacity_t": 3.5,
+    "floor_size": [
+      30,
+      34
+    ],
+    "pile_position": [
+      0,
+      0,
+      -6
+    ],
+    "bin_position": [
+      9,
+      0,
+      -5
+    ],
+    "camera": [
+      25,
+      20,
+      28
+    ],
+    "target": [
+      2,
+      1,
+      0
+    ],
+    "checkpoints": [
+      {
+        "id": "early",
+        "name": "Early policy",
+        "episodes": 1200,
+        "reward": -0.12,
+        "load_t": 0,
+        "outcome": "Bucket too high. No ore collected.",
+        "colour": "#e66f60"
+      },
+      {
+        "id": "learning",
+        "name": "Learning",
+        "episodes": 800000,
+        "reward": 0.42,
+        "load_t": 1.4,
+        "outcome": "Partial load. Spillage on the return.",
+        "colour": "#d5ac6c"
+      },
+      {
+        "id": "trained",
+        "name": "Trained policy",
+        "episodes": 2400000,
+        "reward": 0.94,
+        "load_t": 3.2,
+        "outcome": "Ore collected and delivered.",
+        "colour": "#8fcaa5"
+      }
+    ],
+    "concepts": [
+      {
+        "name": "Observation",
+        "description": "Sensors describe the machine and its surroundings."
+      },
+      {
+        "name": "Action",
+        "description": "The policy chooses steering, motion and bucket control."
+      },
+      {
+        "name": "Reward",
+        "description": "Useful ore delivered is rewarded; spillage and delay are penalised."
+      },
+      {
+        "name": "Policy",
+        "description": "Later checkpoints turn those outcomes into better actions."
+      }
+    ],
+    "keyframes": [
+      {
+        "t": 0,
+        "p": [
+          0,
+          0,
+          8
+        ],
+        "yaw": 3.141592653589793,
+        "boom": 0,
+        "bucket": 0.05,
+        "fill": 0,
+        "action": "Approach the ore"
+      },
+      {
+        "t": 0.22,
+        "p": [
+          0,
+          0,
+          -1.2
+        ],
+        "yaw": 3.141592653589793,
+        "boom": 0,
+        "bucket": 0.04,
+        "fill": 0,
+        "action": "Lower the bucket"
+      },
+      {
+        "t": 0.36,
+        "p": [
+          0,
+          0,
+          -1.35
+        ],
+        "yaw": 3.141592653589793,
+        "boom": -0.04,
+        "bucket": -0.28,
+        "fill": 1,
+        "action": "Scoop and curl"
+      },
+      {
+        "t": 0.5,
+        "p": [
+          0,
+          0,
+          4.5
+        ],
+        "yaw": 3.141592653589793,
+        "boom": -0.16,
+        "bucket": -0.3,
+        "fill": 1,
+        "action": "Reverse clear"
+      },
+      {
+        "t": 0.64,
+        "p": [
+          8,
+          0,
+          7
+        ],
+        "yaw": 1.5707963267948966,
+        "boom": -0.18,
+        "bucket": -0.28,
+        "fill": 1,
+        "action": "Haul the load"
+      },
+      {
+        "t": 0.82,
+        "p": [
+          9,
+          0,
+          -0.6
+        ],
+        "yaw": 3.141592653589793,
+        "boom": -0.21,
+        "bucket": -0.22,
+        "fill": 1,
+        "action": "Approach the ore bay"
+      },
+      {
+        "t": 0.95,
+        "p": [
+          9,
+          0,
+          -0.6
+        ],
+        "yaw": 3.141592653589793,
+        "boom": -0.3,
+        "bucket": 0.55,
+        "fill": 0,
+        "action": "Deliver the ore"
+      },
+      {
+        "t": 1,
+        "p": [
+          9,
+          0,
+          -0.6
+        ],
+        "yaw": 3.141592653589793,
+        "boom": -0.05,
+        "bucket": 0.05,
+        "fill": 0,
+        "action": "Episode complete"
+      }
+    ]
+  },
+  "kit": {
+    "source": "proposed",
+    "camera": [
+      8,
+      6,
+      10
+    ],
+    "target": [
+      0,
+      2,
+      0
+    ],
+    "components": [
+      {
+        "id": "enclosure",
+        "name": "Rugged enclosure",
+        "description": "Protects the onboard system.",
+        "size": [
+          3.4,
+          0.45,
+          2.6
+        ],
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "explode": [
+          0,
+          -0.5,
+          0
+        ],
+        "colour": "#32383b"
+      },
+      {
+        "id": "power",
+        "name": "Power interface",
+        "description": "Connects the kit to machine power.",
+        "size": [
+          1.2,
+          0.25,
+          1
+        ],
+        "position": [
+          -0.8,
+          0.4,
+          0
+        ],
+        "explode": [
+          -1.1,
+          0.5,
+          0.6
+        ],
+        "colour": "#556154"
+      },
+      {
+        "id": "compute",
+        "name": "Onboard compute",
+        "description": "Runs the distilled policy locally.",
+        "size": [
+          1.7,
+          0.32,
+          1.4
+        ],
+        "position": [
+          0.2,
+          0.68,
+          0
+        ],
+        "explode": [
+          0,
+          1.3,
+          0
+        ],
+        "colour": "#464d50"
+      },
+      {
+        "id": "controls",
+        "name": "Machine controls",
+        "description": "Connects policy actions to the existing machine.",
+        "size": [
+          0.7,
+          0.3,
+          1.4
+        ],
+        "position": [
+          1.05,
+          0.4,
+          0
+        ],
+        "explode": [
+          1.2,
+          0.65,
+          0.6
+        ],
+        "colour": "#74634e"
+      },
+      {
+        "id": "lidar",
+        "name": "LiDAR + pose",
+        "description": "Reads geometry and machine movement.",
+        "size": [
+          0.72,
+          0.5,
+          0.72
+        ],
+        "position": [
+          -0.9,
+          1.2,
+          0.2
+        ],
+        "explode": [
+          -2,
+          2.6,
+          -0.4
+        ],
+        "colour": "#b5b5ab"
+      },
+      {
+        "id": "camera",
+        "name": "Stereo vision",
+        "description": "Adds visual context to local sensing.",
+        "size": [
+          1.3,
+          0.45,
+          0.5
+        ],
+        "position": [
+          0.5,
+          1.2,
+          0.5
+        ],
+        "explode": [
+          1.6,
+          2.9,
+          -0.2
+        ],
+        "colour": "#2b3235"
+      },
+      {
+        "id": "cover",
+        "name": "Thermal cover",
+        "description": "Transfers heat out of the compute assembly.",
+        "size": [
+          3.4,
+          0.22,
+          2.6
+        ],
+        "position": [
+          0,
+          1.02,
+          0
+        ],
+        "explode": [
+          0,
+          3.9,
+          0
+        ],
+        "colour": "#9c9e98"
+      }
+    ],
+    "lighting": {
+      "path": "assets/lighting/kit-studio.bin",
+      "width": 384,
+      "height": 512
+    }
+  }
+}
