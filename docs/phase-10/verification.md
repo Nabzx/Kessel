@@ -84,3 +84,8 @@ A focused native-GPU run without screenshot/video capture exercised the normal
 comparison frame interval was 16.8 ms across 228 frames; the following warmed
 mine sample averaged 58.7 fps. No console error was reported. See
 [focused measurements](focus-verification.json).
+
+A focused loader check reconciles mesh fill with the mass readout: the early
+checkpoint collects 0 t, the improving checkpoint 1.4 t before spilling to
+0.7 t, and the trained checkpoint 3.2 t. Bucket capacity is 3.5 t. Both the
+visible fill and displayed tonnes use the same fraction of that capacity.

@@ -174,12 +174,12 @@ export async function createLearning(config) {
       fill: THREE.MathUtils.lerp(a.fill, b.fill, t),
       action: a.action,
     };
+    state.fill *= data.checkpoints[index].load_t / data.capacity_t;
     if (index === 0) {
       state.boom = -0.38;
       state.fill = 0;
       if (phase > 0.36) state.action = "Missed load";
     } else if (index === 1) {
-      state.fill *= 0.45;
       if (phase > 0.55) state.fill *= 0.5;
     }
     return state;
@@ -253,7 +253,7 @@ export async function createLearning(config) {
       index,
       action: state.action,
       reward: data.checkpoints[index].reward,
-      load_t: state.fill * data.checkpoints[index].load_t,
+      load_t: state.fill * data.capacity_t,
       running,
       paused,
       phase: local,
