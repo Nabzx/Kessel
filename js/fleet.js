@@ -202,7 +202,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
     optimisedRibbons.length = 0;
     entries.forEach((entry, index) => {
       const wasReturning = entry.phase === "returning";
-      entry.path = routePoints(network, value ? { ...entry.route, edge_ids: entry.route.optimised_edge_ids } : entry.route);
+      entry.path = routePoints(network, value ? { ...entry.route, node_ids: entry.route.optimised_node_ids || entry.route.node_ids, edge_ids: entry.route.optimised_edge_ids } : entry.route);
       const distance = nearestDistance(entry.path, entry.truck.position, wasReturning);
       entry.distance = distance;
       entry.speed = (value ? fleetConfig.speed_mps.converged : fleetConfig.speed_mps.unoptimised) + index * fleetConfig.vehicle_speed_variation_mps;

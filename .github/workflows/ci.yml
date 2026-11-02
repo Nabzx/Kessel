@@ -16,5 +16,7 @@ jobs:
         run: for file in js/*.js; do node --check "$file"; done
       - name: Validate the mission and network
         run: python3 data/validate_tunnel_network.py
+      - name: Validate the cinematic experience
+        run: python3 data/validate_experience.py
       - name: Check whitespace
         run: git diff --check
