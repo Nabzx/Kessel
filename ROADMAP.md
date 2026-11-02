@@ -125,3 +125,19 @@ oriented through a full haul cycle, and payload and browser measurements are
 reported honestly. See [ADR-0027](docs/adr/0027-phase-9-demo-completion.md) and
 the [verification report](docs/demo/phase-9-verification.md). Real-device
 performance evidence must be distinguished from browser emulation.
+
+### Phase 10: Cinematic offline-autonomy experience
+
+Map: [#173](https://github.com/Nabzx/Kessel/issues/173), with child tickets
+#174–#195. The approved storyboard replaces the Phase 9 presentation. It
+centres realistic Earth and a custom wordmark, adds five themed environments,
+flies continuously into Rwanda, exposes a tilted mine cutaway, compares six
+GBP operating measures, and branches into technical loader learning. Ordinary
+scrolling explains dynamics, RL, distillation and onboard compute, followed by
+a proposed exploded kit. Pricing and manual override are excluded.
+
+The MacBook Pro M1/Chrome is the presentation target. See
+[design and timing](docs/phase-10/design.md),
+[verification](docs/phase-10/verification.md), and
+[visual review](docs/phase-10/visual-review.md). Functional implementation and
+maintainer visual acceptance are recorded separately.

@@ -31,8 +31,8 @@ purpose. The memorable element is the continuous geographic/cutaway journey.
 ## Story timing
 
 Welcome 6 s; carousel 8 s; descent 7 s; surface 6 s; portal/cutaway reveal 4 s;
-baseline mine 10 s; model glimpse 3 s; trained comparison 10 s; scroll hand-off
-6 s. Total 60 s. These are presenter pacing cues, not forced auto-advance.
+baseline mine 10 s; model glimpse 4 s; trained comparison 10 s; scroll hand-off
+5 s. Total 60 s. These are presenter pacing cues, not forced auto-advance.
 
 ## Brief review
 
