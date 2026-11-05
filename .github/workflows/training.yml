@@ -22,3 +22,5 @@ jobs:
         run: uv sync --locked
       - name: Test experiment contracts and packaging
         run: uv run --locked pytest
+      - name: Run bounded CPU workload smoke check
+        run: uv run --locked python -m kessel_training.benchmark --smoke --output /tmp/kessel-cpu-smoke.json

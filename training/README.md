@@ -13,6 +13,7 @@ From this directory:
 ```sh
 uv sync --locked
 uv run --locked pytest
+uv run --locked python -m kessel_training.benchmark --output runs/cpu-spike.json
 ```
 
 The project creates its own ignored `training/.venv`. It does not touch a
@@ -27,6 +28,13 @@ tests and compare the numerical/benchmark effects before accepting an update.
 Dependabot covers this uv manifest and GitHub Actions. Vendored Three.js files
 remain governed by their explicit version/update procedure. Dependabot changes
 are reviewed and re-landed under the maintainer as CONTRIBUTING.md requires.
+
+The benchmark compares 1/16/32/64 environments and a small real PyTorch
+gradient workload. It is a disposable feasibility spike, not PPO, a trained
+controller or the final loader simulator. Primitive decisions advance ten
+times as much physical time as control decisions, so compare physical substeps
+as well as decisions/second. It reports actual episode, step and update counts,
+wall time, versions, source identity and cumulative process peak RSS.
 
 ## Static presentation package
 
