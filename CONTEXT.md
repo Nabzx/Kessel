@@ -9,7 +9,9 @@ for how an agent should use this file.
 Kessel builds physical AI for extreme environments, starting with underground
 mining: loaders trained inside a learned world model, running fully offline on
 a retrofit computer once deployed. This repo is not the training stack or the
-onboard runtime. It is the **concept visualisation**: a static, data-driven web
+onboard runtime. Phase 11 adds isolated CPU-first synthetic experiment tooling
+under `training/`; it is not a production control stack. The shipped site is
+the **concept visualisation**: a static, data-driven web
 demo that shows how the approach works, for people (initially, YC and EWOR
 partners) who cannot visit a mine or read a policy's weights.
 
@@ -22,11 +24,22 @@ baseline/trained comparison. A dedicated technical viewer demonstrates loader
 failure and improvement through scripted checkpoint replay. Ordinary scrolling
 then explains the proposed training/deployment pipeline and exploded kit.
 
-`data/experience.json` is the active authored contract. The learned dynamics,
-reinforcement-learning pipeline and onboard runtime are the proposed product;
-they are not implemented in this repository. See ADRs 0028–0030.
+`data/experience.json` is the active authored contract. ADR-0031 separates the
+Phase 11 experimental tools and future recorded-synthetic bundles from that
+default presentation. Learned dynamics, policy training and model-assisted
+updates need their own implementation and evaluation evidence; none is implied
+by the current cinematic replay. The onboard runtime remains proposed.
+See ADRs 0028–0032.
 
 ## Glossary
+
+**Recorded synthetic experiment** — a reproducible simulator run with source
+version, configuration, seed, controller or checkpoint identity and measured
+outputs. It is neither real-mine telemetry nor evidence of deployment savings.
+
+**Reference simulator** — the explicit synthetic environment used to generate
+transitions and independently evaluate predictions. Its deterministic dynamics
+are distinct from the learned world model.
 
 **Mission dataset** — the historical Phase 9 authored data contract in
 `data/mission.json`. It describes the location, staged scene references,

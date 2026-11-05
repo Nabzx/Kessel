@@ -1,5 +1,8 @@
 # Architecture decision records
 
+Phase 11: [synthetic learning boundary](0031-synthetic-learning-and-presentation-boundary.md)
+and [Selene reuse](0032-selene-reuse-and-loader-prototype.md).
+
 Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
 [learning presentation](0029-world-model-learning-presentation.md) and
 [cinematic architecture](0030-cinematic-experience-architecture.md).
