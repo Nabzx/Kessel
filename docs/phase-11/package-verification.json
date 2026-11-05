@@ -1,0 +1,139 @@
+{
+  "browser": "156.0.8078.80",
+  "date": "2026-11-05T01:32:04.443Z",
+  "checks": [
+    "Five carousel themes; only underground deploys",
+    "All six GBP measures match same-batch arithmetic",
+    "Before/after is repeatable; weak connectivity retained",
+    "Training pause, resume, 2.4m completion, three checkpoints, replay and Escape return",
+    "World-model entry from product restores scroll and result",
+    "Seven proposed kit parts; assembly and keyboard focus",
+    "Laptop layouts, sources and native dialog dismissal",
+    "Missing terrain retries, reduced motion and full restart"
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "readyMs": 941.2000000476837,
+  "frameTails": {
+    "welcome": {
+      "frames": 350,
+      "p95Ms": 16.700000000000728,
+      "maxMs": 300
+    },
+    "select": {
+      "frames": 313,
+      "p95Ms": 16.799999999999272,
+      "maxMs": 66.80000000000018
+    },
+    "flight": {
+      "frames": 409,
+      "p95Ms": 16.799999999999272,
+      "maxMs": 216.6999999999989
+    },
+    "surface": {
+      "frames": 351,
+      "p95Ms": 16.700000000000728,
+      "maxMs": 183.29999999999927
+    },
+    "entering": {
+      "frames": 138,
+      "p95Ms": 33.400000000001455,
+      "maxMs": 316.7999999999993
+    },
+    "mine": {
+      "frames": 516,
+      "p95Ms": 16.700000000004366,
+      "maxMs": 50
+    },
+    "comparing": {
+      "frames": 807,
+      "p95Ms": 16.700000000004366,
+      "maxMs": 50
+    },
+    "trained": {
+      "frames": 1190,
+      "p95Ms": 16.799999999995634,
+      "maxMs": 116.69999999999709
+    },
+    "learning": {
+      "frames": 1703,
+      "p95Ms": 16.79999999998836,
+      "maxMs": 133.29999999999563
+    }
+  },
+  "final": {
+    "stage": "trained",
+    "environment": "underground",
+    "comparison": true,
+    "scrollY": 0,
+    "kitActive": false,
+    "drawCalls": 144,
+    "triangles": 47338,
+    "textures": 30,
+    "pixelRatio": 1.5,
+    "heapUsedBytes": 29434973,
+    "meanFps": 55.96144877972952,
+    "p95FrameMs": 16.80000000000291,
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+  },
+  "samples": [
+    {
+      "name": "welcome",
+      "meanFps": 60.00400026668444,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5,
+      "drawCalls": 15
+    },
+    {
+      "name": "surface",
+      "meanFps": 60.00200006666893,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5,
+      "drawCalls": 55
+    },
+    {
+      "name": "baseline",
+      "meanFps": 60.00200006666893,
+      "p95FrameMs": 16.700000000004366,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5,
+      "drawCalls": 145
+    },
+    {
+      "name": "trained",
+      "meanFps": 60.00200006666886,
+      "p95FrameMs": 16.799999999995634,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5,
+      "drawCalls": 144
+    },
+    {
+      "name": "learning",
+      "meanFps": 60.002000066669005,
+      "p95FrameMs": 16.80000000000291,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5,
+      "drawCalls": 45
+    },
+    {
+      "name": "kit",
+      "meanFps": 60.002000066669005,
+      "p95FrameMs": 16.70000000001164,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5,
+      "drawCalls": 30
+    }
+  ],
+  "source_commit": "6bd7a7b60fde06503aca5df3eac21072432184e3",
+  "workspace_changes": [
+    "css/experience.css: existing uncommitted hero-position adjustment"
+  ],
+  "package": {
+    "files": 60,
+    "bytes": 13516974,
+    "source": "scripts/package-static.py",
+    "url": "http://127.0.0.1:8093/"
+  }
+}

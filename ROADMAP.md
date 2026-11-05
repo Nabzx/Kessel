@@ -159,5 +159,6 @@ Architecture changes require the superseding ADRs in the foundation tickets.
 
 **Done when:** reproducible experiments and honest recorded playback accompany
 the realistic presentation, with measured native M1 performance, asset notices,
-offline verification and maintainer visual acceptance. Tracker creation is
-complete; implementation and experimental results remain future work.
+offline verification and maintainer visual acceptance. The initial architecture
+and measured CPU feasibility batch are in PRs #282 and #283; full task learning,
+world models, recorded integration and visual changes remain open work.
