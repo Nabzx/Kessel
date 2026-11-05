@@ -15,3 +15,11 @@ package-lock.json
 !assets/**/*.png
 shot*.js
 __pycache__/
+
+# isolated experiment tools and raw artefacts
+.venv/
+.pytest_cache/
+training/runs/
+training/checkpoints/
+training/raw/
+.uv-cache/
