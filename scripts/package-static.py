@@ -23,7 +23,10 @@ def static_files(source):
                 continue
             if any(parent.is_symlink() for parent in path.parents if parent != source):
                 continue
-            if path.is_file() and not path.is_symlink() and path.suffix.lower() in suffixes:
+            vendored_runtime = (directory == "assets" and len(relative.parts) > 2
+                                and relative.parts[1] == "vendor"
+                                and path.suffix.lower() in {".js", ".mjs", ".wasm"})
+            if path.is_file() and not path.is_symlink() and (path.suffix.lower() in suffixes or vendored_runtime):
                 yield path
 
 

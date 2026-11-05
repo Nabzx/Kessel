@@ -6,7 +6,8 @@ Status: Accepted
 
 Prepare presentation packages with `scripts/package-static.py`, using an
 explicit allowlist: the entry page, repository licence, scene JavaScript/CSS,
-JSON data and supported local asset types. Retain licence/credit Markdown
+JSON data, locally vendored runtime modules and supported local asset types.
+Retain licence/credit Markdown
 inside `assets/`. Exclude experiment tools, environments, raw datasets,
 checkpoints, docs, Git metadata and arbitrary root files by construction.
 
