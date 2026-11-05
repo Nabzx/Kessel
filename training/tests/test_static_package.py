@@ -46,3 +46,20 @@ def test_real_entrypoint_import_map_targets_are_packaged():
     for target in imports.values():
         if target.startswith("./"):
             assert target[2:] in included, f"missing runtime module: {target}"
+
+
+def test_real_experience_asset_references_are_packaged():
+    root = Path(__file__).resolve().parents[2]
+    included = {str(p.relative_to(root)) for p in module.static_files(root)}
+
+    def visit(value):
+        if isinstance(value, dict):
+            for child in value.values():
+                visit(child)
+        elif isinstance(value, list):
+            for child in value:
+                visit(child)
+        elif isinstance(value, str) and value.startswith("assets/"):
+            assert value in included, f"missing scene asset: {value}"
+
+    visit(json.loads((root / "data/experience.json").read_text()))

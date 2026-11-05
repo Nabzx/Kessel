@@ -6,7 +6,7 @@ import shutil
 
 ASSET_SUFFIXES = {
     ".jpg", ".jpeg", ".png", ".webp", ".svg", ".woff2", ".bin", ".gltf",
-    ".glb", ".hdr", ".exr", ".ktx2", ".txt", ".md", ".ico", ".mp4",
+    ".glb", ".hdr", ".exr", ".ktx2", ".txt", ".md", ".ico", ".mp4", ".json",
 }
 
 
