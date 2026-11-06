@@ -92,7 +92,7 @@ def forecasts(ep,model):
 
 
 def export(output,report_path=None):
-    output=Path(output)
+    output=Path(output).resolve()
     if output.exists():raise FileExistsError(output)
     source=source_identity()
     if source["training_dirty"]:raise ValueError("commit training source before exporting")
