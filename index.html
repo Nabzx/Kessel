@@ -18,6 +18,7 @@
       crossorigin
     />
     <link rel="stylesheet" href="css/experience.css" />
+      <link rel="stylesheet" href="css/recorded.css" />
   </head>
   <body class="story-locked">
     <canvas
@@ -295,13 +296,13 @@
         <button class="text-button" id="exit-world-model">
           ← Return to mine</button
         ><span>World-model simulation</span
-        ><span class="replay-label">Illustrative training replay</span>
+        ><label class="learning-source-control">Source <select id="learning-source" aria-label="Learning replay source"><option value="recorded_synthetic">Recorded experiment</option><option value="authored">Concept replay</option></select></label><span class="replay-label" id="learning-source-label">Illustrative training replay</span>
       </header>
       <aside class="learning-panel">
         <p class="section-label">Reinforcement learning</p>
         <h1 id="learning-title">Scoop<br />and haul.</h1>
         <div class="episode-number">
-          <strong id="episode-count">0</strong><span>represented episodes</span>
+          <strong id="episode-count">0</strong><span id="episode-caption">represented episodes</span>
         </div>
         <div
           class="checkpoint-controls"
@@ -313,6 +314,7 @@
           ><button data-checkpoint="2">Trained</button>
         </div>
         <svg
+          id="reward-chart"
           class="reward-chart"
           viewBox="0 0 300 72"
           role="img"
@@ -328,7 +330,7 @@
         <dl class="rl-readouts">
           <div>
             <dt>Observation</dt>
-            <dd>Geometry + machine pose</dd>
+            <dd id="observation-value">Geometry + machine pose</dd>
           </div>
           <div>
             <dt>Action</dt>
@@ -343,6 +345,7 @@
             <dd id="policy-value">Early checkpoint</dd>
           </div>
         </dl>
+        <div id="observation-crop" class="observation-crop" data-recorded hidden role="img" aria-label="Recorded local height crop"></div>
         <p id="checkpoint-outcome" class="checkpoint-outcome">
           Bucket too high. No ore collected.
         </p>
@@ -350,12 +353,28 @@
           <button class="primary" id="replay-training">Replay training</button
           ><button class="secondary" id="pause-training">Pause</button>
         </div>
+        <div class="recorded-timeline" data-recorded hidden>
+          <label for="replay-scrub">Recorded decision <output id="recorded-time"></output></label>
+          <input id="replay-scrub" type="range" min="0" max="60" step="0.001" value="0" aria-label="Inspect recorded episode time" />
+          <label>Playback pace <select id="replay-pace"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+        </div>
+        <details class="recorded-provenance" data-recorded hidden><summary>Run details</summary><pre id="run-provenance"></pre></details>
+      </aside>
+      <aside class="prediction-inspector" data-recorded hidden aria-label="Recorded world-model forecast">
+        <div class="forecast-heading"><span>Raw world model</span><label>Horizon <select id="forecast-horizon"><option value="1">+1 step</option><option value="2">+2 steps</option><option value="4">+4 steps</option><option value="8">+8 steps</option></select></label></div>
+        <p id="prediction-time"></p>
+        <div class="prediction-legend"><span class="observed-key">Observed now</span><span class="reference-key">Reference future</span><span class="forecast-key">Predicted future</span></div>
+        <dl><div><dt>Position residual</dt><dd id="prediction-error"></dd></div><div><dt>Disagreement score</dt><dd id="prediction-score"></dd></div></dl>
+        <p id="member-spread" title="Final-step conditional member endpoint spread, not calibrated confidence or cumulative covariance"></p>
+        <p class="prediction-note" id="prediction-validity"></p>
+        <button class="text-button" id="inspect-forecast">Inspect forecast</button>
       </aside>
       <div class="simulation-caption">
         <span id="training-status">Imagined rollouts</span
         ><span id="payload-readout">Payload 0 / 3.5 t</span>
       </div>
     </section>
+    <aside id="experiment-error" class="experiment-error" hidden role="status"><p id="experiment-error-message">Recorded replay unavailable.</p><button class="text-button" id="retry-recorded">Retry recorded</button><button class="text-button" id="use-concept-replay">Open concept replay</button></aside>
     <div class="permanent-caption">
       <span class="caption-dot"></span><span>Concept demonstration</span
       ><span id="caption-detail">Public geography. Illustrative mission.</span
@@ -373,8 +392,9 @@
       <h2>A real location.<br />An illustrative mission.</h2>
       <p>
         Kessel is developing physical AI for extreme environments. This
-        experience illustrates the approach. It does not run a trained policy or
-        millions of live simulations.
+        experience illustrates the approach. The optional recorded experiment
+        replays identified checkpoints and raw world-model forecasts from a
+        synthetic simulator. It performs no live training or machine control.
       </p>
       <dl>
         <dt>Geography</dt>

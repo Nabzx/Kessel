@@ -41,7 +41,6 @@ let stage = "welcome",
   cameraMove = null;
 let surfacePromise,
   minePromise,
-  learningPromise,
   kitPromise,
   kitEnvironment,
   earthGoal = null,
@@ -230,21 +229,45 @@ async function getMine() {
       });
   return minePromise;
 }
-async function getLearning() {
-  if (!learningPromise)
-    learningPromise = import("./learning-stage.js")
-      .then((module) => module.createLearning(data))
+const learningCache = new Map(), learningLoads = new Map();
+let learningRequest = 0;
+async function getLearning(sourceMode = "recorded_synthetic") {
+  if (learningCache.has(sourceMode)) return learningCache.get(sourceMode);
+  if (!learningLoads.has(sourceMode)) {
+    const promise = (sourceMode === "authored"
+      ? import("./learning-stage.js").then((module) => module.createLearning(data))
+      : Promise.all([import("./recorded-stage.js"), import("./recorded-data.js")])
+          .then(async ([module, adapter]) => module.createRecorded(data, await adapter.loadExperiment())))
       .then((value) => {
-        learning = value;
-        learning.root.visible = false;
-        scene.add(learning.root);
-        return value;
+        value.sourceMode = sourceMode;
+        value.root.visible = false; scene.add(value.root);
+        learningCache.set(sourceMode, value); return value;
       })
-      .catch((error) => {
-        learningPromise = null;
-        throw error;
-      });
-  return learningPromise;
+      .catch((error) => { learningLoads.delete(sourceMode); throw error; });
+    learningLoads.set(sourceMode, promise);
+  }
+  return learningLoads.get(sourceMode);
+}
+function configureLearningUI(sourceMode) {
+  const recorded = sourceMode === "recorded_synthetic";
+  document.body.dataset.learningSource = sourceMode;
+  $("learning-source").value = sourceMode;
+  document.querySelectorAll("[data-recorded]").forEach((element) => { element.hidden = !recorded; });
+  $("learning-source-label").textContent = recorded ? "Recorded synthetic · full-7" : "Illustrative training replay";
+  $("episode-caption").textContent = recorded ? "completed training episodes" : "represented episodes";
+  $("learning-title").innerHTML = recorded ? "Policy<br />checkpoints." : "Scoop<br />and haul.";
+  $("caption-detail").textContent = recorded ? "Recorded synthetic experiment. Mine figures illustrative." : "Illustrative training replay.";
+  document.querySelectorAll("[data-checkpoint]").forEach((button, index) => {
+    button.textContent = recorded ? ["Initial", "Intermediate", "Final"][index] : ["Early", "Learning", "Trained"][index];
+  });
+  if (recorded) learning.mount();
+  else {
+    $("observation-value").textContent = "Geometry + machine pose";
+    $("reward-explanation").textContent = "Ore − spillage − delay";
+    $("reward-chart").setAttribute("aria-label", "Illustrative reward improvement over training");
+    $("reward-point").hidden = false;
+    $("reward-path").setAttribute("d", rewardPoints.map((p, i) => `${i ? "L" : "M"}${p[0]} ${p[1]}`).join(" "));
+  }
 }
 function errorStatus(message) {
   $("flight-label").hidden = false;
@@ -560,59 +583,55 @@ function updateTransition(now) {
     if (p === 1) comparisonDone(tr.trained);
   }
 }
-async function openLearning() {
-  if (stage === "learning" || !mine) return;
-  const button = document.activeElement;
+async function openLearning(requestedMode = "recorded_synthetic") {
+  if (!mine) return;
+  const sourceMode = typeof requestedMode === "string" ? requestedMode : "recorded_synthetic";
+  if (!["recorded_synthetic", "authored"].includes(sourceMode)) return;
+  const request = ++learningRequest, alreadyOpen = stage === "learning", button = document.activeElement;
   if (button?.tagName === "BUTTON") button.disabled = true;
   let value;
-  try {
-    value = await getLearning();
-  } catch {
-    errorStatus("Simulation assets unavailable. Please try again.");
+  try { value = await getLearning(sourceMode); }
+  catch (error) {
+    if (request !== learningRequest) return;
+    $("experiment-error-message").textContent = `${error.message}. Retry or choose the labelled concept replay.`;
+    $("experiment-error").hidden = false;
+    if (learning) $("learning-source").value = learning.sourceMode;
     if (button) button.disabled = false;
     return;
   }
   if (button) button.disabled = false;
-  entryContext = {
-    stage,
-    scroll: scrollY,
-    camera: camera.position.clone(),
-    target: lookTarget.clone(),
-    fov: camera.fov,
-    kitActive,
+  if (request !== learningRequest) return;
+  $("experiment-error").hidden = true;
+  if (!alreadyOpen) entryContext = {
+    stage, scroll: scrollY, camera: camera.position.clone(), target: lookTarget.clone(),
+    fov: camera.fov, kitActive, trigger: button,
   };
+  if (learning) learning.root.visible = false;
+  learning = value;
   setStage("learning");
   mine.root.visible = false;
   if (surface) surface.root.visible = false;
   if (kit) kit.root.visible = false;
-  scene.environment = null;
-  globe.visible(false);
-  learning.root.visible = true;
-  learning.replay();
-  $("product").style.visibility = "hidden";
-  $("experience").style.visibility = "hidden";
-  $("navigation").hidden = true;
-  $("learning-ui").hidden = false;
-  $("caption-detail").textContent = "Illustrative training replay.";
+  scene.environment = null; globe.visible(false);
+  learning.root.visible = true;learning.replay();
+  $("product").style.visibility = "hidden";$("experience").style.visibility = "hidden";
+  $("navigation").hidden = true;$("learning-ui").hidden = false;
+  configureLearningUI(sourceMode);
   document.body.classList.add("story-locked");
-  scene.background.set("#061014");
-  scene.fog = new THREE.Fog("#061014", 35, 110);
-  camera.near = 0.05;
-  camera.far = 300;
-  camera.fov = 42;
-  camera.position.fromArray(data.training.camera);
-  lookTarget.fromArray(data.training.target);
-  viewport("learning");
-  camera.lookAt(lookTarget);
-  $("exit-world-model").textContent =
-    entryContext.scroll > innerHeight * 0.5
-      ? "← Return to product"
-      : "← Return to mine";
-  cameraMove = null;
+  scene.background.set("#061014");scene.fog = new THREE.Fog("#061014", 35, 110);
+  camera.near = 0.05;camera.far = 300;camera.fov = 42;
+  camera.position.fromArray(learning.camera || data.training.camera);
+  lookTarget.fromArray(learning.target || data.training.target);
+  viewport("learning");camera.lookAt(lookTarget);
+  $("exit-world-model").textContent = entryContext.scroll > innerHeight * 0.5 ? "← Return to product" : "← Return to mine";
+  cameraMove = null;hudTime = 0;updateLearning(0);
+  if (!alreadyOpen) $("exit-world-model").focus({ preventScroll: true });
 }
 function closeLearning() {
   if (stage !== "learning") return;
+  learningRequest++;
   learning.root.visible = false;
+  $("experiment-error").hidden = true;
   $("learning-ui").hidden = true;
   $("product").style.visibility = "";
   $("experience").style.visibility = "";
@@ -632,9 +651,11 @@ function closeLearning() {
   window.scrollTo({ top: entryContext.scroll, behavior: "instant" });
   mine.root.visible = !entryContext.kitActive;
   updateProduct();
+  entryContext.trigger?.focus({ preventScroll: true });
 }
 let rewardPoints = [];
 function updateLearning(delta) {
+  if (learning.sourceMode === "recorded_synthetic") { learning.update(delta); return; }
   const state = learning.update(delta),
     checkpoint = data.training.checkpoints[state.index];
   if (globalTime - hudTime < 95) return;
@@ -922,6 +943,13 @@ $("show-after").addEventListener("click", () => compare(true));
 $("explore-world-model").addEventListener("click", openLearning);
 $("product-world-model").addEventListener("click", openLearning);
 $("exit-world-model").addEventListener("click", closeLearning);
+$("learning-source").addEventListener("change", (event) => openLearning(event.target.value));
+$("retry-recorded").addEventListener("click", () => openLearning("recorded_synthetic"));
+$("use-concept-replay").addEventListener("click", () => openLearning("authored"));
+$("replay-scrub").addEventListener("input", (event) => learning?.seek?.(Number(event.target.value)));
+$("replay-pace").addEventListener("change", (event) => learning?.pace?.(Number(event.target.value)));
+$("forecast-horizon").addEventListener("change", (event) => learning?.horizon?.(Number(event.target.value)));
+$("inspect-forecast").addEventListener("click", () => learning?.inspect?.());
 $("replay-training").addEventListener("click", () => {
   if (learning) {
     learning.replay();
@@ -988,6 +1016,7 @@ export function diagnostics() {
     comparison,
     scrollY,
     kitActive,
+    learning: stage === "learning" ? learning?.diagnostics?.() || { sourceMode: "authored" } : null,
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,
     textures: renderer.info.memory.textures,
