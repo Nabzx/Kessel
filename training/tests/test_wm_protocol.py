@@ -17,3 +17,21 @@ def test_world_model_comparison_charges_offline_data_and_matches_total_real_budg
     assert collection_budgets(8192, plan["source_fractions"]) == {"reference": 4096, "random": 2048, "policy": 2048}
     with pytest.raises(ValueError):
         collection_budgets(3, plan["source_fractions"])
+
+
+def test_filter_followup_predeclares_extra_costs_and_disjoint_reserved_seeds():
+    from dataclasses import asdict
+    from kessel_training.constrained_model import FilterConfig
+    from kessel_training.wm_filter_experiment import DEFAULT_PLAN as FOLLOWUP
+    plan = json.loads(FOLLOWUP.read_text())
+    assert plan["filter"] == asdict(FilterConfig())
+    assert plan["model_refits"] == 0
+    assert plan["maximum_total_additional_policy_samples"] == len(plan["additional_policy_seeds"])*plan["additional_on_policy_samples_per_seed"]
+    assert plan["offline_samples_charged_per_seed"]+plan["additional_on_policy_samples_per_seed"] == 40960
+    ranges = [set(range(6000+i*1000, 6500+i*1000)) for i in range(3)]
+    ranges += [set(range(9000+i*50+j*300, 9050+i*50+j*300)) for i in range(6) for j in range(3)]
+    seen = set()
+    for reserved in ranges:
+        assert not seen & reserved and max(reserved) < 10000
+        seen |= reserved
+    assert not set(range(6500, 6504)) & seen

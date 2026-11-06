@@ -46,6 +46,11 @@ def export_examples(model, identity, arrays, manifest, horizons=(1, 2, 4, 8)):
                     uncertainty={"score": float(prediction["disagreement"][0]),
                         "method": "RMS ensemble std of train-normalised one-step outputs at the final predicted state",
                         "units": "dimensionless score; not calibrated probability or cumulative horizon covariance"})
+                if "filter_rejected" in prediction:
+                    record["bounded_filter"] = {"rejected": bool(prediction["filter_rejected"][0]),
+                        "correction": {k: float(v[0]) for k, v in prediction["filter_correction"].items()},
+                        "raw_next_state": prediction["raw_next_state"][0].tolist(),
+                        "raw_one_step_reward": float(prediction["raw_reward"][0])}
                 record["raw_physical_violations"] = {k: float(v[0]) if k == "mass_error_kg" else bool(v[0]) for k, v in raw.items()}
             records.append(record)
         examples.append({"dataset_row": index, "episode": episode, "regime": int(arrays["regime"][index]),

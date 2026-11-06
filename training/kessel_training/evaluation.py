@@ -77,11 +77,13 @@ def perturbation_spec(name):
 
 @torch.no_grad()
 def evaluate_controller(policy=None, *, kind="policy", split="validation", count=4,
-                        family_name="standard", perturbation=None, identity=None, record=False, scene_override=None):
+                        family_name="standard", perturbation=None, identity=None, record=False, scene_override=None, seed_offset=0):
     if not isinstance(count, int) or isinstance(count, bool) or not 1 <= count <= 32:
         raise ValueError("evaluation case count must be in [1,32]")
     if kind not in ("policy", "untrained", "reference") or (kind != "reference" and policy is None):
         raise ValueError("evaluation needs a valid controller")
+    if not isinstance(seed_offset, int) or isinstance(seed_offset, bool) or seed_offset < 0:
+        raise ValueError("evaluation seed offset must be a non-negative integer")
     started = time.perf_counter()
     scene, difficulty = family(family_name)
     shift, distribution = None, {"distribution": "held_out_nominal" if family_name == "standard" else "held_out_perturbed"}
@@ -89,10 +91,10 @@ def evaluate_controller(policy=None, *, kind="policy", split="validation", count
         scene, shift, distribution = perturbation_spec(perturbation)
     if scene_override is not None:
         scene = scene_override
-    env = LoaderEnv(count, seed=scenario_seed(split, 0), scene=scene)
+    env = LoaderEnv(count, seed=scenario_seed(split, seed_offset), scene=scene)
     for i in range(count):
         mask = np.zeros(count, dtype=bool); mask[i] = True
-        env.reset(seed=scenario_seed(split, i), mask=mask)
+        env.reset(seed=scenario_seed(split, seed_offset+i), mask=mask)
     if shift:
         env.pile.origin += np.asarray(shift)
         env._update_observations(np.ones(count, dtype=bool), reset=True)
@@ -128,7 +130,7 @@ def evaluate_controller(policy=None, *, kind="policy", split="validation", count
         done = term | trunc
         for i in np.flatnonzero(done & active):
             metrics = {k: v[i].item() for k, v in info["metrics"].items()}
-            cases[i] = {"case_index": int(i), "seed": scenario_seed(split, int(i)), "stream_id": int(i),
+            cases[i] = {"case_index": int(i), "seed": scenario_seed(split, seed_offset+int(i)), "stream_id": int(i),
                 "scenario_sha256": scene_hashes[i], "realised": realised[i], "steps": step+1, "terminated": bool(term[i]),
                 "truncated": bool(trunc[i]), "raw_reward_total": float(cumulative_reward[i]),
                 "collision_count": int(metrics["collision_time_s"] >= 0), **metrics}

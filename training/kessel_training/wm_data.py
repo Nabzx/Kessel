@@ -62,9 +62,11 @@ def ood_scene(name):
 
 
 @torch.no_grad()
-def collect_split(split, budgets, *, ood=None, seed_offset=0):
+def collect_split(split, budgets, *, ood=None, seed_offset=0, source_stride=1000):
     if set(budgets) != set(SOURCE_IDS) or any(not isinstance(n, int) or isinstance(n, bool) or n < 1 for n in budgets.values()):
         raise ValueError("positive reference/random/policy collection budgets are required")
+    if not isinstance(source_stride, int) or source_stride < 1:
+        raise ValueError("source stride must be positive")
     policies = [load_policy(POLICIES/f"policy-{s}.pt") for s in (7, 19, 43)]
     columns = {k: [] for k in ("state", "action", "next_state", "observation", "next_observation", "reward",
         "events", "reward_terms", "episode_id", "step", "physical_dt_s", "regime")}
@@ -72,7 +74,9 @@ def collect_split(split, budgets, *, ood=None, seed_offset=0):
     for source, budget in budgets.items():
         collected = 0;number = 0
         while collected < budget:
-            seed = scenario_seed(split, seed_offset+SOURCE_IDS[source]*1000+number)
+            if number >= source_stride:
+                raise ValueError("collection exhausted its reserved episode seed range")
+            seed = scenario_seed(split, seed_offset+SOURCE_IDS[source]*source_stride+number)
             family_name = "blocked" if number % 4 == 3 else "standard"
             scene, setup = ood_scene(ood) if ood else (family(family_name)[0], None)
             env = LoaderEnv(1, seed=seed, scene=scene)
