@@ -1,131 +1,71 @@
-# CPU experiment tools
+# Public mineral deposit markers
 
-These tools are separate from the static investor experience. No policy or
-world model is trained by the current page. See ADRs 0031-0034 and the
-[interface contract](contracts/README.md).
+`mineral-deposits.json` is generated from the U.S. Geological Survey's global
+Mineral Resources Data System (MRDS) Compact Version feature service. The
+generator queries the documented `CODE_LIST` field for the tin (`SN`) and
+tantalum (`TA`) commodity codes, pages through the matching records, keeps
+valid WGS84 coordinates, and emits a compact file for the globe.
 
-Use Python 3.12 and uv 0.12.18 or later. The lock file supports Apple Silicon
-macOS and x86-64 Linux. Linux resolves PyTorch from its official CPU index;
-no CUDA environment is installed. All experiment commands use CPU explicitly.
-
-The synthetic loader kernel and conventional controller now have a
-[reference report](../docs/phase-11/simulator-reference.md). They are distinct
-from the disposable benchmark and do not constitute a trained RL policy.
-The [policy and PPO core](../docs/phase-11/ppo-core.md) provides bounded actions,
-correct episode bootstrapping and versioned reward decomposition. Its smoke
-command checks optimiser execution; it does not claim task improvement.
-
-From this directory:
+Refresh the committed snapshot deliberately with:
 
 ```sh
-uv sync --locked
-uv run --locked pytest
-uv run --locked python -m kessel_training.benchmark --output runs/cpu-spike.json
-uv run --locked python -m kessel_training.evaluate --split validation --count 4 --output runs/reference-validation.json
-uv run --locked python -m kessel_training.profile --output runs/kernel-profile.json
-uv run --locked python -m kessel_training.core_smoke --output runs/ppo-core-smoke.json
-uv run --locked python -m kessel_training.train --preset quick --output runs/quick-example
+python3 data/generate_deposit_markers.py
 ```
 
-The trainer saves initial, periodic and final checkpoints, complete simulator/
-sensor state and all RNGs. To stop at a reproducible boundary, add
-`--until-update 20`, then resume with
-`--resume runs/quick-example/checkpoint-000020-final.pt --output runs/quick-example`.
-Resume requires the same training source package, numerical library versions
-and recorded configuration. `--preset full` selects the provisional larger
-budget. The [completed RL study](../docs/phase-11/rl-experiments.md) selects a
-32-unit Compact network with 16 environments and 32-step rollouts. Quick targets
-40,960 decisions within 30 seconds; full targets 262,144 within 120 seconds.
-The study achieved no complete learned delivery cycle. These are workload
-presets for further research, not a proficiency guarantee.
-Wall limits are cumulative and checked between complete rollout/update
-transactions. SIGINT/SIGTERM request a checkpointed stop at the next boundary.
-Reports count completed episodes, decisions and optimiser steps separately;
-`nominal_simulated_s` is the sum of configured decision periods, including
-partially terminated decisions, rather than a claim of exact integrated time.
+The service's matching-record count, generated marker count, retrieval time,
+and per-commodity counts are recorded in the JSON metadata. Coordinates are
+rounded to four decimal places for display. Each point retains its MRDS record
+link.
 
-Run the predeclared comparison with
-`uv run --locked python -m kessel_training.study --output runs/rl-study-new`.
-It needs a clean committed training tree and refuses an existing output. The
-recorded study source, seed/configuration plan, every outcome, learning curves
-and executable checkpoint exports are documented in the linked report.
+MRDS is a historical mineral occurrence catalogue, not an inventory of
+currently operating mines. USGS says that systematic updates ceased in 2011
+and operational fields are out of date. The globe labels these as historical
+deposit markers. The Rutongo marker is a separate target from the mine
+location in `mission.json`; it does not show a concession boundary. No public
+boundary was found in the research for #140.
 
-The [world-model experiments](../docs/phase-11/world-model-experiments.md) add
-leak-free transition collection, a saved single network/three-member ensemble,
-physical-unit errors, uncertainty calibration, short imagined branches and a
-resumable experimental auxiliary critic. Run both declared protocols with new
-output directories:
+Sources: [USGS MRDS](https://mrdata.usgs.gov/mrds/) and the
+[MRDS Compact Version feature service](https://services.arcgis.com/v01gqwM5QqNysAAi/ArcGIS/rest/services/Mineral_Resources_Data_System_MRDS_Compact_Version/FeatureServer/0).
+
+## Illustrative underground network
+
+`tunnel-network.json` contains the generated tunnel geometry and its routing
+graph. Regenerate it with the same seed and check that node positions,
+segment endpoints, edge references, and centreline lengths agree:
 
 ```sh
-uv run --locked python -m kessel_training.wm_experiment --output runs/world-model-study-new
-uv run --locked python -m kessel_training.wm_filter_experiment --source runs/world-model-study-new --output runs/world-model-filter-new
+python3 data/generate_tunnel_network.py
+python3 data/validate_tunnel_network.py
 ```
 
-The second command reuses frozen weights and training/validation data, applies
-an explicitly identified bounded physical filter and acquires fresh test/OOD
-scenes. Raw neural failures remain separate. The completed experiments show no
-full learned cycle or sample-efficiency gain; do not enable assistance as a
-proven improvement. Saved-model prediction replay and evidence accounting run
-in the test suite. Compact reports and executable research weights stay under
-`docs/phase-11/`, outside the static package.
+The contract is described by
+[`schemas/tunnel-network.schema.json`](schemas/tunnel-network.schema.json),
+using [JSON Schema Draft 2020-12](https://json-schema.org/draft/2020-12).
+Geometry `segments` are the source for graph `edges`. Each edge refers to its
+segment by `segment_id` and carries the measured centreline length, the
+segment's stored grade orientation, width, and a `one_way` flag. `from` and
+`to` describe the segment's ordered geometry. A bidirectional traversal in
+reverse uses the opposite grade. The current `one_way: false` values are
+scenario inputs, not Rutongo traffic-plan data. Graph nodes duplicate the
+geometry nodes so consumers can load the graph directly; the validator checks
+that the two lists match exactly.
 
-Recorded playback and the isolated CPU export comparison are documented in
-[the integration report](../docs/phase-11/recorded-integration.md). The browser
-loads no model weights or training runtime. Recreate the static bundle from
-retained executable checkpoint artefacts, then validate it from the repo root:
+The mission manifest's `routes` records identify a vehicle, status, ordered
+node IDs, and graph edge IDs for both the initial and pre-computed optimised
+path. The validator checks both path variants, vehicle IDs, the optimiser
+trace count, and the referenced data-defined truck model. Every route edge
+must exist, each route must have one more node than edge, and traversals must
+respect the edge's direction and `one_way` value.
 
-```sh
-uv run --locked python -m kessel_training.export_viewer --output ../data/experiments/loader-new.json --report ../docs/phase-11/viewer-export-new.json
-```
+The mission also references `assets/models/haul-truck.json`. It defines a
+procedural placeholder, not a licensed or manufacturer-authentic truck model.
+Fleet state, route variants, telemetry, motion parameters, and the illustrative
+optimiser trace live in `mission.json`; the renderer reads these values rather
+than defining the scene in code.
 
-Use `uv sync --locked --all-groups` for optional CPU ONNX tools and their tests.
-The declared compression study requires the regenerated world-model corpus:
-
-```sh
-uv run --locked --all-groups python -m kessel_training.offline_experiment --datasets runs/world-model-study-new/datasets --output runs/offline-policy-new
-uv run --locked python -m kessel_training.audit_run runs/quick-example
-```
-
-New training runs append hash-chained `events.jsonl` records from actual
-transactions. Resume verifies log/checkpoint counters and rejects a log ahead
-of the resumed state. Older retained studies keep their genuine curves and
-outcomes; no append-only stream is fabricated retrospectively. Distillation
-and numerical quantisation are separate experiments. Runtime telemetry is
-disabled before ONNX Runtime initialises. No NVIDIA result is implied.
-
-The project creates its own ignored `training/.venv`. It does not touch a
-repository-root `.venv` or another personal environment. To use a separate
-temporary environment, set `UV_PROJECT_ENVIRONMENT` to a task-specific path.
-Keep generated runs in `training/runs/`, checkpoints in `training/checkpoints/`
-and source archives in `training/raw/`; all are ignored. Commit only compact
-reviewed reports or validated viewer exports in their intended locations.
-
-`uv lock --upgrade-package <name>` updates a dependency deliberately; rerun
-tests and compare the numerical/benchmark effects before accepting an update.
-Dependabot covers this uv manifest and GitHub Actions. Vendored Three.js files
-remain governed by their explicit version/update procedure. Dependabot changes
-are reviewed and re-landed under the maintainer as CONTRIBUTING.md requires.
-
-The benchmark compares 1/16/32/64 environments and a small real PyTorch
-gradient workload. It is a disposable feasibility spike, not PPO, a trained
-controller or the final loader simulator. Primitive decisions advance ten
-times as much physical time as control decisions, so compare physical substeps
-as well as decisions/second. It reports actual episode, step and update counts,
-wall time, versions, source identity and cumulative process peak RSS.
-
-## Static presentation package
-
-From the repository root, choose a new output directory:
-
-```sh
-python3 scripts/package-static.py --output /private/tmp/kessel-static-demo
-```
-
-Serve that directory with `python3 -m http.server 8080 --bind 127.0.0.1`.
-The package contains only the static entry point, scene code/data, supported
-assets and their notices. It does not include Python tools, environments,
-raw scans, unexported weights or Git metadata. No deployment is performed.
-
+The generated network is a scripted example, not a surveyed Rutongo plan.
+See [ADR-0025](../docs/adr/0025-phase-9-illustrative-underground-network.md)
+for the cited engineering references and scenario assumptions.
 
 ## Recorded synthetic experiment
 

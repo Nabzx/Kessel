@@ -1,158 +1,54 @@
-# CPU experiment tools
+# Initial CPU tooling and static package verification
 
-These tools are separate from the static investor experience. No policy or
-world model is trained by the current page. See ADRs 0031-0034 and the
-[interface contract](contracts/README.md).
+Date: 5 November 2026. PRs #282 and #283. This is the initial foundation
+batch, not completion of Phase 11 or evidence of a trained machine policy.
 
-Use Python 3.12 and uv 0.12.18 or later. The lock file supports Apple Silicon
-macOS and x86-64 Linux. Linux resolves PyTorch from its official CPU index;
-no CUDA environment is installed. All experiment commands use CPU explicitly.
+## Automated checks
 
-The synthetic loader kernel and conventional controller now have a
-[reference report](../docs/phase-11/simulator-reference.md). They are distinct
-from the disposable benchmark and do not constitute a trained RL policy.
-The [policy and PPO core](../docs/phase-11/ppo-core.md) provides bounded actions,
-correct episode bootstrapping and versioned reward decomposition. Its smoke
-command checks optimiser execution; it does not claim task improvement.
+- Nineteen focused tests pass on macOS. Linux CPU CI also passes.
+- Existing experience and tunnel-network validators pass.
+- Scene JavaScript syntax and whitespace checks pass.
+- Checks cover units, handedness, action/configuration validity, deterministic
+  workload traces, material bookkeeping, reset isolation and separate counters.
+- Packaging checks exclude environments/raw experiments, retain licences and
+  validate the actual entry-point import map and declared experience assets.
 
-From this directory:
+## Browser package
 
-```sh
-uv sync --locked
-uv run --locked pytest
-uv run --locked python -m kessel_training.benchmark --output runs/cpu-spike.json
-uv run --locked python -m kessel_training.evaluate --split validation --count 4 --output runs/reference-validation.json
-uv run --locked python -m kessel_training.profile --output runs/kernel-profile.json
-uv run --locked python -m kessel_training.core_smoke --output runs/ppo-core-smoke.json
-uv run --locked python -m kessel_training.train --preset quick --output runs/quick-example
-```
+The final allowlist package contains 60 files, 13,516,974 bytes. Chrome
+156.0.8078.80 used native ANGLE Metal on Apple M1 at 1440 x 900, DPR capped at
+1.5. The runner also exercised 1280 x 800 and reduced motion. The existing
+uncommitted hero-position CSS adjustment was present in this QA package; it is
+excluded from the PR commits. Source and workspace details are in the
+[structured report](package-verification.json).
 
-The trainer saves initial, periodic and final checkpoints, complete simulator/
-sensor state and all RNGs. To stop at a reproducible boundary, add
-`--until-update 20`, then resume with
-`--resume runs/quick-example/checkpoint-000020-final.pt --output runs/quick-example`.
-Resume requires the same training source package, numerical library versions
-and recorded configuration. `--preset full` selects the provisional larger
-budget. The [completed RL study](../docs/phase-11/rl-experiments.md) selects a
-32-unit Compact network with 16 environments and 32-step rollouts. Quick targets
-40,960 decisions within 30 seconds; full targets 262,144 within 120 seconds.
-The study achieved no complete learned delivery cycle. These are workload
-presets for further research, not a proficiency guarantee.
-Wall limits are cumulative and checked between complete rollout/update
-transactions. SIGINT/SIGTERM request a checkpointed stop at the next boundary.
-Reports count completed episodes, decisions and optimiser steps separately;
-`nominal_simulated_s` is the sum of configured decision periods, including
-partially terminated decisions, rather than a claim of exact integrated time.
+All eight acceptance groups pass: environment selection, arithmetic, repeatable
+comparison, training replay controls, world-model return/scroll restoration,
+proposed-kit controls, laptop/dialog behaviour and failed-terrain retry with
+reduced motion/restart. No page errors or HTTP errors were recorded in the
+successful run. The current authored 2.4-million episode display is tested as
+illustrative content, not as a measurement of the new CPU tooling.
 
-Run the predeclared comparison with
-`uv run --locked python -m kessel_training.study --output runs/rl-study-new`.
-It needs a clean committed training tree and refuses an existing output. The
-recorded study source, seed/configuration plan, every outcome, learning curves
-and executable checkpoint exports are documented in the linked report.
+All six steady-state samples were approximately 60 fps. The final cumulative
+mean was 55.96 fps with p95 16.8 ms. Mine entry had p95 33.4 ms and a maximum
+316.8 ms frame, so this does not claim hitch-free transitions. Later visual
+and performance tickets still need to improve and measure their own changes.
+Local ready time was 941 ms; this is not an internet-hosting load benchmark.
 
-The [world-model experiments](../docs/phase-11/world-model-experiments.md) add
-leak-free transition collection, a saved single network/three-member ensemble,
-physical-unit errors, uncertainty calibration, short imagined branches and a
-resumable experimental auxiliary critic. Run both declared protocols with new
-output directories:
+The browser run caught two omissions before the final pass: vendored modules
+and JSON rig descriptors. Both were corrected and now have regression checks.
+The failed runs are not counted as passing evidence.
 
-```sh
-uv run --locked python -m kessel_training.wm_experiment --output runs/world-model-study-new
-uv run --locked python -m kessel_training.wm_filter_experiment --source runs/world-model-study-new --output runs/world-model-filter-new
-```
+Screenshots, complete runner output and video are at
+`/private/tmp/kessel-phase11-package-evidence-v3/` on the test machine.
+These local QA artefacts are not presentation assets.
 
-The second command reuses frozen weights and training/validation data, applies
-an explicitly identified bounded physical filter and acquires fresh test/OOD
-scenes. Raw neural failures remain separate. The completed experiments show no
-full learned cycle or sample-efficiency gain; do not enable assistance as a
-proven improvement. Saved-model prediction replay and evidence accounting run
-in the test suite. Compact reports and executable research weights stay under
-`docs/phase-11/`, outside the static package.
+## Learning workload
 
-Recorded playback and the isolated CPU export comparison are documented in
-[the integration report](../docs/phase-11/recorded-integration.md). The browser
-loads no model weights or training runtime. Recreate the static bundle from
-retained executable checkpoint artefacts, then validate it from the repo root:
-
-```sh
-uv run --locked python -m kessel_training.export_viewer --output ../data/experiments/loader-new.json --report ../docs/phase-11/viewer-export-new.json
-```
-
-Use `uv sync --locked --all-groups` for optional CPU ONNX tools and their tests.
-The declared compression study requires the regenerated world-model corpus:
-
-```sh
-uv run --locked --all-groups python -m kessel_training.offline_experiment --datasets runs/world-model-study-new/datasets --output runs/offline-policy-new
-uv run --locked python -m kessel_training.audit_run runs/quick-example
-```
-
-New training runs append hash-chained `events.jsonl` records from actual
-transactions. Resume verifies log/checkpoint counters and rejects a log ahead
-of the resumed state. Older retained studies keep their genuine curves and
-outcomes; no append-only stream is fabricated retrospectively. Distillation
-and numerical quantisation are separate experiments. Runtime telemetry is
-disabled before ONNX Runtime initialises. No NVIDIA result is implied.
-
-The project creates its own ignored `training/.venv`. It does not touch a
-repository-root `.venv` or another personal environment. To use a separate
-temporary environment, set `UV_PROJECT_ENVIRONMENT` to a task-specific path.
-Keep generated runs in `training/runs/`, checkpoints in `training/checkpoints/`
-and source archives in `training/raw/`; all are ignored. Commit only compact
-reviewed reports or validated viewer exports in their intended locations.
-
-`uv lock --upgrade-package <name>` updates a dependency deliberately; rerun
-tests and compare the numerical/benchmark effects before accepting an update.
-Dependabot covers this uv manifest and GitHub Actions. Vendored Three.js files
-remain governed by their explicit version/update procedure. Dependabot changes
-are reviewed and re-landed under the maintainer as CONTRIBUTING.md requires.
-
-The benchmark compares 1/16/32/64 environments and a small real PyTorch
-gradient workload. It is a disposable feasibility spike, not PPO, a trained
-controller or the final loader simulator. Primitive decisions advance ten
-times as much physical time as control decisions, so compare physical substeps
-as well as decisions/second. It reports actual episode, step and update counts,
-wall time, versions, source identity and cumulative process peak RSS.
-
-## Static presentation package
-
-From the repository root, choose a new output directory:
-
-```sh
-python3 scripts/package-static.py --output /private/tmp/kessel-static-demo
-```
-
-Serve that directory with `python3 -m http.server 8080 --bind 127.0.0.1`.
-The package contains only the static entry point, scene code/data, supported
-assets and their notices. It does not include Python tools, environments,
-raw scans, unexported weights or Git metadata. No deployment is performed.
-
-
-## Recorded synthetic experiment
-
-`experiments/index.json` identifies a curated browser bundle by SHA-256 and
-byte count. `experiments/loader-v1.json` contains executed initial/intermediate/
-final seed-7 policies, their real training counters/curve and actual raw-model
-forecasts. It loads only after world-model entry and stays separate from
-`experience.json`'s illustrative mine figures.
-
-Records use metres, radians, kilograms and seconds in x-forward/y-left/z-up.
-Each timestamp has the current privileged reference state, recorded local
-observation and outgoing normalised action. Its reward terms and weighted
-contributions belong to that outgoing transition. The terminal record has no
-next action or reward. Keep every decision and event; visual interpolation
-never creates a new policy decision or material transfer.
-
-Forecasts identify a future reference decision/timestamp, independent model
-weights, actual prediction, residuals and member endpoints. Raw impossible
-forecasts remain flagged. Conditional member spread in metres is distinct from
-the dimensionless disagreement score and is not calibrated confidence.
-Missing predictions remain missing. See ADR-0043 and
-[the measured integration report](../docs/phase-11/recorded-integration.md).
-
-Validate with `python3 scripts/verify-recorded-demo.py`. Regeneration executes
-the retained weights using the isolated exporter documented in `training/`.
-No checkpoint, ONNX file or training buffer belongs in this published directory.
-
+See [CPU feasibility](cpu-feasibility.md) for the separate numerical workload,
+raw counters, cold import cost and provisional run budgets. The browser still
+uses authored scene data. Full simulator, PPO, learned-dynamics and recorded
+playback work remain in their respective open tickets.
 
 ## Recorded experiment integration
 
