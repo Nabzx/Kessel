@@ -34,6 +34,8 @@ def array_value(value):
 
 def environment_state(env):
     """Capture all runtime arrays, including observation caches; never resample."""
+    if hasattr(env, "checkpoint_state"):
+        return {"wrapper": "curriculum-v1", "state": env.checkpoint_state()}
     return {"arrays": {k: array_state(v) for k, v in vars(env).items() if isinstance(v, np.ndarray)},
         "pile": {k: array_state(v) if isinstance(v, np.ndarray) else v for k, v in vars(env.pile).items()},
         "initial_pile_hashes": list(env.initial_pile_hashes),
@@ -42,6 +44,11 @@ def environment_state(env):
 
 
 def restore_environment(env, state):
+    if state.get("wrapper"):
+        if state["wrapper"] != "curriculum-v1" or not hasattr(env, "restore_checkpoint_state"):
+            raise ValueError("unsupported checkpoint environment wrapper")
+        env.restore_checkpoint_state(state["state"])
+        return
     for name in ("loader", "scene"):
         if canonical_json(asdict(getattr(env, name))) != canonical_json(state[name]):
             raise ValueError(f"checkpoint {name} configuration differs")

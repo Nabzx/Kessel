@@ -1,7 +1,7 @@
 """Clipped PPO with explicit final-state bootstrapping and update diagnostics."""
 
 import copy
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 import math
 
 import numpy as np
@@ -71,6 +71,7 @@ class Rollout:
     terminated: torch.Tensor
     truncated: torch.Tensor
     episodes: list
+    reward_components: dict = field(default_factory=dict)
 
 
 @torch.no_grad()
@@ -82,10 +83,18 @@ def collect(env, policy, steps, generator):
         env.reset(mask=finished)
     columns = [[] for _ in range(8)]
     episodes = []
+    reward_components = {}
     for _ in range(steps):
         features = policy.encode(env.observe())
         sample = policy.sample(features, generator=generator)
         observation, reward, terminated, truncated, info = env.step(sample["action"].numpy())
+        groups = {"raw": info["reward_terms"], "weighted": info["reward_description"]["weighted"]}
+        if "training_reward" in info:
+            groups["training"] = {k: v for k, v in info["training_reward"].items() if isinstance(v, np.ndarray)}
+        for group, components in groups.items():
+            for key, values in components.items():
+                name = f"{group}.{key}"
+                reward_components[name] = reward_components.get(name, 0.0)+float(values.sum())
         # Capture V(final observation) before resetting any batch slot.
         next_value = policy.value(policy.encode(observation))
         row = (features, sample["latent"], sample["log_prob"], sample["value"], next_value,
@@ -98,7 +107,7 @@ def collect(env, policy, steps, generator):
             episodes.append({k: v[i].item() for k, v in info["metrics"].items()})
         if done.any():
             env.reset(mask=done)
-    return Rollout(*(torch.stack(c) for c in columns), episodes=episodes)
+    return Rollout(*(torch.stack(c) for c in columns), episodes=episodes, reward_components=reward_components)
 
 
 class PPO:
