@@ -1,0 +1,17 @@
+{
+  "source_mode": "recorded_synthetic",
+  "selected": {
+    "id": "compact",
+    "hidden": 32,
+    "num_envs": 16,
+    "rollout_steps": 32,
+    "learning_rate": 0.0003
+  },
+  "training_runs": 18,
+  "environment_steps": 1520640,
+  "completed_episodes": 7655,
+  "full_task_training_successes": 0,
+  "subtask_successes": 1090,
+  "training_wall_s": 565.5050545011181,
+  "optimiser_updates": 47394
+}

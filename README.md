@@ -65,6 +65,11 @@ Phase 11 CPU experiment tools are isolated in [training/](training/README.md).
 The initial contracts, feasibility spike and static-package checks are recorded
 in [the verification report](docs/phase-11/verification.md). They do not replace
 the page's authored replay or establish learned machine-control performance.
+The [model-free RL study](docs/phase-11/rl-experiments.md) now includes resumable
+training, gated curriculum, policy evaluation, robustness and retained checkpoint
+replays. Its bounded PPO runs achieved no complete delivery cycle. The measured
+negative result and executable research artefacts are kept separately from the
+concept presentation.
 
 `data/experience.json` owns the geographic context, themes, scene poses, rock
 mass, directed haul routes, operating assumptions, loader keyframes,

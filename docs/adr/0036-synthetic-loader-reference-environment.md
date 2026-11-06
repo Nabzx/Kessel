@@ -2,6 +2,9 @@
 
 Status: Accepted
 
+The actuator-limit immobility detail is superseded by
+[ADR-0039](0039-stuck-detection-at-actuator-limits.md).
+
 ## Decision
 
 Implement a CPU NumPy reference environment independently of the disposable

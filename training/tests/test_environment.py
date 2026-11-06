@@ -202,3 +202,12 @@ def test_articulating_bucket_sweep_hits_the_side_wall_before_the_rear_body():
     joints = np.zeros((1, 3)); turned = joints.copy(); turned[0, 0] = 0.6
     assert clearance(old, joints, old, joints, np.array([4.2]), 3.2, ())[0] == ""
     assert clearance(old, joints, old, turned, np.array([4.2]), 3.2, ())[0] == "tunnel_wall"
+
+
+def test_saturated_actuator_requests_cannot_hide_a_stuck_machine():
+    env = LoaderEnv(1, scene=SceneConfig(friction=0.0001, stuck_s=0.2, max_steps=4))
+    env.joints[0, 1] = env.loader.boom_max_rad
+    env.step([[1, 0, 1, 0]])
+    _, _, term, trunc, info = env.step([[1, 0, 1, 0]])
+    assert term[0] and not trunc[0]
+    assert info["metrics"]["reason"][0] == "stuck"

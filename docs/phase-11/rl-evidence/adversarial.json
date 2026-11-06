@@ -1,0 +1,112 @@
+{
+  "source_mode": "recorded_synthetic",
+  "purpose": "Adversarial analytic fixtures, not learned-policy trajectories",
+  "source": {
+    "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+    "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+    "training_dirty": false
+  },
+  "passed": true,
+  "cases": {
+    "idle": {
+      "reward_total": -0.006000000000000007,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "reason": "",
+      "last_reward_terms": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": 0.0,
+        "slip_s": 0.0,
+        "elapsed_s": 0.10000000000000009,
+        "collision_count": 0.0
+      },
+      "mass_error_kg": 0.0
+    },
+    "empty_reverse": {
+      "reward_total": -0.006385151789813673,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "reason": "",
+      "last_reward_terms": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": 838.7887366460745,
+        "slip_s": 0.0,
+        "elapsed_s": 0.10000000000000009,
+        "collision_count": 0.0
+      },
+      "mass_error_kg": 0.0
+    },
+    "wall_push": {
+      "reward_total": -5.000824152,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "reason": "obstacle_0",
+      "last_reward_terms": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": 653.4000000000003,
+        "slip_s": 0.0,
+        "elapsed_s": 0.08000000000000007,
+        "collision_count": 1.0
+      },
+      "mass_error_kg": 0.0,
+      "repeated_step_rejected": true
+    },
+    "saturated_joint_stuck": {
+      "reward_total": -0.004398127799848182,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "reason": "stuck",
+      "last_reward_terms": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": 0.010300500000000006,
+        "slip_s": 0.09995317954545457,
+        "elapsed_s": 0.09999999999999998,
+        "collision_count": 0.0
+      },
+      "mass_error_kg": 0.0
+    },
+    "out_of_zone_tipping": {
+      "reward_total": -0.16285714285713726,
+      "delivered_kg": 0.0,
+      "spilled_kg": 499.99999999998124,
+      "reason": "",
+      "last_reward_terms": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 6.650680006714538e-12,
+        "effort_proxy_j": 0.0,
+        "slip_s": 0.0,
+        "elapsed_s": 0.09999999999999787,
+        "collision_count": 0.0
+      },
+      "mass_error_kg": -1.8189894035458565e-12
+    },
+    "reset_cannot_carry_delivery_credit": {
+      "reward_total": -0.0002,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "reason": "",
+      "last_reward_terms": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": 0.0,
+        "slip_s": 0.0,
+        "elapsed_s": 0.1,
+        "collision_count": 0.0
+      },
+      "mass_error_kg": 0.0
+    },
+    "truncation_no_reset_leak": {
+      "first_advantage": 1.7999999523162842,
+      "expected": 1.8
+    },
+    "potential_cycle_no_farming": {
+      "discounted_shaping": -0.9999999999999999,
+      "expected": -1.0
+    }
+  },
+  "corrected_defect": "ADR-0039: saturated actuator requests no longer suppress stuck detection"
+}
