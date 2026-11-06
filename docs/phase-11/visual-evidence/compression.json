@@ -1,0 +1,101 @@
+{
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+  "samples": {
+    "jpeg": {
+      "cold_ms": 31.199999809265137,
+      "warm_median_ms": 21.299999952316284,
+      "all_ms": [
+        31.199999809265137,
+        23.200000047683716,
+        20.90000009536743,
+        21.299999952316284,
+        31.40000009536743,
+        21
+      ]
+    },
+    "webp": {
+      "cold_ms": 41.69999980926514,
+      "warm_median_ms": 32.59999990463257,
+      "all_ms": [
+        41.69999980926514,
+        34.10000014305115,
+        34.5,
+        32.59999990463257,
+        30.100000143051147,
+        30.799999952316284
+      ]
+    },
+    "ktx2": {
+      "cold_ms": 115.5,
+      "warm_median_ms": 20.700000047683716,
+      "all_ms": [
+        115.5,
+        20.5,
+        22.700000047683716,
+        20.700000047683716,
+        20.5,
+        21.5
+      ]
+    },
+    "iss_plain": {
+      "cold_ms": 6.5,
+      "warm_median_ms": 1.7999999523162842,
+      "all_ms": [
+        6.5,
+        2.200000047683716,
+        1.7999999523162842,
+        1.7999999523162842,
+        1.8000001907348633,
+        1.7999999523162842
+      ]
+    },
+    "iss_meshopt": {
+      "cold_ms": 3.299999952316284,
+      "warm_median_ms": 2,
+      "all_ms": [
+        3.299999952316284,
+        2,
+        2.299999952316284,
+        2.299999952316284,
+        1.4000000953674316,
+        1.4000000953674316
+      ]
+    }
+  },
+  "notes": "Local fetch and CPU decode/transcode, plus texture upload submission for image samples. Mesh samples use GLTFLoader with the pinned r160 Meshopt decoder. Six serial samples; these are not GPU fence or remote network measurements.",
+  "files": {
+    "diff_jpeg": {
+      "bytes": 927082,
+      "gzip_bytes": 923972
+    },
+    "diff_webp": {
+      "bytes": 264894,
+      "gzip_bytes": 264997
+    },
+    "diff_uastc_ktx2": {
+      "bytes": 1398640,
+      "gzip_bytes": 1303578
+    },
+    "iss_glb": {
+      "bytes": 100116,
+      "gzip_bytes": 66077
+    },
+    "iss_meshopt": {
+      "bytes": 31856,
+      "gzip_bytes": 23603
+    },
+    "meshopt_decoder": {
+      "bytes": 24850,
+      "gzip_bytes": 6435
+    }
+  },
+  "ktx2_runtime": {
+    "WorkerPool.js": 1712,
+    "basis_transcoder.wasm": 499935,
+    "KTX2Loader.js": 22589,
+    "basis_transcoder.js": 62337,
+    "ktx-parse.module.js": 18676,
+    "zstddec.module.js": 39754
+  },
+  "decision": "Use WebP and the 100 kB uncompressed ISS GLB. Avoid shipping a decoder for a single small decorative model. Keep KTX2 comparison outside the published site."
+}

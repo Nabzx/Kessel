@@ -1,0 +1,226 @@
+{
+  "note": "Native Chrome screenshots, reduced to logical laptop dimensions for the repository. No generated or composited scene imagery. Existing local wordmark-position change (63%) is preserved in captures and excluded from this PR.",
+  "frames": [
+    {
+      "path": "frames/retina-hero.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "841efd62608f8d4ea913dfe05201f6d67c3a40a2f2826f6d2a40008518f11cd5",
+      "sha256": "30215ea0a3bacedede0f735cce8f63ea0741f8264101d0d1755ff3ce92348e22"
+    },
+    {
+      "path": "frames/retina-selector.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "7b357cfcc07ab9cc2b96717bcd3b99cc9aafae1769e0630392de3a9d35429393",
+      "sha256": "ce9e013fa12f701dc5e1344934d6defb3238e0dd36f875042d5165633455e072"
+    },
+    {
+      "path": "frames/retina-surface.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "4f9ff074838170f28ef346ccb5406e43dbc377ed5f8716a9165709303bc0d6c9",
+      "sha256": "4f17ea03e8dc8b79fc36e650adcb610882c0eb71ee050d6a23f666b3687e23be"
+    },
+    {
+      "path": "frames/retina-mine.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "28116c14e03d1d322bc5eab32743bc22d2302922ef70b1e0aeb23f52180a339d",
+      "sha256": "4741809fce21f797def1a4af7dcd6fac6bf8cae6791a46acbce5e9d658fb86e9"
+    },
+    {
+      "path": "frames/retina-trained.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "7c2547aacf085f1d7998bb6cfeee30e3279789fd876bb08af6b82c7ef9ee19b5",
+      "sha256": "67b69678aaa7af19869b4d753e899d5c0c9ba893fa9986750c5663cd6bb238a6"
+    },
+    {
+      "path": "frames/retina-world-model.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "2d8b235d471de9384a2fbfee611eda00a2cf9a1a35d3dd2620b7e4394e1191ad",
+      "sha256": "70ca2660de040df856022372f62885243b8758d6d7328afebd62a389b332c1ad"
+    },
+    {
+      "path": "frames/retina-kit.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "c1e49a3340fed109cc22213ae2ac50f337829c92afe5f49ac8befc18a290acd7",
+      "sha256": "142ff5c6e4c320869caf5af288ff3fd007dfa24f98e225872119ff95d3d5d5c1"
+    },
+    {
+      "path": "frames/retina-kit-assembled.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "67451ab1e6597c173911815d23d265fea009899b71ef8c8c520b1435f10f516a",
+      "sha256": "130d996e8c3c13c808fae9368049e96a3ce749289126a1456fa0189388b1e96b"
+    },
+    {
+      "path": "frames/compact-reduced-mine.jpg",
+      "original_dimensions": [
+        1280,
+        800
+      ],
+      "retained_dimensions": [
+        1280,
+        800
+      ],
+      "original_sha256": "8a54f4086a01f39d8ac4fc17d323745474ed6970446d1af5419a7d8dbdd2f03d",
+      "sha256": "9d864a3c88388f752e57a18109cfd52ae0a4dafe743285f29877c9762c981368"
+    },
+    {
+      "path": "frames/compact-reduced-world-model.jpg",
+      "original_dimensions": [
+        1280,
+        800
+      ],
+      "retained_dimensions": [
+        1280,
+        800
+      ],
+      "original_sha256": "1bbedfa7bccd4c1639756a518dd9133fc2804efd549be06700bb3e394946ec94",
+      "sha256": "4aa7be2c12d487835ec2d3dcc0ca34474115f20b7539a22673d4e2a3e7bcda3b"
+    },
+    {
+      "path": "frames/before-hero.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "18519eaba465eea5f862a4aafa79129322cd31777fb38a8ca32088fb2b1f5ee1",
+      "sha256": "6242a5831d40f8c55ad68f5bd7e1d39ce36119eec55d733bf819609124f6c86b"
+    },
+    {
+      "path": "frames/before-surface.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "048133aff2d6e816b9f11b08e8a29cbd2d33d05a29ada7a8eed455868a0113f4",
+      "sha256": "3c00309fcc46c90951ccb8fc4f82c628e089ee08bc4bf1da6592056eae006a23"
+    },
+    {
+      "path": "frames/before-mine.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "b18e56982b6a8c5c3c4ceb84d25827814a3abad5fb83a4b54bd822c01eb21228",
+      "sha256": "4a7adada4e65d438bb730b1978a9705809b0503227a3b4ed600ef6f1787d0d10"
+    },
+    {
+      "path": "frames/before-learning.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "1db59e8f3108a21b06853a2f66c762aab46b94015a332f0d24d7a2e1dafe1bce",
+      "sha256": "cdc0f68adcec7d3188589a86f111b8671159c753a39929882f0b22a5ad8833dd"
+    },
+    {
+      "path": "frames/before-kit.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "376f2868926ea2fd5c383c1b067e127ef4d3abb66e4c99496879865ae7606078",
+      "sha256": "568bc46fa06849a24d572097e635ae085aaf73788b7673b707ef3924f032e1a1"
+    },
+    {
+      "path": "frames/final-recorded_synthetic.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "532b9840266ade6fbfc18bc0b2c906c666d76c267b92e2b7ed29df36557ee5d6",
+      "sha256": "991f56e2b0383fd48ea539ed73b7b9e2cf92dbf6dc8b52850ab5934b14cd1b41"
+    },
+    {
+      "path": "frames/final-authored.jpg",
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "retained_dimensions": [
+        1440,
+        900
+      ],
+      "original_sha256": "b211b0db48fa4d3a44cc86443d1acde8943a2e5f376a616d45464ae81a2e1959",
+      "sha256": "655fdae6132cc8a95f140c0dde1f0a8f7b6f1e33cd9d6122b24e7a23c0e29241"
+    }
+  ]
+}

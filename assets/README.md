@@ -117,3 +117,30 @@ CC BY 4.0 excavator remain credited above and in the in-app Sources dialog.
 six procedural canvas faces into a 384 x 512 RGBA half-float CubeUV texture.
 This keeps reflection prefiltering out of the live presentation. It contains
 no third-party environment imagery.
+
+## Phase 11 visual materials and orbital geometry
+
+`materials/manifest.json` identifies the cleared Poly Haven Rock Face 03
+(Dario Barresi and Rico Cilliers) and Dark Rock 02 (Amal Kumar) derivatives.
+`materials/surface-manifest.json` identifies Aerial Grass Rock (Rob Tuytel).
+All are [CC0](https://polyhaven.com/license). Diffuse maps are sRGB; OpenGL
+normal, AO and roughness maps are linear. Fine maps are bounded at 512 px;
+colour maps remain 1K. Each manifest retains source/derivative hashes, transfer
+sizes, physical repeat scale and the preparation command. Source rock JPEGs
+remain in the isolated look-development directory. The grass sources come
+from the recorded official download URLs and are processed outside the site.
+
+`models/iss/iss.glb` is a simplified derivative of the
+[NASA ISS model](https://science.nasa.gov/resource/international-space-station-3d-model/),
+credited to NASA / Visualization Technology Applications and Development
+(VTAD). The [NASA media guidance](https://www.nasa.gov/nasa-brand-center/images-and-media/)
+applies. No endorsement is implied. All source textures and markings are
+removed. The derivative is a decorative silhouette, not an accurate scale or
+orbital catalogue. The adjacent manifest records the source hash, 6,068
+triangles, 100,116-byte derivative and conversion. Run `scripts/prepare-orbit.mjs`
+with isolated glTF Transform 4.4.0 tooling and the original source GLB.
+The existing excavator source and rig remain unchanged.
+
+The site uses original, capped synthetic rock geometry and original ventilation,
+yard props and proposed kit details. These are illustrative geometry under the
+repository licence, not a reconstruction or scan of Rutongo's workings.
