@@ -18,8 +18,8 @@
     },
     {
       "path": "figures/drift.svg",
-      "sha256": "96dfb56da08455da164c25108032765bbac769403974b76e18e2ab603fc824bb",
-      "bytes": 64688
+      "sha256": "b567ec9e03fa9756efd8211e9f76d4273e8ce03297c302e1195f06d33cebfde5",
+      "bytes": 63804
     },
     {
       "path": "figures/uncertainty-points.json.gz",
@@ -28,8 +28,8 @@
     },
     {
       "path": "figures/uncertainty.svg",
-      "sha256": "ad68dc97a468c57c3bbd10f8f23651a31febf5de17c9ead5948c4b8573d7853c",
-      "bytes": 125171
+      "sha256": "d55051f5fc597672ede10adb28fc5e6190443acb127942703b71b20ea7b20e9f",
+      "bytes": 124361
     },
     {
       "path": "gate.json",

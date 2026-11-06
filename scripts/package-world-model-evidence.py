@@ -42,7 +42,9 @@ def package(source, output):
             shutil.copyfile(path, output/directory/path.name)
             shutil.copyfile(path.with_suffix(".pt.sha256"), output/directory/(path.name+".sha256"))
     (output/"figures").mkdir()
-    for path in sorted((source/"figures").glob("*.svg")):shutil.copyfile(path, output/"figures"/path.name)
+    for path in sorted((source/"figures").glob("*.svg")):
+        # Matplotlib emits insignificant trailing spaces inside SVG path data.
+        (output/"figures"/path.name).write_text("\n".join(line.rstrip() for line in path.read_text().splitlines())+"\n")
     points=source/"figures/uncertainty-points.json"
     with gzip.GzipFile(filename=str(output/"figures/uncertainty-points.json.gz"), mode="wb", mtime=0) as stream:
         stream.write(points.read_bytes())
