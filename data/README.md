@@ -66,3 +66,29 @@ than defining the scene in code.
 The generated network is a scripted example, not a surveyed Rutongo plan.
 See [ADR-0025](../docs/adr/0025-phase-9-illustrative-underground-network.md)
 for the cited engineering references and scenario assumptions.
+
+## Recorded synthetic experiment
+
+`experiments/index.json` identifies a curated browser bundle by SHA-256 and
+byte count. `experiments/loader-v1.json` contains executed initial/intermediate/
+final seed-7 policies, their real training counters/curve and actual raw-model
+forecasts. It loads only after world-model entry and stays separate from
+`experience.json`'s illustrative mine figures.
+
+Records use metres, radians, kilograms and seconds in x-forward/y-left/z-up.
+Each timestamp has the current privileged reference state, recorded local
+observation and outgoing normalised action. Its reward terms and weighted
+contributions belong to that outgoing transition. The terminal record has no
+next action or reward. Keep every decision and event; visual interpolation
+never creates a new policy decision or material transfer.
+
+Forecasts identify a future reference decision/timestamp, independent model
+weights, actual prediction, residuals and member endpoints. Raw impossible
+forecasts remain flagged. Conditional member spread in metres is distinct from
+the dimensionless disagreement score and is not calibrated confidence.
+Missing predictions remain missing. See ADR-0043 and
+[the measured integration report](../docs/phase-11/recorded-integration.md).
+
+Validate with `python3 scripts/verify-recorded-demo.py`. Regeneration executes
+the retained weights using the isolated exporter documented in `training/`.
+No checkpoint, ONNX file or training buffer belongs in this published directory.

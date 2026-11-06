@@ -1,0 +1,96 @@
+{
+  "source_mode": "recorded_synthetic",
+  "recommended_fidelity_reference": "teacher-fp32.onnx",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "529f431fad7135f10e2b8b44ff82c139f566b21a63d70a7a366242e5d6b7d282",
+      "bytes": 1226
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "ee6aeb21a386708fee6712e4de9c7db6f3d653c462546add63d46f975cc1fa39",
+      "bytes": 195111
+    },
+    {
+      "path": "distillation.json",
+      "sha256": "1295cc8d090f3acba06d7a636703005465b6e696e3e4245ad82f2035c2b85990",
+      "bytes": 12459
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "bdc106139f6e7a985e5d9f8e8ce4b0f0328a11e9e4fb1030b76cf134869c94e5",
+      "bytes": 1787
+    },
+    {
+      "path": "offline_runtime.py",
+      "sha256": "9092778bf169556048662d54ed309a136597c83f254e1ca0aad251484819c24c",
+      "bytes": 2531
+    },
+    {
+      "path": "package.json",
+      "sha256": "7b82bc28c13d7bb46546ba855e0426d6e5bfd71661c4a0535a993a499961ca19",
+      "bytes": 1775
+    },
+    {
+      "path": "plan.json",
+      "sha256": "5f57ce454e36898c580a2d4de2e207326fa794b2a2009bb4bb09165309883838",
+      "bytes": 1203
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "6a8e085d8000d14115f055fcb3bc5683e43293ed7ed43562f866ec2a70b3bdfa",
+      "bytes": 33
+    },
+    {
+      "path": "student-fp32-shapes.onnx",
+      "sha256": "0ea64d4963fc00f8ed4130bf893d418b60d720ff75049662d477ccd518326ec9",
+      "bytes": 7090
+    },
+    {
+      "path": "student-fp32.onnx",
+      "sha256": "0c7fda784744022bb7dd0e876a542be9d1354577c6524bdfd808ee66c07c1129",
+      "bytes": 6686
+    },
+    {
+      "path": "student-int8.onnx",
+      "sha256": "de31f1f3fb7ed34c9625c2e49c0d8b74e5e83c2a26573962f6df1a39820fb17d",
+      "bytes": 4819
+    },
+    {
+      "path": "student.pt",
+      "sha256": "f5744415ce00fdccdefd21efe28d1b227ebc643801da771daf5b9bd1005d7956",
+      "bytes": 8725
+    },
+    {
+      "path": "student.pt.sha256",
+      "sha256": "ec1c8b2ec1d6e85845b31f364aeed59ec8a6aacf1442f77bfb1d08794709307c",
+      "bytes": 65
+    },
+    {
+      "path": "teacher-actor.pt",
+      "sha256": "a61d99bdc19100867a2ccce13d45d0e52aabc93a380dd6e7305fb2db9c21a059",
+      "bytes": 16781
+    },
+    {
+      "path": "teacher-actor.pt.sha256",
+      "sha256": "ec2330ee5919c96c5b9bd6e134791e2a7f241fec32cfad01626e8865422b545a",
+      "bytes": 65
+    },
+    {
+      "path": "teacher-fp32-shapes.onnx",
+      "sha256": "ed0895b2f2129a867755d8d740e27b468f0a95698643f88badfa5ce5a60624c2",
+      "bytes": 14710
+    },
+    {
+      "path": "teacher-fp32.onnx",
+      "sha256": "374ccdd3f8cad684bea9b1c54d6a48b455dc05eee7e565827764220b9879d479",
+      "bytes": 14306
+    },
+    {
+      "path": "teacher-int8.onnx",
+      "sha256": "d05f80f3bd36f8adea194b0b8673521da19b1007edc805d1ce377afaa3697426",
+      "bytes": 6825
+    }
+  ]
+}

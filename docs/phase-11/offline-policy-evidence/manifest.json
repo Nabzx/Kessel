@@ -1,0 +1,50 @@
+{
+  "source": {
+    "package_sha256": "73f9536c66fe979fc04da07c8bd6297c5c288d4ef6542b4dae76f33933e27bc9",
+    "git_commit": "c6f47dda6eb93171d4a8b2e96df5402ec9d90681",
+    "training_dirty": false
+  },
+  "plan_sha256": "ef11ca758e1ec52a2b920b67769d1784571dcb50d2426833da35f80c59a2bf1b",
+  "teacher": {
+    "checkpoint_sha256": "1dbc2438bfe5c95032ddd6f316e55e8eeb110605dac8b83cbd201d7493f54845",
+    "training_source": {
+      "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+      "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+      "training_dirty": false
+    },
+    "trainer_kind": "model-free",
+    "source_checkpoint_sha256": "5f9b55377b315f9334f458bc8f75df785c6b502425e21fbc040f1754bc2d4cfb",
+    "training_configuration_sha256": "057863eac694eab039ec304bd5e726abca85f4bd9e56b0b358db18ff8af7bec2",
+    "training_seed": 7,
+    "training_counters": {
+      "rollouts": 604,
+      "environment_steps": 309248,
+      "agent_decisions": 309248,
+      "optimiser_updates": 9606,
+      "completed_episodes": 1479,
+      "successes": 0,
+      "imagined_transitions": 0,
+      "nominal_simulated_s": 30924.8000000003,
+      "subtask_successes": 58
+    }
+  },
+  "datasets": {
+    "train": "2b7bdbf415de997b304eb1a5e00211162a45b7ce7f4abca04dabeeede44384b0",
+    "validation": "5d0d8f5d6f711d494d4fec9e3bc1d04b33e989cd06f70dea979f5530c1aaa8a1",
+    "test": "f678c5d4d11bc1bba8d7af9fa67f11b4c2dd013ecb1473049c7c76e7b145a7ec"
+  },
+  "runtime": {
+    "cpu": "Apple M1",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "python": "3.12.14",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "threads": 1,
+    "ORT_DISABLE_TELEMETRY": "1"
+  }
+}

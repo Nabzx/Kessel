@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "source_mode": "recorded_synthetic",
+  "teacher": {
+    "checkpoint_sha256": "1dbc2438bfe5c95032ddd6f316e55e8eeb110605dac8b83cbd201d7493f54845",
+    "training_source": {
+      "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+      "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+      "training_dirty": false
+    },
+    "trainer_kind": "model-free",
+    "source_checkpoint_sha256": "5f9b55377b315f9334f458bc8f75df785c6b502425e21fbc040f1754bc2d4cfb",
+    "training_configuration_sha256": "057863eac694eab039ec304bd5e726abca85f4bd9e56b0b358db18ff8af7bec2",
+    "training_seed": 7,
+    "training_counters": {
+      "rollouts": 604,
+      "environment_steps": 309248,
+      "agent_decisions": 309248,
+      "optimiser_updates": 9606,
+      "completed_episodes": 1479,
+      "successes": 0,
+      "imagined_transitions": 0,
+      "nominal_simulated_s": 30924.8000000003,
+      "subtask_successes": 58
+    }
+  },
+  "input": {
+    "name": "observation",
+    "shape": [
+      "N",
+      65
+    ],
+    "layout": "15 proprio, 25 row-major height metres, 25 binary validity",
+    "normalisation": "embedded fixed_physical_scales_v1, clip [-5,5]"
+  },
+  "output": {
+    "name": "action",
+    "shape": [
+      "N",
+      4
+    ],
+    "units": "normalised [-1,1]",
+    "names": [
+      "acceleration request",
+      "articulation rate",
+      "boom rate",
+      "bucket rate"
+    ],
+    "synthetic_requested_rate_limits": [
+      1.5,
+      0.35,
+      0.25,
+      0.5
+    ],
+    "rate_units": [
+      "m/s^2",
+      "rad/s",
+      "rad/s",
+      "rad/s"
+    ]
+  },
+  "runtime": "Standalone offline_runtime.py with NumPy and ONNX Runtime CPU; no PyTorch for inference",
+  "calibrated_for_real_machine": false
+}

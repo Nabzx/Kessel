@@ -1,0 +1,38 @@
+{
+  "source_mode": "recorded_synthetic",
+  "source": {
+    "package_sha256": "73f9536c66fe979fc04da07c8bd6297c5c288d4ef6542b4dae76f33933e27bc9",
+    "git_commit": "c6f47dda6eb93171d4a8b2e96df5402ec9d90681",
+    "training_dirty": false
+  },
+  "rollout_transactions": 2,
+  "counters": {
+    "rollouts": 2,
+    "environment_steps": 1024,
+    "agent_decisions": 1024,
+    "optimiser_updates": 32,
+    "completed_episodes": 5,
+    "successes": 0,
+    "imagined_transitions": 0,
+    "nominal_simulated_s": 102.4,
+    "subtask_successes": 5
+  },
+  "training_wall_s": 0.4595359591767192,
+  "telemetry": {
+    "file": "events.jsonl",
+    "records": 5,
+    "last_event_sha256": "34d5b371cf2839fe0d2da9050df48187b3447b1fa8c1988f8dfd847df80363ad",
+    "file_sha256": "ab082c219d7b156f89b380d1a01553f2451e89b2d68fcc6dc25340f2b9d2f700",
+    "final_counters": {
+      "agent_decisions": 1024,
+      "completed_episodes": 5,
+      "environment_steps": 1024,
+      "imagined_transitions": 0,
+      "nominal_simulated_s": 102.4,
+      "optimiser_updates": 32,
+      "rollouts": 2,
+      "subtask_successes": 5,
+      "successes": 0
+    }
+  }
+}

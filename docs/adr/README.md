@@ -22,6 +22,11 @@ retains raw failures while testing explicitly constrained imagined samples.
 The [measured assistance outcome](0042-world-model-assistance-outcome.md) keeps
 the method experimental after equal-budget comparisons find no task improvement.
 
+The [recorded experiment viewer](0043-recorded-experiment-viewer.md) defines
+validated static playback and independent prediction inspection. The
+[offline compression protocol](0044-offline-policy-compression-protocol.md)
+separates CPU export, distillation and quantisation from task proficiency.
+
 Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
 [learning presentation](0029-world-model-learning-presentation.md) and
 [cinematic architecture](0030-cinematic-experience-architecture.md).

@@ -19,6 +19,7 @@ from .evaluate import source_identity
 from .curriculum import TrainingEnv, RANDOMISATION
 from .policy import ActorCritic, configure_cpu
 from .ppo import PPO, PPOConfig, collect
+from .telemetry import EventLog
 
 
 @dataclass(frozen=True)
@@ -180,6 +181,7 @@ class Trainer:
             raise ValueError("update limit cannot precede the resumed position")
         started = time.perf_counter()
         previous_wall = self.training_wall_s
+        event_log = EventLog(output/"events.jsonl", self.source, self.config.digest(), self.counters)
 
         def checkpoint(final=False):
             suffix = "-final" if final else ""
@@ -192,6 +194,8 @@ class Trainer:
                         or old["started_at_utc"] != self.started_at_utc):
                     raise FileExistsError("checkpoint path belongs to another run")
                 digest = checkpoints.sha256(path)
+            event_log.append("checkpoint", {"checkpoint_sha256": digest, "file": path.name,
+                "counters": self.counters.copy(), "training_wall_s": self.training_wall_s})
             self.checkpoint_records.append({"path": str(path.resolve()), "sha256": digest,
                                             "rollout": self.counters["rollouts"]})
             self.checkpoint_records = list({x["path"]: x for x in self.checkpoint_records}.values())
@@ -206,8 +210,10 @@ class Trainer:
             if self.training_wall_s >= self.config.max_wall_s:
                 stop_reason = "wall_budget"
                 break
-            self.iterate()
+            row = self.iterate()
             self.training_wall_s = previous_wall+time.perf_counter()-started
+            event_log.append("rollout", {"metrics": row, "counters": self.counters.copy(),
+                "training_wall_s": self.training_wall_s})
             if self.counters["rollouts"] % self.config.checkpoint_every == 0:
                 checkpoint()
         self.training_wall_s = previous_wall+time.perf_counter()-started
@@ -221,7 +227,7 @@ class Trainer:
                   "training_wall_s": self.training_wall_s, "stop_reason": stop_reason,
                   "checkpoint_overhead_note": "Budget checked between complete rollout/update transactions; initial/final saves add overhead.",
                   "checkpoints": self.checkpoint_records,
-                  "learning_curve": self.curve, "episodes": self.episodes}
+                  "learning_curve": self.curve, "episodes": self.episodes, "telemetry": event_log.summary()}
         (output/"run.json").write_text(json.dumps(report, indent=2, allow_nan=False)+"\n")
         return report
 

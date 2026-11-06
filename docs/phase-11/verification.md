@@ -49,3 +49,11 @@ See [CPU feasibility](cpu-feasibility.md) for the separate numerical workload,
 raw counters, cold import cost and provisional run budgets. The browser still
 uses authored scene data. Full simulator, PPO, learned-dynamics and recorded
 playback work remain in their respective open tickets.
+
+## Recorded experiment integration
+
+The historical checks above describe the initial foundation snapshot. Subsequent
+simulator/RL/world-model work and recorded playback have their own measured
+reports. See [recorded integration](recorded-integration.md) for actual browser
+playback, model residuals, source separation and isolated CPU export results.
+This does not qualify the remaining Phase 11 visual/release work.

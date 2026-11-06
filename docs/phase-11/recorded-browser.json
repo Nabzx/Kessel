@@ -1,0 +1,117 @@
+{
+  "browser": "156.0.8078.81",
+  "date": "2026-11-06T21:43:12.377Z",
+  "sourceCommit": "bd28d08ad65f6d4c86c78d8b71a587dedbf0936f",
+  "workingTreeChanges": [
+    "CONTEXT.md",
+    "README.md",
+    "ROADMAP.md",
+    "css/experience.css",
+    "data/README.md",
+    "docs/phase-11/verification.md",
+    "training/README.md"
+  ],
+  "sourceFiles": {
+    "js/recorded-stage.js": "cf635f0ac3836e2bc3a908cff53be8a88f9e0626c0a050dbe4cadcf9e10f2d61",
+    "js/recorded-data.js": "03feadbb44eec9a741a90b9af21b8a930cf6a7513c52f13ee7ea0186a25fe0d2",
+    "js/experience.js": "50a1477bdfa9e9dc2ffb99602c335560093f47477d4952e4e32f633aaa709111",
+    "index.html": "0bac277ecbc420bb94642d97ec1161adf4875d7823a642d729787692aa8a586a",
+    "css/recorded.css": "4dde3a41ccf2eba052d7d856b7be1f65e3ac715081db71511ab92409dbddc427"
+  },
+  "checks": [
+    "Progressive integrity-checked loading",
+    "Actual checkpoint counters/curve/action units",
+    "Pause, scrub, pacing, four forecast horizons and terminal hold",
+    "Twelve-second single-clock sequence without invented success",
+    "Explicit source switching",
+    "Mine comparison and product scroll/focus restored",
+    "Local assets only",
+    "Reduced motion starts paused",
+    "Corrupt bundle remains an error until explicit concept selection"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "name": "recorded-inspection",
+      "stage": "learning",
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": {
+        "bucketMouthErrorM": 9.485749680535094e-16,
+        "runId": "rl-study-v1-full-7",
+        "sourceMode": "recorded_synthetic",
+        "checkpoint": 2,
+        "simulatedTime": 2,
+        "paused": true,
+        "horizon": 1,
+        "frame": 20,
+        "counters": {
+          "rollouts": 604,
+          "environment_steps": 309248,
+          "agent_decisions": 309248,
+          "optimiser_updates": 9606,
+          "completed_episodes": 1479,
+          "successes": 0,
+          "imagined_transitions": 0,
+          "nominal_simulated_s": 30924.8000000003,
+          "subtask_successes": 58
+        }
+      },
+      "drawCalls": 48,
+      "triangles": 7178,
+      "textures": 28,
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 25190063,
+      "meanFps": 60.00400026668446,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "name": "recorded-sequence",
+      "stage": "learning",
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": {
+        "bucketMouthErrorM": 1.7772239894833365e-15,
+        "runId": "rl-study-v1-full-7",
+        "sourceMode": "recorded_synthetic",
+        "checkpoint": 2,
+        "simulatedTime": 3.900000000000003,
+        "paused": true,
+        "horizon": 1,
+        "frame": 39,
+        "counters": {
+          "rollouts": 604,
+          "environment_steps": 309248,
+          "agent_decisions": 309248,
+          "optimiser_updates": 9606,
+          "completed_episodes": 1479,
+          "successes": 0,
+          "imagined_transitions": 0,
+          "nominal_simulated_s": 30924.8000000003,
+          "subtask_successes": 58
+        }
+      },
+      "drawCalls": 43,
+      "triangles": 5962,
+      "textures": 28,
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 26125909,
+      "meanFps": 59.99999999999999,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    }
+  ],
+  "parsedBundleMemory": {
+    "beforeBytes": 867609,
+    "afterBytes": 8466519,
+    "deltaBytes": 7598910,
+    "gcAvailable": true,
+    "scope": "Chrome decoded/validated bundle retained in a minimal same-origin catalogue page; one sample, not peak process memory"
+  },
+  "sequenceWallSeconds": 12.012
+}

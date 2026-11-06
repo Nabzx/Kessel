@@ -28,9 +28,11 @@ Use a static server rather than opening `index.html` directly.
    and the licensed loading excavator. Red routes show the baseline queue.
 4. **View the trained site**. Compare green haul loops and all six operating
    measures. Weak connectivity stays unchanged. Before/after is repeatable.
-5. Optionally **Explore the world model**. An eight-second replay represents
-   2.4 million authored episodes. Compare failed, improving and trained loader
-   checkpoints, pause the replay, then return to the same mine or page position.
+5. Optionally **Explore the world model**. A twelve-second recorded synthetic
+   replay shows initial, intermediate and final checkpoint trajectories. Inspect
+   actual sensor crops, actions and raw world-model forecasts. Failed outcomes
+   stay visible. Pause, scrub or choose the explicitly labelled concept replay,
+   then return to the same mine or page position.
 6. Scroll into world-model dynamics, reinforcement learning, policy
    distillation and onboard autonomy. Inspect and assemble the proposed kit.
 
@@ -73,6 +75,9 @@ concept presentation. The [world-model study](docs/phase-11/world-model-experime
 adds learned dynamics, measured uncertainty, physical guards and an experimental
 auxiliary critic. Explicit filtering allowed 4,719 imagined transitions and 45
 critic updates, but no learned complete cycle or sample-efficiency improvement.
+The [recorded integration](docs/phase-11/recorded-integration.md) now connects
+verified checkpoint decisions and measured predictions to the optional viewer,
+with a separate offline CPU export/compression comparison.
 
 `data/experience.json` owns the geographic context, themes, scene poses, rock
 mass, directed haul routes, operating assumptions, loader keyframes,
