@@ -5,6 +5,10 @@ import numpy as np
 
 class PileGrid:
     def __init__(self,num_envs,size=8,cell_m=0.5):
+        if isinstance(num_envs,bool) or not isinstance(num_envs,int) or num_envs < 1:
+            raise ValueError("num_envs must be a positive integer")
+        if isinstance(size,bool) or not isinstance(size,int) or size < 1 or not np.isfinite(cell_m) or cell_m <= 0:
+            raise ValueError("grid size and cell length must be positive")
         self.size,self.cell_m = size,cell_m
         self.height = np.zeros((num_envs,size,size),dtype=np.float64)
         self.density = np.full(num_envs,1800.0)
@@ -27,7 +31,7 @@ class PileGrid:
 
     def sample(self,points):
         points = np.asarray(points,dtype=np.float64)
-        if points.shape[0] != len(self.height) or points.shape[-1] != 2 or not np.isfinite(points).all():
+        if points.ndim < 2 or points.shape[0] != len(self.height) or points.shape[-1] != 2 or not np.isfinite(points).all():
             raise ValueError("sample points must be finite batched xy positions")
         extra = (1,)*(points.ndim-2)
         local = points-self.origin.reshape((len(self.height),)+extra+(2,))
