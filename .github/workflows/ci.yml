@@ -18,5 +18,11 @@ jobs:
         run: python3 data/validate_tunnel_network.py
       - name: Validate the cinematic experience
         run: python3 data/validate_experience.py
+      - name: Validate isolated public reference assets
+        run: python3 scripts/verify-lookdev-assets.py
+      - name: Check tunnel-reference preparation
+        run: python3 -m unittest discover -s scripts/tests -v
+      - name: Check look-development module syntax
+        run: node --check docs/phase-11/lookdev/study.js && node --check scripts/verify-lookdev.cjs
       - name: Check whitespace
         run: git diff --check

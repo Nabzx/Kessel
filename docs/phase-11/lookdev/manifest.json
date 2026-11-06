@@ -1,0 +1,270 @@
+{
+  "version": 1,
+  "research_date": "2026-11-06",
+  "scope": "isolated look-development reference; not active main-demo content",
+  "materials": [
+    {
+      "id": "rock_face_03",
+      "title": "Rock Face 03",
+      "creator": [
+        "Dario Barresi",
+        "Rico Cilliers"
+      ],
+      "source_url": "https://polyhaven.com/a/rock_face_03",
+      "licence": "CC0-1.0",
+      "licence_url": "https://polyhaven.com/license",
+      "acquired_on": "2026-11-06",
+      "source_repeat_m": 2.7,
+      "comparison_repeat_m": 2.7,
+      "resolution": [
+        1024,
+        1024
+      ],
+      "estimated_rgba_mip_bytes": 22369621,
+      "maps": [
+        {
+          "id": "rock_face_03",
+          "role": "Diffuse",
+          "file": "rock_face_03_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face_03/rock_face_03_diff_1k.jpg",
+          "bytes": 927082,
+          "sha256": "ea48e0e47ad42c8bd312476178b1248ec66f0eb19156a26a1c222f2a40caaf2d",
+          "source_md5": "e4c34abb1aad5befe12754fad507147a",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/rock_face_03_diff_1k.jpg"
+        },
+        {
+          "id": "rock_face_03",
+          "role": "nor_gl",
+          "file": "rock_face_03_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face_03/rock_face_03_nor_gl_1k.jpg",
+          "bytes": 1146788,
+          "sha256": "c6423169583f31715cf0636954bad524e806848a5f2861fcea6794275f726ff0",
+          "source_md5": "cbd30858439ece391480c5e67e09de89",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/rock_face_03_nor_gl_1k.jpg"
+        },
+        {
+          "id": "rock_face_03",
+          "role": "AO",
+          "file": "rock_face_03_ao_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face_03/rock_face_03_ao_1k.jpg",
+          "bytes": 689257,
+          "sha256": "be3536db0cf69c950fff97a196310f486cef8b23d16e6eb48743a58fadef0917",
+          "source_md5": "07e0ca4b418800f288cc1d0740c3b254",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/rock_face_03_ao_1k.jpg"
+        },
+        {
+          "id": "rock_face_03",
+          "role": "Rough",
+          "file": "rock_face_03_rough_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/rock_face_03/rock_face_03_rough_1k.jpg",
+          "bytes": 638904,
+          "sha256": "9e3d9a2fd75244892e7acb6bab2eaed1279299510a7970672c0ee27ff1c19fea",
+          "source_md5": "bbb2c7dafde3f81808fa7404d4527a56",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/rock_face_03_rough_1k.jpg"
+        }
+      ]
+    },
+    {
+      "id": "dark_rock_02",
+      "title": "Dark Rock 02",
+      "creator": [
+        "Amal Kumar"
+      ],
+      "source_url": "https://polyhaven.com/a/dark_rock_02",
+      "licence": "CC0-1.0",
+      "licence_url": "https://polyhaven.com/license",
+      "acquired_on": "2026-11-06",
+      "source_repeat_m": 2.0,
+      "comparison_repeat_m": 2.7,
+      "resolution": [
+        1024,
+        1024
+      ],
+      "estimated_rgba_mip_bytes": 22369621,
+      "maps": [
+        {
+          "id": "dark_rock_02",
+          "role": "Diffuse",
+          "file": "dark_rock_02_diff_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_rock_02/dark_rock_02_diff_1k.jpg",
+          "bytes": 592452,
+          "sha256": "09cf66947bfe49fa1278ff341159063a43d96aae0bdf9f21536ff94feddef322",
+          "source_md5": "92e53acc3f9878b525d0234d8c51fadf",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/dark_rock_02_diff_1k.jpg"
+        },
+        {
+          "id": "dark_rock_02",
+          "role": "nor_gl",
+          "file": "dark_rock_02_nor_gl_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_rock_02/dark_rock_02_nor_gl_1k.jpg",
+          "bytes": 1028835,
+          "sha256": "011bec5690fa6bba771e745603cbd400d4cbe21ae254af0330680b3a1a7d9a92",
+          "source_md5": "ddae04d066a75ff94b7dd34e8c0f9b74",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/dark_rock_02_nor_gl_1k.jpg"
+        },
+        {
+          "id": "dark_rock_02",
+          "role": "AO",
+          "file": "dark_rock_02_ao_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_rock_02/dark_rock_02_ao_1k.jpg",
+          "bytes": 620122,
+          "sha256": "7f95212317ba3029636dd5dd166ff7c050e9819ee3c25c890621d07f43ee2e74",
+          "source_md5": "2b83b30fc0aea2165be682c9ccdf1c43",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/dark_rock_02_ao_1k.jpg"
+        },
+        {
+          "id": "dark_rock_02",
+          "role": "Rough",
+          "file": "dark_rock_02_rough_1k.jpg",
+          "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/dark_rock_02/dark_rock_02_rough_1k.jpg",
+          "bytes": 503425,
+          "sha256": "ab2645db4a2fa7120d7d14063cfa2d0b3b3c8cb37736eaf115d5924871eb7040",
+          "source_md5": "8751b2c4ca67b2d8defa15f5ab9ce396",
+          "processing": "Unmodified official 1K JPEG.",
+          "path": "assets/dark_rock_02_rough_1k.jpg"
+        }
+      ]
+    }
+  ],
+  "baseline": {
+    "id": "baseline",
+    "title": "Existing wall",
+    "maps": {
+      "Diffuse": "../../../assets/textures/rock_wall_09_diff.jpg",
+      "nor_gl": "../../../assets/textures/rock_wall_09_nor_gl.jpg"
+    },
+    "comparison_repeat_m": 2.7,
+    "note": "Existing masonry-like material retained only as a controlled comparison."
+  },
+  "retained_assets": [
+    {
+      "path": "assets/models/excavator/excavator.gltf",
+      "role": "loading machine",
+      "source_url": "https://sketchfab.com/3d-models/excavator-3d-rigging-f82f787abd304dea89667e078ccf7052",
+      "licence": "CC-BY-4.0",
+      "bytes": 2405643,
+      "sha256": "4e6cd154c3c25f92d2ff9566dc461fd26fd07e0aedec875fbb4df9e2c14ef9f5",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "assets/models/excavator/textures/excavator_diff.jpg",
+      "role": "excavator colour",
+      "source_url": "https://sketchfab.com/3d-models/excavator-3d-rigging-f82f787abd304dea89667e078ccf7052",
+      "licence": "CC-BY-4.0",
+      "bytes": 471903,
+      "sha256": "80e366577c9c90b35a7c0415d78eab1b579e821b5a53025ede41e9c53bc36deb",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "assets/textures/brown_mud_dry_diff.jpg",
+      "role": "retained floor",
+      "source_url": "https://polyhaven.com/a/brown_mud_dry",
+      "licence": "CC0-1.0",
+      "bytes": 146534,
+      "sha256": "6c2b9a3338d9194f40e7a85314c0ad8e70ffea6ef930d5fd525d24e5efb966bf",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "assets/textures/brown_mud_dry_nor_gl.jpg",
+      "role": "retained floor normal",
+      "source_url": "https://polyhaven.com/a/brown_mud_dry",
+      "licence": "CC0-1.0",
+      "bytes": 172306,
+      "sha256": "17cbf73a403134fbc591a91b5aaa2d8d20aa631f3d1e86c34d23f6827a5ea0d0",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "assets/textures/aerial_rocks_02_diff.jpg",
+      "role": "retained ore",
+      "source_url": "https://polyhaven.com/a/aerial_rocks_02",
+      "licence": "CC0-1.0",
+      "bytes": 119612,
+      "sha256": "85e7844637a862acecd7011b8ca5ad3f6d1574ad5d7b5b1342c9147ae3f49da3",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "assets/textures/aerial_rocks_02_nor_gl.jpg",
+      "role": "retained ore normal",
+      "source_url": "https://polyhaven.com/a/aerial_rocks_02",
+      "licence": "CC0-1.0",
+      "bytes": 132998,
+      "sha256": "27a06fdbdad65a4d956472dc06171e09f4072dcf498b1dfc28cd3e0baadd1d04",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "assets/models/haul-truck.json",
+      "role": "original hauler",
+      "source_url": "https://github.com/Nabzx/Kessel",
+      "licence": "Kessel proprietary",
+      "bytes": 11486,
+      "sha256": "6d1cdba23f272735a790f98a5414c4c3e66c03fa818298d7b84258186faffee8",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "assets/models/kessel-loader.json",
+      "role": "original articulated loader",
+      "source_url": "https://github.com/Nabzx/Kessel",
+      "licence": "Kessel proprietary",
+      "bytes": 2187,
+      "sha256": "84bfa7ac29b5da2f5e2d363b3802a7963bf184edbb39aabd16c33022e75df792",
+      "status": "retained unchanged"
+    },
+    {
+      "path": "js/globe-stage.js",
+      "role": "original satellite geometry",
+      "source_url": "https://github.com/Nabzx/Kessel",
+      "licence": "Kessel proprietary",
+      "bytes": 11199,
+      "sha256": "e8453815214305edf7e3171f54e3ef9ef15c7a147f3bb57c73a53852decc1769",
+      "status": "retained unchanged"
+    }
+  ],
+  "deferred": [
+    {
+      "id": "Rock030",
+      "source_url": "https://ambientcg.com/view?id=Rock030",
+      "licence": "CC0-1.0",
+      "status": "official download returned HTTP 403; metadata API readable",
+      "fallback": "verified Dark Rock 02; no archive imported"
+    },
+    {
+      "id": "modular_industrial_pipes_01",
+      "source_url": "https://polyhaven.com/a/modular_industrial_pipes_01",
+      "licence": "CC0-1.0",
+      "provider_triangles": 12340,
+      "status": "metadata inspected; pieces, rig and actual transfer cost not yet prepared",
+      "fallback": "original simple service props"
+    },
+    {
+      "id": "coast_rocks_01",
+      "source_url": "https://polyhaven.com/a/coast_rocks_01",
+      "status": "high-poly coastal geometry not selected for underground geology",
+      "fallback": "synthetic irregular rock shell"
+    },
+    {
+      "id": "nasa-iss",
+      "source_url": "https://science.nasa.gov/resource/international-space-station-3d-model/",
+      "status": "not imported; asset-specific notice and silhouette/LOD review still required",
+      "fallback": "existing original satellite geometry"
+    },
+    {
+      "id": "surface-dump-truck",
+      "source_url": "https://sketchfab.com/3d-models/free-old-mine-dump-truck-8ee438c24e994d9ca6c6afb5add305ca",
+      "status": "surface envelope unsuitable as an automatic underground replacement; exact licence/download/rig not adopted",
+      "fallback": "existing original underground hauler"
+    },
+    {
+      "id": "bedretto",
+      "source_url": "https://www.research-collection.ethz.ch/items/65adf5ab-b96b-4d46-afa1-6bf96417e568",
+      "status": "record returned 403; file units/CRS not inspected",
+      "fallback": "synthetic main layout; separate Slovenian reference"
+    }
+  ]
+}

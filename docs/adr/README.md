@@ -52,3 +52,8 @@ What this makes easier, what it makes harder, and what it rules out.
 - Keep it short. An ADR is a decision record, not a design document — link out
   to a map issue or a prototype for the exploration that led here.
 - British English, plain sentences, no marketing tone, per `AGENTS.md`.
+
+## Public visual references
+
+The [public geometry and look-development boundary](0035-public-geometry-and-look-development.md)
+keeps scan references distinct from calibrated mine or training geometry.
