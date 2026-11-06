@@ -1,5 +1,8 @@
 """Bounded distillation/quantisation study with fixed teacher and fresh task cases."""
 
+import os
+os.environ["ORT_DISABLE_TELEMETRY"] = "1"
+
 import argparse
 import copy
 import hashlib
@@ -12,6 +15,7 @@ import time
 import numpy as np
 import onnx
 import onnxruntime as ort
+ort.disable_telemetry_events()
 from onnxruntime.quantization import quantize_dynamic, QuantType
 from onnxruntime.quantization.shape_inference import quant_pre_process
 import torch
@@ -94,7 +98,7 @@ def run(dataset_directory,output,plan_path=DEFAULT_PLAN):
     except (OSError, subprocess.CalledProcessError):cpu=platform.machine()
     write(output/"manifest.json",{"source":source,"plan_sha256":hashlib.sha256(canonical_json(plan).encode()).hexdigest(),
         "teacher":teacher_identity,"datasets":{"train":tm["logical_sha256"],"validation":vm["logical_sha256"],"test":test_manifest["logical_sha256"]},
-        "runtime":{"cpu":cpu,"platform":platform.platform(),"python":platform.python_version(),"torch":str(torch.__version__),"numpy":np.__version__,"onnx":onnx.__version__,"onnxruntime":ort.__version__,"providers":["CPUExecutionProvider"],"threads":1}})
+        "runtime":{"cpu":cpu,"platform":platform.platform(),"python":platform.python_version(),"torch":str(torch.__version__),"numpy":np.__version__,"onnx":onnx.__version__,"onnxruntime":ort.__version__,"providers":["CPUExecutionProvider"],"threads":1,"ORT_DISABLE_TELEMETRY":"1"}})
     started=time.perf_counter();student,distillation=distil(teacher,train,validation,plan);write(output/"distillation.json",distillation)
     checkpoints.save(output/"teacher-actor.pt",{"artefact_kind":"deterministic-actor","hidden":teacher.hidden,"actor":teacher.actor.state_dict(),
         "proprio_scale":teacher.proprio_scale,"height_scale":teacher.height_scale,"teacher_sha256":teacher_identity["checkpoint_sha256"],"source":source})

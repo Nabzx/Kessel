@@ -7,6 +7,8 @@ Status: Accepted
 Export the frozen final seed-7 actor from the completed RL study. Package its
 fixed physical preprocessing, bounded tanh action mapping, units and actuator
 rates in an offline CPU ONNX package, separate from published browser assets.
+Set `ORT_DISABLE_TELEMETRY=1` before runtime initialisation and disable telemetry
+through the runtime API; offline inference must not start background uploads.
 Compare deterministic actions with PyTorch on nominal, masked and boundary
 observations. Measure cold session creation/first inference, warm inference,
 file size and actual host/runtime identity. No NVIDIA measurements are implied.
@@ -35,3 +37,5 @@ Refs: #251, #252.
 Sources: [ONNX Runtime quantisation](https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html),
 [CPU sessions](https://onnxruntime.ai/docs/api/python/api_summary.html),
 [PyTorch ONNX export](https://docs.pytorch.org/docs/2.15/onnx.html).
+
+Runtime behaviour: [official telemetry controls](https://github.com/microsoft/onnxruntime/blob/main/docs/Privacy.md).

@@ -1,4 +1,5 @@
-from pathlib import Path
+import os
+os.environ["ORT_DISABLE_TELEMETRY"] = "1"
 
 import numpy as np
 import pytest

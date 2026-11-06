@@ -1,10 +1,14 @@
 """Standalone NumPy/ONNX Runtime CPU actor. No training or PyTorch dependency."""
 
+import os
+os.environ["ORT_DISABLE_TELEMETRY"] = "1"
+
 import hashlib
 from pathlib import Path
 
 import numpy as np
 import onnxruntime as ort
+ort.disable_telemetry_events()
 
 
 def flatten_observation(observation):
