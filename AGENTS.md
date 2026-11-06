@@ -34,8 +34,11 @@ in this repo commits as the maintainer, not as itself.
 
 ### Nothing here is presented as real model output
 
-This repo ships a **concept visualisation**, not a product demo backed by a
-trained policy. The permanent on-screen caption and the "illustrative"
+The default site ships a **concept visualisation**. Phase 11 may add isolated
+synthetic training tools and validated recorded experiment bundles under
+ADR-0031. A recorded synthetic result does not validate a machine deployment
+or turn authored operating figures into measured savings.
+The permanent on-screen caption and the "illustrative"
 labelling on HUD values (`index.html`, `js/app.js`) are load-bearing, not
 decoration. A change that would make scripted data read as live inference —
 removing the caption, dropping the "illustrative" label, renaming the scripted
@@ -44,7 +47,9 @@ rollout to imply it is real — needs an ADR, not a drive-by edit.
 ### The front end is data-only
 
 The current cinematic experience reads authored scene content from
-`data/experience.json` under ADR-0030. This includes site geometry, vehicle
+`data/experience.json` under ADR-0030. ADR-0031 permits a future validated
+recorded-synthetic bundle through a separate adapter; renderers never train
+models or invent missing evidence. This includes site geometry, vehicle
 routes, operating assumptions, training keyframes and proposed kit components.
 Rendering modules consume that content. The Phase 9 mission and earlier
 rollout contracts remain historical references. No manual machine controls or

@@ -141,3 +141,23 @@ The MacBook Pro M1/Chrome is the presentation target. See
 [verification](docs/phase-10/verification.md), and
 [visual review](docs/phase-10/visual-review.md). Functional implementation and
 maintainer visual acceptance are recorded separately.
+
+### Phase 11: Synthetic robot learning and realistic presentation
+
+Map: [#197](https://github.com/Nabzx/Kessel/issues/197), with 84 child tickets
+#198–#281 and 142 native blocking dependencies. Public-asset research precedes
+the visual specifications; see
+[the shortlist](docs/research/2026-11-04-public-assets-and-phase-11.md).
+
+Build a CPU-first synthetic loader environment, establish a conventional and
+model-free baseline, evaluate a learned dynamics ensemble and short imagined
+rollouts, then export genuine checkpoints and predictions to the static viewer.
+Improve geological materials, cutaway geometry, machinery, lighting,
+application layout, technical HUDs and continuous transitions while retaining
+the approved story and sparse copy.
+Architecture changes require the superseding ADRs in the foundation tickets.
+
+**Done when:** reproducible experiments and honest recorded playback accompany
+the realistic presentation, with measured native M1 performance, asset notices,
+offline verification and maintainer visual acceptance. Tracker creation is
+complete; implementation and experimental results remain future work.

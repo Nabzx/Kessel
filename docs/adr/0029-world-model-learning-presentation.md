@@ -2,6 +2,10 @@
 
 Status: Accepted
 
+The authored-only assumption for future learning content is superseded in
+part by [ADR-0031](0031-synthetic-learning-and-presentation-boundary.md).
+The current replay and its labels remain unchanged.
+
 ## Decision
 
 The technical viewer is an optional branch entered with Explore the world

@@ -2,6 +2,11 @@
 
 Status: Accepted
 
+The authored-only data boundary is superseded in part by
+[ADR-0031](0031-synthetic-learning-and-presentation-boundary.md) for future
+validated recorded-synthetic bundles. Static shipping and scene ownership stay
+as specified here.
+
 Supersedes the Phase 9 presentation and phone-first requirement for this phase.
 The maintainer explicitly targets a MacBook Pro M1 running Chrome.
 
