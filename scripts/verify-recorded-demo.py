@@ -28,6 +28,16 @@ def verify():
         for episode in bundle["episodes"]:
             if episode["policy"]["checkpoint_sha256"] not in hashes:raise ValueError("executed policy not retained")
         results.append({"run_id":bundle["run_id"],**counts,"bytes":len(raw)})
+    audit=json.loads((ROOT/"docs/phase-11/recorded-telemetry.json").read_text())
+    events_path=ROOT/"docs/phase-11/recorded-telemetry-events.jsonl"
+    if hashlib.sha256(events_path.read_bytes()).hexdigest()!=audit["telemetry"]["file_sha256"]:raise ValueError("retained transaction stream differs")
+    previous=None;events=[]
+    for line in events_path.read_text().splitlines():
+        row=json.loads(line);digest=row.pop("sha256")
+        if row["sequence"]!=len(events) or row["previous_sha256"]!=previous:raise ValueError("transaction chain order differs")
+        if hashlib.sha256(json.dumps(row,sort_keys=True,separators=(",",":"),allow_nan=False).encode()).hexdigest()!=digest:raise ValueError("transaction hash differs")
+        events.append(row);previous=digest
+    if events[-1]["payload"]["counters"]!=audit["counters"] or previous!=audit["telemetry"]["last_event_sha256"]:raise ValueError("transaction summary differs")
     return results
 
 

@@ -4,12 +4,13 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const { execFileSync } = require("node:child_process");
+const { createHash } = require("node:crypto");
 const base = process.env.KESSEL_URL || "http://127.0.0.1:8080/";
 const out = process.env.KESSEL_RECORDED_QA || "/private/tmp/kessel-recorded-qa";
 fs.mkdirSync(out, { recursive: true });
 (async () => {
   const browser = await chromium.launch({ channel: "chrome", headless: true, args: ["--enable-gpu", "--use-gl=angle", "--use-angle=metal", "--js-flags=--expose-gc"] });
-  const report = { browser: browser.version(), date: new Date().toISOString(), sourceCommit: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(), workingTreeChanges: execFileSync("git", ["diff", "--name-only"], { encoding: "utf8" }).trim().split("\n").filter(Boolean), checks: [], errors: [], samples: [] };
+  const report = { browser: browser.version(), date: new Date().toISOString(), sourceCommit: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(), workingTreeChanges: execFileSync("git", ["diff", "--name-only"], { encoding: "utf8" }).trim().split("\n").filter(Boolean), sourceFiles: Object.fromEntries(["js/recorded-stage.js", "js/recorded-data.js", "js/experience.js", "index.html", "css/recorded.css"].map((name) => [name, createHash("sha256").update(fs.readFileSync(path.join(__dirname, "..", name))).digest("hex")])), checks: [], errors: [], samples: [] };
   try {
     const memory = await browser.newPage();await memory.goto(base + "data/experiments/index.json");
     report.parsedBundleMemory = await memory.evaluate(async (origin) => {

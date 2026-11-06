@@ -1,3 +1,4 @@
+from pathlib import Path
 import os
 os.environ["ORT_DISABLE_TELEMETRY"] = "1"
 
@@ -60,3 +61,25 @@ def test_student_imitation_keeps_teacher_frozen_and_selects_actual_validation_lo
     assert student.hidden==16 and report["optimiser_updates"]==4
     assert report["selected_epoch"]==min(report["history"],key=lambda r:r["current_validation_action_mse"])["epoch"]
     for k,v in before.items():torch.testing.assert_close(v,teacher.state_dict()[k],rtol=0,atol=0)
+
+
+def test_packaged_standalone_runtime_executes_without_pytorch_and_matches_teacher():
+    import json
+    import subprocess
+    import sys
+    root=Path(__file__).resolve().parents[2];evidence=root/"docs/phase-11/offline-policy-evidence"
+    manifest=json.loads((evidence/"files.json").read_text())
+    digest=next(f["sha256"] for f in manifest["files"] if f["path"]=="teacher-fp32.onnx")
+    from kessel_training.evaluation import load_policy
+    teacher,_=load_policy(root/"docs/phase-11/rl-evidence/policies/policy-7.pt")
+    runtime=OfflinePolicy(evidence/"teacher-fp32.onnx",digest)
+    values=flatten_observation(LoaderEnv(4,seed=206600).observe())
+    np.testing.assert_allclose(runtime.infer_flat(values),torch_actions(teacher,values),rtol=1e-5,atol=1e-6)
+    code='''import importlib.util,sys,numpy as np
+spec=importlib.util.spec_from_file_location("standalone",sys.argv[1]);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+runtime=module.OfflinePolicy(sys.argv[2],sys.argv[3]);x=np.zeros((1,65),dtype=np.float32);x[:,40:]=1
+assert runtime.infer_flat(x).shape==(1,4)
+assert "torch" not in sys.modules
+assert module.os.environ["ORT_DISABLE_TELEMETRY"]=="1"
+'''
+    subprocess.run([sys.executable,"-I","-c",code,str(evidence/"offline_runtime.py"),str(evidence/"teacher-fp32.onnx"),digest],check=True,capture_output=True,text=True)
