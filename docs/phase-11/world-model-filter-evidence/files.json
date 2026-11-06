@@ -1,0 +1,134 @@
+{
+  "source_mode": "recorded_synthetic",
+  "files": [
+    {
+      "path": "completed.json",
+      "sha256": "81920c1a0ab2678b9349956ca951247c6a9100102f9d80ae98caa521406e1586",
+      "bytes": 538
+    },
+    {
+      "path": "datasets.json",
+      "sha256": "79d8b0faf97e9f1c148427f22103bb802274c2b9e0badb676a592d66d852f8f6",
+      "bytes": 116568
+    },
+    {
+      "path": "drift.json",
+      "sha256": "97bbdc30f22718a63bd24916e7c387cc309bba9c8e954b47420e953d12b6f30c",
+      "bytes": 101102
+    },
+    {
+      "path": "figures/drift.svg",
+      "sha256": "96dfb56da08455da164c25108032765bbac769403974b76e18e2ab603fc824bb",
+      "bytes": 64688
+    },
+    {
+      "path": "figures/uncertainty-points.json.gz",
+      "sha256": "323c36726e07c0026549bb96e02ac37ffd68835d451d3ab720b32a4f95027513",
+      "bytes": 74316
+    },
+    {
+      "path": "figures/uncertainty.svg",
+      "sha256": "ad68dc97a468c57c3bbd10f8f23651a31febf5de17c9ead5948c4b8573d7853c",
+      "bytes": 125171
+    },
+    {
+      "path": "gate.json",
+      "sha256": "27d88e7e4e8e914da922dba830a5309f10baccb7b6a072da71748ca6c16f4159",
+      "bytes": 8339
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "39d2a5bd54c02afc0d83b6d3e0abcde78505b17c2fb80d316265a96682b79a2d",
+      "bytes": 31552
+    },
+    {
+      "path": "plan.json",
+      "sha256": "153746e715b093c720a97f617f29e9e836bde17a84361bb039f7679448abb9c7",
+      "bytes": 1473
+    },
+    {
+      "path": "policies/bounded_assisted_critic-19.pt",
+      "sha256": "506ac461d2685be984e337a654b08c89334f1999760ce6ef1ae8ef20c8d19eb1",
+      "bytes": 33014
+    },
+    {
+      "path": "policies/bounded_assisted_critic-19.pt.sha256",
+      "sha256": "3df77a20be9574e19cfc879683759401cd4c3a05022986e009ee97c652745d00",
+      "bytes": 65
+    },
+    {
+      "path": "policies/bounded_assisted_critic-43.pt",
+      "sha256": "692c8698b81b2f42aa9a2501232797f7e58a3b5bc546cb9ae6bc92cafe716ca4",
+      "bytes": 33014
+    },
+    {
+      "path": "policies/bounded_assisted_critic-43.pt.sha256",
+      "sha256": "6b3423473fe7366fc688c5995104f1d6e98870676c30877150b12c97f522d8d4",
+      "bytes": 65
+    },
+    {
+      "path": "policies/bounded_assisted_critic-7.pt",
+      "sha256": "1b4fb3ddcbfc601e8e98c23a3cf63235cf18629d04ed8b3663aa95c3efebe788",
+      "bytes": 33014
+    },
+    {
+      "path": "policies/bounded_assisted_critic-7.pt.sha256",
+      "sha256": "6d181614c5489db2a00c56ef5780acd40631a746ea6ebb2ea19c39568f8a94c3",
+      "bytes": 65
+    },
+    {
+      "path": "policy-comparison.json.gz",
+      "sha256": "2a847493465fe3e871c5111822ff3e0c49b6fcada33a55388d08069e674dad37",
+      "bytes": 254894
+    },
+    {
+      "path": "prediction-metrics.json",
+      "sha256": "c7f133aedd46e717148d3d1a6378af6d507c9393e63a3281cd8ea791abb7c5c6",
+      "bytes": 111970
+    },
+    {
+      "path": "predictions.json.gz",
+      "sha256": "a526705182a5eaa1a0829c419bf24248d6f219034ec109cb6ae7b91158b233eb",
+      "bytes": 95206
+    }
+  ],
+  "raw_report_inputs": [
+    {
+      "path": "completed.json",
+      "sha256": "81920c1a0ab2678b9349956ca951247c6a9100102f9d80ae98caa521406e1586"
+    },
+    {
+      "path": "datasets.json",
+      "sha256": "79d8b0faf97e9f1c148427f22103bb802274c2b9e0badb676a592d66d852f8f6"
+    },
+    {
+      "path": "drift.json",
+      "sha256": "97bbdc30f22718a63bd24916e7c387cc309bba9c8e954b47420e953d12b6f30c"
+    },
+    {
+      "path": "gate.json",
+      "sha256": "27d88e7e4e8e914da922dba830a5309f10baccb7b6a072da71748ca6c16f4159"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "39d2a5bd54c02afc0d83b6d3e0abcde78505b17c2fb80d316265a96682b79a2d"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "153746e715b093c720a97f617f29e9e836bde17a84361bb039f7679448abb9c7"
+    },
+    {
+      "path": "policy-comparison.json",
+      "sha256": "487b732a628b04abd4ffadd477d1453290278ec98b123d17ceaa06f37bd0c3d1"
+    },
+    {
+      "path": "prediction-metrics.json",
+      "sha256": "c7f133aedd46e717148d3d1a6378af6d507c9393e63a3281cd8ea791abb7c5c6"
+    },
+    {
+      "path": "predictions.json",
+      "sha256": "65cc673e1983d177769f2d26d28f692942985aef2275196e04e60cb66b6489d7"
+    }
+  ],
+  "scope": "Every comparison curve, training episode and selected prediction/reference pair retained; executable final weights retained. Full transition archives and resumable optimiser/simulator state stay in ignored runs; deterministic corpus manifests and hashes permit regeneration."
+}

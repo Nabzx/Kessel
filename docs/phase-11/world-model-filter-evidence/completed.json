@@ -1,0 +1,15 @@
+{
+  "source_mode": "recorded_synthetic",
+  "source": {
+    "package_sha256": "b36c8217f93b8e4223f9022c9fd44e07bb7625c58657dffefb2a11f71d50c37d",
+    "git_commit": "e6188d43301616a820b154ba697a2905d3a832fc",
+    "training_dirty": false
+  },
+  "model_refits": 0,
+  "additional_dataset_reference_transitions": 8192,
+  "additional_policy_reference_transitions": 92160,
+  "accepted_imagined_transitions": 4719,
+  "auxiliary_critic_updates": 45,
+  "experiment_wall_s": 202.09996833303012,
+  "filtered_gate_calibration_s": 0.07201716699637473
+}
