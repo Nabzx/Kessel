@@ -1,0 +1,25 @@
+{
+  "episodes": 3,
+  "decisions": 755,
+  "predictions": 916,
+  "source": {
+    "package_sha256": "bd67aa893c66a6f6fea7e61a2dbafafe861130efee4c894c6186d8f9b52ebc21",
+    "git_commit": "afbbbc7e84fa97130af39329effab34fbeeb55a4",
+    "training_dirty": false
+  },
+  "export_wall_s": 8.17030558316037,
+  "bytes": 4984632,
+  "gzip_bytes": 1089328,
+  "decimation_max_position_error_m": 0,
+  "decimation_max_material_error_kg": 0,
+  "dropped_decisions": 0,
+  "action_replay_max_error": 0.0,
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "training_source": {
+    "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+    "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+    "training_dirty": false
+  },
+  "run_report_sha256": "4aadc164c8c4a9d4f70fab8b1371dd2ba85e9837e12a6e96c88f7a95854e2830",
+  "retained_runs_sha256": "9e666bf9afdfeead69a7b239530914e21a562c0367df6318618ca0d920f1e2df"
+}

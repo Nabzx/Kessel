@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "experiments": [
+    {
+      "run_id": "rl-study-v1-full-7",
+      "url": "data/experiments/loader-v1.json",
+      "sha256": "c77d962aaf160d496748052c1709e01494f1ecfa2621f2d088fcc54e4dd75ebb",
+      "bytes": 4984632,
+      "source_mode": "recorded_synthetic"
+    }
+  ]
+}
