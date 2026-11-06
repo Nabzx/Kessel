@@ -71,8 +71,8 @@ in the test suite. Compact reports and executable research weights stay under
 
 Recorded playback and the isolated CPU export comparison are documented in
 [the integration report](../docs/phase-11/recorded-integration.md). The browser
-loads no model weights or training runtime. Recreate the static bundle from
-retained executable checkpoint artefacts, then validate it from the repo root:
+loads no model weights or training runtime. From this directory, recreate the
+static bundle from retained executable checkpoint artefacts:
 
 ```sh
 uv run --locked python -m kessel_training.export_viewer --output ../data/experiments/loader-new.json --report ../docs/phase-11/viewer-export-new.json
