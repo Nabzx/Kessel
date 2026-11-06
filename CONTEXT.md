@@ -31,6 +31,14 @@ updates need their own implementation and evaluation evidence; none is implied
 by the current cinematic replay. The onboard runtime remains proposed.
 See ADRs 0028–0032.
 
+The Phase 11 reference simulator, resumable PPO tools and model-free comparison
+study are implemented under ADRs 0033-0039. The bounded study completed curriculum
+subtasks but no learned complete delivery cycle. Retained weights, failed
+replays and measured comparisons live in `docs/phase-11/rl-evidence/`; the report
+is `docs/phase-11/rl-experiments.md`. Learned world models and recorded results
+in the cinematic viewer remain subsequent work. Do not describe these policies
+as having demonstrated full autonomous haulage.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

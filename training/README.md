@@ -33,12 +33,22 @@ sensor state and all RNGs. To stop at a reproducible boundary, add
 `--resume runs/quick-example/checkpoint-000020-final.pt --output runs/quick-example`.
 Resume requires the same training source package, numerical library versions
 and recorded configuration. `--preset full` selects the provisional larger
-budget; the Phase 11 RL study will replace presets from measured comparisons.
+budget. The [completed RL study](../docs/phase-11/rl-experiments.md) selects a
+32-unit Compact network with 16 environments and 32-step rollouts. Quick targets
+40,960 decisions within 30 seconds; full targets 262,144 within 120 seconds.
+The study achieved no complete learned delivery cycle. These are workload
+presets for further research, not a proficiency guarantee.
 Wall limits are cumulative and checked between complete rollout/update
 transactions. SIGINT/SIGTERM request a checkpointed stop at the next boundary.
 Reports count completed episodes, decisions and optimiser steps separately;
 `nominal_simulated_s` is the sum of configured decision periods, including
 partially terminated decisions, rather than a claim of exact integrated time.
+
+Run the predeclared comparison with
+`uv run --locked python -m kessel_training.study --output runs/rl-study-new`.
+It needs a clean committed training tree and refuses an existing output. The
+recorded study source, seed/configuration plan, every outcome, learning curves
+and executable checkpoint exports are documented in the linked report.
 
 The project creates its own ignored `training/.venv`. It does not touch a
 repository-root `.venv` or another personal environment. To use a separate

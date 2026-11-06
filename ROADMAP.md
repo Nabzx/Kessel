@@ -162,3 +162,6 @@ the realistic presentation, with measured native M1 performance, asset notices,
 offline verification and maintainer visual acceptance. The initial architecture
 and measured CPU feasibility batch are in PRs #282 and #283; full task learning,
 world models, recorded integration and visual changes remain open work.
+The remaining RL tools and bounded comparisons are now implemented in PRs #290
+and #291; [the measured study](docs/phase-11/rl-experiments.md) found no complete
+learned delivery cycle. Research-tool completion does not imply task proficiency.
