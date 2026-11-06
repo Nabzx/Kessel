@@ -56,6 +56,9 @@ async function map(url, colour = false) {
 async function material(spec) {
   const maps = Object.fromEntries(await Promise.all(spec.maps.map(async (entry) =>
     [entry.role, await map(entry.path, entry.role === "Diffuse")])));
+  for (const entry of Object.values(maps))
+    if (entry.image.width !== spec.resolution[0] || entry.image.height !== spec.resolution[1])
+      throw new Error(`Unexpected material resolution: ${spec.id}`);
   const result = new THREE.MeshStandardMaterial({
     map: maps.Diffuse, normalMap: maps.nor_gl, roughnessMap: maps.Rough,
     aoMap: maps.AO, aoMapIntensity: 0.7, roughness: 1, metalness: 0,
