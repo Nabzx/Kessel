@@ -81,6 +81,14 @@ def imagine(model, policy, states, features, gate, generator, *, horizon=2, gamm
         valid, reasons = admissibility(current[ids], prediction["next_state"], prediction["reward"])
         reasons["non_finite_model_scores"] = (~np.isfinite(prediction["events"]).all(axis=1)
             | ~np.isfinite(prediction["disagreement"]) | ~np.isfinite(prediction["input_envelope"]))
+        if "filter_rejected" in prediction:
+            reasons["bounded_filter"] = prediction["filter_rejected"]
+            valid &= ~reasons["bounded_filter"]
+            stats["filtered_proposals"] = stats.get("filtered_proposals", 0)+len(ids)
+            stats["predictor_kind"] = prediction["predictor_kind"]
+            peaks = stats.setdefault("filter_correction_maxima", {})
+            for key, values in prediction["filter_correction"].items():
+                peaks[key] = max(peaks.get(key, 0.0), float(np.max(values)))
         reasons["uncertainty"] = prediction["disagreement"] > gate["threshold"]
         reasons["input_envelope"] = prediction["input_envelope"] > 6
         valid &= ~reasons["uncertainty"] & ~reasons["input_envelope"] & ~reasons["non_finite_model_scores"]

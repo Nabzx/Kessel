@@ -8,6 +8,7 @@ import torch
 from torch.nn import functional as F
 
 from . import checkpoints
+from .constrained_model import ConstrainedModel, FilterConfig
 from .imagination import imagine
 from .ppo import collect
 from .train import Trainer, config_from_dict
@@ -42,12 +43,15 @@ def auxiliary_value_step(policy, optimiser, features, targets, coefficient=0.1):
 class ModelAssistedTrainer(Trainer):
     trainer_kind = "model-assisted-critic-v1"
 
-    def __init__(self, config, model_payload, model_sha256, gate):
+    def __init__(self, config, model_payload, model_sha256, gate, filter_config=None):
         if config.curriculum or config.shaping:
             raise ValueError("world-model comparison uses complete tasks and raw delivery rewards")
         super().__init__(config)
         self.model_payload = model_payload
         self.model = model_from_state(model_payload).requires_grad_(False)
+        self.filter_config = filter_config
+        if filter_config is not None:
+            self.model = ConstrainedModel(self.model, FilterConfig(**filter_config))
         self.model_sha256, self.gate = model_sha256, gate
         self.auxiliary_rng = np.random.default_rng(config.seed+91000)
         self.branch_generator = torch.Generator(device="cpu").manual_seed(config.seed+12000)
@@ -86,6 +90,8 @@ class ModelAssistedTrainer(Trainer):
         record = {"rollout": self.counters["rollouts"], "model_sha256": self.model_sha256,
                   "cadence": 4, "maximum_anchor_ratio": 0.25, "maximum_horizon": 2,
                   "auxiliary_coefficient": 0.1, "model_refits": 0, "branches": stats, "critic_update": update}
+        record["filter_config"] = self.filter_config
+        record["filter_sha256"] = FilterConfig(**self.filter_config).digest() if self.filter_config is not None else None
         record["auxiliary_wall_s"] = time.perf_counter()-started
         self.auxiliary_records.append(record);row["model_assistance"] = record
         return row
@@ -93,7 +99,7 @@ class ModelAssistedTrainer(Trainer):
     def state(self):
         state = super().state()
         state["auxiliary"] = {"model_payload": self.model_payload, "model_sha256": self.model_sha256,
-            "gate": self.gate, "rng": self.auxiliary_rng.bit_generator.state,
+            "gate": self.gate, "filter_config": self.filter_config, "rng": self.auxiliary_rng.bit_generator.state,
             "branch_generator": self.branch_generator.get_state(), "records": self.auxiliary_records}
         return state
 
@@ -103,7 +109,7 @@ class ModelAssistedTrainer(Trainer):
         if state.get("trainer_kind") != cls.trainer_kind:
             raise ValueError("not a model-assisted checkpoint")
         extra = state["auxiliary"]
-        trainer = cls(config_from_dict(state["configuration"]), extra["model_payload"], extra["model_sha256"], extra["gate"])
+        trainer = cls(config_from_dict(state["configuration"]), extra["model_payload"], extra["model_sha256"], extra["gate"], extra.get("filter_config"))
         trainer.restore_state(state, path)
         trainer.auxiliary_rng.bit_generator.state = extra["rng"]
         trainer.branch_generator.set_state(extra["branch_generator"])
