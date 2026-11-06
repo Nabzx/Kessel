@@ -61,6 +61,16 @@ def config_from_dict(value):
     return TrainConfig(**value)
 
 
+def preset_config(name):
+    """M1 budgets selected from rl-study-v1, not a task-proficiency claim."""
+    if name not in ("quick", "full"):
+        raise ValueError("unknown training preset")
+    full = name == "full"
+    return TrainConfig(num_envs=16, hidden=32, rollout_steps=32,
+        updates=512 if full else 80, max_wall_s=120 if full else 30,
+        checkpoint_every=128 if full else 20, curriculum=True, shaping=True, randomise_training=True)
+
+
 class Trainer:
     def __init__(self, config=None):
         self.config = config or TrainConfig()
@@ -217,8 +227,7 @@ def main():
     else:
         if args.output.exists():
             parser.error("choose a new output directory for a fresh run")
-        config = config_from_dict(json.loads(args.config.read_text())) if args.config else (
-            TrainConfig() if args.preset == "quick" else TrainConfig(num_envs=64, rollout_steps=64, updates=200, max_wall_s=120))
+        config = config_from_dict(json.loads(args.config.read_text())) if args.config else preset_config(args.preset)
         trainer = Trainer(config)
     for signum in (signal.SIGINT, signal.SIGTERM):
         signal.signal(signum, lambda *_: setattr(trainer, "stop_requested", True))

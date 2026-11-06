@@ -6,7 +6,7 @@ import torch
 from kessel_training import checkpoints
 from kessel_training.evaluation import load_policy
 from kessel_training.study import DEFAULT_PLAN, configuration, export_policy, milestones, rank_candidates
-from kessel_training.train import Trainer, TrainConfig
+from kessel_training.train import Trainer, TrainConfig, preset_config
 
 
 def test_search_and_ablations_share_sample_budgets_and_use_training_seeds():
@@ -47,3 +47,12 @@ def test_compact_export_executes_the_same_policy_weights(tmp_path):
         torch.testing.assert_close(v, policy.state_dict()[k], rtol=0, atol=0)
     assert identity["source_checkpoint_sha256"] == checkpoints.sha256(source)
     assert identity["checkpoint_sha256"] == checkpoints.sha256(target)
+
+
+def test_measured_presets_keep_the_selected_network_and_bounded_work():
+    quick, full = preset_config("quick"), preset_config("full")
+    assert (quick.hidden, quick.num_envs, quick.rollout_steps) == (32, 16, 32)
+    assert quick.updates*quick.num_envs*quick.rollout_steps == 40960
+    assert full.updates*full.num_envs*full.rollout_steps == 262144
+    assert quick.max_wall_s == 30 and full.max_wall_s == 120
+    assert quick.curriculum and full.curriculum
