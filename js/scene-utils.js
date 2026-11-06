@@ -15,9 +15,9 @@ export function box(size, position, material, parent) {
   if (parent) parent.add(mesh);
   return mesh;
 }
-export function lightRig(root, extent = 180) {
-  root.add(new THREE.HemisphereLight(0xe1ecea, 0x454442, 2.8));
-  const key = new THREE.DirectionalLight(0xf1f3e8, 3.4);
+export function lightRig(root, extent = 180, stage = "surface") {
+  root.add(new THREE.HemisphereLight(0xc9d9df, 0x373a32, stage === "mine" ? 1.55 : 1.35));
+  const key = new THREE.DirectionalLight(0xffe5bb, stage === "mine" ? 2.4 : 3.1);
   key.position.set(-extent, extent * 1.7, extent * 0.7);
   key.castShadow = true;
   key.shadow.mapSize.set(1024, 1024);
@@ -30,7 +30,8 @@ export function lightRig(root, extent = 180) {
     far: extent * 6,
   });
   key.shadow.bias = -0.0005;
-  key.shadow.normalBias = 0.08;
+  key.shadow.normalBias = 0.035;
+  key.shadow.radius = 2;
   root.add(key);
   return key;
 }
@@ -97,4 +98,28 @@ export async function studioEnvironment(config) {
   map.generateMipmaps = false;
   map.needsUpdate = true;
   return map;
+}
+
+// Blend two translated samples through a smooth, low-frequency field. This
+// breaks the repeating photograph without a larger texture or extra draw call.
+export function varyTexture(material) {
+  const prepare = material.onBeforeCompile;
+  material.onBeforeCompile = shader => {
+    prepare.call(material, shader);
+    shader.fragmentShader = shader.fragmentShader.replace("#include <map_fragment>", `
+      #ifdef USE_MAP
+        vec2 surfaceUV=vMapUv;
+        float field=(sin(surfaceUV.x*.47)+sin(surfaceUV.y*.39+surfaceUV.x*.13))*2.0+4.0;
+        float cell=floor(field), blend=smoothstep(.15,.85,fract(field));
+        vec2 offsetA=sin(vec2(3.0,7.0)*cell), offsetB=sin(vec2(3.0,7.0)*(cell+1.0));
+        vec4 texel=mix(texture2D(map,surfaceUV+offsetA),texture2D(map,surfaceUV+offsetB),blend);
+        diffuseColor*=texel;
+      #endif
+    `);
+    shader.fragmentShader=shader.fragmentShader.replace("#include <normal_fragment_maps>",
+      THREE.ShaderChunk.normal_fragment_maps.replaceAll("texture2D( normalMap, vNormalMapUv )",
+        "mix(texture2D(normalMap,vNormalMapUv+offsetA),texture2D(normalMap,vNormalMapUv+offsetB),blend)"));
+  };
+  material.customProgramCacheKey = () => "kessel-varied-surface-" + material.type;
+  return material;
 }

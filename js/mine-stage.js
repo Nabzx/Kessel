@@ -1,5 +1,8 @@
 import * as THREE from "three";
-import { texture, box, lightRig, seeded, line } from "./scene-utils.js";
+import { texture, box, lightRig, seeded, line, varyTexture } from "./scene-utils.js";
+import { rockMaterial, rockBody } from "./geology.js";
+import { createMaterialTransfer } from "./material-transfer.js";
+import { createServices, createContactDust } from "./mine-services.js";
 import { createFleet } from "./fleet.js";
 import { createRouteRibbons } from "./underground.js";
 import { createLoadingMachine } from "./loading-machine.js";
@@ -7,56 +10,45 @@ export async function createMine(config) {
   const root = new THREE.Group();
   root.name = "sliced-rock-mine";
   const data = config.mine;
-  const [wall, floor, ore, wallNormal, floorNormal, oreNormal, vehicleModel] =
-    await Promise.all([
-      texture(config.assets.wall),
-      texture(config.assets.floor, 16),
-      texture(config.assets.ore),
-      texture(config.assets.wall_normal, 1, false),
-      texture(config.assets.floor_normal, 16, false),
-      texture(config.assets.ore_normal, 1, false),
-      fetch(config.assets.truck).then((r) => r.json()),
-    ]);
-  const rockMat = new THREE.MeshStandardMaterial({
-    map: wall,
-    normalMap: wallNormal,
-    normalScale: new THREE.Vector2(0.55, 0.55),
-    color: 0xadb4b3,
-    roughness: 0.96,
-  });
-  // Box UVs are scaled per face so rock texture remains at a consistent metre scale.
-  function rockBox(spec) {
-    const mesh = box(spec.size, spec.position, rockMat, root);
-    const uv = mesh.geometry.attributes.uv;
-    for (let i = 0; i < uv.count; i++)
-      uv.setXY(
-        i,
-        (uv.getX(i) * Math.max(spec.size[0], spec.size[2])) / 7,
-        (uv.getY(i) * spec.size[1]) / 4,
-      );
-    return mesh;
-  }
-  rockBox(data.base);
-  for (const spec of data.pillars) rockBox(spec);
-  for (const spec of data.rims) rockBox(spec);
+  const [floor, ore, floorNormal, oreNormal, vehicleModel, rockMat] = await Promise.all([
+    texture(config.assets.floor, 22), texture(config.assets.ore),
+    texture(config.assets.floor_normal, 22, false), texture(config.assets.ore_normal, 1, false),
+    fetch(config.assets.truck).then((r) => r.json()), rockMaterial(config.visuals.rock),
+  ]);
+  let rockIndex = config.visuals.geology_seed;
+  rockBody(data.base, rockMat, root, rockIndex++, 1.8);
+  for (const spec of [...data.pillars, ...data.rims])
+    rockBody(spec, rockMat, root, rockIndex++, config.visuals.pillar_relief_m);
   const ground = new THREE.Mesh(
     new THREE.PlaneGeometry(...data.floor_size),
     new THREE.MeshStandardMaterial({
       map: floor,
       normalMap: floorNormal,
-      color: 0xb9b4a3,
-      roughness: 0.95,
+      color: 0x85877f,
+      roughness: 0.88,
     }),
   );
+  varyTexture(ground.material);
   ground.rotation.x = -Math.PI / 2;
   ground.position.y = data.floor_y + 0.12;
   ground.receiveShadow = true;
   root.add(ground);
+  const wearMat = new THREE.MeshStandardMaterial({ color: 0x3a3c36, roughness: 0.56, transparent: true, opacity: 0.18, depthWrite: false });
+  for (const segment of data.network.segments) {
+    const points = segment.centerline_m;
+    for (let i = 1; i < points.length; i++) {
+      const from = new THREE.Vector3(...points[i - 1]), to = new THREE.Vector3(...points[i]);
+      const strip = new THREE.Mesh(new THREE.PlaneGeometry(4.6, from.distanceTo(to)), wearMat);
+      strip.rotation.set(-Math.PI / 2, 0, -Math.atan2(to.x - from.x, to.z - from.z));
+      strip.position.copy(from).lerp(to, .5); strip.position.y += .15;
+      root.add(strip);
+    }
+  }
   const routes = createRouteRibbons(data.network, data.routes);
   routes.traverse((object) => {
     if (object.isMesh) {
       object.material.color.set(0xe66f60);
-      object.material.opacity = 0.72;
+      object.material.opacity = 0.38;
       object.material.depthTest = true;
       object.material.toneMapped = true;
     }
@@ -85,6 +77,10 @@ export async function createMine(config) {
     data.network.nodes.find((node) => node.id === "draw"),
   );
   root.add(loading.root);
+  const transfer = createMaterialTransfer(config.visuals.transfer,
+    new THREE.MeshStandardMaterial({map:ore,normalMap:oreNormal,roughness:1,color:0xa3977e}),
+    fleet.entries, loading.bucketPosition);
+  root.add(transfer.root);
   const rand = seeded(863),
     pose = new THREE.Object3D();
   const rocks = new THREE.InstancedMesh(
@@ -137,27 +133,14 @@ export async function createMine(config) {
     for (let i = 0; i < 5; i++)
       box([0.45, 0.12, 4.5], [x + 6 + i * 1.8, y + 1.1, z], stripeMat, root);
   }
-  // Exposed services and support fixtures follow the working corridors.
-  for (const z of [-48, 48]) {
-    root.add(
-      line(
-        [
-          [-60, data.floor_y + 0.2, z],
-          [60, data.floor_y + 0.2, z],
-        ],
-        0x4f5550,
-      ),
-    );
-    for (let x = -50; x <= 50; x += 20) {
-      box(
-        [0.16, 1.2, 0.16],
-        [x, data.floor_y + 0.6, z + 2],
-        structureMat,
-        root,
-      );
-    }
+  createServices(config.visuals.services, root);
+  const dust = createContactDust(config.visuals.dust, matchMedia("(prefers-reduced-motion: reduce)").matches);
+  root.add(dust.root);
+  lightRig(root, 95, "mine");
+  for (const [x, y, z] of data.lamps.slice(0, 2)) {
+    const lamp = new THREE.PointLight(0xffd6a0, 80, 28, 2);
+    lamp.position.set(x, y - 2, z); root.add(lamp);
   }
-  lightRig(root, 150);
   let trained = false,
     elapsed = 0,
     scan = 0;
@@ -178,28 +161,14 @@ export async function createMine(config) {
   function setTrained(value) {
     trained = value;
     fleet.setOptimised(value);
-    fleet.entries.forEach((entry, index) => {
-      entry.distance =
-        (value
-          ? data.trained_offsets[index]
-          : data.fleet.vehicles[index].phase_offset) * entry.path.length;
-      entry.dwell = 0;
-      entry.phase =
-        entry.distance === 0
-          ? "loading"
-          : entry.distance > entry.path.tipDistance
-            ? "returning"
-            : "hauling";
-      entry.detail.visible = true;
-      entry.overview.visible = false;
-    });
+    for (const entry of fleet.entries) { entry.detail.visible = true; entry.overview.visible = false; }
     fleet.group.children
       .filter((object) => object.userData.routeId)
       .forEach((object) => {
         object.material.color.set(value ? 0x8fcaa5 : 0xe66f60);
         object.material.depthTest = true;
         object.material.toneMapped = true;
-        object.material.opacity = 0.8;
+        object.material.opacity = 0.45;
       });
     elapsed = 0;
   }
@@ -208,7 +177,10 @@ export async function createMine(config) {
     kesselScanStrength: { value: 0 },
   };
   for (const material of [rockMat, ground.material]) {
+    material.customProgramCacheKey = () => "kessel-mine-scan-" + (material === rockMat ? "rock" : "floor");
+    const prepare = material.onBeforeCompile;
     material.onBeforeCompile = (shader) => {
+      prepare.call(material, shader);
       Object.assign(shader.uniforms, scanUniforms);
       shader.vertexShader =
         "varying vec3 kesselPosition;\n" +
@@ -232,25 +204,16 @@ export async function createMine(config) {
     const strength = Math.sin(Math.PI * value);
     scanUniforms.kesselScanX.value = THREE.MathUtils.lerp(-88, 88, value);
     scanUniforms.kesselScanStrength.value = strength;
-    const opacity =
-      1 -
-      THREE.MathUtils.smoothstep(value, 0.1, 0.38) +
-      THREE.MathUtils.smoothstep(value, 0.62, 0.94);
-    for (const entry of original) {
-      if (entry.material.userData.machineMaterial) {
-        entry.material.opacity = entry.opacity * opacity;
-        entry.material.transparent = true;
-      }
-    }
+    const opacity = 1 - strength * 0.08;
     for (const entry of fleet.entries) entry.truck.visible = true;
     loading.root.visible = true;
     routes.children.forEach((object) => {
-      object.material.opacity = 0.72 * opacity;
+      object.material.opacity = 0.38 * opacity;
     });
     fleet.group.children
       .filter((object) => object.userData.routeId)
       .forEach((object) => {
-        object.material.opacity = 0.8 * opacity;
+        object.material.opacity = 0.45 * opacity;
       });
   }
   for (const machine of [
@@ -281,7 +244,10 @@ export async function createMine(config) {
         entry.speed = 0;
     }
     fleet.update(delta);
-    loading.update(fleet.entries[0]);
+    loading.update(fleet.entries[0], delta);
+    dust.update(delta, fleet.entries);
+    root.updateMatrixWorld(true);
+    transfer.update();
     if (scan === 0)
       for (const entry of fleet.entries) entry.truck.visible = true;
   }
@@ -291,6 +257,7 @@ export async function createMine(config) {
     setTrained,
     setScan,
     update,
+    setEffects(value) { dust.root.visible = value; },
     get trained() {
       return trained;
     },

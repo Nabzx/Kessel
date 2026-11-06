@@ -200,14 +200,14 @@
         "ground_detail": "assets/textures/brown_mud_dry_diff.jpg"
       },
       "camera": [
-        155,
-        170,
-        215
+        142,
+        118,
+        192
       ],
       "target": [
         0,
         3,
-        -8
+        -10
       ],
       "site_origin_m": [
         -800,
@@ -1686,6 +1686,213 @@
       "path": "assets/lighting/kit-studio.bin",
       "width": 384,
       "height": 512
+    }
+  },
+  "visuals": {
+    "version": 1,
+    "source": "authored presentation geometry; not a surveyed mine",
+    "rock": {
+      "diff": "assets/materials/rock_face_03_diff.webp",
+      "normal": "assets/materials/rock_face_03_nor_gl.webp",
+      "roughness": "assets/materials/rock_face_03_rough.webp",
+      "ao": "assets/materials/rock_face_03_ao.webp",
+      "repeat_m": 2.7,
+      "tint": "#b8b8ac"
+    },
+    "geology_seed": 31071,
+    "pillar_relief_m": 1.3,
+    "dust": {
+      "capacity": 80,
+      "lifetime_seconds": 1.3,
+      "size_m": 1.5
+    },
+    "services": {
+      "runs": [
+        {
+          "from": [
+            -13,
+            -1,
+            -40
+          ],
+          "to": [
+            7,
+            -1,
+            -40
+          ]
+        },
+        {
+          "from": [
+            -13,
+            -1,
+            44
+          ],
+          "to": [
+            7,
+            -1,
+            44
+          ]
+        },
+        {
+          "from": [
+            -59,
+            -1,
+            -38
+          ],
+          "to": [
+            -59,
+            -1,
+            40
+          ]
+        }
+      ],
+      "vent_radius_m": 0.65,
+      "pipe_radius_m": 0.13,
+      "hanger_spacing_m": 6
+    },
+    "surface": {
+      "yard_outline": [
+        [
+          -84,
+          -53
+        ],
+        [
+          -75,
+          -70
+        ],
+        [
+          -25,
+          -75
+        ],
+        [
+          45,
+          -72
+        ],
+        [
+          83,
+          -50
+        ],
+        [
+          89,
+          12
+        ],
+        [
+          78,
+          65
+        ],
+        [
+          35,
+          77
+        ],
+        [
+          -33,
+          71
+        ],
+        [
+          -79,
+          43
+        ]
+      ],
+      "fence": [
+        [
+          -80,
+          -65
+        ],
+        [
+          82,
+          -65
+        ],
+        [
+          88,
+          56
+        ]
+      ],
+      "stockpiles": [
+        [
+          21,
+          43
+        ],
+        [
+          30,
+          43
+        ],
+        [
+          39,
+          43
+        ]
+      ],
+      "tank_positions": [
+        [
+          -60,
+          34
+        ],
+        [
+          -46,
+          34
+        ]
+      ],
+      "rock_seed": 17041,
+      "portal_width_m": 8,
+      "portal_height_m": 7,
+      "parked_vehicles": [
+        {
+          "id": "surface-hauler",
+          "position": [
+            10,
+            0.2,
+            10
+          ],
+          "heading": -0.35
+        }
+      ],
+      "ground": {
+        "diff": "assets/materials/aerial_grass_rock_diff.webp",
+        "normal": "assets/materials/aerial_grass_rock_nor_gl.webp",
+        "roughness": "assets/materials/aerial_grass_rock_rough.webp",
+        "repeat_m": 15
+      },
+      "portal_hill": {
+        "position": [
+          0,
+          0,
+          -159
+        ],
+        "size": [
+          190,
+          34,
+          220
+        ],
+        "aperture_half_width_m": 5.5,
+        "aperture_end_z": -78
+      }
+    },
+    "budgets": {
+      "rock_triangles_max": 12000,
+      "dust_particles_max": 80,
+      "main_rock_maps_max_bytes": 3500000,
+      "orbit_triangles_max": 10000
+    },
+    "orbit": {
+      "model": "assets/models/iss/iss.glb",
+      "credit": "NASA / Visualization Technology Applications and Development (VTAD)",
+      "decorative": true
+    },
+    "transfer": {
+      "fragments_per_vehicle": 8,
+      "rate_hz": 1.7,
+      "arc_height_m": 0.7
+    },
+    "entrance": {
+      "approach_offset_m": [
+        36,
+        36,
+        48
+      ],
+      "approach_target_offset_m": [
+        0,
+        2,
+        0
+      ],
+      "portal_alignment_node": "draw"
     }
   }
 }
