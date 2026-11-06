@@ -2,6 +2,10 @@
 
 Status: Accepted
 
+The separately labelled bounded-filter experiment in
+[ADR-0041](0041-explicit-bounded-world-model-filter.md) supersedes only the
+no-correction rule. Raw neural results remain independent and unchanged.
+
 ## Decision
 
 Implement an action-conditioned CPU dynamics ensemble independently of the
