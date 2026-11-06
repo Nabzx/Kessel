@@ -230,7 +230,7 @@ async function getMine() {
   return minePromise;
 }
 const learningCache = new Map(), learningLoads = new Map();
-let learningRequest = 0;
+let learningRequest = 0, learningEntryTrigger = null;
 async function getLearning(sourceMode = "recorded_synthetic") {
   if (learningCache.has(sourceMode)) return learningCache.get(sourceMode);
   if (!learningLoads.has(sourceMode)) {
@@ -254,6 +254,8 @@ function configureLearningUI(sourceMode) {
   $("learning-source").value = sourceMode;
   document.querySelectorAll("[data-recorded]").forEach((element) => { element.hidden = !recorded; });
   $("learning-source-label").textContent = recorded ? "Recorded synthetic · full-7" : "Illustrative training replay";
+  $("reward-curve-label").textContent = recorded ? "Training mean reward" : "Reward";
+  $("reward-heading").textContent = recorded ? "Step reward" : "Reward";
   $("episode-caption").textContent = recorded ? "completed training episodes" : "represented episodes";
   $("learning-title").innerHTML = recorded ? "Policy<br />checkpoints." : "Scoop<br />and haul.";
   $("caption-detail").textContent = recorded ? "Recorded synthetic experiment. Mine figures illustrative." : "Illustrative training replay.";
@@ -265,7 +267,7 @@ function configureLearningUI(sourceMode) {
     $("observation-value").textContent = "Geometry + machine pose";
     $("reward-explanation").textContent = "Ore − spillage − delay";
     $("reward-chart").setAttribute("aria-label", "Illustrative reward improvement over training");
-    $("reward-point").hidden = false;
+    $("reward-point").style.visibility = "visible";
     $("reward-path").setAttribute("d", rewardPoints.map((p, i) => `${i ? "L" : "M"}${p[0]} ${p[1]}`).join(" "));
   }
 }
@@ -588,10 +590,12 @@ async function openLearning(requestedMode = "recorded_synthetic") {
   const sourceMode = typeof requestedMode === "string" ? requestedMode : "recorded_synthetic";
   if (!["recorded_synthetic", "authored"].includes(sourceMode)) return;
   const request = ++learningRequest, alreadyOpen = stage === "learning", button = document.activeElement;
+  if (!alreadyOpen && ["explore-world-model", "product-world-model"].includes(button?.id)) learningEntryTrigger = button;
   if (button?.tagName === "BUTTON") button.disabled = true;
   let value;
   try { value = await getLearning(sourceMode); }
   catch (error) {
+    if (button) button.disabled = false;
     if (request !== learningRequest) return;
     $("experiment-error-message").textContent = `${error.message}. Retry or choose the labelled concept replay.`;
     $("experiment-error").hidden = false;
@@ -604,7 +608,7 @@ async function openLearning(requestedMode = "recorded_synthetic") {
   $("experiment-error").hidden = true;
   if (!alreadyOpen) entryContext = {
     stage, scroll: scrollY, camera: camera.position.clone(), target: lookTarget.clone(),
-    fov: camera.fov, kitActive, trigger: button,
+    fov: camera.fov, kitActive, trigger: learningEntryTrigger || button,
   };
   if (learning) learning.root.visible = false;
   learning = value;
@@ -652,6 +656,8 @@ function closeLearning() {
   mine.root.visible = !entryContext.kitActive;
   updateProduct();
   entryContext.trigger?.focus({ preventScroll: true });
+  learningEntryTrigger = null;
+  delete document.body.dataset.learningSource;
 }
 let rewardPoints = [];
 function updateLearning(delta) {
@@ -920,7 +926,8 @@ function render(now) {
     ["mine", "trained", "entering", "comparing"].includes(stage)
   )
     mine.update(stage === "comparing" ? 0 : delta);
-  if (stage === "learning" && learning) updateLearning(delta);
+  if (stage === "learning" && learning)
+    updateLearning(learning.sourceMode === "recorded_synthetic" ? ms / 1000 : delta);
   if (kitActive && kit) kit.update(delta);
   pinLabel();
   renderer.render(scene, camera);

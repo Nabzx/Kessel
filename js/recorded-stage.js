@@ -13,11 +13,14 @@ export async function createRecorded(config, bundle) {
   const edging = new THREE.MeshStandardMaterial({ color: 0x303c3b, roughness: 1, map: ore });
   for (const side of [-1, 1]) box([29, 0.65, 0.45], [3.5, 0.325, side * (halfWidth + 0.225)], edging, root);
   const grid = new THREE.GridHelper(30, 30, 0x4c625f, 0x293a3a);grid.position.set(3.5, 0.012, 0);grid.material.transparent = true;grid.material.opacity = 0.18;root.add(grid);
-  const loader = createLoader(asset, ore);root.add(loader.root);
+  const proxy = { ...asset, wheels: { ...asset.wheels, radius: 0.55, y: 0.55, side: 0.65 }, bucket: { ...asset.bucket, depth: 1.2 } };
+  const loader = createLoader(proxy, ore);root.add(loader.root);
   // The asset faces local +z; its rear axle is at z=-1.9. Reparent its front
   // assembly around the physical joint, preserving the authored local poses.
   const front = new THREE.Group();front.position.z = -0.1;loader.root.add(front);loader.root.updateMatrixWorld(true);
-  front.attach(loader.boom);for (const i of [1, 3]) front.attach(loader.wheels[i]);
+  front.attach(loader.boom);front.attach(loader.bucket);
+  loader.boom.position.set(0, 0.75, 1.6);
+  for (const i of [1, 3]) { front.attach(loader.wheels[i]);loader.wheels[i].position.z = 1.6; }
   const pile = new THREE.InstancedMesh(new THREE.BoxGeometry(0.49, 1, 0.49), new THREE.MeshStandardMaterial({ map: ore, color: 0xb6a792, roughness: 1 }), 64);
   pile.castShadow = true;pile.receiveShadow = true;root.add(pile);
   const receiver = new THREE.Group();const rx = initial[indices.receiver_x_m], ry = -initial[indices.receiver_y_m];
@@ -42,7 +45,7 @@ export async function createRecorded(config, bundle) {
   const cells = Array.from({ length: 25 }, () => { const cell = document.createElement("span");ui["observation-crop"].append(cell);return cell; });
   const points = curvePoints(bundle.learning_curve);
   let horizon = 1, hudElapsed = 0, lastFrame = null, lastEpisode = -1, currentFuture = null;
-  function place(mesh, state) { mesh.position.set(state[0] + 1.4 * Math.cos(state[2]), 0.95, -state[1] - 1.4 * Math.sin(state[2]));mesh.rotation.y = state[2]; }
+  function place(mesh, state) { mesh.position.set(state[0] + 1.65 * Math.cos(state[2]), 0.95, -state[1] - 1.65 * Math.sin(state[2]));mesh.rotation.y = state[2]; }
   function renderForecast(frame, episode) {
     const future = frame.predictions.find((p) => p.horizon_decisions === horizon), exists = !!future?.prediction;
     for (const object of [reference, prediction, residual, spread, forecastPile]) object.visible = exists;
@@ -67,14 +70,16 @@ export async function createRecorded(config, bundle) {
   function paintHud(state, sampled, future) {
     const { episode, index } = state, frame = sampled.frame, counters = episode.policy.training_counters;
     ui["episode-count"].textContent = counters.completed_episodes.toLocaleString("en-GB");
-    ui["reward-value"].textContent = frame.reward === null ? "Terminal" : frame.reward.toFixed(4);
+    const measured = counters.rollouts > 0 ? bundle.learning_curve[counters.rollouts - 1] : null;
+    ui["reward-value"].textContent = measured ? measured.mean_step_reward.toFixed(4) : "No update";
     ui["action-value"].title = "Acceleration, articulation rate, boom rate, bucket rate; normalised [-1,1]";
     ui["action-value"].setAttribute("aria-label", frame.action ? frame.action.map((v, i) => `${bundle.action_names[i]} ${v.toFixed(3)}`).join(", ") + "; normalised minus one to one" : "Terminal record, no next action");
     ui["action-value"].textContent = frame.action ? frame.action.map((v) => v.toFixed(2)).join(" · ") : "No next action";
     ui["policy-value"].textContent = `${episode.name} · ${episode.policy.checkpoint_sha256.slice(0, 8)}`;
     ui["observation-value"].textContent = `Local crop · ${frame.observation.slice(40).filter(Boolean).length}/25 valid`;
     const weighted = frame.reward_weighted ? Object.entries(frame.reward_weighted).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0] : null;
-    ui["reward-explanation"].textContent = weighted ? `${weighted[0].replaceAll("_", " ")} ${weighted[1].toFixed(4)}` : "Episode ended";
+    const termNames = { elapsed_s: "time", effort_proxy_j: "effort", collision_count: "collision", delivered_kg: "delivery", spilled_kg: "spill", slip_s: "slip" };
+    ui["reward-explanation"].textContent = weighted ? `${frame.reward.toFixed(4)} · ${termNames[weighted[0]]} ${weighted[1].toFixed(4)}` : "Episode ended";
     const outcome = { tunnel_wall: "Wall collision", time_limit: "Time limit", stuck: "Stuck", success: "Delivery complete" }[episode.outcome] || episode.outcome;
     ui["checkpoint-outcome"].textContent = `${outcome}. Delivered ${episode.metrics.delivered_kg.toFixed(0)} kg.`;
     ui["payload-readout"].textContent = `Payload ${frame.state[7].toFixed(0)} / 3,500 kg`;
@@ -91,7 +96,7 @@ export async function createRecorded(config, bundle) {
     }
     ui["observation-crop"].setAttribute("aria-label", `Recorded 5 by 5 height crop in metres: ${frame.observation.slice(15, 40).map((v) => v.toFixed(2)).join(", ")}. Validity mask ${frame.observation.slice(40).join(", ")}`);
     const curveIndex = Math.max(0, Math.min(points.length - 1, counters.rollouts - 1)), point = points[curveIndex];
-    ui["reward-point"].hidden = counters.rollouts === 0;
+    ui["reward-point"].style.visibility = counters.rollouts === 0 ? "hidden" : "visible";
     if (point) { ui["reward-point"].setAttribute("cx", point[0]);ui["reward-point"].setAttribute("cy", point[1]); }
     ui["prediction-error"].textContent = future?.prediction ? `${future.residual.position_m.toFixed(4)} m` : "Unavailable";
     ui["prediction-score"].textContent = future?.prediction ? future.disagreement.toFixed(3) : "No score";
@@ -104,7 +109,10 @@ export async function createRecorded(config, bundle) {
   function update(delta) {
     const state = clock.update(delta), sampled = sampleEpisode(state.episode, state.time), s = sampled.frame.state, p = sampled.pose;
     const yaw = p[2];loader.root.position.set(p[0] + 1.9 * Math.cos(yaw), 0, -p[1] - 1.9 * Math.sin(yaw));loader.root.rotation.y = Math.PI / 2 + yaw;
-    front.rotation.y = p[4];loader.boom.rotation.x = -p[5];loader.bucket.rotation.x = -p[6];
+    front.rotation.y = p[4];loader.bucket.rotation.x = -p[6];
+    loader.bucket.position.set(0, 0.35 + 2 * Math.sin(p[5]) - 0.6 * Math.sin(p[6]), 1.6 + 1.2 * Math.cos(p[5]) - 0.6 * Math.cos(p[6]));
+    const armY = loader.bucket.position.y - 0.75, armZ = loader.bucket.position.z - 1.6;
+    loader.boom.rotation.x = -Math.atan2(armY, armZ);loader.boom.scale.z = Math.hypot(armY, armZ) / asset.boom.length;
     loader.cargo.visible = s[7] > 0;loader.cargo.scale.y = Math.max(0.001, s[7] / 3500);
     // Simulator wheel order is rear-left/rear-right/front-left/front-right.
     for (const [i, j] of [[0, 1], [1, 3], [2, 0], [3, 2]]) loader.wheels[i].rotation.x = sampled.wheelAngles[j];
@@ -124,7 +132,7 @@ export async function createRecorded(config, bundle) {
   function mount() {
     ui["reward-path"].setAttribute("d", points.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(2)} ${p[1].toFixed(2)}`).join(" "));
     ui["reward-chart"].setAttribute("aria-label", "Measured mean step reward at each recorded optimiser rollout. No smoothing; no full learned delivery cycle.");
-    ui["run-provenance"].textContent = `${bundle.run_id}\nTraining: ${bundle.run.training_wall_s.toFixed(2)} s wall · ${bundle.run.counters.environment_steps.toLocaleString("en-GB")} decisions · ${bundle.run.counters.optimiser_updates.toLocaleString("en-GB")} optimiser steps\nNominal training simulation: ${bundle.run.counters.nominal_simulated_s.toFixed(1)} s\nPolicy and raw dynamics are separate networks. Model ${bundle.world_model.model_sha256}\nTraining source ${bundle.run.source.git_commit}\nExporter source ${bundle.export_source.git_commit}\nEnvelope: ${bundle.world_model.envelope_method}\n${bundle.presentation.limitations}`;
+    ui["run-provenance"].textContent = `${bundle.run_id}\nTraining: ${bundle.run.training_wall_s.toFixed(2)} s wall · ${bundle.run.counters.environment_steps.toLocaleString("en-GB")} decisions · ${bundle.run.counters.optimiser_updates.toLocaleString("en-GB")} optimiser steps\nNominal training simulation: ${bundle.run.counters.nominal_simulated_s.toFixed(1)} s\nTraining curve includes its recorded curriculum/shaping stage. Replay step rewards use delivery-v1.\nAction order: acceleration, articulation, boom, bucket; normalised [-1,1].\nPolicy and raw dynamics are separate networks. Model ${bundle.world_model.model_sha256}\nTraining source ${bundle.run.source.git_commit}\nExporter source ${bundle.export_source.git_commit}\nEnvelope: ${bundle.world_model.envelope_method}\n${bundle.presentation.limitations}`;
     lastFrame = null;update(0);
   }
   return { root, sourceMode: "recorded_synthetic", camera: [24, 21, 28], target: [3, 0.5, 0], mount, update,
@@ -133,6 +141,10 @@ export async function createRecorded(config, bundle) {
     horizon(value) { if (![1, 2, 4, 8].includes(value)) return;horizon = value;this.inspect(); },
     inspect() { const state = clock.state(), anchors = state.episode.records.filter((r) => r.predictions.some((p) => p.horizon_decisions === horizon));if (!anchors.length) return;const anchor = anchors.reduce((a, b) => Math.abs(b.t_s - state.time) < Math.abs(a.t_s - state.time) ? b : a);clock.seek(anchor.t_s);update(0); },
     get running() { return !clock.paused; },
-    diagnostics() { const state = clock.state();return { runId: bundle.run_id, sourceMode: "recorded_synthetic", checkpoint: state.index, simulatedTime: state.time, paused: state.paused, horizon, frame: sampleEpisode(state.episode, state.time).index, counters: state.episode.policy.training_counters }; },
+    diagnostics() { const state = clock.state(), sampled = sampleEpisode(state.episode, state.time), p = sampled.pose, heading = p[2] + p[4];
+      loader.root.updateMatrixWorld(true);
+      const actualMouth = loader.bucket.localToWorld(new THREE.Vector3(0, 0, 0.6));
+      const expectedMouth = new THREE.Vector3(p[0] + 1.8 * Math.cos(p[2]) + (1.6 + 1.2 * Math.cos(p[5])) * Math.cos(heading), 0.35 + 2 * Math.sin(p[5]), -p[1] - 1.8 * Math.sin(p[2]) - (1.6 + 1.2 * Math.cos(p[5])) * Math.sin(heading));
+      return { bucketMouthErrorM: actualMouth.distanceTo(expectedMouth), runId: bundle.run_id, sourceMode: "recorded_synthetic", checkpoint: state.index, simulatedTime: state.time, paused: state.paused, horizon, frame: sampleEpisode(state.episode, state.time).index, counters: state.episode.policy.training_counters }; },
   };
 }
