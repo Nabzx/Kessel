@@ -1,0 +1,30 @@
+{
+  "source_url": "https://zenodo.org/records/18835599",
+  "licence": "CC-BY-4.0",
+  "attribution": "Hrovat, Simon\u010di\u010d, Morano, Kocevska and Javornik, UWB Measurements and 3D Model of a Mine Tunnel, v1.0, CC BY 4.0. Cropped, centred and rotated for reference viewing.",
+  "source_sha256": "1b7edcf4c7656474d6d30c42396f163069bccc0c02bac312f27bb4ce29abaf06",
+  "derived_sha256": "8f108800a35ba9b7f41212b3ee0def1f848931f3bf1ab1307a40e2a45303eb60",
+  "source_triangles": 39403,
+  "triangles": 7416,
+  "format": "float32-le-positions",
+  "physical_units": null,
+  "crs": null,
+  "source_z_is_view_up": "assumption for viewing, not certified",
+  "crop_span_source_units": 12,
+  "horizontal_rotation_rad": -0.9954882002617413,
+  "bounds": [
+    [
+      -6.271197562008883,
+      -4.8748626708984375,
+      -9.439120426316391
+    ],
+    [
+      6.271197562008883,
+      4.8748626708984375,
+      9.439120426316391
+    ]
+  ],
+  "bytes": 266976,
+  "reference_only": true,
+  "processing": "Keep whole triangles by longitudinal centroid, then centre. Boundaries are uncapped; this is not a collision mesh."
+}
