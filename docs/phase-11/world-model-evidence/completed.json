@@ -1,0 +1,33 @@
+{
+  "source_mode": "recorded_synthetic",
+  "source": {
+    "package_sha256": "3759e961f7563c185625f01b297275ec48bded2bdbf9bcc35e8b4e212ac73c7d",
+    "git_commit": "68acc70dc352c9b72210b257dfb4c697788b29db",
+    "training_dirty": false
+  },
+  "dataset_reference_transitions": 18432,
+  "policy_reference_transitions": 215040,
+  "accepted_imagined_transitions": 0,
+  "proposed_model_transitions": 5760,
+  "auxiliary_critic_updates": 0,
+  "model_optimiser_updates": 3540,
+  "experiment_wall_s": 326.64139079093,
+  "shared_pretraining_costs": {
+    "training_validation_collection_s": 47.571175248827785,
+    "ensemble_training_s": 3.2350847080815583,
+    "gate_calibration_s": 0.0599508339073509
+  },
+  "collection_costs": {
+    "train": 38.269787832861766,
+    "validation": 9.301387415966019,
+    "test": 9.24681445909664,
+    "high_resistance": 4.642593499971554,
+    "low_grip": 4.6586787910200655,
+    "sensing_failure": 4.675483541795984,
+    "unusual_pile": 4.739813833031803,
+    "contact_start": 4.629206166835502,
+    "blocked": 4.7243805408943444
+  },
+  "training_models_wall_s": 4.433367874240503,
+  "policy_training_wall_s": 84.5789055407513
+}

@@ -1,0 +1,13 @@
+{
+  "source": {
+    "package_sha256": "3759e961f7563c185625f01b297275ec48bded2bdbf9bcc35e8b4e212ac73c7d",
+    "git_commit": "68acc70dc352c9b72210b257dfb4c697788b29db",
+    "training_dirty": false
+  },
+  "plan_sha256": "89769b84ea83e9726d266ce422e549963b045b92d0dfb03d43ee2caf548d5da1",
+  "started_at_utc": "2026-11-06T17:42:59.791497+00:00",
+  "hardware": {
+    "device": "cpu",
+    "torch_threads": 1
+  }
+}

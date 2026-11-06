@@ -69,7 +69,10 @@ The [model-free RL study](docs/phase-11/rl-experiments.md) now includes resumabl
 training, gated curriculum, policy evaluation, robustness and retained checkpoint
 replays. Its bounded PPO runs achieved no complete delivery cycle. The measured
 negative result and executable research artefacts are kept separately from the
-concept presentation.
+concept presentation. The [world-model study](docs/phase-11/world-model-experiments.md)
+adds learned dynamics, measured uncertainty, physical guards and an experimental
+auxiliary critic. Explicit filtering allowed 4,719 imagined transitions and 45
+critic updates, but no learned complete cycle or sample-efficiency improvement.
 
 `data/experience.json` owns the geographic context, themes, scene poses, rock
 mass, directed haul routes, operating assumptions, loader keyframes,

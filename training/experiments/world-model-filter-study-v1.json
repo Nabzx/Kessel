@@ -1,0 +1,33 @@
+{
+  "study_id": "phase-11-world-model-bounded-filter-v1",
+  "source_study": "phase-11-world-model-v1",
+  "model_refits": 0,
+  "selection": "reuse immutable training/validation and frozen ensemble; filter limits fixed before fresh held-out acquisition",
+  "filter": {
+    "max_joint_correction_rad": 0.01,
+    "max_cell_height_correction_m": 0.002,
+    "max_material_correction_kg": 25.0,
+    "max_pile_correction_kg": 25.0,
+    "max_clock_correction_s": 0.02,
+    "max_effort_correction_j": 100.0,
+    "max_reward_correction": 0.05,
+    "max_speed_correction_m_s": 0.01,
+    "max_slip_correction": 0.02,
+    "max_slip_time_correction_s": 0.02
+  },
+  "fresh_test_rows": 2048,
+  "fresh_test_seed_offset": 6000,
+  "fresh_test_source_stride": 1000,
+  "fresh_ood_rows_per_family": 1024,
+  "fresh_ood_seed_offset": 9000,
+  "fresh_ood_family_stride": 50,
+  "fresh_ood_source_stride": 300,
+  "fresh_policy_test_seed_offset": 6500,
+  "additional_policy_seeds": [7, 19, 43],
+  "additional_on_policy_samples_per_seed": 30720,
+  "offline_samples_charged_per_seed": 10240,
+  "maximum_total_additional_policy_samples": 92160,
+  "maximum_training_wall_s_per_seed": 120,
+  "controls": "reuse fixed final model-free and raw-assisted weights; execute all nine policies on identical fresh scenes",
+  "comparison": "equal total reference sample budgets; publish raw and hybrid forecasts separately, physical correction sizes, rejected branches and zero or negative outcomes"
+}

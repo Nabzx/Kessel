@@ -1,0 +1,3690 @@
+{
+  "validation": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 2048,
+        "position_mae_m": 0.04150962603866578,
+        "position_p95_m": 0.10114475223535822,
+        "state_mae": {
+          "x_m": 0.0412047442480577,
+          "y_m": 0.002282507550586688,
+          "yaw_rad": 0.0025471775959351774,
+          "speed_m_s": 0.03312495203850008,
+          "articulation_rad": 0.004814371096069698,
+          "boom_rad": 0.003969789582871008,
+          "bucket_rad": 0.010563946318883827,
+          "carried_kg": 5.701002090712305,
+          "delivered_kg": 1.967916981988446,
+          "spilled_kg": 0.0,
+          "elapsed_s": 0.0001367187500033956,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 340.3590437613033,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.00012237879911907584,
+        "reward_mae": 0.01297508418713052,
+        "high_error_fraction": 0.40869140625,
+        "mass_balance_mae_kg": 8.304468224196171e-13,
+        "mass_balance_max_kg": 5.4569682106375694e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 7,
+            "brier": 0.00341796875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 7
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 308,
+            "brier": 0.150390625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 308
+          },
+          "collision": {
+            "positives": 5,
+            "brier": 0.00244140625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 5
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1735,
+            "position_mae_m": 0.042453909857550265,
+            "pile_height_mae_m": 1.244801572098631e-19,
+            "carried_mass_mae_kg": 4.717839951559858e-15,
+            "delivered_mass_mae_kg": 6.198655761081143e-16,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00021080692082756124
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.0057820699116983565,
+            "pile_height_mae_m": 2.5326962749261384e-16,
+            "carried_mass_mae_kg": 8.185452315956354e-12,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00020179188608593335
+          },
+          "material_transfer": {
+            "rows": 306,
+            "position_mae_m": 0.03637989806858559,
+            "pile_height_mae_m": 0.0008190581065224401,
+            "carried_mass_mae_kg": 38.155726411041755,
+            "delivered_mass_mae_kg": 13.170895356576262,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.003941542999119978
+          },
+          "collision_or_stuck": {
+            "rows": 5,
+            "position_mae_m": 0.04207351510544749,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.000141333220921
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 2048,
+        "position_mae_m": 0.0013451447787823242,
+        "position_p95_m": 0.0033157775732906287,
+        "state_mae": {
+          "x_m": 0.0013032424034955343,
+          "y_m": 0.00013438595080425935,
+          "yaw_rad": 0.0025471775959351774,
+          "speed_m_s": 0.026018648364156155,
+          "articulation_rad": 6.161967826492703e-06,
+          "boom_rad": 7.706881587366644e-06,
+          "bucket_rad": 3.068259842003076e-05,
+          "carried_kg": 5.701002090712305,
+          "delivered_kg": 1.967916981988446,
+          "spilled_kg": 0.0,
+          "elapsed_s": 0.0001367187500033956,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 340.3590437613033,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.00012237879911907584,
+        "reward_mae": 0.01277938106213052,
+        "high_error_fraction": 0.0244140625,
+        "mass_balance_mae_kg": 8.304468224196171e-13,
+        "mass_balance_max_kg": 5.4569682106375694e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 7,
+            "brier": 0.00341796875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 7
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 308,
+            "brier": 0.150390625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 308
+          },
+          "collision": {
+            "positives": 5,
+            "brier": 0.00244140625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 5
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1735,
+            "position_mae_m": 0.0010301091668191726,
+            "pile_height_mae_m": 1.244801572098631e-19,
+            "carried_mass_mae_kg": 4.717839951559858e-15,
+            "delivered_mass_mae_kg": 6.198655761081143e-16,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.080692082756124e-05
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.0006638853879057593,
+            "pile_height_mae_m": 2.5326962749261384e-16,
+            "carried_mass_mae_kg": 8.185452315956354e-12,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.791886085933343e-06
+          },
+          "material_transfer": {
+            "rows": 306,
+            "position_mae_m": 0.0023424861918382007,
+            "pile_height_mae_m": 0.0008190581065224401,
+            "carried_mass_mae_kg": 38.155726411041755,
+            "delivered_mass_mae_kg": 13.170895356576262,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.0037703011690546177
+          },
+          "collision_or_stuck": {
+            "rows": 5,
+            "position_mae_m": 0.049897711407326996,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 4.99994133322092
+          }
+        }
+      },
+      "single": {
+        "rows": 2048,
+        "position_mae_m": 0.032147475654909066,
+        "position_p95_m": 0.07032126857595736,
+        "state_mae": {
+          "x_m": 0.03142959573565665,
+          "y_m": 0.004144903716914496,
+          "yaw_rad": 0.002903115706146145,
+          "speed_m_s": 0.0312640139343452,
+          "articulation_rad": 0.004285016006044504,
+          "boom_rad": 0.0046501600847078306,
+          "bucket_rad": 0.009316179500718462,
+          "carried_kg": 8.774962148822551,
+          "delivered_kg": 6.2711018826497416,
+          "spilled_kg": 0.4257432798100853,
+          "elapsed_s": 0.000517529835368802,
+          "stuck_time_s": 0.00017383878414599206,
+          "effort_proxy_j": 393.68985840050254,
+          "slip_s": 7.205312131307484e-06,
+          "slip_ratio": 8.059823921972243e-05
+        },
+        "pile_height_mae_m": 0.0003309461644998464,
+        "reward_mae": 0.04254010802381201,
+        "high_error_fraction": 0.38134765625,
+        "mass_balance_mae_kg": 1.144074509886999,
+        "mass_balance_max_kg": 6.789274168901102,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1810,
+          "capacity_excess": 0,
+          "joint_bounds": 523,
+          "speed_bounds": 10
+        },
+        "events": {
+          "terminated": {
+            "positives": 7,
+            "brier": 0.03360354155302048,
+            "precision_at_half": 0.11764705882352941,
+            "recall_at_half": 0.2857142857142857,
+            "false_positives": 15,
+            "false_negatives": 5
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0025906390510499477,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 308,
+            "brier": 0.03525633364915848,
+            "precision_at_half": 0.9028213166144201,
+            "recall_at_half": 0.935064935064935,
+            "false_positives": 31,
+            "false_negatives": 20
+          },
+          "collision": {
+            "positives": 5,
+            "brier": 0.028105806559324265,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 5
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1735,
+            "position_mae_m": 0.035692786108035716,
+            "pile_height_mae_m": 0.00022614491234921398,
+            "carried_mass_mae_kg": 7.661057511152552,
+            "delivered_mass_mae_kg": 5.896719230480208,
+            "spilled_mass_mae_kg": 0.4399908640904085,
+            "reward_mae": 0.032403941307957124
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.013472307611595246,
+            "pile_height_mae_m": 0.0005226966196719091,
+            "carried_mass_mae_kg": 2.2356210420848583,
+            "delivered_mass_mae_kg": 3.444541344713637,
+            "spilled_mass_mae_kg": 0.5707082756951181,
+            "reward_mae": 0.022372322919043668
+          },
+          "material_transfer": {
+            "rows": 306,
+            "position_mae_m": 0.012259030995865158,
+            "pile_height_mae_m": 0.0009229705656753925,
+            "carried_mass_mae_kg": 15.05383854293978,
+            "delivered_mass_mae_kg": 8.428484330484492,
+            "spilled_mass_mae_kg": 0.34582612939121227,
+            "reward_mae": 0.02072179318008561
+          },
+          "collision_or_stuck": {
+            "rows": 5,
+            "position_mae_m": 0.026567628770774187,
+            "pile_height_mae_m": 0.0003883871267570495,
+            "carried_mass_mae_kg": 13.64837254303308,
+            "delivered_mass_mae_kg": 5.280700593165216,
+            "spilled_mass_mae_kg": 0.31477514181894983,
+            "reward_mae": 4.9031379409034175
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 2048,
+        "position_mae_m": 0.01870629230632407,
+        "position_p95_m": 0.043353187852320396,
+        "state_mae": {
+          "x_m": 0.01794469558724381,
+          "y_m": 0.0029807748447754057,
+          "yaw_rad": 0.0027357574408794385,
+          "speed_m_s": 0.02866386891208524,
+          "articulation_rad": 0.003937375702286118,
+          "boom_rad": 0.0042454336341963645,
+          "bucket_rad": 0.0076144513178066,
+          "carried_kg": 6.685603653480593,
+          "delivered_kg": 5.399396414270155,
+          "spilled_kg": 0.3887904019356755,
+          "elapsed_s": 0.00046702943329268243,
+          "stuck_time_s": 8.324534451632892e-05,
+          "effort_proxy_j": 274.3254024716824,
+          "slip_s": 2.9982697219668452e-06,
+          "slip_ratio": 4.01048646287778e-05
+        },
+        "pile_height_mae_m": 0.00034616831841838275,
+        "reward_mae": 0.05564410249567372,
+        "high_error_fraction": 0.2333984375,
+        "mass_balance_mae_kg": 1.0968391774643393,
+        "mass_balance_max_kg": 7.119659888028764,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1584,
+          "capacity_excess": 0,
+          "joint_bounds": 549,
+          "speed_bounds": 13
+        },
+        "events": {
+          "terminated": {
+            "positives": 7,
+            "brier": 0.008050656877458096,
+            "precision_at_half": 0.125,
+            "recall_at_half": 0.2857142857142857,
+            "false_positives": 14,
+            "false_negatives": 5
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.00016582728130742908,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 308,
+            "brier": 0.033280517905950546,
+            "precision_at_half": 0.7849740932642487,
+            "recall_at_half": 0.9837662337662337,
+            "false_positives": 83,
+            "false_negatives": 5
+          },
+          "collision": {
+            "positives": 5,
+            "brier": 0.002960068406537175,
+            "precision_at_half": 1.0,
+            "recall_at_half": 0.2,
+            "false_positives": 0,
+            "false_negatives": 4
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1735,
+            "position_mae_m": 0.020771399405758163,
+            "pile_height_mae_m": 0.0002315971254197071,
+            "carried_mass_mae_kg": 5.376768049848818,
+            "delivered_mass_mae_kg": 4.7910592224352735,
+            "spilled_mass_mae_kg": 0.28353474673855644,
+            "reward_mae": 0.03840728694928501
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.013293047425865978,
+            "pile_height_mae_m": 0.000495981657987692,
+            "carried_mass_mae_kg": 9.835602087263851,
+            "delivered_mass_mae_kg": 6.586802722580067,
+            "spilled_mass_mae_kg": 0.9630136142144679,
+            "reward_mae": 0.062244306088063486
+          },
+          "material_transfer": {
+            "rows": 306,
+            "position_mae_m": 0.006583073973605049,
+            "pile_height_mae_m": 0.0009894944485473289,
+            "carried_mass_mae_kg": 13.93235536594534,
+            "delivered_mass_mae_kg": 8.812939859510347,
+            "spilled_mass_mae_kg": 0.9670837124790664,
+            "reward_mae": 0.07589649882190817
+          },
+          "collision_or_stuck": {
+            "rows": 5,
+            "position_mae_m": 0.04622038871728283,
+            "pile_height_mae_m": 0.0006708877892396201,
+            "carried_mass_mae_kg": 16.090353937350688,
+            "delivered_mass_mae_kg": 7.108580608949938,
+            "spilled_mass_mae_kg": 1.2912628651689648,
+            "reward_mae": 4.794732360490053
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 2048,
+      "accepted": 1536,
+      "coverage": 0.75,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 98,
+      "missed_high_error_cases": 98,
+      "confident_wrong_fraction": 0.0478515625,
+      "rejected_high_error_cases": 380,
+      "accepted_high_error_fraction": 0.06380208333333333
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 118,
+        "capacity_excess": 0,
+        "joint_bounds": 50,
+        "speed_bounds": 0,
+        "mass_balance": 67,
+        "nonmonotone_material": 115,
+        "pile_creation": 128,
+        "unearned_reward": 66,
+        "non_finite_reward": 0,
+        "excess_motion": 0,
+        "backwards_clock": 0,
+        "negative_counters": 60,
+        "wall_clearance": 0,
+        "obstacle_clearance": 0,
+        "roof_clearance": 0,
+        "remote_extraction": 128,
+        "non_finite_model_scores": 0,
+        "uncertainty": 44,
+        "input_envelope": 2
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  },
+  "test": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 2048,
+        "position_mae_m": 0.03757348389481151,
+        "position_p95_m": 0.08327835749176651,
+        "state_mae": {
+          "x_m": 0.03747355253128083,
+          "y_m": 0.001364540551648806,
+          "yaw_rad": 0.0026283326512398747,
+          "speed_m_s": 0.03180374021297461,
+          "articulation_rad": 0.005081413393479466,
+          "boom_rad": 0.0037581827749726356,
+          "bucket_rad": 0.010059347126568731,
+          "carried_kg": 5.656350097774665,
+          "delivered_kg": 1.9713637723572575,
+          "spilled_kg": 0.0,
+          "elapsed_s": 8.789062500398459e-05,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 260.01775191815534,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0001170222302136447,
+        "reward_mae": 0.00564954385169346,
+        "high_error_fraction": 0.3720703125,
+        "mass_balance_mae_kg": 7.220890552162018e-13,
+        "mass_balance_max_kg": 3.637978807091713e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.001953125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 275,
+            "brier": 0.13427734375,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 275
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1771,
+            "position_mae_m": 0.0365790009441157,
+            "pile_height_mae_m": 2.5732580474502487e-16,
+            "carried_mass_mae_kg": 8.01649480218826e-12,
+            "delivered_mass_mae_kg": 6.08324569369922e-16,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.0002082367583265973
+          },
+          "contact_without_transfer": {
+            "rows": 1,
+            "position_mae_m": 0.0,
+            "pile_height_mae_m": 4.91331801633077e-13,
+            "carried_mass_mae_kg": 1.530588633613661e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.000201130488603647
+          },
+          "material_transfer": {
+            "rows": 274,
+            "position_mae_m": 0.043828794533934456,
+            "pile_height_mae_m": 0.0008746771075788222,
+            "carried_mass_mae_kg": 42.27812043873362,
+            "delivered_mass_mae_kg": 14.734864984626505,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.004383238986814025
+          },
+          "collision_or_stuck": {
+            "rows": 2,
+            "position_mae_m": 0.07999732112350955,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.0001349481980775
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 2048,
+        "position_mae_m": 0.0011371571463690015,
+        "position_p95_m": 0.0022419493228224637,
+        "state_mae": {
+          "x_m": 0.0010947555211649911,
+          "y_m": 0.0001602046300534594,
+          "yaw_rad": 0.0026283326512398747,
+          "speed_m_s": 0.021975916361616693,
+          "articulation_rad": 4.061093980086212e-07,
+          "boom_rad": 6.635352173168163e-06,
+          "bucket_rad": 1.1934316528715898e-05,
+          "carried_kg": 5.656350097774665,
+          "delivered_kg": 1.9713637723572575,
+          "spilled_kg": 0.0,
+          "elapsed_s": 8.789062500398459e-05,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 260.01775191815534,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0001170222302136447,
+        "reward_mae": 0.005453840726693459,
+        "high_error_fraction": 0.02978515625,
+        "mass_balance_mae_kg": 7.220890552162018e-13,
+        "mass_balance_max_kg": 3.637978807091713e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.001953125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 275,
+            "brier": 0.13427734375,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 275
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1771,
+            "position_mae_m": 0.0010284898226600892,
+            "pile_height_mae_m": 2.5732580474502487e-16,
+            "carried_mass_mae_kg": 8.01649480218826e-12,
+            "delivered_mass_mae_kg": 6.08324569369922e-16,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 8.236758326597311e-06
+          },
+          "contact_without_transfer": {
+            "rows": 1,
+            "position_mae_m": 0.0,
+            "pile_height_mae_m": 4.91331801633077e-13,
+            "carried_mass_mae_kg": 1.530588633613661e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.130488603647001e-06
+          },
+          "material_transfer": {
+            "rows": 274,
+            "position_mae_m": 0.0012311068462910568,
+            "pile_height_mae_m": 0.0008746771075788222,
+            "carried_mass_mae_kg": 42.27812043873362,
+            "delivered_mass_mae_kg": 14.734864984626505,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.004215355775135192
+          },
+          "collision_or_stuck": {
+            "rows": 2,
+            "position_mae_m": 0.08505954197447371,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 4.999934948198076
+          }
+        }
+      },
+      "single": {
+        "rows": 2048,
+        "position_mae_m": 0.026725438806792675,
+        "position_p95_m": 0.048254967810700135,
+        "state_mae": {
+          "x_m": 0.02637167436353173,
+          "y_m": 0.002533323205336586,
+          "yaw_rad": 0.002519932321951863,
+          "speed_m_s": 0.03209952695030287,
+          "articulation_rad": 0.00420146422973232,
+          "boom_rad": 0.004230534484850295,
+          "bucket_rad": 0.01122509163578928,
+          "carried_kg": 9.174092075838482,
+          "delivered_kg": 5.997052788581456,
+          "spilled_kg": 0.43610023410781906,
+          "elapsed_s": 0.0004385660759257644,
+          "stuck_time_s": 0.00020136564773633127,
+          "effort_proxy_j": 232.01988034137744,
+          "slip_s": 5.628526719423599e-06,
+          "slip_ratio": 4.8310585142571085e-05
+        },
+        "pile_height_mae_m": 0.0003162109691386493,
+        "reward_mae": 0.02438174290807905,
+        "high_error_fraction": 0.130859375,
+        "mass_balance_mae_kg": 1.1352939823753898,
+        "mass_balance_max_kg": 5.298294554519089,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1840,
+          "capacity_excess": 0,
+          "joint_bounds": 577,
+          "speed_bounds": 15
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.03785387799143791,
+            "precision_at_half": 0.05714285714285714,
+            "recall_at_half": 0.5,
+            "false_positives": 33,
+            "false_negatives": 2
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.009183431975543499,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 275,
+            "brier": 0.07484544813632965,
+            "precision_at_half": 0.76,
+            "recall_at_half": 0.9672727272727273,
+            "false_positives": 84,
+            "false_negatives": 9
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.034016430377960205,
+            "precision_at_half": 0.0,
+            "recall_at_half": 0.0,
+            "false_positives": 18,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1771,
+            "position_mae_m": 0.026645465986176772,
+            "pile_height_mae_m": 0.00020459200247759118,
+            "carried_mass_mae_kg": 7.88807364912089,
+            "delivered_mass_mae_kg": 5.454561871442602,
+            "spilled_mass_mae_kg": 0.4104057227737314,
+            "reward_mae": 0.019624403455168183
+          },
+          "contact_without_transfer": {
+            "rows": 1,
+            "position_mae_m": 0.010276871064616822,
+            "pile_height_mae_m": 0.0006593933211849526,
+            "carried_mass_mae_kg": 17.60806246446282,
+            "delivered_mass_mae_kg": 1.781943269826101,
+            "spilled_mass_mae_kg": 0.8558141599209402,
+            "reward_mae": 0.03050945899318024
+          },
+          "material_transfer": {
+            "rows": 274,
+            "position_mae_m": 0.026942543693511758,
+            "pile_height_mae_m": 0.0010359350112785135,
+            "carried_mass_mae_kg": 17.401199476604187,
+            "delivered_mass_mae_kg": 9.513862464879242,
+            "spilled_mass_mae_kg": 0.5968477798346712,
+            "reward_mae": 0.019300034112274236
+          },
+          "collision_or_stuck": {
+            "rows": 2,
+            "position_mae_m": 0.07602228585275013,
+            "pile_height_mae_m": 0.00038102099832105075,
+            "carried_mass_mae_kg": 16.612709835054105,
+            "delivered_mass_mae_kg": 6.677389021618234,
+            "spilled_mass_mae_kg": 0.9563192929571933,
+            "reward_mae": 4.930136075443361
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 2048,
+        "position_mae_m": 0.013885461916909371,
+        "position_p95_m": 0.03245930336183021,
+        "state_mae": {
+          "x_m": 0.01285057357320948,
+          "y_m": 0.0033362594299225883,
+          "yaw_rad": 0.0022777188304517687,
+          "speed_m_s": 0.029177298412364897,
+          "articulation_rad": 0.0044525881387487,
+          "boom_rad": 0.003036700594967487,
+          "bucket_rad": 0.007746358864184442,
+          "carried_kg": 7.862556831371637,
+          "delivered_kg": 5.744473533930051,
+          "spilled_kg": 0.39650982784341243,
+          "elapsed_s": 0.0004052871024954999,
+          "stuck_time_s": 0.00011753468244973846,
+          "effort_proxy_j": 246.94112304178242,
+          "slip_s": 2.872418882825902e-06,
+          "slip_ratio": 3.585053372692802e-05
+        },
+        "pile_height_mae_m": 0.00036303840344365445,
+        "reward_mae": 0.03999606037051783,
+        "high_error_fraction": 0.1865234375,
+        "mass_balance_mae_kg": 0.9131194825451177,
+        "mass_balance_max_kg": 6.446233084925552,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1912,
+          "capacity_excess": 0,
+          "joint_bounds": 555,
+          "speed_bounds": 13
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.023842740803956985,
+            "precision_at_half": 0.02631578947368421,
+            "recall_at_half": 0.5,
+            "false_positives": 74,
+            "false_negatives": 2
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.00047367560910061,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 275,
+            "brier": 0.08091787993907928,
+            "precision_at_half": 0.5781584582441114,
+            "recall_at_half": 0.9818181818181818,
+            "false_positives": 197,
+            "false_negatives": 5
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.02074887789785862,
+            "precision_at_half": 0.0,
+            "recall_at_half": 0.0,
+            "false_positives": 65,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1771,
+            "position_mae_m": 0.014733460602812491,
+            "pile_height_mae_m": 0.00026020937464603903,
+            "carried_mass_mae_kg": 6.440869051595032,
+            "delivered_mass_mae_kg": 4.852549369915018,
+            "spilled_mass_mae_kg": 0.3285686567860675,
+            "reward_mae": 0.03459743398921343
+          },
+          "contact_without_transfer": {
+            "rows": 1,
+            "position_mae_m": 0.024182086307705478,
+            "pile_height_mae_m": 0.001164980494795994,
+            "carried_mass_mae_kg": 25.72261194261364,
+            "delivered_mass_mae_kg": 0.16170662951840242,
+            "spilled_mass_mae_kg": 1.1614230570526611,
+            "reward_mae": 0.0049813605638383395
+          },
+          "material_transfer": {
+            "rows": 274,
+            "position_mae_m": 0.007882770384715018,
+            "pile_height_mae_m": 0.0010237880140076437,
+            "carried_mass_mae_kg": 16.98845025967824,
+            "delivered_mass_mae_kg": 11.542623173843417,
+            "spilled_mass_mae_kg": 0.8174092083429118,
+            "reward_mae": 0.03931704102187369
+          },
+          "collision_or_stuck": {
+            "rows": 2,
+            "position_mae_m": 0.08020305326492472,
+            "pile_height_mae_m": 0.0004944757107893645,
+            "carried_mass_mae_kg": 7.589658589930294,
+            "delivered_mass_mae_kg": 3.9882035533160236,
+            "spilled_mass_mae_kg": 2.512745056086326,
+            "reward_mae": 4.9310127216831585
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 2048,
+      "accepted": 1522,
+      "coverage": 0.7431640625,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 126,
+      "missed_high_error_cases": 126,
+      "confident_wrong_fraction": 0.0615234375,
+      "rejected_high_error_cases": 256,
+      "accepted_high_error_fraction": 0.08278580814717477
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 124,
+        "capacity_excess": 0,
+        "joint_bounds": 49,
+        "speed_bounds": 0,
+        "mass_balance": 37,
+        "nonmonotone_material": 113,
+        "pile_creation": 128,
+        "unearned_reward": 51,
+        "non_finite_reward": 0,
+        "excess_motion": 0,
+        "backwards_clock": 0,
+        "negative_counters": 88,
+        "wall_clearance": 0,
+        "obstacle_clearance": 0,
+        "roof_clearance": 0,
+        "remote_extraction": 128,
+        "non_finite_model_scores": 0,
+        "uncertainty": 55,
+        "input_envelope": 1
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  },
+  "high_resistance": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 1024,
+        "position_mae_m": 0.03419012374609226,
+        "position_p95_m": 0.13193533670234184,
+        "state_mae": {
+          "x_m": 0.03399255830572455,
+          "y_m": 0.0019945905267768215,
+          "yaw_rad": 0.0030352733424928225,
+          "speed_m_s": 0.03414475275447841,
+          "articulation_rad": 0.00560131892324972,
+          "boom_rad": 0.003559534137505593,
+          "bucket_rad": 0.010820352608477326,
+          "carried_kg": 2.614002788350686,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.010850376160650654,
+          "elapsed_s": 0.00017578125000160795,
+          "stuck_time_s": 0.03894531249999952,
+          "effort_proxy_j": 322.14123441126617,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 8.904430228664367e-05,
+        "reward_mae": 0.009978037782006807,
+        "high_error_fraction": 0.2529296875,
+        "mass_balance_mae_kg": 8.189005029635155e-13,
+        "mass_balance_max_kg": 5.4569682106375694e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.00390625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 418,
+            "brier": 0.408203125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 418
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.001953125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 604,
+            "position_mae_m": 0.042030750952657264,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00021212511875988782
+          },
+          "contact_without_transfer": {
+            "rows": 107,
+            "position_mae_m": 0.0,
+            "pile_height_mae_m": 3.30393131078154e-12,
+            "carried_mass_mae_kg": 8.847904084993567e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.0002005709859713713
+          },
+          "material_transfer": {
+            "rows": 309,
+            "position_mae_m": 0.03062414189352589,
+            "pile_height_mae_m": 0.0002950853241988115,
+            "carried_mass_mae_kg": 8.662585260624805,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.03595723361976139,
+            "reward_mae": 0.000218224597805379
+          },
+          "collision_or_stuck": {
+            "rows": 4,
+            "position_mae_m": 0.04031332387349619,
+            "pile_height_mae_m": 2.6424292441651343e-12,
+            "carried_mass_mae_kg": 6.769499805159285e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 2.5001236552058
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 1024,
+        "position_mae_m": 0.0027102184643665967,
+        "position_p95_m": 0.006975000000000277,
+        "state_mae": {
+          "x_m": 0.002664146311423831,
+          "y_m": 0.00016438279575621537,
+          "yaw_rad": 0.0030352733424928225,
+          "speed_m_s": 0.05438774691578578,
+          "articulation_rad": 1.83958194407272e-05,
+          "boom_rad": 7.5925453639068945e-06,
+          "bucket_rad": 5.943660531226918e-06,
+          "carried_kg": 2.614002788350686,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.010850376160650654,
+          "elapsed_s": 0.00017578125000160795,
+          "stuck_time_s": 0.03894531249999952,
+          "effort_proxy_j": 322.14123441126617,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 8.904430228664367e-05,
+        "reward_mae": 0.00977858398802327,
+        "high_error_fraction": 0.005859375,
+        "mass_balance_mae_kg": 8.189005029635155e-13,
+        "mass_balance_max_kg": 5.4569682106375694e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.00390625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 418,
+            "brier": 0.408203125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 418
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.001953125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 604,
+            "position_mae_m": 0.0012275304373881542,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.212511875988782e-05
+          },
+          "contact_without_transfer": {
+            "rows": 107,
+            "position_mae_m": 0.006975000000000006,
+            "pile_height_mae_m": 3.30393131078154e-12,
+            "carried_mass_mae_kg": 8.847904084993567e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.70985971371275e-07
+          },
+          "material_transfer": {
+            "rows": 309,
+            "position_mae_m": 0.003953750242250838,
+            "pile_height_mae_m": 0.0002950853241988115,
+            "carried_mass_mae_kg": 8.662585260624805,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.03595723361976139,
+            "reward_mae": 1.8224597805378987e-05
+          },
+          "collision_or_stuck": {
+            "rows": 4,
+            "position_mae_m": 0.016450374618359923,
+            "pile_height_mae_m": 2.6424292441651343e-12,
+            "carried_mass_mae_kg": 6.769499805159285e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 2.5000634839460147
+          }
+        }
+      },
+      "single": {
+        "rows": 1024,
+        "position_mae_m": 0.06984039797777525,
+        "position_p95_m": 0.10666010169125706,
+        "state_mae": {
+          "x_m": 0.06925299691731901,
+          "y_m": 0.005551824875232823,
+          "yaw_rad": 0.0034300368840368177,
+          "speed_m_s": 0.04914592271478834,
+          "articulation_rad": 0.005798699176035807,
+          "boom_rad": 0.00605240795357955,
+          "bucket_rad": 0.012237957327897115,
+          "carried_kg": 22.084328242824807,
+          "delivered_kg": 8.372703168116464,
+          "spilled_kg": 0.6162017245755167,
+          "elapsed_s": 0.00048283546190086465,
+          "stuck_time_s": 0.039093770944363344,
+          "effort_proxy_j": 410.89104959172835,
+          "slip_s": 1.0794724804612522e-05,
+          "slip_ratio": 0.0001491497945813869
+        },
+        "pile_height_mae_m": 0.0008390763875247519,
+        "reward_mae": 0.04050404699391935,
+        "high_error_fraction": 0.7607421875,
+        "mass_balance_mae_kg": 1.5471417356332324,
+        "mass_balance_max_kg": 5.504851689678617,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 671,
+          "capacity_excess": 0,
+          "joint_bounds": 449,
+          "speed_bounds": 7
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.0056227827444672585,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 4.720877200270479e-07,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 418,
+            "brier": 0.16037288308143616,
+            "precision_at_half": 0.7971698113207547,
+            "recall_at_half": 0.8086124401913876,
+            "false_positives": 86,
+            "false_negatives": 80
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.003058912232518196,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 604,
+            "position_mae_m": 0.0635687263105034,
+            "pile_height_mae_m": 0.0004277439635902739,
+            "carried_mass_mae_kg": 14.281796763020498,
+            "delivered_mass_mae_kg": 7.968865159225524,
+            "spilled_mass_mae_kg": 0.683145738596862,
+            "reward_mae": 0.029086594763027815
+          },
+          "contact_without_transfer": {
+            "rows": 107,
+            "position_mae_m": 0.07756293480714664,
+            "pile_height_mae_m": 0.0021450761909575836,
+            "carried_mass_mae_kg": 61.52022857167665,
+            "delivered_mass_mae_kg": 2.5126419223460905,
+            "spilled_mass_mae_kg": 0.6522007434116884,
+            "reward_mae": 0.023981238266101233
+          },
+          "material_transfer": {
+            "rows": 309,
+            "position_mae_m": 0.0792615142702938,
+            "pile_height_mae_m": 0.0011856201061359554,
+            "carried_mass_mae_kg": 23.569901345839618,
+            "delivered_mass_mae_kg": 11.234412700082318,
+            "spilled_mass_mae_kg": 0.4732503844745473,
+            "reward_mae": 0.03662408236211701
+          },
+          "collision_or_stuck": {
+            "rows": 4,
+            "position_mae_m": 0.0825037259530766,
+            "pile_height_mae_m": 0.0012442753970872424,
+            "carried_mass_mae_kg": 30.595725688594094,
+            "delivered_mass_mae_kg": 5.041819490643066,
+            "spilled_mass_mae_kg": 0.5876728762846848,
+            "reward_mae": 2.5062517351344056
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 1024,
+        "position_mae_m": 0.032716910730038816,
+        "position_p95_m": 0.06733658619671445,
+        "state_mae": {
+          "x_m": 0.03174820337714204,
+          "y_m": 0.005780592035955227,
+          "yaw_rad": 0.004227560298362623,
+          "speed_m_s": 0.04365271079928895,
+          "articulation_rad": 0.004839944609506395,
+          "boom_rad": 0.0064843865279533616,
+          "bucket_rad": 0.007659793134770217,
+          "carried_kg": 31.004095885438566,
+          "delivered_kg": 4.73260836637018,
+          "spilled_kg": 0.9687901019653515,
+          "elapsed_s": 0.0004408543642546339,
+          "stuck_time_s": 0.03903434623853604,
+          "effort_proxy_j": 420.82702832278426,
+          "slip_s": 9.944957430313059e-06,
+          "slip_ratio": 6.256870089914676e-05
+        },
+        "pile_height_mae_m": 0.0015116823301027137,
+        "reward_mae": 0.06510115295942769,
+        "high_error_fraction": 0.6640625,
+        "mass_balance_mae_kg": 2.624816231597933,
+        "mass_balance_max_kg": 5.999137908595003,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 662,
+          "capacity_excess": 0,
+          "joint_bounds": 300,
+          "speed_bounds": 11
+        },
+        "events": {
+          "terminated": {
+            "positives": 4,
+            "brier": 0.004062063992023468,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 4
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 1.0314238178821267e-11,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 418,
+            "brier": 0.2717764973640442,
+            "precision_at_half": 0.4879032258064516,
+            "recall_at_half": 0.868421052631579,
+            "false_positives": 381,
+            "false_negatives": 55
+          },
+          "collision": {
+            "positives": 2,
+            "brier": 0.002156294882297516,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 604,
+            "position_mae_m": 0.02221928135299588,
+            "pile_height_mae_m": 0.0008211836525545482,
+            "carried_mass_mae_kg": 17.34351421667554,
+            "delivered_mass_mae_kg": 5.203507051028879,
+            "spilled_mass_mae_kg": 0.7528010329854921,
+            "reward_mae": 0.05946565073864353
+          },
+          "contact_without_transfer": {
+            "rows": 107,
+            "position_mae_m": 0.051400691816941894,
+            "pile_height_mae_m": 0.0038586872184044655,
+            "carried_mass_mae_kg": 83.00953028096029,
+            "delivered_mass_mae_kg": 2.918114023965331,
+            "spilled_mass_mae_kg": 0.9832384542336862,
+            "reward_mae": 0.019877199278892158
+          },
+          "material_transfer": {
+            "rows": 309,
+            "position_mae_m": 0.046260577593704846,
+            "pile_height_mae_m": 0.0020364510331841628,
+            "carried_mass_mae_kg": 39.32004234083333,
+            "delivered_mass_mae_kg": 4.361668530923914,
+            "spilled_mass_mae_kg": 1.3686218111131039,
+            "reward_mae": 0.06118243276556798
+          },
+          "collision_or_stuck": {
+            "rows": 4,
+            "position_mae_m": 0.07181953737066178,
+            "pile_height_mae_m": 0.0024562195647618644,
+            "carried_mass_mae_kg": 60.19969410920409,
+            "delivered_mass_mae_kg": 10.81973293046044,
+            "spilled_mass_mae_kg": 2.3096465630823007,
+            "reward_mae": 2.428523884227821
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 1024,
+      "accepted": 0,
+      "coverage": 0.0,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 0,
+      "missed_high_error_cases": 0,
+      "confident_wrong_fraction": 0.0,
+      "rejected_high_error_cases": 680,
+      "accepted_high_error_fraction": null
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 80,
+        "capacity_excess": 0,
+        "joint_bounds": 70,
+        "speed_bounds": 1,
+        "mass_balance": 120,
+        "nonmonotone_material": 80,
+        "pile_creation": 128,
+        "unearned_reward": 71,
+        "non_finite_reward": 0,
+        "excess_motion": 0,
+        "backwards_clock": 0,
+        "negative_counters": 103,
+        "wall_clearance": 0,
+        "obstacle_clearance": 0,
+        "roof_clearance": 0,
+        "remote_extraction": 128,
+        "non_finite_model_scores": 0,
+        "uncertainty": 128,
+        "input_envelope": 128
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  },
+  "low_grip": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 1024,
+        "position_mae_m": 0.12390098236569605,
+        "position_p95_m": 0.1499999999117632,
+        "state_mae": {
+          "x_m": 0.1204111532289893,
+          "y_m": 0.014530563679355095,
+          "yaw_rad": 0.006274395898633109,
+          "speed_m_s": 0.044047544546563025,
+          "articulation_rad": 0.0068330647853089375,
+          "boom_rad": 0.004297080602590557,
+          "bucket_rad": 0.0108282066937929,
+          "carried_kg": 0.0,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.0,
+          "elapsed_s": 0.00046875000000063587,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 920.4421269707765,
+          "slip_s": 0.04825105144173909,
+          "slip_ratio": 0.06217842419548093
+        },
+        "pile_height_mae_m": 0.0,
+        "reward_mae": 0.06955107179264391,
+        "high_error_fraction": 0.8837890625,
+        "mass_balance_mae_kg": 0.0,
+        "mass_balance_max_kg": 0.0,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 14,
+            "brier": 0.013671875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 14,
+            "brier": 0.013671875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1010,
+            "position_mae_m": 0.12467222674856528,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.0011997256626145249
+          },
+          "collision_or_stuck": {
+            "rows": 14,
+            "position_mae_m": 0.06826120903012957,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.000612471173334
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 1024,
+        "position_mae_m": 0.007849600738818293,
+        "position_p95_m": 0.01240425170977783,
+        "state_mae": {
+          "x_m": 0.007344739122902512,
+          "y_m": 0.0011909052560784932,
+          "yaw_rad": 0.006274395898633109,
+          "speed_m_s": 0.15254018653907303,
+          "articulation_rad": 4.1437708740821805e-05,
+          "boom_rad": 1.5256056892020221e-05,
+          "bucket_rad": 7.425720837407311e-05,
+          "carried_kg": 0.0,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.0,
+          "elapsed_s": 0.00046875000000063587,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 920.4421269707765,
+          "slip_s": 0.04825105144173909,
+          "slip_ratio": 0.06217842419548093
+        },
+        "pile_height_mae_m": 0.0,
+        "reward_mae": 0.06935107179264391,
+        "high_error_fraction": 0.013671875,
+        "mass_balance_mae_kg": 0.0,
+        "mass_balance_max_kg": 0.0,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 14,
+            "brier": 0.013671875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 14,
+            "brier": 0.013671875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1010,
+            "position_mae_m": 0.006920904596397611,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.000999725662614525
+          },
+          "collision_or_stuck": {
+            "rows": 14,
+            "position_mae_m": 0.0748483938705959,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.000412471173334
+          }
+        }
+      },
+      "single": {
+        "rows": 1024,
+        "position_mae_m": 0.10004999731536228,
+        "position_p95_m": 0.13430744650046617,
+        "state_mae": {
+          "x_m": 0.09581225622037863,
+          "y_m": 0.01676182510266964,
+          "yaw_rad": 0.006318336287566638,
+          "speed_m_s": 0.07761125373321605,
+          "articulation_rad": 0.010857567117248076,
+          "boom_rad": 0.004948339585132865,
+          "bucket_rad": 0.011423250529902236,
+          "carried_kg": 9.311220524430837,
+          "delivered_kg": 4.5127639939971935,
+          "spilled_kg": 0.5196553191060421,
+          "elapsed_s": 0.0007617881382725985,
+          "stuck_time_s": 0.00021815708532692214,
+          "effort_proxy_j": 669.7294641545681,
+          "slip_s": 0.04825576454733635,
+          "slip_ratio": 0.062262695069397744
+        },
+        "pile_height_mae_m": 0.0003617076638005372,
+        "reward_mae": 0.08848675163059204,
+        "high_error_fraction": 0.9052734375,
+        "mass_balance_mae_kg": 1.1444899018366606,
+        "mass_balance_max_kg": 6.668399765552749,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1024,
+          "capacity_excess": 0,
+          "joint_bounds": 138,
+          "speed_bounds": 81
+        },
+        "events": {
+          "terminated": {
+            "positives": 14,
+            "brier": 0.027992824092507362,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.003246686886996031,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.0064156875014305115,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 14,
+            "brier": 0.024304527789354324,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1010,
+            "position_mae_m": 0.10076009320733322,
+            "pile_height_mae_m": 0.0003610884199132298,
+            "carried_mass_mae_kg": 9.245541621260962,
+            "delivered_mass_mae_kg": 4.47265870825644,
+            "spilled_mass_mae_kg": 0.5191111517564208,
+            "reward_mae": 0.020180938447931104
+          },
+          "collision_or_stuck": {
+            "rows": 14,
+            "position_mae_m": 0.0488216508231735,
+            "pile_height_mae_m": 0.0004063816870991466,
+            "carried_mass_mae_kg": 14.0494842531147,
+            "delivered_mass_mae_kg": 7.406073893865888,
+            "spilled_mass_mae_kg": 0.5589131064715784,
+            "reward_mae": 5.016263274093989
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 1024,
+        "position_mae_m": 0.08060792493042006,
+        "position_p95_m": 0.11980779783900002,
+        "state_mae": {
+          "x_m": 0.07639502700214505,
+          "y_m": 0.014583310403509277,
+          "yaw_rad": 0.0047601282300284535,
+          "speed_m_s": 0.14069909261163221,
+          "articulation_rad": 0.005089764222908046,
+          "boom_rad": 0.005380214602642366,
+          "bucket_rad": 0.004993880344720629,
+          "carried_kg": 4.182509825982175,
+          "delivered_kg": 3.200797208725169,
+          "spilled_kg": 0.44764395843511934,
+          "elapsed_s": 0.0007271089121152196,
+          "stuck_time_s": 6.503209068797755e-05,
+          "effort_proxy_j": 499.179997442636,
+          "slip_s": 0.048246339820514544,
+          "slip_ratio": 0.062227730895377455
+        },
+        "pile_height_mae_m": 0.0001853220599134159,
+        "reward_mae": 0.11577823647340131,
+        "high_error_fraction": 0.923828125,
+        "mass_balance_mae_kg": 0.8667318869332377,
+        "mass_balance_max_kg": 3.448909249565986,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1022,
+          "capacity_excess": 0,
+          "joint_bounds": 77,
+          "speed_bounds": 111
+        },
+        "events": {
+          "terminated": {
+            "positives": 14,
+            "brier": 0.013502929359674454,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 6.633286488977319e-07,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.008964050561189651,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 14,
+            "brier": 0.013501264154911041,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 14
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 1010,
+            "position_mae_m": 0.08104966610831735,
+            "pile_height_mae_m": 0.0001845916298645979,
+            "carried_mass_mae_kg": 4.147388430629279,
+            "delivered_mass_mae_kg": 3.1807964574212044,
+            "spilled_mass_mae_kg": 0.4424223128560946,
+            "reward_mae": 0.04939748015802722
+          },
+          "collision_or_stuck": {
+            "rows": 14,
+            "position_mae_m": 0.04873945423925953,
+            "pile_height_mae_m": 0.00023801737057814283,
+            "carried_mass_mae_kg": 6.716267633583975,
+            "delivered_mass_mae_kg": 4.643708552796846,
+            "spilled_mass_mae_kg": 0.8243483894933329,
+            "reward_mae": 4.904675656368247
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 1024,
+      "accepted": 653,
+      "coverage": 0.6376953125,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 611,
+      "missed_high_error_cases": 611,
+      "confident_wrong_fraction": 0.5966796875,
+      "rejected_high_error_cases": 335,
+      "accepted_high_error_fraction": 0.9356814701378254
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 127,
+        "capacity_excess": 0,
+        "joint_bounds": 39,
+        "speed_bounds": 0,
+        "mass_balance": 56,
+        "nonmonotone_material": 127,
+        "pile_creation": 128,
+        "unearned_reward": 0,
+        "non_finite_reward": 0,
+        "excess_motion": 0,
+        "backwards_clock": 0,
+        "negative_counters": 70,
+        "wall_clearance": 0,
+        "obstacle_clearance": 0,
+        "roof_clearance": 0,
+        "remote_extraction": 128,
+        "non_finite_model_scores": 0,
+        "uncertainty": 39,
+        "input_envelope": 88
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  },
+  "sensing_failure": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 1024,
+        "position_mae_m": 0.037211325869777656,
+        "position_p95_m": 0.0990353694661638,
+        "state_mae": {
+          "x_m": 0.0365648583333102,
+          "y_m": 0.002860171236872692,
+          "yaw_rad": 0.0034676902788276587,
+          "speed_m_s": 0.03980104777194326,
+          "articulation_rad": 0.005924805670812882,
+          "boom_rad": 0.00415767550465816,
+          "bucket_rad": 0.012227284776921888,
+          "carried_kg": 5.443583067441178,
+          "delivered_kg": 1.9611149546095143,
+          "spilled_kg": 0.278954317272592,
+          "elapsed_s": 7.812500000341658e-05,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 329.1116932357969,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0001142764110748683,
+        "reward_mae": 0.005727858913104627,
+        "high_error_fraction": 0.2802734375,
+        "mass_balance_mae_kg": 6.448175327022909e-13,
+        "mass_balance_max_kg": 3.637978807091713e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 2,
+            "brier": 0.001953125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 280,
+            "brier": 0.2734375,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 280
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 743,
+            "position_mae_m": 0.04201600415543781,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00021029082485382315
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.010683971296051045,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.0002056202941344066
+          },
+          "material_transfer": {
+            "rows": 278,
+            "position_mae_m": 0.024644064779324446,
+            "pile_height_mae_m": 0.00042093181633332785,
+            "carried_mass_mae_kg": 20.051183672876856,
+            "delivered_mass_mae_kg": 7.223675228489722,
+            "spilled_mass_mae_kg": 1.0275151830472453,
+            "reward_mae": 0.0025488801175768748
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.01408865191772652,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.0000815308781075
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 1024,
+        "position_mae_m": 0.0019857723891922342,
+        "position_p95_m": 0.004086673562202542,
+        "state_mae": {
+          "x_m": 0.0019448989742915082,
+          "y_m": 0.00016979613627561652,
+          "yaw_rad": 0.0034676902788276587,
+          "speed_m_s": 0.03895271426699638,
+          "articulation_rad": 2.440542355973956e-07,
+          "boom_rad": 3.3133104898047376e-08,
+          "bucket_rad": 3.278018083901933e-06,
+          "carried_kg": 5.443583067441178,
+          "delivered_kg": 1.9611149546095143,
+          "spilled_kg": 0.278954317272592,
+          "elapsed_s": 7.812500000341658e-05,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 329.1116932357969,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0001142764110748683,
+        "reward_mae": 0.005532546413104626,
+        "high_error_fraction": 0.015625,
+        "mass_balance_mae_kg": 6.448175327022909e-13,
+        "mass_balance_max_kg": 3.637978807091713e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 2,
+            "brier": 0.001953125,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 2
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 280,
+            "brier": 0.2734375,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 280
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 743,
+            "position_mae_m": 0.001612378639798312,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.029082485382314e-05
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.001783950733941997,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.620294134406613e-06
+          },
+          "material_transfer": {
+            "rows": 278,
+            "position_mae_m": 0.0027856967203162687,
+            "pile_height_mae_m": 0.00042093181633332785,
+            "carried_mass_mae_kg": 20.051183672876856,
+            "delivered_mass_mae_kg": 7.223675228489722,
+            "spilled_mass_mae_kg": 1.0275151830472453,
+            "reward_mae": 0.002366146304627234
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.05744200744689501,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 4.999881530878107
+          }
+        }
+      },
+      "single": {
+        "rows": 1024,
+        "position_mae_m": 0.022498958947525547,
+        "position_p95_m": 0.05217463369692812,
+        "state_mae": {
+          "x_m": 0.021710814316798204,
+          "y_m": 0.00381266316557444,
+          "yaw_rad": 0.0020904396960997476,
+          "speed_m_s": 0.035582278991282426,
+          "articulation_rad": 0.0029621145811332987,
+          "boom_rad": 0.003890485210686016,
+          "bucket_rad": 0.009111557778970904,
+          "carried_kg": 6.796561495802903,
+          "delivered_kg": 6.2962248583608655,
+          "spilled_kg": 0.6527729906294217,
+          "elapsed_s": 0.00036328175914860684,
+          "stuck_time_s": 9.330371806647974e-05,
+          "effort_proxy_j": 223.21633929002581,
+          "slip_s": 9.67507173387716e-06,
+          "slip_ratio": 5.418692315673824e-05
+        },
+        "pile_height_mae_m": 0.0002938159690025476,
+        "reward_mae": 0.024192128185163073,
+        "high_error_fraction": 0.171875,
+        "mass_balance_mae_kg": 0.9606299973506172,
+        "mass_balance_max_kg": 3.3395542736961943,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 744,
+          "capacity_excess": 0,
+          "joint_bounds": 36,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 2,
+            "brier": 0.06286251544952393,
+            "precision_at_half": 0.014492753623188406,
+            "recall_at_half": 0.5,
+            "false_positives": 68,
+            "false_negatives": 1
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.011288060806691647,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 280,
+            "brier": 0.12885546684265137,
+            "precision_at_half": 0.6022408963585434,
+            "recall_at_half": 0.7678571428571429,
+            "false_positives": 142,
+            "false_negatives": 65
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.05499793589115143,
+            "precision_at_half": 0.0,
+            "recall_at_half": 0.0,
+            "false_positives": 54,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 743,
+            "position_mae_m": 0.024742076956448103,
+            "pile_height_mae_m": 0.00017930336398565999,
+            "carried_mass_mae_kg": 4.840009619901267,
+            "delivered_mass_mae_kg": 5.261785230041105,
+            "spilled_mass_mae_kg": 0.45589424128511313,
+            "reward_mae": 0.017389209006401663
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.03824115330002683,
+            "pile_height_mae_m": 0.00033318961513808805,
+            "carried_mass_mae_kg": 3.133860667951808,
+            "delivered_mass_mae_kg": 7.739014972981252,
+            "spilled_mass_mae_kg": 1.2891142227269041,
+            "reward_mae": 0.04006279038206946
+          },
+          "material_transfer": {
+            "rows": 278,
+            "position_mae_m": 0.01642623741547446,
+            "pile_height_mae_m": 0.0005997202007571477,
+            "carried_mass_mae_kg": 12.04417760882943,
+            "delivered_mass_mae_kg": 9.068156861445399,
+            "spilled_mass_mae_kg": 1.175840699509475,
+            "reward_mae": 0.024348801289703154
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.012594475523264523,
+            "pile_height_mae_m": 0.00025655777650016205,
+            "carried_mass_mae_kg": 9.00272752504578,
+            "delivered_mass_mae_kg": 1.4021916132011223,
+            "spilled_mass_mae_kg": 0.24817822060097156,
+            "reward_mae": 5.003464630548932
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 1024,
+        "position_mae_m": 0.018156623026694983,
+        "position_p95_m": 0.04290519318445559,
+        "state_mae": {
+          "x_m": 0.016901262650901316,
+          "y_m": 0.004496777941108162,
+          "yaw_rad": 0.002090884972224827,
+          "speed_m_s": 0.028156442508168022,
+          "articulation_rad": 0.0030243055940990353,
+          "boom_rad": 0.0035988534386012664,
+          "bucket_rad": 0.006041799473072417,
+          "carried_kg": 4.919045326978292,
+          "delivered_kg": 3.004033497584142,
+          "spilled_kg": 0.8544128861222671,
+          "elapsed_s": 0.0003996753976115281,
+          "stuck_time_s": 8.816493725807582e-05,
+          "effort_proxy_j": 244.22841367635658,
+          "slip_s": 2.195050424953345e-06,
+          "slip_ratio": 3.792322083070898e-05
+        },
+        "pile_height_mae_m": 0.0003207488146340263,
+        "reward_mae": 0.041648764964298896,
+        "high_error_fraction": 0.2333984375,
+        "mass_balance_mae_kg": 0.7625745990439903,
+        "mass_balance_max_kg": 3.4291146259238303,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 856,
+          "capacity_excess": 0,
+          "joint_bounds": 101,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 2,
+            "brier": 0.034607477486133575,
+            "precision_at_half": 0.017857142857142856,
+            "recall_at_half": 0.5,
+            "false_positives": 55,
+            "false_negatives": 1
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0010315229883417487,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 280,
+            "brier": 0.1010172963142395,
+            "precision_at_half": 0.6594594594594595,
+            "recall_at_half": 0.8714285714285714,
+            "false_positives": 126,
+            "false_negatives": 36
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.02889201045036316,
+            "precision_at_half": 0.0,
+            "recall_at_half": 0.0,
+            "false_positives": 41,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 743,
+            "position_mae_m": 0.02082935668134463,
+            "pile_height_mae_m": 0.0002199848412515998,
+            "carried_mass_mae_kg": 2.975463851994284,
+            "delivered_mass_mae_kg": 2.169975531818512,
+            "spilled_mass_mae_kg": 0.6302334676607267,
+            "reward_mae": 0.025737424059337547
+          },
+          "contact_without_transfer": {
+            "rows": 2,
+            "position_mae_m": 0.017325991064080344,
+            "pile_height_mae_m": 0.00029494772932181154,
+            "carried_mass_mae_kg": 2.47932072225467,
+            "delivered_mass_mae_kg": 2.643962133769606,
+            "spilled_mass_mae_kg": 2.1890361731417736,
+            "reward_mae": 0.06895598413288886
+          },
+          "material_transfer": {
+            "rows": 278,
+            "position_mae_m": 0.011074312075729273,
+            "pile_height_mae_m": 0.0005908057549272928,
+            "carried_mass_mae_kg": 10.11606145329209,
+            "delivered_mass_mae_kg": 5.22011960064205,
+            "spilled_mass_mae_kg": 1.4453282514252017,
+            "reward_mae": 0.06650856453764632
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.002859225915707157,
+            "pile_height_mae_m": 0.0001641538068732234,
+            "carried_mass_mae_kg": 9.10904733430845,
+            "delivered_mass_mae_kg": 7.357308138977738,
+            "spilled_mass_mae_kg": 0.4760026747917994,
+            "reward_mae": 4.89813633762281
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 1024,
+      "accepted": 740,
+      "coverage": 0.72265625,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 60,
+      "missed_high_error_cases": 60,
+      "confident_wrong_fraction": 0.05859375,
+      "rejected_high_error_cases": 179,
+      "accepted_high_error_fraction": 0.08108108108108109
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 119,
+        "capacity_excess": 0,
+        "joint_bounds": 51,
+        "speed_bounds": 0,
+        "mass_balance": 39,
+        "nonmonotone_material": 114,
+        "pile_creation": 128,
+        "unearned_reward": 51,
+        "non_finite_reward": 0,
+        "excess_motion": 0,
+        "backwards_clock": 0,
+        "negative_counters": 69,
+        "wall_clearance": 0,
+        "obstacle_clearance": 0,
+        "roof_clearance": 0,
+        "remote_extraction": 128,
+        "non_finite_model_scores": 0,
+        "uncertainty": 55,
+        "input_envelope": 5
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  },
+  "unusual_pile": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 1024,
+        "position_mae_m": 0.02827757372596615,
+        "position_p95_m": 0.12174707834803755,
+        "state_mae": {
+          "x_m": 0.028159138401499514,
+          "y_m": 0.001237566386963818,
+          "yaw_rad": 0.003030239639700238,
+          "speed_m_s": 0.030566760752391377,
+          "articulation_rad": 0.005767893445932807,
+          "boom_rad": 0.0034220822407469197,
+          "bucket_rad": 0.011723435823115629,
+          "carried_kg": 8.849320235641787,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.0,
+          "elapsed_s": 7.812500000172227e-05,
+          "stuck_time_s": 0.029257812499999637,
+          "effort_proxy_j": 243.50039279965856,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0002917941623515957,
+        "reward_mae": 0.0050899612617839865,
+        "high_error_fraction": 0.2421875,
+        "mass_balance_mae_kg": 2.3376856006507296e-12,
+        "mass_balance_max_kg": 9.094947017729282e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.0029296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 3
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 522,
+            "brier": 0.509765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 522
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 501,
+            "position_mae_m": 0.040658669543666134,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00021002501144184462
+          },
+          "contact_without_transfer": {
+            "rows": 102,
+            "position_mae_m": 0.0014946456026677312,
+            "pile_height_mae_m": 1.3539827279515365e-12,
+            "carried_mass_mae_kg": 4.313045676598467e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00020182227597018848
+          },
+          "material_transfer": {
+            "rows": 418,
+            "position_mae_m": 0.019793764498309763,
+            "pile_height_mae_m": 0.0007148258901988007,
+            "carried_mass_mae_kg": 21.67871750399358,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00020531837804105009
+          },
+          "collision_or_stuck": {
+            "rows": 3,
+            "position_mae_m": 0.0533315474156725,
+            "pile_height_mae_m": 2.276366884342481e-12,
+            "carried_mass_mae_kg": 7.61883711675182e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.6668296157214402
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 1024,
+        "position_mae_m": 0.002950807237023288,
+        "position_p95_m": 0.0069750000000002995,
+        "state_mae": {
+          "x_m": 0.002906632499280758,
+          "y_m": 0.0001645730677884238,
+          "yaw_rad": 0.003030239639700238,
+          "speed_m_s": 0.05710661135627536,
+          "articulation_rad": 1.7580382731722767e-09,
+          "boom_rad": 4.534572846618076e-14,
+          "bucket_rad": 3.6234254367348856e-06,
+          "carried_kg": 8.849320235641787,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.0,
+          "elapsed_s": 7.812500000172227e-05,
+          "stuck_time_s": 0.029257812499999637,
+          "effort_proxy_j": 243.50039279965856,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0002917941623515957,
+        "reward_mae": 0.004890273538762399,
+        "high_error_fraction": 0.060546875,
+        "mass_balance_mae_kg": 2.3376856006507296e-12,
+        "mass_balance_max_kg": 9.094947017729282e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.0029296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 3
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 522,
+            "brier": 0.509765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 522
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 501,
+            "position_mae_m": 0.0008324338178392058,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.0025011441844608e-05
+          },
+          "contact_without_transfer": {
+            "rows": 102,
+            "position_mae_m": 0.005519547189302571,
+            "pile_height_mae_m": 1.3539827279515365e-12,
+            "carried_mass_mae_kg": 4.313045676598467e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.8222759701884565e-06
+          },
+          "material_transfer": {
+            "rows": 418,
+            "position_mae_m": 0.004754886314781667,
+            "pile_height_mae_m": 0.0007148258901988007,
+            "carried_mass_mae_kg": 21.67871750399358,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.3183780410500555e-06
+          },
+          "collision_or_stuck": {
+            "rows": 3,
+            "position_mae_m": 0.01801365836226848,
+            "pile_height_mae_m": 2.276366884342481e-12,
+            "carried_mass_mae_kg": 7.61883711675182e-08,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.6667362062634046
+          }
+        }
+      },
+      "single": {
+        "rows": 1024,
+        "position_mae_m": 0.2382732073277515,
+        "position_p95_m": 0.28209620173074906,
+        "state_mae": {
+          "x_m": 0.23733999348227788,
+          "y_m": 0.01940130279922783,
+          "yaw_rad": 0.01283844282700737,
+          "speed_m_s": 0.079786009637397,
+          "articulation_rad": 0.02110350608746147,
+          "boom_rad": 0.009445873921369053,
+          "bucket_rad": 0.0186402506949082,
+          "carried_kg": 32.375842194350646,
+          "delivered_kg": 18.704303932625777,
+          "spilled_kg": 4.468250499237611,
+          "elapsed_s": 0.0005860529651520428,
+          "stuck_time_s": 0.030451560520359272,
+          "effort_proxy_j": 966.2167943050378,
+          "slip_s": 0.00011833274592936503,
+          "slip_ratio": 0.000483765622305441
+        },
+        "pile_height_mae_m": 0.0015998651838750712,
+        "reward_mae": 0.1681510304892499,
+        "high_error_fraction": 1.0,
+        "mass_balance_mae_kg": 5.077213544580207,
+        "mass_balance_max_kg": 14.544791259229896,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1017,
+          "capacity_excess": 0,
+          "joint_bounds": 290,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.0032178901601582766,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 3
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 1.0867774562217658e-11,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 522,
+            "brier": 0.03933488577604294,
+            "precision_at_half": 0.948051948051948,
+            "recall_at_half": 0.9789272030651341,
+            "false_positives": 28,
+            "false_negatives": 11
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0012753541814163327,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 501,
+            "position_mae_m": 0.22736296907250375,
+            "pile_height_mae_m": 0.0012285590598164649,
+            "carried_mass_mae_kg": 19.968262284498266,
+            "delivered_mass_mae_kg": 19.29378467915039,
+            "spilled_mass_mae_kg": 3.8437640950381278,
+            "reward_mae": 0.13132834458839684
+          },
+          "contact_without_transfer": {
+            "rows": 102,
+            "position_mae_m": 0.24447824738431323,
+            "pile_height_mae_m": 0.001634783206978414,
+            "carried_mass_mae_kg": 51.242326925107406,
+            "delivered_mass_mae_kg": 17.06321099500044,
+            "spilled_mass_mae_kg": 4.982749155696901,
+            "reward_mae": 0.19014552906511487
+          },
+          "material_transfer": {
+            "rows": 418,
+            "position_mae_m": 0.2497564526645577,
+            "pile_height_mae_m": 0.002036680969042682,
+            "carried_mass_mae_kg": 42.559943260199724,
+            "delivered_mass_mae_kg": 18.386811073601972,
+            "spilled_mass_mae_kg": 5.0846374408654125,
+            "reward_mae": 0.19571968710550033
+          },
+          "collision_or_stuck": {
+            "rows": 3,
+            "position_mae_m": 0.2493127837693685,
+            "pile_height_mae_m": 0.0015577757161281795,
+            "carried_mass_mae_kg": 43.99645778566255,
+            "delivered_mass_mae_kg": 20.2955174995943,
+            "spilled_mass_mae_kg": 5.381278480795316,
+            "reward_mae": 1.7284938024880692
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 1024,
+        "position_mae_m": 0.17992405464075553,
+        "position_p95_m": 0.23382375003010972,
+        "state_mae": {
+          "x_m": 0.17963778684854023,
+          "y_m": 0.00924802798319519,
+          "yaw_rad": 0.011092051969337494,
+          "speed_m_s": 0.08439710715690182,
+          "articulation_rad": 0.018198903128983257,
+          "boom_rad": 0.010539624693908099,
+          "bucket_rad": 0.04433552866554044,
+          "carried_kg": 43.64769780019597,
+          "delivered_kg": 22.114089784913467,
+          "spilled_kg": 4.39942147979,
+          "elapsed_s": 0.0009676701730165402,
+          "stuck_time_s": 0.02966056552329242,
+          "effort_proxy_j": 434.219083003626,
+          "slip_s": 6.763150967159959e-06,
+          "slip_ratio": 0.0001724511189873083
+        },
+        "pile_height_mae_m": 0.0024307016241461284,
+        "reward_mae": 0.14543315606127105,
+        "high_error_fraction": 1.0,
+        "mass_balance_mae_kg": 4.74848839959402,
+        "mass_balance_max_kg": 15.395825228857575,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 1020,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 18
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.0029583079740405083,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 3
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 1.9397696990330893e-11,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 522,
+            "brier": 0.48960885405540466,
+            "precision_at_half": 0.509765625,
+            "recall_at_half": 1.0,
+            "false_positives": 502,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0010005200747400522,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 501,
+            "position_mae_m": 0.21035280793811045,
+            "pile_height_mae_m": 0.0016570085263634992,
+            "carried_mass_mae_kg": 9.85493788100908,
+            "delivered_mass_mae_kg": 5.870496411795158,
+            "spilled_mass_mae_kg": 1.0952676230191771,
+            "reward_mae": 0.10906193441910675
+          },
+          "contact_without_transfer": {
+            "rows": 102,
+            "position_mae_m": 0.1492532072262165,
+            "pile_height_mae_m": 0.0029944331211789513,
+            "carried_mass_mae_kg": 95.72750204900686,
+            "delivered_mass_mae_kg": 40.58395373869188,
+            "spilled_mass_mae_kg": 8.195871363311847,
+            "reward_mae": 0.21535250180485316
+          },
+          "material_transfer": {
+            "rows": 418,
+            "position_mae_m": 0.15092261902924425,
+            "pile_height_mae_m": 0.0032156130126160757,
+            "carried_mass_mae_kg": 71.14036394063007,
+            "delivered_mass_mae_kg": 36.9501151863072,
+            "spilled_mass_mae_kg": 7.390511122594923,
+            "reward_mae": 0.16014266397474672
+          },
+          "collision_or_stuck": {
+            "rows": 3,
+            "position_mae_m": 0.18199776128072323,
+            "pile_height_mae_m": 0.0031062579279164614,
+            "carried_mass_mae_kg": 85.68044427768682,
+            "delivered_mass_mae_kg": 39.66593607301041,
+            "spilled_mass_mae_kg": 10.3553292899555,
+            "reward_mae": 1.7926446457433192
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 1024,
+      "accepted": 0,
+      "coverage": 0.0,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 0,
+      "missed_high_error_cases": 0,
+      "confident_wrong_fraction": 0.0,
+      "rejected_high_error_cases": 1024,
+      "accepted_high_error_fraction": null
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 128,
+        "capacity_excess": 0,
+        "joint_bounds": 30,
+        "speed_bounds": 3,
+        "mass_balance": 94,
+        "nonmonotone_material": 128,
+        "pile_creation": 128,
+        "unearned_reward": 49,
+        "non_finite_reward": 0,
+        "excess_motion": 45,
+        "backwards_clock": 0,
+        "negative_counters": 61,
+        "wall_clearance": 0,
+        "obstacle_clearance": 0,
+        "roof_clearance": 0,
+        "remote_extraction": 128,
+        "non_finite_model_scores": 0,
+        "uncertainty": 128,
+        "input_envelope": 128
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  },
+  "contact_start": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 1024,
+        "position_mae_m": 0.0432302005193713,
+        "position_p95_m": 0.1398809481291312,
+        "state_mae": {
+          "x_m": 0.04306480631128387,
+          "y_m": 0.001907063527867212,
+          "yaw_rad": 0.002411747084075507,
+          "speed_m_s": 0.029473497641758876,
+          "articulation_rad": 0.004991899723378483,
+          "boom_rad": 0.00399403245376418,
+          "bucket_rad": 0.013910085567070601,
+          "carried_kg": 13.092208147183015,
+          "delivered_kg": 3.9302888916197767,
+          "spilled_kg": 1.4807431251274663,
+          "elapsed_s": 0.0001171875000018741,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 332.3411525013754,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.00028867367567825784,
+        "reward_mae": 0.006629479015220303,
+        "high_error_fraction": 0.4306640625,
+        "mass_balance_mae_kg": 1.2025935802739696e-12,
+        "mass_balance_max_kg": 3.637978807091713e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.0029296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 3
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 632,
+            "brier": 0.6171875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 632
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 392,
+            "position_mae_m": 0.06507216091071805,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 2.3201395453391025e-15,
+            "delivered_mass_mae_kg": 3.2106395477753706e-15,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00020906191589064696
+          },
+          "contact_without_transfer": {
+            "rows": 191,
+            "position_mae_m": 0.0005058957069633942,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.0002002889688710525
+          },
+          "material_transfer": {
+            "rows": 440,
+            "position_mae_m": 0.04235219091868946,
+            "pile_height_mae_m": 0.0006718223724875819,
+            "carried_mass_mae_kg": 30.469138864933022,
+            "delivered_mass_mae_kg": 9.14685414776966,
+            "spilled_mass_mae_kg": 3.44609299542193,
+            "reward_mae": 0.003791586385516666
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.02784817058136893,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 4.2144876014803484e-05,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 4.2144876005068e-05,
+            "reward_mae": 5.000081037874752
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 1024,
+        "position_mae_m": 0.0014724505628902257,
+        "position_p95_m": 0.003409495122457136,
+        "state_mae": {
+          "x_m": 0.001421628151434303,
+          "y_m": 0.0001961862125601824,
+          "yaw_rad": 0.002411747084075507,
+          "speed_m_s": 0.02760712326146231,
+          "articulation_rad": 2.683089594369193e-05,
+          "boom_rad": 1.5431614040443646e-05,
+          "bucket_rad": 4.2316916888472433e-05,
+          "carried_kg": 13.092208147183015,
+          "delivered_kg": 3.9302888916197767,
+          "spilled_kg": 1.4807431251274663,
+          "elapsed_s": 0.0001171875000018741,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 332.3411525013754,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.00028867367567825784,
+        "reward_mae": 0.006438253058153513,
+        "high_error_fraction": 0.0830078125,
+        "mass_balance_mae_kg": 1.2025935802739696e-12,
+        "mass_balance_max_kg": 3.637978807091713e-12,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.0029296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 3
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 632,
+            "brier": 0.6171875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 632
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0009765625,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 1
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 392,
+            "position_mae_m": 0.0010286800970415063,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 2.3201395453391025e-15,
+            "delivered_mass_mae_kg": 3.2106395477753706e-15,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 9.061915890646955e-06
+          },
+          "contact_without_transfer": {
+            "rows": 191,
+            "position_mae_m": 0.00134716279550377,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 2.8896887105249445e-07
+          },
+          "material_transfer": {
+            "rows": 440,
+            "position_mae_m": 0.0016731041532189281,
+            "pile_height_mae_m": 0.0006718223724875819,
+            "carried_mass_mae_kg": 30.469138864933022,
+            "delivered_mass_mae_kg": 9.14685414776966,
+            "spilled_mass_mae_kg": 3.44609299542193,
+            "reward_mae": 0.003612005976343047
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.11107285700177226,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 4.2144876014803484e-05,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 4.2144876005068e-05,
+            "reward_mae": 4.999881037874752
+          }
+        }
+      },
+      "single": {
+        "rows": 1024,
+        "position_mae_m": 0.04100715502571109,
+        "position_p95_m": 0.11007002791866778,
+        "state_mae": {
+          "x_m": 0.04059028690038134,
+          "y_m": 0.003681075394376984,
+          "yaw_rad": 0.0019667454053167097,
+          "speed_m_s": 0.03256708426719764,
+          "articulation_rad": 0.0032306909094383975,
+          "boom_rad": 0.004952552434153775,
+          "bucket_rad": 0.014306675660136069,
+          "carried_kg": 18.355282721781855,
+          "delivered_kg": 7.262583267459156,
+          "spilled_kg": 1.7675645682744427,
+          "elapsed_s": 0.0004719627962666782,
+          "stuck_time_s": 0.0002474524427520919,
+          "effort_proxy_j": 356.07815515036964,
+          "slip_s": 1.3997237663748052e-05,
+          "slip_ratio": 8.513719648782114e-05
+        },
+        "pile_height_mae_m": 0.0007656481233948612,
+        "reward_mae": 0.04096030838392737,
+        "high_error_fraction": 0.32421875,
+        "mass_balance_mae_kg": 0.7491654433788035,
+        "mass_balance_max_kg": 7.431829897059288,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 513,
+          "capacity_excess": 0,
+          "joint_bounds": 321,
+          "speed_bounds": 12
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.09187351167201996,
+            "precision_at_half": 0.02054794520547945,
+            "recall_at_half": 1.0,
+            "false_positives": 143,
+            "false_negatives": 0
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.009362051263451576,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 632,
+            "brier": 0.14600472152233124,
+            "precision_at_half": 0.9733333333333334,
+            "recall_at_half": 0.6930379746835443,
+            "false_positives": 12,
+            "false_negatives": 194
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.07251273095607758,
+            "precision_at_half": 0.009615384615384616,
+            "recall_at_half": 1.0,
+            "false_positives": 103,
+            "false_negatives": 0
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 392,
+            "position_mae_m": 0.03322728057696055,
+            "pile_height_mae_m": 0.000344937440587646,
+            "carried_mass_mae_kg": 6.191373119341028,
+            "delivered_mass_mae_kg": 7.1865966970546475,
+            "spilled_mass_mae_kg": 0.29622314416294765,
+            "reward_mae": 0.022780757690868007
+          },
+          "contact_without_transfer": {
+            "rows": 191,
+            "position_mae_m": 0.04153027812130647,
+            "pile_height_mae_m": 0.0009577077600272004,
+            "carried_mass_mae_kg": 28.996192236957963,
+            "delivered_mass_mae_kg": 1.4953272232610855,
+            "spilled_mass_mae_kg": 0.13678227481626257,
+            "reward_mae": 0.015054506172725197
+          },
+          "material_transfer": {
+            "rows": 440,
+            "position_mae_m": 0.04769333992871707,
+            "pile_height_mae_m": 0.0010583305334575395,
+            "carried_mass_mae_kg": 24.605939188993318,
+            "delivered_mass_mae_kg": 9.846747637122041,
+            "spilled_mass_mae_kg": 3.788022580799381,
+            "reward_mae": 0.057545094599229255
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.04888007035457456,
+            "pile_height_mae_m": 0.0002205847594680065,
+            "carried_mass_mae_kg": 3.905283906903156,
+            "delivered_mass_mae_kg": 1.5629006561896668,
+            "spilled_mass_mae_kg": 1.011295359520176,
+            "reward_mae": 4.818046467669983
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 1024,
+        "position_mae_m": 0.02736991434346679,
+        "position_p95_m": 0.09743969099155157,
+        "state_mae": {
+          "x_m": 0.026201372046780906,
+          "y_m": 0.004886657520105938,
+          "yaw_rad": 0.0017525473614031489,
+          "speed_m_s": 0.03853172711308156,
+          "articulation_rad": 0.003897087103051876,
+          "boom_rad": 0.0032113953320930567,
+          "bucket_rad": 0.007860614825011115,
+          "carried_kg": 23.45204217976518,
+          "delivered_kg": 8.925433928256357,
+          "spilled_kg": 2.410448970625106,
+          "elapsed_s": 0.001102058636044778,
+          "stuck_time_s": 0.0002361465717098484,
+          "effort_proxy_j": 387.47473119217426,
+          "slip_s": 6.065798027837688e-06,
+          "slip_ratio": 5.5583668614242286e-05
+        },
+        "pile_height_mae_m": 0.0011874675912580787,
+        "reward_mae": 0.1186885101730794,
+        "high_error_fraction": 0.6103515625,
+        "mass_balance_mae_kg": 1.9710034289662506,
+        "mass_balance_max_kg": 11.768817716338162,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 118,
+          "capacity_excess": 0,
+          "joint_bounds": 270,
+          "speed_bounds": 31
+        },
+        "events": {
+          "terminated": {
+            "positives": 3,
+            "brier": 0.06696300208568573,
+            "precision_at_half": 0.02727272727272727,
+            "recall_at_half": 1.0,
+            "false_positives": 107,
+            "false_negatives": 0
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.00015679452917538583,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 632,
+            "brier": 0.10255850851535797,
+            "precision_at_half": 0.9468864468864469,
+            "recall_at_half": 0.8180379746835443,
+            "false_positives": 29,
+            "false_negatives": 115
+          },
+          "collision": {
+            "positives": 1,
+            "brier": 0.0500287301838398,
+            "precision_at_half": 0.014285714285714285,
+            "recall_at_half": 1.0,
+            "false_positives": 69,
+            "false_negatives": 0
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 392,
+            "position_mae_m": 0.029331291470862986,
+            "pile_height_mae_m": 0.0004591564647917027,
+            "carried_mass_mae_kg": 11.472690036162541,
+            "delivered_mass_mae_kg": 12.662774434958854,
+            "spilled_mass_mae_kg": 0.6630809213877605,
+            "reward_mae": 0.03769031348221165
+          },
+          "contact_without_transfer": {
+            "rows": 191,
+            "position_mae_m": 0.008552532258626941,
+            "pile_height_mae_m": 0.0018480726216808536,
+            "carried_mass_mae_kg": 44.68502996368168,
+            "delivered_mass_mae_kg": 1.5544698545921953,
+            "spilled_mass_mae_kg": 0.8560215345436641,
+            "reward_mae": 0.16998636182076363
+          },
+          "material_transfer": {
+            "rows": 440,
+            "position_mae_m": 0.03381172569263438,
+            "pile_height_mae_m": 0.00155034201065559,
+            "carried_mass_mae_kg": 24.955721599469577,
+            "delivered_mass_mae_kg": 8.79756284617625,
+            "spilled_mass_mae_kg": 4.6404453414697535,
+            "reward_mae": 0.160566285805008
+          },
+          "collision_or_stuck": {
+            "rows": 1,
+            "position_mae_m": 0.01823306497482685,
+            "pile_height_mae_m": 0.0008451238204225651,
+            "carried_mass_mae_kg": 2.2384710740108433,
+            "delivered_mass_mae_kg": 8.005369485978923,
+            "spilled_mass_mae_kg": 3.0759613915754755,
+            "reward_mae": 3.6458706702369517
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 1024,
+      "accepted": 266,
+      "coverage": 0.259765625,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 68,
+      "missed_high_error_cases": 68,
+      "confident_wrong_fraction": 0.06640625,
+      "rejected_high_error_cases": 557,
+      "accepted_high_error_fraction": 0.2556390977443609
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 28,
+        "capacity_excess": 0,
+        "joint_bounds": 45,
+        "speed_bounds": 0,
+        "mass_balance": 82,
+        "nonmonotone_material": 75,
+        "pile_creation": 128,
+        "unearned_reward": 87,
+        "non_finite_reward": 0,
+        "excess_motion": 0,
+        "backwards_clock": 0,
+        "negative_counters": 84,
+        "wall_clearance": 0,
+        "obstacle_clearance": 0,
+        "roof_clearance": 0,
+        "remote_extraction": 128,
+        "non_finite_model_scores": 0,
+        "uncertainty": 102,
+        "input_envelope": 23
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  },
+  "blocked": {
+    "prediction_metrics": {
+      "persistence": {
+        "rows": 1024,
+        "position_mae_m": 0.05058713386333531,
+        "position_p95_m": 0.1409257730418795,
+        "state_mae": {
+          "x_m": 0.05042652149060571,
+          "y_m": 0.0018316424554805743,
+          "yaw_rad": 0.002434071981102301,
+          "speed_m_s": 0.0995684183579173,
+          "articulation_rad": 0.004937191401807081,
+          "boom_rad": 0.00616275178965941,
+          "bucket_rad": 0.007889266303804286,
+          "carried_kg": 0.0,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.0,
+          "elapsed_s": 0.0015429687500007178,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 500.9871565890662,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0,
+        "reward_mae": 0.21505569367719768,
+        "high_error_fraction": 0.5205078125,
+        "mass_balance_mae_kg": 0.0,
+        "mass_balance_max_kg": 0.0,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 44,
+            "brier": 0.04296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 44
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 44,
+            "brier": 0.04296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 44
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 980,
+            "position_mae_m": 0.05102589966771554,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 0.00021540796229983176
+          },
+          "collision_or_stuck": {
+            "rows": 44,
+            "position_mae_m": 0.0408146227657756,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 5.000134784599923
+          }
+        }
+      },
+      "kinematic": {
+        "rows": 1024,
+        "position_mae_m": 0.0031228947121547885,
+        "position_p95_m": 0.0030284152648561687,
+        "state_mae": {
+          "x_m": 0.0030845444930329095,
+          "y_m": 0.00015328287809295496,
+          "yaw_rad": 0.002434071981102301,
+          "speed_m_s": 0.05726109192363804,
+          "articulation_rad": 6.682442334340843e-05,
+          "boom_rad": 0.00011378144801569556,
+          "bucket_rad": 0.00019868463083078846,
+          "carried_kg": 0.0,
+          "delivered_kg": 0.0,
+          "spilled_kg": 0.0,
+          "elapsed_s": 0.0015429687500007178,
+          "stuck_time_s": 0.0,
+          "effort_proxy_j": 500.9871565890662,
+          "slip_s": 0.0,
+          "slip_ratio": 0.0
+        },
+        "pile_height_mae_m": 0.0,
+        "reward_mae": 0.21485569367719767,
+        "high_error_fraction": 0.04296875,
+        "mass_balance_mae_kg": 0.0,
+        "mass_balance_max_kg": 0.0,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 0,
+          "capacity_excess": 0,
+          "joint_bounds": 0,
+          "speed_bounds": 0
+        },
+        "events": {
+          "terminated": {
+            "positives": 44,
+            "brier": 0.04296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 44
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.0,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 44,
+            "brier": 0.04296875,
+            "precision_at_half": null,
+            "recall_at_half": 0.0,
+            "false_positives": 0,
+            "false_negatives": 44
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 980,
+            "position_mae_m": 0.0009613646891997147,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 1.540796229983175e-05
+          },
+          "collision_or_stuck": {
+            "rows": 44,
+            "position_mae_m": 0.05126606340524507,
+            "pile_height_mae_m": 0.0,
+            "carried_mass_mae_kg": 0.0,
+            "delivered_mass_mae_kg": 0.0,
+            "spilled_mass_mae_kg": 0.0,
+            "reward_mae": 4.999934784599922
+          }
+        }
+      },
+      "single": {
+        "rows": 1024,
+        "position_mae_m": 0.04394093056966797,
+        "position_p95_m": 0.08380957489795617,
+        "state_mae": {
+          "x_m": 0.042220947081211206,
+          "y_m": 0.009212528071784704,
+          "yaw_rad": 0.004298280246503661,
+          "speed_m_s": 0.08953531519828331,
+          "articulation_rad": 0.004818426643577478,
+          "boom_rad": 0.006319031071371618,
+          "bucket_rad": 0.010019899963614264,
+          "carried_kg": 6.684438084592372,
+          "delivered_kg": 4.635992928134762,
+          "spilled_kg": 1.0361272146975884,
+          "elapsed_s": 0.0023146778953131862,
+          "stuck_time_s": 0.00019825070235018227,
+          "effort_proxy_j": 995.5797618701763,
+          "slip_s": 1.1527770031008798e-05,
+          "slip_ratio": 0.00020583234691049057
+        },
+        "pile_height_mae_m": 0.0002917487084435277,
+        "reward_mae": 0.3892806144769835,
+        "high_error_fraction": 1.0,
+        "mass_balance_mae_kg": 1.3445034797176856,
+        "mass_balance_max_kg": 6.6906358645337605,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 995,
+          "capacity_excess": 0,
+          "joint_bounds": 225,
+          "speed_bounds": 13
+        },
+        "events": {
+          "terminated": {
+            "positives": 44,
+            "brier": 0.29109126329421997,
+            "precision_at_half": 0.06354515050167224,
+            "recall_at_half": 0.8636363636363636,
+            "false_positives": 560,
+            "false_negatives": 6
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 0.003915279638022184,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.023259134963154793,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 44,
+            "brier": 0.3390995264053345,
+            "precision_at_half": 0.04884318766066838,
+            "recall_at_half": 0.8636363636363636,
+            "false_positives": 740,
+            "false_negatives": 6
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 980,
+            "position_mae_m": 0.04443011389905919,
+            "pile_height_mae_m": 0.00029063289449794667,
+            "carried_mass_mae_kg": 6.785322201892673,
+            "delivered_mass_mae_kg": 4.698444658375327,
+            "spilled_mass_mae_kg": 1.0184615458129587,
+            "reward_mae": 0.19175418419285856
+          },
+          "collision_or_stuck": {
+            "rows": 44,
+            "position_mae_m": 0.03304548368777268,
+            "pile_height_mae_m": 0.00031660092814055876,
+            "carried_mass_mae_kg": 4.437473653812936,
+            "delivered_mass_mae_kg": 3.2450225727767172,
+            "spilled_mass_mae_kg": 1.4295898398552516,
+            "reward_mae": 4.788732925350675
+          }
+        }
+      },
+      "ensemble": {
+        "rows": 1024,
+        "position_mae_m": 0.023844478963597024,
+        "position_p95_m": 0.07459006216754027,
+        "state_mae": {
+          "x_m": 0.021852676445932067,
+          "y_m": 0.006781709327867828,
+          "yaw_rad": 0.003390034120303306,
+          "speed_m_s": 0.09783317196501035,
+          "articulation_rad": 0.0073020911682229635,
+          "boom_rad": 0.004259578444447435,
+          "bucket_rad": 0.011245055864513496,
+          "carried_kg": 5.639323808017698,
+          "delivered_kg": 3.249500830915551,
+          "spilled_kg": 0.4171847551390649,
+          "elapsed_s": 0.0031874803969539228,
+          "stuck_time_s": 9.827661938882108e-05,
+          "effort_proxy_j": 502.3979435993589,
+          "slip_s": 3.642843722213721e-06,
+          "slip_ratio": 2.176979828441339e-05
+        },
+        "pile_height_mae_m": 0.00029146729579283153,
+        "reward_mae": 0.5378737525130737,
+        "high_error_fraction": 0.9755859375,
+        "mass_balance_mae_kg": 1.0547104901970261,
+        "mass_balance_max_kg": 2.7351670412190288,
+        "raw_violations": {
+          "non_finite": 0,
+          "negative_pile": 0,
+          "negative_material": 975,
+          "capacity_excess": 0,
+          "joint_bounds": 243,
+          "speed_bounds": 16
+        },
+        "events": {
+          "terminated": {
+            "positives": 44,
+            "brier": 0.18994936347007751,
+            "precision_at_half": 0.07637231503579953,
+            "recall_at_half": 0.7272727272727273,
+            "false_positives": 387,
+            "false_negatives": 12
+          },
+          "truncated": {
+            "positives": 0,
+            "brier": 4.011634700873401e-06,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "contact": {
+            "positives": 0,
+            "brier": 0.03473434969782829,
+            "precision_at_half": null,
+            "recall_at_half": null,
+            "false_positives": 0,
+            "false_negatives": 0
+          },
+          "collision": {
+            "positives": 44,
+            "brier": 0.19233140349388123,
+            "precision_at_half": 0.07547169811320754,
+            "recall_at_half": 0.7272727272727273,
+            "false_positives": 392,
+            "false_negatives": 12
+          }
+        },
+        "regimes": {
+          "empty_motion": {
+            "rows": 980,
+            "position_mae_m": 0.023051674598246467,
+            "pile_height_mae_m": 0.00029164020544632317,
+            "carried_mass_mae_kg": 5.710199283141546,
+            "delivered_mass_mae_kg": 3.2403828816715285,
+            "spilled_mass_mae_kg": 0.4052899443375473,
+            "reward_mae": 0.3595343306644955
+          },
+          "collision_or_stuck": {
+            "rows": 44,
+            "position_mae_m": 0.041502394373677594,
+            "pile_height_mae_m": 0.00028761612623779163,
+            "carried_mass_mae_kg": 4.060733680259291,
+            "delivered_mass_mae_kg": 3.452582427714228,
+            "spilled_mass_mae_kg": 0.682114632081959,
+            "reward_mae": 4.509979057322315
+          }
+        }
+      }
+    },
+    "uncertainty_audit": {
+      "rows": 1024,
+      "accepted": 471,
+      "coverage": 0.4599609375,
+      "diagnostic_low_score_threshold": 0.2912540506629091,
+      "low_score_high_error_cases": 450,
+      "missed_high_error_cases": 450,
+      "confident_wrong_fraction": 0.439453125,
+      "rejected_high_error_cases": 549,
+      "accepted_high_error_fraction": 0.9554140127388535
+    },
+    "imagined_branch_audit": {
+      "anchors": 128,
+      "accepted_branches": 0,
+      "rejected_branches": 128,
+      "imagined_transitions": 0,
+      "accepted_horizons": {
+        "1": 0
+      },
+      "rejections": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 124,
+        "capacity_excess": 0,
+        "joint_bounds": 32,
+        "speed_bounds": 0,
+        "mass_balance": 75,
+        "nonmonotone_material": 114,
+        "pile_creation": 128,
+        "unearned_reward": 0,
+        "non_finite_reward": 0,
+        "excess_motion": 0,
+        "backwards_clock": 0,
+        "negative_counters": 102,
+        "wall_clearance": 0,
+        "obstacle_clearance": 4,
+        "roof_clearance": 0,
+        "remote_extraction": 127,
+        "non_finite_model_scores": 0,
+        "uncertainty": 65,
+        "input_envelope": 128
+      },
+      "proposed_model_transitions": 128,
+      "source_kind": "imagined",
+      "reference_transitions_generated": 0,
+      "usage": "held-out diagnostic only; no optimisation or data feedback"
+    }
+  }
+}

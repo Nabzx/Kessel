@@ -35,9 +35,14 @@ The Phase 11 reference simulator, resumable PPO tools and model-free comparison
 study are implemented under ADRs 0033-0039. The bounded study completed curriculum
 subtasks but no learned complete delivery cycle. Retained weights, failed
 replays and measured comparisons live in `docs/phase-11/rl-evidence/`; the report
-is `docs/phase-11/rl-experiments.md`. Learned world models and recorded results
-in the cinematic viewer remain subsequent work. Do not describe these policies
-as having demonstrated full autonomous haulage.
+is `docs/phase-11/rl-experiments.md`. Learned state-dynamics ensembles and bounded
+auxiliary-critic experiments are implemented under ADRs 0040-0042. Their report
+is `docs/phase-11/world-model-experiments.md`; raw and explicitly filtered
+forecasts are separately identified in retained evidence. The filter permits
+imagined updates but the equal-budget studies demonstrate no complete learned
+cycle or sample-efficiency gain. Recorded integration in the cinematic viewer
+remains subsequent work. Do not describe these policies as having demonstrated
+full autonomous haulage.
 
 ## Glossary
 

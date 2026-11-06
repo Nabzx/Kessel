@@ -25,6 +25,8 @@ jobs:
         run: python3 -m unittest discover -s scripts/tests -v
       - name: Verify recorded RL evidence
         run: python3 scripts/verify-rl-evidence.py
+      - name: Verify recorded world-model evidence
+        run: python3 scripts/verify-world-model-evidence.py
       - name: Check look-development module syntax
         run: node --check docs/phase-11/lookdev/study.js && node --check scripts/verify-lookdev.cjs
       - name: Check whitespace

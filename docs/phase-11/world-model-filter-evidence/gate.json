@@ -1,0 +1,254 @@
+{
+  "split": "validation",
+  "uncertainty_method": "RMS ensemble standard deviation of train-normalised residual/reward outputs",
+  "uncertainty_units": "dimensionless score, not probability",
+  "high_error_rule": "position>0.05m or carried>50kg or pile-MAE>0.01m or reward>0.05 or terminal mismatch",
+  "tradeoffs": [
+    {
+      "percentile": 10,
+      "threshold": 0.15199475984184446,
+      "accepted": 205,
+      "coverage": 0.10009765625,
+      "accepted_high_error_fraction": 0.03414634146341464,
+      "missed_high_error_cases": 7,
+      "rejected_high_error_cases": 464
+    },
+    {
+      "percentile": 25,
+      "threshold": 0.16624300948825277,
+      "accepted": 512,
+      "coverage": 0.25,
+      "accepted_high_error_fraction": 0.033203125,
+      "missed_high_error_cases": 17,
+      "rejected_high_error_cases": 454
+    },
+    {
+      "percentile": 50,
+      "threshold": 0.23495933740155797,
+      "accepted": 1024,
+      "coverage": 0.5,
+      "accepted_high_error_fraction": 0.064453125,
+      "missed_high_error_cases": 66,
+      "rejected_high_error_cases": 405
+    },
+    {
+      "percentile": 75,
+      "threshold": 0.2912540506629091,
+      "accepted": 1536,
+      "coverage": 0.75,
+      "accepted_high_error_fraction": 0.06315104166666667,
+      "missed_high_error_cases": 97,
+      "rejected_high_error_cases": 374
+    },
+    {
+      "percentile": 90,
+      "threshold": 0.4285865661716647,
+      "accepted": 1843,
+      "coverage": 0.89990234375,
+      "accepted_high_error_fraction": 0.17471513836136734,
+      "missed_high_error_cases": 322,
+      "rejected_high_error_cases": 149
+    },
+    {
+      "percentile": 100,
+      "threshold": 1.427473241469504,
+      "accepted": 2048,
+      "coverage": 1.0,
+      "accepted_high_error_fraction": 0.22998046875,
+      "missed_high_error_cases": 471,
+      "rejected_high_error_cases": 0
+    }
+  ],
+  "threshold": 0.2912540506629091,
+  "supported_horizon": 2,
+  "position_error_pearson": -0.009416823678754684,
+  "validation_drift": [
+    {
+      "rows": 127,
+      "position_mae_m": 0.02149935249176542,
+      "position_p95_m": 0.051527246641403415,
+      "state_mae": {
+        "x_m": 0.02051167610474982,
+        "y_m": 0.004125467596621182,
+        "yaw_rad": 0.0026579855357530785,
+        "speed_m_s": 0.024879429379414866,
+        "articulation_rad": 0.0021308072267176587,
+        "boom_rad": 0.0020277651803080198,
+        "bucket_rad": 0.0036747202200924515,
+        "carried_kg": 1.1234446664419002,
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "elapsed_s": 0.0003074858700753311,
+        "stuck_time_s": 3.538020288083423e-05,
+        "effort_proxy_j": 381.4053291631504,
+        "slip_s": 2.291207084141359e-06,
+        "slip_ratio": 6.355709268581954e-06
+      },
+      "pile_height_mae_m": 5.7081720041878665e-05,
+      "reward_mae": 0.04535235651613989,
+      "high_error_fraction": 0.28346456692913385,
+      "mass_balance_mae_kg": 4.869735411067648e-13,
+      "mass_balance_max_kg": 3.637978807091713e-12,
+      "raw_violations": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 0,
+        "capacity_excess": 0,
+        "joint_bounds": 0,
+        "speed_bounds": 0
+      },
+      "events": {
+        "terminated": {
+          "positives": 0,
+          "brier": 0.0021340247574207763,
+          "precision_at_half": null,
+          "recall_at_half": null,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "truncated": {
+          "positives": 0,
+          "brier": 7.961674733368638e-05,
+          "precision_at_half": null,
+          "recall_at_half": null,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "contact": {
+          "positives": 15,
+          "brier": 0.049064607282399135,
+          "precision_at_half": 0.7142857142857143,
+          "recall_at_half": 1.0,
+          "false_positives": 6,
+          "false_negatives": 0
+        },
+        "collision": {
+          "positives": 0,
+          "brier": 0.0018196283620965418,
+          "precision_at_half": null,
+          "recall_at_half": null,
+          "false_positives": 0,
+          "false_negatives": 0
+        }
+      },
+      "regimes": {
+        "empty_motion": {
+          "rows": 112,
+          "position_mae_m": 0.022855456529850406,
+          "pile_height_mae_m": 0.0,
+          "carried_mass_mae_kg": 0.0,
+          "delivered_mass_mae_kg": 0.0,
+          "spilled_mass_mae_kg": 0.0,
+          "reward_mae": 0.03838026584345965
+        },
+        "material_transfer": {
+          "rows": 15,
+          "position_mae_m": 0.011373775674064177,
+          "pile_height_mae_m": 0.00048329189635457255,
+          "carried_mass_mae_kg": 9.511831509208085,
+          "delivered_mass_mae_kg": 0.0,
+          "spilled_mass_mae_kg": 0.0,
+          "reward_mae": 0.09741063353881899
+        }
+      },
+      "horizon_decisions": 1,
+      "nominal_horizon_s": 0.1,
+      "reference_elapsed_mean_s": 0.09999999999999963,
+      "diagnostic_mode": "fixed recorded actions; do not stop on predicted events; never cross reference boundaries"
+    },
+    {
+      "rows": 127,
+      "position_mae_m": 0.043023055739896406,
+      "position_p95_m": 0.09956524500324282,
+      "state_mae": {
+        "x_m": 0.04081646942828324,
+        "y_m": 0.008394791047262727,
+        "yaw_rad": 0.0053691681933220655,
+        "speed_m_s": 0.04575233787307349,
+        "articulation_rad": 0.0037562915038426383,
+        "boom_rad": 0.0039240427506636085,
+        "bucket_rad": 0.007341075996425974,
+        "carried_kg": 1.9705209359257385,
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "elapsed_s": 0.0005744908058135955,
+        "stuck_time_s": 7.109758861540746e-05,
+        "effort_proxy_j": 713.9474611664182,
+        "slip_s": 4.442052395728719e-06,
+        "slip_ratio": 1.1959735894902044e-05
+      },
+      "pile_height_mae_m": 0.00010478894281781659,
+      "reward_mae": 0.08799528704510298,
+      "high_error_fraction": 0.6535433070866141,
+      "mass_balance_mae_kg": 4.869735411067648e-13,
+      "mass_balance_max_kg": 3.637978807091713e-12,
+      "raw_violations": {
+        "non_finite": 0,
+        "negative_pile": 0,
+        "negative_material": 0,
+        "capacity_excess": 0,
+        "joint_bounds": 0,
+        "speed_bounds": 0
+      },
+      "events": {
+        "terminated": {
+          "positives": 0,
+          "brier": 0.007629726356353365,
+          "precision_at_half": 0.0,
+          "recall_at_half": null,
+          "false_positives": 1,
+          "false_negatives": 0
+        },
+        "truncated": {
+          "positives": 0,
+          "brier": 0.0003028315801238777,
+          "precision_at_half": null,
+          "recall_at_half": null,
+          "false_positives": 0,
+          "false_negatives": 0
+        },
+        "contact": {
+          "positives": 15,
+          "brier": 0.0663108442600047,
+          "precision_at_half": 0.6,
+          "recall_at_half": 1.0,
+          "false_positives": 10,
+          "false_negatives": 0
+        },
+        "collision": {
+          "positives": 0,
+          "brier": 0.007133933968090862,
+          "precision_at_half": 0.0,
+          "recall_at_half": null,
+          "false_positives": 2,
+          "false_negatives": 0
+        }
+      },
+      "regimes": {
+        "empty_motion": {
+          "rows": 112,
+          "position_mae_m": 0.045618464597743345,
+          "pile_height_mae_m": 0.0,
+          "carried_mass_mae_kg": 0.0,
+          "delivered_mass_mae_kg": 0.0,
+          "spilled_mass_mae_kg": 0.0,
+          "reward_mae": 0.07318750479258242
+        },
+        "material_transfer": {
+          "rows": 15,
+          "position_mae_m": 0.023644002934639266,
+          "pile_height_mae_m": 0.0008872130491908472,
+          "carried_mass_mae_kg": 16.683743924171253,
+          "delivered_mass_mae_kg": 0.0,
+          "spilled_mass_mae_kg": 0.0,
+          "reward_mae": 0.19856006119725667
+        }
+      },
+      "horizon_decisions": 2,
+      "nominal_horizon_s": 0.2,
+      "reference_elapsed_mean_s": 0.19999999999999923,
+      "diagnostic_mode": "fixed recorded actions; do not stop on predicted events; never cross reference boundaries"
+    }
+  ],
+  "selection_rule": "highest validation coverage with >=20 accepted rows and <=10% high-error rate; then measured drift limits"
+}
