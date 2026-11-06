@@ -10,6 +10,8 @@ The [synthetic loader environment](0036-synthetic-loader-reference-environment.m
 defines the reference dynamics and their limits.
 The [CPU policy and PPO core](0037-cpu-policy-and-ppo-core.md) defines bounded
 likelihoods, episode bootstrapping and versioned delivery rewards.
+The [reproducible RL experiment protocol](0038-reproducible-rl-experiments.md)
+defines checkpointing, curriculum gates and bounded comparisons.
 
 Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
 [learning presentation](0029-world-model-learning-presentation.md) and

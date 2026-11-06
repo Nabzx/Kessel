@@ -24,7 +24,21 @@ uv run --locked python -m kessel_training.benchmark --output runs/cpu-spike.json
 uv run --locked python -m kessel_training.evaluate --split validation --count 4 --output runs/reference-validation.json
 uv run --locked python -m kessel_training.profile --output runs/kernel-profile.json
 uv run --locked python -m kessel_training.core_smoke --output runs/ppo-core-smoke.json
+uv run --locked python -m kessel_training.train --preset quick --output runs/quick-example
 ```
+
+The trainer saves initial, periodic and final checkpoints, complete simulator/
+sensor state and all RNGs. To stop at a reproducible boundary, add
+`--until-update 20`, then resume with
+`--resume runs/quick-example/checkpoint-000020-final.pt --output runs/quick-example`.
+Resume requires the same training source package, numerical library versions
+and recorded configuration. `--preset full` selects the provisional larger
+budget; the Phase 11 RL study will replace presets from measured comparisons.
+Wall limits are cumulative and checked between complete rollout/update
+transactions. SIGINT/SIGTERM request a checkpointed stop at the next boundary.
+Reports count completed episodes, decisions and optimiser steps separately;
+`nominal_simulated_s` is the sum of configured decision periods, including
+partially terminated decisions, rather than a claim of exact integrated time.
 
 The project creates its own ignored `training/.venv`. It does not touch a
 repository-root `.venv` or another personal environment. To use a separate
