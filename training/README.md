@@ -8,12 +8,18 @@ Use Python 3.12 and uv 0.12.18 or later. The lock file supports Apple Silicon
 macOS and x86-64 Linux. Linux resolves PyTorch from its official CPU index;
 no CUDA environment is installed. All experiment commands use CPU explicitly.
 
+The synthetic loader kernel and conventional controller now have a
+[reference report](../docs/phase-11/simulator-reference.md). They are distinct
+from the disposable benchmark and do not constitute a trained RL policy.
+
 From this directory:
 
 ```sh
 uv sync --locked
 uv run --locked pytest
 uv run --locked python -m kessel_training.benchmark --output runs/cpu-spike.json
+uv run --locked python -m kessel_training.evaluate --split validation --count 4 --output runs/reference-validation.json
+uv run --locked python -m kessel_training.profile --output runs/kernel-profile.json
 ```
 
 The project creates its own ignored `training/.venv`. It does not touch a

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "source_mode": "recorded_synthetic",
+  "calibrated": false,
+  "source": {
+    "package_sha256": "344b04de36579b1d98f9f999bb11d6f28185543baae5e008078ae98e3059ea32",
+    "git_commit": "51da6601fe0b04767d4a6a0a05234990a49c13bd",
+    "training_dirty": false
+  },
+  "hardware": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "python": "3.12.14",
+    "numpy": "2.5.4"
+  },
+  "steps_per_trial": 100,
+  "repeats": 1,
+  "rows": [
+    {
+      "num_envs": 1,
+      "trials": [
+        {
+          "step_s": 0.3956632015760988,
+          "reset_s": 0.0,
+          "environment_steps": 100,
+          "completed_episodes": 0,
+          "successes": 0,
+          "environment_steps_s": 252.7402083429959
+        }
+      ],
+      "median_environment_steps_s": 252.7402083429959
+    },
+    {
+      "num_envs": 16,
+      "trials": [
+        {
+          "step_s": 0.4844037110451609,
+          "reset_s": 0.0,
+          "environment_steps": 1600,
+          "completed_episodes": 0,
+          "successes": 0,
+          "environment_steps_s": 3303.030021276679
+        }
+      ],
+      "median_environment_steps_s": 3303.030021276679
+    },
+    {
+      "num_envs": 32,
+      "trials": [
+        {
+          "step_s": 0.5662205410189927,
+          "reset_s": 0.0,
+          "environment_steps": 3200,
+          "completed_episodes": 0,
+          "successes": 0,
+          "environment_steps_s": 5651.508145997591
+        }
+      ],
+      "median_environment_steps_s": 5651.508145997591
+    },
+    {
+      "num_envs": 64,
+      "trials": [
+        {
+          "step_s": 0.7649761743377894,
+          "reset_s": 0.0,
+          "environment_steps": 6400,
+          "completed_episodes": 0,
+          "successes": 0,
+          "environment_steps_s": 8366.273636613892
+        }
+      ],
+      "median_environment_steps_s": 8366.273636613892
+    }
+  ],
+  "control_trace_preparation_s": 1.4124878749717027,
+  "peak_process_mib": 50.46875,
+  "policy_inference_s": 0,
+  "optimiser_updates": 0,
+  "method": "Precomputed conventional-control actions; step timer includes observations, validation and diagnostics. Resets, control preparation and JSON serialisation excluded. Episode outcomes are workload diagnostics, not controller evaluation."
+}

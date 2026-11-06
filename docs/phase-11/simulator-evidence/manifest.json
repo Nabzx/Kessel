@@ -1,0 +1,38 @@
+{
+  "validation": {
+    "raw_source": "training/runs/reference-validation-final.json",
+    "raw_sha256": "edb9f5a838016f38c131219ec4bdc999c0aacd703ae27e72195299aa6c8085e8",
+    "source": {
+      "package_sha256": "30c68ed07c648ec7654952d052966d40f9c1b448877e0772ac7cb42ce202c994",
+      "git_commit": "e266c4418ab43aa16c974e7f41f12249904e7d98",
+      "training_dirty": false
+    }
+  },
+  "test": {
+    "raw_source": "training/runs/reference-test-final.json",
+    "raw_sha256": "b4c14dec848b6f146d5382906713c4572f34266a4b94c0a18200f01f14e2f757",
+    "source": {
+      "package_sha256": "30c68ed07c648ec7654952d052966d40f9c1b448877e0772ac7cb42ce202c994",
+      "git_commit": "e266c4418ab43aa16c974e7f41f12249904e7d98",
+      "training_dirty": false
+    }
+  },
+  "training-probe-14s": {
+    "raw_source": "training/runs/reference-train-v1.json",
+    "raw_sha256": "68e8e0ec4eef4eca5e36cf3e36467c3ce265e10d19830484b83be9fad9ffd811",
+    "source": {
+      "package_sha256": "05c8566d0e72576bdb6d0bd67783f234409897b8dfcf02c8167ba5713815bafa",
+      "git_commit": "5407754b96e16f73f3fbc430197bbf420f943e46",
+      "training_dirty": true
+    }
+  },
+  "training-probe-22s": {
+    "raw_source": "training/runs/reference-train-v2.json",
+    "raw_sha256": "db59b19133d0a328d7768f6d43d8c442a223881528e06e0264f73868e21b512f",
+    "source": {
+      "package_sha256": "8914aa38a0086a8b87d9235aed7a133ba29584d61f38df98781cdd2e1007b59a",
+      "git_commit": "5407754b96e16f73f3fbc430197bbf420f943e46",
+      "training_dirty": true
+    }
+  }
+}
