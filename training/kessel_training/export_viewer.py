@@ -125,7 +125,7 @@ def export(output,report_path=None):
     index={"schema_version":"1.0","experiments":[{"run_id":bundle["run_id"],"url":str(output.relative_to(ROOT)),
         "sha256":hashlib.sha256(output.read_bytes()).hexdigest(),"bytes":output.stat().st_size,"source_mode":"recorded_synthetic"}]}
     (output.parent/"index.json").write_text(json.dumps(index,indent=2)+"\n")
-    report={**counts,"source":source,"export_wall_s":time.perf_counter()-started,"bytes":len(raw)+1,"gzip_bytes":len(gzip.compress(raw,mtime=0)),
+    report={**counts,"source":source,"export_wall_s":time.perf_counter()-started,"bytes":len(raw)+1,"gzip_bytes":len(gzip.compress(output.read_bytes(),mtime=0)),
         "decimation_max_position_error_m":0,"decimation_max_material_error_kg":0,"dropped_decisions":0,
         "action_replay_max_error":max(e["action_replay"]["max_state_absolute_error"] for e in episodes),
         "platform":platform.platform(),"training_source":run["source"],"run_report_sha256":run["raw_report_sha256"],"retained_runs_sha256":hashlib.sha256(study.read_bytes()).hexdigest()}
