@@ -59,7 +59,7 @@ export async function createRecorded(config, bundle) {
     const mx = future.members_xy_m.reduce((sum, m) => sum + m[0], 0) / 3, my = future.members_xy_m.reduce((sum, m) => sum + m[1], 0) / 3;
     for (const m of future.members_xy_m) { xx += (m[0] - mx) ** 2 / 3;yy += (m[1] - my) ** 2 / 3;xy += (m[0] - mx) * (m[1] - my) / 3; }
     const radius = Math.sqrt(((xx - yy) / 2) ** 2 + xy * xy), major = Math.sqrt(Math.max(0, (xx + yy) / 2 + radius)), minor = Math.sqrt(Math.max(0, (xx + yy) / 2 - radius));
-    spread.position.set(p[0], 0.04, -p[1]);spread.rotation.set(-Math.PI / 2, 0, -0.5 * Math.atan2(2 * xy, xx - yy));spread.scale.set(major, minor, 1);
+    spread.position.set(p[0], 0.04, -p[1]);spread.rotation.set(-Math.PI / 2, 0, 0.5 * Math.atan2(2 * xy, xx - yy));spread.scale.set(major, minor, 1);
     for (let k = 0; k < 64; k++) {
       pose.position.set(p[indices.pile_origin_x_m] + (Math.floor(k / 8) + 0.5) * 0.5, p[15 + k], -(p[indices.pile_origin_y_m] + (k % 8 + 0.5) * 0.5));pose.scale.setScalar(1);pose.updateMatrix();forecastPile.setMatrixAt(k, pose.matrix);
       colour.set(0x708f94).lerp(new THREE.Color(0xd5ac6c), Math.min(1, Math.abs(p[15 + k] - ref[15 + k]) / 0.002));forecastPile.setColorAt(k, colour);
