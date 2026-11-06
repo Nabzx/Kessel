@@ -161,7 +161,14 @@ Architecture changes require the superseding ADRs in the foundation tickets.
 the realistic presentation, with measured native M1 performance, asset notices,
 offline verification and maintainer visual acceptance. The initial architecture
 and measured CPU feasibility batch are in PRs #282 and #283; full task learning,
-world models, recorded integration and visual changes remain open work.
+world-model experiments are now implemented; full task proficiency, recorded
+integration and visual changes remain open work.
 The remaining RL tools and bounded comparisons are now implemented in PRs #290
 and #291; [the measured study](docs/phase-11/rl-experiments.md) found no complete
 learned delivery cycle. Research-tool completion does not imply task proficiency.
+
+The [world-model comparison](docs/phase-11/world-model-experiments.md) implements
+#231-#242 under ADRs 0040-0042. Its two declared studies retain raw failures and
+a separately identified physical filter. The filter executes 45 critic updates
+from 4,719 imagined transitions, with no complete learned cycle or measured
+sample-efficiency gain. Prototype judgement and Phase 11 release remain pending.

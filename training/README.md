@@ -50,6 +50,25 @@ It needs a clean committed training tree and refuses an existing output. The
 recorded study source, seed/configuration plan, every outcome, learning curves
 and executable checkpoint exports are documented in the linked report.
 
+The [world-model experiments](../docs/phase-11/world-model-experiments.md) add
+leak-free transition collection, a saved single network/three-member ensemble,
+physical-unit errors, uncertainty calibration, short imagined branches and a
+resumable experimental auxiliary critic. Run both declared protocols with new
+output directories:
+
+```sh
+uv run --locked python -m kessel_training.wm_experiment --output runs/world-model-study-new
+uv run --locked python -m kessel_training.wm_filter_experiment --source runs/world-model-study-new --output runs/world-model-filter-new
+```
+
+The second command reuses frozen weights and training/validation data, applies
+an explicitly identified bounded physical filter and acquires fresh test/OOD
+scenes. Raw neural failures remain separate. The completed experiments show no
+full learned cycle or sample-efficiency gain; do not enable assistance as a
+proven improvement. Saved-model prediction replay and evidence accounting run
+in the test suite. Compact reports and executable research weights stay under
+`docs/phase-11/`, outside the static package.
+
 The project creates its own ignored `training/.venv`. It does not touch a
 repository-root `.venv` or another personal environment. To use a separate
 temporary environment, set `UV_PROJECT_ENVIRONMENT` to a task-specific path.
