@@ -33,6 +33,7 @@ class SceneConfig:
     sensor_noise: float = 0.0
     dropout: float = 0.0
     occlusion: float = 0.0
+    load_bias_fraction: float = 0.0
     randomise: bool = False
     obstacles: tuple = ()
 
@@ -40,7 +41,7 @@ class SceneConfig:
         if isinstance(self.max_steps, bool) or not isinstance(self.max_steps, int) or self.max_steps < 1:
             raise ValueError("max_steps must be a positive integer")
         positive = ("success_kg", "stuck_s", "half_width_m", "ceiling_m", "friction")
-        nonnegative = ("pile_resistance_n_m", "sensor_noise")
+        nonnegative = ("pile_resistance_n_m", "sensor_noise", "load_bias_fraction")
         for name in positive + nonnegative + ("grade_rad", "dropout", "occlusion"):
             value = getattr(self, name)
             if not math.isfinite(value):
@@ -49,6 +50,8 @@ class SceneConfig:
                 raise ValueError(f"invalid {name}")
         if not 0 <= self.dropout <= 1 or not 0 <= self.occlusion <= 1:
             raise ValueError("dropout and occlusion must be probabilities")
+        if self.load_bias_fraction > 0.25:
+            raise ValueError("load bias exceeds the supported range")
         if abs(self.grade_rad) > 0.3 or self.half_width_m < 1 or self.ceiling_m < 1.9:
             raise ValueError("scene exceeds the supported grade or clearance range")
         for box in self.obstacles:
@@ -95,6 +98,7 @@ class LoaderEnv:
         self.speed = np.zeros(num_envs)
         self.wheel_angles = np.zeros((num_envs, 4))
         self.payload = np.zeros(num_envs)
+        self.load_bias = np.zeros(num_envs)
         self.delivered = np.zeros(num_envs)
         self.spilled = np.zeros(num_envs)
         self.effort = np.zeros(num_envs)
@@ -157,6 +161,8 @@ class LoaderEnv:
                 self.friction[i] *= rng.uniform(0.7, 1.2)
                 self.grade[i] += rng.uniform(-0.06, 0.06)
                 self.resistance[i] *= rng.uniform(0.7, 1.3)
+            self.load_bias[i] = (rng.uniform(-1, 1)*self.scene.load_bias_fraction*self.loader.payload_kg
+                                 if self.scene.load_bias_fraction else 0)
             for array in (self.speed, self.wheel_angles, self.payload, self.delivered,
                           self.spilled, self.effort, self.slip_s, self.last_slip,
                           self.stuck_time, self.elapsed, self.steps, self.peak_load,
@@ -205,7 +211,7 @@ class LoaderEnv:
             odometry, np.sin(heading), np.cos(heading),
             self.speed[indices] + noise[:, 3]*0.005*scale,
             self.joints[indices] + noise[:, 4:7]*0.002*scale,
-            np.clip(self.payload[indices] + noise[:, 7]*20*scale, 0, self.loader.payload_kg),
+            np.clip(self.payload[indices] + self.load_bias[indices] + noise[:, 7]*20*scale, 0, self.loader.payload_kg),
             np.sum(receiver*forward, axis=1), np.sum(receiver*left, axis=1),
             self._age[indices], fresh, self.elapsed[indices], self.last_slip[indices],
         ))
@@ -283,7 +289,8 @@ class LoaderEnv:
             self.slip_s += slip*dt*usable
             self.last_slip[usable] = slip[usable]
             self.elapsed += dt*active
-            immobile = usable & (np.abs(controls[:, 0]) > 0.4) & (np.abs(self.speed) < 0.03) & (np.max(np.abs(controls[:, 1:]), axis=1) < 0.1)
+            joint_rate = np.max(np.abs(self.joints-old_joints), axis=1)/dt
+            immobile = usable & (np.abs(controls[:, 0]) > 0.4) & (np.abs(self.speed) < 0.03) & (joint_rate < 0.01)
             self.stuck_time = np.where(immobile, self.stuck_time+dt, 0)
             success = usable & (self.delivered >= self.scene.success_kg)
             stuck = usable & ~success & (self.stuck_time+1e-12 >= self.scene.stuck_s)
