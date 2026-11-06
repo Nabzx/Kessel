@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0",
+  "source_mode": "recorded_synthetic",
+  "calibrated": false,
+  "source": {
+    "package_sha256": "30c68ed07c648ec7654952d052966d40f9c1b448877e0772ac7cb42ce202c994",
+    "git_commit": "e266c4418ab43aa16c974e7f41f12249904e7d98",
+    "training_dirty": false
+  },
+  "hardware": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "python": "3.12.14",
+    "numpy": "2.5.4"
+  },
+  "steps_per_trial": 400,
+  "repeats": 3,
+  "rows": [
+    {
+      "num_envs": 1,
+      "trials": [
+        {
+          "step_s": 1.5995082152076066,
+          "reset_s": 0.00046737492084503174,
+          "environment_steps": 400,
+          "completed_episodes": 1,
+          "successes": 1,
+          "environment_steps_s": 250.0768649994601
+        },
+        {
+          "step_s": 1.5979664579499513,
+          "reset_s": 0.0,
+          "environment_steps": 400,
+          "completed_episodes": 0,
+          "successes": 0,
+          "environment_steps_s": 250.3181452964691
+        },
+        {
+          "step_s": 1.5980838844552636,
+          "reset_s": 0.000439666910097003,
+          "environment_steps": 400,
+          "completed_episodes": 1,
+          "successes": 1,
+          "environment_steps_s": 250.299752028566
+        }
+      ],
+      "median_environment_steps_s": 250.299752028566
+    },
+    {
+      "num_envs": 16,
+      "trials": [
+        {
+          "step_s": 1.8119202565867454,
+          "reset_s": 0.0021472510416060686,
+          "environment_steps": 6400,
+          "completed_episodes": 8,
+          "successes": 8,
+          "environment_steps_s": 3532.164275295523
+        },
+        {
+          "step_s": 1.8205856708809733,
+          "reset_s": 0.0014843340031802654,
+          "environment_steps": 6400,
+          "completed_episodes": 4,
+          "successes": 4,
+          "environment_steps_s": 3515.3522860053426
+        },
+        {
+          "step_s": 1.8191048046573997,
+          "reset_s": 0.0014482911210507154,
+          "environment_steps": 6400,
+          "completed_episodes": 4,
+          "successes": 4,
+          "environment_steps_s": 3518.2140048304373
+        }
+      ],
+      "median_environment_steps_s": 3518.2140048304373
+    },
+    {
+      "num_envs": 32,
+      "trials": [
+        {
+          "step_s": 1.966917056357488,
+          "reset_s": 0.003119000233709812,
+          "environment_steps": 12800,
+          "completed_episodes": 10,
+          "successes": 10,
+          "environment_steps_s": 6507.646043653807
+        },
+        {
+          "step_s": 1.9781681967433542,
+          "reset_s": 0.0030765000265091658,
+          "environment_steps": 12800,
+          "completed_episodes": 12,
+          "successes": 12,
+          "environment_steps_s": 6470.632791019772
+        },
+        {
+          "step_s": 1.9734788744244725,
+          "reset_s": 0.0031766239553689957,
+          "environment_steps": 12800,
+          "completed_episodes": 10,
+          "successes": 10,
+          "environment_steps_s": 6486.008117889215
+        }
+      ],
+      "median_environment_steps_s": 6486.008117889215
+    },
+    {
+      "num_envs": 64,
+      "trials": [
+        {
+          "step_s": 2.336987179238349,
+          "reset_s": 0.005036792019382119,
+          "environment_steps": 25600,
+          "completed_episodes": 20,
+          "successes": 19,
+          "environment_steps_s": 10954.274900362669
+        },
+        {
+          "step_s": 2.309824170311913,
+          "reset_s": 0.007110457867383957,
+          "environment_steps": 25600,
+          "completed_episodes": 29,
+          "successes": 28,
+          "environment_steps_s": 11083.094691377759
+        },
+        {
+          "step_s": 2.332379875238985,
+          "reset_s": 0.0059858327731490135,
+          "environment_steps": 25600,
+          "completed_episodes": 25,
+          "successes": 25,
+          "environment_steps_s": 10975.913603000421
+        }
+      ],
+      "median_environment_steps_s": 10975.913603000421
+    }
+  ],
+  "control_trace_preparation_s": 1.4288870829623193,
+  "peak_process_mib": 39.921875,
+  "policy_inference_s": 0,
+  "optimiser_updates": 0,
+  "method": "Precomputed conventional-control actions; step timer includes observations, validation and diagnostics. Resets, control preparation and JSON serialisation excluded. Episode outcomes are workload diagnostics, not controller evaluation.",
+  "raw_report_sha256": "ead23a6ccadc9a56a1a624c8651458aa15797eba9ba3aa79b4ba8c27b998814d"
+}

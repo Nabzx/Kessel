@@ -6,6 +6,8 @@ The [loader and export contracts](0033-loader-and-experiment-contracts.md)
 define the first experiment interface.
 The [static package allowlist](0034-static-package-allowlist.md) separates
 presentation assets from experiment artefacts.
+The [synthetic loader environment](0036-synthetic-loader-reference-environment.md)
+defines the reference dynamics and their limits.
 
 Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
 [learning presentation](0029-world-model-learning-presentation.md) and
