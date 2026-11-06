@@ -31,6 +31,9 @@ asset API is added. The HUD reports actual frame p95 and rendered triangles.
 The scan uses an untextured translucent surface and its actual triangle edges.
 It never shows a metre repeat or fabricated calibrated dimensions.
 
+See [native M1 evidence and reference frames](verification.md) for the measured
+result and the proposed primary/secondary material direction.
+
 ## Reference shot sheet
 
 Capture the old wall, both natural sets at the overhead view, both natural
