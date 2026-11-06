@@ -14,6 +14,9 @@ The [reproducible RL experiment protocol](0038-reproducible-rl-experiments.md)
 defines checkpointing, curriculum gates and bounded comparisons.
 [Stuck detection at actuator limits](0039-stuck-detection-at-actuator-limits.md)
 closes a measured saturated-command loophole before policy comparisons.
+The [world-model prototype protocol](0040-world-model-prototype-and-evaluation.md)
+defines episode splits, learned dynamics, uncertainty gates and the auxiliary
+critic comparison.
 
 Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
 [learning presentation](0029-world-model-learning-presentation.md) and
