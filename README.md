@@ -7,7 +7,7 @@ system. Earth leads into an illustrative mine at Rutongo, Rwanda. Compare an
 inefficient fleet with a trained-site scenario, explore loader learning, then
 scroll through the training pipeline and proposed retrofit kit.
 
-![Centred Earth and Kessel wordmark](docs/phase-10/frames/welcome.jpg)
+![Centred Earth and Kessel wordmark](docs/phase-11/visual-evidence/frames/retina-hero.jpg)
 
 ## Run locally
 
@@ -39,21 +39,25 @@ Use a static server rather than opening `index.html` directly.
 Allow about 60 seconds for the main story. Optional exploration is separate.
 There is no manual override, chase-camera flow or pricing section.
 
-![Trained mine and six operating measures](docs/phase-10/frames/trained.jpg)
+![Trained mine and six operating measures](docs/phase-11/visual-evidence/frames/retina-trained.jpg)
 
-![Optional technical learning view](docs/phase-10/frames/learning.jpg)
+![Optional technical learning view](docs/phase-11/visual-evidence/frames/final-recorded_synthetic.jpg)
 
 ## What is real
 
 Rutongo is a real tin operation. NASA Earth imagery, Copernicus surface
 imagery and elevation provide public geographic context. The detailed site,
-portal, underground layout, vehicles' behaviour, training results and operating
-figures are authored. Public imagery is regional context, not a surveyed mine
+portal, underground layout, mine vehicles' behaviour, concept training replay
+and operating figures are authored. Public imagery is regional context, not a surveyed mine
 reconstruction. The surface view uses one renderer and no embedded map.
 
-This repository contains neither a learned dynamics model nor a trained
-machine policy. It does not perform millions of simulations in the browser.
-The permanent concept caption, illustrative labels and Sources explain this.
+Isolated CPU tools and retained experiment evidence include synthetic PPO
+policies and learned state-dynamics ensembles. The optional viewer replays
+identified synthetic decisions and raw forecasts; the bounded runs demonstrate
+no complete learned delivery cycle. The browser performs no live training or
+policy inference. The permanent concept caption, source labels and Sources
+explain the boundary. Reported recorded-demo behaviour fixes are deferred;
+see the [current visual report](docs/phase-11/visual-realism.md).
 The kit is a proposed assembly, not selected or validated hardware.
 
 See [asset credits](assets/README.md), the
@@ -91,9 +95,11 @@ python3 data/validate_tunnel_network.py
 for file in js/*.js; do node --check "$file"; done
 ```
 
-CI runs both data validators and JavaScript syntax checks. For the local
+CI runs data validators, visual-asset/evidence checks, adapter tests and
+JavaScript syntax checks. For the local
 browser acceptance, install Playwright in a parent tooling directory and run
-`node scripts/verify-experience.cjs` with the server running. It uses installed
+`node scripts/verify-visuals.cjs` with the server running for the current
+visual and authored-journey scope. It uses installed
 Google Chrome with native Metal graphics on macOS, captures frames and a
 walkthrough, and records measurements under `/private/tmp`.
 

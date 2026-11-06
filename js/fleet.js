@@ -161,7 +161,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       entry.cargo.scale.y = Math.max(.01, load);
       entry.proxyCargo.visible = load > .01;
       entry.load = load;
-      const travelled = moving ? Math.max(0, entry.distance - previousDistance) : 0;
+      const travelled = moving ? (entry.distance < previousDistance && entry.phase === "loading" ? entry.path.length - previousDistance : Math.max(0, entry.distance - previousDistance)) : 0;
       for (const wheel of entry.wheels) wheel.rotation.x += travelled / vehicleModel.wheels.radius_m;
       if (entry.prediction.visible) {
         const sample = predictionPreview.samples[sampleIndex];

@@ -10,8 +10,8 @@ export function createRetrofit(config) {
     group.name = spec.id;
     const mat = new THREE.MeshStandardMaterial({
       color: spec.colour,
-      metalness: spec.id === "power" ? 0.25 : 0.7,
-      roughness: 0.4,
+      metalness: ["cover", "enclosure"].includes(spec.id) ? .85 : 0,
+      roughness: ["compute", "controls", "power"].includes(spec.id) ? .78 : .48,
     });
     const mesh = new THREE.Mesh(
       new RoundedBoxGeometry(...spec.size, 2, 0.07),
@@ -41,7 +41,7 @@ export function createRetrofit(config) {
         [0.1, 0.21, 0],
         new THREE.MeshStandardMaterial({
           color: 0x22282b,
-          metalness: 0.6,
+          metalness: 0,
           roughness: 0.35,
         }),
         group,
@@ -58,13 +58,24 @@ export function createRetrofit(config) {
           group,
         );
     }
+    if (["compute", "controls", "power"].includes(spec.id)) {
+      const copper = new THREE.MeshStandardMaterial({ color: 0xb59451, metalness: .85, roughness: .5 });
+      const resin = new THREE.MeshStandardMaterial({ color: 0x273329, roughness: .85 });
+      for (let i=0;i<7;i++) {
+        box([spec.size[0]*.7,.008,.012],[-.08,spec.size[1]/2+.012,(i-3)*.1],copper,group);
+      }
+      for (const side of [-1,1]) {
+        box([.18,.16,spec.size[2]*.65],[side*spec.size[0]*.45,spec.size[1]/2+.07,0],resin,group);
+        for(let i=0;i<4;i++)box([.06,.012,.045],[side*spec.size[0]*.48,spec.size[1]/2+.16,(i-1.5)*.16],copper,group);
+      }
+    }
     if (spec.id === "camera")
       for (const side of [-1, 1]) {
         const lens = new THREE.Mesh(
           new THREE.CylinderGeometry(0.14, 0.14, 0.1, 24),
           new THREE.MeshStandardMaterial({
             color: 0x12242d,
-            metalness: 0.5,
+            metalness: 0,
             roughness: 0.12,
           }),
         );
@@ -77,7 +88,7 @@ export function createRetrofit(config) {
         new THREE.CylinderGeometry(0.24, 0.24, 0.24, 32),
         new THREE.MeshStandardMaterial({
           color: 0x253c43,
-          metalness: 0.6,
+          metalness: 0,
           roughness: 0.18,
         }),
       );
@@ -85,6 +96,18 @@ export function createRetrofit(config) {
       group.add(glass);
     }
     if (spec.id === "enclosure") {
+      const rubber=new THREE.MeshStandardMaterial({color:0x202724,roughness:.96});
+      for(const side of [-1,1]){
+        box([.12,.04,2.3],[side*1.52,.25,0],rubber,group);
+        box([3.1,.04,.12],[0,.25,side*1.12],rubber,group);
+        const mount=box([.42,.16,2.9],[side*1.67,-.18,0],mat,group);
+        for(const z of [-.75,0,.75]){
+          const port=new THREE.Mesh(new THREE.CylinderGeometry(.11,.11,.16,12),rubber);
+          port.rotation.z=Math.PI/2;port.position.set(side*1.76,0,z);group.add(port);
+          const collar=new THREE.Mesh(new THREE.TorusGeometry(.11,.025,6,12),mat);
+          collar.rotation.y=Math.PI/2;collar.position.set(side*1.85,0,z);group.add(collar);
+        }
+      }
       const ports = new THREE.Mesh(
         new THREE.BoxGeometry(2.4, 0.18, 0.09),
         new THREE.MeshStandardMaterial({
@@ -120,15 +143,17 @@ export function createRetrofit(config) {
   root.add(ground);
   lightRig(root, 18);
   let amount = 1,
-    target = 1;
+    target = 1, elapsed = 0;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   function update(delta) {
-    amount = THREE.MathUtils.damp(amount, target, 3, delta);
+    elapsed += reducedMotion ? 0 : delta;
+    amount = reducedMotion ? target : THREE.MathUtils.damp(amount, target, 3, delta);
     for (const entry of components) {
       entry.group.position
         .fromArray(entry.spec.position)
         .addScaledVector(new THREE.Vector3(...entry.spec.explode), amount);
     }
-    root.rotation.y = Math.sin(performance.now() * 0.00008) * 0.08;
+    root.rotation.y = Math.sin(elapsed * 0.08) * 0.08;
   }
   return {
     root,

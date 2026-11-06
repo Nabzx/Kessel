@@ -77,3 +77,6 @@ What this makes easier, what it makes harder, and what it rules out.
 
 The [public geometry and look-development boundary](0035-public-geometry-and-look-development.md)
 keeps scan references distinct from calibrated mine or training geometry.
+
+The [cinematic visual material decision](0045-cinematic-visual-materials.md)
+adopts the cleared maps for the main experience while preserving the scan boundary.

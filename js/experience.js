@@ -71,7 +71,15 @@ function duration(seconds) {
 function setStage(next) {
   stage = next;
   $("experience").dataset.stage = next;
+  if(!renderer.shadowMap.autoUpdate)renderer.shadowMap.needsUpdate=true;
   frameTimes = [];
+  const ordered=["select","surface","mine","trained","learning"];
+  const active=ordered.indexOf(({flight:"surface",preparing:"surface",entering:"mine",comparing:"trained"})[next]||next);
+  $("journey").hidden=active<0;
+  for(const [i,item] of [...$("journey").children].entries()) {
+    if(i===active)item.setAttribute("aria-current","step");else item.removeAttribute("aria-current");
+    item.toggleAttribute("data-complete",i<active);
+  }
 }
 function cameraTo(position, target, seconds, fov = camera.fov) {
   cameraMove = {
@@ -255,6 +263,9 @@ function configureLearningUI(sourceMode) {
   document.querySelectorAll("[data-recorded]").forEach((element) => { element.hidden = !recorded; });
   $("learning-source-label").textContent = recorded ? "Recorded synthetic · full-7" : "Illustrative training replay";
   $("reward-curve-label").textContent = recorded ? "Training mean reward" : "Reward";
+  $("curve-y-axis").removeAttribute("title"); $("curve-y-axis").removeAttribute("aria-label");
+  $("curve-y-axis").textContent=recorded?"Mean step reward":"Reward / relative";
+  $("curve-x-axis").textContent=recorded?"Environment decisions":"Represented episodes";
   $("reward-heading").textContent = recorded ? "Step reward" : "Reward";
   $("episode-caption").textContent = recorded ? "completed training episodes" : "represented episodes";
   $("learning-title").innerHTML = recorded ? "Policy<br />checkpoints." : "Scoop<br />and haul.";
@@ -377,8 +388,17 @@ async function enterMine() {
   setStage("entering");
   mine.root.visible = true;
   fade(mine.root, 0);
+  const entrance = data.visuals.entrance;
+  const portal = surface.portal.clone();
+  const alignment = data.mine.network.nodes.find(node=>node.id===entrance.portal_alignment_node).position_m;
+  const sectionOffset = new THREE.Vector3(portal.x-alignment[0],0,portal.z-alignment[2]);
+  mine.root.position.copy(sectionOffset);
   transition = {
     type: "entrance",
+    background: scene.background.clone(),
+    sectionOffset,
+    approachPosition: portal.clone().add(new THREE.Vector3(...entrance.approach_offset_m)),
+    approachTarget: portal.clone().add(new THREE.Vector3(...entrance.approach_target_offset_m)),
     start: performance.now(),
     duration: duration(data.timing.entrance_seconds) * 1000,
     fromPosition: camera.position.clone(),
@@ -392,6 +412,7 @@ function mineArrived() {
   fade(surface.root, 0);
   surface.root.visible = false;
   fade(mine.root, 1);
+  mine.root.position.set(0,0,0);
   mine.setTrained(false);
   mine.setScan(0);
   scene.background.set("#030506");
@@ -468,7 +489,7 @@ function setMetrics(trained) {
     : "Illustrative machine costs";
   $("comparison-state").textContent = trained ? "Trained site" : "Baseline";
   $("operations").classList.toggle("trained", trained);
-  $("local-status").textContent = trained ? "Onboard autonomy" : "No GPS";
+  $("local-status").textContent = trained ? "No GPS · onboard" : "No GPS";
   $("show-before").setAttribute("aria-pressed", String(!trained));
   $("show-after").setAttribute("aria-pressed", String(trained));
 }
@@ -558,22 +579,20 @@ function updateTransition(now) {
     camera.lookAt(lookTarget);
     if (p === 1) arrive();
   } else if (tr.type === "entrance") {
-    camera.position.lerpVectors(
-      tr.fromPosition,
-      new THREE.Vector3(...data.mine.camera),
-      ease,
-    );
-    lookTarget.lerpVectors(
-      tr.fromTarget,
-      new THREE.Vector3(...data.mine.target),
-      ease,
-    );
+    const pullback=THREE.MathUtils.smoothstep(p,.16,1);
+    const approach=THREE.MathUtils.smoothstep(p,0,.52);
+    camera.position.lerpVectors(tr.fromPosition,tr.approachPosition,approach)
+      .lerp(new THREE.Vector3(...data.mine.camera),pullback);
+    lookTarget.lerpVectors(tr.fromTarget,tr.approachTarget,approach)
+      .lerp(new THREE.Vector3(...data.mine.target),pullback);
+    mine.root.position.copy(tr.sectionOffset).multiplyScalar(1-pullback);
     camera.fov = THREE.MathUtils.lerp(43, 40, ease);
     camera.updateProjectionMatrix();
     camera.lookAt(lookTarget);
-    fade(surface.root, 1 - ease);
-    fade(mine.root, ease);
-    scene.background.lerp(new THREE.Color("#030506"), 0.1);
+    const reveal = THREE.MathUtils.smoothstep(p, .18, .8);
+    fade(surface.root, 1 - reveal);
+    fade(mine.root, reveal);
+    scene.background.copy(tr.background).lerp(new THREE.Color("#030506"), ease);
     if (p === 1) mineArrived();
   } else if (tr.type === "compare") {
     mine.setScan(ease);
@@ -744,6 +763,7 @@ function updateProduct() {
     return;
   }
   kitActive = visible && !!kit;
+  $("journey").hidden = scrollY > innerHeight * .25;
   if (kitActive) {
     scene.environment = kitEnvironment;
     mine.root.visible = false;
@@ -888,6 +908,7 @@ function render(now) {
       let next = quality;
       if (mean > 35) next = Math.max(0.75, quality * 0.85);
       else if (mean < 20) next = Math.min(cap, quality * 1.08);
+      if (mean > 40 && next <= .85) setVisualQuality("low");
       if (next !== quality) {
         quality = next;
         renderer.setPixelRatio(next);
@@ -925,7 +946,7 @@ function render(now) {
     mine?.root.visible &&
     ["mine", "trained", "entering", "comparing"].includes(stage)
   )
-    mine.update(stage === "comparing" ? 0 : delta);
+    mine.update(delta);
   if (stage === "learning" && learning)
     updateLearning(learning.sourceMode === "recorded_synthetic" ? ms / 1000 : delta);
   if (kitActive && kit) kit.update(delta);
@@ -1027,11 +1048,14 @@ export function diagnostics() {
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,
     textures: renderer.info.memory.textures,
+    shadows: renderer.shadowMap.enabled,
+    shadowUpdate: renderer.shadowMap.autoUpdate ? "dynamic" : "static",
     pixelRatio: renderer.getPixelRatio(),
     heapUsedBytes: performance.memory?.usedJSHeapSize ?? null,
     meanFps: frameTimes.length
       ? 1000 / (frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length)
       : null,
+    p99FrameMs: [...frameTimes].sort((a,b)=>a-b)[Math.floor(frameTimes.length*.99)],
     p95FrameMs: [...frameTimes].sort((a, b) => a - b)[
       Math.floor(frameTimes.length * 0.95)
     ],
@@ -1039,4 +1063,24 @@ export function diagnostics() {
       ? gl.getParameter(debug.UNMASKED_RENDERER_WEBGL)
       : "not exposed",
   };
+}
+
+// Presentation-only quality control for repeatable native visual acceptance.
+export function setVisualEffects(enabled) { mine?.setEffects(Boolean(enabled)); }
+const shadowDefaults = new WeakMap();
+export function setVisualQuality(tier = "standard") {
+  // Keep a static geology shadow field in the cheaper tier. Existing contact
+  // shadows ground vehicles without recompiling the lit material programmes.
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.autoUpdate = tier !== "low";
+  renderer.shadowMap.needsUpdate = true;
+  scene.traverse(object=>{
+    if(!object.isMesh)return;
+    let moving=Boolean(object.userData.vehicleId),parent=object.parent;
+    while(parent&&!moving){moving=parent.name==="licensed-loading-excavator";parent=parent.parent;}
+    if(!moving)return;
+    if(!shadowDefaults.has(object))shadowDefaults.set(object,object.castShadow);
+    object.castShadow=tier!=="low"&&shadowDefaults.get(object);
+  });
+  mine?.setEffects(tier !== "low");
 }

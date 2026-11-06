@@ -1,0 +1,14 @@
+{
+  "source_url": "https://science.nasa.gov/resource/international-space-station-3d-model/",
+  "download_url": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/i/ISS_stationary.glb",
+  "credit": "NASA / Visualization Technology Applications and Development (VTAD)",
+  "notice": "NASA polygon data; NASA media usage guidance applies. No endorsement. All source textures and markings removed.",
+  "source_sha256": "26dba905b4b7555edbcb0c5f5a61b5c18659f5166076ab27dbb0e64025759fca",
+  "source_bytes": 44495916,
+  "path": "assets/models/iss/iss.glb",
+  "sha256": "31b7dd21e228979e0b2d6f3c3ee19a2dc2c465868e9054953ef22fea1f8a816d",
+  "bytes": 100116,
+  "triangles": 6068,
+  "units": "source units retained; runtime normalised to presentation span, not physical or orbital scale",
+  "conversion": "glTF Transform 4.4.0; remove textures and non-position attributes; two neutral materials; flatten; join; dedup; weld; MeshoptSimplifier ratio .025 error .1; prune. Uncompressed glTF 2.0, no runtime decoder."
+}

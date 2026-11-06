@@ -1,0 +1,74 @@
+{
+  "scope": "Focused material and chart presentation check. Recorded playback behaviour is deferred.",
+  "errors": [],
+  "samples": [
+    {
+      "source": "recorded_synthetic",
+      "diagnostics": {
+        "stage": "learning",
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 0,
+        "kitActive": false,
+        "learning": {
+          "bucketMouthErrorM": 5.967448757360216e-16,
+          "runId": "rl-study-v1-full-7",
+          "sourceMode": "recorded_synthetic",
+          "checkpoint": 0,
+          "simulatedTime": 0,
+          "paused": true,
+          "horizon": 1,
+          "frame": 0,
+          "counters": {
+            "rollouts": 0,
+            "environment_steps": 0,
+            "agent_decisions": 0,
+            "optimiser_updates": 0,
+            "completed_episodes": 0,
+            "successes": 0,
+            "imagined_transitions": 0,
+            "nominal_simulated_s": 0,
+            "subtask_successes": 0
+          }
+        },
+        "drawCalls": 48,
+        "triangles": 7178,
+        "textures": 38,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.5,
+        "heapUsedBytes": 43358722,
+        "meanFps": 60.00200006666889,
+        "p99FrameMs": 16.800000000000182,
+        "p95FrameMs": 16.700000000000728,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "axes": "Mean step reward\n0\u2013309,248 decisions"
+    },
+    {
+      "source": "authored",
+      "diagnostics": {
+        "stage": "learning",
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 0,
+        "kitActive": false,
+        "learning": {
+          "sourceMode": "authored"
+        },
+        "drawCalls": 45,
+        "triangles": 8990,
+        "textures": 41,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.5,
+        "heapUsedBytes": 36988016,
+        "meanFps": 60.00200006666889,
+        "p99FrameMs": 16.80000000000109,
+        "p95FrameMs": 16.799999999999272,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "axes": "Reward / relative\nRepresented episodes"
+    }
+  ]
+}

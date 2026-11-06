@@ -130,6 +130,12 @@ export async function createRecorded(config, bundle) {
     return { ...state, sourceMode: "recorded_synthetic", frameIndex: sampled.index };
   }
   function mount() {
+    const rewards=bundle.learning_curve.map(row=>row.mean_step_reward);
+    const axis=document.getElementById("curve-y-axis");
+    axis.textContent="Mean step reward";
+    axis.title=`Dimensionless; raw range ${Math.min(...rewards).toFixed(4)} to ${Math.max(...rewards).toFixed(4)}`;
+    axis.setAttribute("aria-label",axis.title);
+    document.getElementById("curve-x-axis").textContent=`0–${bundle.learning_curve.at(-1).environment_steps.toLocaleString("en-GB")} decisions`;
     ui["reward-path"].setAttribute("d", points.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(2)} ${p[1].toFixed(2)}`).join(" "));
     ui["reward-chart"].setAttribute("aria-label", "Measured mean step reward at each recorded optimiser rollout. No smoothing; no full learned delivery cycle.");
     ui["run-provenance"].textContent = `${bundle.run_id}\nTraining: ${bundle.run.training_wall_s.toFixed(2)} s wall · ${bundle.run.counters.environment_steps.toLocaleString("en-GB")} decisions · ${bundle.run.counters.optimiser_updates.toLocaleString("en-GB")} optimiser steps\nNominal training simulation: ${bundle.run.counters.nominal_simulated_s.toFixed(1)} s\nTraining curve includes its recorded curriculum/shaping stage. Replay step rewards use delivery-v1.\nAction order: acceleration, articulation, boom, bucket; normalised [-1,1].\nPolicy and raw dynamics are separate networks. Model ${bundle.world_model.model_sha256}\nTraining source ${bundle.run.source.git_commit}\nExporter source ${bundle.export_source.git_commit}\nEnvelope: ${bundle.world_model.envelope_method}\n${bundle.presentation.limitations}`;

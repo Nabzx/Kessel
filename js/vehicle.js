@@ -7,6 +7,21 @@ export function createVehicle(id, model, textures = {}) {
   root.name = id;
   root.userData.vehicleId = id;
   const materials = Object.fromEntries(Object.entries(model.materials).map(([name, spec]) => [name, new THREE.MeshStandardMaterial({ color: spec.colour, roughness: spec.roughness ?? .8, metalness: spec.metalness ?? 0, emissive: spec.emissive || 0 })]));
+  // Painted steel and rubber are dielectrics; only exposed fittings use metal.
+  materials.body.metalness = 0;
+  materials.body.roughness = .66;
+  materials.dark.metalness = 0;
+  materials.dark.roughness = .95;
+  materials.glass.metalness = 0;
+  materials.glass.roughness = .16;
+  materials.body.onBeforeCompile = shader => {
+    shader.vertexShader = "varying vec3 panelPosition;\n" + shader.vertexShader.replace("#include <begin_vertex>", "#include <begin_vertex>\npanelPosition=position;");
+    shader.fragmentShader = "varying vec3 panelPosition;\n" + shader.fragmentShader.replace("#include <color_fragment>", `
+      #include <color_fragment>
+      float grit=.5+.5*sin(panelPosition.x*63.0)*sin(panelPosition.z*79.0);
+      diffuseColor.rgb*=mix(.78,1.0,smoothstep(-.5,.1,panelPosition.y))*(.97+.03*grit);
+    `);
+  };
   materials.cargo.map = textures.oreMap || null;
   materials.cargo.normalMap = textures.oreNormal || null;
   materials.lamp = new THREE.MeshBasicMaterial({ color: model.materials.lamp.colour, toneMapped: false });
@@ -29,7 +44,7 @@ export function createVehicle(id, model, textures = {}) {
       parent.add(mesh);
     }
   }
-  boxes(model.parts, root);
+  boxes([...model.parts, ...(model.detail_parts || [])], root);
   const dumpBed = new THREE.Group();
   dumpBed.position.fromArray(model.dump_bed.position_m);
   root.add(dumpBed);
