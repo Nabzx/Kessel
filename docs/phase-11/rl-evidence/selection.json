@@ -1,0 +1,947 @@
+{
+  "selection_rule": [
+    "higher_validation_success",
+    "higher_validation_delivered_mass",
+    "higher_validation_fill_ratio",
+    "fewer_validation_collisions",
+    "smaller_network",
+    "candidate_id"
+  ],
+  "selected": {
+    "id": "compact",
+    "hidden": 32,
+    "num_envs": 16,
+    "rollout_steps": 32,
+    "learning_rate": 0.0003
+  },
+  "ranking": [
+    {
+      "candidate": {
+        "id": "compact",
+        "hidden": 32,
+        "num_envs": 16,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "validation_success_rate": 0.0,
+      "validation_delivered_kg": 0.0,
+      "validation_fill_ratio": 0.04439614211831868,
+      "validation_collisions": 0.3333333333333333,
+      "median_training_wall_s": 16.187740667024627,
+      "success_spread_across_training_seeds": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "candidate": {
+        "id": "longer",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 64,
+        "learning_rate": 0.0001
+      },
+      "validation_success_rate": 0.0,
+      "validation_delivered_kg": 0.0,
+      "validation_fill_ratio": 0.03897312336667456,
+      "validation_collisions": 0.5,
+      "median_training_wall_s": 9.981607457855716,
+      "success_spread_across_training_seeds": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "candidate": {
+        "id": "balanced",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "validation_success_rate": 0.0,
+      "validation_delivered_kg": 0.0,
+      "validation_fill_ratio": 0.029523975693095738,
+      "validation_collisions": 0.5,
+      "median_training_wall_s": 10.03953570802696,
+      "success_spread_across_training_seeds": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "name": "search-compact-7",
+      "candidate": {
+        "id": "compact",
+        "hidden": 32,
+        "num_envs": 16,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "seed": 7,
+      "configuration_sha256": "85a78cec644cf2b0cde79f8957d69be78ac17aa98cf0df0af4511ec77179f4af",
+      "counters": {
+        "rollouts": 80,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 275,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4095.9999999999936,
+        "subtask_successes": 29
+      },
+      "training_wall_s": 16.187740667024627,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 7,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 26,
+          "discarded_partial_slots": 16,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "bbd417e008838c7aa2ff5eb2acf435adaf903c9524f873b2d655b97c58c49d06",
+        "rollout": 80
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "tunnel_wall": 4
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.12470675284198644,
+          "std": 0.09392633963560885,
+          "min": 0.0,
+          "max": 0.22255710514892665
+        },
+        "cycle_s": {
+          "mean": 10.304999999999868,
+          "std": 10.943776008916128,
+          "min": 4.719999999999987,
+          "max": 26.71999999999952
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 21788.91653291245,
+          "std": 4276.764016886172,
+          "min": 19485.31575693325,
+          "max": 28195.200148357708
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "search-compact-19",
+      "candidate": {
+        "id": "compact",
+        "hidden": 32,
+        "num_envs": 16,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "seed": 19,
+      "configuration_sha256": "690ee75cdcfd906a8f86fdb15037695119e880adc77be8e4cf5804da3fcf6475",
+      "counters": {
+        "rollouts": 80,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 303,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4095.9999999999936,
+        "subtask_successes": 78
+      },
+      "training_wall_s": 16.146627167006955,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 12,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 24,
+          "discarded_partial_slots": 16,
+          "reward_version": "potential-v1"
+        },
+        {
+          "rollout": 41,
+          "from": "retract",
+          "to": "carry",
+          "window_episodes": 32,
+          "successes": 25,
+          "discarded_partial_slots": 16,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "carry",
+      "final_checkpoint": {
+        "sha256": "c5065b89014c76d01c932ee199b69cce83a85c17522c7c565dac3ed737323f25",
+        "rollout": 80
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "time_limit": 4
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.008481673512969584,
+          "std": 0.008346324909655057,
+          "min": 0.0,
+          "max": 0.019776865442218513
+        },
+        "cycle_s": {
+          "mean": 60.00000000000378,
+          "std": 0.0,
+          "min": 60.00000000000378,
+          "max": 60.00000000000378
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 11369.142306361831,
+          "std": 4892.639694976075,
+          "min": 4078.6178435965144,
+          "max": 14304.230814248547
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    {
+      "name": "search-compact-43",
+      "candidate": {
+        "id": "compact",
+        "hidden": 32,
+        "num_envs": 16,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "seed": 43,
+      "configuration_sha256": "b27277500fa6034fbe061d543a4f06362489889b37c87068a761e71efa06a3d9",
+      "counters": {
+        "rollouts": 80,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 284,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4095.9999999999936,
+        "subtask_successes": 51
+      },
+      "training_wall_s": 16.88553533400409,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 20,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 23,
+          "discarded_partial_slots": 16,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "fa7dde1c6323bd852fe6b4bfc049f556784ae95bc61b3dcc3705f7d8848403eb",
+        "rollout": 80
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "time_limit": 4
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "cycle_s": {
+          "mean": 60.00000000000378,
+          "std": 0.0,
+          "min": 60.00000000000378,
+          "max": 60.00000000000378
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 8815.101537617826,
+          "std": 4246.784333022594,
+          "min": 3885.1718694631504,
+          "max": 14252.273963908661
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    {
+      "name": "search-balanced-7",
+      "candidate": {
+        "id": "balanced",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "seed": 7,
+      "configuration_sha256": "47f5cefebdae4e3fc004a6ba1af220286447adb19b11ebc3701e55adcfb2b703",
+      "counters": {
+        "rollouts": 40,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 266,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4096.000000000002,
+        "subtask_successes": 71
+      },
+      "training_wall_s": 10.03953570802696,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 8,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 23,
+          "discarded_partial_slots": 32,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "ae1d2f406265edf3cd73b5f909a574af1c46b5bda7325fa87c9fe572f090a45e",
+        "rollout": 40
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "time_limit": 1,
+          "tunnel_wall": 3
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "cycle_s": {
+          "mean": 18.530000000000936,
+          "std": 27.64681295677264,
+          "min": 4.57999999999999,
+          "max": 60.00000000000378
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 24075.799556359947,
+          "std": 942.1093159032948,
+          "min": 22873.64970099272,
+          "max": 25175.42995894253
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 0.75,
+          "std": 0.5,
+          "min": 0.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "search-balanced-19",
+      "candidate": {
+        "id": "balanced",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "seed": 19,
+      "configuration_sha256": "6b9d0aa44e3038faa14ea2738de2dbdba19d1f3c8b5112eb399a1b20dc9cea53",
+      "counters": {
+        "rollouts": 40,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 214,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4096.000000000002,
+        "subtask_successes": 30
+      },
+      "training_wall_s": 10.164188208989799,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 6,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 23,
+          "discarded_partial_slots": 32,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "b168607a3884630100b11e3a6b070a4daff1bac55883d1a681105424ae451149",
+        "rollout": 40
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "time_limit": 4
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.0006044658855184655,
+          "std": 0.0005372724596740044,
+          "min": 0.0,
+          "max": 0.001246332416903014
+        },
+        "cycle_s": {
+          "mean": 60.00000000000378,
+          "std": 0.0,
+          "min": 60.00000000000378,
+          "max": 60.00000000000378
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 47793.959341993366,
+          "std": 3174.281300957612,
+          "min": 43587.003457162406,
+          "max": 51193.140311552
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    {
+      "name": "search-balanced-43",
+      "candidate": {
+        "id": "balanced",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 32,
+        "learning_rate": 0.0003
+      },
+      "seed": 43,
+      "configuration_sha256": "c73421b8d468ee432f50f9634457cda03ab3eae1f20f1cf10b8e8bbd133078e2",
+      "counters": {
+        "rollouts": 40,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 270,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4096.000000000002,
+        "subtask_successes": 52
+      },
+      "training_wall_s": 10.017433125060052,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 8,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 24,
+          "discarded_partial_slots": 32,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "5037dafb9ca11c00e135541c2114b23a5cc74271897408eb21add8f7f77ed3a8",
+        "rollout": 40
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "time_limit": 1,
+          "tunnel_wall": 3
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.08796746119376875,
+          "std": 0.06101330213855709,
+          "min": 0.0,
+          "max": 0.13189940215721055
+        },
+        "cycle_s": {
+          "mean": 19.660000000000913,
+          "std": 26.893929922322055,
+          "min": 5.959999999999961,
+          "max": 60.00000000000378
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 25831.85002218087,
+          "std": 15106.501402723628,
+          "min": 3664.467796361367,
+          "max": 37389.97786232032
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 0.75,
+          "std": 0.5,
+          "min": 0.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "search-longer-7",
+      "candidate": {
+        "id": "longer",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 64,
+        "learning_rate": 0.0001
+      },
+      "seed": 7,
+      "configuration_sha256": "6f3333b9c1000bcbcdf92f950259ced27484428b4281c3f2114c7066737aa771",
+      "counters": {
+        "rollouts": 20,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 324,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4096.000000000001,
+        "subtask_successes": 130
+      },
+      "training_wall_s": 9.981607457855716,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 8,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 26,
+          "discarded_partial_slots": 32,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "ba2f6473908cb6925c6b1c2995226227a7d1f84232d3642b51b959f709513fe0",
+        "rollout": 20
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "time_limit": 3,
+          "tunnel_wall": 1
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "cycle_s": {
+          "mean": 46.82000000000282,
+          "std": 26.360000000001925,
+          "min": 7.279999999999933,
+          "max": 60.00000000000378
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 11439.60217485869,
+          "std": 13462.135300443435,
+          "min": 4708.21545868595,
+          "max": 31632.80512012909
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 0.25,
+          "std": 0.5,
+          "min": 0.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "search-longer-19",
+      "candidate": {
+        "id": "longer",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 64,
+        "learning_rate": 0.0001
+      },
+      "seed": 19,
+      "configuration_sha256": "57c27caf275000709f1c9242291ff2c8ccf1d507c3418b21826fbffe113c3b2b",
+      "counters": {
+        "rollouts": 20,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 283,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4096.000000000001,
+        "subtask_successes": 87
+      },
+      "training_wall_s": 9.953260665992275,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 8,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 26,
+          "discarded_partial_slots": 32,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "777783243a219ed62ec814f7c3b6c41b8a03c4c0aa49c823faed7597369baf6e",
+        "rollout": 20
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "time_limit": 3,
+          "tunnel_wall": 1
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.11691937010002368,
+          "std": 0.23383874020004736,
+          "min": 0.0,
+          "max": 0.4676774804000947
+        },
+        "cycle_s": {
+          "mean": 47.195000000002814,
+          "std": 25.61000000000194,
+          "min": 8.779999999999902,
+          "max": 60.00000000000378
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 6786.513202568605,
+          "std": 4083.069827836389,
+          "min": 3843.4132193043715,
+          "max": 12681.830472823753
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 0.25,
+          "std": 0.5,
+          "min": 0.0,
+          "max": 1.0
+        }
+      }
+    },
+    {
+      "name": "search-longer-43",
+      "candidate": {
+        "id": "longer",
+        "hidden": 64,
+        "num_envs": 32,
+        "rollout_steps": 64,
+        "learning_rate": 0.0001
+      },
+      "seed": 43,
+      "configuration_sha256": "11c52b2c0e39a39ac89e9e15a90b153e72d440f3f18c1f996dcf77e9739b6ad2",
+      "counters": {
+        "rollouts": 20,
+        "environment_steps": 40960,
+        "agent_decisions": 40960,
+        "optimiser_updates": 1280,
+        "completed_episodes": 266,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 4096.000000000001,
+        "subtask_successes": 72
+      },
+      "training_wall_s": 10.115732999984175,
+      "stop_reason": "update_limit",
+      "curriculum_transitions": [
+        {
+          "rollout": 5,
+          "from": "fill",
+          "to": "retract",
+          "window_episodes": 32,
+          "successes": 29,
+          "discarded_partial_slots": 32,
+          "reward_version": "potential-v1"
+        }
+      ],
+      "last_training_stage": "retract",
+      "final_checkpoint": {
+        "sha256": "8dc43ae87dd3aa6770247af961c34d22c46baa305363fd4fd66ad8b86faf95b6",
+        "rollout": 20
+      },
+      "validation": {
+        "episodes": 4,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_wilson_95": [
+          0,
+          0.4898908364545973
+        ],
+        "outcomes": {
+          "tunnel_wall": 4
+        },
+        "delivered_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "fill_ratio": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "cycle_s": {
+          "mean": 10.954999999999856,
+          "std": 2.825662164284033,
+          "min": 8.339999999999911,
+          "max": 14.379999999999782
+        },
+        "spilled_kg": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "effort_proxy_j": {
+          "mean": 8302.62332267191,
+          "std": 1840.4353529570099,
+          "min": 7093.755812925817,
+          "max": 11045.442147737054
+        },
+        "slip_s": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "collision_count": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "max": 1.0
+        }
+      }
+    }
+  ],
+  "test_used_for_selection": false
+}

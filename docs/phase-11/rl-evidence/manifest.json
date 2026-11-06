@@ -1,0 +1,11 @@
+{
+  "source": {
+    "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+    "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+    "training_dirty": false
+  },
+  "plan_sha256": "7a698d3e45a637bb1151f4246fa4d91d9df54c96a5cd6b56d10379f3816e37a9",
+  "started_at_utc": "2026-11-06T15:54:08.965955+00:00",
+  "maximum_training_runs": 18,
+  "maximum_training_loop_seconds": 810
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "study_id": "phase-11-model-free-v1",
+  "training_seeds": [
+    7,
+    19,
+    43
+  ],
+  "search_samples_per_run": 40960,
+  "search_wall_s_per_run": 30,
+  "full_samples_per_run": 327680,
+  "full_wall_s_per_run": 120,
+  "evaluation_cases_per_family": 4,
+  "candidates": [
+    {
+      "id": "compact",
+      "hidden": 32,
+      "num_envs": 16,
+      "rollout_steps": 32,
+      "learning_rate": 0.0003
+    },
+    {
+      "id": "balanced",
+      "hidden": 64,
+      "num_envs": 32,
+      "rollout_steps": 32,
+      "learning_rate": 0.0003
+    },
+    {
+      "id": "longer",
+      "hidden": 64,
+      "num_envs": 32,
+      "rollout_steps": 64,
+      "learning_rate": 0.0001
+    }
+  ],
+  "ablations": [
+    "no_curriculum",
+    "no_shaping"
+  ],
+  "selection": [
+    "higher_validation_success",
+    "higher_validation_delivered_mass",
+    "higher_validation_fill_ratio",
+    "fewer_validation_collisions",
+    "smaller_network",
+    "candidate_id"
+  ],
+  "selection_family": "standard",
+  "test_families": [
+    "standard",
+    "low_grip",
+    "occluded",
+    "blocked"
+  ],
+  "robustness": [
+    "grip_moderate",
+    "grip_severe",
+    "sensing_moderate",
+    "sensing_severe",
+    "narrow_moderate",
+    "narrow_severe",
+    "pile_offset",
+    "pile_far",
+    "large_obstacle"
+  ],
+  "replay_seed": 7,
+  "replay_selection": "Initial, checkpoint nearest half the actual final rollout, final. Lower rollout breaks a tie. First success/failure in scene order.",
+  "maximum_training_runs": 18,
+  "maximum_training_loop_seconds": 810,
+  "notes": "All candidates and ablations use the same sample target and loop cap. Test/robustness results cannot alter selection. Preserve cap-limited and failed runs. All policy evaluation uses complete unmodified tasks, with no shaping or prepared loaded starts."
+}

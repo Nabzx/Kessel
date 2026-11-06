@@ -1,0 +1,254 @@
+[
+  {
+    "label": "initial",
+    "rollout": 0,
+    "identity": {
+      "checkpoint_sha256": "6af3293e3cdec4cb2bf21a8d9490a3b759f5cf666b5470b1c16f69c801f846fd",
+      "training_source": {
+        "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+        "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+        "training_dirty": false
+      },
+      "source_checkpoint_sha256": "826bca82569a5ff4928e68e9f4fa5d10b3bd9191d1bfdd6701e38c49703ee8fb",
+      "training_configuration_sha256": "057863eac694eab039ec304bd5e726abca85f4bd9e56b0b358db18ff8af7bec2",
+      "training_seed": 7,
+      "training_counters": {
+        "rollouts": 0,
+        "environment_steps": 0,
+        "agent_decisions": 0,
+        "optimiser_updates": 0,
+        "completed_episodes": 0,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 0.0,
+        "subtask_successes": 0
+      }
+    },
+    "summary": {
+      "episodes": 4,
+      "successes": 0,
+      "success_rate": 0.0,
+      "success_wilson_95": [
+        0,
+        0.4898908364545973
+      ],
+      "outcomes": {
+        "tunnel_wall": 4
+      },
+      "delivered_kg": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "fill_ratio": {
+        "mean": 0.3383580554173946,
+        "std": 0.22921948413958992,
+        "min": 0.0,
+        "max": 0.5083027139748465
+      },
+      "cycle_s": {
+        "mean": 17.139999999999723,
+        "std": 8.01480297116928,
+        "min": 9.33999999999989,
+        "max": 26.27999999999953
+      },
+      "spilled_kg": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "effort_proxy_j": {
+        "mean": 1730.3051229801645,
+        "std": 209.32845766099265,
+        "min": 1443.8562668527638,
+        "max": 1923.3929349805449
+      },
+      "slip_s": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "collision_count": {
+        "mean": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    },
+    "selected_outcomes": [
+      "failure"
+    ],
+    "selection_rule": "Initial, checkpoint nearest half the actual final rollout, final. Lower rollout breaks a tie. First success/failure in scene order."
+  },
+  {
+    "label": "intermediate",
+    "rollout": 320,
+    "identity": {
+      "checkpoint_sha256": "e405ae666ae6c0ae99ac00753185c51342115465e7beffa3be899315b8c81078",
+      "training_source": {
+        "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+        "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+        "training_dirty": false
+      },
+      "source_checkpoint_sha256": "00f1b233a7fddbcb1b1486021abc38994463532820f57626711be4a35f7d0b09",
+      "training_configuration_sha256": "057863eac694eab039ec304bd5e726abca85f4bd9e56b0b358db18ff8af7bec2",
+      "training_seed": 7,
+      "training_counters": {
+        "rollouts": 320,
+        "environment_steps": 163840,
+        "agent_decisions": 163840,
+        "optimiser_updates": 5111,
+        "completed_episodes": 897,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 16384.000000000095,
+        "subtask_successes": 29
+      }
+    },
+    "summary": {
+      "episodes": 4,
+      "successes": 0,
+      "success_rate": 0.0,
+      "success_wilson_95": [
+        0,
+        0.4898908364545973
+      ],
+      "outcomes": {
+        "time_limit": 4
+      },
+      "delivered_kg": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "fill_ratio": {
+        "mean": 0.23855311545343794,
+        "std": 0.0786791866498044,
+        "min": 0.1255163707064958,
+        "max": 0.296827757650665
+      },
+      "cycle_s": {
+        "mean": 60.00000000000378,
+        "std": 0.0,
+        "min": 60.00000000000378,
+        "max": 60.00000000000378
+      },
+      "spilled_kg": {
+        "mean": 0.6936900800582593,
+        "std": 0.40178522249406684,
+        "min": 0.3967953856604576,
+        "max": 1.281719117503775
+      },
+      "effort_proxy_j": {
+        "mean": 99754.36093129311,
+        "std": 9179.469573866812,
+        "min": 87650.01248182259,
+        "max": 109312.80522678536
+      },
+      "slip_s": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "collision_count": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "selected_outcomes": [
+      "failure"
+    ],
+    "selection_rule": "Initial, checkpoint nearest half the actual final rollout, final. Lower rollout breaks a tie. First success/failure in scene order."
+  },
+  {
+    "label": "final",
+    "rollout": 604,
+    "identity": {
+      "checkpoint_sha256": "1dbc2438bfe5c95032ddd6f316e55e8eeb110605dac8b83cbd201d7493f54845",
+      "training_source": {
+        "package_sha256": "be1f16ca8c1ef3dc1e1548ecad611edd11ce96e411e22778c3b6e95b89d95e1c",
+        "git_commit": "2eb90b18d49df35bd394d8ddf7d51a3621d42e30",
+        "training_dirty": false
+      },
+      "source_checkpoint_sha256": "5f9b55377b315f9334f458bc8f75df785c6b502425e21fbc040f1754bc2d4cfb",
+      "training_configuration_sha256": "057863eac694eab039ec304bd5e726abca85f4bd9e56b0b358db18ff8af7bec2",
+      "training_seed": 7,
+      "training_counters": {
+        "rollouts": 604,
+        "environment_steps": 309248,
+        "agent_decisions": 309248,
+        "optimiser_updates": 9606,
+        "completed_episodes": 1479,
+        "successes": 0,
+        "imagined_transitions": 0,
+        "nominal_simulated_s": 30924.8000000003,
+        "subtask_successes": 58
+      }
+    },
+    "summary": {
+      "episodes": 4,
+      "successes": 0,
+      "success_rate": 0.0,
+      "success_wilson_95": [
+        0,
+        0.4898908364545973
+      ],
+      "outcomes": {
+        "tunnel_wall": 4
+      },
+      "delivered_kg": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "fill_ratio": {
+        "mean": 0.04693818347200573,
+        "std": 0.017409306103722585,
+        "min": 0.021104750084707084,
+        "max": 0.05815875726905921
+      },
+      "cycle_s": {
+        "mean": 3.810000000000001,
+        "std": 0.36313450217056603,
+        "min": 3.4600000000000026,
+        "max": 4.279999999999997
+      },
+      "spilled_kg": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "effort_proxy_j": {
+        "mean": 70245.72226255534,
+        "std": 3682.8516319722585,
+        "min": 67013.09609512349,
+        "max": 75119.61448520658
+      },
+      "slip_s": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "collision_count": {
+        "mean": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    },
+    "selected_outcomes": [
+      "failure"
+    ],
+    "selection_rule": "Initial, checkpoint nearest half the actual final rollout, final. Lower rollout breaks a tie. First success/failure in scene order."
+  }
+]

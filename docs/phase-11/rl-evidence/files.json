@@ -1,0 +1,161 @@
+{
+  "source_mode": "recorded_synthetic",
+  "files": [
+    {
+      "path": "adversarial.json",
+      "sha256": "17e548d6ce54e9ced4f8a7cc63b1c91090473c67c12dc9c5dc493a55af1917af",
+      "bytes": 3195
+    },
+    {
+      "path": "checkpoint-replay.json.gz",
+      "sha256": "f7a584f7701debb9e036e8ec4cc1af1642503d55c2b6ca3f186d975b5bb99a40",
+      "bytes": 128168
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "489ebba2cd2931eded0843cb6aacb0ea361986fb391ae4c1437bb2864f3055f5",
+      "bytes": 238171
+    },
+    {
+      "path": "completed.json",
+      "sha256": "684a1e6858b73f4288ad9d390695ed6f8fb6205f9d257f7beb8ae12bed10436d",
+      "bytes": 396
+    },
+    {
+      "path": "full-and-ablations.json",
+      "sha256": "abdc5f292725688e968a9e8529c2502cab778c4c8b62e2aafbbebca38247423f",
+      "bytes": 22597
+    },
+    {
+      "path": "learning-curves.json.gz",
+      "sha256": "b6e334b51145039697aa7c25d762064fbfae3b41392a2c5dbbfefd6c4e55cd7f",
+      "bytes": 475795
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "228a959e76c31dd7fdf7e35906cde3d60d570a54376431fd0a13415b13dc52c9",
+      "bytes": 414
+    },
+    {
+      "path": "plan.json",
+      "sha256": "e10f83fcdcd7558a44c4a48464eca762d015e1e09227d7468786311e155a9049",
+      "bytes": 1826
+    },
+    {
+      "path": "policies/policy-19.pt",
+      "sha256": "82106d9ca7cc20a8cc14a4148e1343c6b3ba4211262ec2791cf2d892b1f221c2",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/policy-19.pt.sha256",
+      "sha256": "daf5317fe999dae92d12c0f3b9dc8abe70e6696fadb7a43623f0451886aa20a8",
+      "bytes": 65
+    },
+    {
+      "path": "policies/policy-43.pt",
+      "sha256": "dd6859dc4a22b66aaf6bfafc0199eac003db9e62e8ccd8e8bd0d61dcecfab640",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/policy-43.pt.sha256",
+      "sha256": "ffef00e7cee076612f0d3544c8cdf39d55302aa244a079309a6e4a9dbdc51e35",
+      "bytes": 65
+    },
+    {
+      "path": "policies/policy-7.pt",
+      "sha256": "1dbc2438bfe5c95032ddd6f316e55e8eeb110605dac8b83cbd201d7493f54845",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/policy-7.pt.sha256",
+      "sha256": "d70843596698a2accb3ef2a5a787ecf7dea3e4e6fad824c69b6ac0ce002c3ec6",
+      "bytes": 65
+    },
+    {
+      "path": "policies/replay-final-7.pt",
+      "sha256": "1dbc2438bfe5c95032ddd6f316e55e8eeb110605dac8b83cbd201d7493f54845",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/replay-final-7.pt.sha256",
+      "sha256": "d70843596698a2accb3ef2a5a787ecf7dea3e4e6fad824c69b6ac0ce002c3ec6",
+      "bytes": 65
+    },
+    {
+      "path": "policies/replay-initial-7.pt",
+      "sha256": "6af3293e3cdec4cb2bf21a8d9490a3b759f5cf666b5470b1c16f69c801f846fd",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/replay-initial-7.pt.sha256",
+      "sha256": "2b9e0e9db9d351e13a49232e3d41c4da8992733fa31550d0a64bfebf5b01dc01",
+      "bytes": 65
+    },
+    {
+      "path": "policies/replay-intermediate-7.pt",
+      "sha256": "e405ae666ae6c0ae99ac00753185c51342115465e7beffa3be899315b8c81078",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/replay-intermediate-7.pt.sha256",
+      "sha256": "b8d7f7be35689bac22a7b1e2989337086c3dbf2bb01e171e78e84d2baaf171f4",
+      "bytes": 65
+    },
+    {
+      "path": "policies/untrained-19.pt",
+      "sha256": "d9f28a6cddf28b62d208364af032da92f179d3f3f7aed86fc2b13b305c82fe0f",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/untrained-19.pt.sha256",
+      "sha256": "503ec9bd03e2cf385a3ff31c6a81b70ea98f4292f606ea8307fa7efc0c4db762",
+      "bytes": 65
+    },
+    {
+      "path": "policies/untrained-43.pt",
+      "sha256": "dfd0c7c4f40cb5432a19d7f827f5a035c5bfb7026c292a271ac603e0bc6e8b71",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/untrained-43.pt.sha256",
+      "sha256": "2155107c1e75b9d981d99387a3f31e084d7f75da0a9df2f31fb05aa5f581be7a",
+      "bytes": 65
+    },
+    {
+      "path": "policies/untrained-7.pt",
+      "sha256": "6af3293e3cdec4cb2bf21a8d9490a3b759f5cf666b5470b1c16f69c801f846fd",
+      "bytes": 32886
+    },
+    {
+      "path": "policies/untrained-7.pt.sha256",
+      "sha256": "2b9e0e9db9d351e13a49232e3d41c4da8992733fa31550d0a64bfebf5b01dc01",
+      "bytes": 65
+    },
+    {
+      "path": "replay-summary.json",
+      "sha256": "aa4cdbbd2b647f776eaeab97866b8f80f0bad90c1629a906ab5f3c016a57aa73",
+      "bytes": 7107
+    },
+    {
+      "path": "robustness.json",
+      "sha256": "f0e76d16d382cf5503d8450facc05d52e96dc1e1a3d1a202d97ab14eba6887fd",
+      "bytes": 234522
+    },
+    {
+      "path": "runs.json",
+      "sha256": "9e666bf9afdfeead69a7b239530914e21a562c0367df6318618ca0d920f1e2df",
+      "bytes": 211003
+    },
+    {
+      "path": "selection.json",
+      "sha256": "2184e2885dde8fcaa1bc73ea8d6b8ad24ab8df57b70c5ad2425ce2b44f3f13a6",
+      "bytes": 24393
+    },
+    {
+      "path": "training-episodes.json.gz",
+      "sha256": "4b25f50ab2d76ed444780eba30206b6de7984dc701b38d2581faceff60c0ad0a",
+      "bytes": 497859
+    }
+  ],
+  "notes": "Every rollout curve and training episode is retained. Curves omit per-minibatch rows but retain update aggregates. Policies are compact executable exports, not resumable simulator/optimiser archives."
+}
