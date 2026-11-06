@@ -28,6 +28,7 @@ def load_policy(path):
         raise ValueError("checkpoint policy has non-finite parameters")
     policy.eval()
     return policy, {"checkpoint_sha256": checkpoints.sha256(path), "training_source": state["source"],
+                    "trainer_kind": state.get("trainer_kind", "model-free"),
                     "source_checkpoint_sha256": state.get("source_checkpoint_sha256", checkpoints.sha256(path)),
                     "training_configuration_sha256": state["configuration_sha256"],
                     "training_seed": state["configuration"]["seed"], "training_counters": state["counters"]}

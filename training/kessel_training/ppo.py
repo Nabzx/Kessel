@@ -72,10 +72,11 @@ class Rollout:
     truncated: torch.Tensor
     episodes: list
     reward_components: dict = field(default_factory=dict)
+    world_states: np.ndarray | None = None
 
 
 @torch.no_grad()
-def collect(env, policy, steps, generator):
+def collect(env, policy, steps, generator, *, record_world_state=False):
     if isinstance(steps, bool) or not isinstance(steps, int) or steps < 1:
         raise ValueError("rollout steps must be a positive integer")
     finished = env.terminated | env.truncated
@@ -84,7 +85,11 @@ def collect(env, policy, steps, generator):
     columns = [[] for _ in range(8)]
     episodes = []
     reward_components = {}
+    world_states = []
     for _ in range(steps):
+        if record_world_state:
+            from .wm_state import pack
+            world_states.append(pack(env))
         features = policy.encode(env.observe())
         sample = policy.sample(features, generator=generator)
         observation, reward, terminated, truncated, info = env.step(sample["action"].numpy())
@@ -107,7 +112,8 @@ def collect(env, policy, steps, generator):
             episodes.append({k: v[i].item() for k, v in info["metrics"].items()})
         if done.any():
             env.reset(mask=done)
-    return Rollout(*(torch.stack(c) for c in columns), episodes=episodes, reward_components=reward_components)
+    return Rollout(*(torch.stack(c) for c in columns), episodes=episodes, reward_components=reward_components,
+                   world_states=np.stack(world_states) if record_world_state else None)
 
 
 class PPO:

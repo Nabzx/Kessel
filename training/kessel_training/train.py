@@ -72,6 +72,7 @@ def preset_config(name):
 
 
 class Trainer:
+    trainer_kind = "model-free"
     def __init__(self, config=None):
         self.config = config or TrainConfig()
         self.generator = configure_cpu(self.config.seed, self.config.threads)
@@ -95,10 +96,13 @@ class Trainer:
         self.training_wall_s = 0.0
         self.stop_requested = False
 
+    def collect_rollout(self):
+        return collect(self.env, self.policy, self.config.rollout_steps, self.generator)
+
     def iterate(self):
         training_stage = self.env.stage if isinstance(self.env, TrainingEnv) else "complete"
         started = time.perf_counter()
-        rollout = collect(self.env, self.policy, self.config.rollout_steps, self.generator)
+        rollout = self.collect_rollout()
         collection_s = time.perf_counter()-started
         started = time.perf_counter()
         stats = self.algorithm.update(rollout, self.generator)
@@ -124,6 +128,7 @@ class Trainer:
 
     def state(self):
         return {"configuration": asdict(self.config), "configuration_sha256": self.config.digest(),
+                "trainer_kind": self.trainer_kind,
                 "source": self.source, "started_at_utc": self.started_at_utc,
                 "actor_critic": self.policy.state_dict(), "optimiser": self.algorithm.optimiser.state_dict(),
                 "environment": checkpoints.environment_state(self.env),
@@ -136,10 +141,19 @@ class Trainer:
     @classmethod
     def resume(cls, path):
         state = checkpoints.load(path)
+        if state.get("trainer_kind", "model-free") != "model-free":
+            raise ValueError("use the matching model-assisted trainer to resume this checkpoint")
+        config = config_from_dict(state["configuration"])
+        trainer = cls(config)
+        return trainer.restore_state(state, path)
+
+    def restore_state(self, state, path):
+        trainer = self
         config = config_from_dict(state["configuration"])
         if config.digest() != state["configuration_sha256"]:
             raise ValueError("checkpoint configuration hash differs")
-        trainer = cls(config)
+        if config.digest() != trainer.config.digest():
+            raise ValueError("trainer configuration differs from checkpoint")
         if trainer.source["package_sha256"] != state["source"]["package_sha256"]:
             raise ValueError("resume requires the same training source package")
         if str(torch.__version__) != state["software"]["torch"] or np.__version__ != state["software"]["numpy"]:

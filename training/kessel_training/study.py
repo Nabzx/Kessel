@@ -119,7 +119,8 @@ def export_policy(source, target):
     state = checkpoints.load(source)
     keys = ("configuration", "configuration_sha256", "source", "actor_critic", "counters", "software")
     exported = {k: state[k] for k in keys}
-    exported.update(artefact_kind="policy-only", source_checkpoint_sha256=checkpoints.sha256(source))
+    exported.update(artefact_kind="policy-only", source_checkpoint_sha256=checkpoints.sha256(source),
+                    trainer_kind=state.get("trainer_kind", "model-free"))
     return checkpoints.save(target, exported)
 
 

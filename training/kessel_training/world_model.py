@@ -165,6 +165,10 @@ def save_model(path, model, report):
 
 def load_model(path):
     state = checkpoints.load(path)
+    return model_from_state(state), {"model_sha256": checkpoints.sha256(path), "training": state["training"]}
+
+
+def model_from_state(state):
     if state.get("model_version") != STATE_VERSION or state.get("artefact_kind") != "dynamics-ensemble":
         raise ValueError("unsupported dynamics model")
     config = ModelConfig(**state["configuration"])
@@ -174,4 +178,4 @@ def load_model(path):
     model = DynamicsEnsemble(config, nx, ny);model.load_state_dict(weights, strict=True);model.eval()
     if not all(torch.isfinite(p).all() for p in model.parameters()):
         raise ValueError("non-finite saved dynamics weights")
-    return model, {"model_sha256": checkpoints.sha256(path), "training": state["training"]}
+    return model
