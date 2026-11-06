@@ -61,6 +61,11 @@ See [asset credits](assets/README.md), the
 
 ## Structure and checks
 
+Phase 11 CPU experiment tools are isolated in [training/](training/README.md).
+The initial contracts, feasibility spike and static-package checks are recorded
+in [the verification report](docs/phase-11/verification.md). They do not replace
+the page's authored replay or establish learned machine-control performance.
+
 `data/experience.json` owns the geographic context, themes, scene poses, rock
 mass, directed haul routes, operating assumptions, loader keyframes,
 checkpoints and kit components. `js/experience.js` controls one persistent
