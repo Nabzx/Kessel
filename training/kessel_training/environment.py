@@ -171,43 +171,42 @@ class LoaderEnv:
                 "range_valid": self._valid.copy()}
 
     def _update_observations(self, selected, reset=False):
+        indices = np.flatnonzero(selected)
+        if not len(indices):
+            return
         geometry = components(self.pose, self.joints)
         lateral = np.stack((-geometry["front_forward"][:, 1], geometry["front_forward"][:, 0]), axis=1)
         along, across = np.meshgrid(np.arange(-1, 4)*0.75, np.arange(-2, 3)*0.75, indexing="ij")
         points = (geometry["mouth"][:, None, None, :]
                   + along[None, ..., None]*geometry["front_forward"][:, None, None, :]
                   + across[None, ..., None]*lateral[:, None, None, :])
-        height = self.pile.sample(points)
-        for i in np.flatnonzero(selected):
-            rng = self.sensor_rng[i]
-            # Fixed draw shapes keep sensor settings independent of scenario draws.
-            noise = rng.normal(size=15)
-            range_noise = rng.normal(size=(5, 5))
-            drop = rng.random()
-            visible = rng.random((5, 5)) >= self.scene.occlusion
-            fresh = drop >= self.scene.dropout
-            if fresh:
-                self._valid[i] = visible
-                self._crop[i] = np.where(visible, np.maximum(0, height[i] + range_noise*0.01*self.scene.sensor_noise), 0)
-                self._age[i] = 0
-            else:
-                self._valid[i] = 0
-                self._age[i] += 0 if reset else self.loader.decision_s
-            self._fresh[i] = fresh
-            scale = self.scene.sensor_noise
-            odometry = self.pose[i, :2] + noise[:2]*0.01*scale
-            heading = self.pose[i, 2] + noise[2]*0.005*scale
-            forward = np.array([np.cos(heading), np.sin(heading)])
-            left = np.array([-forward[1], forward[0]])
-            receiver = self.receiver[i] - odometry
-            self._proprio[i] = (
-                *odometry, np.sin(heading), np.cos(heading),
-                self.speed[i] + noise[3]*0.005*scale,
-                *(self.joints[i] + noise[4:7]*0.002*scale),
-                np.clip(self.payload[i] + noise[7]*20*scale, 0, self.loader.payload_kg),
-                receiver @ forward, receiver @ left, self._age[i], fresh,
-                self.elapsed[i], self.last_slip[i],
-            )
+        height = self.pile.sample(points)[indices]
+        # Only independent RNG streams need a slot loop. Sensor arithmetic is
+        # vectorised, with the same draw order as the scalar reference.
+        normals = np.stack([self.sensor_rng[i].normal(size=40) for i in indices])
+        uniforms = np.stack([self.sensor_rng[i].random(size=26) for i in indices])
+        noise, range_noise = normals[:, :15], normals[:, 15:].reshape(-1, 5, 5)
+        fresh = uniforms[:, 0] >= self.scene.dropout
+        visible = uniforms[:, 1:].reshape(-1, 5, 5) >= self.scene.occlusion
+        scale = self.scene.sensor_noise
+        crop = np.where(visible, np.maximum(0, height + range_noise*0.01*scale), 0)
+        self._crop[indices] = np.where(fresh[:, None, None], crop, self._crop[indices])
+        self._valid[indices] = visible & fresh[:, None, None]
+        self._age[indices] = np.where(fresh, 0, self._age[indices] + (0 if reset else self.loader.decision_s))
+        self._fresh[indices] = fresh
+        odometry = self.pose[indices, :2] + noise[:, :2]*0.01*scale
+        heading = self.pose[indices, 2] + noise[:, 2]*0.005*scale
+        forward = np.stack((np.cos(heading), np.sin(heading)), axis=1)
+        left = np.stack((-forward[:, 1], forward[:, 0]), axis=1)
+        receiver = self.receiver[indices] - odometry
+        self._proprio[indices] = np.column_stack((
+            odometry, np.sin(heading), np.cos(heading),
+            self.speed[indices] + noise[:, 3]*0.005*scale,
+            self.joints[indices] + noise[:, 4:7]*0.002*scale,
+            np.clip(self.payload[indices] + noise[:, 7]*20*scale, 0, self.loader.payload_kg),
+            np.sum(receiver*forward, axis=1), np.sum(receiver*left, axis=1),
+            self._age[indices], fresh, self.elapsed[indices], self.last_slip[indices],
+        ))
 
     def step(self, actions):
         actions = validate_actions(actions, self.num_envs)
