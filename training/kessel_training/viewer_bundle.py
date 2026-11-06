@@ -53,6 +53,7 @@ def validate(bundle):
             if i<len(records)-1:
                 action=row["action"];require(isinstance(action,list) and len(action)==4 and all(-1<=v<=1 for v in action),"invalid recorded action")
                 require(row["reward"] is not None and set(row["reward_terms"])=={"delivered_kg","spilled_kg","elapsed_s","effort_proxy_j","collision_count","slip_s"},"reward decomposition missing")
+                require(abs(sum(row["reward_weighted"].values())-row["reward"])<1e-9,"reward contributions differ")
             else:require(row["reward"] is None,"terminal record has invented next reward")
             for p in row["predictions"]:
                 h=p["horizon_decisions"];require(h in (1,2,4,8),"unknown prediction horizon")

@@ -11,6 +11,7 @@ ROOT=Path(__file__).resolve().parents[2]
 def test_executed_policy_export_uses_outgoing_actions_and_independent_exact_replay():
     scene=replace(family("standard")[0],max_steps=2)
     ep=episode(ROOT/"docs/phase-11/rl-evidence/policies/replay-final-7.pt","final",scene,100000)
+    assert abs(sum(ep["records"][0]["reward_weighted"].values())-ep["records"][0]["reward"])<1e-12
     assert ep["steps"]==2 and ep["truncated"] and not ep["terminated"]
     assert len(ep["records"])==3 and ep["records"][0]["t_s"]==0
     assert ep["records"][-1]["action"] is None and ep["records"][-1]["reward"] is None

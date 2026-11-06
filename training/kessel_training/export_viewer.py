@@ -29,7 +29,7 @@ ROOT=Path(__file__).resolve().parents[2]
 def row(env):
     return {"t_s":float(env.elapsed[0]),"state":pack(env)[0].tolist(),
         "observation":flat_observation(env.observe())[0].tolist(),"wheel_angles_rad":env.wheel_angles[0].tolist(),
-        "action":None,"reward":None,"reward_terms":None,"events":[],"predictions":[]}
+        "action":None,"reward":None,"reward_terms":None,"reward_weighted":None,"events":[],"predictions":[]}
 
 
 @torch.no_grad()
@@ -42,6 +42,7 @@ def episode(policy_path,label,scene,seed):
         _,reward,term,trunc,info=env.step(action)
         record.update(action=action[0].tolist(),reward=float(reward[0]),
             reward_terms={k:float(v[0]) for k,v in info["reward_terms"].items()},
+            reward_weighted={k:float(v[0]) for k,v in info["reward_description"]["weighted"].items()},
             events=[k for k in ("loaded_kg","delivered_kg","spilled_kg") if info["transfer"][k][0]>0])
         if info["metrics"]["collision_time_s"][0]>=0:record["events"].append("collision")
         records.append(record)
