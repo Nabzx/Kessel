@@ -20,13 +20,14 @@ partners) who cannot visit a mine or read a policy's weights.
 Phase 10 replaces the Phase 9 presentation with a centred Earth opener,
 themed environment carousel, continuous Rwanda descent and substantial
 roof-off mine cutaway. Four trucks and a licensed excavator illustrate the
-baseline/trained comparison. A dedicated technical viewer demonstrates loader
-failure and improvement through scripted checkpoint replay. Ordinary scrolling
-then explains the proposed training/deployment pipeline and exploded kit.
+baseline/trained comparison. The optional technical viewer defaults to
+recorded-synthetic policy checkpoints and raw dynamics forecasts. Actual failed
+outcomes remain visible; the authored demonstration is an explicit alternate
+source. Ordinary scrolling explains the proposed pipeline and exploded kit.
 
 `data/experience.json` is the active authored contract. ADR-0031 separates the
-Phase 11 experimental tools and future recorded-synthetic bundles from that
-default presentation. Learned dynamics, policy training and model-assisted
+Phase 11 experimental tools and validated recorded-synthetic bundles from the
+authored mission. Learned dynamics, policy training and model-assisted
 updates need their own implementation and evaluation evidence; none is implied
 by the current cinematic replay. The onboard runtime remains proposed.
 See ADRs 0028–0032.
@@ -40,9 +41,12 @@ auxiliary-critic experiments are implemented under ADRs 0040-0042. Their report
 is `docs/phase-11/world-model-experiments.md`; raw and explicitly filtered
 forecasts are separately identified in retained evidence. The filter permits
 imagined updates but the equal-budget studies demonstrate no complete learned
-cycle or sample-efficiency gain. Recorded integration in the cinematic viewer
-remains subsequent work. Do not describe these policies as having demonstrated
-full autonomous haulage.
+cycle or sample-efficiency gain. Recorded integration and CPU ONNX/compression
+comparisons are implemented under ADRs 0043/0044, with the report in
+`docs/phase-11/recorded-integration.md`. The static adapter validates curated
+records before switching source labels. Mine business metrics remain
+illustrative. Do not describe these policies as having demonstrated full
+autonomous haulage.
 
 ## Glossary
 

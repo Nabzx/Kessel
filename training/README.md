@@ -69,6 +69,30 @@ proven improvement. Saved-model prediction replay and evidence accounting run
 in the test suite. Compact reports and executable research weights stay under
 `docs/phase-11/`, outside the static package.
 
+Recorded playback and the isolated CPU export comparison are documented in
+[the integration report](../docs/phase-11/recorded-integration.md). The browser
+loads no model weights or training runtime. Recreate the static bundle from
+retained executable checkpoint artefacts, then validate it from the repo root:
+
+```sh
+uv run --locked python -m kessel_training.export_viewer --output ../data/experiments/loader-new.json --report ../docs/phase-11/viewer-export-new.json
+```
+
+Use `uv sync --locked --all-groups` for optional CPU ONNX tools and their tests.
+The declared compression study requires the regenerated world-model corpus:
+
+```sh
+uv run --locked --all-groups python -m kessel_training.offline_experiment --datasets runs/world-model-study-new/datasets --output runs/offline-policy-new
+uv run --locked python -m kessel_training.audit_run runs/quick-example
+```
+
+New training runs append hash-chained `events.jsonl` records from actual
+transactions. Resume verifies log/checkpoint counters and rejects a log ahead
+of the resumed state. Older retained studies keep their genuine curves and
+outcomes; no append-only stream is fabricated retrospectively. Distillation
+and numerical quantisation are separate experiments. Runtime telemetry is
+disabled before ONNX Runtime initialises. No NVIDIA result is implied.
+
 The project creates its own ignored `training/.venv`. It does not touch a
 repository-root `.venv` or another personal environment. To use a separate
 temporary environment, set `UV_PROJECT_ENVIRONMENT` to a task-specific path.

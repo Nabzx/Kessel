@@ -1,8 +1,10 @@
 # Loader and experiment contract, version 1.0
 
 See [ADR-0033](../../docs/adr/0033-loader-and-experiment-contracts.md).
-This is the export contract to implement, not a bundle already consumed by the
-cinematic page. The CPU benchmark writes a separate report format.
+These unit and episode semantics are implemented by the curated recorded
+viewer bundle under [ADR-0043](../../docs/adr/0043-recorded-experiment-viewer.md).
+Its compact browser layout and evidence are documented in the integration
+report. The CPU benchmark writes a separate report format.
 
 ## State and actions
 
