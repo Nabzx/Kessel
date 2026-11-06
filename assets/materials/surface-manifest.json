@@ -1,0 +1,50 @@
+{
+  "source": "https://polyhaven.com/a/aerial_grass_rock",
+  "credit": "Aerial Grass Rock by Rob Tuytel, Poly Haven",
+  "licence": "CC0-1.0",
+  "generator": "Pillow 13.0.0; scripts/prepare-surface-materials.py",
+  "maps": [
+    {
+      "path": "assets/materials/aerial_grass_rock_diff.webp",
+      "sha256": "aa066aef2d23dca2eb6fcb2c6202d2a7c358813475b5577f467b1f03db172c6a",
+      "bytes": 262520,
+      "source_sha256": "57b8041bfe0d0f01430e4dbaad45e7ddddf0a9fc97317f90dbc51f7b0d9e1b5d",
+      "source_bytes": 666655,
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/aerial_grass_rock/aerial_grass_rock_diff_1k.jpg",
+      "channel": "diff",
+      "colour_space": "srgb",
+      "width": 1024,
+      "height": 1024,
+      "licence": "CC0-1.0",
+      "repeat_m": 15
+    },
+    {
+      "path": "assets/materials/aerial_grass_rock_nor_gl.webp",
+      "sha256": "18b038af3f37d8755a1ae4e160421d03993fdbd25fdadfd1b7a7716ce85eef74",
+      "bytes": 491094,
+      "source_sha256": "1aa3e23bff453f152e089b9f83aa36b4901651e019f7e2ca01d5331a9bbbda78",
+      "source_bytes": 904956,
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/aerial_grass_rock/aerial_grass_rock_nor_gl_1k.jpg",
+      "channel": "nor_gl",
+      "colour_space": "linear",
+      "width": 512,
+      "height": 512,
+      "licence": "CC0-1.0",
+      "repeat_m": 15
+    },
+    {
+      "path": "assets/materials/aerial_grass_rock_rough.webp",
+      "sha256": "48b1f3379989bf3d788d5922b9af1ef40d9eabab0857f9a608bd7a4a5711c4af",
+      "bytes": 145146,
+      "source_sha256": "b9f3f76aba74007f708333c0dbe73c52eb83ea0c4187a13e2e994f888a25114a",
+      "source_bytes": 362214,
+      "source_url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/aerial_grass_rock/aerial_grass_rock_rough_1k.jpg",
+      "channel": "rough",
+      "colour_space": "linear",
+      "width": 512,
+      "height": 512,
+      "licence": "CC0-1.0",
+      "repeat_m": 15
+    }
+  ]
+}

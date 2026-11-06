@@ -8,7 +8,7 @@ Supersede ADR-0035's restriction of the cleared rock maps to the isolated
 look-development page. The maintainer has requested the visual realism work,
 including the Earth hero and surface site. Adopt Rock Face 03 for exposed
 geology and retain Dark Rock 02 for comparison. Both are verified CC0 maps.
-Retain the licensed excavator, existing mud and ore maps, and original hauler.
+Adopt the cleared CC0 Aerial Grass Rock set by Rob Tuytel for authored near-ground detail at its 15 m repeat scale. Retain the licensed excavator, existing mud and ore maps, and original hauler.
 
 Prepare local, hashed WebP derivatives outside the published runtime. Preserve
 sRGB colour and linear OpenGL normal, roughness and AO data. Record compression
