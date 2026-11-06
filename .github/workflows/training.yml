@@ -24,3 +24,5 @@ jobs:
         run: uv run --locked pytest
       - name: Run bounded CPU workload smoke check
         run: uv run --locked python -m kessel_training.benchmark --smoke --output /tmp/kessel-cpu-smoke.json
+      - name: Check real loader PPO execution
+        run: uv run --locked python -m kessel_training.core_smoke --num-envs 4 --rollout-steps 8 --updates 2 --output /tmp/kessel-ppo-core-smoke.json

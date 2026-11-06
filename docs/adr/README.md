@@ -8,6 +8,8 @@ The [static package allowlist](0034-static-package-allowlist.md) separates
 presentation assets from experiment artefacts.
 The [synthetic loader environment](0036-synthetic-loader-reference-environment.md)
 defines the reference dynamics and their limits.
+The [CPU policy and PPO core](0037-cpu-policy-and-ppo-core.md) defines bounded
+likelihoods, episode bootstrapping and versioned delivery rewards.
 
 Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
 [learning presentation](0029-world-model-learning-presentation.md) and

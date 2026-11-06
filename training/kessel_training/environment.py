@@ -10,6 +10,7 @@ from .contracts import LoaderConfig, canonical_json, validate_actions
 from .dynamics import clearance, release_material, traction
 from .kinematics import advance, components
 from .pile import PileGrid
+from .rewards import RewardConfig, calculate
 
 PROPRIO_NAMES = (
     "odometry_x_m", "odometry_y_m", "heading_sin", "heading_cos",
@@ -68,12 +69,13 @@ class LoaderEnv:
 
     metadata = {"autoreset_mode": "disabled", "source_mode": "recorded_synthetic"}
 
-    def __init__(self, num_envs=1, *, seed=0, loader=None, scene=None, stream_ids=None):
+    def __init__(self, num_envs=1, *, seed=0, loader=None, scene=None, stream_ids=None, reward=None):
         if isinstance(num_envs, bool) or not isinstance(num_envs, int) or num_envs <= 0:
             raise ValueError("num_envs must be a positive integer")
         self.num_envs = num_envs
         self.loader = loader or LoaderConfig()
         self.scene = scene or SceneConfig()
+        self.reward_config = reward or RewardConfig(mass_scale_kg=self.loader.payload_kg)
         if (self.loader.length_m, self.loader.width_m, self.loader.height_m) != (7.1, 1.5, 1.9):
             raise ValueError("reference geometry supports the documented 7.1 x 1.5 x 1.9 m envelope")
         if (self.loader.forward_m_s > 2 or self.loader.reverse_m_s > 1.5
@@ -300,11 +302,9 @@ class LoaderEnv:
                  "slip_s": self.slip_s-before_slip,
                  "elapsed_s": self.elapsed-before_elapsed,
                  "collision_count": (self.collision_time >= 0).astype(float)}
-        reward = (terms["delivered_kg"]/self.loader.payload_kg
-                  - terms["spilled_kg"]/self.loader.payload_kg
-                  - 3e-8*terms["effort_proxy_j"] - 0.002*terms["elapsed_s"]
-                  - 5*terms["collision_count"])
+        reward, reward_description = calculate(terms, self.reward_config)
         info = self.diagnostics()
+        info["reward_description"] = reward_description
         info.update(reward_terms=terms, transfer={"loaded_kg": loaded,
                     "delivered_kg": terms["delivered_kg"].copy(),
                     "spilled_kg": terms["spilled_kg"].copy(),
