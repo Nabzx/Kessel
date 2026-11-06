@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 export function createGlobe(scene, config) {
   const mobile = false;
   const earthRoot = new THREE.Group();
@@ -56,7 +57,7 @@ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.006,.025,.05),ocean*.8);`,
       float daylight = dot(normalize(vNormalWorld), normalize(sunDirection));
       float night = 1.0 - smoothstep(-0.13, 0.12, daylight);
       float cityLight = dot(texture2D(nightMap, vUv).rgb, vec3(0.299, 0.587, 0.114));
-      vec3 glow = vec3(1.0, 0.56, 0.24) * cityLight * night * 1.8;
+      vec3 glow = vec3(1.0, 0.56, 0.24) * cityLight * night * 1.35;
       gl_FragColor = vec4(glow, cityLight * night);
       #include <tonemapping_fragment>
       #include <colorspace_fragment>
@@ -75,10 +76,11 @@ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.006,.025,.05),ocean*.8);`,
   nightEarth.renderOrder = 1;
   earthRoot.add(nightEarth);
 
-  const cloudMaterial = new THREE.MeshBasicMaterial({
-    color: 0xc2e5ef,
+  const cloudMaterial = new THREE.MeshStandardMaterial({
+    color: 0xf2f2ec,
+    roughness: 1,
     transparent: true,
-    opacity: 0.23,
+    opacity: 0.48,
     alphaTest: 0.025,
     depthWrite: false,
   });
@@ -95,6 +97,7 @@ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.006,.025,.05),ocean*.8);`,
   earthRoot.add(surfaceMarkers);
 
   const atmosphereMaterial = new THREE.ShaderMaterial({
+    uniforms: { sunDirection: nightUniforms.sunDirection },
     vertexShader: `
     varying vec3 vNormalWorld;
     varying vec3 vPositionWorld;
@@ -108,12 +111,13 @@ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.006,.025,.05),ocean*.8);`,
     fragmentShader: `
     varying vec3 vNormalWorld;
     varying vec3 vPositionWorld;
+    uniform vec3 sunDirection;
     void main() {
       vec3 viewDirection = normalize(cameraPosition - vPositionWorld);
       float rim = pow(1.0 - abs(dot(normalize(vNormalWorld), viewDirection)), 3.2);
-      float daylight = max(dot(normalize(vNormalWorld), normalize(vec3(-0.5, 0.35, 0.8))), 0.0);
+      float daylight = max(dot(normalize(vNormalWorld), normalize(sunDirection)), 0.0);
       vec3 hue = mix(vec3(0.06, 0.25, 0.5), vec3(0.16, 0.62, 0.84), daylight);
-      gl_FragColor = vec4(hue, rim * 0.3);
+      gl_FragColor = vec4(hue, rim * mix(.12,.42,daylight));
       #include <tonemapping_fragment>
       #include <colorspace_fragment>
     }
@@ -130,7 +134,8 @@ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.006,.025,.05),ocean*.8);`,
   atmosphere.renderOrder = 3;
   earthRoot.add(atmosphere);
 
-  scene.add(new THREE.AmbientLight(0x6d90a8, 0.7));
+  const ambient = new THREE.AmbientLight(0x6d90a8, 0.24);
+  scene.add(ambient);
   const sun = new THREE.DirectionalLight(0xfff2da, 3.0);
   sun.position.set(-5.5, 3.8, 7.5);
   scene.add(sun);
@@ -287,6 +292,17 @@ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.006,.025,.05),ocean*.8);`,
     texture.anisotropy = 4;
     earthMaterial.map = texture;
     earthMaterial.needsUpdate = true;
+    // NASA structure only, in a decorative presentation orbit. Keep the original
+    // satellite in place if the optional silhouette cannot load.
+    new GLTFLoader().loadAsync(config.visuals.orbit.model).then(({scene: station}) => {
+      const bounds = new THREE.Box3().setFromObject(station), size = bounds.getSize(new THREE.Vector3());
+      const model = new THREE.Group();
+      station.position.sub(bounds.getCenter(new THREE.Vector3())); model.add(station);
+      model.scale.setScalar(.72 / Math.max(size.x, size.y, size.z));
+      const orbital = orbits[0].satellite;
+      for(const child of [...orbital.children]) { orbital.remove(child); child.geometry?.dispose(); }
+      orbital.add(model); orbital.userData.source = config.visuals.orbit.credit;
+    }).catch(() => {});
     Promise.all([
       assets.loadAsync(config.assets.globe.night_lights),
       assets.loadAsync(config.assets.globe.clouds),
@@ -343,6 +359,7 @@ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.006,.025,.05),ocean*.8);`,
   }
   function visible(value) {
     earthRoot.visible = value;
+    ambient.visible = sun.visible = value;
     stars.visible = value;
     for (const rock of rocks) rock.visible = value;
   }
