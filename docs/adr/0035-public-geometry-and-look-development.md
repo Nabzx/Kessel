@@ -1,6 +1,8 @@
 # ADR-0035: Public geometry and look development
 
-Status: Accepted
+Status: Accepted. The prototype-only restriction for cleared material maps is
+superseded by [ADR-0045](0045-cinematic-visual-materials.md). The scan provenance
+and unknown-units boundary remains in force.
 
 ## Decision
 

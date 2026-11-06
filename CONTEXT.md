@@ -30,7 +30,13 @@ Phase 11 experimental tools and validated recorded-synthetic bundles from the
 authored mission. Learned dynamics, policy training and model-assisted
 updates need their own implementation and evaluation evidence; none is implied
 by the current cinematic replay. The onboard runtime remains proposed.
-See ADRs 0028–0032.
+See ADRs 0028–0032. ADR-0045 adopts cleared natural-rock and near-ground maps,
+a capped synthetic cutaway, detailed authored surface props, a simplified
+credited NASA orbital silhouette and refined machinery/kit/HUD presentation.
+Native visual evidence is in `docs/phase-11/visual-realism.md`. The maintainer
+has deferred reported recorded-demo behaviour problems; visual acceptance does
+not resolve them. Recorded material-transfer verification in #261 remains
+partial.
 
 The Phase 11 reference simulator, resumable PPO tools and model-free comparison
 study are implemented under ADRs 0033-0039. The bounded study completed curriculum
