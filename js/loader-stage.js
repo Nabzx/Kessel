@@ -7,17 +7,17 @@ export function createLoader(model, oreMap) {
     paint: new THREE.MeshStandardMaterial({
       color: model.paint,
       roughness: 0.55,
-      metalness: 0.18,
+      metalness: 0,
     }),
     dark: new THREE.MeshStandardMaterial({
       color: 0x252b2d,
-      roughness: 0.7,
-      metalness: 0.2,
+      roughness: 0.95,
+      metalness: 0,
     }),
     glass: new THREE.MeshStandardMaterial({
       color: 0x193b42,
       roughness: 0.18,
-      metalness: 0.45,
+      metalness: 0,
     }),
     steel: new THREE.MeshStandardMaterial({
       color: 0x858b87,

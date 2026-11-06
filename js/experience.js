@@ -71,6 +71,7 @@ function duration(seconds) {
 function setStage(next) {
   stage = next;
   $("experience").dataset.stage = next;
+  if(!renderer.shadowMap.autoUpdate)renderer.shadowMap.needsUpdate=true;
   frameTimes = [];
   const ordered=["select","surface","mine","trained","learning"];
   const active=ordered.indexOf(({flight:"surface",preparing:"surface",entering:"mine",comparing:"trained"})[next]||next);
@@ -262,6 +263,7 @@ function configureLearningUI(sourceMode) {
   document.querySelectorAll("[data-recorded]").forEach((element) => { element.hidden = !recorded; });
   $("learning-source-label").textContent = recorded ? "Recorded synthetic · full-7" : "Illustrative training replay";
   $("reward-curve-label").textContent = recorded ? "Training mean reward" : "Reward";
+  $("curve-y-axis").removeAttribute("title"); $("curve-y-axis").removeAttribute("aria-label");
   $("curve-y-axis").textContent=recorded?"Mean step reward":"Reward / relative";
   $("curve-x-axis").textContent=recorded?"Environment decisions":"Represented episodes";
   $("reward-heading").textContent = recorded ? "Step reward" : "Reward";
@@ -1047,6 +1049,7 @@ export function diagnostics() {
     triangles: renderer.info.render.triangles,
     textures: renderer.info.memory.textures,
     shadows: renderer.shadowMap.enabled,
+    shadowUpdate: renderer.shadowMap.autoUpdate ? "dynamic" : "static",
     pixelRatio: renderer.getPixelRatio(),
     heapUsedBytes: performance.memory?.usedJSHeapSize ?? null,
     meanFps: frameTimes.length
@@ -1064,12 +1067,20 @@ export function diagnostics() {
 
 // Presentation-only quality control for repeatable native visual acceptance.
 export function setVisualEffects(enabled) { mine?.setEffects(Boolean(enabled)); }
+const shadowDefaults = new WeakMap();
 export function setVisualQuality(tier = "standard") {
-  renderer.shadowMap.enabled = tier !== "low";
+  // Keep a static geology shadow field in the cheaper tier. Existing contact
+  // shadows ground vehicles without recompiling the lit material programmes.
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.autoUpdate = tier !== "low";
   renderer.shadowMap.needsUpdate = true;
   scene.traverse(object=>{
-    if(object.isLight && object.shadow) object.castShadow = tier !== "low";
-    if(object.isMesh) for(const material of Array.isArray(object.material)?object.material:[object.material]) material.needsUpdate=true;
+    if(!object.isMesh)return;
+    let moving=Boolean(object.userData.vehicleId),parent=object.parent;
+    while(parent&&!moving){moving=parent.name==="licensed-loading-excavator";parent=parent.parent;}
+    if(!moving)return;
+    if(!shadowDefaults.has(object))shadowDefaults.set(object,object.castShadow);
+    object.castShadow=tier!=="low"&&shadowDefaults.get(object);
   });
   mine?.setEffects(tier !== "low");
 }
