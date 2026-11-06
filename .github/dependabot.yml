@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/training"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels: ["publish", "phase-11"]
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels: ["publish", "phase-11"]
+    commit-message:
+      prefix: "chore"
+      include: "scope"

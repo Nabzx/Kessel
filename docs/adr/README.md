@@ -2,6 +2,10 @@
 
 Phase 11: [synthetic learning boundary](0031-synthetic-learning-and-presentation-boundary.md)
 and [Selene reuse](0032-selene-reuse-and-loader-prototype.md).
+The [loader and export contracts](0033-loader-and-experiment-contracts.md)
+define the first experiment interface.
+The [static package allowlist](0034-static-package-allowlist.md) separates
+presentation assets from experiment artefacts.
 
 Phase 10 decisions: [continuous geography](0028-phase-10-geographic-journey.md),
 [learning presentation](0029-world-model-learning-presentation.md) and
