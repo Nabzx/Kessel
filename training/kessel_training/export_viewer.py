@@ -68,7 +68,8 @@ def forecasts(ep,model):
     records=ep["records"];states=np.asarray([r["state"] for r in records[:-1]])
     actions=np.asarray([r["action"] for r in records[:-1]])
     for index,record in enumerate(records[:-1]):
-        horizons=(1,2,4,8) if index%20==0 or record["events"] or index==len(records)-2 else (1,)
+        changed = record["events"] != (records[index-1]["events"] if index else [])
+        horizons=(1,2,4,8) if index%20==0 or changed or index==len(records)-2 else (1,)
         current=states[index:index+1].copy();total=0.0;stop=False
         for h in range(1,max(horizons)+1):
             j=index+h-1
