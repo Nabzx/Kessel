@@ -185,3 +185,20 @@ def test_sensor_dropout_has_age_and_cached_observations_do_not_advance_rng():
     bo = b.step([[0, 0, 0, 0]])[0]
     assert_observations_equal(ao, bo)
     assert "pile_height_m" not in ao and "future" not in ao
+
+
+def test_low_speed_coasting_stops_without_a_perpetual_creep_or_reverse():
+    env = LoaderEnv(1)
+    env.speed[:] = 0.005
+    env.step([[0, 0, 0, 0]])
+    assert env.speed[0] == 0 and env.pose[0, 0] >= 0
+    stopped = env.pose.copy()
+    env.step([[0, 0, 0, 0]])
+    np.testing.assert_array_equal(env.pose, stopped)
+
+
+def test_articulating_bucket_sweep_hits_the_side_wall_before_the_rear_body():
+    old = np.array([[0., 2.5, 0.]])
+    joints = np.zeros((1, 3)); turned = joints.copy(); turned[0, 0] = 0.6
+    assert clearance(old, joints, old, joints, np.array([4.2]), 3.2, ())[0] == ""
+    assert clearance(old, joints, old, turned, np.array([4.2]), 3.2, ())[0] == "tunnel_wall"

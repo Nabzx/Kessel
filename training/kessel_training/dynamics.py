@@ -6,7 +6,7 @@ from .kinematics import components, footprints
 
 
 def traction(pose, speed, joints, payload, command, pile, friction, grade,
-             resistance, acceleration_limit):
+             resistance, acceleration_limit, dt=0.02):
     geometry = components(pose, joints)
     contact_height = np.maximum(pile.sample(geometry["mouth"]) - geometry["bucket_height"], 0)
     mass = 10500.0 + payload
@@ -22,8 +22,9 @@ def traction(pose, speed, joints, payload, command, pile, friction, grade,
     net = free_force - direction * drag
     stationary = np.abs(speed) <= 0.01
     # Static resistance cannot propel a resting machine backwards.
-    net = np.where(stationary & (np.abs(free_force) <= drag), 0.0, net)
+    static = stationary & (np.abs(free_force) <= drag)
     acceleration = np.clip(net / mass, -acceleration_limit, acceleration_limit)
+    acceleration = np.where(static, np.clip(-speed/dt, -acceleration_limit, acceleration_limit), acceleration)
     slip = np.maximum(np.abs(requested) - grip, 0) / np.maximum(np.abs(requested), 1)
     return acceleration, slip, drive, contact_height
 

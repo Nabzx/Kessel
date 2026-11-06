@@ -230,7 +230,7 @@ class LoaderEnv:
             acceleration, slip, drive, _ = traction(
                 self.pose, self.speed, self.joints, self.payload, controls[:, 0],
                 self.pile, self.friction, self.grade, self.resistance,
-                self.loader.acceleration_m_s2,
+                self.loader.acceleration_m_s2, dt,
             )
             geometry = advance(self.pose, self.speed, self.joints, self.wheel_angles,
                                controls, acceleration*active, self.loader, dt)
