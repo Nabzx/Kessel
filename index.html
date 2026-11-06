@@ -19,6 +19,7 @@
     />
     <link rel="stylesheet" href="css/experience.css" />
       <link rel="stylesheet" href="css/recorded.css" />
+    <link rel="stylesheet" href="css/realism.css" />
   </head>
   <body class="story-locked">
     <canvas
@@ -36,6 +37,10 @@
       ><span id="nav-location"></span
       ><button class="text-button" id="sources-open">Sources</button>
     </header>
+    <ol class="journey" id="journey" aria-label="Experience stages" hidden>
+      <li data-journey="select">Earth</li><li data-journey="surface">Site</li>
+      <li data-journey="mine">Baseline</li><li data-journey="trained">Trained site</li><li data-journey="learning">World model</li>
+    </ol>
     <main id="experience" data-stage="welcome">
       <section
         class="welcome scene-panel"
@@ -324,6 +329,7 @@
           <path class="chart-line" id="reward-path" d="M0 65L300 5" />
           <circle id="reward-point" cx="0" cy="65" r="3" />
         </svg>
+        <div class="chart-scale" aria-label="Reward chart axes"><span id="curve-y-axis">Reward / relative</span><span id="curve-x-axis">Represented episodes</span></div>
         <div class="chart-legend">
           <span id="reward-curve-label">Reward</span><strong id="reward-value">−0.12</strong>
         </div>
@@ -370,7 +376,7 @@
         <button class="text-button" id="inspect-forecast">Inspect forecast</button>
       </aside>
       <div class="simulation-caption">
-        <span id="training-status">Imagined rollouts</span
+        <span class="scene-scale">Grid 1 m</span><span id="training-status">Imagined rollouts</span
         ><span id="payload-readout">Payload 0 / 3.5 t</span>
       </div>
     </section>
@@ -409,9 +415,12 @@
             >Rutongo Mines</a
           >
         </dd>
+        <dt>Orbit</dt>
+        <dd>ISS structure: NASA / VTAD. Simplified, unmarked geometry in a decorative presentation orbit, not to scale.
+          <a href="https://science.nasa.gov/resource/international-space-station-3d-model/" target="_blank" rel="noopener">NASA model</a></dd>
         <dt>Mine assets</dt>
         <dd>
-          Poly Haven Rock Wall 09, Brown Mud Dry and Aerial Rocks 02, CC0.
+          Poly Haven Rock Face 03 by Dario Barresi and Rico Cilliers; Aerial Grass Rock by Rob Tuytel; Brown Mud Dry and Aerial Rocks 02, CC0.
           Excavator 3d Rigging by mohamed.salaah880, CC BY 4.0; scaled and
           animated. The truck and training loader are original Kessel geometry.
           <a
