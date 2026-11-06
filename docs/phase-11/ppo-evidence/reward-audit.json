@@ -1,0 +1,305 @@
+{
+  "purpose": "Analytic synthetic reward fixtures, not policy evaluation",
+  "source": {
+    "package_sha256": "06abf242d81e9d2204f233302ac18a051a509ba0a4d1b36552d10f7a17a91004",
+    "git_commit": "02089a5d6abeb6104e208ec780f2053f3b66667a",
+    "training_dirty": false
+  },
+  "cases": {
+    "idle": {
+      "reward": [
+        -0.0002
+      ],
+      "raw": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          0.0
+        ],
+        "effort_proxy_j": [
+          0.0
+        ],
+        "slip_s": [
+          0.0
+        ],
+        "elapsed_s": [
+          0.1
+        ],
+        "collision_count": [
+          0.0
+        ]
+      },
+      "weighted": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          -0.0
+        ],
+        "effort_proxy_j": [
+          -0.0
+        ],
+        "slip_s": [
+          -0.0
+        ],
+        "elapsed_s": [
+          -0.0002
+        ],
+        "collision_count": [
+          -0.0
+        ]
+      },
+      "units": {
+        "delivered_kg": "kg",
+        "spilled_kg": "kg",
+        "elapsed_s": "s",
+        "effort_proxy_j": "J_proxy",
+        "collision_count": "count",
+        "slip_s": "s"
+      },
+      "reason": [
+        ""
+      ]
+    },
+    "empty_drive": {
+      "reward": [
+        -0.00020495000000000002
+      ],
+      "raw": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          0.0
+        ],
+        "effort_proxy_j": [
+          165.00000000000003
+        ],
+        "slip_s": [
+          0.0
+        ],
+        "elapsed_s": [
+          0.1
+        ],
+        "collision_count": [
+          0.0
+        ]
+      },
+      "weighted": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          -0.0
+        ],
+        "effort_proxy_j": [
+          -4.95e-06
+        ],
+        "slip_s": [
+          -0.0
+        ],
+        "elapsed_s": [
+          -0.0002
+        ],
+        "collision_count": [
+          -0.0
+        ]
+      },
+      "units": {
+        "delivered_kg": "kg",
+        "spilled_kg": "kg",
+        "elapsed_s": "s",
+        "effort_proxy_j": "J_proxy",
+        "collision_count": "count",
+        "slip_s": "s"
+      },
+      "reason": [
+        ""
+      ]
+    },
+    "collision": {
+      "reward": [
+        -5.000179602
+      ],
+      "raw": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          0.0
+        ],
+        "effort_proxy_j": [
+          653.4000000000003
+        ],
+        "slip_s": [
+          0.0
+        ],
+        "elapsed_s": [
+          0.08000000000000007
+        ],
+        "collision_count": [
+          1.0
+        ]
+      },
+      "weighted": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          -0.0
+        ],
+        "effort_proxy_j": [
+          -1.9602000000000006e-05
+        ],
+        "slip_s": [
+          -0.0
+        ],
+        "elapsed_s": [
+          -0.00016000000000000015
+        ],
+        "collision_count": [
+          -5.0
+        ]
+      },
+      "units": {
+        "delivered_kg": "kg",
+        "spilled_kg": "kg",
+        "elapsed_s": "s",
+        "effort_proxy_j": "J_proxy",
+        "collision_count": "count",
+        "slip_s": "s"
+      },
+      "reason": [
+        "obstacle_0"
+      ]
+    },
+    "carried_load": {
+      "reward": [
+        -0.0002
+      ],
+      "raw": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          0.0
+        ],
+        "effort_proxy_j": [
+          0.0
+        ],
+        "slip_s": [
+          0.0
+        ],
+        "elapsed_s": [
+          0.1
+        ],
+        "collision_count": [
+          0.0
+        ]
+      },
+      "weighted": {
+        "delivered_kg": [
+          0.0
+        ],
+        "spilled_kg": [
+          -0.0
+        ],
+        "effort_proxy_j": [
+          -0.0
+        ],
+        "slip_s": [
+          -0.0
+        ],
+        "elapsed_s": [
+          -0.0002
+        ],
+        "collision_count": [
+          -0.0
+        ]
+      },
+      "units": {
+        "delivered_kg": "kg",
+        "spilled_kg": "kg",
+        "elapsed_s": "s",
+        "effort_proxy_j": "J_proxy",
+        "collision_count": "count",
+        "slip_s": "s"
+      },
+      "reason": [
+        ""
+      ]
+    },
+    "partial_delivery": {
+      "credited_kg": 499.99999999998124,
+      "remaining_kg": 1.8318790847742827e-11,
+      "cumulative_reward": 0.12285714285713788,
+      "final_step": {
+        "reward": [
+          -0.00019999999999809555
+        ],
+        "raw": {
+          "delivered_kg": [
+            6.650680006714538e-12
+          ],
+          "spilled_kg": [
+            0.0
+          ],
+          "effort_proxy_j": [
+            0.0
+          ],
+          "slip_s": [
+            0.0
+          ],
+          "elapsed_s": [
+            0.09999999999999787
+          ],
+          "collision_count": [
+            0.0
+          ]
+        },
+        "weighted": {
+          "delivered_kg": [
+            1.9001942876327253e-15
+          ],
+          "spilled_kg": [
+            -0.0
+          ],
+          "effort_proxy_j": [
+            -0.0
+          ],
+          "slip_s": [
+            -0.0
+          ],
+          "elapsed_s": [
+            -0.00019999999999999575
+          ],
+          "collision_count": [
+            -0.0
+          ]
+        },
+        "units": {
+          "delivered_kg": "kg",
+          "spilled_kg": "kg",
+          "elapsed_s": "s",
+          "effort_proxy_j": "J_proxy",
+          "collision_count": "count",
+          "slip_s": "s"
+        },
+        "reason": [
+          ""
+        ]
+      }
+    }
+  },
+  "reward_config": {
+    "version": "delivery-v1",
+    "mass_scale_kg": 3500.0,
+    "delivery": 1.0,
+    "spillage": 1.0,
+    "time_per_s": 0.002,
+    "effort_per_j": 3e-08,
+    "collision": 5.0,
+    "slip_per_s": 0.02
+  }
+}
