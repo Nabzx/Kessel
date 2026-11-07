@@ -44,3 +44,8 @@ qualification or publication is implied.
 This supersedes the fixed three-checkpoint schedule restriction of ADR-0043 for
 1.1 bundles. Legacy policy bundles retain their original identities and evidence.
 A full conventional cycle illustrates the task without claiming learned autonomy.
+The curriculum illustration is explicitly post hoc: all three predeclared training
+seeds on the first declared test scene, with validation-selected weights. It is
+not an efficacy estimate; all other methods/scenes remain in retained evidence.
+Transfer markers use a declared 1e-6 kg floor to avoid numerical-noise events;
+all physical states and transfers remain exact.

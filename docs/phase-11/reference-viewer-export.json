@@ -152,17 +152,17 @@
     }
   ],
   "decisions": 956,
-  "predictions": 1076,
+  "predictions": 1079,
   "entry": {
     "run_id": "reference-cycle-v1",
     "url": "data/experiments/reference-v1.json",
-    "sha256": "852de2a4fe483ff043dd725dca022911af9ec71de91e60f65aade4980c662a0a",
-    "bytes": 5648989,
+    "sha256": "d32f06d914bd2f3755b702271bb6d7d38be32b2e58449af10c9ebd51c1c91aed",
+    "bytes": 5656385,
     "source_mode": "recorded_synthetic"
   },
   "source": {
-    "package_sha256": "f65dfb2eda82af96b42d34b13418af34073f58d6369b25a27f17c2e06bccce24",
-    "git_commit": "c47bc051e16c41b29d9bc2ab057c9b0a919bb734",
+    "package_sha256": "facc0f6c667a2f30b2e717373df48902eff5c9d3b13af3e1c17f72db1e62514e",
+    "git_commit": "18cff2f142fab149218b23bdfbae56ae771a6166",
     "training_dirty": false
   },
   "selected_model_variant": "material"
