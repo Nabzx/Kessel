@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="kessel-presentation" content="2026-11-07.1" />
+    <meta name="kessel-presentation" content="2026-11-07.2" />
     <meta name="theme-color" content="#030506" />
     <title>Kessel | Offline autonomy</title>
     <meta
@@ -18,9 +18,10 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/experience.css?v=2026-11-07.1" />
-      <link rel="stylesheet" href="css/recorded.css?v=2026-11-07.1" />
-    <link rel="stylesheet" href="css/realism.css?v=2026-11-07.1" />
+    <link rel="stylesheet" href="css/experience.css?v=2026-11-07.2" />
+      <link rel="stylesheet" href="css/recorded.css?v=2026-11-07.2" />
+    <link rel="stylesheet" href="css/realism.css?v=2026-11-07.2" />
+    <link rel="stylesheet" href="css/hud.css?v=2026-11-07.2" />
   </head>
   <body class="story-locked">
     <canvas
@@ -143,11 +144,11 @@
             ><strong id="value-cost">£12.95<small>/t</small></strong
             ><span class="metric-delta" id="delta-cost"></span>
           </div>
-          <div class="metric">
+          <div class="metric metric-savings">
             <span>Money saved</span><strong id="value-money">£0</strong
             ><span class="metric-delta">Same ore batch</span>
           </div>
-          <div class="metric">
+          <div class="metric metric-savings">
             <span>Time saved</span
             ><strong id="value-time">0<small>min</small></strong
             ><span class="metric-delta">Same ore batch</span>
@@ -305,8 +306,13 @@
         ><label class="learning-source-control">Source <select id="learning-source" aria-label="Learning replay source"><option value="recorded_synthetic">Recorded experiment</option><option value="authored">Concept replay</option></select></label><span class="replay-label" id="learning-source-label">Illustrative training replay</span>
       </header>
       <aside class="learning-panel">
-        <p class="section-label">Reinforcement learning</p>
+        <p class="section-label" id="learning-section-label">Reinforcement learning</p>
         <h1 id="learning-title">Scoop<br />and haul.</h1>
+        <div class="instrument-tabs" role="tablist" aria-label="Replay instruments" data-recorded hidden>
+          <button id="policy-tab" role="tab" aria-selected="true" aria-controls="policy-instruments" tabindex="0">Policy</button>
+          <button id="forecast-tab" role="tab" aria-selected="false" aria-controls="forecast-instruments" tabindex="-1">World model</button>
+        </div>
+        <div id="policy-instruments" role="tabpanel" tabindex="0" aria-labelledby="policy-tab">
         <div class="episode-number">
           <strong id="episode-count">0</strong><span id="episode-caption">represented episodes</span>
         </div>
@@ -352,7 +358,20 @@
             <dd id="policy-value">Early checkpoint</dd>
           </div>
         </dl>
+        </div>
+        <div id="forecast-instruments" role="tabpanel" tabindex="0" aria-labelledby="forecast-tab" hidden>
+      <aside class="prediction-inspector" data-recorded hidden aria-label="Recorded world-model forecast">
+        <div class="forecast-heading"><span>Raw world model</span><label>Horizon <select id="forecast-horizon"><option value="1">+1 step</option><option value="2">+2 steps</option><option value="4">+4 steps</option><option value="8">+8 steps</option></select></label></div>
+        <p id="prediction-time"></p>
+        <div class="prediction-legend"><span class="observed-key">Observed now</span><span class="reference-key">Reference future</span><span class="forecast-key">Predicted future</span></div>
         <div id="observation-crop" class="observation-crop" data-recorded hidden role="img" aria-label="Recorded local height crop"></div>
+        <dl><div><dt>Position residual</dt><dd id="prediction-error"></dd></div><div><dt>Disagreement score</dt><dd id="prediction-score"></dd></div></dl>
+        <p id="member-spread" title="Final-step conditional member endpoint spread, not calibrated confidence or cumulative covariance"></p>
+        <p class="prediction-note" id="prediction-validity"></p>
+        <button class="text-button" id="inspect-forecast">Inspect forecast</button>
+      </aside>
+        </div>
+        <div class="learning-transport">
         <p id="checkpoint-outcome" class="checkpoint-outcome">
           Bucket too high. No ore collected.
         </p>
@@ -366,15 +385,7 @@
           <label>Playback pace <select id="replay-pace"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
         </div>
         <details class="recorded-provenance" data-recorded hidden><summary>Run details</summary><pre id="run-provenance"></pre></details>
-      </aside>
-      <aside class="prediction-inspector" data-recorded hidden aria-label="Recorded world-model forecast">
-        <div class="forecast-heading"><span>Raw world model</span><label>Horizon <select id="forecast-horizon"><option value="1">+1 step</option><option value="2">+2 steps</option><option value="4">+4 steps</option><option value="8">+8 steps</option></select></label></div>
-        <p id="prediction-time"></p>
-        <div class="prediction-legend"><span class="observed-key">Observed now</span><span class="reference-key">Reference future</span><span class="forecast-key">Predicted future</span></div>
-        <dl><div><dt>Position residual</dt><dd id="prediction-error"></dd></div><div><dt>Disagreement score</dt><dd id="prediction-score"></dd></div></dl>
-        <p id="member-spread" title="Final-step conditional member endpoint spread, not calibrated confidence or cumulative covariance"></p>
-        <p class="prediction-note" id="prediction-validity"></p>
-        <button class="text-button" id="inspect-forecast">Inspect forecast</button>
+        </div>
       </aside>
       <div class="simulation-caption">
         <span class="scene-scale">Grid 1 m</span><span id="training-status">Imagined rollouts</span
@@ -465,28 +476,28 @@
           "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
           "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
           "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js",
-          "./js/app.js": "./js/app.js?v=2026-11-07.1",
-          "./js/experience.js": "./js/experience.js?v=2026-11-07.1",
-          "./js/fleet.js": "./js/fleet.js?v=2026-11-07.1",
-          "./js/geology.js": "./js/geology.js?v=2026-11-07.1",
-          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-07.1",
-          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-07.1",
-          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-07.1",
-          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-07.1",
-          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-07.1",
-          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-07.1",
-          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-07.1",
-          "./js/mission.js": "./js/mission.js?v=2026-11-07.1",
-          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-07.1",
-          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-07.1",
-          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-07.1",
-          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-07.1",
-          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-07.1",
-          "./js/underground.js": "./js/underground.js?v=2026-11-07.1",
-          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-07.1"
+          "./js/app.js": "./js/app.js?v=2026-11-07.2",
+          "./js/experience.js": "./js/experience.js?v=2026-11-07.2",
+          "./js/fleet.js": "./js/fleet.js?v=2026-11-07.2",
+          "./js/geology.js": "./js/geology.js?v=2026-11-07.2",
+          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-07.2",
+          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-07.2",
+          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-07.2",
+          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-07.2",
+          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-07.2",
+          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-07.2",
+          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-07.2",
+          "./js/mission.js": "./js/mission.js?v=2026-11-07.2",
+          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-07.2",
+          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-07.2",
+          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-07.2",
+          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-07.2",
+          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-07.2",
+          "./js/underground.js": "./js/underground.js?v=2026-11-07.2",
+          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-07.2"
         }
       }
     </script>
-    <script type="module" src="js/experience.js?v=2026-11-07.1"></script>
+    <script type="module" src="js/experience.js?v=2026-11-07.2"></script>
   </body>
 </html>
