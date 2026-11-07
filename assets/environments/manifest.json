@@ -1,0 +1,153 @@
+{
+  "date": "2026-11-07",
+  "generator": "Pillow 13.0.0; scripts/prepare-environment-previews.py",
+  "scope": "Reference environment photography. Underground is a Pennsylvania research mine, not a photo of Rutongo. Not evidence of a deployment.",
+  "total_bytes": 277482,
+  "images": [
+    {
+      "id": "glacier",
+      "source": "glacier.jpg",
+      "page": "https://science.nasa.gov/photojournal/retreat-of-greenlands-jakobshavn-isbrae-glacier/",
+      "url": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia26/pia26117/PIA26117.jpg",
+      "credit": "NASA/USGS",
+      "subject": "Jakobshavn Isbrae, Greenland; Landsat 8, 2022",
+      "notice": "NASA/USGS government imagery; individual record credits NASA/USGS. NASA media guidance applies; no endorsement.",
+      "focal": [
+        0.5,
+        0.5
+      ],
+      "path": "assets/environments/glacier.webp",
+      "source_dimensions": [
+        1440,
+        960
+      ],
+      "source_sha256": "339dca8a35f0ba6d34590c2b49e90839c0b00ce8868661f75fef2530a8e465a0",
+      "source_bytes": 231537,
+      "sha256": "b6f54ccd5dc38f96cab748bbb08eed2ae3298fa831c2b6f79bde87ed12fed73a",
+      "bytes": 68884,
+      "dimensions": [
+        768,
+        432
+      ],
+      "colour_space": "srgb",
+      "operation": "EXIF orientation, rectangular 16:9 crop, Lanczos resize, WebP quality 84; no content synthesis",
+      "representative": true
+    },
+    {
+      "id": "desert",
+      "source": "desert-original.jpg",
+      "page": "https://science.nasa.gov/earth/earth-observatory/dunes-of-the-grand-erg-oriental-87798/",
+      "url": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/87000/87798/iss046e048626_lrg.jpg",
+      "credit": "Earth Science and Remote Sensing Unit, NASA Johnson Space Center",
+      "subject": "Grand Erg Oriental, Algeria; ISS046-E-48626",
+      "notice": "NASA astronaut photography. Individual record credits NASA/JSC; acknowledge the Earth Science and Remote Sensing Unit. No endorsement.",
+      "focal": [
+        0.5,
+        0.5
+      ],
+      "path": "assets/environments/desert.webp",
+      "source_dimensions": [
+        4928,
+        3280
+      ],
+      "source_sha256": "17f920c03fce9c5346a7d67a5a5913470a6ee48b8d663711d3c284cb8a71cc65",
+      "source_bytes": 4070991,
+      "sha256": "e7c308995b2db0856c008cc6ca50966e616c04236f0c0ea9035582f419a332e3",
+      "bytes": 68150,
+      "dimensions": [
+        768,
+        432
+      ],
+      "colour_space": "srgb",
+      "operation": "EXIF orientation, rectangular 16:9 crop, Lanczos resize, WebP quality 84; no content synthesis",
+      "representative": true
+    },
+    {
+      "id": "space",
+      "source": "space.jpg",
+      "page": "https://science.nasa.gov/resource/apollo-8s-iconic-earthrise/",
+      "url": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/a/as08-14-2383.jpg",
+      "credit": "NASA/Bill Anders",
+      "subject": "Apollo 8 Earthrise; 24 December 1968",
+      "notice": "NASA astronaut photograph; individual record credits NASA/Bill Anders. NASA media guidance applies; no endorsement.",
+      "focal": [
+        0.5,
+        0.8
+      ],
+      "path": "assets/environments/space.webp",
+      "source_dimensions": [
+        3000,
+        3000
+      ],
+      "source_sha256": "4b1484e9bb55652e30a56c03c27141938885a09e4b3c0bcabb8841e1e94ed9d9",
+      "source_bytes": 494374,
+      "sha256": "cd1bd133ba20cbcf821d2ae9fc0218d5d96bed62f4659ce1fd552c361ac83b96",
+      "bytes": 11120,
+      "dimensions": [
+        768,
+        432
+      ],
+      "colour_space": "srgb",
+      "operation": "EXIF orientation, rectangular 16:9 crop, Lanczos resize, WebP quality 84; no content synthesis",
+      "representative": true
+    },
+    {
+      "id": "deep-sea",
+      "source": "sea.jpg",
+      "page": "https://oceanexplorer.noaa.gov/multimedia/explorations-ex2405-ex2406-learning-at-sea-1605activevent/",
+      "url": "https://oceanexplorer.noaa.gov/wp-content/uploads/2024/10/1605activevent-hires.jpg",
+      "credit": "NOAA Ocean Exploration, 2016 Deepwater Exploration of the Marianas",
+      "subject": "Active hydrothermal vent, Marianas",
+      "notice": "NOAA public-domain media, no copyright exception on this individual record. Retain the specified credit. No endorsement.",
+      "focal": [
+        0.5,
+        0.5
+      ],
+      "path": "assets/environments/deep-sea.webp",
+      "source_dimensions": [
+        1920,
+        1080
+      ],
+      "source_sha256": "6e45781eb563e1410f1e7c4c36a0c1ccbe37ea044a535e4ce756686a522f556a",
+      "source_bytes": 1110794,
+      "sha256": "a13be0e5f3edc1232b9e41696aed9742b973b4043f5642ff659451d24e788354",
+      "bytes": 67284,
+      "dimensions": [
+        768,
+        432
+      ],
+      "colour_space": "srgb",
+      "operation": "EXIF orientation, rectangular 16:9 crop, Lanczos resize, WebP quality 84; no content synthesis",
+      "representative": true
+    },
+    {
+      "id": "underground",
+      "source": "mine.jpg",
+      "page": "https://wwwn.cdc.gov/phil/Details.aspx?pid=19314",
+      "url": "https://wwwn.cdc.gov/phil/PHIL_Images/19314/19314_lores.jpg",
+      "credit": "CDC/NIOSH; Chad Hutson, 2013; PHIL 19314",
+      "subject": "NIOSH research coal mine, Pennsylvania, United States; not Rutongo",
+      "notice": "The individual PHIL record identifies public-domain use with CDC/photographer attribution and CDC as the free source. No deployment or endorsement is implied.",
+      "focal": [
+        0.5,
+        0.55
+      ],
+      "path": "assets/environments/underground.webp",
+      "source_dimensions": [
+        700,
+        1050
+      ],
+      "source_sha256": "3fc2570771483ecc9455bb8b21c9aad5d05eb61830814a909f165589d665a40d",
+      "source_bytes": 117903,
+      "sha256": "ee3f3497fe1ae92786debe02df9f35a392d0dfe4b81538721e152c978256fcab",
+      "bytes": 62044,
+      "dimensions": [
+        768,
+        432
+      ],
+      "colour_space": "srgb",
+      "operation": "EXIF orientation, rectangular 16:9 crop, Lanczos resize, WebP quality 84; no content synthesis",
+      "representative": true
+    }
+  ]
+}

@@ -24,7 +24,13 @@
       "colour": "#54808c",
       "background": "#071116",
       "available": false,
-      "glyph": "glacier"
+      "glyph": "glacier",
+      "preview": {
+        "path": "assets/environments/glacier.webp",
+        "alt": "Jakobshavn glacier, Greenland",
+        "caption": "Reference \u00b7 NASA / USGS",
+        "representative": true
+      }
     },
     {
       "id": "desert",
@@ -36,7 +42,13 @@
       "colour": "#bd9965",
       "background": "#17110b",
       "available": false,
-      "glyph": "desert"
+      "glyph": "desert",
+      "preview": {
+        "path": "assets/environments/desert.webp",
+        "alt": "Sahara dunes, Algeria",
+        "caption": "Reference \u00b7 NASA / JSC",
+        "representative": true
+      }
     },
     {
       "id": "space",
@@ -48,7 +60,13 @@
       "colour": "#9da2b8",
       "background": "#07070e",
       "available": false,
-      "glyph": "space"
+      "glyph": "space",
+      "preview": {
+        "path": "assets/environments/space.webp",
+        "alt": "Earthrise above the lunar horizon",
+        "caption": "Reference \u00b7 NASA / Bill Anders",
+        "representative": true
+      }
     },
     {
       "id": "underground",
@@ -60,7 +78,13 @@
       "colour": "#d5ac6c",
       "background": "#100e0a",
       "available": true,
-      "glyph": "mine"
+      "glyph": "mine",
+      "preview": {
+        "path": "assets/environments/underground.webp",
+        "alt": "Research mine in Pennsylvania; representative, not Rutongo",
+        "caption": "Reference \u00b7 CDC / NIOSH \u00b7 Pennsylvania",
+        "representative": true
+      }
     },
     {
       "id": "deep-sea",
@@ -72,7 +96,13 @@
       "colour": "#4f8796",
       "background": "#020e17",
       "available": false,
-      "glyph": "sea"
+      "glyph": "sea",
+      "preview": {
+        "path": "assets/environments/deep-sea.webp",
+        "alt": "Hydrothermal vent in the Marianas",
+        "caption": "Reference \u00b7 NOAA",
+        "representative": true
+      }
     }
   ],
   "assets": {
@@ -1893,6 +1923,33 @@
         0
       ],
       "portal_alignment_node": "draw"
+    },
+    "home": {
+      "arrival_seconds": 1.55,
+      "arrival_camera": [
+        0,
+        0.1,
+        20.2
+      ],
+      "camera": [
+        0,
+        0,
+        17
+      ],
+      "station_span": 0.4,
+      "asteroid_scale": 0.7,
+      "cloud_radius": 2.39,
+      "night_radius": 2.3815,
+      "atmosphere_radius": 2.425,
+      "sun_colour": "#fff3df",
+      "sun_intensity": 3.2,
+      "ambient_intensity": 0.16,
+      "star_sizes": [
+        0.022,
+        0.039,
+        0.06
+      ],
+      "prefetch_delay_seconds": 1.9
     }
   }
 }
