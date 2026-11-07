@@ -1,0 +1,685 @@
+{
+  "date": "2026-11-07",
+  "plans": [
+    {
+      "key": "training-plan",
+      "number": 305
+    },
+    {
+      "key": "blender-plan",
+      "number": 306
+    }
+  ],
+  "tasks": [
+    {
+      "key": "R01",
+      "title": "Audit rendered loader geometry against reference collisions",
+      "why": "The displayed loader and collision envelope must explain the same contact outcomes.",
+      "done": [
+        "Overlay rear/front axle, articulation, bucket mouth and collision shapes on one logged pose.",
+        "Measure coordinate/scale errors at straight, turning, scooping and wall-contact frames; retain a mismatch report.",
+        "Fix identified mismatches before increasing training budgets."
+      ],
+      "area": "training reference simulator; js/recorded-stage.js",
+      "deps": [],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 307,
+      "parent": 305
+    },
+    {
+      "key": "R02",
+      "title": "Build an independently checked full-cycle reference trace",
+      "why": "A conventional full cycle is the diagnostic baseline for the failed learned runs.",
+      "done": [
+        "Retain approach, scoop, retract, carry and tip events with state/action timestamps.",
+        "Independently replay material and terminal outcomes and compare the viewer against those records.",
+        "Keep reference-controller evidence distinct from learned-policy evidence."
+      ],
+      "area": "training reference controller and replay exporter",
+      "deps": [
+        307
+      ],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 308,
+      "parent": 305
+    },
+    {
+      "key": "R03",
+      "title": "Test actuator and contact behaviour across integration steps",
+      "why": "Separate numerical/contact defects from policy mistakes.",
+      "done": [
+        "Compare straight/reverse/turn, boom and bucket cases over declared decision and physics steps.",
+        "Bound drift, penetration and speed/angle errors with a reproducible test matrix.",
+        "Record discontinuities and choose an integration setting before retraining."
+      ],
+      "area": "training physics/contact integration",
+      "deps": [
+        307
+      ],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 309,
+      "parent": 305
+    },
+    {
+      "key": "R04",
+      "title": "Reconcile partial loads and all material transfer balances",
+      "why": "Improve the reference task's loading/tipping behaviour before visual decoration.",
+      "done": [
+        "Check source, carried, delivered and spilled mass through partial scoops and tips.",
+        "Retain event timing and conservation residuals for successful and failed attempts.",
+        "Keep decorative fragments out of the mass ledger and link follow-up rendering to #261."
+      ],
+      "area": "training material model and event records",
+      "deps": [
+        308,
+        309
+      ],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 310,
+      "parent": 305
+    },
+    {
+      "key": "R05",
+      "title": "Improve synthetic pile morphology and contact diversity",
+      "why": "The current small height field and sparse contact cases poorly represent the loading task.",
+      "done": [
+        "Define reproducible pile families and units, density and collision semantics.",
+        "Cover low/high/cohesive-looking geometries without claiming real fracture calibration.",
+        "Compare contact/material outcomes with the previous reference and update the evidence boundary."
+      ],
+      "area": "training pile generation/reference scenes",
+      "deps": [
+        310
+      ],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 311,
+      "parent": 305
+    },
+    {
+      "key": "R06",
+      "title": "Audit episode resets and terminal classification",
+      "why": "Prepared starts, immediate collisions and time-limit outcomes need separate explanations.",
+      "done": [
+        "Check every reset pose against geometry and actuator limits before the first action.",
+        "Distinguish success, failure, truncation, stuck and invalid-start states in logs.",
+        "Retain a per-family reset/termination report and reject invalid evaluation cases."
+      ],
+      "area": "training reset and termination logic",
+      "deps": [
+        307,
+        309
+      ],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 312,
+      "parent": 305
+    },
+    {
+      "key": "R07",
+      "title": "Bridge curriculum stages into the complete loader task",
+      "why": "Current prepared-start subtask completions do not transfer to a complete delivery cycle.",
+      "done": [
+        "Measure policy behaviour at each curriculum boundary on held-out seeds.",
+        "Add explicit transition/retention criteria and test learned approaches from the true empty start.",
+        "Report full-cycle success separately from subtask success and prepared payload."
+      ],
+      "area": "training curriculum and evaluation",
+      "deps": [
+        310,
+        312
+      ],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 313,
+      "parent": 305
+    },
+    {
+      "key": "R08",
+      "title": "Run bounded policy and observation-memory ablations",
+      "why": "Address zero full-task learned deliveries through measured alternatives rather than larger counters.",
+      "done": [
+        "Predeclare CPU budgets, seeds, objective, stopping rules and policy/memory alternatives.",
+        "Compare against untrained and reference controllers on the same complete-task cases.",
+        "Retain failed runs, material delivered, collision rate and compute cost without promising success."
+      ],
+      "area": "training PPO/policy experiment suite",
+      "deps": [
+        313
+      ],
+      "group": "Reference and RL",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 314,
+      "parent": 305
+    },
+    {
+      "key": "W01",
+      "title": "Balance world-model data around contact and failure events",
+      "why": "The retained corpus has very few collision and contact-without-transfer rows.",
+      "done": [
+        "Collect declared rare-event strata with episode-level split isolation.",
+        "Report sampling weights and held-out natural-frequency as well as balanced metrics.",
+        "Compare event coverage with the existing corpus before retraining."
+      ],
+      "area": "training dynamics corpus",
+      "deps": [
+        310,
+        312
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 315,
+      "parent": 305
+    },
+    {
+      "key": "W02",
+      "title": "Separate observable inputs from privileged world state",
+      "why": "Current learned dynamics use privileged synthetic state rather than learned perception.",
+      "done": [
+        "Inventory each input and its available sensor/latent/privileged status.",
+        "Define a partial-observation study and a separately labelled privileged baseline.",
+        "Prevent derived future or held-out scene information leaking into observations."
+      ],
+      "area": "training observation/dynamics contracts",
+      "deps": [
+        315
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 316,
+      "parent": 305
+    },
+    {
+      "key": "W03",
+      "title": "Model sensor delay dropout and offline constraints separately",
+      "why": "No network connection is not the same thing as no onboard sensing.",
+      "done": [
+        "Add reproducible latency, occlusion and dropout profiles with validity masks.",
+        "Keep local actuation/sensing active independently of communications state.",
+        "Evaluate failure and recovery against the same clean sensor baseline."
+      ],
+      "area": "training sensor model and observation export",
+      "deps": [
+        316
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 317,
+      "parent": 305
+    },
+    {
+      "key": "W04",
+      "title": "Improve learned material and conservation predictions",
+      "why": "Every raw imagined branch currently fails physical checks.",
+      "done": [
+        "Define trainable material/state heads and losses with explicit units.",
+        "Evaluate raw mass and pile errors before any declared projection or constraint.",
+        "Compare neural-only, constrained and persistence baselines; keep imposed physics labelled."
+      ],
+      "area": "training world-model architecture/loss",
+      "deps": [
+        315,
+        310
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 318,
+      "parent": 305
+    },
+    {
+      "key": "W05",
+      "title": "Train and evaluate action-conditioned multistep dynamics",
+      "why": "One-step scores do not establish useful imagined loader trajectories.",
+      "done": [
+        "Declare short-to-long horizon training and held-out evaluation schedules.",
+        "Measure compounding pose, material, reward and event errors under actual action sequences.",
+        "Compare with persistence and the kinematic baseline without hiding rejected branches."
+      ],
+      "area": "training dynamics sequence learning",
+      "deps": [
+        315,
+        316
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 319,
+      "parent": 305
+    },
+    {
+      "key": "W06",
+      "title": "Improve learned contact and termination events",
+      "why": "Physical stops and discontinuities need evaluation beyond averaged state error.",
+      "done": [
+        "Measure precision/recall and timing for contact, collision, success and truncation events.",
+        "Separate false-safe forecasts from conservative false stops.",
+        "Retain event-aligned examples and confidence/threshold choices on held-out scenes."
+      ],
+      "area": "training dynamics event heads",
+      "deps": [
+        318,
+        319
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 320,
+      "parent": 305
+    },
+    {
+      "key": "W07",
+      "title": "Calibrate ensemble disagreement and branch rejection",
+      "why": "The displayed disagreement must not be treated as calibrated probability.",
+      "done": [
+        "Measure error versus spread and coverage on nominal and OOD partitions.",
+        "Choose thresholds on validation data and report rejection/coverage trade-offs on test data.",
+        "Keep raw spread, calibrated intervals and physical checks distinct in export and UI."
+      ],
+      "area": "training ensemble evaluation",
+      "deps": [
+        319,
+        320
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 321,
+      "parent": 305
+    },
+    {
+      "key": "W08",
+      "title": "Test model-assisted learning against equal-budget baselines",
+      "why": "The current auxiliary-critic study establishes neither full-task success nor sample-efficiency gain.",
+      "done": [
+        "Predeclare real-data, imagined-data and wall-clock budgets for each treatment.",
+        "Use only validated imagined updates and identify policy-gradient/critic-only roles explicitly.",
+        "Report full-task outcomes, uncertainty/rejection rates and equal-budget ablations."
+      ],
+      "area": "training model-assisted policy experiments",
+      "deps": [
+        314,
+        321
+      ],
+      "group": "World models",
+      "source": "https://arxiv.org/abs/2301.04104",
+      "number": 322,
+      "parent": 305
+    },
+    {
+      "key": "D01",
+      "title": "Repair recorded episode playback and terminal holds",
+      "why": "Follow up the maintainer's deferred complaint about the recorded demo mechanics.",
+      "done": [
+        "Reproduce initial, intermediate and final playback through pause, replay, seek and pace changes.",
+        "Show event time, simulated time and wall-time acceleration accurately.",
+        "Retain terminal frames and avoid jumps, endless holds or invented decisions."
+      ],
+      "area": "js/recorded-data.js; js/recorded-stage.js",
+      "deps": [
+        312
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 323,
+      "parent": 305
+    },
+    {
+      "key": "D02",
+      "title": "Match recorded replay articulation and contact visuals to logged poses",
+      "why": "A convincing replay needs correct machine scale, heading and grounded contact.",
+      "done": [
+        "Verify wheels, chassis, joint frames, bucket mouth and lamps against logged state.",
+        "Check reverse turns, loading and terminal contacts in native captures.",
+        "Make interpolation presentation-only and preserve logged collision/outcome events."
+      ],
+      "area": "js/recorded-stage.js; loader rig",
+      "deps": [
+        307,
+        323
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 324,
+      "parent": 305
+    },
+    {
+      "key": "D03",
+      "title": "Replace column-like recorded ore piles with a coherent surface",
+      "why": "Improve the visibly blocky learning environment without changing material evidence.",
+      "done": [
+        "Render logged height/material cells as a bounded surface and granular detail at their correct metre scale.",
+        "Preserve holes, partial scoops and total source volume under interpolation.",
+        "Coordinate deposition/event integration with #261 instead of duplicating its accounting work."
+      ],
+      "area": "recorded pile renderer",
+      "deps": [
+        310,
+        311
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 325,
+      "parent": 305
+    },
+    {
+      "key": "D04",
+      "title": "Add an inspectable replay event timeline",
+      "why": "Viewers need to understand why an attempt fails or improves.",
+      "done": [
+        "Bind event markers to exported approach/contact/scoop/retract/haul/tip and terminal records.",
+        "Allow keyboard inspection of an event without fabricating a new action or resetting the clock.",
+        "Keep labels brief and make absent events explicit."
+      ],
+      "area": "recorded exporter and replay timeline",
+      "deps": [
+        308,
+        323
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 326,
+      "parent": 305
+    },
+    {
+      "key": "D05",
+      "title": "Improve observed reference and predicted comparison views",
+      "why": "Current wireframes and residual readouts are hard to interpret.",
+      "done": [
+        "Provide clear actual/reference-future/raw-predicted series with consistent frames, units and horizon.",
+        "Make overlap/occlusion readable through shape/line treatment as well as colour.",
+        "Keep physical-violation and missing-forecast states visible; do not smooth away raw errors."
+      ],
+      "area": "recorded forecast visualisation and HUD",
+      "deps": [
+        321,
+        324
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 327,
+      "parent": 305
+    },
+    {
+      "key": "D06",
+      "title": "Present failure and improvement with an auditable episode selection",
+      "why": "A better demo must not relabel failed learned policies as successful autonomy.",
+      "done": [
+        "Declare episode/checkpoint selection criteria and expose source/run/seed identity.",
+        "Show actual terminal outcomes, delivered mass and comparable metrics for the selected cases.",
+        "Keep authored/reference demonstrations selectable and visibly separate from learned runs."
+      ],
+      "area": "recorded bundle curation and demo pages",
+      "deps": [
+        314,
+        322,
+        323
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 328,
+      "parent": 305
+    },
+    {
+      "key": "D07",
+      "title": "Improve training-scene lighting material detail and contact cues",
+      "why": "The learning/replay environment needs the same visual care as the main mine.",
+      "done": [
+        "Use cleared PBR ground/ore and physically plausible machine finishes with local contact cues.",
+        "Keep dust/material fragments driven by recorded contact/transfer events and bounded for M1.",
+        "Capture loading, reverse carry and failed contact cases without decorative fake sensor data."
+      ],
+      "area": "learning and recorded scene rendering",
+      "deps": [
+        324,
+        325
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 329,
+      "parent": 305
+    },
+    {
+      "key": "D08",
+      "title": "Qualify updated replay exports and browser behaviour end to end",
+      "why": "Cover the failures missed by fresh-browser screenshots alone.",
+      "done": [
+        "Test warm/cold cache, missing assets, source switching, timing controls and reduced motion.",
+        "Independently replay exported actions and compare physical/material state checksums.",
+        "Retain native laptop frame tails and visual checks; report first-use hitches and known limitations."
+      ],
+      "area": "export validation and browser acceptance",
+      "deps": [
+        326,
+        327,
+        328,
+        329
+      ],
+      "group": "Replay and simulation",
+      "source": "https://arxiv.org/abs/1707.06347",
+      "number": 330,
+      "parent": 305
+    },
+    {
+      "key": "B01",
+      "title": "Connect and verify a pinned local Blender MCP workflow",
+      "why": "Establish the actual authoring connection before claiming Blender-generated assets.",
+      "done": [
+        "Record the chosen connector revision, Blender version, local endpoint and enabled capabilities.",
+        "Verify a harmless create/inspect/render/export round trip and document recovery/disconnection.",
+        "Keep the connector and authoring tools outside the static runtime; record unavailable capabilities rather than implying a connection."
+      ],
+      "deps": [],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://github.com/ahujasid/mcp-for-blender",
+      "number": 331,
+      "parent": 306
+    },
+    {
+      "key": "B02",
+      "title": "Define reproducible Blender source scenes and naming conventions",
+      "why": "Make generated visual work editable and repeatable.",
+      "done": [
+        "Keep metre units, axis conventions, object IDs, seeds and source/derivative manifests.",
+        "Preserve original licensed sources and save authored .blend scenes plus generation scripts.",
+        "Round-trip a sample into the pinned Three.js viewer and document scale/pivot checks."
+      ],
+      "deps": [
+        331
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 332,
+      "parent": 306
+    },
+    {
+      "key": "B03",
+      "title": "Author a natural geological cutaway in Blender",
+      "why": "Replace toy-like repeated rock masses with controlled geological silhouette and section quality.",
+      "done": [
+        "Build fractured headings, chambers and closed section caps around authored clearances.",
+        "Retain route/headroom checks and an explicit synthetic, non-survey status.",
+        "Export a bounded low-detail derivative with higher-detail reference renders."
+      ],
+      "deps": [
+        332
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 333,
+      "parent": 306
+    },
+    {
+      "key": "B04",
+      "title": "Author a more realistic surface portal and mine yard",
+      "why": "Integrate the authored site into its surrounding terrain instead of isolated flat props.",
+      "done": [
+        "Create portal lining, retaining ground, roads, corrugated structures and services with consistent metre scale.",
+        "Blend foreground geometry to the retained geographic context without claiming a surveyed reconstruction.",
+        "Export local GLB/texture derivatives and retain before/after native views."
+      ],
+      "deps": [
+        332
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 334,
+      "parent": 306
+    },
+    {
+      "key": "B05",
+      "title": "Build a detailed original underground hauler with useful LODs",
+      "why": "Improve machinery beyond box-like silhouettes while preserving the underground envelope.",
+      "done": [
+        "Model chassis, tyres/treads, guards, hydraulic details, cab and dump bed with correct forward axis and pivots.",
+        "Produce overview/close LODs and a clear origin/wheelbase/articulation contract.",
+        "Check normals, contact height and heading in the actual browser camera."
+      ],
+      "deps": [
+        332
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 335,
+      "parent": 306
+    },
+    {
+      "key": "B06",
+      "title": "Refine loader and licensed excavator articulation for export",
+      "why": "Use Blender to inspect and improve rig fidelity without discarding provenance.",
+      "done": [
+        "Import the retained licensed excavator non-destructively and document all driven joints.",
+        "Validate boom, bucket, cab and track frames and limits; retain a mapping to logged variables.",
+        "Round-trip skinning/joint poses and material credits in the browser."
+      ],
+      "deps": [
+        332
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 336,
+      "parent": 306
+    },
+    {
+      "key": "B07",
+      "title": "Create granular ore piles and baked rock detail",
+      "why": "Make source and carried material look like ore rather than columns or generic spheres.",
+      "done": [
+        "Create seeded pile/fragment families with a physically declared reference scale.",
+        "Bake normal/AO and low-detail meshes from authored or cleared sources.",
+        "Keep decorative pieces separate from reference-simulator collision and mass models."
+      ],
+      "deps": [
+        332
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 337,
+      "parent": 306
+    },
+    {
+      "key": "B08",
+      "title": "Author a plausible proposed retrofit kit assembly",
+      "why": "Improve the deconstructed product view through actual source geometry.",
+      "done": [
+        "Model enclosure fins, board stack, connectors, sensor housings, cable strain relief and mounting features.",
+        "Use separate metal, coating, resin, PCB and lens materials; keep proposed hardware status.",
+        "Export assembly/exploded transforms and verify scrolling/keyboard/reduced-motion presentation."
+      ],
+      "deps": [
+        332
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 338,
+      "parent": 306
+    },
+    {
+      "key": "B09",
+      "title": "Build reusable scanned PBR material libraries and texture atlases",
+      "why": "Prepare realistic rock, ground, paint and metal consistently for the web.",
+      "done": [
+        "Record per-source licences, physical repeat scale, colour spaces and all hashes.",
+        "Bake unsupported procedural nodes to glTF-compatible maps with correct GL normal conventions.",
+        "Compare atlas/WebP/KTX2 quality, memory, decoder cost and native loading."
+      ],
+      "deps": [
+        332
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/render/cycles/baking.html",
+      "number": 339,
+      "parent": 306
+    },
+    {
+      "key": "B10",
+      "title": "Calibrate Blender lighting against the browser presentation",
+      "why": "Avoid authoring renders that cannot be reproduced by the actual demo.",
+      "done": [
+        "Compare the same camera/material under declared Blender colour management and Three.js ACES exposure.",
+        "Bake only appropriate static AO/environment data and keep dynamic light direction coherent.",
+        "Retain matched renders and native browser frames, with dark-detail and highlight checks."
+      ],
+      "deps": [
+        339
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/render/cycles/baking.html",
+      "number": 340,
+      "parent": 306
+    },
+    {
+      "key": "B11",
+      "title": "Export physically coherent machine and transfer animation channels",
+      "why": "Use Blender to refine motion while keeping one evidence clock.",
+      "done": [
+        "Bake supported joint channels with correct units, pivots, wheel travel and front/rear orientation.",
+        "Drive replay from actual logged/authored channels and retain event timing; avoid independent looping clips.",
+        "Verify paused, reverse, scrubbed and rate-changed poses in the browser."
+      ],
+      "deps": [
+        335,
+        336,
+        337
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 341,
+      "parent": 306
+    },
+    {
+      "key": "B12",
+      "title": "Automate Blender asset export and browser acceptance",
+      "why": "Make realistic assets shippable without adding Blender to the runtime.",
+      "done": [
+        "Create repeatable GLB exports, mesh/texture LOD budgets, source hashes and validation output.",
+        "Reject missing textures, unsupported required extensions, bad bounds and broken skinning.",
+        "Verify full static packaging and native M1 first-use/steady performance before replacing current assets."
+      ],
+      "deps": [
+        333,
+        334,
+        338,
+        340,
+        341
+      ],
+      "group": "Blender MCP and visuals",
+      "area": "offline asset authoring, local MCP connection and static export",
+      "source": "https://docs.blender.org/manual/en/latest/addons/import_export/scene_gltf2.html",
+      "number": 342,
+      "parent": 306
+    }
+  ],
+  "connection": "No exposed Blender tool; plugin discovery found no relevant integration; local connector not installed or claimed."
+}

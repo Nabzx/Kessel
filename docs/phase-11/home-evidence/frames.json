@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-07",
+  "note": "Matched hero pair uses reduced motion at 1440 x 900, device scale 2. Other normal/reduced frames come from native acceptance. Existing lower wordmark edit is present in the working tree but excluded from implementation commits.",
+  "images": [
+    {
+      "path": "after-hero-matched.jpg",
+      "bytes": 126314,
+      "sha256": "3e0257fda2aed0f3b303945dcc1d54c9d1ca8c0aa72fa300cd253150e57e8936"
+    },
+    {
+      "path": "before-hero.jpg",
+      "bytes": 127093,
+      "sha256": "2d257e3fb948818fcac664f4d1d6a5ef43e7bd5ec4da5d0a5854b044f10adaae"
+    },
+    {
+      "path": "normal-deep-sea.jpg",
+      "bytes": 307325,
+      "sha256": "c9b29fe40bf39f52ff581fcaa337ba2b0653f96873126b1466326a67c318197e"
+    },
+    {
+      "path": "normal-desert.jpg",
+      "bytes": 303343,
+      "sha256": "14b5e77301d5604673caf76df8f0e573886661a1a0cbc4fd5e0bf3b7f422ef2b"
+    },
+    {
+      "path": "normal-glacier.jpg",
+      "bytes": 298129,
+      "sha256": "f259647fcd34741e966d8290c463710762306a166f79468780d314647d70cf9e"
+    },
+    {
+      "path": "normal-hero.jpg",
+      "bytes": 157122,
+      "sha256": "5ccbf3c185b8773be9987cc88983cac6e6d7752642e9433b4e94b0160971b34f"
+    },
+    {
+      "path": "normal-space.jpg",
+      "bytes": 262374,
+      "sha256": "f2563b00c864ba9f8712946ce9d2c0afa9cdf03731966048aa289dc1d43db36f"
+    },
+    {
+      "path": "normal-trained.jpg",
+      "bytes": 297964,
+      "sha256": "b668690e77f64b9c2e924541e139ba531788f57aea536c7655ec08bcc76f428e"
+    },
+    {
+      "path": "normal-underground.jpg",
+      "bytes": 317423,
+      "sha256": "bd72bfce881ee24ce14589ed8069d2c4bc2848fc76c8d80738338751e01ed899"
+    },
+    {
+      "path": "reduced-hero.jpg",
+      "bytes": 49229,
+      "sha256": "bceda72f3f757579ebd67381137c5f9484130a9a674526a55aa43c85766bc806"
+    },
+    {
+      "path": "reduced-trained.jpg",
+      "bytes": 88016,
+      "sha256": "abf9c60aa2f82375c65ead14f8c9475aa9f4bde5471e60a6eb6f35af9615d18d"
+    },
+    {
+      "path": "reduced-underground.jpg",
+      "bytes": 99447,
+      "sha256": "92ff99244b09c209dff07ac1e8b747bbff8b0c1d569595b6dcc886b411c9dcf0"
+    }
+  ]
+}

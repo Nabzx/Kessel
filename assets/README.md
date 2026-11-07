@@ -144,3 +144,10 @@ The existing excavator source and rig remain unchanged.
 The site uses original, capped synthetic rock geometry and original ventilation,
 yard props and proposed kit details. These are illustrative geometry under the
 repository licence, not a reconstruction or scan of Rutongo's workings.
+
+## Home environment previews
+
+Five individually credited government photographs in `environments/` provide
+representative environment previews. The CDC research mine is not Rutongo.
+See [individual credits](environments/README.md) and
+[the hashed source manifest](environments/manifest.json).
