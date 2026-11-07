@@ -52,7 +52,8 @@ let lastTime = 0,
   qualityFrames = [],
   hudTime = 0,
   kitActive = false,
-  kitExploded = 1;
+  kitExploded = 1,
+  mineNeedsReload = false;
 const baseOpacity = new WeakMap(),
   baseLight = new WeakMap();
 const panels = [
@@ -372,45 +373,62 @@ function arrive() {
   $("nav-location").textContent = "Rutongo / Rwanda";
   getMine().catch(() => {});
 }
+function mineView() {
+  surface.root.visible = false;
+  globe.visible(false);
+  mine.root.visible = true;
+}
 async function enterMine() {
   if (stage !== "surface") return;
-  $("enter-mine").disabled = true;
-  $("enter-mine").textContent = "Preparing the mine";
+  if (mineNeedsReload) { location.reload(); return; }
+  const button = $("enter-mine");
+  button.disabled = true;
+  button.textContent = "Preparing the mine";
+  let nextTransition;
   try {
+    const entrance = data.visuals?.entrance;
+    const alignment = data.mine.network.nodes.find(node => node.id === entrance?.portal_alignment_node);
+    const vector = value => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite);
+    if (!entrance || !vector(entrance.approach_offset_m) || !vector(entrance.approach_target_offset_m) || !vector(alignment?.position_m)) {
+      mineNeedsReload = true;
+      throw new Error("Mine entrance settings are unavailable");
+    }
     await getMine();
-  } catch {
-    $("enter-mine").disabled = false;
-    $("enter-mine").textContent = "Try again";
-    errorStatus("Mine assets unavailable. Please try again.");
+    // Complete preparation before hiding the surface or committing a new stage.
+    const portal = surface.portal.clone();
+    nextTransition = {
+      type: "entrance",
+      background: scene.background.clone(),
+      sectionOffset: new THREE.Vector3(portal.x - alignment.position_m[0], 0, portal.z - alignment.position_m[2]),
+      approachPosition: portal.clone().add(new THREE.Vector3(...entrance.approach_offset_m)),
+      approachTarget: portal.clone().add(new THREE.Vector3(...entrance.approach_target_offset_m)),
+      start: performance.now(),
+      duration: duration(data.timing.entrance_seconds) * 1000,
+      fromPosition: camera.position.clone(),
+      fromTarget: lookTarget.clone(),
+    };
+  } catch (error) {
+    button.disabled = false;
+    button.textContent = mineNeedsReload ? "Reload experience" : "Try again";
+    errorStatus(mineNeedsReload
+      ? "Mine view unavailable. Reload the experience to try again."
+      : "Mine assets unavailable. Please try again.");
+    console.warn("Mine transition preparation failed:", error);
     return;
   }
   $("surface-panel").hidden = true;
-  setStage("entering");
-  mine.root.visible = true;
+  $("flight-label").hidden = true;
   fade(mine.root, 0);
-  const entrance = data.visuals.entrance;
-  const portal = surface.portal.clone();
-  const alignment = data.mine.network.nodes.find(node=>node.id===entrance.portal_alignment_node).position_m;
-  const sectionOffset = new THREE.Vector3(portal.x-alignment[0],0,portal.z-alignment[2]);
-  mine.root.position.copy(sectionOffset);
-  transition = {
-    type: "entrance",
-    background: scene.background.clone(),
-    sectionOffset,
-    approachPosition: portal.clone().add(new THREE.Vector3(...entrance.approach_offset_m)),
-    approachTarget: portal.clone().add(new THREE.Vector3(...entrance.approach_target_offset_m)),
-    start: performance.now(),
-    duration: duration(data.timing.entrance_seconds) * 1000,
-    fromPosition: camera.position.clone(),
-    fromTarget: lookTarget.clone(),
-  };
+  mine.root.position.copy(nextTransition.sectionOffset);
+  transition = nextTransition;
   scene.fog = null;
+  setStage("entering");
   viewport("mine");
 }
 function mineArrived() {
   transition = null;
   fade(surface.root, 0);
-  surface.root.visible = false;
+  mineView();
   fade(mine.root, 1);
   mine.root.position.set(0,0,0);
   mine.setTrained(false);
@@ -495,6 +513,7 @@ function setMetrics(trained) {
 }
 function compare(trained = true) {
   if (!["mine", "trained"].includes(stage) || trained === comparison) return;
+  mineView();
   setStage("comparing");
   $("operations").classList.add("comparing");
   $("compare-trained").disabled = true;
@@ -512,6 +531,7 @@ function compare(trained = true) {
   viewport("comparing");
 }
 function comparisonDone(trained) {
+  mineView();
   transition = null;
   comparison = trained;
   mine.setScan(0);
@@ -848,7 +868,7 @@ function pinLabel() {
 }
 async function init() {
   try {
-    const response = await fetch("data/experience.json");
+    const response = await fetch("data/experience.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Experience data unavailable");
     data = await response.json();
     globe = createGlobe(scene, data);
@@ -1040,6 +1060,8 @@ export function diagnostics() {
     debug = gl.getExtension("WEBGL_debug_renderer_info");
   return {
     stage,
+    presentation: document.querySelector('meta[name="kessel-presentation"]')?.content || "unversioned",
+    scenes: {earth:globe?.root.visible ?? false,surface:surface?.root.visible ?? false,mine:mine?.root.visible ?? false,kit:kit?.root.visible ?? false},
     environment: data?.environments[environment].id,
     comparison,
     scrollY,

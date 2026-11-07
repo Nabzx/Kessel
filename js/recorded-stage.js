@@ -5,7 +5,7 @@ import { ReplayClock, sampleEpisode, curvePoints } from "./recorded-data.js";
 
 export async function createRecorded(config, bundle) {
   const root = new THREE.Group(); root.name = "recorded-synthetic-experiment";
-  const [ore, floor, asset] = await Promise.all([texture(config.assets.ore), texture(config.assets.floor, 5), fetch(config.assets.loader).then((r) => { if (!r.ok) throw new Error("Loader asset unavailable"); return r.json(); })]);
+  const [ore, floor, asset] = await Promise.all([texture(config.assets.ore), texture(config.assets.floor, 5), fetch(config.assets.loader, { cache: "no-store" }).then((r) => { if (!r.ok) throw new Error("Loader asset unavailable"); return r.json(); })]);
   const indices = Object.fromEntries(bundle.state_names.map((name, i) => [name, i]));
   const initial = bundle.episodes[0].records[0].state, halfWidth = initial[indices.half_width_m];
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(29, halfWidth * 2), new THREE.MeshStandardMaterial({ map: floor, color: 0x72756c, roughness: 1 }));

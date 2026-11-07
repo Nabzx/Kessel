@@ -8,7 +8,7 @@ export async function createLearning(config) {
   const [ore, floor, model] = await Promise.all([
     texture(config.assets.ore),
     texture(config.assets.floor, 4),
-    fetch(config.assets.loader).then((r) => r.json()),
+    fetch(config.assets.loader, { cache: "no-store" }).then((r) => r.json()),
   ]);
   const floorMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(...data.floor_size),
