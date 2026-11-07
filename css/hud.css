@@ -136,3 +136,4 @@ body[data-learning-source="recorded_synthetic"] .checkpoint-outcome { font-size:
 .prediction-inspector > .text-button { text-align: left; }
 [role=tabpanel]:focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
 .learning-transport .checkpoint-outcome, body[data-learning-source="recorded_synthetic"] .learning-transport .checkpoint-outcome { margin: 0 0 10px; min-height: 0; }
+.prediction-inspector dd { font-size: clamp(18px,1.4vw,22px); white-space: normal; overflow-wrap: anywhere; }
