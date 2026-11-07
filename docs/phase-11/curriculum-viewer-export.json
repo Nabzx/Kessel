@@ -1,14 +1,14 @@
 {
   "source": {
-    "package_sha256": "37d6c03cf66e8fa3490e0637461b37d3e6cf5e8dcf5f9d5ac21fa926c798c247",
-    "git_commit": "3f0cbfa6d814fa8f444e3d71361657f29afed4aa",
+    "package_sha256": "d3e4121e635267ae7f79dc3d1f8ab6d2f921c106640d5fa8ed7ecb2405535fac",
+    "git_commit": "a04d16c9a1bf6b92e23234bef45fb8d14ae50ef3",
     "training_dirty": false
   },
   "entry": {
     "run_id": "curriculum-followup-v1",
     "url": "data/experiments/curriculum-v1.json",
-    "sha256": "1d780dcef662bd934b23b2c7d2c0cf268a5bd6ae3713e29a88744c201e8f7242",
-    "bytes": 1086146,
+    "sha256": "6159e15db66577611d55d4fcaac911acad65223896bf03c7c6461d3a1d9b275a",
+    "bytes": 1086246,
     "source_mode": "recorded_synthetic"
   },
   "episodes": 3,

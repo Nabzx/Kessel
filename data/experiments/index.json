@@ -18,8 +18,8 @@
     {
       "run_id": "curriculum-followup-v1",
       "url": "data/experiments/curriculum-v1.json",
-      "sha256": "1d780dcef662bd934b23b2c7d2c0cf268a5bd6ae3713e29a88744c201e8f7242",
-      "bytes": 1086146,
+      "sha256": "6159e15db66577611d55d4fcaac911acad65223896bf03c7c6461d3a1d9b275a",
+      "bytes": 1086246,
       "source_mode": "recorded_synthetic"
     }
   ]
