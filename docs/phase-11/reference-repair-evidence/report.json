@@ -1,0 +1,1309 @@
+{
+  "schema": "reference-audit-v1",
+  "source_mode": "recorded_synthetic",
+  "units": {
+    "distance": "m",
+    "angle": "rad",
+    "mass": "kg",
+    "time": "s"
+  },
+  "limits": "Synthetic cell-centre contact and swept AABBs; not granular or calibrated machine physics. No learned success claim.",
+  "reference_cases": [
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100000,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "success",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 2026.8523266880477,
+      "spilled_kg": 0.0,
+      "carried_kg": 527.1753060106353,
+      "cycle_s": 35.94000000000002,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "423af4818318dd58c2b058699ac5fff05bc3602029a5de5754c61b698a3b9b97",
+      "wall_s": 4.098729541059583
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100001,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "success",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 2003.441652424289,
+      "spilled_kg": 0.0,
+      "carried_kg": 487.8138035247628,
+      "cycle_s": 36.06000000000004,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "2afaa0dce368f338712bdfd73582d42e28dda1575bf5b5281a4fd63343e48652",
+      "wall_s": 3.948778583202511
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100000,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "low"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "tunnel_wall",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "carried_kg": 1169.5229398294086,
+      "cycle_s": 21.799999999999624,
+      "max_mass_residual_kg": 2.7284841053187847e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "efc5a81698093d8fcd3dc56b09ba07a3b432920abb32ed025595299565d67583",
+      "wall_s": 1.902419500052929
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100001,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "low"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "time_limit",
+      "terminated": false,
+      "truncated": true,
+      "delivered_kg": 1154.5130468212938,
+      "spilled_kg": 0.0,
+      "carried_kg": 5.52534521031116e-13,
+      "cycle_s": 60.00000000000378,
+      "max_mass_residual_kg": 1.8189894035458565e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "b69d1fa3c24374b36ed870ddb84d6c8e333e57d8dacf680d6495a11903fdbeb8",
+      "wall_s": 5.218185416888446
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100000,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "ridge"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "success",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 2017.8808899858795,
+      "spilled_kg": 0.0,
+      "carried_kg": 524.8418750909053,
+      "cycle_s": 35.139999999999894,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "d8fd08b1dec77d96ed1a56c43c6d66b424fe9ef0f039909af77ccba2bff87ffb",
+      "wall_s": 3.087340542115271
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100001,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "ridge"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "success",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 2002.3286002992472,
+      "spilled_kg": 0.0,
+      "carried_kg": 456.56402684462483,
+      "cycle_s": 40.080000000000666,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "2522d2de9763204ef4de8f0ba7afeec65c4370b72b3fb0e34e4c93108ff4551f",
+      "wall_s": 3.5040548329707235
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100000,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "rubble"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "success",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 2019.7569276134711,
+      "spilled_kg": 0.0,
+      "carried_kg": 431.3991279316842,
+      "cycle_s": 41.70000000000092,
+      "max_mass_residual_kg": 5.4569682106375694e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "840c730d727b6a7add801967cf9f7efafac03efb79da3fce805bd979fab10ebf",
+      "wall_s": 3.8010331250261515
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100001,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "rubble"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "success",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 2019.593170595095,
+      "spilled_kg": 0.0,
+      "carried_kg": 355.2332170287965,
+      "cycle_s": 49.56000000000215,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "63fa6aad8c6e1e32780709e6f442020d95eebdc71647d6d8199b60165bb33eb8",
+      "wall_s": 4.598120499867946
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100000,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "steep"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "stuck",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "carried_kg": 1506.587330663626,
+      "cycle_s": 17.83999999999971,
+      "max_mass_residual_kg": 5.4569682106375694e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "60d7c76661745936590111387c29529c35cdb2cb03b55c7f3810cff6e61f5aef",
+      "wall_s": 1.5931531658861786
+    },
+    {
+      "source_mode": "recorded_synthetic",
+      "controller": "observation_only_reference",
+      "learned_policy": false,
+      "seed": 100001,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "steep"
+      },
+      "loader": {
+        "length_m": 7.1,
+        "width_m": 1.5,
+        "height_m": 1.9,
+        "payload_kg": 3500.0,
+        "decision_s": 0.1,
+        "substeps": 5,
+        "forward_m_s": 2.0,
+        "reverse_m_s": 1.5,
+        "acceleration_m_s2": 1.5,
+        "articulation_rad": 0.6,
+        "articulation_rate_rad_s": 0.35,
+        "boom_min_rad": -0.1,
+        "boom_max_rad": 1.1,
+        "boom_rate_rad_s": 0.25,
+        "bucket_min_rad": -0.7,
+        "bucket_max_rad": 1.0,
+        "bucket_rate_rad_s": 0.5
+      },
+      "reset": {
+        "valid": true,
+        "classification": "valid_start",
+        "reason": ""
+      },
+      "outcome": "stuck",
+      "terminated": true,
+      "truncated": false,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "carried_kg": 1462.3565798324134,
+      "cycle_s": 21.09999999999964,
+      "max_mass_residual_kg": 5.4569682106375694e-12,
+      "independent_max_state_error": 0.0,
+      "state_sha256": "be747b67f2dc9ad48b78027a7152a802b3c67e1540cbebc44af8bfd5ecf15458",
+      "wall_s": 1.8601451250724494
+    }
+  ],
+  "integration": [
+    {
+      "decision_s": 0.05,
+      "case": "forward",
+      "pose": [
+        1.2837903238336754,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "speed": 1.2837600048307785
+    },
+    {
+      "decision_s": 0.05,
+      "case": "reverse",
+      "pose": [
+        -1.2837903238336754,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "speed": -1.2837600048307785
+    },
+    {
+      "decision_s": 0.05,
+      "case": "turn",
+      "pose": [
+        0.44511167350691566,
+        -0.05399771507383471,
+        -0.06725522458683031
+      ],
+      "joints": [
+        0.17499999999999935,
+        0.0,
+        -0.1
+      ],
+      "speed": 0.44569523809523687
+    },
+    {
+      "decision_s": 0.05,
+      "case": "boom",
+      "pose": [
+        0.0,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.10000000000000007,
+        -0.1
+      ],
+      "speed": 0.0
+    },
+    {
+      "decision_s": 0.05,
+      "case": "curl",
+      "pose": [
+        0.0,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        0.10000000000000016
+      ],
+      "speed": 0.0
+    },
+    {
+      "decision_s": 0.05,
+      "case": "full_contact_cycle",
+      "outcome": "success",
+      "delivered_kg": 2000.6381171263906,
+      "spilled_kg": 0.0,
+      "cycle_s": 35.95000000000142,
+      "max_mass_residual_kg": 9.094947017729282e-12
+    },
+    {
+      "decision_s": 0.1,
+      "case": "forward",
+      "pose": [
+        1.2837904761904748,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "speed": 1.2837904761904737
+    },
+    {
+      "decision_s": 0.1,
+      "case": "reverse",
+      "pose": [
+        -1.2837904761904748,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "speed": -1.2837904761904737
+    },
+    {
+      "decision_s": 0.1,
+      "case": "turn",
+      "pose": [
+        0.44511169586739063,
+        -0.05399725675518332,
+        -0.06725550885186138
+      ],
+      "joints": [
+        0.17500000000000013,
+        0.0,
+        -0.1
+      ],
+      "speed": 0.4456952380952391
+    },
+    {
+      "decision_s": 0.1,
+      "case": "boom",
+      "pose": [
+        0.0,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.10000000000000007,
+        -0.1
+      ],
+      "speed": 0.0
+    },
+    {
+      "decision_s": 0.1,
+      "case": "curl",
+      "pose": [
+        0.0,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        0.10000000000000014
+      ],
+      "speed": 0.0
+    },
+    {
+      "decision_s": 0.1,
+      "case": "full_contact_cycle",
+      "outcome": "success",
+      "delivered_kg": 2026.8523266880477,
+      "spilled_kg": 0.0,
+      "cycle_s": 35.94000000000002,
+      "max_mass_residual_kg": 3.637978807091713e-12
+    },
+    {
+      "decision_s": 0.2,
+      "case": "forward",
+      "pose": [
+        1.2837904761904748,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "speed": 1.2837904761904737
+    },
+    {
+      "decision_s": 0.2,
+      "case": "reverse",
+      "pose": [
+        -1.2837904761904748,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "speed": -1.2837904761904737
+    },
+    {
+      "decision_s": 0.2,
+      "case": "turn",
+      "pose": [
+        0.44511169586739063,
+        -0.05399725675518332,
+        -0.06725550885186138
+      ],
+      "joints": [
+        0.17500000000000013,
+        0.0,
+        -0.1
+      ],
+      "speed": 0.4456952380952391
+    },
+    {
+      "decision_s": 0.2,
+      "case": "boom",
+      "pose": [
+        0.0,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.10000000000000007,
+        -0.1
+      ],
+      "speed": 0.0
+    },
+    {
+      "decision_s": 0.2,
+      "case": "curl",
+      "pose": [
+        0.0,
+        -0.0322295221302213,
+        0.0
+      ],
+      "joints": [
+        0.0,
+        0.0,
+        0.10000000000000014
+      ],
+      "speed": 0.0
+    },
+    {
+      "decision_s": 0.2,
+      "case": "full_contact_cycle",
+      "outcome": "success",
+      "delivered_kg": 2001.4692798996973,
+      "spilled_kg": 0.0,
+      "cycle_s": 35.90000000000001,
+      "max_mass_residual_kg": 5.4569682106375694e-12
+    }
+  ],
+  "resets": [
+    {
+      "family": "standard",
+      "seed": 100000,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "standard",
+      "seed": 100001,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "standard",
+      "seed": 100002,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "standard",
+      "seed": 100003,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "standard",
+      "seed": 100004,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "standard",
+      "seed": 100005,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "standard",
+      "seed": 100006,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "standard",
+      "seed": 100007,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100000,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100001,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100002,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100003,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100004,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100005,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100006,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "low_grip",
+      "seed": 100007,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100000,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100001,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100002,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100003,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100004,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100005,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100006,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "occluded",
+      "seed": 100007,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100000,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100001,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100002,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100003,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100004,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100005,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100006,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "blocked",
+      "seed": 100007,
+      "valid": true,
+      "classification": "valid_start",
+      "reason": ""
+    },
+    {
+      "family": "deliberately_invalid",
+      "valid": false,
+      "classification": "invalid_start",
+      "reason": "obstacle_0"
+    }
+  ],
+  "chosen_decision_s": 0.1,
+  "physics_step_max_s": 0.02,
+  "integration_time_budget_s": 60,
+  "integration_comparison": [
+    {
+      "case": "forward",
+      "decision_s": 0.05,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 0.0,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "reverse",
+      "decision_s": 0.05,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 0.0,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "turn",
+      "decision_s": 0.05,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 0.0,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "boom",
+      "decision_s": 0.05,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 0.0,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "curl",
+      "decision_s": 0.05,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 0.0,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "forward",
+      "decision_s": 0.1,
+      "absolute_errors": {
+        "pose": 1.5235679939884506e-07,
+        "joints": 0.0,
+        "speed": 3.0471359695249944e-05
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "reverse",
+      "decision_s": 0.1,
+      "absolute_errors": {
+        "pose": 1.5235679939884506e-07,
+        "joints": 0.0,
+        "speed": 3.0471359695249944e-05
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "turn",
+      "decision_s": 0.1,
+      "absolute_errors": {
+        "pose": 4.5831865139178696e-07,
+        "joints": 7.771561172376096e-16,
+        "speed": 2.220446049250313e-15
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "boom",
+      "decision_s": 0.1,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 0.0,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "curl",
+      "decision_s": 0.1,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 1.3877787807814457e-17,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "forward",
+      "decision_s": 0.2,
+      "absolute_errors": {
+        "pose": 1.5235679939884506e-07,
+        "joints": 0.0,
+        "speed": 3.0471359695249944e-05
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "reverse",
+      "decision_s": 0.2,
+      "absolute_errors": {
+        "pose": 1.5235679939884506e-07,
+        "joints": 0.0,
+        "speed": 3.0471359695249944e-05
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "turn",
+      "decision_s": 0.2,
+      "absolute_errors": {
+        "pose": 4.5831865139178696e-07,
+        "joints": 7.771561172376096e-16,
+        "speed": 2.220446049250313e-15
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "boom",
+      "decision_s": 0.2,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 0.0,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    },
+    {
+      "case": "curl",
+      "decision_s": 0.2,
+      "absolute_errors": {
+        "pose": 0.0,
+        "joints": 1.3877787807814457e-17,
+        "speed": 0.0
+      },
+      "bounds": {
+        "pose": 0.02,
+        "joints": 0.005,
+        "speed": 0.02
+      },
+      "passed": true
+    }
+  ]
+}
