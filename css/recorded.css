@@ -40,3 +40,5 @@ body[data-learning-source="recorded_synthetic"] .checkpoint-outcome { min-height
 }
 @media (max-width: 1000px) and (min-width: 701px) { body[data-learning-source="recorded_synthetic"] .learning-panel { right: 3vw; width: 265px; }.prediction-inspector { width: 240px; left: 3vw; }.prediction-legend { white-space: normal; } }
 @media (max-width: 700px) { .learning-source-control { font-size: 7px; gap: 4px; }.learning-source-control select { font-size: 8px; padding: 5px; }.prediction-inspector { width: 210px; top: 68px; bottom: auto; left: 5vw; padding: 10px; }.prediction-inspector p { font-size: 7px; margin: 5px 0; }.prediction-inspector dl { margin: 6px 0; }.prediction-inspector dl > div { font-size: 8px; margin: 6px 0; }.prediction-legend { white-space: normal; }body[data-learning-source="recorded_synthetic"] .learning-panel { width: auto; } }
+.geometry-control { display:flex; align-items:center; gap:7px; font:10px var(--mono); color:#aab6aa; }
+.geometry-control input { width:12px; height:12px; margin:0; accent-color:#d5ac6c; }

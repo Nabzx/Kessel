@@ -57,7 +57,7 @@ export async function rockMaterial(spec) {
     Object.assign(shader.uniforms, { rockColour: { value: colour }, rockNormal: { value: normal },
       rockRough: { value: roughness }, rockAO: { value: ao }, rockRepeat: { value: spec.repeat_m } });
     shader.vertexShader = "varying vec3 rockPosition; varying vec3 rockWorldNormal;\n" + shader.vertexShader.replace(
-      "#include <begin_vertex>", "#include <begin_vertex>\nrockPosition=position; rockWorldNormal=normal;",
+      "#include <begin_vertex>", "#include <begin_vertex>\nrockPosition=(modelMatrix*vec4(position,1.0)).xyz; rockWorldNormal=normalize(mat3(modelMatrix)*normal);",
     );
     shader.fragmentShader = `varying vec3 rockPosition; varying vec3 rockWorldNormal;
       uniform sampler2D rockColour, rockNormal, rockRough, rockAO; uniform float rockRepeat;
@@ -90,7 +90,7 @@ export async function rockMaterial(spec) {
       normal=normalize(mix(normal,mat3(viewMatrix)*mapped,.28));
     `);
   };
-  material.customProgramCacheKey = () => "kessel-rock-triplanar-v1";
+  material.customProgramCacheKey = () => "kessel-rock-triplanar-v2";
   return material;
 }
 

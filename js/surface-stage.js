@@ -1,3 +1,4 @@
+import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
 import { texture, box, lightRig, seeded, line, varyTexture } from "./scene-utils.js";
 import { createVehicle } from "./vehicle.js";
@@ -228,6 +229,10 @@ export async function createSurface(config) {
     for(let i=0;i<4;i++){pose.position.set(side*(half+.45),.7+i*.9,2.5);pose.updateMatrix();stripes.setMatrixAt(i,pose.matrix);}portal.add(stripes);
     box([.45,.15,1.2],[side*3.5,4.6,1],new THREE.MeshBasicMaterial({color:0xffe6bc}),portal);
   }
+  try {
+    const authored=await authoredAsset(config.visuals.authored?.portal);
+    if(authored){for(const child of portal.children)if(child.isMesh&&child!==tunnel)child.visible=false;authored.traverse(o=>{if(o.isMesh&&o.material.name.includes("Rock"))o.material=rockMat;});portal.add(authored);}
+  } catch(error){console.warn("Authored portal unavailable",error);}
   const portalLight = new THREE.PointLight(0xffd9a4, 80, 18, 2); portalLight.position.set(0,4,-4);portal.add(portalLight);
   const hillSpec=design.portal_hill, hillGeometry=new THREE.PlaneGeometry(hillSpec.size[0],hillSpec.size[2],40,40);
   hillGeometry.rotateX(-Math.PI/2);hillGeometry.translate(...hillSpec.position);
@@ -346,7 +351,7 @@ export async function createSurface(config) {
     const drain=box([.35,.08,102],[x,.16,11],metal,root);drain.receiveShadow=true;
   }
   for (const spec of design.parked_vehicles) {
-    const vehicle=createVehicle(spec.id,vehicleModel,{oreMap:aggregate});vehicle.root.position.fromArray(spec.position);
+    const vehicle=createVehicle(spec.id,vehicleModel,{oreMap:aggregate,authoredHauler:config.visuals.authored?.hauler,authoredOverview:config.visuals.authored?.hauler_overview});vehicle.root.position.fromArray(spec.position);
     vehicle.root.rotation.y=spec.heading;vehicle.detail.visible=true;vehicle.overview.visible=false;vehicle.cargo.visible=false;
     vehicle.root.traverse(o=>{if(o.isMesh)o.castShadow=o.receiveShadow=true;});root.add(vehicle.root);
   }

@@ -459,7 +459,7 @@
       }
     ],
     "excavator": {
-      "model": "assets/models/excavator/excavator.gltf",
+      "model": "assets/authored/excavator.glb",
       "vehicle_id": "haul-01",
       "offset_m": [
         2,
@@ -473,7 +473,10 @@
         -2,
         0,
         0
-      ]
+      ],
+      "boom_bone_name": "KesselNode_6",
+      "bucket_bone_name": "KesselNode_10",
+      "tracks_bone_name": "KesselNode_5"
     },
     "ore_piles": [
       [
@@ -1950,6 +1953,43 @@
         0.06
       ],
       "prefetch_delay_seconds": 1.9
+    },
+    "authored": {
+      "geology": {
+        "id": "geology",
+        "path": "assets/authored/geology.glb"
+      },
+      "portal": {
+        "id": "portal",
+        "path": "assets/authored/portal-yard.glb"
+      },
+      "hauler": {
+        "id": "hauler",
+        "path": "assets/authored/hauler-close.glb"
+      },
+      "hauler_overview": {
+        "id": "hauler_overview",
+        "path": "assets/authored/hauler-overview.glb"
+      },
+      "ore": {
+        "id": "ore",
+        "path": "assets/authored/ore-pile.glb",
+        "normal_path": "assets/authored/ore_normal.webp",
+        "ao_path": "assets/authored/ore_ao.webp"
+      },
+      "kit": {
+        "id": "kit",
+        "path": "assets/authored/retrofit-kit.glb",
+        "presentation_scale": 10
+      },
+      "reference_loader": {
+        "id": "reference_loader",
+        "path": "assets/authored/reference-loader.glb"
+      },
+      "excavator": {
+        "id": "excavator",
+        "path": "assets/authored/excavator.glb"
+      }
     }
   }
 }

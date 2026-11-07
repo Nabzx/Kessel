@@ -1,3 +1,4 @@
+import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { lightRig, box } from "./scene-utils.js";
@@ -142,6 +143,14 @@ export function createRetrofit(config) {
   ground.receiveShadow = true;
   root.add(ground);
   lightRig(root, 18);
+  authoredAsset(config.visuals.authored?.kit).then(authored=>{
+    if(!authored)return;root.userData.authoredAsset=config.visuals.authored.kit.path;
+    for(const entry of components){const detail=authored.getObjectByName(entry.spec.id);if(!detail)continue;
+      for(const child of entry.group.children)child.visible=false;
+      const materials=new Map();detail.traverse(o=>{if(o.isMesh){const own=m=>{if(!materials.has(m))materials.set(m,m.clone());return materials.get(m);};o.material=Array.isArray(o.material)?o.material.map(own):own(o.material);}});
+      detail.removeFromParent();detail.scale.multiplyScalar(config.visuals.authored.kit.presentation_scale||1);entry.group.add(detail);
+    }
+  }).catch(error=>console.warn("Authored kit unavailable",error));
   let amount = 1,
     target = 1, elapsed = 0;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -164,6 +173,7 @@ export function createRetrofit(config) {
     },
     focus(id) {
       for (const entry of components) {
+        entry.group.traverse(object=>{if(object.isMesh)for(const mat of Array.isArray(object.material)?object.material:[object.material]){if(mat.emissive){mat.emissive.set(entry.spec.id===id?0x554124:0);mat.emissiveIntensity=.3;}}});
         entry.mat.emissive.set(entry.spec.id === id ? 0x554124 : 0x000000);
         entry.mat.emissiveIntensity = 0.3;
       }

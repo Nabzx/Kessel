@@ -134,7 +134,7 @@ export function createLoader(model, oreMap) {
 
 // Reference rig: rear axle origin, local +z forward, metres. Kept separate from
 // the authored concept rig so retained machine poses have an exact physical frame.
-export function createReferenceLoader(model, oreMap) {
+export function createReferenceLoader(model, oreMap, authored=null) {
   const root=new THREE.Group(),front=new THREE.Group();root.name='reference-loader';front.position.z=1.8;root.add(front);
   const paint=new THREE.MeshStandardMaterial({color:model.paint,roughness:.55}),steel=new THREE.MeshStandardMaterial({color:0x7a8582,metalness:.75,roughness:.35}),rubber=new THREE.MeshStandardMaterial({color:0x151b1c,roughness:.96}),glass=new THREE.MeshStandardMaterial({color:0x173b41,roughness:.16});
   const part=(size,position,material,parent=root)=>{const m=new THREE.Mesh(new RoundedBoxGeometry(...size,1,.025),material);m.position.fromArray(position);m.castShadow=m.receiveShadow=true;parent.add(m);return m;};
@@ -146,20 +146,26 @@ export function createReferenceLoader(model, oreMap) {
   for(const [axle,parent] of [[0,root],[1.6,front]])for(const side of [1,-1]){
     const pivot=new THREE.Group();pivot.position.set(side*.65,.55,axle);parent.add(pivot);
     const tyre=new THREE.Mesh(new THREE.CylinderGeometry(.55,.55,.2,24),rubber);tyre.rotation.z=Math.PI/2;pivot.add(tyre);
-    const hub=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.215,16),steel);hub.rotation.z=Math.PI/2;pivot.add(hub);wheels.push(pivot);
-    for(let k=0;k<16;k++){const t=k*Math.PI/8,grip=part([.215,.045,.12],[0,.54*Math.cos(t),.54*Math.sin(t)],rubber,pivot);grip.rotation.x=t;}
+    const hub=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.195,16),steel);hub.rotation.z=Math.PI/2;pivot.add(hub);wheels.push(pivot);
+    for(let k=0;k<16;k++){const t=k*Math.PI/8,grip=part([.195,.045,.12],[0,.54*Math.cos(t),.54*Math.sin(t)],rubber,pivot);grip.rotation.x=t;}
   }
   const boom=new THREE.Group();boom.position.set(0,.75,1.6);front.add(boom);
   for(const side of [-1,1])part([.12,.15,1],[side*.46,0,.5],paint,boom);
   const bucket=new THREE.Group();front.add(bucket);
-  part([1.5,.07,1.2],[0,-.035,.6],steel,bucket);part([1.5,.5,.08],[0,.25,0],paint,bucket);
-  for(const side of [-1,1])part([.065,.5,1.2],[side*.717,.25,.6],paint,bucket);
-  for(let k=0;k<6;k++)part([.13,.06,.16],[(k-2.5)*.24,-.025,1.2],steel,bucket);
+  part([1.5,.07,.9],[0,-.035,.6],steel,bucket);part([1.5,.35,.08],[0,.175,.18],paint,bucket);
+  for(const side of [-1,1])part([.065,.35,.9],[side*.717,.175,.6],paint,bucket);
+  for(let k=0;k<6;k++)part([.13,.06,.1],[(k-2.5)*.24,-.025,1.05],steel,bucket);
   const cargo=new THREE.Mesh(new THREE.IcosahedronGeometry(1,2),new THREE.MeshStandardMaterial({map:oreMap,color:0x9a8e76,roughness:1}));cargo.position.set(0,.13,.55);cargo.scale.set(.65,.15,.46);bucket.add(cargo);
   const guides=[];
   function guide(size,position,parent){const g=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(...size)),new THREE.LineBasicMaterial({color:0x81b6bf,transparent:true,opacity:.55,depthTest:false}));g.position.fromArray(position);g.renderOrder=4;g.visible=false;parent.add(g);guides.push(g);return g;}
   guide([1.5,1.9,3.7],[0,.95,-.05],root);guide([1.5,1.9,2.4],[0,.95,1.2],front);
   const bucketGuide=guide([1.5,.6,1.2],[0,.65,2.8],front);
+  if(authored){
+    root.userData.authoredAsset=authored.userData.assetPath;
+    const imported=authored.getObjectByName('ReferenceLoader');
+    const pairs=[[root,imported],[front,authored.getObjectByName('FrontJoint')],[boom,authored.getObjectByName('Boom')],[bucket,authored.getObjectByName('Bucket')],...wheels.map((w,i)=>[w,authored.getObjectByName('Wheel_'+i)])];
+    for(const [target,source] of pairs){if(!source)continue;for(const child of target.children)if(child.isMesh&&child!==cargo)child.visible=false;for(const child of source.children)if(child.isMesh)target.add(child.clone(true));}
+  }
   function apply(p,wheelAngles=[0,0,0,0],payload=0){
     root.position.set(p[0],0,-p[1]);root.rotation.y=Math.PI/2+p[2];front.rotation.y=p[4];bucket.rotation.x=-p[6];
     bucket.position.set(0,.35+2*Math.sin(p[5])-.6*Math.sin(p[6]),1.6+1.2*Math.cos(p[5])-.6*Math.cos(p[6]));
