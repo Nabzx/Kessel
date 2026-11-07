@@ -155,7 +155,7 @@ function fade(root, alpha) {
 function globeFade(alpha) {
   globe.visible(alpha > 0.015);
   fade(globe.root, alpha);
-  globe.sun.intensity = 3 * alpha;
+  globe.sun.intensity = data.visuals.home.sun_intensity * alpha;
   globe.stars.material.opacity = 0.78 * alpha;
 }
 const glyphs = {
@@ -173,6 +173,13 @@ function chooseEnvironment(index) {
   const item = data.environments[environment];
   $("environment-name").textContent = item.label;
   $("environment-description").textContent = item.description;
+  $("environment-place").textContent = item.place;
+  const preview=$("environment-image");
+  preview.hidden=false; $("environment-icon").hidden=true;
+  preview.alt=item.preview.alt;
+  preview.src=item.preview.path;
+  $("environment-credit").textContent=item.preview.caption;
+  preview.onerror=()=>{preview.hidden=true;$("environment-icon").hidden=false;$("environment-credit").textContent="Preview unavailable";};
   $("environment-status").textContent = item.available
     ? "Available"
     : "Planned";
@@ -184,11 +191,12 @@ function chooseEnvironment(index) {
   $("deploy-underground").hidden = !item.available;
   $("globe-label-name").textContent = item.place;
   globe.highlight(item.id);
-  globe.sun.color.set(item.colour).lerp(new THREE.Color("#fff2da"), 0.85);
+  globe.sun.color.set(data.visuals.home.sun_colour);
   const target = -THREE.MathUtils.degToRad(item.longitude + 90);
   earthGoal =
     target +
     Math.round((globe.earth.rotation.y - target) / (Math.PI * 2)) * Math.PI * 2;
+  if(reduced){globe.earth.rotation.y=earthGoal;earthGoal=null;globe.update(0,0,false);}
 }
 function start() {
   if (!data || stage !== "welcome") return;
@@ -202,9 +210,15 @@ function start() {
   cameraTo([0, 0, 12.8], [0, 0, 0], data.timing.start_seconds, 34);
   globe.root.position.set(1.45, 0, 0);
   chooseEnvironment(0);
-  getSurface()
-    .then(() => getMine())
-    .catch(() => {});
+  setTimeout(()=>{
+    if(stage!=="select")return;
+    const warm=()=>{
+      if(stage!=="select")return;
+      for(const item of data.environments){const image=new Image();image.decoding="async";image.src=item.preview.path;}
+      getSurface().then(()=>getMine()).catch(()=>{});
+    };
+    if("requestIdleCallback" in window)requestIdleCallback(warm,{timeout:1000});else warm();
+  },reduced?100:data.visuals.home.prefetch_delay_seconds*1000);
 }
 async function getSurface() {
   if (!surfacePromise)
@@ -876,9 +890,14 @@ function pinLabel() {
   const visible =
     item.id === "space" || normal.dot(camera.position.clone().sub(point)) > 0;
   const p = point.project(camera);
-  $("globe-label").hidden = !visible || p.z > 1 || Math.abs(p.x) > 1;
+  $("globe-label").hidden = !visible || p.z > 1 || Math.abs(p.x) > .96 || Math.abs(p.y) > .84 || p.z < -1;
   $("globe-label").style.left = `${(p.x * 0.5 + 0.5) * innerWidth}px`;
   $("globe-label").style.top = `${(-p.y * 0.5 + 0.5) * innerHeight}px`;
+  if(!$("globe-label").hidden){
+    const label=$("globe-label").getBoundingClientRect(),panel=$("selector").getBoundingClientRect();
+    const overlaps=label.left<panel.right+18&&label.right>panel.left-18&&label.top<panel.bottom+18&&label.bottom>panel.top-18;
+    if(overlaps||label.right>innerWidth-24||label.left<24||label.top<80||label.bottom>innerHeight-80)$("globe-label").hidden=true;
+  }
 }
 async function init() {
   try {
@@ -890,6 +909,12 @@ async function init() {
       data.location.longitude + 90,
     );
     await globe.load();
+    const images=await fetch("assets/environments/manifest.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Environment references unavailable");return r.json();});
+    for(const image of images.images){
+      const li=document.createElement("li"),link=document.createElement("a");
+      li.append(document.createTextNode(image.credit+". "+image.subject+". "));
+      link.href=image.page;link.textContent="Free source";link.target="_blank";link.rel="noopener";li.append(link);$("environment-sources").append(li);
+    }
     for (const [index, concept] of data.training.concepts.entries())
       document.querySelectorAll(".rl-readouts>div")[index].title =
         concept.description;
@@ -917,6 +942,7 @@ async function init() {
         .join(" "),
     );
     resize();
+    if(!reduced){camera.position.fromArray(data.visuals.home.arrival_camera);cameraTo(data.visuals.home.camera,[0,0,0],data.visuals.home.arrival_seconds,34);}
   } catch (error) {
     $("start-experience").textContent = "Reload to try again";
     $("start-experience").disabled = false;
@@ -951,11 +977,6 @@ function render(now) {
     }
   }
   if (globe && ["welcome", "select", "flight", "preparing"].includes(stage)) {
-    globe.update(
-      reduced ? 0 : now,
-      reduced ? 0 : delta,
-      !reduced && (stage === "welcome" || stage === "select"),
-    );
     if (stage === "select") {
       const item = data.environments[environment];
       scene.background.lerp(
@@ -963,16 +984,11 @@ function render(now) {
         1 - Math.exp(-delta * 2),
       );
       if (earthGoal !== null) {
-        globe.earth.rotation.y = THREE.MathUtils.damp(
-          globe.earth.rotation.y,
-          earthGoal,
-          2.4,
-          delta,
-        );
-        if (Math.abs(globe.earth.rotation.y - earthGoal) < 0.008)
-          earthGoal = null;
+        globe.earth.rotation.y = THREE.MathUtils.damp(globe.earth.rotation.y,earthGoal,3,delta);
+        if(Math.abs(globe.earth.rotation.y-earthGoal)<.002){globe.earth.rotation.y=earthGoal;earthGoal=null;}
       }
     }
+    globe.update(reduced?0:now,reduced?0:delta,!reduced&&(stage==="welcome"||(stage==="select"&&earthGoal===null)));
   }
   updateCamera(now);
   updateTransition(now);
@@ -1083,6 +1099,9 @@ export function diagnostics() {
     debug = gl.getExtension("WEBGL_debug_renderer_info");
   return {
     stage,
+    camera: {position:camera.position.toArray(),fov:camera.fov,moving:cameraMove!==null},
+    earthSettling:earthGoal!==null,
+    globe: globe?.diagnostics?.() ?? null,
     presentation: document.querySelector('meta[name="kessel-presentation"]')?.content || "unversioned",
     scenes: {earth:globe?.root.visible ?? false,surface:surface?.root.visible ?? false,mine:mine?.root.visible ?? false,kit:kit?.root.visible ?? false},
     environment: data?.environments[environment].id,

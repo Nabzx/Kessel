@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="kessel-presentation" content="2026-11-07.2" />
+    <meta name="kessel-presentation" content="2026-11-07.3" />
     <meta name="theme-color" content="#030506" />
     <title>Kessel | Offline autonomy</title>
     <meta
@@ -18,10 +18,11 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/experience.css?v=2026-11-07.2" />
-      <link rel="stylesheet" href="css/recorded.css?v=2026-11-07.2" />
-    <link rel="stylesheet" href="css/realism.css?v=2026-11-07.2" />
-    <link rel="stylesheet" href="css/hud.css?v=2026-11-07.2" />
+    <link rel="stylesheet" href="css/experience.css?v=2026-11-07.3" />
+      <link rel="stylesheet" href="css/recorded.css?v=2026-11-07.3" />
+    <link rel="stylesheet" href="css/realism.css?v=2026-11-07.3" />
+    <link rel="stylesheet" href="css/hud.css?v=2026-11-07.3" />
+    <link rel="stylesheet" href="css/home.css?v=2026-11-07.3" />
   </head>
   <body class="story-locked">
     <canvas
@@ -65,15 +66,16 @@
         aria-label="Choose a deployment environment"
       >
         <p class="section-label">Deployment environments</p>
-        <div
-          class="environment-illustration"
-          id="environment-icon"
-          aria-hidden="true"
-        ></div>
+        <figure class="environment-preview">
+          <img id="environment-image" width="768" height="432" alt="" decoding="async" />
+          <div class="environment-illustration" id="environment-icon" aria-hidden="true" hidden></div>
+          <figcaption id="environment-credit"></figcaption>
+        </figure>
         <div class="environment-title">
           <h1 id="environment-name">Glacier</h1>
           <span id="environment-status">Planned</span>
         </div>
+        <p class="environment-place" id="environment-place"></p>
         <p class="environment-description" id="environment-description"></p>
         <div class="carousel-navigation">
           <button
@@ -91,9 +93,9 @@
             &#8594;
           </button>
         </div>
-        <button class="primary deploy-button" id="deploy-underground" hidden>
-          Explore underground
-        </button>
+        <div class="environment-action"><button class="primary deploy-button" id="deploy-underground" hidden>
+          Explore underground <span aria-hidden="true">↗</span>
+        </button></div>
       </section>
       <div class="globe-label" id="globe-label" hidden>
         <i></i><span id="globe-label-name"></span>
@@ -427,6 +429,8 @@
             >Rutongo Mines</a
           >
         </dd>
+        <dt>Environment references</dt>
+        <dd><ul id="environment-sources"></ul></dd>
         <dt>Orbit</dt>
         <dd>ISS structure: NASA / VTAD. Simplified, unmarked geometry in a decorative presentation orbit, not to scale.
           <a href="https://science.nasa.gov/resource/international-space-station-3d-model/" target="_blank" rel="noopener">NASA model</a></dd>
@@ -476,28 +480,28 @@
           "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
           "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
           "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js",
-          "./js/app.js": "./js/app.js?v=2026-11-07.2",
-          "./js/experience.js": "./js/experience.js?v=2026-11-07.2",
-          "./js/fleet.js": "./js/fleet.js?v=2026-11-07.2",
-          "./js/geology.js": "./js/geology.js?v=2026-11-07.2",
-          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-07.2",
-          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-07.2",
-          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-07.2",
-          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-07.2",
-          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-07.2",
-          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-07.2",
-          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-07.2",
-          "./js/mission.js": "./js/mission.js?v=2026-11-07.2",
-          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-07.2",
-          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-07.2",
-          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-07.2",
-          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-07.2",
-          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-07.2",
-          "./js/underground.js": "./js/underground.js?v=2026-11-07.2",
-          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-07.2"
+          "./js/app.js": "./js/app.js?v=2026-11-07.3",
+          "./js/experience.js": "./js/experience.js?v=2026-11-07.3",
+          "./js/fleet.js": "./js/fleet.js?v=2026-11-07.3",
+          "./js/geology.js": "./js/geology.js?v=2026-11-07.3",
+          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-07.3",
+          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-07.3",
+          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-07.3",
+          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-07.3",
+          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-07.3",
+          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-07.3",
+          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-07.3",
+          "./js/mission.js": "./js/mission.js?v=2026-11-07.3",
+          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-07.3",
+          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-07.3",
+          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-07.3",
+          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-07.3",
+          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-07.3",
+          "./js/underground.js": "./js/underground.js?v=2026-11-07.3",
+          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-07.3"
         }
       }
     </script>
-    <script type="module" src="js/experience.js?v=2026-11-07.2"></script>
+    <script type="module" src="js/experience.js?v=2026-11-07.3"></script>
   </body>
 </html>
