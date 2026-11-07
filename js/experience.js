@@ -257,6 +257,20 @@ async function getLearning(sourceMode = "recorded_synthetic") {
   }
   return learningLoads.get(sourceMode);
 }
+function showInstruments(name, focus = false) {
+  const recorded = document.body.dataset.learningSource === "recorded_synthetic";
+  const forecast = recorded && name === "forecast";
+  $("policy-instruments").hidden = forecast;
+  $("forecast-instruments").hidden = !forecast;
+  for (const id of ["policy", "forecast"]) {
+    const selected = (id === "forecast") === forecast, button = $(id + "-tab");
+    button.setAttribute("aria-selected", String(selected));
+    button.tabIndex = selected ? 0 : -1;
+    if (selected && focus) button.focus();
+  }
+  $("learning-section-label").textContent = forecast ? "World model" : "Reinforcement learning";
+  $("learning-title").textContent = forecast ? "Raw dynamics" : recorded ? "Policy checkpoints" : "Scoop and haul";
+}
 function configureLearningUI(sourceMode) {
   const recorded = sourceMode === "recorded_synthetic";
   document.body.dataset.learningSource = sourceMode;
@@ -269,7 +283,7 @@ function configureLearningUI(sourceMode) {
   $("curve-x-axis").textContent=recorded?"Environment decisions":"Represented episodes";
   $("reward-heading").textContent = recorded ? "Step reward" : "Reward";
   $("episode-caption").textContent = recorded ? "completed training episodes" : "represented episodes";
-  $("learning-title").innerHTML = recorded ? "Policy<br />checkpoints." : "Scoop<br />and haul.";
+  showInstruments("policy");
   $("caption-detail").textContent = recorded ? "Recorded synthetic experiment. Mine figures illustrative." : "Illustrative training replay.";
   document.querySelectorAll("[data-checkpoint]").forEach((button, index) => {
     button.textContent = recorded ? ["Initial", "Intermediate", "Final"][index] : ["Early", "Learning", "Trained"][index];
@@ -497,10 +511,10 @@ function setMetrics(trained) {
     ? `From ${Math.round(b.throughput)} t/h`
     : "Below shift plan";
   $("delta-schedule").textContent = trained
-    ? "Same production target"
+    ? "Same target"
     : "Ore movement delayed";
   $("delta-idle").textContent = trained
-    ? `${b.idle - v.idle} percentage points less`
+    ? `${b.idle - v.idle} pp less`
     : "Machines waiting";
   $("delta-cost").textContent = trained
     ? `£${(b.cost - v.cost).toFixed(2)} less per tonne`
@@ -972,6 +986,15 @@ function render(now) {
   if (kitActive && kit) kit.update(delta);
   pinLabel();
   renderer.render(scene, camera);
+}
+for (const name of ["policy", "forecast"]) {
+  const button = $(name + "-tab");
+  button.addEventListener("click", () => showInstruments(name));
+  button.addEventListener("keydown", event => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    showInstruments(event.key === "Home" ? "policy" : event.key === "End" ? "forecast" : name === "policy" ? "forecast" : "policy", true);
+  });
 }
 $("start-experience").addEventListener("click", start);
 $("environment-prev").addEventListener("click", () =>
