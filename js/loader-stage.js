@@ -166,6 +166,7 @@ export function createReferenceLoader(model, oreMap, authored=null) {
     const pairs=[[root,imported],[front,authored.getObjectByName('FrontJoint')],[boom,authored.getObjectByName('Boom')],[bucket,authored.getObjectByName('Bucket')],...wheels.map((w,i)=>[w,authored.getObjectByName('Wheel_'+i)])];
     for(const [target,source] of pairs){if(!source)continue;for(const child of target.children)if(child.isMesh&&child!==cargo)child.visible=false;for(const child of source.children)if(child.isMesh)target.add(child.clone(true));}
   }
+  const lamps=[1,-1].map(side=>{const lamp=new THREE.Mesh(new THREE.PlaneGeometry(.17,.09),new THREE.MeshBasicMaterial({color:0xeee9d7}));lamp.position.set(side*.53,1.12,1.9);front.add(lamp);return lamp;});
   function apply(p,wheelAngles=[0,0,0,0],payload=0){
     root.position.set(p[0],0,-p[1]);root.rotation.y=Math.PI/2+p[2];front.rotation.y=p[4];bucket.rotation.x=-p[6];
     bucket.position.set(0,.35+2*Math.sin(p[5])-.6*Math.sin(p[6]),1.6+1.2*Math.cos(p[5])-.6*Math.cos(p[6]));
@@ -173,6 +174,6 @@ export function createReferenceLoader(model, oreMap, authored=null) {
     bucketGuide.position.set(0,.65+2*Math.sin(p[5]),1.6+1.2*Math.cos(p[5]));
     wheels.forEach((w,i)=>w.rotation.x=wheelAngles[i]);cargo.visible=payload>0;cargo.scale.y=.22*Math.min(1,payload/3500);root.updateMatrixWorld(true);
   }
-  function geometry(){return {rear:root.localToWorld(new THREE.Vector3()),joint:front.localToWorld(new THREE.Vector3()),front:front.localToWorld(new THREE.Vector3(0,0,1.6)),mouth:bucket.localToWorld(new THREE.Vector3(0,0,.6)),wheels:wheels.map(w=>w.getWorldPosition(new THREE.Vector3()))};}
+  function geometry(){return {rear:root.localToWorld(new THREE.Vector3()),joint:front.localToWorld(new THREE.Vector3()),front:front.localToWorld(new THREE.Vector3(0,0,1.6)),mouth:bucket.localToWorld(new THREE.Vector3(0,0,.6)),wheels:wheels.map(w=>w.getWorldPosition(new THREE.Vector3())),lamps:lamps.map(l=>l.getWorldPosition(new THREE.Vector3())),lampForward:new THREE.Vector3(0,0,1).transformDirection(front.matrixWorld)};}
   return {root,front,boom,bucket,cargo,wheels,apply,geometry,guide(value){guides.forEach(g=>g.visible=value);}};
 }

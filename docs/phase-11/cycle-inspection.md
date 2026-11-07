@@ -72,3 +72,8 @@ or GPU peak memory. First-use preparation takes about 176 ms before reveal.
 ![Conventional reference delivery](cycle-inspection-evidence/deposition.jpg)
 
 ![Independent raw forecast inspection](cycle-inspection-evidence/forecast.jpg)
+
+A supplementary [lamp geometry check](cycle-inspection-evidence/lamp-geometry.json)
+verifies five independent physical fixtures after the final lamp refinement.
+Both single-sided lamp faces follow the front articulation and point along
+the logged forward heading, including reverse turns. They add no sensor data.
