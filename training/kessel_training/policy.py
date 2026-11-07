@@ -38,6 +38,7 @@ def network(hidden, outputs, gain):
 
 
 class ActorCritic(nn.Module):
+    feature_size = FEATURES
     def __init__(self, hidden=64):
         super().__init__()
         if isinstance(hidden, bool) or not isinstance(hidden, int) or not 8 <= hidden <= 256:
@@ -68,8 +69,8 @@ class ActorCritic(nn.Module):
                           valid.flatten(1)), dim=1).clamp(-5, 5)
 
     def distribution(self, features):
-        if features.ndim != 2 or features.shape[1] != FEATURES or not torch.isfinite(features).all():
-            raise ValueError("features must be finite (N,65) values")
+        if features.ndim != 2 or features.shape[1] != self.feature_size or not torch.isfinite(features).all():
+            raise ValueError(f"features must be finite (N,{self.feature_size}) values")
         return self.actor(features), self.log_std.clamp(-4, 1).expand(len(features), -1)
 
     def value(self, features):
@@ -94,7 +95,7 @@ class ActorCritic(nn.Module):
                 -squashed_log_prob(mean, log_std, fresh))
 
     def description(self):
-        return {"features": FEATURES, "hidden": [self.hidden, self.hidden],
+        return {"features": self.feature_size, "hidden": [self.hidden, self.hidden],
                 "actions": 4, "parameters": sum(p.numel() for p in self.parameters()),
                 "actor_parameters": sum(p.numel() for p in self.actor.parameters())+4,
                 "critic_parameters": sum(p.numel() for p in self.critic.parameters()),
