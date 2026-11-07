@@ -80,3 +80,6 @@ keeps scan references distinct from calibrated mine or training geometry.
 
 The [cinematic visual material decision](0045-cinematic-visual-materials.md)
 adopts the cleared maps for the main experience while preserving the scan boundary.
+
+The [home and environment presentation](0046-home-environment-presentation.md)
+retains geographic alignment, neutral Earth lighting and credited reference photos.

@@ -38,6 +38,13 @@ has deferred reported recorded-demo behaviour problems; visual acceptance does
 not resolve them. Recorded material-transfer verification in #261 remains
 partial.
 
+ADR-0046 refines the home globe, decorative orbit and environment selector with
+credited photographic references. A single sun direction serves translated
+globe layers, labels follow actual marker transforms, and the reduced-motion
+path settles immediately. The training/replay follow-up (#305) and offline
+Blender authoring plan (#306) remain separate research backlogs; no Blender MCP
+connection or new learned task success is implied by home improvements.
+
 The Phase 11 reference simulator, resumable PPO tools and model-free comparison
 study are implemented under ADRs 0033-0039. The bounded study completed curriculum
 subtasks but no learned complete delivery cycle. Retained weights, failed
