@@ -13,7 +13,7 @@ export async function createMine(config) {
   const [floor, ore, floorNormal, oreNormal, vehicleModel, rockMat] = await Promise.all([
     texture(config.assets.floor, 22), texture(config.assets.ore),
     texture(config.assets.floor_normal, 22, false), texture(config.assets.ore_normal, 1, false),
-    fetch(config.assets.truck).then((r) => r.json()), rockMaterial(config.visuals.rock),
+    fetch(config.assets.truck, { cache: "no-store" }).then((r) => r.json()), rockMaterial(config.visuals.rock),
   ]);
   let rockIndex = config.visuals.geology_seed;
   rockBody(data.base, rockMat, root, rockIndex++, 1.8);

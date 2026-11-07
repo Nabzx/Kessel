@@ -14,7 +14,7 @@ export async function createSurface(config) {
     rockMaterial(config.visuals.rock),
     texture(config.assets.floor_normal, 17, false),
     texture(config.assets.ore),
-    fetch(config.assets.truck).then(r => r.json()),
+    fetch(config.assets.truck, { cache: "no-store" }).then(r => r.json()),
     texture(design.ground.diff), texture(design.ground.normal,1,false), texture(design.ground.roughness,1,false),
   ]);
   rockMat.userData.vegetationMap=grass;

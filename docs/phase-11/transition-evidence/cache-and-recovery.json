@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-07T00:05:42.153Z",
+  "version": "2026-11-07.1",
+  "browser": "156.0.8078.81",
+  "checks": [
+    {
+      "scenario": "unversioned-control",
+      "result": "Old cached entry module executes without versioned URLs"
+    },
+    {
+      "scenario": "warm-cache-upgrade",
+      "result": "Surface → mine → trained, reversal and correct scene visibility",
+      "diagnostics": {
+        "stage": "trained",
+        "presentation": "2026-11-07.1",
+        "scenes": {
+          "earth": false,
+          "surface": false,
+          "mine": true,
+          "kit": false
+        },
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 0,
+        "kitActive": false,
+        "learning": null,
+        "drawCalls": 254,
+        "triangles": 57090,
+        "textures": 35,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.377,
+        "heapUsedBytes": 24935273,
+        "meanFps": 54.416073670992056,
+        "p99FrameMs": 66.69999999999982,
+        "p95FrameMs": 33.40000000000009,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "dataRequests": 2,
+      "versionedRequests": [
+        "/css/experience.css?v=2026-11-07.1",
+        "/css/recorded.css?v=2026-11-07.1",
+        "/css/realism.css?v=2026-11-07.1",
+        "/js/experience.js?v=2026-11-07.1",
+        "/js/globe-stage.js?v=2026-11-07.1",
+        "/js/scene-utils.js?v=2026-11-07.1",
+        "/js/surface-stage.js?v=2026-11-07.1",
+        "/js/vehicle.js?v=2026-11-07.1",
+        "/js/geology.js?v=2026-11-07.1",
+        "/js/mine-stage.js?v=2026-11-07.1",
+        "/js/material-transfer.js?v=2026-11-07.1",
+        "/js/mine-services.js?v=2026-11-07.1",
+        "/js/fleet.js?v=2026-11-07.1",
+        "/js/underground.js?v=2026-11-07.1",
+        "/js/loading-machine.js?v=2026-11-07.1"
+      ]
+    },
+    {
+      "scenario": "missing-entrance-recovery",
+      "result": "Surface → mine → trained, reversal and correct scene visibility",
+      "diagnostics": {
+        "stage": "trained",
+        "presentation": "2026-11-07.1",
+        "scenes": {
+          "earth": false,
+          "surface": false,
+          "mine": true,
+          "kit": false
+        },
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 0,
+        "kitActive": false,
+        "learning": null,
+        "drawCalls": 254,
+        "triangles": 57090,
+        "textures": 35,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.377,
+        "heapUsedBytes": 22342404,
+        "meanFps": 57.142857142857146,
+        "p99FrameMs": 50,
+        "p95FrameMs": 16.800000000000182,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "dataRequests": 3,
+      "versionedRequests": [
+        "/css/experience.css?v=2026-11-07.1",
+        "/css/recorded.css?v=2026-11-07.1",
+        "/css/realism.css?v=2026-11-07.1",
+        "/js/experience.js?v=2026-11-07.1",
+        "/js/globe-stage.js?v=2026-11-07.1",
+        "/js/scene-utils.js?v=2026-11-07.1",
+        "/js/surface-stage.js?v=2026-11-07.1",
+        "/js/vehicle.js?v=2026-11-07.1",
+        "/js/geology.js?v=2026-11-07.1",
+        "/js/mine-stage.js?v=2026-11-07.1",
+        "/js/material-transfer.js?v=2026-11-07.1",
+        "/js/mine-services.js?v=2026-11-07.1",
+        "/js/fleet.js?v=2026-11-07.1",
+        "/js/underground.js?v=2026-11-07.1",
+        "/js/loading-machine.js?v=2026-11-07.1"
+      ]
+    }
+  ],
+  "errors": []
+}
