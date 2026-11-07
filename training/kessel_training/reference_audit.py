@@ -12,7 +12,21 @@ from .dynamics import clearance
 from .environment import LoaderEnv, SceneConfig
 from .kinematics import components, footprints
 from .scenarios import family
-from .wm_state import pack
+from .wm_state import pack as wm_pack
+
+
+def pack(env):
+    # Integration probes vary time discretisation only. Keep WM-v1's strict
+    # loader guard unchanged; encode the audit's decision interval explicitly.
+    original=env.loader
+    try:
+        env.loader=LoaderConfig()
+        state=wm_pack(env)
+    finally:
+        env.loader=original
+    from .wm_state import INDEX
+    state[:,INDEX["decision_s"]]=original.decision_s
+    return state
 
 
 def initial_status(env):
@@ -81,8 +95,16 @@ def run(output):
             env=LoaderEnv(1,seed=100000,loader=config)
             for _ in range(round(2/step)):env.step([command])
             step_rows.append({'decision_s':step,'case':name,'pose':env.pose[0].tolist(),'joints':env.joints[0].tolist(),'speed':float(env.speed[0])})
-        row=trace(scene,100000,config)
+        row=trace(replace(scene,max_steps=round(60/step)),100000,config)
         step_rows.append({'decision_s':step,'case':'full_contact_cycle',**{k:row[k] for k in ('outcome','delivered_kg','spilled_kg','cycle_s','max_mass_residual_kg')}})
+    comparison=[]
+    for row in step_rows:
+        if row['case']=='full_contact_cycle':continue
+        baseline=next(r for r in step_rows if r['decision_s']==.05 and r['case']==row['case'])
+        errors={k:float(np.max(np.abs(np.asarray(row[k])-baseline[k]))) for k in ('pose','joints','speed')}
+        bounds={'pose':.02,'joints':.005,'speed':.02}
+        comparison.append({'case':row['case'],'decision_s':row['decision_s'],'absolute_errors':errors,
+                           'bounds':bounds,'passed':all(errors[k]<v for k,v in bounds.items())})
     reset_rows=[]
     for name in ('standard','low_grip','occluded','blocked'):
         scene,_=family(name)
@@ -97,7 +119,7 @@ def run(output):
         p=np.array([pose],float);j=np.array([joints],float)
         fixtures.append({'name':name,'pose':pose,'joints':joints,'geometry':{k:v[0].tolist() for k,v in components(p,j).items()},'footprints':footprints(p,j)[0].tolist()})
     (output/'geometry-fixtures.json').write_text(json.dumps(fixtures,indent=2)+'\n')
-    report={'schema':'reference-audit-v1','source_mode':'recorded_synthetic','units':{'distance':'m','angle':'rad','mass':'kg','time':'s'},'limits':'Synthetic cell-centre contact and swept AABBs; not granular or calibrated machine physics. No learned success claim.','reference_cases':results,'integration':step_rows,'resets':reset_rows,'chosen_decision_s':.1,'physics_step_max_s':.02}
+    report={'schema':'reference-audit-v1','source_mode':'recorded_synthetic','units':{'distance':'m','angle':'rad','mass':'kg','time':'s'},'limits':'Synthetic cell-centre contact and swept AABBs; not granular or calibrated machine physics. No learned success claim.','reference_cases':results,'integration':step_rows,'integration_comparison':comparison,'resets':reset_rows,'integration_time_budget_s':60,'chosen_decision_s':.1,'physics_step_max_s':.02}
     (output/'report.json').write_text(json.dumps(report,indent=2)+'\n');return report
 
 if __name__=='__main__':
