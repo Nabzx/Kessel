@@ -92,3 +92,5 @@ pins the MCP connection and keeps editable source scenes outside static packagin
 
 [Bounded learning follow-up](0049-bounded-learning-follow-up.md) declares
 policy, observation, world-model and equal-reference-budget comparisons.
+[Recorded cycle inspection](0050-recorded-cycle-inspection.md) separates reference
+control from learned checkpoints and preserves material volume and event clocks.
