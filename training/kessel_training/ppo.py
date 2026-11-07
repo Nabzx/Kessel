@@ -143,11 +143,12 @@ class PPO:
         tensors = (rollout.features, rollout.latent, rollout.log_prob, returns, advantage)
         if not all(torch.isfinite(v).all() for v in tensors):
             raise FloatingPointError("non-finite rollout")
-        if rollout.features.shape != (*advantage.shape, 65) or rollout.latent.shape != (*advantage.shape, 4):
+        feature_size = self.policy.feature_size
+        if rollout.features.shape != (*advantage.shape, feature_size) or rollout.latent.shape != (*advantage.shape, 4):
             raise ValueError("invalid rollout feature/action shape")
         if rollout.log_prob.shape != advantage.shape:
             raise ValueError("invalid rollout likelihood shape")
-        features = rollout.features.reshape(count, 65).detach()
+        features = rollout.features.reshape(count, feature_size).detach()
         latents = rollout.latent.reshape(count, 4).detach()
         old_log = rollout.log_prob.reshape(count).detach()
         targets = returns.reshape(count).detach()
