@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const root=path.resolve(__dirname,'..'),out=process.env.KESSEL_QA_DIR||'/private/tmp/kessel-transition-evidence';
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 const modules=fs.readdirSync(path.join(root,'js')).filter(f=>f.endsWith('.js')).map(f=>'/js/'+f);
-const styles=['/css/experience.css','/css/recorded.css','/css/realism.css'];
+const styles=['/css/experience.css','/css/recorded.css','/css/realism.css','/css/hud.css'];
 const version=html.match(/name="kessel-presentation" content="([^"]+)"/)[1];
 let legacy=true,versioned=true,fault=false,dataRequests=0,requested=[];
 const server=http.createServer((req,res)=>{
