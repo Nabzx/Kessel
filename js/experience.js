@@ -220,11 +220,45 @@ function start() {
     if("requestIdleCallback" in window)requestIdleCallback(warm,{timeout:1000});else warm();
   },reduced?100:data.visuals.home.prefetch_delay_seconds*1000);
 }
+const preparationMs={};
+async function prepareTransition(root,name) {
+  const started=performance.now(),parent=root.parent,materials=new Map();
+  root.removeFromParent();root.traverse(o=>{for(const m of Array.isArray(o.material)?o.material:[o.material])if(m)materials.set(m,m.transparent);});
+  try {
+    root.updateMatrixWorld(true);
+    for(const m of materials.keys())m.transparent=true;
+    const fog=scene.fog;scene.fog=null;root.visible=true;
+    let ready;
+    try {ready=renderer.compileAsync(root,camera,scene);} finally {scene.fog=fog;root.visible=false;}
+    await ready;
+  } finally {for(const [m,transparent] of materials)m.transparent=transparent;root.visible=false;parent?.add(root);preparationMs[name]=performance.now()-started;}
+}
+async function prepareStage(root,name,fog=null) {
+  const started=performance.now(),holder=new THREE.Scene();holder.fog=fog;holder.add(root);root.visible=true;
+  try {
+    const textures=new Set();root.traverse(object=>{for(const material of Array.isArray(object.material)?object.material:[object.material])if(material)for(const value of [...Object.values(material),...Object.values(material.userData||{})])if(value?.isTexture)textures.add(value);});
+    let count=0;
+    for(const texture of textures){renderer.initTexture(texture);if(++count%2===0)await new Promise(requestAnimationFrame);}
+    holder.updateMatrixWorld(true);
+    const materials=new Map();root.traverse(o=>{for(const m of Array.isArray(o.material)?o.material:[o.material])if(m)materials.set(m,m.transparent);});
+    try {
+      for(const stageFog of fog?[null,fog]:[null]){
+        holder.fog=stageFog;
+        for(const [m,transparent] of materials)m.transparent=transparent;
+        await renderer.compileAsync(holder,camera);
+        for(const m of materials.keys())m.transparent=true;
+        await renderer.compileAsync(holder,camera);
+      }
+    } finally {for(const [m,transparent] of materials)m.transparent=transparent;}
+  } finally {holder.remove(root);root.visible=false;preparationMs[name]=performance.now()-started;}
+}
 async function getSurface() {
   if (!surfacePromise)
     surfacePromise = import("./surface-stage.js")
       .then((module) => module.createSurface(data))
-      .then((value) => {
+      .then(async(value) => {
+        await prepareStage(value.root,"surface",new THREE.Fog("#778c8c",420,1800));
+        await prepareTransition(value.root,"flight");
         surface = value;
         surface.root.visible = false;
         scene.add(surface.root);
@@ -240,7 +274,8 @@ async function getMine() {
   if (!minePromise)
     minePromise = import("./mine-stage.js")
       .then((module) => module.createMine(data))
-      .then((value) => {
+      .then(async(value) => {
+        await prepareStage(value.root,"mine");
         mine = value;
         mine.root.visible = false;
         scene.add(mine.root);
@@ -422,6 +457,7 @@ async function enterMine() {
       throw new Error("Mine entrance settings are unavailable");
     }
     await getMine();
+    await prepareTransition(mine.root,"entrance");
     // Complete preparation before hiding the surface or committing a new stage.
     const portal = surface.portal.clone();
     nextTransition = {
@@ -1097,7 +1133,10 @@ requestAnimationFrame(render);
 export function diagnostics() {
   const gl = renderer.getContext(),
     debug = gl.getExtension("WEBGL_debug_renderer_info");
+  const authoredAssets=new Set();scene.traverse(o=>{const path=o.userData.authoredAsset||o.userData.assetPath;if(path)authoredAssets.add(path);});
   return {
+    authoredAssets:[...authoredAssets],
+    preparationMs:{...preparationMs},
     stage,
     camera: {position:camera.position.toArray(),fov:camera.fov,moving:cameraMove!==null},
     earthSettling:earthGoal!==null,

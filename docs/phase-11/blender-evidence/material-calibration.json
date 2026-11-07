@@ -1,0 +1,33 @@
+{
+  "camera": {
+    "position": [
+      4,
+      3,
+      6
+    ],
+    "target": [
+      0,
+      0,
+      0
+    ],
+    "lensMm": 50,
+    "sensorWidthMm": 36,
+    "aspect": 1.6
+  },
+  "blender": {
+    "view": "AgX",
+    "exposure": 0,
+    "key": "POINT 600 W, location (2,-3,5)"
+  },
+  "browser": {
+    "view": "ACESFilmicToneMapping",
+    "exposure": 1.04,
+    "keyCandela": 47.7464829275686,
+    "position": [
+      2,
+      5,
+      3
+    ]
+  },
+  "scope": "Matched camera and materials, nominal point-light conversion; no calibrated photometric equivalence or live product inference."
+}

@@ -156,6 +156,7 @@ export function createFleet(network, routes, fleetConfig, vehicleModel, routeRib
       entry.truck.userData.phase = entry.queued ? "queued" : entry.phase;
       const bedAngle = entry.phase === "tipping" ? Math.sin(Math.min(1, tipProgress / .65) * Math.PI) * vehicleModel.dump_bed.tip_angle_radians : 0;
       entry.dumpBed.rotation.x = THREE.MathUtils.damp(entry.dumpBed.rotation.x, bedAngle, 8, delta);
+      if(entry.dumpBed.userData.mirror)entry.dumpBed.userData.mirror.rotation.x=entry.dumpBed.rotation.x;
       const load = entry.phase === "loading" ? THREE.MathUtils.clamp((entry.dwell / fleetConfig.dwell_seconds.loading - .25) / .75, 0, 1) : entry.phase === "returning" ? 0 : entry.phase === "tipping" ? 1 - THREE.MathUtils.smoothstep(tipProgress, .15, .45) : 1;
       entry.cargo.visible = load > .01;
       entry.cargo.scale.y = Math.max(.01, load);

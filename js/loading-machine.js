@@ -15,7 +15,8 @@ export async function createLoadingMachine(config, drawPoint) {
   model.scale.multiplyScalar(config.length_m/Math.max(size.x,size.z));
   // Point the bucket towards the truck; use the documented rig joints rather
   // than inferring forward from the glTF root's arbitrary export rotation.
-  const bucket=bones[config.bucket_bone_index], tracks=bones[9]||bones[0];
+  const bucket=config.bucket_bone_name?bones.find(b=>b.name===config.bucket_bone_name):bones[config.bucket_bone_index], tracks=config.tracks_bone_name?bones.find(b=>b.name===config.tracks_bone_name):bones[9]||bones[0];
+  if(!bucket||!tracks)throw new Error("Excavator joint mapping unavailable");
   const direction=bucket.getWorldPosition(new THREE.Vector3()).sub(tracks.getWorldPosition(new THREE.Vector3()));
   const targetHeading=config.target_offset_m
     ? Math.atan2(config.target_offset_m[0]-config.offset_m[0],config.target_offset_m[2]-config.offset_m[2])
@@ -25,10 +26,11 @@ export async function createLoadingMachine(config, drawPoint) {
   bounds.setFromObject(model);
   const centre=bounds.getCenter(new THREE.Vector3());
   model.position.x-=centre.x; model.position.z-=centre.z; model.position.y-=bounds.min.y;
-  const root=new THREE.Group(); root.name="licensed-loading-excavator";
+  const root=new THREE.Group(); root.name="licensed-loading-excavator";root.userData.authoredAsset=config.model;
   root.position.fromArray(drawPoint.position_m).add(new THREE.Vector3(...config.offset_m));
   root.add(model);
-  const boom=bones[config.boom_bone_index];
+  const boom=config.boom_bone_name?bones.find(b=>b.name===config.boom_bone_name):bones[config.boom_bone_index];
+  if(!boom)throw new Error("Excavator boom mapping unavailable");
   const boomBase=boom.quaternion.clone(),bucketBase=bucket.quaternion.clone();
   const axis=new THREE.Vector3(1,0,0),rotation=new THREE.Quaternion();
   let boomAngle=0,bucketAngle=0;

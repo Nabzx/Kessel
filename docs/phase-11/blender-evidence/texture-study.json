@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-07T16:50:07.056Z",
+  "browser": "156.0.8078.81",
+  "shaderWarmupMs": 52.89999985694885,
+  "orientation": "KTX2 upper-left container explicitly mapped to match PNG/WebP UV orientation",
+  "rows": [
+    {
+      "name": "png",
+      "bytes": 469620,
+      "decodeAndLocalLoadMs": 6.1000001430511475,
+      "uploadAndCompileMs": 9.299999952316284,
+      "textureFormat": 1023,
+      "estimatedGpuBytes": 1048576,
+      "maxChannelError": 0,
+      "psnrDb": null
+    },
+    {
+      "name": "webp",
+      "bytes": 371500,
+      "decodeAndLocalLoadMs": 4,
+      "uploadAndCompileMs": 18.600000143051147,
+      "textureFormat": 1023,
+      "estimatedGpuBytes": 1048576,
+      "maxChannelError": 0,
+      "psnrDb": null
+    },
+    {
+      "name": "atlas",
+      "bytes": 503548,
+      "decodeAndLocalLoadMs": 3.8000001907348633,
+      "uploadAndCompileMs": 23.299999952316284,
+      "textureFormat": 1023,
+      "estimatedGpuBytes": 2097152,
+      "maxChannelError": 0,
+      "psnrDb": null
+    },
+    {
+      "name": "ktx2",
+      "bytes": 262416,
+      "decodeAndLocalLoadMs": 149.40000009536743,
+      "uploadAndCompileMs": 0.5999999046325684,
+      "textureFormat": 37808,
+      "estimatedGpuBytes": 262144,
+      "maxChannelError": 51,
+      "psnrDb": 42.62091151792166
+    }
+  ],
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+  "resources": [
+    {
+      "name": "basis_transcoder.js",
+      "bytes": 62337,
+      "durationMs": 2.700000047683716
+    },
+    {
+      "name": "basis_transcoder.wasm",
+      "bytes": 499935,
+      "durationMs": 3.799999952316284
+    }
+  ]
+}

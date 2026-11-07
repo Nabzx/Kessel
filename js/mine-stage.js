@@ -1,3 +1,4 @@
+import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
 import { texture, box, lightRig, seeded, line, varyTexture } from "./scene-utils.js";
 import { rockMaterial, rockBody } from "./geology.js";
@@ -15,10 +16,15 @@ export async function createMine(config) {
     texture(config.assets.floor_normal, 22, false), texture(config.assets.ore_normal, 1, false),
     fetch(config.assets.truck, { cache: "no-store" }).then((r) => r.json()), rockMaterial(config.visuals.rock),
   ]);
+  const geologyRoot=new THREE.Group();root.add(geologyRoot);
   let rockIndex = config.visuals.geology_seed;
-  rockBody(data.base, rockMat, root, rockIndex++, 1.8);
+  rockBody(data.base, rockMat, geologyRoot, rockIndex++, 1.8);
   for (const spec of [...data.pillars, ...data.rims])
-    rockBody(spec, rockMat, root, rockIndex++, config.visuals.pillar_relief_m);
+    rockBody(spec, rockMat, geologyRoot, rockIndex++, config.visuals.pillar_relief_m);
+  try {
+    const authored=await authoredAsset(config.visuals.authored?.geology);
+    if(authored){authored.traverse(o=>{if(o.isMesh)o.material=o.material.name.includes("Section")?rockMat.userData.sectionMaterial:rockMat;});geologyRoot.visible=false;root.add(authored);}
+  } catch(error){console.warn("Authored geology unavailable",error);}
   const ground = new THREE.Mesh(
     new THREE.PlaneGeometry(...data.floor_size),
     new THREE.MeshStandardMaterial({
@@ -61,7 +67,7 @@ export async function createMine(config) {
     vehicleModel,
     routes,
     data.prediction_preview,
-    { oreMap: ore, oreNormal },
+    { oreMap: ore, oreNormal, authoredHauler:config.visuals.authored?.hauler, authoredOverview:config.visuals.authored?.hauler_overview },
   );
   root.add(fleet.group);
   for (const entry of fleet.entries) {
@@ -110,6 +116,14 @@ export async function createMine(config) {
   });
   rocks.castShadow = true;
   root.add(rocks);
+  try {
+    const [authored,normal,ao]=await Promise.all([authoredAsset(config.visuals.authored?.ore),texture(config.visuals.authored.ore.normal_path,1,false),texture(config.visuals.authored.ore.ao_path,1,false)]);
+    if(authored){const colour=ore.clone();colour.flipY=normal.flipY=ao.flipY=false;colour.needsUpdate=true;const oreMaterial=new THREE.MeshStandardMaterial({map:colour,normalMap:normal,aoMap:ao,roughness:1,color:0xb0a48e});ao.channel=0;
+      authored.traverse(o=>{if(o.isMesh)o.material=oreMaterial;});
+      for(const point of data.ore_piles){const pile=authored.clone(true);pile.position.fromArray(point);pile.scale.set(1.35,1.1,1.35);root.add(pile);}rocks.visible=false;
+    }
+  } catch(error){console.warn('Authored ore unavailable',error);}
+
   const structureMat = new THREE.MeshStandardMaterial({
     color: 0x737a74,
     roughness: 0.55,

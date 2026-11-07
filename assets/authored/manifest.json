@@ -1,0 +1,159 @@
+{
+  "blender": "5.2.3 LTS",
+  "blender_build": "e13b728c6880",
+  "connector_revision": "2e4b0bc294694b1570d76ed01be657c22e6d02a0",
+  "connector_version": "2.2.7",
+  "safe_mode": true,
+  "telemetry": false,
+  "source_mode": "Original synthetic visual geometry; proposed kit; not calibrated simulator collision geometry or a Rutongo survey.",
+  "assets": [
+    {
+      "path": "assets/authored/excavator.glb",
+      "bytes": 2096636,
+      "sha256": "804bfcdfe3eed1b8c836967b538114fc39dadbedd71404944c3b621183484468",
+      "source": "tools/blender/source/excavator.blend",
+      "source_sha256": "a34d6829931e95d641dad018305207872aaff7282b7d63985dcb07e35f0c9aa8",
+      "licence": "CC-BY-4.0; mohamed.salaah880; non-destructive rig round trip",
+      "units": "Original asset units; browser normalises horizontal length to 7 m",
+      "triangles": 10000,
+      "nodes": 14
+    },
+    {
+      "path": "assets/authored/geology.glb",
+      "bytes": 529840,
+      "sha256": "008d7f732e5599396bdda630bab192afab85ebbf37f669cd5bf8815e20876472",
+      "source": "tools/blender/source/geology.blend",
+      "source_sha256": "78e653e6a4fca82901a65982d4ef9f1e706fe1273ac2fc36efeb588230dae22c",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 11616,
+      "nodes": 2
+    },
+    {
+      "path": "assets/authored/hauler-close.glb",
+      "bytes": 1222964,
+      "sha256": "007fb0f48db2472234ecd1572637e454b83d6a98aabf47c057af17c59465dda9",
+      "source": "tools/blender/source/hauler-close.blend",
+      "source_sha256": "60435ef10dfd64a629683615b4cc12906cff42d5aa019957da5ae7fbbcfcde67",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 18600,
+      "nodes": 12
+    },
+    {
+      "path": "assets/authored/hauler-overview.glb",
+      "bytes": 615364,
+      "sha256": "22c40578b4b53700077eb59bbc93c2f8a0c09356d08298f064b783c625c0201c",
+      "source": "tools/blender/source/hauler-overview.blend",
+      "source_sha256": "9f54cae767dcf4419499f2cbce04b9d0cb73e4e1a6700aff77afc514d7d532bc",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 7802,
+      "nodes": 12
+    },
+    {
+      "path": "assets/authored/ore-pile.glb",
+      "bytes": 572568,
+      "sha256": "ab52506d172d408bc11d31085a0612266d1ebae7446a1648b615054d9b5f5046",
+      "source": "tools/blender/source/ore-pile.blend",
+      "source_sha256": "17e30abaa485329b3f82781a58d5ce562dca1455865e0e0970a7e2a41a091191",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 5600,
+      "nodes": 2
+    },
+    {
+      "path": "assets/authored/ore_ao.webp",
+      "bytes": 90276,
+      "sha256": "9ae62846dc989b2aa9329d8655babcfb0a62e0371910f6b2cd33c5fd0d429de4",
+      "source": "tools/blender/source/material-calibration.blend",
+      "source_sha256": "6fc32371b84b09acaf26c2c542cf0bd3655684537ffa9e70ec7ac391a117cb5e",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "original_bake": "tools/blender/bakes/ore_ao.png",
+      "original_sha256": "0119d1842ece3a1faffe6489dd4a68da3912a04637ce4c27132447ceb38aa770",
+      "operation": "Lossless WebP; exact decoded RGBA pixels",
+      "colour_space": "linear data; GL tangent normal or AO"
+    },
+    {
+      "path": "assets/authored/ore_normal.webp",
+      "bytes": 371500,
+      "sha256": "bcc5f537531c4c3fee3ed15db19ea669a565bb589e5e5374694537a618b1df4b",
+      "source": "tools/blender/source/material-calibration.blend",
+      "source_sha256": "6fc32371b84b09acaf26c2c542cf0bd3655684537ffa9e70ec7ac391a117cb5e",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "original_bake": "tools/blender/bakes/ore_normal.png",
+      "original_sha256": "8ba9aca2612fde1188776705a5d14c2e32332df8cf545ca536836f46ccd8d7b5",
+      "operation": "Lossless WebP; exact decoded RGBA pixels",
+      "colour_space": "linear data; GL tangent normal or AO"
+    },
+    {
+      "path": "assets/authored/portal-yard.glb",
+      "bytes": 663716,
+      "sha256": "e57435e1670d99bf261baad36340324384327536734443b47bde3f0df822a6c7",
+      "source": "tools/blender/source/portal-yard.blend",
+      "source_sha256": "1c3acb3f32c13250c7bbbd3ca80360ca2e9b8a740db145d8c0e06581d18f7c03",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 9472,
+      "nodes": 2
+    },
+    {
+      "path": "assets/authored/reference-loader.glb",
+      "bytes": 312640,
+      "sha256": "4c0e483ae13587d2527f04a8a7de0f4fc3a6f7d994eba3e927f817285bd9571c",
+      "source": "tools/blender/source/reference-loader.blend",
+      "source_sha256": "26da7a5b4b42d28ad92d82d79db727ab680e98c40d9270287d0fd97a819b2954",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 3524,
+      "nodes": 43
+    },
+    {
+      "path": "assets/authored/retrofit-kit.glb",
+      "bytes": 950608,
+      "sha256": "1e0e25968f40c5995baed5aa8d9ef397b9c438a33053d67eaffb3abd8e1331c9",
+      "source": "tools/blender/source/retrofit-kit.blend",
+      "source_sha256": "9bf3d88fa4c08b0dc6db74aa6b394fc9abcf7ab62e426fc8f0cc9416d2a2e803",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 13788,
+      "nodes": 15
+    }
+  ],
+  "scripts": [
+    {
+      "path": "tools/blender/author.py",
+      "sha256": "c10b80e416328ac89c5baeaa4c800fc58f81c9636241bb1ca987389c9eaa1c8e"
+    },
+    {
+      "path": "tools/blender/bake.py",
+      "sha256": "a8bf51deac387a8541673b5aa000c5278a607a9e4f3d9d15252499b4c3dff68d"
+    },
+    {
+      "path": "tools/blender/client.py",
+      "sha256": "2f4e30193e3d7db07b965570be331dfb6824f3d8c53e9b1c2e1691700c7fec71"
+    },
+    {
+      "path": "tools/blender/inspect-assets.py",
+      "sha256": "d8a18ea7b70834c571464627143c3393e94a069772d0cf4b4b656d8304913063"
+    },
+    {
+      "path": "tools/blender/manifest.py",
+      "sha256": "b6da370737307609c234f59e64ed24afad4add430da6a926f1379d40cd8d3bcc"
+    },
+    {
+      "path": "tools/blender/material-library.py",
+      "sha256": "b18e4b47fce18f41096c54346f050a48c753db439785f13fc0f41eaddc22442b"
+    },
+    {
+      "path": "tools/blender/rigs.py",
+      "sha256": "e1da2909dbd198967f0166cab85fbf6a1903294ff4e18cce7916c23e63d095b4"
+    },
+    {
+      "path": "tools/blender/start.py",
+      "sha256": "c36d3cb4b109289aa505e0b41ccba3881b6f48efe2a11af1ab2186e29ad814f0"
+    }
+  ]
+}

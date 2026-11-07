@@ -83,3 +83,9 @@ adopts the cleared maps for the main experience while preserving the scan bounda
 
 The [home and environment presentation](0046-home-environment-presentation.md)
 retains geographic alignment, neutral Earth lighting and credited reference photos.
+
+The [reference repair protocol](0047-training-repair-and-replay-evidence.md)
+separates audited geometry/material behaviour from new learning claims.
+
+The [local Blender authoring decision](0048-local-blender-authoring.md)
+pins the MCP connection and keeps editable source scenes outside static packaging.

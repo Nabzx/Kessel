@@ -1,0 +1,250 @@
+{
+  "date": "2026-11-07T17:04:55.862Z",
+  "browser": "156.0.8078.81",
+  "checks": [
+    {
+      "scenario": "all authored assets adopted, paused geometry, proposed kit",
+      "diagnostics": {
+        "authoredAssets": [
+          "assets/authored/portal-yard.glb",
+          "assets/authored/hauler-close.glb",
+          "assets/authored/hauler-overview.glb",
+          "assets/authored/geology.glb",
+          "assets/authored/excavator.glb",
+          "assets/authored/ore-pile.glb",
+          "assets/authored/reference-loader.glb",
+          "assets/authored/retrofit-kit.glb"
+        ],
+        "preparationMs": {
+          "surface": 1705.9000000953674,
+          "flight": 69.59999990463257,
+          "mine": 591.9000000953674,
+          "entrance": 78.5
+        },
+        "stage": "trained",
+        "camera": {
+          "position": [
+            8,
+            6,
+            10
+          ],
+          "fov": 51.51647112319704,
+          "moving": false
+        },
+        "earthSettling": false,
+        "globe": {
+          "layers": {
+            "day": true,
+            "night": true,
+            "clouds": true,
+            "station": true
+          },
+          "earthRotation": -2.095427761351723,
+          "sunDirection": [
+            -0.5474330826576996,
+            0.37822649347259246,
+            0.7464996581695904
+          ],
+          "stationSpan": 0.4,
+          "pins": [
+            {
+              "id": "glacier",
+              "normal": [
+                0.22920651885063192,
+                0.9348256763960145,
+                0.27122928762784615
+              ],
+              "world": [
+                -0.23295901929422747,
+                1.746271995869226,
+                0.1519310890473809
+              ]
+            },
+            {
+              "id": "desert",
+              "normal": [
+                0.8960001765711199,
+                0.39714789063478056,
+                -0.19863845687294898
+              ],
+              "world": [
+                0.44881577463387345,
+                0.6177917362395516,
+                2.1262322350844345
+              ]
+            },
+            {
+              "id": "underground",
+              "normal": [
+                0.8650731924569884,
+                -0.031716039514780386,
+                -0.5006420522986169
+              ],
+              "world": [
+                1.4806575507265562,
+                -0.07070994121984014,
+                2.4287775152936786
+              ]
+            },
+            {
+              "id": "deep-sea",
+              "normal": [
+                -0.7747021798719258,
+                0.19680181724739437,
+                -0.6009206080921253
+              ],
+              "world": [
+                3.284449256851792,
+                1.3166009204360622,
+                -0.89791867134102
+              ]
+            }
+          ]
+        },
+        "presentation": "2026-11-07.5",
+        "scenes": {
+          "earth": false,
+          "surface": false,
+          "mine": false,
+          "kit": true
+        },
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 1771,
+        "kitActive": true,
+        "learning": null,
+        "drawCalls": 23,
+        "triangles": 13790,
+        "textures": 46,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.5,
+        "heapUsedBytes": 40304920,
+        "meanFps": 60.00000000000002,
+        "p99FrameMs": 16.80000000000109,
+        "p95FrameMs": 16.799999999999272,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      }
+    },
+    {
+      "scenario": "missing authored geology",
+      "result": "original closed cutaway remains usable through trained comparison"
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "frameTimes": {
+    "welcome": {
+      "frames": 13,
+      "meanFps": 16.5964509128048,
+      "p95Ms": 366.69999999999993,
+      "p99Ms": 366.69999999999993
+    },
+    "select": {
+      "frames": 21,
+      "meanFps": 42.000000000000014,
+      "p95Ms": 66.69999999999982,
+      "p99Ms": 66.69999999999993
+    },
+    "preparing": {
+      "frames": 89,
+      "meanFps": 60.005393743257805,
+      "p95Ms": 16.799999999999955,
+      "p99Ms": 16.800000000000182
+    },
+    "flight": {
+      "frames": 17,
+      "meanFps": 42.5,
+      "p95Ms": 50,
+      "p99Ms": 50
+    },
+    "surface": {
+      "frames": 17,
+      "meanFps": 46.3467829880044,
+      "p95Ms": 50.09999999999991,
+      "p99Ms": 50.09999999999991
+    },
+    "entering": {
+      "frames": 15,
+      "meanFps": 40.916530278232415,
+      "p95Ms": 133.39999999999964,
+      "p99Ms": 133.39999999999964
+    },
+    "mine": {
+      "frames": 129,
+      "meanFps": 60.0055819145967,
+      "p95Ms": 16.799999999999272,
+      "p99Ms": 16.800000000000182
+    },
+    "comparing": {
+      "frames": 22,
+      "meanFps": 59.99454595036818,
+      "p95Ms": 16.700000000000728,
+      "p99Ms": 16.800000000000182
+    },
+    "trained": {
+      "frames": 233,
+      "meanFps": 59.23779015076397,
+      "p95Ms": 16.799999999999272,
+      "p99Ms": 16.80000000000109
+    },
+    "learning": {
+      "frames": 21,
+      "meanFps": 45.006429489927186,
+      "p95Ms": 33.399999999999636,
+      "p99Ms": 100
+    }
+  },
+  "resourceTiming": [
+    {
+      "file": "portal-yard.glb",
+      "bytes": 663716,
+      "durationMs": 4
+    },
+    {
+      "file": "hauler-close.glb",
+      "bytes": 1222956,
+      "durationMs": 6.699999809265137
+    },
+    {
+      "file": "hauler-overview.glb",
+      "bytes": 615356,
+      "durationMs": 5
+    },
+    {
+      "file": "geology.glb",
+      "bytes": 529840,
+      "durationMs": 2.6000001430511475
+    },
+    {
+      "file": "excavator.glb",
+      "bytes": 2096636,
+      "durationMs": 7.200000047683716
+    },
+    {
+      "file": "ore-pile.glb",
+      "bytes": 572568,
+      "durationMs": 5
+    },
+    {
+      "file": "ore_normal.webp",
+      "bytes": 371500,
+      "durationMs": 4.400000095367432
+    },
+    {
+      "file": "ore_ao.webp",
+      "bytes": 90276,
+      "durationMs": 5.099999904632568
+    },
+    {
+      "file": "reference-loader.glb",
+      "bytes": 312528,
+      "durationMs": 6
+    },
+    {
+      "file": "retrofit-kit.glb",
+      "bytes": 950608,
+      "durationMs": 3.299999952316284
+    }
+  ]
+}

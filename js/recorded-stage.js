@@ -1,3 +1,4 @@
+import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
 import { createReferenceLoader } from "./loader-stage.js";
 import { texture, box, lightRig, line } from "./scene-utils.js";
@@ -5,7 +6,7 @@ import { ReplayClock, sampleEpisode, curvePoints } from "./recorded-data.js";
 
 export async function createRecorded(config, bundle) {
   const root = new THREE.Group(); root.name = "recorded-synthetic-experiment";
-  const [ore, floor, asset] = await Promise.all([texture(config.assets.ore), texture(config.assets.floor, 5), fetch(config.assets.loader, { cache: "no-store" }).then((r) => { if (!r.ok) throw new Error("Loader asset unavailable"); return r.json(); })]);
+  const [ore, floor, asset, authored] = await Promise.all([texture(config.assets.ore), texture(config.assets.floor, 5), fetch(config.assets.loader, { cache: "no-store" }).then((r) => { if (!r.ok) throw new Error("Loader asset unavailable"); return r.json(); }), authoredAsset(config.visuals.authored?.reference_loader).catch(error=>{console.warn("Authored loader unavailable",error);return null;})]);
   const indices = Object.fromEntries(bundle.state_names.map((name, i) => [name, i]));
   const initial = bundle.episodes[0].records[0].state, halfWidth = initial[indices.half_width_m];
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(29, halfWidth * 2), new THREE.MeshStandardMaterial({ map: floor, color: 0x72756c, roughness: 1 }));
@@ -13,7 +14,7 @@ export async function createRecorded(config, bundle) {
   const edging = new THREE.MeshStandardMaterial({ color: 0x303c3b, roughness: 1, map: ore });
   for (const side of [-1, 1]) box([29, 0.65, 0.45], [3.5, 0.325, side * (halfWidth + 0.225)], edging, root);
   const grid = new THREE.GridHelper(30, 30, 0x4c625f, 0x293a3a);grid.position.set(3.5, 0.012, 0);grid.material.transparent = true;grid.material.opacity = 0.18;root.add(grid);
-  const loader = createReferenceLoader(asset, ore);root.add(loader.root);
+  const loader = createReferenceLoader(asset, ore, authored);root.add(loader.root);
   document.getElementById("geometry-guide").addEventListener("change",event=>loader.guide(event.target.checked));
   const pile = new THREE.InstancedMesh(new THREE.BoxGeometry(0.49, 1, 0.49), new THREE.MeshStandardMaterial({ map: ore, color: 0xb6a792, roughness: 1 }), 64);
   pile.castShadow = true;pile.receiveShadow = true;root.add(pile);

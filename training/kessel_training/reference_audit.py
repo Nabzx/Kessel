@@ -44,7 +44,7 @@ def trace(scene,seed=100000,loader=None):
     control=ReferenceController(1);records=[];events=[];max_mass=0.;previous=0
     started=time.perf_counter()
     while True:
-        before=pack(env)[0].copy();action=control.act(env.observe())
+        before=pack(env)[0].copy();wheels_before=env.wheel_angles[0].copy();action=control.act(env.observe())
         geometry=components(env.pose,env.joints)
         _,reward,term,trunc,info=env.step(action)
         after=pack(env)[0].copy()
@@ -58,7 +58,7 @@ def trace(scene,seed=100000,loader=None):
             if value>0:events.append({"t_s":float(env.elapsed[0]),"kind":key,"kg":value})
         records.append({"t_s":float(before[10]),"next_t_s":float(after[10]),"state":before.tolist(),
             "next_state":after.tolist(),"action":action[0].tolist(),"reward":float(reward[0]),
-            "transfer":transfer,"mass_residual_kg":residual,
+            "transfer":transfer,"mass_residual_kg":residual,"wheel_angles_rad":wheels_before.tolist(),"next_wheel_angles_rad":env.wheel_angles[0].tolist(),
             "geometry":{k:v[0].tolist() for k,v in geometry.items()},
             "footprints_xy_m":footprints(np.asarray([before[:3]]),np.asarray([before[[4,5,6]]]))[0].tolist()})
         if (term|trunc).any():break

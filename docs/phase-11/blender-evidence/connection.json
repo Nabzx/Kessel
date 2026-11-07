@@ -1,0 +1,36 @@
+{
+  "blender": "5.2.3 LTS",
+  "blender_build": "e13b728c6880",
+  "connector_revision": "2e4b0bc294694b1570d76ed01be657c22e6d02a0",
+  "connector_version": "2.2.7",
+  "mcp_sdk": "1.30.0",
+  "endpoint": "127.0.0.1:9877",
+  "client": "MCP stdio ClientSession; execute_blender_code and get_scene_info",
+  "safe_mode": true,
+  "telemetry": false,
+  "roundtrip": "inspect \u2192 create \u2192 render \u2192 save .blend \u2192 export GLB",
+  "cube_dimensions_m": [
+    2,
+    2,
+    2
+  ],
+  "files": [
+    {
+      "file": "proof.glb",
+      "bytes": 1756,
+      "sha256": "8b1bb786d79cc9e02419c92212e40eb5920c6bb1335fdf76e9d474fec592acc8"
+    },
+    {
+      "file": "proof.blend",
+      "bytes": 97549,
+      "sha256": "c1fb7d71be793404a804a67e51d5b78ce99216bb43391f53e022b5e0d9fc8504"
+    },
+    {
+      "file": "proof.png",
+      "bytes": 129564,
+      "sha256": "2307132a7e76214e984e9829c8f951ac84e3bc3256c59424edcfc8915203dd33"
+    }
+  ],
+  "retained_proof": "connection-proof.glb and connection-proof.jpg",
+  "note": "Original round-trip file hashes include temporary proof artefacts; retained web proof is linked separately."
+}
