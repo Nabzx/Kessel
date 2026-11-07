@@ -48,6 +48,12 @@ def validate(bundle):
         records=ep["records"];require(len(records)>=2 and ep["terminated"] != ep["truncated"],"episode boundary missing")
         require(records[0]["t_s"]==0 and records[-1]["action"] is None,"episode endpoints differ")
         require(ep["steps"]==len(records)-1,"episode decision count differs")
+        if "timeline" in ep:
+            last_event=-1.
+            for event in ep["timeline"]:
+                require(event["t_s"]>=last_event and isinstance(event["index"],int) and 0<=event["index"]<len(records),"invalid event boundary")
+                require(abs(records[event["index"]]["t_s"]-event["t_s"])<1e-9,"event timestamp differs")
+                last_event=event["t_s"]
         previous=-1
         for i,row in enumerate(records):
             require(row["t_s"]>previous and len(row["state"])==102 and len(row["observation"])==65 and len(row["wheel_angles_rad"])==4,"record shape/time differs")

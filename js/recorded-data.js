@@ -28,6 +28,7 @@ export function validateBundle(bundle) {
     if(bundle.schema_version === "1.1") need(episode.playback_seconds > 0.5 && episode.playback_seconds <= 60, "Invalid episode schedule");
     need(episode.terminated !== episode.truncated && episode.records.length === episode.steps + 1 && episode.records.length <= 2001, "Episode boundary missing");
     need(episode.records[0].t_s === 0 && episode.records.at(-1).action === null, "Episode endpoints differ");
+    if(episode.timeline){let last=-1;for(const event of episode.timeline){need(Number.isInteger(event.index)&&event.index>=0&&event.index<episode.records.length&&event.t_s>=last&&Math.abs(episode.records[event.index].t_s-event.t_s)<1e-9,"Invalid event boundary");last=event.t_s;}}
     let previous = -1;
     episode.records.forEach((row, index) => {
       need(row.t_s > previous && row.state.length === 102 && row.observation.length === 65 && row.wheel_angles_rad.length === 4, "Invalid record shape/time");

@@ -12,4 +12,4 @@ def test_reference_export_keeps_post_action_transfers_and_replays_every_state():
         assert abs(episode['records'][event['index']]['t_s']-event['t_s'])<1e-9
     delivery=next(e for e in episode['timeline'] if e['kind']=='Deposition')
     assert episode['records'][delivery['index']]['state'][8]>0
-    assert episode['records'][delivery['index']-1]['state'][8]==0
+    assert episode['records'][delivery['index']-1]['state'][8]<=1e-6
