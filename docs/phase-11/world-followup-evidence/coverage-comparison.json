@@ -1,0 +1,54 @@
+{
+  "old": {
+    "rows": 8192,
+    "regime_counts": {
+      "0": 6751,
+      "1": 8,
+      "2": 1414,
+      "3": 19
+    }
+  },
+  "new": {
+    "rows": 4096,
+    "regime_names": [
+      "free",
+      "contact_without_transfer",
+      "material_transfer",
+      "collision_or_stuck"
+    ],
+    "regime_counts": [
+      2860,
+      97,
+      1131,
+      8
+    ],
+    "natural_corpus_fractions": [
+      0.6982421875,
+      0.023681640625,
+      0.276123046875,
+      0.001953125
+    ],
+    "balanced_sampling_weights": [
+      0.35804195804195804,
+      10.556701030927835,
+      0.905393457117595,
+      128.0
+    ],
+    "event_names": [
+      "contact",
+      "collision",
+      "success",
+      "stuck",
+      "truncation"
+    ],
+    "event_counts": [
+      1228,
+      4,
+      15,
+      4,
+      8
+    ],
+    "note": "Natural frequency means this declared unbalanced synthetic corpus, not actual mine operation frequency."
+  },
+  "interpretation": "Contact without transfer rises from 8/8192 (0.098%) to 97/4096 (2.37%). Failure prevalence remains small. Balanced sampling weights do not alter natural-frequency evaluation."
+}

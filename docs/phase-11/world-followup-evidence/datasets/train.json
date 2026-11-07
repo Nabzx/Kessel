@@ -1,0 +1,938 @@
+{
+  "schema": "targeted-corpus-v1",
+  "logical_sha256": "35dc29b94243edd60bef3bb6f26445169ea3f69aff4ae6f9c2b3e83dda59e9db",
+  "episodes": [
+    {
+      "split": "train",
+      "seed": 0,
+      "kind": "reference",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "38ac4d299922919f55da2384877cc1b3456c0552739973c8d51e84ba1aca89e9",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 0,
+      "start": 0,
+      "stop": 352,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 1,
+      "kind": "blocked",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "5c3b7e442818f8ffa8454d6d04dc7cdf407ed827f0f7182ab65ce8b2fb981c4c",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 1,
+      "start": 352,
+      "stop": 365,
+      "reason": "obstacle_0",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 2,
+      "kind": "contact_static",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "5c66d9641ef398b8d3b2540fc23740ff0cce030946a03dc85e1b3cfce348b8ed",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 2,
+      "start": 365,
+      "stop": 397,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 3,
+      "kind": "close_scoop",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "6de3f4429411ca30d91773f64af80df1f5f07339eae3254494f0e42f13bdd5ab",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 3,
+      "start": 397,
+      "stop": 691,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 4,
+      "kind": "spill",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 1500.0,
+      "initial_state_sha256": "6806d8c05febcfb1d648165accc3fa791a88d14b42701c2dc4abada5157a4f5d",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 4,
+      "start": 691,
+      "stop": 723,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 5,
+      "kind": "prepared_delivery",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 2200.0,
+      "initial_state_sha256": "baf0bba5667eedb4ffe7ea3283bf2c53ea2549aa53227c809663680e8eb0e33c",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 5,
+      "start": 723,
+      "stop": 731,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 6,
+      "kind": "stuck",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "1002218feee639942a40070fd873b8e528b1211dac210a196dc173affc0254ec",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 6,
+      "start": 731,
+      "stop": 736,
+      "reason": "stuck",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 7,
+      "kind": "impaired_range",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "54872a2edeabdf24149f7aab59acf0da654e950225fa7e275df70467ecd0144b",
+      "sensor_profile": {
+        "range_latency_steps": 2,
+        "dropout": 0.25,
+        "occlusion": 0.15,
+        "range_noise_m": 0.01,
+        "communications_available": false
+      },
+      "id": 7,
+      "start": 736,
+      "stop": 1074,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 8,
+      "kind": "reference",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "72cdcca97d26c3cde19fb137403f377fdbcdeaadcc8af14dfdd54998dfcce493",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 8,
+      "start": 1074,
+      "stop": 1457,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 9,
+      "kind": "blocked",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "00060b34194037713f6bb4fd8e65fb22e99cddfcc44a7f51e660df817203c62f",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 9,
+      "start": 1457,
+      "stop": 1470,
+      "reason": "obstacle_0",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 10,
+      "kind": "contact_static",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "e49a6b0ffff17302f43b0e50167e31ebe81ebbe7e6eadb99171d534efd3afc0a",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 10,
+      "start": 1470,
+      "stop": 1502,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 11,
+      "kind": "close_scoop",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "5ee83a236eb1b05b68adc6bc60fdd407d3d6a93d222bdb3c30b7c004639473d3",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 11,
+      "start": 1502,
+      "stop": 1766,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 12,
+      "kind": "spill",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 1500.0,
+      "initial_state_sha256": "bf99bc63cdaa1f2f17fd2773182008bcdd6e061aae79049a4b01b99dbbedce78",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 12,
+      "start": 1766,
+      "stop": 1798,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 13,
+      "kind": "prepared_delivery",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 2200.0,
+      "initial_state_sha256": "500eda27dd856d7aa3e9bf665ea18e87549b358c8cd8d6d10a4d5867749def73",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 13,
+      "start": 1798,
+      "stop": 1806,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 14,
+      "kind": "stuck",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "6e310dbc6d4308d39ef30b19ee2ed69ba3c6e41f533d0f6b6c37d76686461120",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 14,
+      "start": 1806,
+      "stop": 1811,
+      "reason": "stuck",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 15,
+      "kind": "impaired_range",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "ef8775b18dec3b4c7a1b3bd9b65d28019f2bdeb2fd1be5ea8abe4df726609f3a",
+      "sensor_profile": {
+        "range_latency_steps": 2,
+        "dropout": 0.25,
+        "occlusion": 0.15,
+        "range_noise_m": 0.01,
+        "communications_available": false
+      },
+      "id": 15,
+      "start": 1811,
+      "stop": 2180,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 16,
+      "kind": "reference",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "d95094fd10186ac43047a01eb4bbb3d98f5809db73ccd6eded50bcb3e9dce050",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 16,
+      "start": 2180,
+      "stop": 2532,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 17,
+      "kind": "blocked",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "28dae516d1e4e66cca564aa78c435d59bd6384ae3a343a816397a5a33b862bd6",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 17,
+      "start": 2532,
+      "stop": 2545,
+      "reason": "obstacle_0",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 18,
+      "kind": "contact_static",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "4dd5551dd36b9ca44e0c486ffb32062abef5cda7736c85fdf9f8578a270614a6",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 18,
+      "start": 2545,
+      "stop": 2577,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 19,
+      "kind": "close_scoop",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "19c5be574486135e5f806c1568dba561507071d74f54cec018d8549398db5123",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 19,
+      "start": 2577,
+      "stop": 2863,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 20,
+      "kind": "spill",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 1500.0,
+      "initial_state_sha256": "06ea49d576790e463cbffbf7105f0546a47fdf5ff675ee31513dde9e0967db62",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 20,
+      "start": 2863,
+      "stop": 2895,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 21,
+      "kind": "prepared_delivery",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 2200.0,
+      "initial_state_sha256": "08151d451d251ded31bfef497426babbdaef9e365b433ebfdf3f3367eaf5a411",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 21,
+      "start": 2895,
+      "stop": 2903,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 22,
+      "kind": "stuck",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "de80d4373763b23f292696acfa5b838466b52c1e4de9b9c03149735a54c1124c",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 22,
+      "start": 2903,
+      "stop": 2908,
+      "reason": "stuck",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 23,
+      "kind": "impaired_range",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "570f6bca9375b788e75fa371b0b7ac21a2b58ceafbb543aa9262af7c3056ffcb",
+      "sensor_profile": {
+        "range_latency_steps": 2,
+        "dropout": 0.25,
+        "occlusion": 0.15,
+        "range_noise_m": 0.01,
+        "communications_available": false
+      },
+      "id": 23,
+      "start": 2908,
+      "stop": 3270,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 24,
+      "kind": "reference",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "eaa75a8e3aa7f7752e019886b3246537aa1ab01c2e8598c2f4ab01c001308e66",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 24,
+      "start": 3270,
+      "stop": 3625,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 25,
+      "kind": "blocked",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "105105859fc271aa57cbca5e48d8cdd2129c1d9772a97708e905f99599dcbb6e",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 25,
+      "start": 3625,
+      "stop": 3637,
+      "reason": "obstacle_0",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 26,
+      "kind": "contact_static",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "b8df7e398253c8e5760329117201bcf023731486d6497879bdb5f3ac003958b6",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 26,
+      "start": 3637,
+      "stop": 3669,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 27,
+      "kind": "close_scoop",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "c73bb4ffd157ee966ae8d4044441c8f7b7acff4f15dadf43a46fe7970f4b4f00",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 27,
+      "start": 3669,
+      "stop": 3972,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 28,
+      "kind": "spill",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 1500.0,
+      "initial_state_sha256": "3b4650b8a71a5d640da0efe369969c44bb8cde29553654349ac386896afb57be",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 28,
+      "start": 3972,
+      "stop": 4004,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 29,
+      "kind": "prepared_delivery",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 2200.0,
+      "initial_state_sha256": "2b08ab4c9996be819f5f8af66ece9666e9addbc15797a3e83b50051ee2a13a27",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 29,
+      "start": 4004,
+      "stop": 4012,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 30,
+      "kind": "stuck",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "e75127dd7d5c1f18f1b9c4b9a5831a23022c76d0047f102bd25de1d6dc4f652e",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 30,
+      "start": 4012,
+      "stop": 4017,
+      "reason": "stuck",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 31,
+      "kind": "impaired_range",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "ebee0d052f912a2a1790d2a62ae4bbd149391b80e271c325b1b22ece764f32d5",
+      "sensor_profile": {
+        "range_latency_steps": 2,
+        "dropout": 0.25,
+        "occlusion": 0.15,
+        "range_noise_m": 0.01,
+        "communications_available": false
+      },
+      "id": 31,
+      "start": 4017,
+      "stop": 4096,
+      "reason": "collection_budget",
+      "collection_boundary": true
+    }
+  ],
+  "coverage": {
+    "rows": 4096,
+    "regime_names": [
+      "free",
+      "contact_without_transfer",
+      "material_transfer",
+      "collision_or_stuck"
+    ],
+    "regime_counts": [
+      2860,
+      97,
+      1131,
+      8
+    ],
+    "natural_corpus_fractions": [
+      0.6982421875,
+      0.023681640625,
+      0.276123046875,
+      0.001953125
+    ],
+    "balanced_sampling_weights": [
+      0.35804195804195804,
+      10.556701030927835,
+      0.905393457117595,
+      128.0
+    ],
+    "event_names": [
+      "contact",
+      "collision",
+      "success",
+      "stuck",
+      "truncation"
+    ],
+    "event_counts": [
+      1228,
+      4,
+      15,
+      4,
+      8
+    ],
+    "note": "Natural frequency means this declared unbalanced synthetic corpus, not actual mine operation frequency."
+  },
+  "observability": {
+    "schema": "observability-v1",
+    "inputs": [
+      {
+        "name": "odometry_x_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "odometry_y_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "heading_sin",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "heading_cos",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "speed_m_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "articulation_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "boom_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "bucket_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "load_kg",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "receiver_forward_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "receiver_left_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "range_age_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "range_fresh",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "elapsed_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "slip_ratio",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "local_height_m[5,5]",
+        "status": "synthetic_local_range",
+        "units": "m",
+        "availability": "delayed/dropout profile; masked invalid cells"
+      },
+      {
+        "name": "range_valid[5,5]",
+        "status": "onboard_validity",
+        "units": "binary",
+        "availability": "local sensor frame"
+      }
+    ],
+    "privileged_baseline_only": [
+      "x_m",
+      "y_m",
+      "yaw_rad",
+      "speed_m_s",
+      "articulation_rad",
+      "boom_rad",
+      "bucket_rad",
+      "carried_kg",
+      "delivered_kg",
+      "spilled_kg",
+      "elapsed_s",
+      "stuck_time_s",
+      "effort_proxy_j",
+      "slip_s",
+      "slip_ratio",
+      "pile_0_0_m",
+      "pile_0_1_m",
+      "pile_0_2_m",
+      "pile_0_3_m",
+      "pile_0_4_m",
+      "pile_0_5_m",
+      "pile_0_6_m",
+      "pile_0_7_m",
+      "pile_1_0_m",
+      "pile_1_1_m",
+      "pile_1_2_m",
+      "pile_1_3_m",
+      "pile_1_4_m",
+      "pile_1_5_m",
+      "pile_1_6_m",
+      "pile_1_7_m",
+      "pile_2_0_m",
+      "pile_2_1_m",
+      "pile_2_2_m",
+      "pile_2_3_m",
+      "pile_2_4_m",
+      "pile_2_5_m",
+      "pile_2_6_m",
+      "pile_2_7_m",
+      "pile_3_0_m",
+      "pile_3_1_m",
+      "pile_3_2_m",
+      "pile_3_3_m",
+      "pile_3_4_m",
+      "pile_3_5_m",
+      "pile_3_6_m",
+      "pile_3_7_m",
+      "pile_4_0_m",
+      "pile_4_1_m",
+      "pile_4_2_m",
+      "pile_4_3_m",
+      "pile_4_4_m",
+      "pile_4_5_m",
+      "pile_4_6_m",
+      "pile_4_7_m",
+      "pile_5_0_m",
+      "pile_5_1_m",
+      "pile_5_2_m",
+      "pile_5_3_m",
+      "pile_5_4_m",
+      "pile_5_5_m",
+      "pile_5_6_m",
+      "pile_5_7_m",
+      "pile_6_0_m",
+      "pile_6_1_m",
+      "pile_6_2_m",
+      "pile_6_3_m",
+      "pile_6_4_m",
+      "pile_6_5_m",
+      "pile_6_6_m",
+      "pile_6_7_m",
+      "pile_7_0_m",
+      "pile_7_1_m",
+      "pile_7_2_m",
+      "pile_7_3_m",
+      "pile_7_4_m",
+      "pile_7_5_m",
+      "pile_7_6_m",
+      "pile_7_7_m",
+      "pile_origin_x_m",
+      "pile_origin_y_m",
+      "density_kg_m3",
+      "initial_mass_kg",
+      "friction",
+      "grade_rad",
+      "pile_resistance_n_m",
+      "half_width_m",
+      "ceiling_m",
+      "receiver_x_m",
+      "receiver_y_m",
+      "receiver_half_x_m",
+      "receiver_half_y_m",
+      "max_steps",
+      "step_index",
+      "success_kg",
+      "stuck_limit_s",
+      "decision_s",
+      "obstacle_x_min_m",
+      "obstacle_x_max_m",
+      "obstacle_y_min_m",
+      "obstacle_y_max_m",
+      "obstacle_present"
+    ],
+    "excluded_inputs": [
+      "future states",
+      "future observations",
+      "held-out scene identities",
+      "communication status as a substitute for sensing"
+    ],
+    "observable_model": "predicts local observation features, reward and events; does not invent full hidden-pile mass or learned pixel perception"
+  }
+}

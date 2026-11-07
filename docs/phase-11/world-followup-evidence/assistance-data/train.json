@@ -1,0 +1,371 @@
+{
+  "schema": "targeted-corpus-v1",
+  "logical_sha256": "fc5fd94c65cb2df340c8b36a1b5304d562b85899c163ddb31be208dc940de8da",
+  "episodes": [
+    {
+      "split": "train",
+      "seed": 5000,
+      "kind": "reference",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "10aed0a9bb3b8da237d9b0aff2fc9d37a9e39e9b55b88f331b3332773af76940",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 0,
+      "start": 0,
+      "stop": 391,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 5001,
+      "kind": "blocked",
+      "pile_family": "legacy",
+      "prepared_start": false,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "a94e69660ceced3090015228c79bfcb1e5028502a55b532ee481d9dcbe95628f",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 1,
+      "start": 391,
+      "stop": 403,
+      "reason": "obstacle_0",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 5002,
+      "kind": "contact_static",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "6dc63283a495c70b11b699e5853caf08c10fe214c219d604b9e570a81c9bc11e",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 2,
+      "start": 403,
+      "stop": 435,
+      "reason": "time_limit",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 5003,
+      "kind": "close_scoop",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 0.0,
+      "initial_state_sha256": "56c07eb82701932a82c6d6a3be70f808aee33a82ac0ae1086c64d14b6e403ea0",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 3,
+      "start": 435,
+      "stop": 745,
+      "reason": "success",
+      "collection_boundary": false
+    },
+    {
+      "split": "train",
+      "seed": 5004,
+      "kind": "spill",
+      "pile_family": "legacy",
+      "prepared_start": true,
+      "initial_payload_kg": 1500.0,
+      "initial_state_sha256": "2cc07e33cc9081ae8fe809b81e06626badffc0ddda08f8e0ec483e47d8521fc3",
+      "sensor_profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "id": 4,
+      "start": 745,
+      "stop": 768,
+      "reason": "collection_budget",
+      "collection_boundary": true
+    }
+  ],
+  "coverage": {
+    "rows": 768,
+    "regime_names": [
+      "free",
+      "contact_without_transfer",
+      "material_transfer",
+      "collision_or_stuck"
+    ],
+    "regime_counts": [
+      582,
+      32,
+      153,
+      1
+    ],
+    "natural_corpus_fractions": [
+      0.7578125,
+      0.041666666666666664,
+      0.19921875,
+      0.0013020833333333333
+    ],
+    "balanced_sampling_weights": [
+      0.32989690721649484,
+      6.0,
+      1.2549019607843137,
+      192.0
+    ],
+    "event_names": [
+      "contact",
+      "collision",
+      "success",
+      "stuck",
+      "truncation"
+    ],
+    "event_counts": [
+      185,
+      1,
+      2,
+      0,
+      1
+    ],
+    "note": "Natural frequency means this declared unbalanced synthetic corpus, not actual mine operation frequency."
+  },
+  "observability": {
+    "schema": "observability-v1",
+    "inputs": [
+      {
+        "name": "odometry_x_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "odometry_y_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "heading_sin",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "heading_cos",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "speed_m_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "articulation_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "boom_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "bucket_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "load_kg",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "receiver_forward_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "receiver_left_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "range_age_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "range_fresh",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "elapsed_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "slip_ratio",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "local_height_m[5,5]",
+        "status": "synthetic_local_range",
+        "units": "m",
+        "availability": "delayed/dropout profile; masked invalid cells"
+      },
+      {
+        "name": "range_valid[5,5]",
+        "status": "onboard_validity",
+        "units": "binary",
+        "availability": "local sensor frame"
+      }
+    ],
+    "privileged_baseline_only": [
+      "x_m",
+      "y_m",
+      "yaw_rad",
+      "speed_m_s",
+      "articulation_rad",
+      "boom_rad",
+      "bucket_rad",
+      "carried_kg",
+      "delivered_kg",
+      "spilled_kg",
+      "elapsed_s",
+      "stuck_time_s",
+      "effort_proxy_j",
+      "slip_s",
+      "slip_ratio",
+      "pile_0_0_m",
+      "pile_0_1_m",
+      "pile_0_2_m",
+      "pile_0_3_m",
+      "pile_0_4_m",
+      "pile_0_5_m",
+      "pile_0_6_m",
+      "pile_0_7_m",
+      "pile_1_0_m",
+      "pile_1_1_m",
+      "pile_1_2_m",
+      "pile_1_3_m",
+      "pile_1_4_m",
+      "pile_1_5_m",
+      "pile_1_6_m",
+      "pile_1_7_m",
+      "pile_2_0_m",
+      "pile_2_1_m",
+      "pile_2_2_m",
+      "pile_2_3_m",
+      "pile_2_4_m",
+      "pile_2_5_m",
+      "pile_2_6_m",
+      "pile_2_7_m",
+      "pile_3_0_m",
+      "pile_3_1_m",
+      "pile_3_2_m",
+      "pile_3_3_m",
+      "pile_3_4_m",
+      "pile_3_5_m",
+      "pile_3_6_m",
+      "pile_3_7_m",
+      "pile_4_0_m",
+      "pile_4_1_m",
+      "pile_4_2_m",
+      "pile_4_3_m",
+      "pile_4_4_m",
+      "pile_4_5_m",
+      "pile_4_6_m",
+      "pile_4_7_m",
+      "pile_5_0_m",
+      "pile_5_1_m",
+      "pile_5_2_m",
+      "pile_5_3_m",
+      "pile_5_4_m",
+      "pile_5_5_m",
+      "pile_5_6_m",
+      "pile_5_7_m",
+      "pile_6_0_m",
+      "pile_6_1_m",
+      "pile_6_2_m",
+      "pile_6_3_m",
+      "pile_6_4_m",
+      "pile_6_5_m",
+      "pile_6_6_m",
+      "pile_6_7_m",
+      "pile_7_0_m",
+      "pile_7_1_m",
+      "pile_7_2_m",
+      "pile_7_3_m",
+      "pile_7_4_m",
+      "pile_7_5_m",
+      "pile_7_6_m",
+      "pile_7_7_m",
+      "pile_origin_x_m",
+      "pile_origin_y_m",
+      "density_kg_m3",
+      "initial_mass_kg",
+      "friction",
+      "grade_rad",
+      "pile_resistance_n_m",
+      "half_width_m",
+      "ceiling_m",
+      "receiver_x_m",
+      "receiver_y_m",
+      "receiver_half_x_m",
+      "receiver_half_y_m",
+      "max_steps",
+      "step_index",
+      "success_kg",
+      "stuck_limit_s",
+      "decision_s",
+      "obstacle_x_min_m",
+      "obstacle_x_max_m",
+      "obstacle_y_min_m",
+      "obstacle_y_max_m",
+      "obstacle_present"
+    ],
+    "excluded_inputs": [
+      "future states",
+      "future observations",
+      "held-out scene identities",
+      "communication status as a substitute for sensing"
+    ],
+    "observable_model": "predicts local observation features, reward and events; does not invent full hidden-pile mass or learned pixel perception"
+  }
+}
