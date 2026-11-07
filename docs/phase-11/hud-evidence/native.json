@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-07T02:54:08.940Z",
+  "browser": "156.0.8078.81",
+  "checks": [
+    {
+      "size": {
+        "width": 1280,
+        "height": 800,
+        "dpr": 1
+      },
+      "font": 11,
+      "overflow": {
+        "scrollWidth": 308,
+        "clientWidth": 308
+      },
+      "diagnostics": {
+        "stage": "trained",
+        "presentation": "2026-11-07.2",
+        "scenes": {
+          "earth": false,
+          "surface": false,
+          "mine": true,
+          "kit": false
+        },
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 0,
+        "kitActive": false,
+        "learning": null,
+        "drawCalls": 254,
+        "triangles": 58290,
+        "textures": 41,
+        "shadows": true,
+        "shadowUpdate": "static",
+        "pixelRatio": 1,
+        "heapUsedBytes": 30902493,
+        "meanFps": 60.00200006666889,
+        "p99FrameMs": 16.80000000000109,
+        "p95FrameMs": 16.700000000000728,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      }
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 2
+      },
+      "font": 11,
+      "overflow": {
+        "scrollWidth": 326,
+        "clientWidth": 326
+      },
+      "diagnostics": {
+        "stage": "trained",
+        "presentation": "2026-11-07.2",
+        "scenes": {
+          "earth": false,
+          "surface": false,
+          "mine": true,
+          "kit": false
+        },
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 0,
+        "kitActive": false,
+        "learning": null,
+        "drawCalls": 255,
+        "triangles": 58290,
+        "textures": 41,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.5,
+        "heapUsedBytes": 33162191,
+        "meanFps": 60.00400026668444,
+        "p99FrameMs": 16.80000000000109,
+        "p95FrameMs": 16.799999999999272,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      }
+    }
+  ],
+  "errors": [],
+  "httpErrors": []
+}

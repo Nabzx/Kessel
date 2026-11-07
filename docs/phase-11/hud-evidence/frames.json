@@ -1,0 +1,125 @@
+{
+  "note": "Native Chrome captures reduced to logical laptop dimensions. No generated scene imagery. The existing local wordmark-position edit is preserved outside these commits.",
+  "frames": [
+    {
+      "path": "1280-mine.jpg",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "original_dimensions": [
+        1280,
+        800
+      ],
+      "sha256": "ee16bf8e654158afc0a685e132703c83cd6558e82e333a9f568ed79a07c1279d"
+    },
+    {
+      "path": "1280-trained.jpg",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "original_dimensions": [
+        1280,
+        800
+      ],
+      "sha256": "18bce971bc9ec5f80a9b9b40dde6aa89986fc7dbb37c405bc2605b93f6deff49"
+    },
+    {
+      "path": "1280-policy.jpg",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "original_dimensions": [
+        1280,
+        800
+      ],
+      "sha256": "cd078c3201c8b026453aa639b1ea224623d4a98c8020e4ff1858d7355ff1f4b4"
+    },
+    {
+      "path": "1280-forecast.jpg",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "original_dimensions": [
+        1280,
+        800
+      ],
+      "sha256": "4ac488c5938a1f74cf880916d3d183d3534b27f5f59c768959f596986be5c850"
+    },
+    {
+      "path": "1280-concept.jpg",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "original_dimensions": [
+        1280,
+        800
+      ],
+      "sha256": "3d0460b9cacb300fc980afddb1800d0f3d87e811c31b0bd60f4c7b19eed85f19"
+    },
+    {
+      "path": "1440-mine.jpg",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "sha256": "25a85f0ecd7bade15fa80a7a15931775a8b7b0b26537aed0159db8ff091d8ec2"
+    },
+    {
+      "path": "1440-trained.jpg",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "sha256": "dc05479bbe18197a6f0824644b6844679da5ab308d38a08cde8534f4efbac793"
+    },
+    {
+      "path": "1440-policy.jpg",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "sha256": "ab5db80966b8a45d01ab2e976a8d4b756e4b5e2f4d51450ae260948572ddead5"
+    },
+    {
+      "path": "1440-forecast.jpg",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "sha256": "0eacdee8c6fecb17efe37e479982be799e604997182caae8c773a6837487130d"
+    },
+    {
+      "path": "1440-concept.jpg",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "original_dimensions": [
+        2880,
+        1800
+      ],
+      "sha256": "bbbed60f50670fa8633b9798159b4ba4d15fae737e3d02d34da4c9295a628106"
+    }
+  ]
+}
