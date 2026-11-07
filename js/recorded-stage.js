@@ -14,6 +14,7 @@ export async function createRecorded(config, bundle) {
   for (const side of [-1, 1]) box([29, 0.65, 0.45], [3.5, 0.325, side * (halfWidth + 0.225)], edging, root);
   const grid = new THREE.GridHelper(30, 30, 0x4c625f, 0x293a3a);grid.position.set(3.5, 0.012, 0);grid.material.transparent = true;grid.material.opacity = 0.18;root.add(grid);
   const loader = createReferenceLoader(asset, ore);root.add(loader.root);
+  document.getElementById("geometry-guide").addEventListener("change",event=>loader.guide(event.target.checked));
   const pile = new THREE.InstancedMesh(new THREE.BoxGeometry(0.49, 1, 0.49), new THREE.MeshStandardMaterial({ map: ore, color: 0xb6a792, roughness: 1 }), 64);
   pile.castShadow = true;pile.receiveShadow = true;root.add(pile);
   const receiver = new THREE.Group();const rx = initial[indices.receiver_x_m], ry = -initial[indices.receiver_y_m];

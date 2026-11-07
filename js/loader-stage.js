@@ -156,12 +156,17 @@ export function createReferenceLoader(model, oreMap) {
   for(const side of [-1,1])part([.065,.5,1.2],[side*.717,.25,.6],paint,bucket);
   for(let k=0;k<6;k++)part([.13,.06,.16],[(k-2.5)*.24,-.025,1.2],steel,bucket);
   const cargo=new THREE.Mesh(new THREE.IcosahedronGeometry(1,2),new THREE.MeshStandardMaterial({map:oreMap,color:0x9a8e76,roughness:1}));cargo.position.set(0,.13,.55);cargo.scale.set(.65,.15,.46);bucket.add(cargo);
+  const guides=[];
+  function guide(size,position,parent){const g=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(...size)),new THREE.LineBasicMaterial({color:0x81b6bf,transparent:true,opacity:.55,depthTest:false}));g.position.fromArray(position);g.renderOrder=4;g.visible=false;parent.add(g);guides.push(g);return g;}
+  guide([1.5,1.9,3.7],[0,.95,-.05],root);guide([1.5,1.9,2.4],[0,.95,1.2],front);
+  const bucketGuide=guide([1.5,.6,1.2],[0,.65,2.8],front);
   function apply(p,wheelAngles=[0,0,0,0],payload=0){
     root.position.set(p[0],0,-p[1]);root.rotation.y=Math.PI/2+p[2];front.rotation.y=p[4];bucket.rotation.x=-p[6];
     bucket.position.set(0,.35+2*Math.sin(p[5])-.6*Math.sin(p[6]),1.6+1.2*Math.cos(p[5])-.6*Math.cos(p[6]));
     const dy=bucket.position.y-.75,dz=bucket.position.z-1.6;boom.rotation.x=-Math.atan2(dy,dz);boom.scale.z=Math.hypot(dy,dz);
+    bucketGuide.position.set(0,.65+2*Math.sin(p[5]),1.6+1.2*Math.cos(p[5]));
     wheels.forEach((w,i)=>w.rotation.x=wheelAngles[i]);cargo.visible=payload>0;cargo.scale.y=.22*Math.min(1,payload/3500);root.updateMatrixWorld(true);
   }
   function geometry(){return {rear:root.localToWorld(new THREE.Vector3()),joint:front.localToWorld(new THREE.Vector3()),front:front.localToWorld(new THREE.Vector3(0,0,1.6)),mouth:bucket.localToWorld(new THREE.Vector3(0,0,.6)),wheels:wheels.map(w=>w.getWorldPosition(new THREE.Vector3()))};}
-  return {root,front,boom,bucket,cargo,wheels,apply,geometry};
+  return {root,front,boom,bucket,cargo,wheels,apply,geometry,guide(value){guides.forEach(g=>g.visible=value);}};
 }

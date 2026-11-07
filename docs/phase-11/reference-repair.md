@@ -9,6 +9,7 @@ computed from the logged boom/curl. Both body sections articulate. Five browser
 fixtures independently check straight, reverse, turning, scooping and high-boom
 poses against exported Python geometry; rear/joint/front/mouth and four axle
 centres agree to numerical precision. The authored concept rig is unchanged.
+An optional Collision geometry overlay shows the three reference envelopes.
 
 The audited reference exports every action, pre/post state, transfer, footprint
 and phase boundary. A fresh simulator independently executes the actions and
