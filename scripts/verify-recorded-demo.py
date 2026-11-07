@@ -16,7 +16,9 @@ def verify():
     if index["schema_version"]!="1.0":raise ValueError("unsupported catalogue")
     results=[]
     hashes={hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/"docs/phase-11/rl-evidence/policies").glob("*.pt")}
-    model_hash=hashlib.sha256((ROOT/"docs/phase-11/world-model-evidence/models/ensemble.pt").read_bytes()).hexdigest()
+    hashes.update(hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/"docs/phase-11/policy-followup-evidence").rglob("*.pt"))
+    model_paths=[ROOT/"docs/phase-11/world-model-evidence/models/ensemble.pt"]+[ROOT/"docs/phase-11/world-followup-evidence"/(n+".pt") for n in ("raw","material","multistep_material")]
+    model_hashes={hashlib.sha256(p.read_bytes()).hexdigest() for p in model_paths}
     for entry in index["experiments"]:
         path=(ROOT/entry["url"]).resolve()
         if not path.is_relative_to(ROOT/"data/experiments") or path.suffix!=".json":raise ValueError("invalid bundle path")
@@ -24,8 +26,12 @@ def verify():
         if hashlib.sha256(raw).hexdigest()!=entry["sha256"] or len(raw)!=entry["bytes"]:raise ValueError("bundle integrity differs")
         bundle=json.loads(raw);counts=validate(bundle)
         if bundle["run_id"]!=entry["run_id"] or bundle["source_mode"]!=entry["source_mode"]:raise ValueError("catalogue source identity differs")
-        if bundle["world_model"]["model_sha256"]!=model_hash:raise ValueError("forecast weights not retained")
+        if bundle["world_model"]["model_sha256"] not in model_hashes:raise ValueError("forecast weights not retained")
         for episode in bundle["episodes"]:
+            if bundle.get("agent",{}).get("kind")=="reference_controller":
+                states=json.dumps([r["state"] for r in episode["records"]],sort_keys=True,separators=(",",":"),allow_nan=False).encode()
+                if hashlib.sha256(states).hexdigest()!=episode["action_replay"]["states_sha256"]:raise ValueError("reference state checksum differs")
+                continue
             if episode["policy"]["checkpoint_sha256"] not in hashes:raise ValueError("executed policy not retained")
         results.append({"run_id":bundle["run_id"],**counts,"bytes":len(raw)})
     audit=json.loads((ROOT/"docs/phase-11/recorded-telemetry.json").read_text())

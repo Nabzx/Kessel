@@ -8,21 +8,27 @@ const finite = (value) => {
 };
 export function validateBundle(bundle) {
   finite(bundle);
-  need(bundle.schema_version === "1.0" && bundle.source_mode === "recorded_synthetic", "Unsupported experiment source");
+  need(["1.0", "1.1"].includes(bundle.schema_version) && bundle.source_mode === "recorded_synthetic", "Unsupported experiment source");
   need(bundle.units.position === "m" && bundle.units.angle === "rad" && bundle.units.mass === "kg" && bundle.units.time === "s" && bundle.units.action === "normalised [-1,1]", "Experiment units differ");
   need(bundle.state_names.length === 102 && bundle.state_names[0] === "x_m" && bundle.state_names[15] === "pile_0_0_m" && bundle.state_names[79] === "pile_origin_x_m", "Unsupported physical state");
   need(sha(bundle.run.configuration_sha256) && sha(bundle.run.source.package_sha256) && bundle.run.source.training_dirty === false && bundle.export_source.training_dirty === false, "Unverified experiment provenance");
   need(sha(bundle.world_model.model_sha256) && bundle.world_model.kind === "raw_neural_ensemble", "Unidentified prediction model");
-  need(bundle.episodes.length === 3 && bundle.presentation.replay_seconds === 12 && bundle.presentation.checkpoint_seconds === 4, "Unsupported replay schedule");
+  need(bundle.episodes.length >= 1 && bundle.episodes.length <= 3, "Unsupported replay schedule");
+  if(bundle.schema_version === "1.0") need(bundle.presentation.replay_seconds === 12 && bundle.presentation.checkpoint_seconds === 4, "Unsupported replay schedule");
+  const isReference=bundle.agent?.kind === "reference_controller";
+  if(isReference) need(sha(bundle.agent.configuration_sha256) && bundle.schema_version === "1.1", "Reference identity missing");
   let steps = 0;
   for (const point of bundle.learning_curve) {
     need(point.environment_steps > steps, "Non-monotonic training log"); steps = point.environment_steps;
   }
   need(steps === bundle.run.counters.environment_steps, "Training counters differ");
   for (const episode of bundle.episodes) {
-    need(sha(episode.policy.checkpoint_sha256) && sha(episode.policy.source_checkpoint_sha256), "Executed checkpoint identity missing");
+    if(!isReference) need(sha(episode.policy.checkpoint_sha256) && sha(episode.policy.source_checkpoint_sha256), "Executed checkpoint identity missing");
+    else need(episode.policy === null && episode.action_replay.max_state_absolute_error <= 1e-9, "Reference presented as policy");
+    if(bundle.schema_version === "1.1") need(episode.playback_seconds > 0.5 && episode.playback_seconds <= 60, "Invalid episode schedule");
     need(episode.terminated !== episode.truncated && episode.records.length === episode.steps + 1 && episode.records.length <= 2001, "Episode boundary missing");
     need(episode.records[0].t_s === 0 && episode.records.at(-1).action === null, "Episode endpoints differ");
+    if(episode.timeline){let last=-1;for(const event of episode.timeline){need(Number.isInteger(event.index)&&event.index>=0&&event.index<episode.records.length&&event.t_s>=last&&Math.abs(episode.records[event.index].t_s-event.t_s)<1e-9,"Invalid event boundary");last=event.t_s;}}
     let previous = -1;
     episode.records.forEach((row, index) => {
       need(row.t_s > previous && row.state.length === 102 && row.observation.length === 65 && row.wheel_angles_rad.length === 4, "Invalid record shape/time");
@@ -49,10 +55,10 @@ export function validateBundle(bundle) {
   return bundle;
 }
 
-export async function loadExperiment(url = "data/experiments/index.json", fetcher = fetch) {
+export async function loadExperiment(url = "data/experiments/index.json", fetcher = fetch, runId = null) {
   const response = await fetcher(url);
   need(response.ok, "Recorded experiment catalogue unavailable");
-  const catalogue = await response.json(), entry = catalogue.experiments?.[0];
+  const catalogue = await response.json(), entry = runId ? catalogue.experiments?.find(e=>e.run_id===runId) : catalogue.experiments?.[0];
   need(catalogue.schema_version === "1.0" && entry?.source_mode === "recorded_synthetic" && sha(entry.sha256) && entry.url?.startsWith("data/experiments/") && !entry.url.includes(".."), "Invalid experiment catalogue");
   need(entry.bytes > 0 && entry.bytes <= 8 * 1024 * 1024, "Experiment exceeds the playback budget");
   const asset = await fetcher(entry.url); need(asset.ok, "Recorded experiment bundle unavailable");
@@ -78,19 +84,33 @@ export function sampleEpisode(episode, time) {
   return { frame, next, index: lo, alpha, pose, wheelAngles: frame.wheel_angles_rad.map((v, i) => v + (next.wheel_angles_rad[i] - v) * alpha) };
 }
 
+export function episodeEvents(episode) {
+  if (episode.timeline) return episode.timeline;
+  const result=[{t_s:0,kind:"Start",index:0}], seen=new Set();
+  episode.records.slice(0,-1).forEach((row,i)=>{
+    for(const kind of row.events || []) if(!seen.has(kind)) { seen.add(kind);result.push({t_s:episode.records[i+1].t_s,kind:({loaded_kg:"Scoop",delivered_kg:"Tip",spilled_kg:"Spill",collision:"Collision"})[kind] || kind,index:i+1}); }
+  });
+  result.push({t_s:episode.records.at(-1).t_s,kind:episode.outcome,index:episode.records.length-1});return result;
+}
 export class ReplayClock {
-  constructor(bundle, reduced = false) { this.bundle = bundle; this.reduced = reduced; this.pace = 1; this.replay(); }
-  replay() { this.cursor = 0; this.paused = this.reduced; this.sequence = true; this.end = 12; }
-  checkpoint(index) { need(Number.isInteger(index) && index >= 0 && index < 3, "Invalid checkpoint"); this.cursor = index * 4; this.end = (index + 1) * 4; this.sequence = false; this.paused = true; }
-  seek(time) { const index = this.state().index, duration = this.bundle.episodes[index].records.at(-1).t_s; this.checkpoint(index); this.cursor += time >= duration ? 4 : Math.max(0, time) / duration * 3.65; }
-  toggle() { if (this.cursor >= this.end) this.cursor = this.sequence ? 0 : this.end - 4; this.paused = !this.paused; }
-  setPace(pace) { need([0.5, 1, 2].includes(pace), "Invalid playback pace"); this.pace = pace; }
-  update(delta) { need(Number.isFinite(delta) && delta >= 0, "Invalid playback delta"); if (!this.paused) this.cursor = Math.min(this.end, this.cursor + delta * this.pace); if (this.cursor >= this.end) this.paused = true; return this.state(); }
+  constructor(bundle, reduced = false) {
+    this.bundle=bundle;this.reduced=reduced;this.pace=1;this.spans=bundle.episodes.map(e=>e.playback_seconds || 4);
+    this.offsets=[0];this.spans.forEach(s=>this.offsets.push(this.offsets.at(-1)+s));this.replay();
+  }
+  replay() { this.cursor=0;this.paused=this.reduced;this.sequence=true;this.end=this.offsets.at(-1);this.selected=0; }
+  checkpoint(index) { need(Number.isInteger(index)&&index>=0&&index<this.spans.length,"Invalid checkpoint");this.selected=index;this.cursor=this.offsets[index];this.end=this.offsets[index+1];this.sequence=false;this.paused=true; }
+  seek(time) {
+    need(Number.isFinite(time),"Invalid seek time");const index=this.state().index,duration=this.bundle.episodes[index].records.at(-1).t_s;this.checkpoint(index);
+    this.cursor=time>=duration?this.end:this.offsets[index]+Math.max(0,time)/duration*this.activeSeconds(index);
+  }
+  activeSeconds(index) { return this.spans[index]-Math.min(this.bundle.presentation.terminal_hold_s ?? .35,this.spans[index]/4); }
+  toggle() { if(this.cursor>=this.end)this.cursor=this.sequence?0:this.offsets[this.selected];this.paused=!this.paused; }
+  setPace(pace) { need([.5,1,2].includes(pace),"Invalid playback pace");this.pace=pace; }
+  update(delta) { need(Number.isFinite(delta)&&delta>=0,"Invalid playback delta");if(!this.paused)this.cursor=Math.min(this.end,this.cursor+delta*this.pace);if(this.cursor>=this.end)this.paused=true;return this.state(); }
   state() {
-    const index = Math.min(2, this.sequence ? Math.floor(this.cursor / 4) : Math.round(this.end / 4) - 1);
-    const episode = this.bundle.episodes[index], duration = episode.records.at(-1).t_s;
-    const fraction = Math.min(1, Math.max(0, (this.cursor - index * 4) / 3.65));
-    return { index, episode, time: duration * fraction, acceleration: duration / 3.65 * this.pace, holding: fraction === 1 && !this.paused, paused: this.paused, complete: this.cursor >= this.end };
+    let index=this.selected;if(this.sequence){index=0;while(index<this.spans.length-1&&this.cursor>=this.offsets[index+1])index++;}
+    const episode=this.bundle.episodes[index],duration=episode.records.at(-1).t_s,fraction=Math.min(1,Math.max(0,(this.cursor-this.offsets[index])/this.activeSeconds(index)));
+    return {index,episode,time:duration*fraction,acceleration:duration/this.activeSeconds(index)*this.pace,holding:fraction===1&&!this.paused,paused:this.paused,complete:this.cursor>=this.end};
   }
 }
 

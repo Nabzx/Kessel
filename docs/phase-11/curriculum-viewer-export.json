@@ -1,0 +1,18 @@
+{
+  "source": {
+    "package_sha256": "d3e4121e635267ae7f79dc3d1f8ab6d2f921c106640d5fa8ed7ecb2405535fac",
+    "git_commit": "a04d16c9a1bf6b92e23234bef45fb8d14ae50ef3",
+    "training_dirty": false
+  },
+  "entry": {
+    "run_id": "curriculum-followup-v1",
+    "url": "data/experiments/curriculum-v1.json",
+    "sha256": "6159e15db66577611d55d4fcaac911acad65223896bf03c7c6461d3a1d9b275a",
+    "bytes": 1086246,
+    "source_mode": "recorded_synthetic"
+  },
+  "episodes": 3,
+  "decisions": 178,
+  "predictions": 217,
+  "selection": "Post-hoc curriculum illustration, not an efficacy estimate: all three predeclared training seeds, first declared test seed 200000, validation-selected checkpoints. Other methods and the second test scene are retained in the policy study. No favourable test-seed selection."
+}

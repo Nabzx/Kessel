@@ -1,0 +1,169 @@
+{
+  "episodes": [
+    {
+      "id": "legacy",
+      "name": "Baseline",
+      "seed": 100000,
+      "stream_id": 0,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "scenario_sha256": "63c95b8339ef592c2b49fb8cdb746135e7dee2f5004b9c1e24e463133641d737",
+      "policy": null,
+      "terminated": true,
+      "truncated": false,
+      "outcome": "success",
+      "steps": 360,
+      "metrics": {
+        "delivered_kg": 2026.8523266880477,
+        "carried_kg": 527.1753060106353,
+        "spilled_kg": 0.0,
+        "pile_kg": 8812.33813330565,
+        "initial_kg": 11366.365766004334,
+        "fill_ratio": 0.729722180771052,
+        "cycle_s": 35.94000000000002,
+        "effort_proxy_j": 119850.70901186213,
+        "slip_s": 0.0,
+        "reason": "success",
+        "collision_time_s": -1.0,
+        "impact_speed_m_s": 0.0
+      },
+      "playback_seconds": 14.0,
+      "action_replay": {
+        "decisions": 360,
+        "max_state_absolute_error": 0.0,
+        "max_mass_residual_kg": 3.637978807091713e-12,
+        "states_sha256": "93235de92e8f7f49a5242f52de4ae47465d72ef5aacc6fd900dd440a039230b6"
+      }
+    },
+    {
+      "id": "rubble",
+      "name": "Rubble",
+      "seed": 100000,
+      "stream_id": 0,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "rubble"
+      },
+      "scenario_sha256": "40728101957164613749d1aed3732356bce675a30699cef46cbfeda5b06cfd4d",
+      "policy": null,
+      "terminated": true,
+      "truncated": false,
+      "outcome": "success",
+      "steps": 417,
+      "metrics": {
+        "delivered_kg": 2019.7569276134711,
+        "carried_kg": 431.3991279316842,
+        "spilled_kg": 0.0,
+        "pile_kg": 8915.20971045918,
+        "initial_kg": 11366.36576600433,
+        "fill_ratio": 0.70033030158433,
+        "cycle_s": 41.70000000000092,
+        "effort_proxy_j": 61189.2411290689,
+        "slip_s": 0.0,
+        "reason": "success",
+        "collision_time_s": -1.0,
+        "impact_speed_m_s": 0.0
+      },
+      "playback_seconds": 14.0,
+      "action_replay": {
+        "decisions": 417,
+        "max_state_absolute_error": 0.0,
+        "max_mass_residual_kg": 5.4569682106375694e-12,
+        "states_sha256": "ebd86385a48ff7b8ea87dbbd0dc3d8cb837cce7aee1dd8d7fd0842a47a2c022f"
+      }
+    },
+    {
+      "id": "steep",
+      "name": "Steep",
+      "seed": 100000,
+      "stream_id": 0,
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "steep"
+      },
+      "scenario_sha256": "2e01a67b839cfda74d7ed3271c54252726371f388a38705f6a7c6801907bdaae",
+      "policy": null,
+      "terminated": true,
+      "truncated": false,
+      "outcome": "stuck",
+      "steps": 179,
+      "metrics": {
+        "delivered_kg": 0.0,
+        "carried_kg": 1506.587330663626,
+        "spilled_kg": 0.0,
+        "pile_kg": 9859.778435340706,
+        "initial_kg": 11366.36576600433,
+        "fill_ratio": 0.43045352304675033,
+        "cycle_s": 17.83999999999971,
+        "effort_proxy_j": 22293.28811555042,
+        "slip_s": 0.0,
+        "reason": "stuck",
+        "collision_time_s": -1.0,
+        "impact_speed_m_s": 0.0
+      },
+      "playback_seconds": 14.0,
+      "action_replay": {
+        "decisions": 179,
+        "max_state_absolute_error": 0.0,
+        "max_mass_residual_kg": 5.4569682106375694e-12,
+        "states_sha256": "a4a3287394efee2eb4884cb1cb22ccca31f923e17e3082136aa749738e3b56fd"
+      }
+    }
+  ],
+  "decisions": 956,
+  "predictions": 1079,
+  "entry": {
+    "run_id": "reference-cycle-v1",
+    "url": "data/experiments/reference-v1.json",
+    "sha256": "d32f06d914bd2f3755b702271bb6d7d38be32b2e58449af10c9ebd51c1c91aed",
+    "bytes": 5656385,
+    "source_mode": "recorded_synthetic"
+  },
+  "source": {
+    "package_sha256": "facc0f6c667a2f30b2e717373df48902eff5c9d3b13af3e1c17f72db1e62514e",
+    "git_commit": "18cff2f142fab149218b23bdfbae56ae771a6166",
+    "training_dirty": false
+  },
+  "selected_model_variant": "material"
+}

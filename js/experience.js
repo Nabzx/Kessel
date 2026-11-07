@@ -295,8 +295,9 @@ async function getLearning(sourceMode = "recorded_synthetic") {
     const promise = (sourceMode === "authored"
       ? import("./learning-stage.js").then((module) => module.createLearning(data))
       : Promise.all([import("./recorded-stage.js"), import("./recorded-data.js")])
-          .then(async ([module, adapter]) => module.createRecorded(data, await adapter.loadExperiment())))
-      .then((value) => {
+          .then(async ([module, adapter]) => module.createRecorded(data, await adapter.loadExperiment(undefined, fetch, sourceMode === "reference" ? "reference-cycle-v1" : sourceMode === "curriculum" ? "curriculum-followup-v1" : null))))
+      .then(async (value) => {
+        await prepareStage(value.root,`learning-${sourceMode}`,new THREE.Fog("#061014",35,110));
         value.sourceMode = sourceMode;
         value.root.visible = false; scene.add(value.root);
         learningCache.set(sourceMode, value); return value;
@@ -307,8 +308,9 @@ async function getLearning(sourceMode = "recorded_synthetic") {
   return learningLoads.get(sourceMode);
 }
 function showInstruments(name, focus = false) {
-  const recorded = document.body.dataset.learningSource === "recorded_synthetic";
+  const recorded = document.body.dataset.learningSource !== "authored";
   const forecast = recorded && name === "forecast";
+  learning?.forecast?.(forecast);
   $("policy-instruments").hidden = forecast;
   $("forecast-instruments").hidden = !forecast;
   for (const id of ["policy", "forecast"]) {
@@ -317,13 +319,15 @@ function showInstruments(name, focus = false) {
     button.tabIndex = selected ? 0 : -1;
     if (selected && focus) button.focus();
   }
-  $("learning-section-label").textContent = forecast ? "World model" : "Reinforcement learning";
-  $("learning-title").textContent = forecast ? "Raw dynamics" : recorded ? "Policy checkpoints" : "Scoop and haul";
+  $("learning-section-label").textContent = forecast ? "World model" : document.body.dataset.learningSource === "reference" ? "Reference simulator" : "Reinforcement learning";
+  $("learning-title").textContent = forecast ? "Raw dynamics" : document.body.dataset.learningSource === "reference" ? "Reference cycle" : document.body.dataset.learningSource === "curriculum" ? "Partial pickup" : recorded ? "Policy checkpoints" : "Scoop and haul";
 }
 function configureLearningUI(sourceMode) {
-  const recorded = sourceMode === "recorded_synthetic";
+  const recorded = sourceMode !== "authored";
   document.body.dataset.learningSource = sourceMode;
   $("learning-source").value = sourceMode;
+  $("policy-tab").textContent=sourceMode === "reference" ? "Controller" : "Policy";
+  $("replay-training").textContent=sourceMode === "reference" ? "Replay cycle" : sourceMode === "curriculum" ? "Replay study" : "Replay training";
   document.querySelectorAll("[data-recorded]").forEach((element) => { element.hidden = !recorded; });
   $("learning-source-label").textContent = recorded ? "Recorded synthetic · full-7" : "Illustrative training replay";
   $("reward-curve-label").textContent = recorded ? "Training mean reward" : "Reward";
@@ -691,7 +695,7 @@ function updateTransition(now) {
 async function openLearning(requestedMode = "recorded_synthetic") {
   if (!mine) return;
   const sourceMode = typeof requestedMode === "string" ? requestedMode : "recorded_synthetic";
-  if (!["recorded_synthetic", "authored"].includes(sourceMode)) return;
+  if (!["recorded_synthetic", "reference", "curriculum", "authored"].includes(sourceMode)) return;
   const request = ++learningRequest, alreadyOpen = stage === "learning", button = document.activeElement;
   if (!alreadyOpen && ["explore-world-model", "product-world-model"].includes(button?.id)) learningEntryTrigger = button;
   if (button?.tagName === "BUTTON") button.disabled = true;
@@ -702,6 +706,7 @@ async function openLearning(requestedMode = "recorded_synthetic") {
     if (request !== learningRequest) return;
     $("experiment-error-message").textContent = `${error.message}. Retry or choose the labelled concept replay.`;
     $("experiment-error").hidden = false;
+    $("retry-recorded").dataset.source=sourceMode;
     if (learning) $("learning-source").value = learning.sourceMode;
     if (button) button.disabled = false;
     return;
@@ -764,7 +769,7 @@ function closeLearning() {
 }
 let rewardPoints = [];
 function updateLearning(delta) {
-  if (learning.sourceMode === "recorded_synthetic") { learning.update(delta); return; }
+  if (learning.sourceMode !== "authored") { learning.update(delta); return; }
   const state = learning.update(delta),
     checkpoint = data.training.checkpoints[state.index];
   if (globalTime - hudTime < 95) return;
@@ -1034,7 +1039,7 @@ function render(now) {
   )
     mine.update(delta);
   if (stage === "learning" && learning)
-    updateLearning(learning.sourceMode === "recorded_synthetic" ? ms / 1000 : delta);
+    updateLearning(learning.sourceMode !== "authored" ? ms / 1000 : delta);
   if (kitActive && kit) kit.update(delta);
   pinLabel();
   renderer.render(scene, camera);
@@ -1067,11 +1072,13 @@ $("explore-world-model").addEventListener("click", openLearning);
 $("product-world-model").addEventListener("click", openLearning);
 $("exit-world-model").addEventListener("click", closeLearning);
 $("learning-source").addEventListener("change", (event) => openLearning(event.target.value));
-$("retry-recorded").addEventListener("click", () => openLearning("recorded_synthetic"));
+$("retry-recorded").addEventListener("click", () => openLearning($("retry-recorded").dataset.source || "recorded_synthetic"));
 $("use-concept-replay").addEventListener("click", () => openLearning("authored"));
 $("replay-scrub").addEventListener("input", (event) => learning?.seek?.(Number(event.target.value)));
 $("replay-pace").addEventListener("change", (event) => learning?.pace?.(Number(event.target.value)));
 $("forecast-horizon").addEventListener("change", (event) => learning?.horizon?.(Number(event.target.value)));
+$("previous-event").addEventListener("click", () => learning?.event?.(-1));
+$("next-event").addEventListener("click", () => learning?.event?.(1));
 $("inspect-forecast").addEventListener("click", () => learning?.inspect?.());
 $("replay-training").addEventListener("click", () => {
   if (learning) {

@@ -35,12 +35,14 @@ jobs:
         run: python3 scripts/verify-rl-evidence.py
       - name: Verify recorded world-model evidence
         run: python3 scripts/verify-world-model-evidence.py
+      - name: Verify bounded learning follow-up evidence
+        run: python3 scripts/verify-policy-followup.py && python3 scripts/verify-world-followup.py
       - name: Verify recorded demo bundles
         run: python3 scripts/verify-recorded-demo.py
       - name: Verify offline CPU evidence
         run: python3 scripts/verify-offline-evidence.py
       - name: Test recorded playback adapter
-        run: node --test scripts/tests/recorded-data.test.mjs
+        run: node --test scripts/tests/recorded-data.test.mjs scripts/tests/height-field.test.mjs
       - name: Check look-development module syntax
         run: node --check docs/phase-11/lookdev/study.js && node --check scripts/verify-lookdev.cjs
       - name: Check whitespace

@@ -43,3 +43,19 @@ test("load checks hashes and cannot silently fall back when a bundle is invalid"
   await assert.rejects(loadExperiment(undefined, broken), /checksum differs/);
   await assert.rejects(loadExperiment(undefined, async () => new Response("", {status:404})), /catalogue unavailable/);
 });
+
+const reference=JSON.parse(await readFile(new URL('../../data/experiments/reference-v1.json',import.meta.url)));
+test('reference source carries controller identity and every post-action event boundary',()=>{
+ validateBundle(reference);assert.equal(reference.agent.learned,false);
+ for(const ep of reference.episodes){assert.equal(ep.policy,null);for(const event of ep.timeline)assert.ok(Math.abs(ep.records[event.index].t_s-event.t_s)<1e-9);}
+ const bad=structuredClone(reference);bad.episodes[0].policy={checkpoint_sha256:'a'.repeat(64)};assert.throws(()=>validateBundle(bad),/Reference presented as policy/);
+});
+test('variable episode clock preserves pause, event seek, pace and a finite terminal hold',()=>{
+ const clock=new ReplayClock(reference,true),duration=reference.episodes[0].records.at(-1).t_s;
+ clock.toggle();clock.update(13.5);assert.equal(clock.state().holding,true);assert.equal(clock.state().time,duration);
+ clock.update(.5);assert.equal(clock.state().index,1);clock.checkpoint(0);
+ const event=reference.episodes[0].timeline.find(e=>e.kind==='Deposition');clock.seek(event.t_s);const sampled=sampleEpisode(clock.state().episode,clock.state().time);
+ assert.ok(sampled.frame.state[8]>0);assert.equal(clock.state().paused,true);
+ clock.setPace(2);clock.toggle();clock.update(100);assert.equal(clock.state().complete,true);assert.equal(clock.state().index,0);
+ assert.throws(()=>clock.seek(NaN),/Invalid seek/);assert.throws(()=>clock.update(-1),/Invalid playback/);
+});

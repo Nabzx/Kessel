@@ -7,6 +7,20 @@
       "sha256": "c77d962aaf160d496748052c1709e01494f1ecfa2621f2d088fcc54e4dd75ebb",
       "bytes": 4984632,
       "source_mode": "recorded_synthetic"
+    },
+    {
+      "run_id": "curriculum-followup-v1",
+      "url": "data/experiments/curriculum-v1.json",
+      "sha256": "6159e15db66577611d55d4fcaac911acad65223896bf03c7c6461d3a1d9b275a",
+      "bytes": 1086246,
+      "source_mode": "recorded_synthetic"
+    },
+    {
+      "run_id": "reference-cycle-v1",
+      "url": "data/experiments/reference-v1.json",
+      "sha256": "d32f06d914bd2f3755b702271bb6d7d38be32b2e58449af10c9ebd51c1c91aed",
+      "bytes": 5656385,
+      "source_mode": "recorded_synthetic"
     }
   ]
 }

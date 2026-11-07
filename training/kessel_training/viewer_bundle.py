@@ -27,7 +27,7 @@ def sha(value):
 
 def validate(bundle):
     finite(bundle)
-    require(bundle.get("schema_version")==VERSION and bundle.get("source_mode")=="recorded_synthetic","unsupported recorded bundle")
+    require(bundle.get("schema_version") in (VERSION,"1.1") and bundle.get("source_mode")=="recorded_synthetic","unsupported recorded bundle")
     require(bundle.get("units")==UNITS,"bundle units differ")
     run=bundle["run"];require(sha(run["configuration_sha256"]) and sha(run["source"]["package_sha256"]) and run["source"]["training_dirty"] is False,"unverified training identity")
     require(bundle["export_source"]["training_dirty"] is False,"uncommitted export source")
@@ -39,12 +39,21 @@ def validate(bundle):
     require(len(bundle["state_names"])==102 and len(bundle["action_names"])==4,"state/action schema differs")
     require(sha(bundle["world_model"]["model_sha256"]),"model hash missing")
     require(bundle["world_model"]["kind"]=="raw_neural_ensemble","unidentified model correction")
-    require(len(bundle["episodes"])==3,"initial/intermediate/final episodes required")
+    is_reference=bundle.get("agent",{}).get("kind")=="reference_controller"
+    require(1<=len(bundle["episodes"])<=3,"unsupported episode count")
+    if is_reference:require(bundle["schema_version"]=="1.1" and sha(bundle["agent"]["configuration_sha256"]),"reference identity missing")
     for ep in bundle["episodes"]:
-        require(sha(ep["policy"]["checkpoint_sha256"]) and sha(ep["policy"]["source_checkpoint_sha256"]),"executed checkpoint identity missing")
+        if is_reference:require(ep["policy"] is None and ep["action_replay"]["max_state_absolute_error"]<=1e-9,"reference presented as policy")
+        else:require(sha(ep["policy"]["checkpoint_sha256"]) and sha(ep["policy"]["source_checkpoint_sha256"]),"executed checkpoint identity missing")
         records=ep["records"];require(len(records)>=2 and ep["terminated"] != ep["truncated"],"episode boundary missing")
         require(records[0]["t_s"]==0 and records[-1]["action"] is None,"episode endpoints differ")
         require(ep["steps"]==len(records)-1,"episode decision count differs")
+        if "timeline" in ep:
+            last_event=-1.
+            for event in ep["timeline"]:
+                require(event["t_s"]>=last_event and isinstance(event["index"],int) and 0<=event["index"]<len(records),"invalid event boundary")
+                require(abs(records[event["index"]]["t_s"]-event["t_s"])<1e-9,"event timestamp differs")
+                last_event=event["t_s"]
         previous=-1
         for i,row in enumerate(records):
             require(row["t_s"]>previous and len(row["state"])==102 and len(row["observation"])==65 and len(row["wheel_angles_rad"])==4,"record shape/time differs")

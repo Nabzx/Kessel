@@ -159,3 +159,13 @@ the "illustrative" labelling on HUD values exist to keep that true.
 **Retrofit kit** — the physical sensor, compute and controls package fitted to
 an existing machine in the field. The exploded Phase 10 view illustrates a proposed assembly; it does not
 select or validate production hardware.
+
+**Recorded reference cycle**: a complete synthetic cycle executed by the
+conventional observation-only controller, identified by configuration hash and
+independently replayed actions. It is separately selectable from recorded learned
+policies and the concept replay. Its successful delivery is not learned autonomy.
+
+**Recorded material surface**: a presentation mesh derived from physical cell
+means. Its per-cell triangle integrals preserve source volume and zero-height
+holes. Cargo and event fragments are visual proxies, separate from the kilogram
+ledger and physical collision reference.
