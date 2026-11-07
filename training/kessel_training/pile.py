@@ -17,12 +17,24 @@ class PileGrid:
         self.cell_x,self.cell_y = np.meshgrid((np.arange(size)+0.5)*cell_m,
                                              (np.arange(size)+0.5)*cell_m,indexing="ij")
 
-    def reset_one(self,index,rng,pile_front=8.0):
+    def reset_one(self,index,rng,pile_front=8.0,family="legacy"):
+        if family not in ("legacy", "low", "ridge", "rubble", "steep"):
+            raise ValueError("unknown synthetic pile family")
         self.density[index] = rng.uniform(1600,2100)
         self.origin[index] = (pile_front,-self.size*self.cell_m/2)
         x,y = np.meshgrid(np.linspace(-1,1,self.size),np.linspace(-1,1,self.size),indexing="ij")
         shape = 0.25+np.exp(-1.7*(x*x+y*y))+rng.uniform(0,0.1,(self.size,self.size))
         mass = rng.uniform(9000,14000)
+        # Different synthetic geometry, not calibrated cohesion or fracture.
+        if family == "low":
+            shape = .7 + .3*np.maximum(0, 1-x*x-y*y)
+            mass *= .65
+        elif family == "ridge":
+            shape = .08 + np.exp(-7*x*x-1.2*y*y)
+        elif family == "rubble":
+            shape = .12 + rng.uniform(0, 1, (self.size,self.size))**2
+        elif family == "steep":
+            shape = .03 + np.exp(-5*(x*x+y*y))
         self.height[index] = shape * mass/(shape.sum()*self.cell_m**2*self.density[index])
         self.initial_mass[index] = self.mass()[index]
 
