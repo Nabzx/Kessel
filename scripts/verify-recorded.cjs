@@ -49,6 +49,7 @@ fs.mkdirSync(out, { recursive: true });
     assert.equal(await page.textContent("#reward-heading"), "Step reward");
     const expectedReward = JSON.parse(fs.readFileSync(path.join(__dirname, "../data/experiments/loader-v1.json"))).learning_curve.at(-1).mean_step_reward.toFixed(4);
     assert.equal(await page.textContent("#reward-value"), expectedReward);
+    await page.click("#forecast-tab");
     for (const horizon of ["1", "2", "4", "8"]) { await page.selectOption("#forecast-horizon", horizon);assert.equal((await diagnostics()).learning.horizon, Number(horizon)); }
     await page.selectOption("#forecast-horizon", "1");
     await page.locator("#replay-scrub").evaluate((e) => { e.value = "2";e.dispatchEvent(new Event("input", { bubbles: true })); });

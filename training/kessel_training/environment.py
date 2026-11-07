@@ -36,8 +36,11 @@ class SceneConfig:
     load_bias_fraction: float = 0.0
     randomise: bool = False
     obstacles: tuple = ()
+    pile_family: str = "legacy"
 
     def __post_init__(self):
+        if self.pile_family not in ("legacy", "low", "ridge", "rubble", "steep"):
+            raise ValueError("unknown synthetic pile family")
         if isinstance(self.max_steps, bool) or not isinstance(self.max_steps, int) or self.max_steps < 1:
             raise ValueError("max_steps must be a positive integer")
         positive = ("success_kg", "stuck_s", "half_width_m", "ceiling_m", "friction")
@@ -59,7 +62,10 @@ class SceneConfig:
                 raise ValueError("obstacles must be finite increasing xy bounds")
 
     def digest(self):
-        return hashlib.sha256(canonical_json(asdict(self)).encode()).hexdigest()
+        values = asdict(self)
+        if self.pile_family == "legacy":
+            values.pop("pile_family")  # Preserve retained legacy scenario identities.
+        return hashlib.sha256(canonical_json(values).encode()).hexdigest()
 
 
 class LoaderEnv:
@@ -147,7 +153,7 @@ class LoaderEnv:
             self.sensor_rng[i] = np.random.default_rng(sensor_seed)
             self.pose[i] = (0, rng.uniform(-0.1, 0.1), 0)
             self.joints[i] = (0, 0, -0.1)
-            self.pile.reset_one(i, rng, pile_front=rng.uniform(7.5, 8.5))
+            self.pile.reset_one(i, rng, pile_front=rng.uniform(7.5, 8.5), family=self.scene.pile_family)
             self.initial_pile_hashes[i] = hashlib.sha256(
                 self.pile.height[i].astype("<f8").tobytes()).hexdigest()
             self.initial_pose[i] = self.pose[i]

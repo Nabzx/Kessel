@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { createLoader } from "./loader-stage.js";
+import { createReferenceLoader } from "./loader-stage.js";
 import { texture, box, lightRig, line } from "./scene-utils.js";
 import { ReplayClock, sampleEpisode, curvePoints } from "./recorded-data.js";
 
@@ -13,14 +13,8 @@ export async function createRecorded(config, bundle) {
   const edging = new THREE.MeshStandardMaterial({ color: 0x303c3b, roughness: 1, map: ore });
   for (const side of [-1, 1]) box([29, 0.65, 0.45], [3.5, 0.325, side * (halfWidth + 0.225)], edging, root);
   const grid = new THREE.GridHelper(30, 30, 0x4c625f, 0x293a3a);grid.position.set(3.5, 0.012, 0);grid.material.transparent = true;grid.material.opacity = 0.18;root.add(grid);
-  const proxy = { ...asset, wheels: { ...asset.wheels, radius: 0.55, y: 0.55, side: 0.65 }, bucket: { ...asset.bucket, depth: 1.2 } };
-  const loader = createLoader(proxy, ore);root.add(loader.root);
-  // The asset faces local +z; its rear axle is at z=-1.9. Reparent its front
-  // assembly around the physical joint, preserving the authored local poses.
-  const front = new THREE.Group();front.position.z = -0.1;loader.root.add(front);loader.root.updateMatrixWorld(true);
-  front.attach(loader.boom);front.attach(loader.bucket);
-  loader.boom.position.set(0, 0.75, 1.6);
-  for (const i of [1, 3]) { front.attach(loader.wheels[i]);loader.wheels[i].position.z = 1.6; }
+  const loader = createReferenceLoader(asset, ore);root.add(loader.root);
+  document.getElementById("geometry-guide").addEventListener("change",event=>loader.guide(event.target.checked));
   const pile = new THREE.InstancedMesh(new THREE.BoxGeometry(0.49, 1, 0.49), new THREE.MeshStandardMaterial({ map: ore, color: 0xb6a792, roughness: 1 }), 64);
   pile.castShadow = true;pile.receiveShadow = true;root.add(pile);
   const receiver = new THREE.Group();const rx = initial[indices.receiver_x_m], ry = -initial[indices.receiver_y_m];
@@ -108,14 +102,7 @@ export async function createRecorded(config, bundle) {
   }
   function update(delta) {
     const state = clock.update(delta), sampled = sampleEpisode(state.episode, state.time), s = sampled.frame.state, p = sampled.pose;
-    const yaw = p[2];loader.root.position.set(p[0] + 1.9 * Math.cos(yaw), 0, -p[1] - 1.9 * Math.sin(yaw));loader.root.rotation.y = Math.PI / 2 + yaw;
-    front.rotation.y = p[4];loader.bucket.rotation.x = -p[6];
-    loader.bucket.position.set(0, 0.35 + 2 * Math.sin(p[5]) - 0.6 * Math.sin(p[6]), 1.6 + 1.2 * Math.cos(p[5]) - 0.6 * Math.cos(p[6]));
-    const armY = loader.bucket.position.y - 0.75, armZ = loader.bucket.position.z - 1.6;
-    loader.boom.rotation.x = -Math.atan2(armY, armZ);loader.boom.scale.z = Math.hypot(armY, armZ) / asset.boom.length;
-    loader.cargo.visible = s[7] > 0;loader.cargo.scale.y = Math.max(0.001, s[7] / 3500);
-    // Simulator wheel order is rear-left/rear-right/front-left/front-right.
-    for (const [i, j] of [[0, 1], [1, 3], [2, 0], [3, 2]]) loader.wheels[i].rotation.x = sampled.wheelAngles[j];
+    loader.apply(p, sampled.wheelAngles, s[7]);
     const changed = lastFrame !== sampled.frame || lastEpisode !== state.index;
     if (changed) {
       for (let k = 0; k < 64; k++) { const h = s[15 + k];pose.position.set(s[indices.pile_origin_x_m] + (Math.floor(k / 8) + 0.5) * 0.5, h / 2, -(s[indices.pile_origin_y_m] + (k % 8 + 0.5) * 0.5));pose.scale.set(1, Math.max(0.0001, h), 1);pose.updateMatrix();pile.setMatrixAt(k, pose.matrix); }pile.instanceMatrix.needsUpdate = true;

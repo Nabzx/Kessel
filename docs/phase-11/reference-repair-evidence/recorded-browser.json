@@ -1,0 +1,290 @@
+{
+  "browser": "156.0.8078.81",
+  "date": "2026-11-07T16:21:13.279Z",
+  "sourceCommit": "b83a6de9fd7697adc212046678ffb9f8cdf482e2",
+  "workingTreeChanges": [
+    "css/experience.css",
+    "scripts/verify-recorded.cjs"
+  ],
+  "sourceFiles": {
+    "js/recorded-stage.js": "5e37bb2bb282a83aff555aa9e55367ccbdbefe7ca91508189dce64fdd2d95b19",
+    "js/recorded-data.js": "03feadbb44eec9a741a90b9af21b8a930cf6a7513c52f13ee7ea0186a25fe0d2",
+    "js/experience.js": "4e41a2a7ef10c85be849fa6866778bb0c203fa27f666a2d9bb238d0f923bd9e9",
+    "index.html": "ec548374ea83d495a35a97d3ba305b1ec5cc0b197742d1a7bd094f5a52774860",
+    "css/recorded.css": "4dde3a41ccf2eba052d7d856b7be1f65e3ac715081db71511ab92409dbddc427"
+  },
+  "checks": [
+    "Progressive integrity-checked loading",
+    "Actual checkpoint counters/curve/action units",
+    "Pause, scrub, pacing, four forecast horizons and terminal hold",
+    "Twelve-second single-clock sequence without invented success",
+    "Explicit source switching",
+    "Mine comparison and product scroll/focus restored",
+    "Local assets only",
+    "Reduced motion starts paused",
+    "Corrupt bundle remains an error until explicit concept selection"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "name": "recorded-inspection",
+      "stage": "learning",
+      "camera": {
+        "position": [
+          24,
+          21,
+          28
+        ],
+        "fov": 42,
+        "moving": false
+      },
+      "earthSettling": true,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095426170242528,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295879750327786,
+              1.746272092030631,
+              0.15193244058227323
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881887852189806,
+              0.6177930819853255,
+              2.1262333056009926
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806610962713096,
+              -0.0707084039859483,
+              2.428777515290604
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844479460618827,
+              1.316600352119819,
+              -0.8979221825900664
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.4",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": {
+        "bucketMouthErrorM": 4.440892098500626e-16,
+        "runId": "rl-study-v1-full-7",
+        "sourceMode": "recorded_synthetic",
+        "checkpoint": 2,
+        "simulatedTime": 2,
+        "paused": true,
+        "horizon": 1,
+        "frame": 20,
+        "counters": {
+          "rollouts": 604,
+          "environment_steps": 309248,
+          "agent_decisions": 309248,
+          "optimiser_updates": 9606,
+          "completed_episodes": 1479,
+          "successes": 0,
+          "imagined_transitions": 0,
+          "nominal_simulated_s": 30924.8000000003,
+          "subtask_successes": 58
+        }
+      },
+      "drawCalls": 117,
+      "triangles": 14910,
+      "textures": 40,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 32978923,
+      "meanFps": 60.00400026668446,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "name": "recorded-sequence",
+      "stage": "learning",
+      "camera": {
+        "position": [
+          24,
+          21,
+          28
+        ],
+        "fov": 42,
+        "moving": false
+      },
+      "earthSettling": true,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095426170242528,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295879750327786,
+              1.746272092030631,
+              0.15193244058227323
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881887852189806,
+              0.6177930819853255,
+              2.1262333056009926
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806610962713096,
+              -0.0707084039859483,
+              2.428777515290604
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844479460618827,
+              1.316600352119819,
+              -0.8979221825900664
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.4",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": {
+        "bucketMouthErrorM": 1.7772239894833365e-15,
+        "runId": "rl-study-v1-full-7",
+        "sourceMode": "recorded_synthetic",
+        "checkpoint": 2,
+        "simulatedTime": 3.900000000000003,
+        "paused": true,
+        "horizon": 1,
+        "frame": 39,
+        "counters": {
+          "rollouts": 604,
+          "environment_steps": 309248,
+          "agent_decisions": 309248,
+          "optimiser_updates": 9606,
+          "completed_episodes": 1479,
+          "successes": 0,
+          "imagined_transitions": 0,
+          "nominal_simulated_s": 30924.8000000003,
+          "subtask_successes": 58
+        }
+      },
+      "drawCalls": 112,
+      "triangles": 12594,
+      "textures": 40,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 28411666,
+      "meanFps": 60.00400026668439,
+      "p99FrameMs": 16.799999999999272,
+      "p95FrameMs": 16.700000000004366,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    }
+  ],
+  "parsedBundleMemory": {
+    "beforeBytes": 867609,
+    "afterBytes": 8468595,
+    "deltaBytes": 7600986,
+    "gcAvailable": true,
+    "scope": "Chrome decoded/validated bundle retained in a minimal same-origin catalogue page; one sample, not peak process memory"
+  },
+  "sequenceWallSeconds": 12.017
+}
