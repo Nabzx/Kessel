@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>Kessel material calibration</title>
+<style>html,body{margin:0;background:#050706}</style>
+<script type="importmap">{"imports":{"three":"../../../assets/vendor/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';import {GLTFLoader} from '../../../assets/vendor/loaders/GLTFLoader.js';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(960,600);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.04;renderer.shadowMap.enabled=true;document.body.append(renderer.domElement);
+const scene=new THREE.Scene();scene.background=new THREE.Color(.03,.03,.03);scene.add(new THREE.AmbientLight(0xffffff,.03*Math.PI));const key=new THREE.PointLight(0xffffff,600/(4*Math.PI),0,2);key.position.set(2,5,3);key.castShadow=true;scene.add(key);
+const camera=new THREE.PerspectiveCamera(2*Math.atan(36/(1.6*2*50))*180/Math.PI,1.6,.01,100);camera.position.set(4,3,6);camera.lookAt(0,0,0);
+const asset=await new GLTFLoader().loadAsync('./material-calibration.glb');asset.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(asset.scene);renderer.render(scene,camera);renderer.getContext().finish();
+window.calibration={camera:{position:[4,3,6],target:[0,0,0],lensMm:50,sensorWidthMm:36,aspect:1.6},blender:{view:'AgX',exposure:0,key:'POINT 600 W, location (2,-3,5)'},browser:{view:'ACESFilmicToneMapping',exposure:1.04,keyCandela:600/(4*Math.PI),position:[2,5,3]},scope:'Matched camera and materials, nominal point-light conversion; no calibrated photometric equivalence or live product inference.'};document.body.dataset.ready='yes';
+</script>
