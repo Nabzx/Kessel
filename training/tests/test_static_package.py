@@ -2,6 +2,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+from urllib.parse import urlsplit
 
 import pytest
 
@@ -45,7 +46,7 @@ def test_real_entrypoint_import_map_targets_are_packaged():
     included = {str(p.relative_to(root)) for p in module.static_files(root)}
     for target in imports.values():
         if target.startswith("./"):
-            assert target[2:] in included, f"missing runtime module: {target}"
+            assert urlsplit(target).path[2:] in included, f"missing runtime module: {target}"
 
 
 def test_real_experience_asset_references_are_packaged():
