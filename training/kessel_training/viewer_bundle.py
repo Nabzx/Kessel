@@ -39,11 +39,11 @@ def validate(bundle):
     require(len(bundle["state_names"])==102 and len(bundle["action_names"])==4,"state/action schema differs")
     require(sha(bundle["world_model"]["model_sha256"]),"model hash missing")
     require(bundle["world_model"]["kind"]=="raw_neural_ensemble","unidentified model correction")
-    reference=bundle.get("agent",{}).get("kind")=="reference_controller"
+    is_reference=bundle.get("agent",{}).get("kind")=="reference_controller"
     require(1<=len(bundle["episodes"])<=3,"unsupported episode count")
-    if reference:require(bundle["schema_version"]=="1.1" and sha(bundle["agent"]["configuration_sha256"]),"reference identity missing")
+    if is_reference:require(bundle["schema_version"]=="1.1" and sha(bundle["agent"]["configuration_sha256"]),"reference identity missing")
     for ep in bundle["episodes"]:
-        if reference:require(ep["policy"] is None and ep["action_replay"]["max_state_absolute_error"]<=1e-9,"reference presented as policy")
+        if is_reference:require(ep["policy"] is None and ep["action_replay"]["max_state_absolute_error"]<=1e-9,"reference presented as policy")
         else:require(sha(ep["policy"]["checkpoint_sha256"]) and sha(ep["policy"]["source_checkpoint_sha256"]),"executed checkpoint identity missing")
         records=ep["records"];require(len(records)>=2 and ep["terminated"] != ep["truncated"],"episode boundary missing")
         require(records[0]["t_s"]==0 and records[-1]["action"] is None,"episode endpoints differ")
