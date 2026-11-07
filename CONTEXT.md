@@ -45,6 +45,14 @@ path settles immediately. The training/replay follow-up (#305) and offline
 Blender authoring plan (#306) remain separate research backlogs; no Blender MCP
 connection or new learned task success is implied by home improvements.
 
+ADR-0047 adds independent reference-cycle, geometry, integration and reset audits
+with opt-in synthetic pile families, preserving legacy replay dynamics. ADR-0048
+uses a verified local Blender MCP connection to author bounded visual GLBs,
+portable source scenes and original baked detail. Browser playback owns every
+machine/transfer clock. The authored geometry is not automatically calibrated
+collision geometry. The proposed kit uses metre-scale source geometry and a
+declared tenfold presentation enlargement. No release is implied.
+
 The Phase 11 reference simulator, resumable PPO tools and model-free comparison
 study are implemented under ADRs 0033-0039. The bounded study completed curriculum
 subtasks but no learned complete delivery cycle. Retained weights, failed
