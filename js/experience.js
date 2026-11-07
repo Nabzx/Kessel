@@ -319,13 +319,15 @@ function showInstruments(name, focus = false) {
     button.tabIndex = selected ? 0 : -1;
     if (selected && focus) button.focus();
   }
-  $("learning-section-label").textContent = forecast ? "World model" : "Reinforcement learning";
-  $("learning-title").textContent = forecast ? "Raw dynamics" : recorded ? "Policy checkpoints" : "Scoop and haul";
+  $("learning-section-label").textContent = forecast ? "World model" : document.body.dataset.learningSource === "reference" ? "Reference simulator" : "Reinforcement learning";
+  $("learning-title").textContent = forecast ? "Raw dynamics" : document.body.dataset.learningSource === "reference" ? "Reference cycle" : document.body.dataset.learningSource === "curriculum" ? "Partial pickup" : recorded ? "Policy checkpoints" : "Scoop and haul";
 }
 function configureLearningUI(sourceMode) {
   const recorded = sourceMode !== "authored";
   document.body.dataset.learningSource = sourceMode;
   $("learning-source").value = sourceMode;
+  $("policy-tab").textContent=sourceMode === "reference" ? "Controller" : "Policy";
+  $("replay-training").textContent=sourceMode === "reference" ? "Replay cycle" : sourceMode === "curriculum" ? "Replay study" : "Replay training";
   document.querySelectorAll("[data-recorded]").forEach((element) => { element.hidden = !recorded; });
   $("learning-source-label").textContent = recorded ? "Recorded synthetic · full-7" : "Illustrative training replay";
   $("reward-curve-label").textContent = recorded ? "Training mean reward" : "Reward";
