@@ -89,3 +89,6 @@ separates audited geometry/material behaviour from new learning claims.
 
 The [local Blender authoring decision](0048-local-blender-authoring.md)
 pins the MCP connection and keeps editable source scenes outside static packaging.
+
+[Bounded learning follow-up](0049-bounded-learning-follow-up.md) declares
+policy, observation, world-model and equal-reference-budget comparisons.
