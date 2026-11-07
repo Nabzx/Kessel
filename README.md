@@ -105,3 +105,9 @@ walkthrough, and records measurements under `/private/tmp`.
 
 Copyright 2026 Nabil Shah / Kessel. Original work is proprietary. Third-party
 assets retain the licences listed in their credit files.
+
+Presentation JavaScript and CSS share one revision in the `index.html` import
+map. Bump it consistently when changing those files. Verify it with
+`python3 scripts/verify-presentation-version.py`. Run
+`node scripts/verify-transition.cjs` for the warm-cache and entrance-recovery
+regression. See [transition recovery](docs/phase-11/transition-recovery.md).
