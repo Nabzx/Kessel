@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="kessel-presentation" content="2026-11-07.5" />
+    <meta name="kessel-presentation" content="2026-11-07.6" />
     <meta name="theme-color" content="#030506" />
     <title>Kessel | Offline autonomy</title>
     <meta
@@ -18,11 +18,11 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/experience.css?v=2026-11-07.5" />
-      <link rel="stylesheet" href="css/recorded.css?v=2026-11-07.5" />
-    <link rel="stylesheet" href="css/realism.css?v=2026-11-07.5" />
-    <link rel="stylesheet" href="css/hud.css?v=2026-11-07.5" />
-    <link rel="stylesheet" href="css/home.css?v=2026-11-07.5" />
+    <link rel="stylesheet" href="css/experience.css?v=2026-11-07.6" />
+      <link rel="stylesheet" href="css/recorded.css?v=2026-11-07.6" />
+    <link rel="stylesheet" href="css/realism.css?v=2026-11-07.6" />
+    <link rel="stylesheet" href="css/hud.css?v=2026-11-07.6" />
+    <link rel="stylesheet" href="css/home.css?v=2026-11-07.6" />
   </head>
   <body class="story-locked">
     <canvas
@@ -305,7 +305,7 @@
         <button class="text-button" id="exit-world-model">
           ← Return to mine</button
         ><span>World-model simulation</span
-        ><label class="learning-source-control">Source <select id="learning-source" aria-label="Learning replay source"><option value="recorded_synthetic">Recorded experiment</option><option value="authored">Concept replay</option></select></label><span class="replay-label" id="learning-source-label">Illustrative training replay</span>
+        ><label class="learning-source-control">Source <select id="learning-source" aria-label="Learning replay source"><option value="recorded_synthetic">Policy experiment</option><option value="reference">Reference cycle</option><option value="curriculum">Curriculum study</option><option value="authored">Concept replay</option></select></label><span class="replay-label" id="learning-source-label">Illustrative training replay</span>
       </header>
       <aside class="learning-panel">
         <p class="section-label" id="learning-section-label">Reinforcement learning</p>
@@ -384,6 +384,7 @@
         <div class="recorded-timeline" data-recorded hidden>
           <label for="replay-scrub">Recorded decision <output id="recorded-time"></output></label>
           <input id="replay-scrub" type="range" min="0" max="60" step="0.001" value="0" aria-label="Inspect recorded episode time" />
+          <div id="event-markers" class="event-markers" role="group" aria-label="Recorded events"></div><div class="event-inspection"><button id="previous-event" aria-label="Previous recorded event">←</button><output id="event-readout" aria-live="polite"></output><button id="next-event" aria-label="Next recorded event">→</button></div>
           <label>Playback pace <select id="replay-pace"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
         </div>
         <label class="geometry-control" data-recorded hidden><input type="checkbox" id="geometry-guide"> Collision geometry</label>
@@ -481,29 +482,30 @@
           "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
           "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
           "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js",
-          "./js/app.js": "./js/app.js?v=2026-11-07.5",
-          "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-07.5",
-        "./js/experience.js": "./js/experience.js?v=2026-11-07.5",
-          "./js/fleet.js": "./js/fleet.js?v=2026-11-07.5",
-          "./js/geology.js": "./js/geology.js?v=2026-11-07.5",
-          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-07.5",
-          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-07.5",
-          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-07.5",
-          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-07.5",
-          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-07.5",
-          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-07.5",
-          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-07.5",
-          "./js/mission.js": "./js/mission.js?v=2026-11-07.5",
-          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-07.5",
-          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-07.5",
-          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-07.5",
-          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-07.5",
-          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-07.5",
-          "./js/underground.js": "./js/underground.js?v=2026-11-07.5",
-          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-07.5"
+          "./js/app.js": "./js/app.js?v=2026-11-07.6",
+          "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-07.6",
+        "./js/experience.js": "./js/experience.js?v=2026-11-07.6",
+          "./js/fleet.js": "./js/fleet.js?v=2026-11-07.6",
+          "./js/geology.js": "./js/geology.js?v=2026-11-07.6",
+          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-07.6",
+          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-07.6",
+          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-07.6",
+          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-07.6",
+          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-07.6",
+          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-07.6",
+          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-07.6",
+          "./js/mission.js": "./js/mission.js?v=2026-11-07.6",
+          "./js/height-field.js": "./js/height-field.js?v=2026-11-07.6",
+          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-07.6",
+          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-07.6",
+          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-07.6",
+          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-07.6",
+          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-07.6",
+          "./js/underground.js": "./js/underground.js?v=2026-11-07.6",
+          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-07.6"
         }
       }
     </script>
-    <script type="module" src="js/experience.js?v=2026-11-07.5"></script>
+    <script type="module" src="js/experience.js?v=2026-11-07.6"></script>
   </body>
 </html>
