@@ -25,27 +25,26 @@ Use a static server rather than opening `index.html` directly.
 1. Start below the photographic rotating Earth and original wordmark, with
    detailed spacecraft in illustrative orbits. Browse five full-screen environments;
    Underground is first and Earth moves into a compact context panel.
-2. Choose **Underground**. Follow the continuous camera journey into Rwanda.
+2. Choose **Underground**. A prepared fade introduces the authored Rwanda mine exterior.
 3. **Enter the mine** to reveal a tilted rock cutaway with four haul trucks
    and the licensed loading excavator. Red routes show the baseline queue.
 4. **View the trained site**. Compare green haul loops and all six operating
    measures. Weak connectivity stays unchanged. Before/after is repeatable.
-5. Optionally **Explore the world model**. A twelve-second recorded synthetic
-   replay shows initial, intermediate and final checkpoint trajectories. Inspect
-   actual sensor crops, actions and raw world-model forecasts. Failed outcomes
-   stay visible. Choose Reference cycle for a complete conventional material cycle,
-   Curriculum study for all three partial-pickup seeds, or the labelled concept replay.
-   Pause, scrub or inspect timestamped events,
-   then return to the same mine or page position.
-6. Scroll into world-model dynamics, reinforcement learning, policy
-   distillation and onboard autonomy. Inspect and assemble the proposed kit.
+5. Optionally **Explore the world model**. A complete conventional reference
+   cycle introduces the task. Inspect measured policy checkpoints, all three
+   curriculum seeds and raw forecasts, including their failed outcomes. Pause,
+   seek or inspect timestamped events, then return to the same mine or page position.
+6. Scroll into the proposed training pipeline and five optional technical chapters:
+   perception, prediction, training/export, offline operation and fleet learning.
+7. Inspect the detailed proposed retrofit, starting assembled. Step through its
+   mechanical breakdown, pause or reassemble it.
 
 Allow about 60 seconds for the main story. Optional exploration is separate.
 There is no manual override, chase-camera flow or pricing section.
 
 ![Trained mine and six operating measures](docs/phase-11/visual-evidence/frames/retina-trained.jpg)
 
-![Optional technical learning view](docs/phase-11/visual-evidence/frames/final-recorded_synthetic.jpg)
+![Optional technical learning view](docs/phase-11/walkthrough-evidence/retina-guided-complete.jpg)
 
 ## What is real
 
@@ -108,8 +107,8 @@ for file in js/*.js; do node --check "$file"; done
 CI runs data validators, visual-asset/evidence checks, adapter tests and
 JavaScript syntax checks. For the local
 browser acceptance, install Playwright in a parent tooling directory and run
-`node scripts/verify-visuals.cjs` with the server running for the current
-visual and authored-journey scope. It uses installed
+`node scripts/verify-walkthrough-completion.cjs` with the server running for the
+current guided-task, chapter, assembly and recovery scope. It uses installed
 Google Chrome with native Metal graphics on macOS, captures frames and a
 walkthrough, and records measurements under `/private/tmp`.
 
@@ -125,3 +124,6 @@ regression. See [transition recovery](docs/phase-11/transition-recovery.md).
 The [orbital home report](docs/phase-11/orbital-home.md) records the redesigned
 opening and immersive environment selector. The [direction study](docs/phase-11/home-study/index.html)
 retains two compositions, a shot animatic and native walkthrough footage.
+
+The [guided walkthrough report](docs/phase-11/walkthrough-completion.md) records
+the downstream scene work, native laptop checks and remaining visual sign-off.

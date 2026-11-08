@@ -18,12 +18,14 @@ partners) who cannot visit a mine or read a policy's weights.
 ## Current experience
 
 Phase 10 replaces the Phase 9 presentation with a centred Earth opener,
-themed environment carousel, continuous Rwanda descent and substantial
+themed environment carousel, prepared Rwanda arrival and substantial
 roof-off mine cutaway. Four trucks and a licensed excavator illustrate the
-baseline/trained comparison. The optional technical viewer defaults to
-recorded-synthetic policy checkpoints and raw dynamics forecasts. Actual failed
+baseline/trained comparison. The optional technical viewer defaults to a complete, explicitly conventional
+recorded-synthetic reference cycle under ADR-0053. Policy checkpoints, curriculum
+seeds and raw dynamics forecasts remain available in its inspector. Actual failed
 outcomes remain visible; the authored demonstration is an explicit alternate
-source. Ordinary scrolling explains the proposed pipeline and exploded kit.
+source. Ordinary scrolling explains the proposed pipeline, five optional technical
+chapters and an assembled-first engineering breakdown of the proposed kit.
 
 `data/experience.json` is the active authored contract. ADR-0031 separates the
 Phase 11 experimental tools and validated recorded-synthetic bundles from the

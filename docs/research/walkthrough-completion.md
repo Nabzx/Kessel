@@ -50,3 +50,9 @@ The technical chapters show recorded synthetic crops, actual retained raw
 forecasts and charged PPO counters. CPU export sizes are copied with a source
 checksum into data/engineering.json. The offline and fleet loops are locally
 labelled authored architecture. No real fleet or validated Jetson latency is used.
+
+A [dimension sheet](proposed-retrofit-dimensions.svg) accompanies the editable
+Blender assembly. The surface sky now uses the cleared Poly Haven Kloofendal
+48d Pure Sky source (Greg Zaal and Jarod Guest, CC0), tone-mapped locally with
+Blender AgX. Its 40 kB WebP, source URL and hashes are in
+assets/materials/sky-manifest.json. It is representative, not Rwanda imagery.
