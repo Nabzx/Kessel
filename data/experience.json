@@ -1935,7 +1935,7 @@
           220
         ],
         "aperture_half_width_m": 5.5,
-        "aperture_end_z": -102
+        "cut_batter_m": 10
       }
     },
     "budgets": {
