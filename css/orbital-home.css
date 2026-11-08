@@ -124,3 +124,57 @@ body:has(#experience[data-stage="preparing"]) .journey { display:none; }
 .surface-panel h1 { text-shadow:0 2px 26px #000000b8, 0 0 70px #00000080; }
 .surface-panel .section-label,
 .surface-panel > p:not(.section-label) { text-shadow:0 1px 14px #000000cc; }
+/* Guided task. The experiment remains available without dominating the shot. */
+.learning-panel, body:is([data-learning-source="recorded_synthetic"],[data-learning-source="reference"],[data-learning-source="curriculum"]) .learning-panel { top:116px; bottom:auto; transform:none; width:310px; max-height:calc(100dvh - 208px); overflow:auto; padding:24px; display:block; scrollbar-width:thin; }
+.learning-panel h1, body:is([data-learning-source="recorded_synthetic"],[data-learning-source="reference"],[data-learning-source="curriculum"]) .learning-panel h1 { font-size:28px; margin:12px 0 24px; }
+.task-phase { color:var(--paper); font-size:19px; text-transform:none; margin:0 0 22px; }
+.task-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:0 0 18px; }
+.task-metrics dt { color:#93a39e; font:9px var(--mono); margin-bottom:8px; }
+.task-metrics dd { color:var(--paper); font:18px var(--mono); margin:0; }
+.task-summary { font:10px/1.6 var(--mono); color:#9badad; margin:0 0 20px; }
+.replay-inspector,.replay-details { border-top:1px solid #ffffff20; padding-top:12px; margin-top:14px; font:10px var(--mono); }
+.replay-inspector summary,.replay-details summary { cursor:pointer; padding:4px 0 12px; color:#b4c2bb; }
+.replay-inspector[open] { max-height:340px; overflow:auto; }
+.replay-inspector .rl-readouts { display:block; }
+.replay-inspector .prediction-inspector { position:static; width:auto; padding:0; background:none; border:0; box-shadow:none; }
+.replay-inspector .forecast-heading,.replay-inspector .prediction-legend,.replay-inspector #observation-crop { display:flex; }
+.replay-inspector #observation-crop { display:grid; }
+.replay-inspector .forecast-heading { flex-wrap:wrap; gap:12px; }
+.replay-inspector #policy-instruments,.replay-inspector #forecast-instruments { overflow:visible; }
+.learning-transport .checkpoint-outcome { display:none; }
+body:has(#replay-inspector[open]) .learning-transport .checkpoint-outcome { display:block; font:10px/1.6 var(--mono); }
+.compare-reference { font:10px var(--mono); margin-top:14px; }
+.learning-panel .training-controls { gap:8px; }
+.learning-panel .primary,.learning-panel .secondary { font-size:11px; min-width:0; padding:12px; }
+body.product-active .navigation { background:#030506f2; padding-block:15px; top:0; }
+@media (max-height:820px) { .learning-panel,body:is([data-learning-source="recorded_synthetic"],[data-learning-source="reference"],[data-learning-source="curriculum"]) .learning-panel { top:105px; max-height:calc(100dvh - 188px); padding:20px; }.replay-inspector[open] { max-height:200px; } }
+.engineering-chapters { min-height:75vh; padding:120px 7vw; display:grid; grid-template-columns:1fr 1fr; gap:7vw; background:#060b0d; }
+.chapter-heading h2 { font-size:clamp(36px,4vw,64px); font-weight:400; line-height:1.12; letter-spacing:-.045em; margin:24px 0; }
+.chapter-links { display:grid; }
+.chapter-links button { display:flex; align-items:center; gap:24px; text-align:left; background:none; border:0; border-bottom:1px solid #ffffff21; padding:24px 0; color:var(--paper); cursor:pointer; }
+.chapter-links button strong { font-size:20px; font-family:inherit; font-weight:400; flex:1; }
+.chapter-links button span { color:#6c9990; font:11px var(--mono); }
+.chapter-links button:hover strong { color:var(--accent); }
+.technical-dialog { width:min(1320px,94vw); max-width:none; height:min(820px,92dvh); max-height:none; padding:30px; border:1px solid #ffffff30; background:#071011; color:var(--paper); box-shadow:0 30px 100px #0009; }
+.technical-dialog::backdrop { background:#020505ed; backdrop-filter:blur(12px); }
+.technical-dialog header { display:flex; justify-content:space-between; padding-bottom:24px; border-bottom:1px solid #ffffff24; font:11px var(--mono); color:#a0b2a9; }
+.technical-dialog button { background:transparent; border:1px solid #ffffff29; padding:10px 14px; color:var(--paper); cursor:pointer; font:11px var(--mono); }
+.technical-dialog header button { border:0; padding:0; }
+.technical-layout { display:grid; grid-template-columns:minmax(0,1fr) 300px; height:calc(100% - 60px); gap:32px; align-items:center; }
+#technical-canvas { width:100%; aspect-ratio:780/550; }
+.technical-layout aside { border-left:1px solid #ffffff24; padding-left:28px; }
+.technical-layout h2 { font-size:36px; font-weight:400; letter-spacing:-.04em; line-height:1.1; margin:24px 0 38px; }
+#technical-step { font-size:18px; min-height:48px; }
+#technical-counter { font:11px var(--mono); color:var(--accent); }
+.technical-layout details { font:11px/1.8 var(--mono); color:#9cb0a5; margin:32px 0; }
+.technical-layout summary { cursor:pointer; }
+.technical-layout nav { display:flex; gap:8px; }
+.technical-layout nav button:last-child { color:var(--accent); }
+@media(max-height:820px) { .technical-dialog { padding:22px; }.technical-layout h2 { font-size:30px; }.technical-layout details { margin:20px 0; } }
+.kit-stage-label { font:13px var(--mono); color:var(--accent); margin:40px 0 28px; }
+.kit-specifications { font:11px var(--mono); color:#98aaa0; margin-bottom:24px; pointer-events:auto; }
+.kit-specifications summary { cursor:pointer; padding:12px 0; }
+.kit-controls { display:flex; gap:10px; margin-top:16px; pointer-events:auto; }
+.kit-controls button { background:#101b1c; color:var(--paper); border:1px solid #ffffff20; padding:9px 14px; cursor:pointer; font:10px var(--mono); }
+
+.task-continue { color:var(--accent); font:11px var(--mono); margin:18px 0 2px; }

@@ -1,7 +1,7 @@
 // Volume-preserving, closed height field. Cell means stay physical ledger values.
 export function heightField(cells, nx = 8, ny = 8, dx = 0.5, dy = 0.5) {
   if (cells.length !== nx * ny || !cells.every(Number.isFinite) || cells.some(h => h < 0) || !(dx > 0 && dy > 0)) throw new Error("Invalid height field");
-  const positions = [], cellVolumes = [], inset = 0.04;
+  const positions = [], cellVolumes = [], inset = 0.24;
   const height = (i, j) => cells[i * ny + j];
   const corner = (i, j) => {
     const adjacent = [];

@@ -1,9 +1,11 @@
+import {rockMaterial,rockBody} from "./geology.js";
 import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
 import { createReferenceLoader } from "./loader-stage.js";
 import { texture, box, lightRig, line } from "./scene-utils.js";
 import { ReplayClock, sampleEpisode, curvePoints, episodeEvents } from "./recorded-data.js";
 
+import { visibleBounds, fitReplay } from "./replay-framing.js";
 import { heightField } from "./height-field.js";
 
 export async function createRecorded(config, bundle) {
@@ -15,6 +17,9 @@ export async function createRecorded(config, bundle) {
   const initial = bundle.episodes[0].records[0].state, halfWidth = initial[indices.half_width_m];
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(29, halfWidth * 2), new THREE.MeshStandardMaterial({ map: floor, normalMap:floorNormal, normalScale:new THREE.Vector2(.55,.55), color: 0x72756c, roughness: 1 }));
   ground.rotation.x = -Math.PI / 2;ground.position.x = 3.5;ground.receiveShadow = true;root.add(ground);
+  const workRock=await rockMaterial({...config.visuals.rock,repeat_m:1.8});
+  rockBody({size:[29,2.8,.85],position:[3.5,1.4,-halfWidth-.5]},workRock,root,701,.22);
+  rockBody({size:[29,.75,.65],position:[3.5,.375,halfWidth+.4]},workRock,root,702,.15);
   const edging = new THREE.MeshStandardMaterial({ color: 0x303c3b, roughness: 1, map: ore });
   for (const side of [-1, 1]) box([29, 0.65, 0.45], [3.5, 0.325, side * (halfWidth + 0.225)], edging, root);
   const grid = new THREE.GridHelper(30, 30, 0x4c625f, 0x293a3a);grid.position.set(3.5, 0.012, 0);grid.material.transparent = true;grid.material.opacity = 0.18;root.add(grid);
@@ -101,7 +106,7 @@ export async function createRecorded(config, bundle) {
     }
     const peaks = eps.map((e) => e.metrics.peak_load_kg).filter((v) => typeof v === "number" && v > 0);
     return `${head} · no delivery completed in this bounded run.`
-      + (peaks.length > 1 ? ` Peak load ${Math.min(...peaks).toFixed(0)} → ${Math.max(...peaks).toFixed(0)} kg.` : "");
+      + (peaks.length > 1 ? ` Peak load range ${Math.min(...peaks).toFixed(0)}–${Math.max(...peaks).toFixed(0)} kg across seeds.` : "");
   })();
   function paintHud(state, sampled, future) {
     const { episode, index } = state, frame = sampled.frame, counters = episode.policy?.training_counters || {completed_episodes:0,rollouts:0};
@@ -126,6 +131,14 @@ export async function createRecorded(config, bundle) {
     const episodeOutcome = `${outcome}. Delivered ${episode.metrics.delivered_kg.toFixed(0)} kg.${episode.training_seed ? ` Peak load ${episode.metrics.peak_load_kg?.toFixed(0) || "0"} kg.` : ""}`;
     const finishedSequence = state.complete && clock.sequence;
     ui["checkpoint-outcome"].textContent = finishedSequence ? `${episodeOutcome} ${sequenceSummary}` : episodeOutcome;
+    const ended=state.time>=episode.records.at(-1).t_s;
+    document.getElementById("task-phase").textContent=ended?outcome:frame.phase ? frame.phase.replaceAll("_"," ") : frame.state[7]>10?"Carry the load":"Approach the face";
+    document.getElementById("task-payload").textContent=`${(frame.state[7]/1000).toFixed(2)} t`;
+    document.getElementById("task-delivered").textContent=`${(frame.state[8]/1000).toFixed(2)} t`;
+    document.getElementById("task-time").textContent=`${frame.t_s.toFixed(1)} s`;
+    document.getElementById("task-summary").textContent=ended?isReference&&episode.metrics.delivered_kg>0?"Full reference cycle complete":isReference?"Reference condition failed":"Partial task only. No learned delivery.":isReference?"Conventional control · recorded synthetic":"Learned policy · recorded synthetic";
+    document.getElementById("compare-reference").hidden=isReference;
+    document.getElementById("task-continue").hidden=!ended;
     ui["payload-readout"].textContent = `Payload ${frame.state[7].toFixed(0)} / 3,500 kg`;
     ui["training-status"].textContent = state.paused ? state.complete ? finishedSequence ? "All recorded episodes shown" : "Recorded episode ended" : "Recorded replay paused" : isReference ? "Recorded reference control" : "Recorded policy decisions";
     ui["pause-training"].textContent = state.paused ? "Play" : "Pause";
@@ -215,44 +228,27 @@ export async function createRecorded(config, bundle) {
     }
     lastFrame = null;lastEpisode=-1;update(0);
   }
-  // #368: frame the recorded task from the data instead of a fixed camera.
-  // The previous [24,21,28] -> [3,0.5,0] pair sat ~40 m from a task about 11 m
-  // across, so the loading-and-delivery work occupied roughly 19% of the frame
-  // width and read as a toy adrift on an empty floor (see #364's measurements).
-  // Keep the same three-quarter view direction; solve distance and lateral
-  // placement from the recorded receiver, pile and machine path.
-  const framing = (() => {
-    const DIRECTION = new THREE.Vector3(21, 20.5, 28).normalize();  // old camera - old target
-    const FOV = 42, HALF = Math.tan((FOV / 2) * Math.PI / 180);
-    // experience.js viewport() already calls setViewOffset with an x offset of
-    // innerWidth * 0.14 for the learning stage, which pans rendered content
-    // left by 0.28 NDC to clear the instrument panel. Do not shift the look
-    // target as well -- that double-corrects and pushes the work off to the
-    // left. Only the fit has to respect the remaining usable half-width.
-    const VIEW_SHIFT = 0.28, PANEL_NDC = 0.507;
-    const USABLE = Math.min(1 - VIEW_SHIFT, PANEL_NDC + VIEW_SHIFT), FILL = 0.88;
-    const min = new THREE.Vector3(Infinity, 0, Infinity), max = new THREE.Vector3(-Infinity, 2.5, -Infinity);
-    const include = (x, z) => { min.x = Math.min(min.x, x); max.x = Math.max(max.x, x); min.z = Math.min(min.z, z); max.z = Math.max(max.z, z); };
-    include(rx - hx, ry - hy); include(rx + hx, ry + hy);               // receiver
-    const px = initial[indices.pile_origin_x_m], py = initial[indices.pile_origin_y_m];
-    include(px, -py); include(px + 4, -(py + 4));                        // 8x8 pile cells at 0.5 m
-    for (const episode of bundle.episodes)
-      for (const record of episode.records) include(record.state[0], -record.state[1]);
-    const centre = new THREE.Vector3((min.x + max.x) / 2, 1, (min.z + max.z) / 2);
-    const aspect = Math.max(1, innerWidth / Math.max(1, innerHeight));
-    // Fit the task's screen-space extent inside the usable half-width.
-    const right = new THREE.Vector3(0, 1, 0).cross(DIRECTION).normalize();
-    const spanRight = Math.abs((max.x - min.x) * right.x) + Math.abs((max.z - min.z) * right.z);
-    const spanUp = Math.abs(max.x - min.x) * 0.35 + (max.y - min.y);
-    const distance = Math.max(
-      spanRight / (2 * HALF * aspect * USABLE * FILL),
-      spanUp / (2 * HALF * FILL),
-      14,
-    );
-    return { camera: centre.clone().addScaledVector(DIRECTION, distance).toArray(), target: centre.toArray() };
-  })();
+  // Use every pose and midpoint, with jointed mesh bounds rather than axle centres.
+  const envelope = new THREE.Box3(), scratch = new THREE.Box3();
+  envelope.expandByPoint(new THREE.Vector3(rx-hx,0,-ry-hy));
+  envelope.expandByPoint(new THREE.Vector3(rx+hx,2,-ry+hy));
+  for(const episode of bundle.episodes) {
+    const first=episode.records[0].state;
+    envelope.expandByPoint(new THREE.Vector3(first[indices.pile_origin_x_m],0,-first[indices.pile_origin_y_m]-4));
+    envelope.expandByPoint(new THREE.Vector3(first[indices.pile_origin_x_m]+4,Math.max(...first.slice(15,79)), -first[indices.pile_origin_y_m]));
+    for(let i=0;i<episode.records.length;i++) {
+      const row=episode.records[i],next=episode.records[i+1];
+      for(const time of next?[row.t_s,(row.t_s+next.t_s)/2]:[row.t_s]) {
+        const sample=sampleEpisode(episode,time);loader.apply(sample.pose,sample.wheelAngles,sample.frame.state[7]);
+        envelope.union(visibleBounds(loader.root,scratch));
+      }
+    }
+  }
+  envelope.expandByScalar(.18);
+  let frameAudit=null;
 
-  return { root, sourceMode: "recorded_synthetic", camera: framing.camera, target: framing.target, mount, update,
+  return { root, sourceMode: "recorded_synthetic", camera: [24,21,28], target: [3,.5,0], mount, update,
+    fitCamera(camera,panel,header){frameAudit=fitReplay(camera,envelope,panel,header);return frameAudit.target;},
     replay() { clock.replay();update(0); }, pause() { clock.toggle();update(0); }, checkpoint(index) { clock.checkpoint(index);update(0); },
     seek(time) { clock.seek(time);update(0); }, pace(value) { clock.setPace(value);update(0); },
     forecast(value) { forecastVisible=!!value;update(0); },
@@ -264,6 +260,6 @@ export async function createRecorded(config, bundle) {
       loader.root.updateMatrixWorld(true);
       const actualMouth = loader.bucket.localToWorld(new THREE.Vector3(0, 0, 0.6));
       const expectedMouth = new THREE.Vector3(p[0] + 1.8 * Math.cos(p[2]) + (1.6 + 1.2 * Math.cos(p[5])) * Math.cos(heading), 0.35 + 2 * Math.sin(p[5]), -p[1] - 1.8 * Math.sin(p[2]) - (1.6 + 1.2 * Math.cos(p[5])) * Math.sin(heading));
-      return { bucketMouthErrorM: actualMouth.distanceTo(expectedMouth), runId: bundle.run_id, sourceMode: "recorded_synthetic", checkpoint: state.index, simulatedTime: state.time, paused: state.paused, horizon, frame: sampleEpisode(state.episode, state.time).index, counters: state.episode.policy?.training_counters || null, material:materialAudit, forecastVisible, agentKind:isReference?"reference_controller":"learned_policy", eventCount:activeEvents.length }; },
+      return { framing:frameAudit, envelope:{min:envelope.min.toArray(),max:envelope.max.toArray()}, bucketMouthErrorM: actualMouth.distanceTo(expectedMouth), runId: bundle.run_id, sourceMode: "recorded_synthetic", checkpoint: state.index, simulatedTime: state.time, paused: state.paused, horizon, frame: sampleEpisode(state.episode, state.time).index, counters: state.episode.policy?.training_counters || null, material:materialAudit, forecastVisible, agentKind:isReference?"reference_controller":"learned_policy", eventCount:activeEvents.length }; },
   };
 }

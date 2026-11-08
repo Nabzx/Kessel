@@ -275,6 +275,7 @@
           </button>
         </div>
       </section>
+      <section class="engineering-chapters" id="engineering-chapters" aria-label="Technical chapters"></section>
       <section class="kit-section" id="kit-section">
         <div class="kit-copy">
           <p class="section-label">Proposed retrofit kit</p>
@@ -283,8 +284,8 @@
             Local sensing. Rugged compute.<br />Connected to the controls
             already there.
           </p>
-          <div class="kit-components" id="kit-components"></div>
-          <button class="secondary" id="assemble-kit">Assemble the kit</button>
+          <p id="kit-stage-label" class="kit-stage-label">01 / Assembled unit</p><details class="kit-specifications"><summary>Component roles</summary><div class="kit-components" id="kit-components"></div></details>
+          <button class="secondary" id="assemble-kit">Open the assembly</button><div class="kit-controls"><button id="kit-prev" aria-label="Previous assembly stage">←</button><button id="kit-pause">Pause</button><button id="kit-next" aria-label="Next assembly stage">→</button></div>
         </div>
         <div
           class="kit-window"
@@ -318,10 +319,15 @@
       <aside class="learning-panel">
         <p class="section-label" id="learning-section-label">Reinforcement learning</p>
         <h1 id="learning-title">Scoop<br />and haul.</h1>
+        <p class="task-phase" id="task-phase">Approach the face</p>
+        <dl class="task-metrics"><div><dt>Payload</dt><dd id="task-payload">0.00 t</dd></div><div><dt>Delivered</dt><dd id="task-delivered">0.00 t</dd></div><div><dt>Sim time</dt><dd id="task-time">0.0 s</dd></div></dl>
+        <p id="task-summary" class="task-summary">Conventional control · recorded synthetic</p>
+        <details id="replay-inspector" class="replay-inspector"><summary>Inspect experiment</summary>
         <div class="instrument-tabs" role="tablist" aria-label="Replay instruments" data-recorded hidden>
           <button id="policy-tab" role="tab" aria-selected="true" aria-controls="policy-instruments" tabindex="0">Policy</button>
           <button id="forecast-tab" role="tab" aria-selected="false" aria-controls="forecast-instruments" tabindex="-1">World model</button>
         </div>
+
         <div id="policy-instruments" role="tabpanel" tabindex="0" aria-labelledby="policy-tab">
         <div class="episode-number">
           <strong id="episode-count">0</strong><span id="episode-caption">represented episodes</span>
@@ -381,6 +387,7 @@
         <button class="text-button" id="inspect-forecast">Inspect forecast</button>
       </aside>
         </div>
+        </details>
         <div class="learning-transport">
         <p id="checkpoint-outcome" class="checkpoint-outcome">
           Bucket too high. No ore collected.
@@ -389,6 +396,9 @@
           <button class="primary" id="replay-training">Replay training</button
           ><button class="secondary" id="pause-training">Pause</button>
         </div>
+        <button class="text-button compare-reference" id="compare-reference">Watch the complete reference task →</button>
+        <button class="text-button task-continue" id="task-continue" hidden>Continue →</button>
+        <details class="replay-details"><summary>Timeline &amp; run details</summary>
         <div class="recorded-timeline" data-recorded hidden>
           <label for="replay-scrub">Recorded decision <output id="recorded-time"></output></label>
           <input id="replay-scrub" type="range" min="0" max="60" step="0.001" value="0" aria-label="Inspect recorded episode time" />
@@ -397,6 +407,7 @@
         </div>
         <label class="geometry-control" data-recorded hidden><input type="checkbox" id="geometry-guide"> Collision geometry</label>
         <details class="recorded-provenance" data-recorded hidden><summary>Run details</summary><pre id="run-provenance"></pre></details>
+        </details>
         </div>
       </aside>
       <div class="simulation-caption">
@@ -404,6 +415,10 @@
         ><span id="payload-readout">Payload 0 / 3.5 t</span>
       </div>
     </section>
+    <dialog id="technical-dialog" class="technical-dialog" aria-labelledby="technical-title">
+      <header><span id="technical-eyebrow"></span><button id="technical-close" aria-label="Close technical chapter">Close ×</button></header>
+      <div class="technical-layout"><canvas id="technical-canvas" aria-label="Technical visualisation from the stated source"></canvas><aside><p class="section-label" id="technical-source"></p><h2 id="technical-title"></h2><p id="technical-step"></p><span id="technical-counter"></span><details><summary>Source &amp; method</summary><p id="technical-note"></p></details><nav><button id="technical-prev" aria-label="Previous step">←</button><button id="technical-pause">Pause</button><button id="technical-next">Continue →</button></nav></aside></div>
+    </dialog>
     <aside id="experiment-error" class="experiment-error" hidden role="status"><p id="experiment-error-message">Recorded replay unavailable.</p><button class="text-button" id="retry-recorded">Retry recorded</button><button class="text-button" id="use-concept-replay">Open concept replay</button></aside>
     <span id="caption-detail" hidden>Public geography. Illustrative mission.</span>
     <dialog id="sources-dialog">
@@ -414,7 +429,8 @@
       >
         ×
       </button>
-      <p class="section-label">What you are seeing</p>
+      <p>Surface sky: <a href="https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky" target="_blank" rel="noopener">Greg Zaal / Jarod Guest, Poly Haven</a>. CC0. Representative sky.</p>
+        <p class="section-label">What you are seeing</p>
       <h2>A real location.<br />An illustrative mission.</h2>
       <p>
         Kessel is developing physical AI for extreme environments. This
@@ -488,7 +504,8 @@
           "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js",
           "./js/app.js": "./js/app.js?v=2026-11-08.10",
           "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-08.10",
-        "./js/experience.js": "./js/experience.js?v=2026-11-08.10",
+        "./js/technical-chapters.js": "./js/technical-chapters.js?v=2026-11-08.10",
+          "./js/experience.js": "./js/experience.js?v=2026-11-08.10",
           "./js/fleet.js": "./js/fleet.js?v=2026-11-08.10",
           "./js/geology.js": "./js/geology.js?v=2026-11-08.10",
           "./js/environment-scenes.js": "./js/environment-scenes.js?v=2026-11-08.10",
@@ -502,6 +519,7 @@
           "./js/mission.js": "./js/mission.js?v=2026-11-08.10",
           "./js/height-field.js": "./js/height-field.js?v=2026-11-08.10",
           "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-08.10",
+          "./js/replay-framing.js": "./js/replay-framing.js?v=2026-11-08.10",
           "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-08.10",
           "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-08.10",
           "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-08.10",
