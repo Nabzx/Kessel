@@ -28,7 +28,7 @@
       "preview": {
         "path": "assets/environments/underground.webp",
         "alt": "Research mine in Pennsylvania; representative, not Rutongo",
-        "caption": "Reference \u00b7 CDC / NIOSH \u00b7 Pennsylvania",
+        "caption": "Reference · CDC / NIOSH · Pennsylvania",
         "representative": true
       },
       "background_image": {
@@ -54,7 +54,7 @@
       "preview": {
         "path": "assets/environments/glacier.webp",
         "alt": "Jakobshavn glacier, Greenland",
-        "caption": "Reference \u00b7 NASA / USGS",
+        "caption": "Reference · NASA / USGS",
         "representative": true
       },
       "background_image": {
@@ -80,7 +80,7 @@
       "preview": {
         "path": "assets/environments/desert.webp",
         "alt": "Sahara dunes, Algeria",
-        "caption": "Reference \u00b7 NASA / JSC",
+        "caption": "Reference · NASA / JSC",
         "representative": true
       },
       "background_image": {
@@ -106,7 +106,7 @@
       "preview": {
         "path": "assets/environments/space.webp",
         "alt": "Earthrise above the lunar horizon",
-        "caption": "Reference \u00b7 NASA / Bill Anders",
+        "caption": "Reference · NASA / Bill Anders",
         "representative": true
       },
       "background_image": {
@@ -132,7 +132,7 @@
       "preview": {
         "path": "assets/environments/deep-sea.webp",
         "alt": "Hydrothermal vent in the Marianas",
-        "caption": "Reference \u00b7 NOAA",
+        "caption": "Reference · NOAA",
         "representative": true
       },
       "background_image": {
@@ -270,14 +270,14 @@
         "ground_detail": "assets/textures/brown_mud_dry_diff.jpg"
       },
       "camera": [
-        142,
-        118,
-        192
+        34,
+        16,
+        14
       ],
       "target": [
         0,
-        3,
-        -10
+        7,
+        -80
       ],
       "site_origin_m": [
         -800,
@@ -329,7 +329,7 @@
       "portal_position": [
         0,
         0,
-        -58
+        -84
       ],
       "tree_seed": 7431,
       "tree_count": 170,
@@ -1910,11 +1910,11 @@
         {
           "id": "surface-hauler",
           "position": [
-            10,
+            13,
             0.2,
-            10
+            -46
           ],
-          "heading": -0.35
+          "heading": -2.75
         }
       ],
       "ground": {
@@ -1935,7 +1935,7 @@
           220
         ],
         "aperture_half_width_m": 5.5,
-        "aperture_end_z": -78
+        "cut_batter_m": 10
       }
     },
     "budgets": {

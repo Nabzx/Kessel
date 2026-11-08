@@ -26,8 +26,15 @@ const base = process.env.KESSEL_URL || 'http://127.0.0.1:8080/';
       await page.goto(base); await page.locator('body.ready').waitFor();
       await capture('hero');
       assert.equal(await page.locator('#journey').isVisible(), false);
-      const contrast = await page.locator('.welcome-wordmark').evaluate(el => getComputedStyle(el).filter);
-      assert.ok(contrast.includes('invert(1)'), 'Wordmark must retain its light fill');
+      // The wordmark used to be a dark SVG lightened with filter:invert(1).
+      // It is now live type, so assert the guarantee that check stood for --
+      // that it actually renders light against the near-black ground -- rather
+      // than the filter that used to achieve it.
+      const fill = await page.locator('.welcome-wordmark').evaluate((el) => {
+        const [r, g, b] = getComputedStyle(el).color.match(/[\d.]+/g).map(Number);
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      });
+      assert.ok(fill > 180, `Wordmark must retain its light fill (luminance ${fill.toFixed(0)})`);
       const geometry = await page.evaluate(async () => {
         const { rockGeometry } = await import('./js/geology.js');
         const { createGlobe } = await import('./js/globe-stage.js');

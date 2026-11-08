@@ -110,7 +110,7 @@ export async function createLearning(config) {
   const sweep = new THREE.Mesh(
     new THREE.RingGeometry(2.8, 2.83, 80),
     new THREE.MeshBasicMaterial({
-      color: 0xd5ac6c,
+      color: 0x4ee29b,
       transparent: true,
       opacity: 0.4,
       side: THREE.DoubleSide,
@@ -121,7 +121,7 @@ export async function createLearning(config) {
   const prediction = new THREE.Mesh(
     new THREE.BoxGeometry(1.6, 1.9, 7),
     new THREE.MeshBasicMaterial({
-      color: 0xd5ac6c,
+      color: 0x4ee29b,
       wireframe: true,
       transparent: true,
       opacity: 0.3,

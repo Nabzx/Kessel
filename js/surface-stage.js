@@ -219,8 +219,11 @@ export async function createSurface(config) {
   const tunnel = new THREE.Mesh(new THREE.CylinderGeometry(half, half, 22, 24, 1, true, 0, Math.PI), rockMat);
   tunnel.rotation.set(Math.PI / 2, 0, Math.PI / 2); tunnel.position.set(0, 3, -12);
   tunnel.material.side = THREE.DoubleSide; portal.add(tunnel);
-  box([half * 2, .2, 24], [0, .12, -10], yardMat, portal);
-  box([half * 2, height, .2], [0, height / 2, -22], new THREE.MeshBasicMaterial({ color: 0x040605 }), portal);
+  const portalFloor = box([half * 2, .2, 24], [0, .12, -10], yardMat, portal);
+  // Occludes daylight behind the mouth so the opening reads as depth. Must
+  // survive the authored swap below, or the portal becomes a freestanding arch
+  // with the hillside visible straight through it.
+  const backstop = box([half * 2, height, .2], [0, height / 2, -22], new THREE.MeshBasicMaterial({ color: 0x040605 }), portal);
   for (const side of [-1, 1]) {
     const rubble=rockBody({size:[15, 10, 18],position:[side * 12, 3, -6]},rockMat,portal,design.rock_seed+(side+1),1.1); rubble.material=rockMat;
     box([.3, 4.5, .3], [side * (half + .45), 2.25, 2.5], metal, portal);
@@ -231,25 +234,45 @@ export async function createSurface(config) {
   }
   try {
     const authored=await authoredAsset(config.visuals.authored?.portal);
-    if(authored){for(const child of portal.children)if(child.isMesh&&child!==tunnel)child.visible=false;authored.traverse(o=>{if(o.isMesh&&o.material.name.includes("Rock"))o.material=rockMat;});portal.add(authored);}
+    if(authored){
+      // The authored collar replaces the procedural masonry, but the recessed
+      // tunnel, its floor and the backstop are what give the mouth depth.
+      const keep=new Set([tunnel,portalFloor,backstop]);
+      for(const child of portal.children)if(child.isMesh&&!keep.has(child))child.visible=false;
+      authored.traverse(o=>{if(o.isMesh&&o.material.name.includes("Rock"))o.material=rockMat;});
+      portal.add(authored);
+    }
   } catch(error){console.warn("Authored portal unavailable",error);}
   const portalLight = new THREE.PointLight(0xffd9a4, 80, 18, 2); portalLight.position.set(0,4,-4);portal.add(portalLight);
-  const hillSpec=design.portal_hill, hillGeometry=new THREE.PlaneGeometry(hillSpec.size[0],hillSpec.size[2],40,40);
+  // #360: the cut used to be made by deleting triangles whose centroid fell
+  // inside a corridor, which can only ever punch a ragged hole through a
+  // shell -- the edges followed the tessellation, not an excavation, and you
+  // could see daylight through the crescent it left. The hill is now a
+  // continuous surface that is *graded down* into a cut: a flat floor at yard
+  // level running in to the portal, battered side slopes, and full ground
+  // behind the face the portal is set into. Subdivision goes up because the
+  // batter and the face need vertices to resolve against.
+  const hillSpec=design.portal_hill;
+  const hillGeometry=new THREE.PlaneGeometry(hillSpec.size[0],hillSpec.size[2],96,96);
   hillGeometry.rotateX(-Math.PI/2);hillGeometry.translate(...hillSpec.position);
   const hp=hillGeometry.attributes.position;
+  const cutHalf=hillSpec.aperture_half_width_m, batter=hillSpec.cut_batter_m ?? 10;
+  const faceZ=data.portal_position[2];
   for(let i=0;i<hp.count;i++){
     const x=hp.getX(i),z=hp.getZ(i),r=Math.pow(x/(hillSpec.size[0]/2),2)+Math.pow((z-hillSpec.position[2])/(hillSpec.size[2]/2),2);
     const shape=Math.max(0,1-r),front=THREE.MathUtils.smoothstep(-z,66,95);
-    hp.setY(i,hillSpec.size[1]*shape*front*(.9+.08*Math.sin(x*.041)+.06*Math.cos(z*.031)));
+    const ground=hillSpec.size[1]*shape*front*(.9+.08*Math.sin(x*.041)+.06*Math.cos(z*.031));
+    // 0 inside the corridor, 1 out beyond the batter.
+    const lateral=THREE.MathUtils.smoothstep(Math.abs(x),cutHalf,cutHalf+batter);
+    // 0 behind the portal face, 1 at and in front of it. The band sits wholly
+    // behind the portal so the cut is fully open where the collar stands --
+    // centring it on the portal leaves roughly 7 m of ground over a 7 m
+    // opening and buries the set.
+    const ahead=THREE.MathUtils.smoothstep(z,faceZ-5,faceZ-1);
+    const excavated=(1-lateral)*ahead;
+    hp.setY(i,ground*(1-excavated));
   }
-  const hillIndices=[];
-  for(let i=0;i<hillGeometry.index.count;i+=3){
-    const tri=[0,1,2].map(j=>hillGeometry.index.getX(i+j));
-    const x=tri.reduce((v,j)=>v+hp.getX(j),0)/3,z=tri.reduce((v,j)=>v+hp.getZ(j),0)/3;
-    if(Math.abs(x)<hillSpec.aperture_half_width_m&&z>hillSpec.aperture_end_z)continue;
-    hillIndices.push(...tri);
-  }
-  hillGeometry.setIndex(hillIndices);hillGeometry.computeVertexNormals();
+  hillGeometry.computeVertexNormals();
   const hill=new THREE.Mesh(hillGeometry,rockMat);hill.castShadow=hill.receiveShadow=true;root.add(hill);
   const roadGeometry = new THREE.PlaneGeometry(12, 750, 2, 80);
   roadGeometry.rotateX(-Math.PI / 2);
@@ -292,10 +315,16 @@ export async function createSurface(config) {
     if (Math.abs(x) < 110 && Math.abs(z) < 130) x += x < 0 ? -140 : 140;
     const y = elevation(x, z),
       scale = 2 + rand() * 3;
-    pose.position.set(x, y + 2, z);
-    pose.scale.set(1, 1, 1);
+    // The trunk used to be left at scale 1 whatever the canopy did, so a
+    // five-metre crown sat on a one-metre stem and the tree read as a blob
+    // floating above a stick. Scale it with the crown, with a little
+    // independent slenderness so the stand is not uniform.
+    pose.position.set(x, y + scale * 0.9, z);
+    pose.scale.set(scale * (0.3 + rand() * 0.12), scale * 0.62, scale * (0.3 + rand() * 0.12));
+    pose.rotation.set(0, rand() * Math.PI, 0);
     pose.updateMatrix();
     trunk.setMatrixAt(i, pose.matrix);
+    pose.rotation.set(0, 0, 0);
     for (let lobe = 0; lobe < 3; lobe++) {
       pose.position.set(
         x + (lobe - 1) * scale * 0.55,
@@ -308,10 +337,13 @@ export async function createSurface(config) {
       canopy.setMatrixAt(i * 3 + lobe, pose.matrix);
       canopy.setColorAt(
         i * 3 + lobe,
+        // Lightness used to top out at 0.32, which rendered sunlit hillside
+        // foliage as near-black silhouettes. Opened up and given a wider hue
+        // and saturation spread so the stand reads as varied species.
         new THREE.Color().setHSL(
-          0.21 + rand() * 0.08,
-          0.2 + rand() * 0.15,
-          0.22 + rand() * 0.1,
+          0.19 + rand() * 0.13,
+          0.26 + rand() * 0.22,
+          0.3 + rand() * 0.2,
         ),
       );
     }
@@ -352,10 +384,55 @@ export async function createSurface(config) {
   }
   for (const spec of design.parked_vehicles) {
     const vehicle=createVehicle(spec.id,vehicleModel,{oreMap:aggregate,authoredHauler:config.visuals.authored?.hauler,authoredOverview:config.visuals.authored?.hauler_overview});vehicle.root.position.fromArray(spec.position);
-    vehicle.root.rotation.y=spec.heading;vehicle.detail.visible=true;vehicle.overview.visible=false;vehicle.cargo.visible=false;
-    vehicle.root.traverse(o=>{if(o.isMesh)o.castShadow=o.receiveShadow=true;});root.add(vehicle.root);
+    // Use the overview LOD: it carries the authored hauler body and wheels.
+    // The detail LOD left only a bare cargo box standing in the yard, which is
+    // why this vehicle was previously parked outside the arrival framing.
+    // The overview LOD's cargo proxy is unlit, so a loaded bed reads as a flat
+    // mauve patch in a lit scene. This machine is parked, so it is empty.
+    vehicle.root.rotation.y=spec.heading;vehicle.detail.visible=false;vehicle.overview.visible=true;
+    vehicle.cargo.visible=false;vehicle.proxyCargo.visible=false;
+    // The painted contact shadow must not enter the shadow map: shadow casting
+    // ignores the alpha that makes it an ellipse, so the whole 3.4 by 9 quad
+    // was casting a crisp black rectangle onto the yard under the machine.
+    vehicle.root.traverse(o=>{if(o.isMesh&&o.name!=="contact-shadow")o.castShadow=o.receiveShadow=true;});root.add(vehicle.root);
   }
   lightRig(root, 120);
   heightMap.dispose();
+  // #391: the sky was a single flat colour, so distant ridges sat at the same
+  // contrast as the foreground and the terrain read as a tilted model. A dome
+  // gives the day a defined structure: a muted zenith, a pale haze band at the
+  // horizon that the fog colour matches so distant ground dissolves into it,
+  // and a warm bias toward the key light. Rutongo is two degrees south, so the
+  // sun sits high and the haze is thick rather than a crisp temperate blue.
+  const sky = new THREE.Mesh(
+    new THREE.SphereGeometry(4200, 32, 20),
+    new THREE.ShaderMaterial({
+      side: THREE.BackSide, depthWrite: false, fog: false,
+      uniforms: {
+        zenith: { value: new THREE.Color(0x3f6f93) },
+        horizon: { value: new THREE.Color(0xb3bcb7) },
+        glow: { value: new THREE.Color(0xffe9c6) },
+        sun: { value: new THREE.Vector3(-1, 1.7, 0.7).normalize() },  // matches lightRig's key
+      },
+      vertexShader: `varying vec3 vDir;
+        void main(){ vDir = normalize(position);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform vec3 zenith, horizon, glow; uniform vec3 sun; varying vec3 vDir;
+        void main(){
+          vec3 d = normalize(vDir);
+          float h = clamp(d.y, 0.0, 1.0);
+          // Thick tropical haze: the band holds low and falls away quickly.
+          vec3 c = mix(horizon, zenith, pow(h, 0.42));
+          float toSun = max(dot(d, normalize(sun)), 0.0);
+          c = mix(c, glow, pow(toSun, 5.0) * 0.55 + pow(toSun, 48.0) * 0.4);
+          // Below the horizon, settle to the haze so the ground plane meets sky cleanly.
+          c = mix(horizon * 0.86, c, smoothstep(-0.06, 0.03, d.y));
+          gl_FragColor = vec4(c, 1.0);
+        }`,
+    }),
+  );
+  sky.frustumCulled = false;
+  root.add(sky);
+
   return { root, portal: portal.position.clone(), elevation };
 }

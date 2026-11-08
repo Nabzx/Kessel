@@ -120,7 +120,7 @@ export function createGlobe(scene, config) {
       entry.satellite.quaternion.setFromUnitVectors(new THREE.Vector3(0,entry.kind==="satellite"?1:0,entry.kind==="satellite"?0:1),localSun);entry.satellite.rotateZ(entry.kind==="station"?.4:-.25);
     }
   }
-  function highlight(id){markers.visible=true;for(const [key,entry] of pins){entry.ring.material.color.set(key===id?0xd5ac6c:0xe6e2d9);entry.pin.scale.setScalar(key===id?1.8:1);}}
+  function highlight(id){markers.visible=true;for(const [key,entry] of pins){entry.ring.material.color.set(key===id?0x4ee29b:0xe6e2d9);entry.pin.scale.setScalar(key===id?1.8:1);}}
   function position(id){return pins.get(id)?.pin.getWorldPosition(new THREE.Vector3());}
   function visible(value){root.visible=value;ambient.visible=sun.visible=value;stars.visible=value&&mode==="welcome";orbits.forEach(e=>e.orbit.visible=value&&mode==="welcome");}
   function setMode(value){mode=value;markers.visible=value==="select";root.position.set(value==="welcome"?(home.earth_x??0):0,value==="welcome"?(home.earth_y??.9):0,0);visible(true);}

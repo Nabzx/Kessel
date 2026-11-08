@@ -2,9 +2,52 @@
 #world-canvas { transition:opacity .95s ease; }
 body:has(#experience[data-stage="welcome"]) .cinema-shade { opacity:.28; background:radial-gradient(ellipse at 50% 36%,transparent 35%,#0004 100%); }
 body:has(#experience[data-stage="select"]) .cinema-shade { opacity:0; }
-.welcome-wordmark { top:73.5%; width:clamp(330px,41vw,610px); filter:none; }
-.home-signature { position:absolute; top:calc(73.5% + clamp(44px,5.6vw,82px)); width:100%; text-align:center; font:10px var(--mono); letter-spacing:.035em; color:#b9bcb7; }
-.start-button { top:87%; min-width:200px; padding:15px 30px; min-height:48px; border:1px solid #eeece544; box-shadow:none; }
+/* Welcome type is one measured stack rather than three independent absolute
+   positions. The previous layout left the signature roughly 2px under the
+   wordmark and the button ~90px below it, so the rhythm read as inverted. */
+.welcome-stack { position:absolute; left:50%; top:71.5%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; width:min(92vw,760px); }
+.welcome-wordmark { position:static; width:auto; margin:0; filter:none; transform:none;
+  display:flex; justify-content:center; line-height:1;
+  /* Orbitron at its heaviest. Its glyphs are wide, so the size comes down
+     and the tracking opens slightly less than the Space Grotesk setting. */
+  font-family:Orbitron,Space,Arial,sans-serif; font-weight:900;
+  font-size:clamp(34px,4.9vw,78px); letter-spacing:.085em; text-indent:.085em;
+  color:#f4f2ec; white-space:nowrap;
+  /* A little atmosphere so the type sits in the scene rather than on top of it. */
+  text-shadow:0 0 38px #8fb6dd30, 0 2px 26px #00000066; }
+.welcome-wordmark span { display:inline-block; will-change:transform,opacity; }
+.welcome-rule { display:block; width:min(58%,330px); height:1px; margin-top:clamp(18px,2.1vw,30px);
+  background:linear-gradient(90deg,transparent,#4ee29b 20%,#a8f2cd 50%,#4ee29b 80%,transparent);
+  box-shadow:0 0 12px #4ee29b40; transform:scaleX(0); transform-origin:50% 50%; }
+.home-signature { position:static; width:auto; margin:clamp(15px,1.7vw,22px) 0 0; text-align:center;
+  font:10px var(--mono); letter-spacing:.3em; text-transform:uppercase; color:#aeb3ad; }
+.start-button { position:static; left:auto; top:auto; transform:none;
+  margin-top:clamp(26px,3vw,40px); min-width:214px; padding:15px 34px; min-height:50px;
+  border:1px solid #4ee29b7a; background:#0a0f1340; color:#f0eee7; box-shadow:none;
+  border-radius:999px;
+  backdrop-filter:blur(3px); transition:background .35s ease,border-color .35s ease,color .35s ease; }
+.start-button:not(:disabled):hover,.start-button:not(:disabled):focus-visible {
+  background:#4ee29b; border-color:#4ee29b; color:#0a0f13; }
+.start-button:disabled { opacity:.62; border-color:#eeece533; }
+
+/* Entrance. The opening previously had no motion at all: the planet faded up
+   and the type was simply present. Letters settle in sequence, the rule draws
+   from the centre, then the supporting copy and control arrive. */
+@keyframes kessel-letter { from { opacity:0; transform:translateY(26px) scale(.96); filter:blur(6px); }
+  to { opacity:1; transform:none; filter:blur(0); } }
+@keyframes kessel-rule { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+@keyframes kessel-rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+.welcome-wordmark span { opacity:0; }
+.home-signature,.start-button { opacity:0; }
+body.ready .welcome-wordmark span { animation:kessel-letter .92s cubic-bezier(.22,.78,.3,1) forwards;
+  animation-delay:calc(var(--i,0) * 95ms + 240ms); }
+body.ready .welcome-rule { animation:kessel-rule 1.05s cubic-bezier(.22,.78,.3,1) .92s forwards; }
+body.ready .home-signature { animation:kessel-rise .85s ease-out 1.16s forwards; }
+body.ready .start-button { animation:kessel-rise .85s ease-out 1.34s forwards; }
+.welcome-wordmark span:nth-child(1){--i:0}.welcome-wordmark span:nth-child(2){--i:1}
+.welcome-wordmark span:nth-child(3){--i:2}.welcome-wordmark span:nth-child(4){--i:3}
+.welcome-wordmark span:nth-child(5){--i:4}.welcome-wordmark span:nth-child(6){--i:5}
 .brand-button img { width:120px; filter:none; opacity:.93; }
 body:has(#experience[data-stage="welcome"]) .navigation { top:27px; }
 .environment-backdrop { position:fixed; inset:0; z-index:0; opacity:0; pointer-events:none; background:#05090c; transition:opacity .8s ease; overflow:hidden; }
@@ -18,7 +61,7 @@ body:has(#experience[data-stage="welcome"]) .navigation { top:27px; }
 .selector>.section-label { position:absolute; left:5vw; top:21%; margin:0; color:#e0e3db; font:10px var(--mono); letter-spacing:.04em; }
 .environment-title { position:absolute; left:5vw; bottom:31%; display:block; }
 .environment-title h1 { font-size:clamp(64px,7vw,112px); line-height:1; letter-spacing:-.065em; font-weight:400; }
-.environment-title>span { display:inline-block; margin-top:22px; border:0; padding:0; font:9px var(--mono); letter-spacing:.06em; text-transform:uppercase; color:#d5ac6c; }
+.environment-title>span { display:inline-block; margin-top:22px; border:0; padding:0; font:9px var(--mono); letter-spacing:.06em; text-transform:uppercase; color:#4ee29b; }
 .environment-place { position:absolute; left:5vw; bottom:24.5%; margin:0; font:11px var(--mono); color:#d5d8cf; }
 .environment-description { position:absolute; left:5vw; bottom:20%; margin:0; min-height:0; color:#c6cdc3; font-size:14px; }
 .environment-preview { position:static; aspect-ratio:auto; margin:0; border:0; overflow:visible; background:none; }
@@ -26,9 +69,15 @@ body:has(#experience[data-stage="welcome"]) .navigation { top:27px; }
 .environment-preview figcaption { position:absolute; left:5vw; bottom:30px; right:auto; max-width:calc(100vw - 410px); font:8px/1.5 var(--mono); color:#a1ada8; }
 .carousel-navigation { position:absolute; left:5vw; bottom:11%; width:184px; display:flex; gap:17px; }
 .carousel-navigation>span { font:10px var(--mono); min-width:40px; color:#c8d0c8; }
-.round-button { width:42px; height:42px; border:1px solid #eeece552; background:#060d104d; border-radius:50%; font-size:16px; }
+.round-button { width:42px; height:42px; border:1px solid #4ee29b5c; background:#060d104d; border-radius:50%; font-size:16px;
+  color:var(--paper); transition:border-color .25s ease,color .25s ease,background .25s ease; }
+.round-button:hover,.round-button:focus-visible { border-color:#4ee29b; color:#4ee29b; background:#4ee29b14; }
 .environment-action { position:absolute; left:calc(5vw + 218px); bottom:11%; width:224px; margin:0; min-height:42px; }
-.deploy-button { min-height:42px; height:42px; font-size:11px; border-radius:1px; padding:0 18px; }
+.deploy-button { min-height:42px; height:42px; font-size:11px; border-radius:999px; padding:0 24px;
+  border:1px solid transparent; transition:background .25s ease,color .25s ease,border-color .25s ease; }
+.deploy-button:hover,.deploy-button:focus-visible { background:#4ee29b; border-color:#4ee29b; color:#04140c; }
+/* The arrow glyph carried a brown left over from the gold accent. */
+.deploy-button span { color:currentColor; opacity:.7; }
 .orbit-panel { position:absolute; width:280px; height:330px; right:4.5vw; top:30%; border-top:1px solid #e4e9db42; border-bottom:1px solid #e4e9db24; pointer-events:none; }
 .orbit-panel>span { position:absolute; left:0; top:17px; font:8px var(--mono); text-transform:uppercase; letter-spacing:.07em; color:#d4dace; }
 .orbit-panel>p { position:absolute; left:0; right:0; bottom:16px; font:9px var(--mono); color:#aab7ab; text-align:center; }
@@ -39,9 +88,11 @@ body:has(#experience[data-stage="welcome"]) .navigation { top:27px; }
 body:has(#experience[data-stage="preparing"]) #flight-label { z-index:45; position:fixed; }
 body:has(#experience[data-stage="welcome"]) .journey { display:none; }
 @media(max-height:820px) {
- .welcome-wordmark { top:72%; width:clamp(330px,38vw,520px); }
- .home-signature { top:calc(72% + 70px); font-size:9px; }
- .start-button { top:86%; min-height:44px; padding:13px 28px; }
+ .welcome-stack { top:70%; }
+ .welcome-wordmark { font-size:clamp(40px,5.4vw,78px); }
+ .welcome-rule { margin-top:15px; }
+ .home-signature { font-size:9px; margin-top:13px; }
+ .start-button { margin-top:22px; min-height:44px; padding:13px 28px; }
  .orbit-panel { width:250px; height:295px; top:29%; }
  .environment-preview figcaption { bottom:21px; }
 }
@@ -53,9 +104,23 @@ body:has(#experience[data-stage="welcome"]) .journey { display:none; }
 @media(prefers-reduced-motion:reduce) {
  .environment-backdrop,.environment-backdrop img,.scene-curtain,#world-canvas,.welcome { transition:none; }
 }
-body[data-home-direction="instrument"] .welcome-wordmark { width:clamp(280px,32vw,470px); left:5vw; top:43%; transform:none; }
-body[data-home-direction="instrument"] .home-signature { width:40vw; left:5vw; top:calc(43% + 83px); text-align:left; }
-body[data-home-direction="instrument"] .start-button { left:5vw; top:calc(43% + 137px); transform:none; }
+body[data-home-direction="instrument"] .welcome-stack { left:5vw; top:43%; transform:none;
+  align-items:flex-start; width:min(46vw,520px); }
+body[data-home-direction="instrument"] .welcome-wordmark { font-size:clamp(40px,4.9vw,74px); justify-content:flex-start; }
+body[data-home-direction="instrument"] .welcome-rule { width:min(100%,300px); background:linear-gradient(90deg,#4ee29bcc,transparent); }
+body[data-home-direction="instrument"] .home-signature { text-align:left; }
 body:has(#experience[data-stage="select"]) .journey,
 body:has(#experience[data-stage="preparing"]) .journey { display:none; }
-.selector[aria-busy="true"] #environment-credit::before { content:"Loading scene · "; color:var(--amber); }
+.selector[aria-busy="true"] #environment-credit::before { content:"Loading scene · "; color:var(--accent); }
+
+/* #393: the surface copy sat over open terrain with no treatment, so
+   legibility depended on whatever happened to be behind it. A soft
+   directional scrim anchors the block without introducing a panel. */
+.surface-panel { z-index:3; }
+.surface-panel::before {
+  content:""; position:absolute; inset:-9% -24% -14% -46%; z-index:-1; pointer-events:none;
+  background:radial-gradient(120% 90% at 22% 50%, #04070999 0%, #0407096b 42%, transparent 78%);
+}
+.surface-panel h1 { text-shadow:0 2px 26px #000000b8, 0 0 70px #00000080; }
+.surface-panel .section-label,
+.surface-panel > p:not(.section-label) { text-shadow:0 1px 14px #000000cc; }
