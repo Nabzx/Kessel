@@ -376,5 +376,41 @@ export async function createSurface(config) {
   }
   lightRig(root, 120);
   heightMap.dispose();
+  // #391: the sky was a single flat colour, so distant ridges sat at the same
+  // contrast as the foreground and the terrain read as a tilted model. A dome
+  // gives the day a defined structure: a muted zenith, a pale haze band at the
+  // horizon that the fog colour matches so distant ground dissolves into it,
+  // and a warm bias toward the key light. Rutongo is two degrees south, so the
+  // sun sits high and the haze is thick rather than a crisp temperate blue.
+  const sky = new THREE.Mesh(
+    new THREE.SphereGeometry(4200, 32, 20),
+    new THREE.ShaderMaterial({
+      side: THREE.BackSide, depthWrite: false, fog: false,
+      uniforms: {
+        zenith: { value: new THREE.Color(0x3f6f93) },
+        horizon: { value: new THREE.Color(0xb3bcb7) },
+        glow: { value: new THREE.Color(0xffe9c6) },
+        sun: { value: new THREE.Vector3(-1, 1.7, 0.7).normalize() },  // matches lightRig's key
+      },
+      vertexShader: `varying vec3 vDir;
+        void main(){ vDir = normalize(position);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform vec3 zenith, horizon, glow; uniform vec3 sun; varying vec3 vDir;
+        void main(){
+          vec3 d = normalize(vDir);
+          float h = clamp(d.y, 0.0, 1.0);
+          // Thick tropical haze: the band holds low and falls away quickly.
+          vec3 c = mix(horizon, zenith, pow(h, 0.42));
+          float toSun = max(dot(d, normalize(sun)), 0.0);
+          c = mix(c, glow, pow(toSun, 5.0) * 0.55 + pow(toSun, 48.0) * 0.4);
+          // Below the horizon, settle to the haze so the ground plane meets sky cleanly.
+          c = mix(horizon * 0.86, c, smoothstep(-0.06, 0.03, d.y));
+          gl_FragColor = vec4(c, 1.0);
+        }`,
+    }),
+  );
+  sky.frustumCulled = false;
+  root.add(sky);
+
   return { root, portal: portal.position.clone(), elevation };
 }

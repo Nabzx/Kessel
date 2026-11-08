@@ -1910,11 +1910,11 @@
         {
           "id": "surface-hauler",
           "position": [
-            10,
+            13,
             0.2,
-            10
+            -46
           ],
-          "heading": -0.35
+          "heading": -2.75
         }
       ],
       "ground": {

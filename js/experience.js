@@ -391,8 +391,11 @@ function arrive() {
   viewport("surface");
   camera.updateProjectionMatrix();
   camera.lookAt(lookTarget);
-  scene.background=new THREE.Color("#778c8c");
-  scene.fog = new THREE.Fog("#778c8c", 420, 1800);
+  // #391: fog colour now matches the sky dome's horizon band so distant ground
+  // dissolves into haze instead of ending against a different flat grey, and it
+  // starts far nearer so the mid-ground ridges actually recede.
+  scene.background=new THREE.Color("#b3bcb7");
+  scene.fog = new THREE.Fog("#b3bcb7", 150, 1350);
   setStage("surface");
   showOnly("surface-panel");
   $("skip-transition").hidden = true;
