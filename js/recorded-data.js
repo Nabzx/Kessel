@@ -94,16 +94,16 @@ export function episodeEvents(episode) {
 }
 export class ReplayClock {
   constructor(bundle, reduced = false) {
-    this.bundle=bundle;this.reduced=reduced;this.pace=1;this.spans=bundle.episodes.map(e=>e.playback_seconds || 4);
+    this.bundle=bundle;this.reduced=reduced;this.pace=1;this.rate=bundle.agent?.kind === "reference_controller" ? 3 : bundle.run_id === "curriculum-followup-v1" ? 1.5 : 4;this.spans=bundle.episodes.map(e=>e.records.at(-1).t_s/this.rate + .65);
     this.offsets=[0];this.spans.forEach(s=>this.offsets.push(this.offsets.at(-1)+s));this.replay();
   }
-  replay() { this.cursor=0;this.paused=this.reduced;this.sequence=true;this.end=this.offsets.at(-1);this.selected=0; }
+  replay(sequence = this.bundle.agent?.kind !== "reference_controller") { this.selected=sequence?0:(this.selected??0);this.cursor=this.offsets[this.selected];this.paused=this.reduced;this.sequence=sequence;this.end=sequence?this.offsets.at(-1):this.offsets[this.selected+1]; }
   checkpoint(index) { need(Number.isInteger(index)&&index>=0&&index<this.spans.length,"Invalid checkpoint");this.selected=index;this.cursor=this.offsets[index];this.end=this.offsets[index+1];this.sequence=false;this.paused=true; }
   seek(time) {
     need(Number.isFinite(time),"Invalid seek time");const index=this.state().index,duration=this.bundle.episodes[index].records.at(-1).t_s;this.checkpoint(index);
-    this.cursor=time>=duration?this.end:this.offsets[index]+Math.max(0,time)/duration*this.activeSeconds(index);
+    this.cursor=time>=duration-1e-8?this.end:this.offsets[index]+Math.max(0,time)/duration*this.activeSeconds(index);
   }
-  activeSeconds(index) { return this.spans[index]-Math.min(this.bundle.presentation.terminal_hold_s ?? .35,this.spans[index]/4); }
+  activeSeconds(index) { return Math.max(.001,this.spans[index]-.65); }
   toggle() { if(this.cursor>=this.end)this.cursor=this.sequence?0:this.offsets[this.selected];this.paused=!this.paused; }
   setPace(pace) { need([.5,1,2].includes(pace),"Invalid playback pace");this.pace=pace; }
   update(delta) { need(Number.isFinite(delta)&&delta>=0,"Invalid playback delta");if(!this.paused)this.cursor=Math.min(this.end,this.cursor+delta*this.pace);if(this.cursor>=this.end)this.paused=true;return this.state(); }
