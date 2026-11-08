@@ -94,3 +94,7 @@ pins the MCP connection and keeps editable source scenes outside static packagin
 policy, observation, world-model and equal-reference-budget comparisons.
 [Recorded cycle inspection](0050-recorded-cycle-inspection.md) separates reference
 control from learned checkpoints and preserves material volume and event clocks.
+[Walkthrough visual direction](0051-walkthrough-visual-direction.md) rejects
+photorealistic map tiles on licence and delivery grounds, fixes the approved
+asset sources, art direction, budgets and visual review criteria, and
+supersedes the continuous-journey, selector and global-caption requirements.
