@@ -20,14 +20,14 @@
     },
     {
       "path": "assets/authored/geology.glb",
-      "bytes": 529840,
-      "sha256": "008d7f732e5599396bdda630bab192afab85ebbf37f669cd5bf8815e20876472",
+      "bytes": 372028,
+      "sha256": "578d876d8795c0630ca050eaccfcf63f295ffd147cff94aa564b1f03abef0b41",
       "source": "tools/blender/source/geology.blend",
-      "source_sha256": "78e653e6a4fca82901a65982d4ef9f1e706fe1273ac2fc36efeb588230dae22c",
+      "source_sha256": "2cce4a688800cc7ef267c801347fdcb23e17a5d049f3b3d1c61251aa05668683",
       "licence": "Original Kessel; repository LICENSE",
       "units": "metres; proposed kit displayed at 10x presentation scale",
-      "triangles": 11616,
-      "nodes": 2
+      "triangles": 7136,
+      "nodes": 9
     },
     {
       "path": "assets/authored/hauler-close.glb",
@@ -111,6 +111,17 @@
       "colour_space": "linear data; GL tangent normal or AO"
     },
     {
+      "path": "assets/authored/portal-hill.glb",
+      "bytes": 304800,
+      "sha256": "11ec5fba39123622ba27b91052ed682005fbd6314caaa5cc8235e5456d5d0d43",
+      "source": "tools/blender/source/portal-hill.blend",
+      "source_sha256": "531f50c628cf81baf8bd58ce1266501ac689d86e15727f59c96c94bba8b87b02",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "triangles": 13782,
+      "nodes": 1
+    },
+    {
       "path": "assets/authored/portal-yard.glb",
       "bytes": 710528,
       "sha256": "f23baf2c930868f66df4970b3b53667811f97a113bc8db4f57172811c4b5b87f",
@@ -123,25 +134,25 @@
     },
     {
       "path": "assets/authored/reference-loader.glb",
-      "bytes": 312640,
-      "sha256": "4c0e483ae13587d2527f04a8a7de0f4fc3a6f7d994eba3e927f817285bd9571c",
+      "bytes": 1583152,
+      "sha256": "3a5a4bf1394500aa06aab6e139c0e2ff43bd4cc266b1b4fa4a141d75a2d77c4d",
       "source": "tools/blender/source/reference-loader.blend",
-      "source_sha256": "26da7a5b4b42d28ad92d82d79db727ab680e98c40d9270287d0fd97a819b2954",
+      "source_sha256": "dee45794588e94f571be53e97f093a6c176a31004c3ac54ef67cc9e060405e7d",
       "licence": "Original Kessel; repository LICENSE",
       "units": "metres; proposed kit displayed at 10x presentation scale",
-      "triangles": 3524,
-      "nodes": 43
+      "triangles": 22140,
+      "nodes": 28
     },
     {
       "path": "assets/authored/retrofit-kit.glb",
-      "bytes": 950608,
-      "sha256": "1e0e25968f40c5995baed5aa8d9ef397b9c438a33053d67eaffb3abd8e1331c9",
+      "bytes": 1444004,
+      "sha256": "b9be459b2a462eda6ae68b926e80b8ec2b962dabfd812819ef407427d1a9cd4f",
       "source": "tools/blender/source/retrofit-kit.blend",
-      "source_sha256": "9bf3d88fa4c08b0dc6db74aa6b394fc9abcf7ab62e426fc8f0cc9416d2a2e803",
+      "source_sha256": "e7e340a6da0502675439db10f50185f942a1401a7103567e99530eea3f8fe16b",
       "licence": "Original Kessel; repository LICENSE",
       "units": "metres; proposed kit displayed at 10x presentation scale",
-      "triangles": 13788,
-      "nodes": 15
+      "triangles": 20780,
+      "nodes": 41
     }
   ],
   "scripts": [
@@ -156,6 +167,14 @@
     {
       "path": "tools/blender/client.py",
       "sha256": "2f4e30193e3d7db07b965570be331dfb6824f3d8c53e9b1c2e1691700c7fec71"
+    },
+    {
+      "path": "tools/blender/finish-assets.py",
+      "sha256": "b13392031a69ce2aab7bd7f03aef3e3c6c975e01e21a403c6b692ddc10c25d7e"
+    },
+    {
+      "path": "tools/blender/finish-geology.py",
+      "sha256": "74f71e4aba538c802a4cd9c6e4ac465f49b00a83f51f4ad05519eef1bde882fd"
     },
     {
       "path": "tools/blender/inspect-assets.py",
@@ -176,6 +195,10 @@
     {
       "path": "tools/blender/orbital.py",
       "sha256": "dbadd18c88befa090d23075294ecd3c3dbb24f7fee8e7c5631c2bfad6057e946"
+    },
+    {
+      "path": "tools/blender/portal-hill.py",
+      "sha256": "112b150c4137301ad11b1caf755220d675c2733e67d468514b8e26e018592576"
     },
     {
       "path": "tools/blender/portal.py",
