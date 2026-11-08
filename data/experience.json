@@ -270,14 +270,14 @@
         "ground_detail": "assets/textures/brown_mud_dry_diff.jpg"
       },
       "camera": [
-        34,
-        15,
-        16
+        28,
+        13,
+        -2
       ],
       "target": [
         0,
-        10,
-        -54
+        8,
+        -82
       ],
       "site_origin_m": [
         -800,
@@ -329,7 +329,7 @@
       "portal_position": [
         0,
         0,
-        -58
+        -84
       ],
       "tree_seed": 7431,
       "tree_count": 170,
@@ -1935,7 +1935,7 @@
           220
         ],
         "aperture_half_width_m": 5.5,
-        "aperture_end_z": -78
+        "aperture_end_z": -102
       }
     },
     "budgets": {

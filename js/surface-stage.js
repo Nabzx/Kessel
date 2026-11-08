@@ -219,8 +219,11 @@ export async function createSurface(config) {
   const tunnel = new THREE.Mesh(new THREE.CylinderGeometry(half, half, 22, 24, 1, true, 0, Math.PI), rockMat);
   tunnel.rotation.set(Math.PI / 2, 0, Math.PI / 2); tunnel.position.set(0, 3, -12);
   tunnel.material.side = THREE.DoubleSide; portal.add(tunnel);
-  box([half * 2, .2, 24], [0, .12, -10], yardMat, portal);
-  box([half * 2, height, .2], [0, height / 2, -22], new THREE.MeshBasicMaterial({ color: 0x040605 }), portal);
+  const portalFloor = box([half * 2, .2, 24], [0, .12, -10], yardMat, portal);
+  // Occludes daylight behind the mouth so the opening reads as depth. Must
+  // survive the authored swap below, or the portal becomes a freestanding arch
+  // with the hillside visible straight through it.
+  const backstop = box([half * 2, height, .2], [0, height / 2, -22], new THREE.MeshBasicMaterial({ color: 0x040605 }), portal);
   for (const side of [-1, 1]) {
     const rubble=rockBody({size:[15, 10, 18],position:[side * 12, 3, -6]},rockMat,portal,design.rock_seed+(side+1),1.1); rubble.material=rockMat;
     box([.3, 4.5, .3], [side * (half + .45), 2.25, 2.5], metal, portal);
@@ -231,7 +234,14 @@ export async function createSurface(config) {
   }
   try {
     const authored=await authoredAsset(config.visuals.authored?.portal);
-    if(authored){for(const child of portal.children)if(child.isMesh&&child!==tunnel)child.visible=false;authored.traverse(o=>{if(o.isMesh&&o.material.name.includes("Rock"))o.material=rockMat;});portal.add(authored);}
+    if(authored){
+      // The authored collar replaces the procedural masonry, but the recessed
+      // tunnel, its floor and the backstop are what give the mouth depth.
+      const keep=new Set([tunnel,portalFloor,backstop]);
+      for(const child of portal.children)if(child.isMesh&&!keep.has(child))child.visible=false;
+      authored.traverse(o=>{if(o.isMesh&&o.material.name.includes("Rock"))o.material=rockMat;});
+      portal.add(authored);
+    }
   } catch(error){console.warn("Authored portal unavailable",error);}
   const portalLight = new THREE.PointLight(0xffd9a4, 80, 18, 2); portalLight.position.set(0,4,-4);portal.add(portalLight);
   const hillSpec=design.portal_hill, hillGeometry=new THREE.PlaneGeometry(hillSpec.size[0],hillSpec.size[2],40,40);
