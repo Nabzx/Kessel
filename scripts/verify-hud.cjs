@@ -9,7 +9,7 @@ p.on('pageerror',e=>report.errors.push(e.message));p.on('console',m=>{if(m.type(
 const stage=s=>p.waitForFunction(s=>document.getElementById('experience').dataset.stage===s,s,{timeout:60000});
 const within=async(child,parent)=>{const a=await p.locator(child).boundingBox(),b=await p.locator(parent).boundingBox();assert.ok(a&&b,child);assert.ok(a.x>=b.x-1&&a.y>=b.y-1&&a.x+a.width<=b.x+b.width+1&&a.y+a.height<=b.y+b.height+1,`${child} must stay inside ${parent}: ${JSON.stringify({a,b})}`);};
 const capture=async name=>{await p.waitForTimeout(700);await p.screenshot({path:path.join(out,size.width+'-'+name+'.jpg'),type:'jpeg',quality:88});};
-await p.goto(process.env.KESSEL_URL||'http://127.0.0.1:8080/');await p.locator('body.ready').waitFor();await p.click('#start-experience');for(let i=0;i<3;i++)await p.click('#environment-next');await p.click('#deploy-underground');await stage('surface');await p.click('#enter-mine');await stage('mine');await capture('mine');
+await p.goto(process.env.KESSEL_URL||'http://127.0.0.1:8080/');await p.locator('body.ready').waitFor();await p.click('#start-experience');await p.click('#deploy-underground');await stage('surface');await p.click('#enter-mine');await stage('mine');await capture('mine');
 const font=await p.locator('.metric>span:first-child').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize));assert.ok(font>=10);await within('#compare-trained','#operations');
 await p.click('#compare-trained');await stage('trained');await within('#explore-world-model','#operations');await within('#scroll-product','#operations');await capture('trained');
 assert.match(await p.locator('#local-status').innerText(),/No GPS/);assert.match(await p.locator('#operations').innerText(),/Illustrative operating scenario/);

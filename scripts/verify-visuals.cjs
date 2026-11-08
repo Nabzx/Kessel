@@ -50,7 +50,7 @@ const base = process.env.KESSEL_URL || 'http://127.0.0.1:8080/';
       });
       assert.ok(geometry.triangles <= geometry.budget); report.checks.push({ scenario: scenario.name, closedShell: geometry });
       await page.locator('#start-experience').focus(); await page.keyboard.press('Enter'); await stage('select');
-      for (let i=0;i<3;i++) await page.click('#environment-next'); await capture('selector');
+       await capture('selector');
       await page.click('#deploy-underground'); await stage('surface'); await capture('surface');
       await page.click('#enter-mine'); await stage('mine'); await capture('mine');
       const bounds = await page.locator('#operations').boundingBox(); assert.ok(bounds.x >= 0 && bounds.x+bounds.width <= scenario.width && bounds.y >= 0 && bounds.y+bounds.height <= scenario.height);
@@ -68,7 +68,7 @@ const base = process.env.KESSEL_URL || 'http://127.0.0.1:8080/';
       await page.click('#scroll-product'); await page.waitForTimeout(1500); await capture('product');
       await page.locator('#kit-section').scrollIntoViewIfNeeded(); await page.waitForTimeout(800); await capture('kit');
       await page.click('#assemble-kit'); await page.waitForTimeout(1500); await capture('kit-assembled');
-      await page.click('#caption-sources'); await page.locator('#sources-dialog[open]').waitFor(); assert.match(await page.locator('#sources-dialog').innerText(), /NASA \/ VTAD/); await page.keyboard.press('Escape');
+      await page.click('#sources-open'); await page.locator('#sources-dialog[open]').waitFor(); assert.match(await page.locator('#sources-dialog').innerText(), /NASA \/ VTAD/); await page.keyboard.press('Escape');
       await page.click('#replay-experience'); await page.locator('body.ready').waitFor(); await stage('welcome');
       await page.close();
     }

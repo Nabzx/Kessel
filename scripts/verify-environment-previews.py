@@ -21,7 +21,7 @@ def verify():
     assert 'not Rutongo' in records['underground']['subject']
     assert sum(r['bytes'] for r in records.values())==manifest['total_bytes']<350_000
     home=data['visuals']['home']
-    assert 0<home['station_span']<.5 and 2.38<home['night_radius']<home['cloud_radius']<home['atmosphere_radius']
+    assert 0<home['station_span']<1.5 and 2.38<home['night_radius']<home['cloud_radius']<home['atmosphere_radius']
     assert len(home['star_sizes'])==3 and all(0<s<.1 for s in home['star_sizes'])
     print('PASS: five credited reference photographs, hashes, colour space, byte budget and home layer bounds')
 if __name__=='__main__':verify()

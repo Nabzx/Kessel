@@ -58,7 +58,7 @@
       "source": "tools/blender/source/observation-satellite-overview.blend",
       "source_sha256": "565bee5c946f3e6970f8bbdaf296e9a894f75ed67d3c097d1562d8240328549a",
       "licence": "Original Kessel; repository LICENSE",
-      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "units": "metres; normalised to an illustrative orbital presentation scale in the browser",
       "triangles": 11219,
       "nodes": 8
     },
@@ -69,7 +69,7 @@
       "source": "tools/blender/source/observation-satellite.blend",
       "source_sha256": "f81aa2dbd0f6c9d1080ad2af9a87d5281be6edaff98ac5c36f9abd312f49341f",
       "licence": "Original Kessel; repository LICENSE",
-      "units": "metres; proposed kit displayed at 10x presentation scale",
+      "units": "metres; normalised to an illustrative orbital presentation scale in the browser",
       "triangles": 29532,
       "nodes": 8
     },
@@ -163,7 +163,7 @@
     },
     {
       "path": "tools/blender/manifest.py",
-      "sha256": "b6da370737307609c234f59e64ed24afad4add430da6a926f1379d40cd8d3bcc"
+      "sha256": "56f1e3010059d71f5458bdc767473311aa3e6e48a58ca151af26f019ff0d4409"
     },
     {
       "path": "tools/blender/material-library.py",
