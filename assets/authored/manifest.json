@@ -112,13 +112,13 @@
     },
     {
       "path": "assets/authored/portal-yard.glb",
-      "bytes": 663716,
-      "sha256": "e57435e1670d99bf261baad36340324384327536734443b47bde3f0df822a6c7",
+      "bytes": 710528,
+      "sha256": "f23baf2c930868f66df4970b3b53667811f97a113bc8db4f57172811c4b5b87f",
       "source": "tools/blender/source/portal-yard.blend",
-      "source_sha256": "1c3acb3f32c13250c7bbbd3ca80360ca2e9b8a740db145d8c0e06581d18f7c03",
+      "source_sha256": "a6b07331a46c164a693e181f41f7b6eefded8b3cc557fe44c6e793c1842060ca",
       "licence": "Original Kessel; repository LICENSE",
       "units": "metres; proposed kit displayed at 10x presentation scale",
-      "triangles": 9472,
+      "triangles": 10400,
       "nodes": 2
     },
     {
@@ -178,8 +178,16 @@
       "sha256": "dbadd18c88befa090d23075294ecd3c3dbb24f7fee8e7c5631c2bfad6057e946"
     },
     {
+      "path": "tools/blender/portal.py",
+      "sha256": "3239a3faab05f77766b2013a722f537634c30821b2df002ff82adec97c9546f9"
+    },
+    {
       "path": "tools/blender/rigs.py",
       "sha256": "e1da2909dbd198967f0166cab85fbf6a1903294ff4e18cce7916c23e63d095b4"
+    },
+    {
+      "path": "tools/blender/run-headless.py",
+      "sha256": "e50a850258f6fce348dbf386e919c98545f9496377e8db2595c62bc3db2160c0"
     },
     {
       "path": "tools/blender/start.py",

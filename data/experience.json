@@ -270,14 +270,14 @@
         "ground_detail": "assets/textures/brown_mud_dry_diff.jpg"
       },
       "camera": [
-        28,
-        13,
-        -2
+        34,
+        16,
+        14
       ],
       "target": [
         0,
-        8,
-        -82
+        7,
+        -80
       ],
       "site_origin_m": [
         -800,
