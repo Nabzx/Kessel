@@ -151,3 +151,11 @@ Five individually credited government photographs in `environments/` provide
 representative environment previews. The CDC research mine is not Rutongo.
 See [individual credits](environments/README.md) and
 [the hashed source manifest](environments/manifest.json).
+
+Full-screen selection uses separately hashed `*-scene.webp` derivatives in
+`environments/backgrounds.json`. These retain the same individually cleared
+NASA/NOAA/CDC sources; the CDC high-resolution source is downloaded through the
+PHIL record's published control. They are cropped/downsampled without synthesis
+or upscaling. The representative Pennsylvania mine is not an image of Rutongo.
+Original Kessel observation spacecraft and reduced LOD have editable Blender
+sources under `tools/blender/source` and hashes in `authored/manifest.json`.

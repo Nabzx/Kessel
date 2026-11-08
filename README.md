@@ -22,7 +22,9 @@ Use a static server rather than opening `index.html` directly.
 
 ## Experience
 
-1. Start below the rotating Earth. Browse five deployment environments.
+1. Start below the photographic rotating Earth and original wordmark, with
+   detailed spacecraft in illustrative orbits. Browse five full-screen environments;
+   Underground is first and Earth moves into a compact context panel.
 2. Choose **Underground**. Follow the continuous camera journey into Rwanda.
 3. **Enter the mine** to reveal a tilted rock cutaway with four haul trucks
    and the licensed loading excavator. Red routes show the baseline queue.
@@ -57,7 +59,7 @@ Isolated CPU tools and retained experiment evidence include synthetic PPO
 policies and learned state-dynamics ensembles. The optional viewer replays
 identified synthetic decisions and raw forecasts; the bounded runs demonstrate
 no complete learned delivery cycle. The browser performs no live training or
-policy inference. The permanent concept caption, source labels and Sources
+policy inference. Contextual source labels and Sources
 explain the boundary. The [replay follow-up](docs/phase-11/cycle-inspection.md)
 adds checked reference cycles, volume-preserving ore and event inspection.
 The [Blender report](docs/phase-11/blender-authoring.md) records editable authored
@@ -119,3 +121,7 @@ map. Bump it consistently when changing those files. Verify it with
 `python3 scripts/verify-presentation-version.py`. Run
 `node scripts/verify-transition.cjs` for the warm-cache and entrance-recovery
 regression. See [transition recovery](docs/phase-11/transition-recovery.md).
+
+The [orbital home report](docs/phase-11/orbital-home.md) records the redesigned
+opening and immersive environment selector. The [direction study](docs/phase-11/home-study/index.html)
+retains two compositions, a shot animatic and native walkthrough footage.

@@ -21,3 +21,10 @@ script. Sources and raw bakes stay in tools/blender and are excluded by static
 packaging. Playback owns joints, wheel travel, tipping and material state; no
 independent Blender animation loop runs in the browser. See ADR-0048 and the
 native report under docs/phase-11/blender-evidence.
+
+The original `observation-satellite.glb` and its genuinely reduced overview LOD
+were authored through the same pinned Blender MCP for ADR-0052. Solar cells,
+interconnects, insulation quilts, radiators, optical baffles and dish supports are
+geometry. The source has a approximately 10.6 m array span; its apparent size/orbit is
+normalised for the hero. It is an illustrative spacecraft, not live tracking or
+a replica of a particular mission. See the manifest and orbital-home report.

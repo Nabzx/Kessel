@@ -98,3 +98,7 @@ control from learned checkpoints and preserves material volume and event clocks.
 photorealistic map tiles on licence and delivery grounds, fixes the approved
 asset sources, art direction, budgets and visual review criteria, and
 supersedes the continuous-journey, selector and global-caption requirements.
+
+[Orbital home and immersive selection](0052-orbital-home-and-immersive-selection.md)
+implements the photographic opening, original spacecraft, background-led selector
+and controlled local fade while retaining contextual source distinctions.
