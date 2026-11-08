@@ -4,6 +4,7 @@ import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.j
 
 // The geometry and articulation are authored in the vehicle asset, in metres.
 export function createVehicle(id, model, textures = {}) {
+  const readiness=[];
   const root = new THREE.Group();
   root.name = id;
   root.userData.vehicleId = id;
@@ -118,7 +119,7 @@ export function createVehicle(id, model, textures = {}) {
   const proxyCargo=new THREE.Mesh(new THREE.BoxGeometry(dimensions.width*.8,dimensions.height*.15,dimensions.length*.52),new THREE.MeshBasicMaterial({color:model.materials.cargo.colour}));proxyCargo.position.set(0,dimensions.height*.68,-dimensions.length*.15);overview.add(proxyCargo);
   root.add(overview);detail.visible=false;
   root.traverse(object => { if (object.isMesh) object.userData.vehicleId = id; });
-  if(textures.authoredHauler)authoredAsset(textures.authoredHauler).then(authored=>{
+  if(textures.authoredHauler)readiness.push(authoredAsset(textures.authoredHauler).then(authored=>{
     if(!authored)return;
     const body=authored.children.find(o=>o.name==='hauler')||authored;
     for(const child of detail.children)if(child.isMesh&&child.name!=='contact-shadow')child.visible=false;
@@ -130,13 +131,13 @@ export function createVehicle(id, model, textures = {}) {
       for(const child of wheel.children)child.visible=false;for(const child of source.children)if(child.isMesh)wheel.add(child.clone(true));
     }
     root.userData.authoredAsset=textures.authoredHauler.path;
-  }).catch(error=>console.warn('Authored hauler unavailable',error));
-  if(textures.authoredOverview)authoredAsset(textures.authoredOverview).then(authored=>{
+  }).catch(error=>console.warn('Authored hauler unavailable',error)));
+  if(textures.authoredOverview)readiness.push(authoredAsset(textures.authoredOverview).then(authored=>{
     if(!authored)return;
     for(const child of overview.children)if(child!==proxyCargo)child.visible=false;
     overview.add(authored);
     dumpBed.userData.mirror=authored.getObjectByName('DumpBed');
     for(const side of [-1,1])for(let axle=0;axle<2;axle++){const wheel=authored.getObjectByName('Wheel_'+side+'_'+axle);if(wheel)wheels.push(wheel);}
-  }).catch(error=>console.warn('Authored overview unavailable',error));
-  return { root, detail, overview, proxyCargo, dumpBed, cargo, wheels, forward: new THREE.Vector3(...model.forward_axis) };
+  }).catch(error=>console.warn('Authored overview unavailable',error)));
+  return { ready:Promise.all(readiness), root, detail, overview, proxyCargo, dumpBed, cargo, wheels, forward: new THREE.Vector3(...model.forward_axis) };
 }

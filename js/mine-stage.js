@@ -25,8 +25,13 @@ export async function createMine(config) {
     const authored=await authoredAsset(config.visuals.authored?.geology);
     if(authored){authored.traverse(o=>{if(o.isMesh)o.material=o.material.name.includes("Section")?rockMat.userData.sectionMaterial:rockMat;});geologyRoot.visible=false;root.add(authored);}
   } catch(error){console.warn("Authored geology unavailable",error);}
+  const floorShape=new THREE.Shape();
+  for(let i=0;i<64;i++){const a=i*Math.PI/32,c=Math.cos(a),q=Math.sin(a),x=Math.sign(c)*Math.abs(c)**.20*data.floor_size[0]*.475,z=Math.sign(q)*Math.abs(q)**.20*data.floor_size[1]*.475;i?floorShape.lineTo(x,z):floorShape.moveTo(x,z);}
+  floorShape.closePath();const floorGeometry=new THREE.ShapeGeometry(floorShape);
+  const uv=floorGeometry.attributes.uv,pos=floorGeometry.attributes.position;
+  for(let i=0;i<uv.count;i++)uv.setXY(i,pos.getX(i)/data.floor_size[0]+.5,pos.getY(i)/data.floor_size[1]+.5);
   const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(...data.floor_size),
+    floorGeometry,
     new THREE.MeshStandardMaterial({
       map: floor,
       normalMap: floorNormal,
@@ -54,7 +59,7 @@ export async function createMine(config) {
   routes.traverse((object) => {
     if (object.isMesh) {
       object.material.color.set(0xe66f60);
-      object.material.opacity = 0.38;
+      object.material.opacity = 0.62;
       object.material.depthTest = true;
       object.material.toneMapped = true;
     }
@@ -69,12 +74,13 @@ export async function createMine(config) {
     data.prediction_preview,
     { oreMap: ore, oreNormal, authoredHauler:config.visuals.authored?.hauler, authoredOverview:config.visuals.authored?.hauler_overview },
   );
+  await Promise.all(fleet.entries.map(v=>v.ready));
   root.add(fleet.group);
   for (const entry of fleet.entries) {
     entry.detail.visible = true;
     entry.overview.visible = false;
     entry.truck.traverse((object) => {
-      if (object.isMesh) object.castShadow = true;
+      if (object.isMesh && object.name!=="contact-shadow") object.castShadow = true;
     });
   }
   const excavatorConfig = data.excavator;
@@ -182,7 +188,7 @@ export async function createMine(config) {
         object.material.color.set(value ? 0x8fcaa5 : 0xe66f60);
         object.material.depthTest = true;
         object.material.toneMapped = true;
-        object.material.opacity = 0.45;
+        object.material.opacity = 0.62;
       });
     elapsed = 0;
   }
@@ -222,12 +228,12 @@ export async function createMine(config) {
     for (const entry of fleet.entries) entry.truck.visible = true;
     loading.root.visible = true;
     routes.children.forEach((object) => {
-      object.material.opacity = 0.38 * opacity;
+      object.material.opacity = 0.62 * opacity;
     });
     fleet.group.children
       .filter((object) => object.userData.routeId)
       .forEach((object) => {
-        object.material.opacity = 0.45 * opacity;
+        object.material.opacity = 0.62 * opacity;
       });
   }
   for (const machine of [

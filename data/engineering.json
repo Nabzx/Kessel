@@ -1,0 +1,67 @@
+{
+  "source": "docs/phase-11/offline-policy-evidence/comparison.json",
+  "sha256": "ee6aeb21a386708fee6712e4de9c7db6f3d653c462546add63d46f975cc1fa39",
+  "scope": "Retained CPU actor comparison. Jetson deployment proposed.",
+  "variants": [
+    {
+      "variant": "pytorch_teacher",
+      "file_bytes": 16781,
+      "nominal_action_max_abs_error": 0,
+      "latency": {
+        "batch": 1,
+        "repetitions": 500,
+        "median_us": 88.583,
+        "p95_us": 93.04405,
+        "min_us": 86.958
+      }
+    },
+    {
+      "variant": "onnx_teacher_fp32",
+      "file_bytes": 14306,
+      "nominal_action_max_abs_error": 4.3492764234542847e-07,
+      "latency": {
+        "batch": 1,
+        "repetitions": 500,
+        "median_us": 25.291,
+        "p95_us": 26.291050000000002,
+        "min_us": 24.75
+      }
+    },
+    {
+      "variant": "onnx_teacher_int8",
+      "file_bytes": 6825,
+      "nominal_action_max_abs_error": 0.03933638334274292,
+      "latency": {
+        "batch": 1,
+        "repetitions": 500,
+        "median_us": 28.791,
+        "p95_us": 30.125,
+        "min_us": 28.25
+      }
+    },
+    {
+      "variant": "onnx_student_fp32",
+      "file_bytes": 6686,
+      "nominal_action_max_abs_error": 0.1125764548778534,
+      "latency": {
+        "batch": 1,
+        "repetitions": 500,
+        "median_us": 24.583,
+        "p95_us": 25.625,
+        "min_us": 24.0
+      }
+    },
+    {
+      "variant": "onnx_student_int8",
+      "file_bytes": 4819,
+      "nominal_action_max_abs_error": 0.10778269171714783,
+      "latency": {
+        "batch": 1,
+        "repetitions": 500,
+        "median_us": 28.791,
+        "p95_us": 30.04405,
+        "min_us": 28.292
+      }
+    }
+  ]
+}

@@ -28,7 +28,7 @@
       "preview": {
         "path": "assets/environments/underground.webp",
         "alt": "Research mine in Pennsylvania; representative, not Rutongo",
-        "caption": "Reference · CDC / NIOSH · Pennsylvania",
+        "caption": "Reference \u00b7 CDC / NIOSH \u00b7 Pennsylvania",
         "representative": true
       },
       "background_image": {
@@ -54,7 +54,7 @@
       "preview": {
         "path": "assets/environments/glacier.webp",
         "alt": "Jakobshavn glacier, Greenland",
-        "caption": "Reference · NASA / USGS",
+        "caption": "Reference \u00b7 NASA / USGS",
         "representative": true
       },
       "background_image": {
@@ -80,7 +80,7 @@
       "preview": {
         "path": "assets/environments/desert.webp",
         "alt": "Sahara dunes, Algeria",
-        "caption": "Reference · NASA / JSC",
+        "caption": "Reference \u00b7 NASA / JSC",
         "representative": true
       },
       "background_image": {
@@ -106,7 +106,7 @@
       "preview": {
         "path": "assets/environments/space.webp",
         "alt": "Earthrise above the lunar horizon",
-        "caption": "Reference · NASA / Bill Anders",
+        "caption": "Reference \u00b7 NASA / Bill Anders",
         "representative": true
       },
       "background_image": {
@@ -132,7 +132,7 @@
       "preview": {
         "path": "assets/environments/deep-sea.webp",
         "alt": "Hydrothermal vent in the Marianas",
-        "caption": "Reference · NOAA",
+        "caption": "Reference \u00b7 NOAA",
         "representative": true
       },
       "background_image": {
@@ -270,14 +270,14 @@
         "ground_detail": "assets/textures/brown_mud_dry_diff.jpg"
       },
       "camera": [
-        34,
-        16,
-        14
+        22,
+        13,
+        0
       ],
       "target": [
         0,
-        7,
-        -80
+        5,
+        -84
       ],
       "site_origin_m": [
         -800,
@@ -391,9 +391,9 @@
         0
       ],
       "size": [
-        164,
+        180,
         20,
-        132
+        148
       ]
     },
     "floor_size": [
@@ -1638,8 +1638,8 @@
           1
         ],
         "position": [
-          -0.8,
-          0.4,
+          -0.95,
+          0.18,
           0
         ],
         "explode": [
@@ -1659,8 +1659,8 @@
           1.4
         ],
         "position": [
-          0.2,
-          0.68,
+          0.3,
+          0.4,
           0
         ],
         "explode": [
@@ -1681,7 +1681,7 @@
         ],
         "position": [
           1.05,
-          0.4,
+          0.22,
           0
         ],
         "explode": [
@@ -1702,7 +1702,7 @@
         ],
         "position": [
           -0.9,
-          1.2,
+          1.18,
           0.2
         ],
         "explode": [
@@ -1723,7 +1723,7 @@
         ],
         "position": [
           0.5,
-          1.2,
+          1.15,
           0.5
         ],
         "explode": [
@@ -1744,7 +1744,7 @@
         ],
         "position": [
           0,
-          1.02,
+          0.655,
           0
         ],
         "explode": [
@@ -1759,6 +1759,59 @@
       "path": "assets/lighting/kit-studio.bin",
       "width": 384,
       "height": 512
+    },
+    "harness": [
+      {
+        "component": "power",
+        "case_anchor": [
+          -1.68,
+          0.15,
+          0.85
+        ],
+        "board_anchor": [
+          -0.35,
+          0.1,
+          0.28
+        ]
+      },
+      {
+        "component": "controls",
+        "case_anchor": [
+          1.68,
+          0.15,
+          0
+        ],
+        "board_anchor": [
+          0.25,
+          0.1,
+          0
+        ]
+      },
+      {
+        "component": "compute",
+        "case_anchor": [
+          1.68,
+          0.15,
+          -0.85
+        ],
+        "board_anchor": [
+          0.68,
+          0.1,
+          -0.42
+        ]
+      }
+    ],
+    "mount": {
+      "size": [
+        4.1,
+        0.1,
+        3.05
+      ],
+      "position": [
+        0,
+        -0.3,
+        0
+      ]
     }
   },
   "visuals": {
@@ -1911,7 +1964,7 @@
           "id": "surface-hauler",
           "position": [
             13,
-            0.2,
+            0.1,
             -46
           ],
           "heading": -2.75
@@ -1936,6 +1989,40 @@
         ],
         "aperture_half_width_m": 5.5,
         "cut_batter_m": 10
+      },
+      "sky": {
+        "path": "assets/materials/surface-sky.webp",
+        "rotation_y": -3.1264,
+        "sun_height_ratio": 1.344,
+        "source": "Representative CC0 sky, not a Rwanda observation"
+      },
+      "activity": {
+        "source": "illustrative",
+        "vehicle_centre": [
+          7,
+          0.1,
+          -47
+        ],
+        "vehicle_radii_m": [
+          9,
+          12
+        ],
+        "angular_speed_rad_s": 0.055,
+        "workers": [
+          [
+            -8,
+            -71
+          ],
+          [
+            -11,
+            -70
+          ]
+        ],
+        "dust_origin": [
+          11,
+          0.4,
+          -52
+        ]
       }
     },
     "budgets": {
@@ -2034,6 +2121,10 @@
       "excavator": {
         "id": "excavator",
         "path": "assets/authored/excavator.glb"
+      },
+      "portal_hill": {
+        "id": "portal-hill",
+        "path": "assets/authored/portal-hill.glb"
       }
     }
   }

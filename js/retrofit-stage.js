@@ -2,7 +2,7 @@ import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { lightRig, box } from "./scene-utils.js";
-export function createRetrofit(config) {
+export async function createRetrofit(config) {
   const root = new THREE.Group();
   root.name = "proposed-retrofit-kit";
   const components = [];
@@ -139,11 +139,14 @@ export function createRetrofit(config) {
     new THREE.ShadowMaterial({ opacity: 0.22 }),
   );
   ground.rotation.x = -Math.PI / 2;
-  ground.position.y = -1;
+  ground.position.y = -.39;
+  const cradleMaterial=new THREE.MeshStandardMaterial({color:0x263036,roughness:.52,metalness:.75});
+  box(config.kit.mount.size,config.kit.mount.position,cradleMaterial,root);
+  for(const x of [-1.83,1.83])for(const z of [-1.3,1.3])box([.12,.08,.12],[x,-.21,z],cradleMaterial,root);
   ground.receiveShadow = true;
   root.add(ground);
   lightRig(root, 18);
-  authoredAsset(config.visuals.authored?.kit).then(authored=>{
+  await authoredAsset(config.visuals.authored?.kit).then(authored=>{
     if(!authored)return;root.userData.authoredAsset=config.visuals.authored.kit.path;
     for(const entry of components){const detail=authored.getObjectByName(entry.spec.id);if(!detail)continue;
       for(const child of entry.group.children)child.visible=false;
@@ -151,19 +154,30 @@ export function createRetrofit(config) {
       detail.removeFromParent();detail.scale.multiplyScalar(config.visuals.authored.kit.presentation_scale||1);entry.group.add(detail);
     }
   }).catch(error=>console.warn("Authored kit unavailable",error));
-  let amount = 1,
-    target = 1, elapsed = 0;
+  const cables=(config.kit.harness||[]).map(spec=>{
+    const mesh=new THREE.Mesh(new THREE.BufferGeometry(),new THREE.MeshStandardMaterial({color:0x172125,roughness:.85}));root.add(mesh);return {spec,mesh};
+  });
+  let lastCableAmount=-1;
+  let amount = 0, target = 0, playing=true;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   function update(delta) {
-    elapsed += reducedMotion ? 0 : delta;
-    amount = reducedMotion ? target : THREE.MathUtils.damp(amount, target, 3, delta);
+    if(playing) amount = reducedMotion ? target : amount+Math.sign(target-amount)*Math.min(Math.abs(target-amount),delta*.3);
     for (const entry of components) {
-      entry.group.position
-        .fromArray(entry.spec.position)
-        .addScaledVector(new THREE.Vector3(...entry.spec.explode), amount);
+      const id=entry.spec.id;
+      const start=id==="lidar"||id==="camera"?0:id==="cover"?.2:.55;
+      const end=id==="lidar"||id==="camera"?.25:id==="cover"?.55:1;
+      const t=id==="enclosure"?0:THREE.MathUtils.smoothstep(amount,start,end);
+      entry.group.position.fromArray(entry.spec.position).addScaledVector(new THREE.Vector3(...entry.spec.explode),t);
     }
-    root.rotation.y = Math.sin(elapsed * 0.08) * 0.08;
+    if(Math.abs(amount-lastCableAmount)>.001){
+      for(const {spec,mesh} of cables){const entry=components.find(c=>c.spec.id===spec.component),from=new THREE.Vector3(...spec.case_anchor),to=entry.group.position.clone().add(new THREE.Vector3(...spec.board_anchor));const middle=from.clone().lerp(to,.5);middle.y-=.08;mesh.geometry.dispose();mesh.geometry=new THREE.TubeGeometry(new THREE.CatmullRomCurve3([from,middle,to]),12,.018,6,false);}
+      lastCableAmount=amount;
+    }
+    root.rotation.y=-.12;
+    const label=document.getElementById("kit-stage-label");
+    if(label)label.textContent=amount<.1?"01 / Assembled unit":amount<.3?"02 / Sensing and mounting":amount<.58?"03 / Thermal path":"04 / Compute, power and vehicle I/O";
   }
+
   return {
     root,
     update,
@@ -178,6 +192,9 @@ export function createRetrofit(config) {
         entry.mat.emissiveIntensity = 0.3;
       }
     },
+    step(direction=1){target=THREE.MathUtils.clamp(target+direction*.25,0,1);playing=true;return target;},
+    pause(){playing=!playing;return playing;},
+    diagnostics(){return {amount,target,playing,assembled:amount===0};},
     components,
   };
 }

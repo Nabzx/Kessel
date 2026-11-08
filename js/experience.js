@@ -1,10 +1,13 @@
+import {installChapters} from "./technical-chapters.js";
 import * as THREE from "three";
 import { createGlobe } from "./globe-stage.js";
 import { createEnvironmentScenes } from "./environment-scenes.js";
 import { studioEnvironment } from "./scene-utils.js";
 
 const $ = (id) => document.getElementById(id);
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const motionPreference=matchMedia("(prefers-reduced-motion: reduce)");
+let reduced=motionPreference.matches;
+motionPreference.addEventListener("change",event=>{reduced=event.matches;if(reduced&&transition)transition.start=performance.now()-transition.duration;});
 const canvas = $("world-canvas");
 let renderer;
 try {
@@ -55,7 +58,7 @@ let lastTime = 0,
   qualityFrames = [],
   hudTime = 0,
   kitActive = false,
-  kitExploded = 1,
+  kitExploded = 0,
   mineNeedsReload = false;
 const baseOpacity = new WeakMap(),
   baseLight = new WeakMap();
@@ -236,8 +239,8 @@ async function prepareTransition(root,name) {
     await ready;
   } finally {for(const [m,transparent] of materials)m.transparent=transparent;root.visible=false;parent?.add(root);preparationMs[name]=performance.now()-started;}
 }
-async function prepareStage(root,name,fog=null) {
-  const started=performance.now(),holder=new THREE.Scene();holder.fog=fog;holder.add(root);root.visible=true;
+async function prepareStage(root,name,fog=null,environment=null) {
+  const started=performance.now(),holder=new THREE.Scene();holder.fog=fog;holder.environment=environment;holder.add(root);root.visible=true;
   try {
     const textures=new Set();root.traverse(object=>{for(const material of Array.isArray(object.material)?object.material:[object.material])if(material)for(const value of [...Object.values(material),...Object.values(material.userData||{})])if(value?.isTexture)textures.add(value);});
     let count=0;
@@ -357,18 +360,22 @@ function errorStatus(message) {
   $("flight-label").hidden = false;
   $("flight-label").textContent = message;
 }
+let handoffToken=0, handoffState="settled";
+const presentationWait=ms=>new Promise(resolve=>{const begin=performance.now();const tick=now=>now-begin>=ms?resolve():requestAnimationFrame(tick);requestAnimationFrame(tick);});
 async function beginFlight() {
   if(stage!=="select" || !data.environments[environment].available)return;
+  const ticket=++handoffToken;handoffState="preparing";
   setStage("preparing");homeHandoff=null;cameraMove=null;
   showOnly(null);$("globe-label").hidden=true;errorStatus("Preparing Rwanda");
   const curtain=$("scene-curtain");curtain.classList.add("covered");
   try{
-    await Promise.all([getSurface(),new Promise(resolve=>setTimeout(resolve,reduced?0:460))]);
-    if(stage!=="preparing")return;
-    arrive();
-    requestAnimationFrame(()=>requestAnimationFrame(()=>curtain.classList.remove("covered")));
+    await Promise.all([getSurface(),presentationWait(reduced?0:460)]);
+    if(stage!=="preparing"||ticket!==handoffToken)return;
+    handoffState="revealing";arrive();
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{curtain.classList.remove("covered");handoffState="settled";}));
   }catch(error){
-    setStage("select");showOnly("selector");globe.visible(true);curtain.classList.remove("covered");
+    if(ticket!==handoffToken)return;
+    handoffState="settled";setStage("select");showOnly("selector");globe.visible(true);curtain.classList.remove("covered");
     errorStatus("Terrain unavailable. Please try again.");$("deploy-underground").focus({preventScroll:true});
     console.warn("Surface preparation failed",error.message);
   }
@@ -414,6 +421,7 @@ async function enterMine() {
   const button = $("enter-mine");
   button.disabled = true;
   button.textContent = "Preparing the mine";
+  const ticket=++handoffToken;handoffState="preparing";
   let nextTransition;
   try {
     const entrance = data.visuals?.entrance;
@@ -439,7 +447,8 @@ async function enterMine() {
       fromTarget: lookTarget.clone(),
     };
   } catch (error) {
-    button.disabled = false;
+    if(ticket!==handoffToken)return;
+    handoffState="settled";button.disabled = false;
     button.textContent = mineNeedsReload ? "Reload experience" : "Try again";
     errorStatus(mineNeedsReload
       ? "Mine view unavailable. Reload the experience to try again."
@@ -447,14 +456,16 @@ async function enterMine() {
     console.warn("Mine transition preparation failed:", error);
     return;
   }
-  $("surface-panel").hidden = true;
-  $("flight-label").hidden = true;
-  fade(mine.root, 0);
-  mine.root.position.copy(nextTransition.sectionOffset);
-  transition = nextTransition;
-  scene.fog = null;
-  setStage("entering");
-  viewport("mine");
+  if(ticket!==handoffToken || stage!=="surface")return;
+  $("surface-panel").hidden = true;$("flight-label").hidden = true;
+  setStage("entering");handoffState="revealing";
+  const curtain=$("scene-curtain");curtain.classList.add("covered");
+  await presentationWait(reduced?0:500);
+  if(ticket!==handoffToken)return;
+  camera.position.fromArray(data.mine.camera);lookTarget.fromArray(data.mine.target);camera.fov=40;camera.lookAt(lookTarget);
+  mineArrived();scene.fog=null;
+  await new Promise(requestAnimationFrame);
+  curtain.classList.remove("covered");handoffState="settled";
 }
 function mineArrived() {
   transition = null;
@@ -655,9 +666,9 @@ function updateTransition(now) {
     if (p === 1) comparisonDone(tr.trained);
   }
 }
-async function openLearning(requestedMode = "recorded_synthetic") {
+async function openLearning(requestedMode = "reference") {
   if (!mine) return;
-  const sourceMode = typeof requestedMode === "string" ? requestedMode : "recorded_synthetic";
+  const sourceMode = typeof requestedMode === "string" ? requestedMode : "reference";
   if (!["recorded_synthetic", "reference", "curriculum", "authored"].includes(sourceMode)) return;
   const request = ++learningRequest, alreadyOpen = stage === "learning", button = document.activeElement;
   if (!alreadyOpen && ["explore-world-model", "product-world-model"].includes(button?.id)) learningEntryTrigger = button;
@@ -688,7 +699,7 @@ async function openLearning(requestedMode = "recorded_synthetic") {
   if (surface) surface.root.visible = false;
   if (kit) kit.root.visible = false;
   scene.environment = null; globe.visible(false);
-  learning.root.visible = true;learning.replay();
+  learning.root.visible = true;if(!alreadyOpen&&sourceMode==="reference")learning.checkpoint(0);learning.replay();
   $("product").style.visibility = "hidden";$("experience").style.visibility = "hidden";
   $("navigation").hidden = true;$("learning-ui").hidden = false;
   configureLearningUI(sourceMode);
@@ -698,9 +709,15 @@ async function openLearning(requestedMode = "recorded_synthetic") {
   camera.position.fromArray(learning.camera || data.training.camera);
   lookTarget.fromArray(learning.target || data.training.target);
   viewport("learning");camera.lookAt(lookTarget);
+  frameLearning();
   $("exit-world-model").textContent = entryContext.scroll > innerHeight * 0.5 ? "← Return to product" : "← Return to mine";
   cameraMove = null;hudTime = 0;updateLearning(0);
   if (!alreadyOpen) $("exit-world-model").focus({ preventScroll: true });
+}
+function frameLearning() {
+  if(stage!=="learning" || !learning?.fitCamera)return;
+  const panel=document.querySelector(".learning-panel").getBoundingClientRect();
+  lookTarget.copy(learning.fitCamera(camera,panel,document.querySelector(".learning-header").getBoundingClientRect().bottom));
 }
 function closeLearning() {
   if (stage !== "learning") return;
@@ -737,6 +754,9 @@ function updateLearning(delta) {
     checkpoint = data.training.checkpoints[state.index];
   if (globalTime - hudTime < 95) return;
   hudTime = globalTime;
+  $("task-phase").textContent=state.action;
+  $("task-payload").textContent=`${state.load_t.toFixed(2)} t`;$("task-delivered").textContent="—";$("task-time").textContent="—";
+  $("task-summary").textContent="Authored training sequence";$("compare-reference").hidden=false;$("task-continue").hidden=false;
   $("episode-count").textContent = state.episodes.toLocaleString("en-GB");
   $("reward-value").textContent = checkpoint.reward.toFixed(2);
   $("action-value").textContent = state.action;
@@ -772,9 +792,10 @@ async function ensureKit() {
     import("./retrofit-stage.js"),
     studioEnvironment(data.kit.lighting),
   ])
-    .then(([module, environment]) => {
-      kit = module.createRetrofit(data);
-      kitEnvironment = environment;
+    .then(async ([module, environment]) => {
+      const value = await module.createRetrofit(data);
+      await prepareStage(value.root,"kit",null,environment);
+      kitEnvironment = environment;kit=value;
       scene.add(kit.root);
       kit.root.visible = false;
       for (const component of data.kit.components) {
@@ -807,6 +828,7 @@ function updateProduct() {
     ensureKit().catch(() =>
       errorStatus("Kit assets unavailable. Please try again."),
     );
+  document.body.classList.toggle("product-active",scrollY>innerHeight*.8);
   const rect = $("kit-window").getBoundingClientRect();
   const visible =
     rect.top < innerHeight * 0.85 && rect.bottom > innerHeight * 0.15;
@@ -873,6 +895,7 @@ function resize() {
   if(stage === "select") {
     homeHandoff=null;cameraMove=null;globe?.mode("select");camera.position.set(0,0,12.8);lookTarget.set(0,0,0);camera.lookAt(lookTarget);
   }
+  frameLearning();
   updateProduct();
 }
 function pinLabel() { $("globe-label").hidden=true; }
@@ -903,6 +926,7 @@ async function init() {
     data = await response.json();
     const study=new URLSearchParams(location.search).get("home-study");
     if(study === "instrument"){document.body.dataset.homeDirection="instrument";data.visuals.home.earth_x=2.05;document.querySelector(".welcome-wordmark").src="assets/brand/kessel-instrument.svg";}
+    installChapters();
     globe = createGlobe(scene, data);
     environmentScenes=createEnvironmentScenes(data);
     globe.earth.rotation.y = -THREE.MathUtils.degToRad(
@@ -958,7 +982,7 @@ function render(now) {
   const ms = lastTime ? now - lastTime : 0,
     delta = lastTime ? Math.min(ms / 1000, 0.1) : 0;
   lastTime = now;
-  if (document.hidden) return;
+  if (document.hidden || $("technical-dialog").open) return;
   if (ms) {
     frameTimes.push(ms);
     if (frameTimes.length > 180) frameTimes.shift();
@@ -987,6 +1011,7 @@ function render(now) {
     }
     globe.update(reduced?0:now,reduced?0:delta,!reduced&&(stage==="welcome"||(stage==="select"&&earthGoal===null)));
   }
+  if(stage==="surface")surface?.update?.(delta,reduced);
   updateCamera(now);
   updateTransition(now);
   if (
@@ -1027,6 +1052,8 @@ $("show-after").addEventListener("click", () => compare(true));
 $("explore-world-model").addEventListener("click", openLearning);
 $("product-world-model").addEventListener("click", openLearning);
 $("exit-world-model").addEventListener("click", closeLearning);
+$("task-continue").addEventListener("click",()=>{closeLearning();$("product-overview").scrollIntoView({behavior:reduced?"instant":"smooth"});});
+$("compare-reference").addEventListener("click",()=>openLearning("reference"));
 $("learning-source").addEventListener("change", (event) => openLearning(event.target.value));
 $("retry-recorded").addEventListener("click", () => openLearning($("retry-recorded").dataset.source || "recorded_synthetic"));
 $("use-concept-replay").addEventListener("click", () => openLearning("authored"));
@@ -1059,12 +1086,15 @@ document.querySelectorAll("[data-checkpoint]").forEach((button) =>
     }
   }),
 );
+$("kit-next").addEventListener("click",()=>{if(kit){kitExploded=kit.step(1)>0;updateProduct();}});
+$("kit-prev").addEventListener("click",()=>{if(kit){kitExploded=kit.step(-1)>0;updateProduct();}});
+$("kit-pause").addEventListener("click",()=>{if(kit)$("kit-pause").textContent=kit.pause()?"Pause":"Play";});
 $("assemble-kit").addEventListener("click", () => {
   if (!kit) return;
   kitExploded = kit.toggle();
   $("assemble-kit").textContent = kitExploded
     ? "Assemble the kit"
-    : "Explode the kit";
+    : "Open the assembly";
   updateProduct();
 });
 $("scroll-product").addEventListener("click", () =>
@@ -1085,10 +1115,20 @@ document.addEventListener("keydown", (event) => {
   if (stage === "select" && event.key === "ArrowLeft")
     chooseEnvironment(environment - 1);
 });
-document.addEventListener("visibilitychange", () => {
-  lastTime = 0;
-});
 window.addEventListener("resize", resize, { passive: true });
+let hiddenAt=0;
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){hiddenAt=performance.now();return;}
+  const paused=hiddenAt?performance.now()-hiddenAt:0;
+  for(const movement of [transition,cameraMove,homeHandoff])if(movement)movement.start+=paused;
+  hiddenAt=0;lastTime=0;
+});
+document.addEventListener("keydown",event=>{
+  if(event.key!=="Escape" || !(["preparing","entering"].includes(stage)||(stage==="surface"&&handoffState==="preparing")))return;
+  ++handoffToken;handoffState="cancelled";$("scene-curtain").classList.remove("covered");$("flight-label").hidden=true;
+  if(stage==="preparing"){setStage("select");showOnly("selector");globe.visible(true);$("deploy-underground").focus();}
+  else {surface.root.visible=true;if(mine)mine.root.visible=false;arrive();$("enter-mine").disabled=false;$("enter-mine").textContent="Enter the mine";$("enter-mine").focus();}
+});
 window.addEventListener("scroll", updateProduct, { passive: true });
 init();
 resize();
@@ -1105,6 +1145,7 @@ export function diagnostics() {
     earthSettling:earthGoal!==null,
     globe: globe?.diagnostics?.() ?? null,
     environmentBackground:environmentScenes?.diagnostics() || null,
+    handoffState,
     homeHandoff:homeHandoff!==null,
     selectorViewport:selectorRect,
     presentation: document.querySelector('meta[name="kessel-presentation"]')?.content || "unversioned",
@@ -1113,6 +1154,7 @@ export function diagnostics() {
     comparison,
     scrollY,
     kitActive,
+    kit:kit?.diagnostics?.() ?? null,
     learning: stage === "learning" ? learning?.diagnostics?.() || { sourceMode: "authored" } : null,
     drawCalls: renderer.info.render.calls,
     triangles: renderer.info.render.triangles,

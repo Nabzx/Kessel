@@ -1,0 +1,19 @@
+{
+  "path": "assets/materials/surface-sky.webp",
+  "bytes": 40568,
+  "sha256": "ff1c8aa9ffee1be1a6380c3ab9ea0a9d9dbce34431c173d865787b1c2409765d",
+  "source": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+  "source_sha256": "fd94c84997b8a3c353b62c2125a9b44e19509956986a126e472684432a02d798",
+  "page": "https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky",
+  "licence": "CC0-1.0",
+  "authors": [
+    "Greg Zaal",
+    "Jarod Guest"
+  ],
+  "resolution": [
+    1024,
+    512
+  ],
+  "operation": "Blender AgX tone map to 8-bit sRGB; WebP quality 94",
+  "scope": "Representative sky, not a Rwanda observation"
+}

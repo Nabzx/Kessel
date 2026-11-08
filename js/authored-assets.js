@@ -2,7 +2,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 const loader=new GLTFLoader(),cache=new Map();
 export async function authoredAsset(spec) {
   if(!spec?.path)return null;
-  if(!cache.has(spec.path))cache.set(spec.path,loader.loadAsync(spec.path).catch(error=>{cache.delete(spec.path);throw error;}));
+  if(!cache.has(spec.path))cache.set(spec.path,loader.loadAsync(spec.path+"?v="+encodeURIComponent(document.querySelector('meta[name="kessel-presentation"]')?.content||"local")).catch(error=>{cache.delete(spec.path);throw error;}));
   const asset=await cache.get(spec.path),root=asset.scene.clone(true);
   root.name=spec.id||root.name;
   const materials=new Map();

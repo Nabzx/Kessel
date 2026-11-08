@@ -52,10 +52,21 @@ test('reference source carries controller identity and every post-action event b
 });
 test('variable episode clock preserves pause, event seek, pace and a finite terminal hold',()=>{
  const clock=new ReplayClock(reference,true),duration=reference.episodes[0].records.at(-1).t_s;
- clock.toggle();clock.update(13.5);assert.equal(clock.state().holding,true);assert.equal(clock.state().time,duration);
- clock.update(.5);assert.equal(clock.state().index,1);clock.checkpoint(0);
+ clock.replay(true);clock.toggle();clock.update(clock.activeSeconds(0)+.01);assert.equal(clock.state().holding,true);assert.equal(clock.state().time,duration);
+ clock.update(.65);assert.equal(clock.state().index,1);clock.checkpoint(0);
  const event=reference.episodes[0].timeline.find(e=>e.kind==='Deposition');clock.seek(event.t_s);const sampled=sampleEpisode(clock.state().episode,clock.state().time);
  assert.ok(sampled.frame.state[8]>0);assert.equal(clock.state().paused,true);
  clock.setPace(2);clock.toggle();clock.update(100);assert.equal(clock.state().complete,true);assert.equal(clock.state().index,0);
  assert.throws(()=>clock.seek(NaN),/Invalid seek/);assert.throws(()=>clock.update(-1),/Invalid playback/);
+});
+
+ test('guided reference stops on its complete cycle and source speed stays constant',()=>{
+ const c=new ReplayClock(reference,false);c.update(100);assert.equal(c.state().index,0);assert.equal(c.state().complete,true);assert.ok(c.state().episode.metrics.delivered_kg>2000);
+ for(let i=0;i<reference.episodes.length;i++){c.checkpoint(i);assert.ok(Math.abs(c.state().acceleration-3)<1e-8);}
+ });
+
+test('rounded browser seeks retain terminal frames and reference replay retains the selected case',()=>{
+ const c=new ReplayClock(reference,true);c.checkpoint(2);c.replay();assert.equal(c.state().index,2);
+ c.seek(Number(reference.episodes[2].records.at(-1).t_s.toFixed(3)));assert.equal(c.state().complete,true);
+ const policy=new ReplayClock(bundle,true);for(let i=0;i<bundle.episodes.length;i++){policy.checkpoint(i);assert.ok(Math.abs(policy.state().acceleration-4)<1e-8);policy.seek(Number(bundle.episodes[i].records.at(-1).t_s.toFixed(3)));assert.equal(policy.state().complete,true);}
 });

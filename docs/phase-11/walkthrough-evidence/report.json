@@ -1,0 +1,768 @@
+{
+  "browser": "156.0.8078.81",
+  "date": "2026-11-08T17:57:48.343Z",
+  "errors": [],
+  "profiles": [
+    {
+      "spec": {
+        "name": "retina",
+        "width": 1440,
+        "height": 900,
+        "dpr": 2,
+        "motion": "no-preference"
+      },
+      "frames": [
+        {
+          "name": "home",
+          "meanFps": 60.00200006666889,
+          "p95": 16.700000000000728,
+          "p99": 16.800000000000182,
+          "drawCalls": 12,
+          "triangles": 59175,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "surface",
+          "meanFps": 60.00200006666889,
+          "p95": 16.700000000000728,
+          "p99": 16.80000000000109,
+          "drawCalls": 58,
+          "triangles": 79500,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "mine",
+          "meanFps": 60.00200006666886,
+          "p95": 16.799999999999272,
+          "p99": 16.799999999999272,
+          "drawCalls": 175,
+          "triangles": 56334,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "guided-complete",
+          "meanFps": 60.00200006666886,
+          "p95": 16.799999999995634,
+          "p99": 16.80000000000291,
+          "drawCalls": 60,
+          "triangles": 25146,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "kit-assembled",
+          "meanFps": 60.002000066668714,
+          "p95": 16.70000000001164,
+          "p99": 16.80000000000291,
+          "drawCalls": 42,
+          "triangles": 21274,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "kit-open",
+          "meanFps": 60.00400026668439,
+          "p95": 16.80000000000291,
+          "p99": 16.80000000000291,
+          "drawCalls": 42,
+          "triangles": 21274,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "sources": [
+        {
+          "source": "recorded_synthetic",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 7.387081856713104,
+                "y": 0.6812707104824817,
+                "z": -1.1174660548464936
+              },
+              "safe": {
+                "left": 32,
+                "right": 1058.8125,
+                "top": 111,
+                "bottom": 812
+              },
+              "projected": {
+                "left": 140.63027883946347,
+                "right": 1058.8124996810102,
+                "top": 265.28540681422413,
+                "bottom": 789.8961004079523
+              },
+              "distance": 28.026720573694234
+            },
+            "envelope": {
+              "min": [
+                -3.2800000000000002,
+                -0.8174585790350368,
+                -4.444158984644274
+              ],
+              "max": [
+                18.05416371342621,
+                2.18,
+                2.209226874951287
+              ]
+            },
+            "bucketMouthErrorM": 1.7772239894833365e-15,
+            "runId": "rl-study-v1-full-7",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 3.900000000000003,
+            "paused": true,
+            "horizon": 1,
+            "frame": 39,
+            "counters": {
+              "rollouts": 604,
+              "environment_steps": 309248,
+              "agent_decisions": 309248,
+              "optimiser_updates": 9606,
+              "completed_episodes": 1479,
+              "successes": 0,
+              "imagined_transitions": 0,
+              "nominal_simulated_s": 30924.8000000003,
+              "subtask_successes": 58
+            },
+            "material": {
+              "sourceKg": 11162.81011587884,
+              "carriedKg": 203.55565012549246,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": -1.8189894035458565e-12
+            },
+            "forecastVisible": false,
+            "agentKind": "learned_policy",
+            "eventCount": 4
+          }
+        },
+        {
+          "source": "reference",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 2.107611365066634,
+                "y": 0.7507028401241982,
+                "z": 0.11967214417456029
+              },
+              "safe": {
+                "left": 32,
+                "right": 1058.8125,
+                "top": 111,
+                "bottom": 812
+              },
+              "projected": {
+                "left": 161.935154631152,
+                "right": 1058.8124997103416,
+                "top": 265.18656003849037,
+                "bottom": 775.2663531661258
+              },
+              "distance": 26.257911469470134
+            },
+            "envelope": {
+              "min": [
+                -8.078302366856256,
+                -0.8614474743914453,
+                -2.18
+              ],
+              "max": [
+                12.293525096989525,
+                2.3628531546398417,
+                2.4193442883491207
+              ]
+            },
+            "bucketMouthErrorM": 1.793236149480701e-15,
+            "runId": "reference-cycle-v1",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 17.839000000000006,
+            "paused": true,
+            "horizon": 1,
+            "frame": 178,
+            "counters": null,
+            "material": {
+              "sourceKg": 9859.77843548221,
+              "carriedKg": 1506.5873305221276,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": 9.094947017729282e-12
+            },
+            "forecastVisible": false,
+            "agentKind": "reference_controller",
+            "eventCount": 4
+          }
+        },
+        {
+          "source": "curriculum",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 5.98287877735828,
+                "y": 0.6485273401244174,
+                "z": 0.023962627292080763
+              },
+              "safe": {
+                "left": 32,
+                "right": 1058.8125,
+                "top": 111,
+                "bottom": 812
+              },
+              "projected": {
+                "left": 124.08535772193795,
+                "right": 1043.776257764099,
+                "top": 255.76134976410066,
+                "bottom": 811.9999994729679
+              },
+              "distance": 25.818200950470946
+            },
+            "envelope": {
+              "min": [
+                -3.2800000000000002,
+                -0.8829453197511654,
+                -3.8837767506580296
+              ],
+              "max": [
+                15.245757554716562,
+                2.18,
+                3.931702005242191
+              ]
+            },
+            "bucketMouthErrorM": 1.831026719408895e-15,
+            "runId": "curriculum-followup-v1",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 6.0790000000000015,
+            "paused": true,
+            "horizon": 1,
+            "frame": 60,
+            "counters": {
+              "environment_steps": 4096,
+              "completed_episodes": 46,
+              "rollouts": 16,
+              "optimiser_updates": 128,
+              "nominal_simulated_s": 409.6
+            },
+            "material": {
+              "sourceKg": 8785.939398904127,
+              "carriedKg": 1922.0862741220112,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": 0
+            },
+            "forecastVisible": false,
+            "agentKind": "learned_policy",
+            "eventCount": 3
+          }
+        }
+      ]
+    },
+    {
+      "spec": {
+        "name": "compact",
+        "width": 1365,
+        "height": 768,
+        "dpr": 1,
+        "motion": "no-preference"
+      },
+      "frames": [
+        {
+          "name": "home",
+          "meanFps": 60.00400026668446,
+          "p95": 16.800000000000182,
+          "p99": 16.800000000000182,
+          "drawCalls": 12,
+          "triangles": 59175,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "surface",
+          "meanFps": 60.00200006666889,
+          "p95": 16.700000000000728,
+          "p99": 16.80000000000109,
+          "drawCalls": 61,
+          "triangles": 79536,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "mine",
+          "meanFps": 60.00200006666886,
+          "p95": 16.700000000000728,
+          "p99": 16.80000000000291,
+          "drawCalls": 175,
+          "triangles": 56334,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "guided-complete",
+          "meanFps": 60.00200006666886,
+          "p95": 16.799999999995634,
+          "p99": 16.80000000000291,
+          "drawCalls": 59,
+          "triangles": 25134,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "kit-assembled",
+          "meanFps": 60.00200006666886,
+          "p95": 16.799999999995634,
+          "p99": 16.80000000000291,
+          "drawCalls": 42,
+          "triangles": 21274,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "kit-open",
+          "meanFps": 60.00400026668439,
+          "p95": 16.70000000001164,
+          "p99": 16.80000000000291,
+          "drawCalls": 42,
+          "triangles": 21274,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "sources": [
+        {
+          "source": "recorded_synthetic",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 7.387081856713104,
+                "y": 0.6812707104824817,
+                "z": -1.1174660548464936
+              },
+              "safe": {
+                "left": 32,
+                "right": 986.0625,
+                "top": 111,
+                "bottom": 680
+              },
+              "projected": {
+                "left": 160.0223864611277,
+                "right": 952.9457748982669,
+                "top": 226.54892725482406,
+                "bottom": 679.9999999607915
+              },
+              "distance": 27.712158879865783
+            },
+            "envelope": {
+              "min": [
+                -3.2800000000000002,
+                -0.8174585790350368,
+                -4.444158984644274
+              ],
+              "max": [
+                18.05416371342621,
+                2.18,
+                2.209226874951287
+              ]
+            },
+            "bucketMouthErrorM": 1.7772239894833365e-15,
+            "runId": "rl-study-v1-full-7",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 3.900000000000003,
+            "paused": true,
+            "horizon": 1,
+            "frame": 39,
+            "counters": {
+              "rollouts": 604,
+              "environment_steps": 309248,
+              "agent_decisions": 309248,
+              "optimiser_updates": 9606,
+              "completed_episodes": 1479,
+              "successes": 0,
+              "imagined_transitions": 0,
+              "nominal_simulated_s": 30924.8000000003,
+              "subtask_successes": 58
+            },
+            "material": {
+              "sourceKg": 11162.81011587884,
+              "carriedKg": 203.55565012549246,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": -1.8189894035458565e-12
+            },
+            "forecastVisible": false,
+            "agentKind": "learned_policy",
+            "eventCount": 4
+          }
+        },
+        {
+          "source": "reference",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 2.107611365066634,
+                "y": 0.7507028401241982,
+                "z": 0.11967214417456029
+              },
+              "safe": {
+                "left": 32,
+                "right": 986.0625,
+                "top": 111,
+                "bottom": 680
+              },
+              "projected": {
+                "left": 167.86315941330778,
+                "right": 972.4901434528746,
+                "top": 221.5712666748046,
+                "bottom": 679.9999997448642
+              },
+              "distance": 25.06775260959987
+            },
+            "envelope": {
+              "min": [
+                -8.078302366856256,
+                -0.8614474743914453,
+                -2.18
+              ],
+              "max": [
+                12.293525096989525,
+                2.3628531546398417,
+                2.4193442883491207
+              ]
+            },
+            "bucketMouthErrorM": 1.793236149480701e-15,
+            "runId": "reference-cycle-v1",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 17.839000000000006,
+            "paused": true,
+            "horizon": 1,
+            "frame": 178,
+            "counters": null,
+            "material": {
+              "sourceKg": 9859.77843548221,
+              "carriedKg": 1506.5873305221276,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": 9.094947017729282e-12
+            },
+            "forecastVisible": false,
+            "agentKind": "reference_controller",
+            "eventCount": 4
+          }
+        },
+        {
+          "source": "curriculum",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 5.98287877735828,
+                "y": 0.6485273401244174,
+                "z": 0.023962627292080763
+              },
+              "safe": {
+                "left": 32,
+                "right": 986.0625,
+                "top": 111,
+                "bottom": 680
+              },
+              "projected": {
+                "left": 162.02882076569878,
+                "right": 916.8934028383823,
+                "top": 225.06793528664886,
+                "bottom": 679.9999996591407
+              },
+              "distance": 26.79787798077711
+            },
+            "envelope": {
+              "min": [
+                -3.2800000000000002,
+                -0.8829453197511654,
+                -3.8837767506580296
+              ],
+              "max": [
+                15.245757554716562,
+                2.18,
+                3.931702005242191
+              ]
+            },
+            "bucketMouthErrorM": 1.831026719408895e-15,
+            "runId": "curriculum-followup-v1",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 6.0790000000000015,
+            "paused": true,
+            "horizon": 1,
+            "frame": 60,
+            "counters": {
+              "environment_steps": 4096,
+              "completed_episodes": 46,
+              "rollouts": 16,
+              "optimiser_updates": 128,
+              "nominal_simulated_s": 409.6
+            },
+            "material": {
+              "sourceKg": 8785.939398904127,
+              "carriedKg": 1922.0862741220112,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": 0
+            },
+            "forecastVisible": false,
+            "agentKind": "learned_policy",
+            "eventCount": 3
+          }
+        }
+      ]
+    },
+    {
+      "spec": {
+        "name": "reduced",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "motion": "reduce"
+      },
+      "frames": [
+        {
+          "name": "home",
+          "meanFps": 60.00400026668444,
+          "p95": 16.800000000000182,
+          "p99": 16.800000000000182,
+          "drawCalls": 12,
+          "triangles": 59175,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "surface",
+          "meanFps": 60.00200006666889,
+          "p95": 16.700000000000728,
+          "p99": 16.799999999999272,
+          "drawCalls": 58,
+          "triangles": 79500,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "mine",
+          "meanFps": 60.00200006666889,
+          "p95": 16.700000000000728,
+          "p99": 16.799999999999272,
+          "drawCalls": 175,
+          "triangles": 56334,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "guided-complete",
+          "meanFps": 60.00400026668453,
+          "p95": 16.799999999995634,
+          "p99": 16.80000000000291,
+          "drawCalls": 60,
+          "triangles": 25146,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "kit-assembled",
+          "meanFps": 60.002000066669005,
+          "p95": 16.799999999995634,
+          "p99": 16.80000000000291,
+          "drawCalls": 42,
+          "triangles": 21274,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "kit-open",
+          "meanFps": 60.00200006666886,
+          "p95": 16.700000000004366,
+          "p99": 16.80000000000291,
+          "drawCalls": 42,
+          "triangles": 21274,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "sources": [
+        {
+          "source": "recorded_synthetic",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 7.387081856713104,
+                "y": 0.6812707104824817,
+                "z": -1.1174660548464936
+              },
+              "safe": {
+                "left": 32,
+                "right": 903.609375,
+                "top": 111,
+                "bottom": 712
+              },
+              "projected": {
+                "left": 120.90453744103755,
+                "right": 903.6093747935491,
+                "top": 242.54769672148382,
+                "bottom": 688.4275506573535
+              },
+              "distance": 29.160803528439725
+            },
+            "envelope": {
+              "min": [
+                -3.2800000000000002,
+                -0.8174585790350368,
+                -4.444158984644274
+              ],
+              "max": [
+                18.05416371342621,
+                2.18,
+                2.209226874951287
+              ]
+            },
+            "bucketMouthErrorM": 1.7772239894833365e-15,
+            "runId": "rl-study-v1-full-7",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 3.900000000000003,
+            "paused": true,
+            "horizon": 1,
+            "frame": 39,
+            "counters": {
+              "rollouts": 604,
+              "environment_steps": 309248,
+              "agent_decisions": 309248,
+              "optimiser_updates": 9606,
+              "completed_episodes": 1479,
+              "successes": 0,
+              "imagined_transitions": 0,
+              "nominal_simulated_s": 30924.8000000003,
+              "subtask_successes": 58
+            },
+            "material": {
+              "sourceKg": 11162.81011587884,
+              "carriedKg": 203.55565012549246,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": -1.8189894035458565e-12
+            },
+            "forecastVisible": false,
+            "agentKind": "learned_policy",
+            "eventCount": 4
+          }
+        },
+        {
+          "source": "reference",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 2.107611365066634,
+                "y": 0.7507028401241982,
+                "z": 0.11967214417456029
+              },
+              "safe": {
+                "left": 32,
+                "right": 903.609375,
+                "top": 111,
+                "bottom": 712
+              },
+              "projected": {
+                "left": 138.54181013231766,
+                "right": 903.6093747333293,
+                "top": 242.37211082029387,
+                "bottom": 676.9262909306261
+              },
+              "distance": 27.284167449896746
+            },
+            "envelope": {
+              "min": [
+                -8.078302366856256,
+                -0.8614474743914453,
+                -2.18
+              ],
+              "max": [
+                12.293525096989525,
+                2.3628531546398417,
+                2.4193442883491207
+              ]
+            },
+            "bucketMouthErrorM": 1.793236149480701e-15,
+            "runId": "reference-cycle-v1",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 17.839000000000006,
+            "paused": true,
+            "horizon": 1,
+            "frame": 178,
+            "counters": null,
+            "material": {
+              "sourceKg": 9859.77843548221,
+              "carriedKg": 1506.5873305221276,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": 9.094947017729282e-12
+            },
+            "forecastVisible": false,
+            "agentKind": "reference_controller",
+            "eventCount": 4
+          }
+        },
+        {
+          "source": "curriculum",
+          "learning": {
+            "framing": {
+              "target": {
+                "x": 5.98287877735828,
+                "y": 0.6485273401244174,
+                "z": 0.023962627292080763
+              },
+              "safe": {
+                "left": 32,
+                "right": 903.609375,
+                "top": 111,
+                "bottom": 712
+              },
+              "projected": {
+                "left": 102.74784711007385,
+                "right": 897.6377464195842,
+                "top": 232.4870793763191,
+                "bottom": 711.9999999228579
+              },
+              "distance": 26.52086345002573
+            },
+            "envelope": {
+              "min": [
+                -3.2800000000000002,
+                -0.8829453197511654,
+                -3.8837767506580296
+              ],
+              "max": [
+                15.245757554716562,
+                2.18,
+                3.931702005242191
+              ]
+            },
+            "bucketMouthErrorM": 1.831026719408895e-15,
+            "runId": "curriculum-followup-v1",
+            "sourceMode": "recorded_synthetic",
+            "checkpoint": 2,
+            "simulatedTime": 6.0790000000000015,
+            "paused": true,
+            "horizon": 1,
+            "frame": 60,
+            "counters": {
+              "environment_steps": 4096,
+              "completed_episodes": 46,
+              "rollouts": 16,
+              "optimiser_updates": 128,
+              "nominal_simulated_s": 409.6
+            },
+            "material": {
+              "sourceKg": 8785.939398904127,
+              "carriedKg": 1922.0862741220112,
+              "deliveredKg": 0,
+              "spilledKg": 0,
+              "residualKg": 0
+            },
+            "forecastVisible": false,
+            "agentKind": "learned_policy",
+            "eventCount": 3
+          }
+        }
+      ]
+    }
+  ],
+  "recovery": [
+    "Cancelled arrival restores selection",
+    "Missing sky keeps the authored atmosphere",
+    "Missing reference stays an explicit error",
+    "Retry restores reference",
+    "Failed reference remains failed",
+    "Latest source selection wins"
+  ]
+}

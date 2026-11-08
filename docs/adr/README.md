@@ -102,3 +102,7 @@ supersedes the continuous-journey, selector and global-caption requirements.
 [Orbital home and immersive selection](0052-orbital-home-and-immersive-selection.md)
 implements the photographic opening, original spacecraft, background-led selector
 and controlled local fade while retaining contextual source distinctions.
+
+[Guided task and engineering chapters](0053-guided-task-and-engineering-chapters.md)
+sets the conventional reference entry, full-machine fitting, prepared fades,
+progressive disclosure, detailed proposed hardware and source-aware technical chapters.
