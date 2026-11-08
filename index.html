@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="kessel-presentation" content="2026-11-07.6" />
+    <meta name="kessel-presentation" content="2026-11-08.1" />
     <meta name="theme-color" content="#030506" />
     <title>Kessel | Offline autonomy</title>
     <meta
@@ -18,13 +18,16 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/experience.css?v=2026-11-07.6" />
-      <link rel="stylesheet" href="css/recorded.css?v=2026-11-07.6" />
-    <link rel="stylesheet" href="css/realism.css?v=2026-11-07.6" />
-    <link rel="stylesheet" href="css/hud.css?v=2026-11-07.6" />
-    <link rel="stylesheet" href="css/home.css?v=2026-11-07.6" />
+    <link rel="stylesheet" href="css/experience.css?v=2026-11-08.1" />
+      <link rel="stylesheet" href="css/recorded.css?v=2026-11-08.1" />
+    <link rel="stylesheet" href="css/realism.css?v=2026-11-08.1" />
+    <link rel="stylesheet" href="css/hud.css?v=2026-11-08.1" />
+    <link rel="stylesheet" href="css/home.css?v=2026-11-08.1" />
+    <link rel="stylesheet" href="css/orbital-home.css?v=2026-11-08.1" />
   </head>
   <body class="story-locked">
+    <div id="environment-backdrop" class="environment-backdrop" aria-hidden="true"><img alt="" /><img alt="" /></div>
+    <div id="scene-curtain" class="scene-curtain" aria-hidden="true"></div>
     <canvas
       id="world-canvas"
       aria-label="Kessel interactive Earth and mine experience"
@@ -36,7 +39,7 @@
         id="restart"
         aria-label="Restart the experience"
       >
-        <img src="assets/brand/kessel-wordmark.svg" alt="Kessel" /></button
+        <img src="assets/brand/kessel-orbital.svg" alt="Kessel" /></button
       ><span id="nav-location"></span
       ><button class="text-button" id="sources-open">Sources</button>
     </header>
@@ -52,9 +55,10 @@
       >
         <img
           class="welcome-wordmark"
-          src="assets/brand/kessel-wordmark.svg"
+          src="assets/brand/kessel-orbital.svg"
           alt="Kessel"
         />
+        <p class="home-signature">Physical AI for extreme environments.</p>
         <button class="primary start-button" id="start-experience" disabled>
           Preparing Earth
         </button>
@@ -65,15 +69,16 @@
         hidden
         aria-label="Choose a deployment environment"
       >
-        <p class="section-label">Deployment environments</p>
+        <p class="section-label">Choose a deployment environment</p>
+        <aside class="orbit-panel" id="orbit-panel" aria-label="Rotating Earth and geographic context"><span>Earth</span><div class="orbit-frame" aria-hidden="true"></div><p id="orbit-location">01.82° S / 30.06° E</p></aside>
         <figure class="environment-preview">
           <img id="environment-image" width="768" height="432" alt="" decoding="async" />
           <div class="environment-illustration" id="environment-icon" aria-hidden="true" hidden></div>
           <figcaption id="environment-credit"></figcaption>
         </figure>
         <div class="environment-title">
-          <h1 id="environment-name">Glacier</h1>
-          <span id="environment-status">Planned</span>
+          <h1 id="environment-name">Underground</h1>
+          <span id="environment-status">Available</span>
         </div>
         <p class="environment-place" id="environment-place"></p>
         <p class="environment-description" id="environment-description"></p>
@@ -288,7 +293,7 @@
         </p>
       </section>
       <footer class="product-footer">
-        <img src="assets/brand/kessel-wordmark.svg" alt="Kessel" /><span
+        <img src="assets/brand/kessel-orbital.svg" alt="Kessel" /><span
           >Physical AI for extreme environments.</span
         ><button class="text-button" id="replay-experience">
           Replay experience
@@ -397,11 +402,7 @@
       </div>
     </section>
     <aside id="experiment-error" class="experiment-error" hidden role="status"><p id="experiment-error-message">Recorded replay unavailable.</p><button class="text-button" id="retry-recorded">Retry recorded</button><button class="text-button" id="use-concept-replay">Open concept replay</button></aside>
-    <div class="permanent-caption">
-      <span class="caption-dot"></span><span>Concept demonstration</span
-      ><span id="caption-detail">Public geography. Illustrative mission.</span
-      ><button class="text-button" id="caption-sources">Sources</button>
-    </div>
+    <span id="caption-detail" hidden>Public geography. Illustrative mission.</span>
     <dialog id="sources-dialog">
       <button
         class="dialog-close"
@@ -482,30 +483,31 @@
           "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
           "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
           "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js",
-          "./js/app.js": "./js/app.js?v=2026-11-07.6",
-          "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-07.6",
-        "./js/experience.js": "./js/experience.js?v=2026-11-07.6",
-          "./js/fleet.js": "./js/fleet.js?v=2026-11-07.6",
-          "./js/geology.js": "./js/geology.js?v=2026-11-07.6",
-          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-07.6",
-          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-07.6",
-          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-07.6",
-          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-07.6",
-          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-07.6",
-          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-07.6",
-          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-07.6",
-          "./js/mission.js": "./js/mission.js?v=2026-11-07.6",
-          "./js/height-field.js": "./js/height-field.js?v=2026-11-07.6",
-          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-07.6",
-          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-07.6",
-          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-07.6",
-          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-07.6",
-          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-07.6",
-          "./js/underground.js": "./js/underground.js?v=2026-11-07.6",
-          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-07.6"
+          "./js/app.js": "./js/app.js?v=2026-11-08.1",
+          "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-08.1",
+        "./js/experience.js": "./js/experience.js?v=2026-11-08.1",
+          "./js/fleet.js": "./js/fleet.js?v=2026-11-08.1",
+          "./js/geology.js": "./js/geology.js?v=2026-11-08.1",
+          "./js/environment-scenes.js": "./js/environment-scenes.js?v=2026-11-08.1",
+          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-08.1",
+          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-08.1",
+          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-08.1",
+          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-08.1",
+          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-08.1",
+          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-08.1",
+          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-08.1",
+          "./js/mission.js": "./js/mission.js?v=2026-11-08.1",
+          "./js/height-field.js": "./js/height-field.js?v=2026-11-08.1",
+          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-08.1",
+          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-08.1",
+          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-08.1",
+          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-08.1",
+          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-08.1",
+          "./js/underground.js": "./js/underground.js?v=2026-11-08.1",
+          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-08.1"
         }
       }
     </script>
-    <script type="module" src="js/experience.js?v=2026-11-07.6"></script>
+    <script type="module" src="js/experience.js?v=2026-11-08.1"></script>
   </body>
 </html>
