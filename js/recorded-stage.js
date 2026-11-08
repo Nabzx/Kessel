@@ -84,6 +84,25 @@ export async function createRecorded(config, bundle) {
     forecastPile.instanceMatrix.needsUpdate = true;forecastPile.instanceColor.needsUpdate = true;
     return { ...future, spread_m: major };
   }
+  // #365/#366/#367: when the whole sequence finishes it used to rest on just
+  // the last episode's outcome, so Reference ended on "Stuck. Delivered 0 kg."
+  // despite two completed 2,000 kg cycles, and the bounded policy runs ended
+  // on a bare wall collision with no statement of what the run as a whole
+  // showed. Summarise every recorded episode instead. Nothing is reordered or
+  // reclassified; failures stay failures.
+  const sequenceSummary = (() => {
+    const eps = bundle.episodes, delivered = eps.filter((e) => e.metrics.delivered_kg > 0);
+    const noun = isReference ? "recorded cycles" : eps[0]?.training_seed ? "recorded seeds" : "recorded checkpoints";
+    const head = `${eps.length} ${noun}`;
+    if (delivered.length) {
+      const kg = delivered.map((e) => `${e.metrics.delivered_kg.toFixed(0)} kg`).join(", ");
+      const short = eps.length - delivered.length;
+      return `${head} · ${delivered.length} delivered (${kg})${short ? ` · ${short} did not` : ""}.`;
+    }
+    const peaks = eps.map((e) => e.metrics.peak_load_kg).filter((v) => typeof v === "number" && v > 0);
+    return `${head} · no delivery completed in this bounded run.`
+      + (peaks.length > 1 ? ` Peak load ${Math.min(...peaks).toFixed(0)} → ${Math.max(...peaks).toFixed(0)} kg.` : "");
+  })();
   function paintHud(state, sampled, future) {
     const { episode, index } = state, frame = sampled.frame, counters = episode.policy?.training_counters || {completed_episodes:0,rollouts:0};
     // #366: the hero used to show only the live delivered mass, so mid-cycle it
@@ -104,9 +123,11 @@ export async function createRecorded(config, bundle) {
     const termNames = { elapsed_s: "time", effort_proxy_j: "effort", collision_count: "collision", delivered_kg: "delivery", spilled_kg: "spill", slip_s: "slip" };
     ui["reward-explanation"].textContent = weighted ? `${frame.reward.toFixed(4)} · ${termNames[weighted[0]]} ${weighted[1].toFixed(4)}` : "Episode ended";
     const outcome = { tunnel_wall: "Wall collision", time_limit: "Time limit", stuck: "Stuck", success: "Delivery complete" }[episode.outcome] || episode.outcome;
-    ui["checkpoint-outcome"].textContent = `${outcome}. Delivered ${episode.metrics.delivered_kg.toFixed(0)} kg.${episode.training_seed ? ` Peak load ${episode.metrics.peak_load_kg?.toFixed(0) || "0"} kg.` : ""}`;
+    const episodeOutcome = `${outcome}. Delivered ${episode.metrics.delivered_kg.toFixed(0)} kg.${episode.training_seed ? ` Peak load ${episode.metrics.peak_load_kg?.toFixed(0) || "0"} kg.` : ""}`;
+    const finishedSequence = state.complete && clock.sequence;
+    ui["checkpoint-outcome"].textContent = finishedSequence ? `${episodeOutcome} ${sequenceSummary}` : episodeOutcome;
     ui["payload-readout"].textContent = `Payload ${frame.state[7].toFixed(0)} / 3,500 kg`;
-    ui["training-status"].textContent = state.paused ? state.complete ? "Recorded episode ended" : "Recorded replay paused" : isReference ? "Recorded reference control" : "Recorded policy decisions";
+    ui["training-status"].textContent = state.paused ? state.complete ? finishedSequence ? "All recorded episodes shown" : "Recorded episode ended" : "Recorded replay paused" : isReference ? "Recorded reference control" : "Recorded policy decisions";
     ui["pause-training"].textContent = state.paused ? "Play" : "Pause";
     ui["recorded-time"].textContent = `Sim ${frame.t_s.toFixed(2)} s · ${state.holding ? "terminal hold" : `playback ${state.acceleration.toFixed(2)}×`}`;
     ui["replay-scrub"].max = episode.records.at(-1).t_s;ui["replay-scrub"].value = state.time;
@@ -203,9 +224,13 @@ export async function createRecorded(config, bundle) {
   const framing = (() => {
     const DIRECTION = new THREE.Vector3(21, 20.5, 28).normalize();  // old camera - old target
     const FOV = 42, HALF = Math.tan((FOV / 2) * Math.PI / 180);
-    // The instrument panel is 290px wide, inset 5.5vw from the right, so it
-    // covers NDC x > ~+0.51. Centre the task in what remains visible.
-    const PANEL_NDC = 0.507, FILL = 0.82;
+    // experience.js viewport() already calls setViewOffset with an x offset of
+    // innerWidth * 0.14 for the learning stage, which pans rendered content
+    // left by 0.28 NDC to clear the instrument panel. Do not shift the look
+    // target as well -- that double-corrects and pushes the work off to the
+    // left. Only the fit has to respect the remaining usable half-width.
+    const VIEW_SHIFT = 0.28, PANEL_NDC = 0.507;
+    const USABLE = Math.min(1 - VIEW_SHIFT, PANEL_NDC + VIEW_SHIFT), FILL = 0.88;
     const min = new THREE.Vector3(Infinity, 0, Infinity), max = new THREE.Vector3(-Infinity, 2.5, -Infinity);
     const include = (x, z) => { min.x = Math.min(min.x, x); max.x = Math.max(max.x, x); min.z = Math.min(min.z, z); max.z = Math.max(max.z, z); };
     include(rx - hx, ry - hy); include(rx + hx, ry + hy);               // receiver
@@ -215,15 +240,16 @@ export async function createRecorded(config, bundle) {
       for (const record of episode.records) include(record.state[0], -record.state[1]);
     const centre = new THREE.Vector3((min.x + max.x) / 2, 1, (min.z + max.z) / 2);
     const aspect = Math.max(1, innerWidth / Math.max(1, innerHeight));
-    // Fit the task's screen-space extent across the usable (unpanelled) width.
-    const usable = (1 + PANEL_NDC) / 2 * FILL;
+    // Fit the task's screen-space extent inside the usable half-width.
     const right = new THREE.Vector3(0, 1, 0).cross(DIRECTION).normalize();
     const spanRight = Math.abs((max.x - min.x) * right.x) + Math.abs((max.z - min.z) * right.z);
     const spanUp = Math.abs(max.x - min.x) * 0.35 + (max.y - min.y);
-    const distance = Math.max(spanRight / (2 * HALF * aspect * usable), spanUp / (2 * HALF * FILL), 14);
-    // Shift the look target along screen-right so the task sits left of the panel.
-    const target = centre.clone().addScaledVector(right, (1 - PANEL_NDC) / 2 * distance * HALF * aspect);
-    return { camera: target.clone().addScaledVector(DIRECTION, distance).toArray(), target: target.toArray() };
+    const distance = Math.max(
+      spanRight / (2 * HALF * aspect * USABLE * FILL),
+      spanUp / (2 * HALF * FILL),
+      14,
+    );
+    return { camera: centre.clone().addScaledVector(DIRECTION, distance).toArray(), target: centre.toArray() };
   })();
 
   return { root, sourceMode: "recorded_synthetic", camera: framing.camera, target: framing.target, mount, update,
