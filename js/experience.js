@@ -208,6 +208,7 @@ function start() {
   if (!data || stage !== "welcome") return;
   const fromPosition=globe.root.position.clone();cameraMove=null;
   $("welcome").classList.add("leaving");
+  $("start-experience").disabled=true;$("restart").tabIndex=0;
   setTimeout(()=>{if(stage!=="welcome")$("welcome").hidden=true;},reduced?0:650);
   $("selector").hidden=false;$("navigation").classList.add("started");
   setStage("select");

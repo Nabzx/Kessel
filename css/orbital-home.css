@@ -58,3 +58,4 @@ body[data-home-direction="instrument"] .home-signature { width:40vw; left:5vw; t
 body[data-home-direction="instrument"] .start-button { left:5vw; top:calc(43% + 137px); transform:none; }
 body:has(#experience[data-stage="select"]) .journey,
 body:has(#experience[data-stage="preparing"]) .journey { display:none; }
+.selector[aria-busy="true"] #environment-credit::before { content:"Loading scene · "; color:var(--amber); }
