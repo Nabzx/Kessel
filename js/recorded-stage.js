@@ -45,9 +45,9 @@ export async function createRecorded(config, bundle) {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(7.1, 1.9, 1.5), new THREE.MeshBasicMaterial({ color: colour, wireframe: true, transparent: true, opacity: 0.4, depthWrite: false }));root.add(mesh);return mesh;
   };
   const reference=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(7.1,1.9,1.5)),new THREE.LineDashedMaterial({color:0xe5e6d9,dashSize:.2,gapSize:.12,transparent:true,opacity:.7,depthTest:false}));reference.computeLineDistances();reference.renderOrder=3;root.add(reference);
-  const prediction = ghost(0x8fbdf0);
-  const residual = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0x8fbdf0, depthTest: false }));residual.renderOrder = 3;root.add(residual);
-  const spread = new THREE.Mesh(new THREE.RingGeometry(0.96, 1, 48), new THREE.MeshBasicMaterial({ color: 0x8fbdf0, transparent: true, opacity: 0.7, side: THREE.DoubleSide, depthTest: false }));spread.rotation.x = -Math.PI / 2;root.add(spread);
+  const prediction = ghost(0x4ee29b);
+  const residual = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: 0x4ee29b, depthTest: false }));residual.renderOrder = 3;root.add(residual);
+  const spread = new THREE.Mesh(new THREE.RingGeometry(0.96, 1, 48), new THREE.MeshBasicMaterial({ color: 0x4ee29b, transparent: true, opacity: 0.7, side: THREE.DoubleSide, depthTest: false }));spread.rotation.x = -Math.PI / 2;root.add(spread);
   const sensors = new THREE.InstancedMesh(new THREE.SphereGeometry(0.035, 6, 4), new THREE.MeshBasicMaterial({ color: 0xa6c2ca, transparent: true, opacity: 0.8 }), 25);root.add(sensors);
   const forecastPile = new THREE.InstancedMesh(new THREE.SphereGeometry(0.035, 6, 4), new THREE.MeshBasicMaterial({ color: 0xffffff, depthTest: false }), 64);forecastPile.renderOrder = 2;root.add(forecastPile);
   const key=lightRig(root,22,"mine");key.shadow.mapSize.set(2048,2048);key.shadow.camera.top=key.shadow.camera.right=18;key.shadow.camera.bottom=key.shadow.camera.left=-18;
@@ -79,7 +79,7 @@ export async function createRecorded(config, bundle) {
     spread.position.set(p[0], 0.04, -p[1]);spread.rotation.set(-Math.PI / 2, 0, 0.5 * Math.atan2(2 * xy, xx - yy));spread.scale.set(major, minor, 1);
     for (let k = 0; k < 64; k++) {
       pose.position.set(p[indices.pile_origin_x_m] + (Math.floor(k / 8) + 0.5) * 0.5, p[15 + k], -(p[indices.pile_origin_y_m] + (k % 8 + 0.5) * 0.5));pose.scale.setScalar(1);pose.updateMatrix();forecastPile.setMatrixAt(k, pose.matrix);
-      colour.set(0x708f94).lerp(new THREE.Color(0x8fbdf0), Math.min(1, Math.abs(p[15 + k] - ref[15 + k]) / 0.002));forecastPile.setColorAt(k, colour);
+      colour.set(0x708f94).lerp(new THREE.Color(0x4ee29b), Math.min(1, Math.abs(p[15 + k] - ref[15 + k]) / 0.002));forecastPile.setColorAt(k, colour);
     }
     forecastPile.instanceMatrix.needsUpdate = true;forecastPile.instanceColor.needsUpdate = true;
     return { ...future, spread_m: major };

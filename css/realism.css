@@ -18,7 +18,7 @@
 .navigation > span { font-size: 10px; letter-spacing: .035em; }
 .welcome-wordmark { filter: invert(1) drop-shadow(0 4px 24px #0008); }
 .start-button { border: 1px solid #e2e3cf44; background: var(--paper); color: var(--black); }
-.environment-card { border-left-color: #8fbdf070; }
+.environment-card { border-left-color: #4ee29b70; }
 .surface-panel { text-shadow: 0 2px 18px #0008; }
 .surface-panel > p:not(.section-label) { font-family: var(--mono); font-size: 10px; color: #d4d7c8; }
 .surface-panel .primary { text-shadow: none; }
@@ -55,7 +55,7 @@
 .journey li { display: flex; gap: 7px; align-items: center; }
 .journey li::before { content: ''; width: 3px; height: 3px; background: #637361; border-radius: 50%; }
 .journey [aria-current=step] { color: var(--paper); }
-.journey [aria-current=step]::before { background: var(--accent); box-shadow: 0 0 8px #8fbdf065; }
+.journey [aria-current=step]::before { background: var(--accent); box-shadow: 0 0 8px #4ee29b65; }
 .journey [data-complete]::before { background: #91ad91; }
 .learning-header { border-bottom: 1px solid var(--hud-line); background: #070b0cd9; padding-block: 16px; }
 .learning-panel { background: linear-gradient(90deg, #070b0cf5, #070b0cd9); border: 1px solid var(--hud-line); padding: 22px; }
@@ -64,7 +64,7 @@
 .prediction-inspector dd, .recorded-timeline { font-variant-numeric: tabular-nums; }
 .reward-chart { border-bottom: 1px solid #cbd3c22b; overflow: visible; }
 .chart-axis { stroke: #8d9b8d44; }
-.prediction-inspector { background: var(--hud-surface); border-color: var(--hud-line); border-top-color: #8fbdf080; }
+.prediction-inspector { background: var(--hud-surface); border-color: var(--hud-line); border-top-color: #4ee29b80; }
 .learning-footer { background: #070b0cee; border-top: 1px solid var(--hud-line); }
 .pipeline-node { border: 1px solid var(--hud-line); background: linear-gradient(145deg, #11191a, #070b0c); padding: 25px 20px; }
 .pipeline-index, .pipeline-node code { color: #c5b38f; font-variant-numeric: tabular-nums; }

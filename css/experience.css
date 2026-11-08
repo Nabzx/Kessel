@@ -23,7 +23,7 @@
   --black: #030506;
   --paper: #eeece5;
   --muted: #9b9f99;
-  --accent: #8fbdf0;
+  --accent: #4ee29b;
   --red: #e66f60;
   --green: #8fcaa5;
   --line: #ffffff20;
@@ -504,7 +504,7 @@ body.ready #world-canvas {
   top: 28%;
   transform: translateX(-50%);
   background: #030506e8;
-  border: 1px solid #8fbdf055;
+  border: 1px solid #4ee29b55;
   padding: 22px 30px;
   min-width: 350px;
   text-align: center;
@@ -525,7 +525,7 @@ body.ready #world-canvas {
 .transition-flow i {
   height: 1px;
   width: 45px;
-  background: #8fbdf065;
+  background: #4ee29b65;
   position: relative;
   overflow: hidden;
 }
@@ -897,7 +897,7 @@ body.ready #world-canvas {
   font-size: 9px;
 }
 .checkpoint-controls button.active {
-  border-color: #8fbdf088;
+  border-color: #4ee29b88;
   color: var(--accent);
 }
 .reward-chart {
