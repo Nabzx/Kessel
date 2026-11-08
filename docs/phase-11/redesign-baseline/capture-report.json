@@ -1,0 +1,2451 @@
+{
+  "date": "2026-11-08T02:38:18.394Z",
+  "browser": "156.0.8078.81",
+  "samples": [
+    {
+      "scenario": "retina",
+      "name": "hero",
+      "authoredAssets": [],
+      "preparationMs": {},
+      "stage": "welcome",
+      "camera": {
+        "position": [
+          0,
+          0,
+          17
+        ],
+        "fov": 34,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.019164761351716,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -1.6700735523207477,
+              3.1518587189036382,
+              0.21620675021854235
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              -0.850762636091008,
+              2.083009687549023,
+              2.1713131289028
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              0.20043336042241144,
+              1.4028993760572104,
+              2.4217179979610055
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              1.765798195433675,
+              2.686836033610399,
+              -1.0634424082220137
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": true,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "glacier",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 14,
+      "triangles": 77632,
+      "textures": 5,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 11097026,
+      "meanFps": 60.00200006666889,
+      "p99FrameMs": 16.800000000000182,
+      "p95FrameMs": 16.700000000000273,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "selector",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303
+      },
+      "stage": "select",
+      "camera": {
+        "position": [
+          0,
+          0,
+          12.8
+        ],
+        "fov": 34,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.06132776135172,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.2277535651696374,
+              1.748528912946603,
+              0.18080269674521887
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.5156829835568315,
+              0.6467832021371871,
+              2.1479346363932734
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.556629486915761,
+              -0.03777095912856793,
+              2.4273655487310912
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2551853970353806,
+              1.3039130543270074,
+              -0.9726337589688285
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": true,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 26,
+      "triangles": 78352,
+      "textures": 38,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 34328049,
+      "meanFps": 57.449253159708924,
+      "p99FrameMs": 50.099999999999454,
+      "p95FrameMs": 16.800000000000182,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "surface",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303
+      },
+      "stage": "surface",
+      "camera": {
+        "position": [
+          142,
+          118,
+          192
+        ],
+        "fov": 43,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": true,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 76,
+      "triangles": 147202,
+      "textures": 39,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 34233730,
+      "meanFps": 60.00200006666889,
+      "p99FrameMs": 16.80000000000109,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "mine",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372
+      },
+      "stage": "mine",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": true,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 162,
+      "triangles": 60754,
+      "textures": 41,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 41704646,
+      "meanFps": 60.00400026668446,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "mine-effects-off",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372
+      },
+      "stage": "mine",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": true,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 161,
+      "triangles": 60754,
+      "textures": 41,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 39137469,
+      "meanFps": 60.00400026668446,
+      "p99FrameMs": 16.799999999999272,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "mine-low-quality",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372
+      },
+      "stage": "mine",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": true,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 161,
+      "triangles": 60754,
+      "textures": 41,
+      "shadows": true,
+      "shadowUpdate": "static",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 41949361,
+      "meanFps": 59.99999999999999,
+      "p99FrameMs": 16.799999999999272,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "trained",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": true,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 163,
+      "triangles": 61954,
+      "textures": 41,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 34408817,
+      "meanFps": 59.99999999999999,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999995634,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "world-model",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372,
+        "learning-recorded_synthetic": 192.39999985694885,
+        "learning-authored": 191.89999985694885
+      },
+      "stage": "learning",
+      "camera": {
+        "position": [
+          25,
+          20,
+          28
+        ],
+        "fov": 42,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": {
+        "sourceMode": "authored"
+      },
+      "drawCalls": 45,
+      "triangles": 8990,
+      "textures": 49,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 49473170,
+      "meanFps": 60.00200006666886,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999995634,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "product",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb",
+        "assets/authored/retrofit-kit.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372,
+        "learning-recorded_synthetic": 192.39999985694885,
+        "learning-authored": 191.89999985694885
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 900,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 0,
+      "triangles": 0,
+      "textures": 49,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 64615784,
+      "meanFps": 60.00200006666886,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999995634,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "kit",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb",
+        "assets/authored/retrofit-kit.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372,
+        "learning-recorded_synthetic": 192.39999985694885,
+        "learning-authored": 191.89999985694885
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          8,
+          6,
+          10
+        ],
+        "fov": 51.51647112319704,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": true
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 1870,
+      "kitActive": true,
+      "learning": null,
+      "drawCalls": 23,
+      "triangles": 13790,
+      "textures": 51,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 39769185,
+      "meanFps": 60.00400026668439,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.700000000004366,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "retina",
+      "name": "kit-assembled",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb",
+        "assets/authored/retrofit-kit.glb"
+      ],
+      "preparationMs": {
+        "surface": 579.7999999523163,
+        "flight": 93.20000004768372,
+        "mine": 303,
+        "entrance": 75.20000004768372,
+        "learning-recorded_synthetic": 192.39999985694885,
+        "learning-authored": 191.89999985694885
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          8,
+          6,
+          10
+        ],
+        "fov": 50.07347028380453,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427520486159,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295898571915896,
+              1.7462720104262932,
+              0.1519312936456914
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881624450708,
+              0.6177919399614246,
+              2.1262323971419006
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806580874588176,
+              -0.0707097085100366,
+              2.4287775152936084
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.2844490584218997,
+              1.3166008344032585,
+              -0.8979192028816686
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": true
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 1870,
+      "kitActive": true,
+      "learning": null,
+      "drawCalls": 23,
+      "triangles": 13790,
+      "textures": 51,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1.5,
+      "heapUsedBytes": 39904801,
+      "meanFps": 60.00400026668439,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999995634,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "hero",
+      "authoredAssets": [],
+      "preparationMs": {},
+      "stage": "welcome",
+      "camera": {
+        "position": [
+          0,
+          0,
+          17
+        ],
+        "fov": 34,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -1.6829590192942274,
+              3.146271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              -1.0011842253661265,
+              2.0177917362395514,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              0.030657550726556182,
+              1.3292900587801597,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              1.834449256851792,
+              2.716600920436062,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": true,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "glacier",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 14,
+      "triangles": 77632,
+      "textures": 5,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 10198846,
+      "meanFps": 60.00400026668446,
+      "p99FrameMs": 16.800000000000182,
+      "p95FrameMs": 16.700000000000273,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "selector",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257
+      },
+      "stage": "select",
+      "camera": {
+        "position": [
+          0,
+          0,
+          12.8
+        ],
+        "fov": 34,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": true,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 26,
+      "triangles": 78352,
+      "textures": 38,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 44472014,
+      "meanFps": 56.548647544846226,
+      "p99FrameMs": 66.70000000000027,
+      "p95FrameMs": 16.800000000000182,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "surface",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257
+      },
+      "stage": "surface",
+      "camera": {
+        "position": [
+          142,
+          118,
+          192
+        ],
+        "fov": 43,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": true,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 76,
+      "triangles": 147202,
+      "textures": 39,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 47749107,
+      "meanFps": 60.00200006666889,
+      "p99FrameMs": 16.80000000000109,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "mine",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257,
+        "entrance": 101.09999990463257
+      },
+      "stage": "mine",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": true,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": false,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 162,
+      "triangles": 60754,
+      "textures": 41,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 36112703,
+      "meanFps": 60.00200006666889,
+      "p99FrameMs": 16.80000000000109,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "trained",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257,
+        "entrance": 101.09999990463257
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": true,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 163,
+      "triangles": 61954,
+      "textures": 41,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 40547852,
+      "meanFps": 60.00200006666886,
+      "p99FrameMs": 16.80000000000109,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "world-model",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257,
+        "entrance": 101.09999990463257,
+        "learning-recorded_synthetic": 185.70000004768372,
+        "learning-authored": 165.69999980926514
+      },
+      "stage": "learning",
+      "camera": {
+        "position": [
+          25,
+          20,
+          28
+        ],
+        "fov": 42,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 0,
+      "kitActive": false,
+      "learning": {
+        "sourceMode": "authored"
+      },
+      "drawCalls": 45,
+      "triangles": 8990,
+      "textures": 49,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 60283237,
+      "meanFps": 60.00200006666893,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "product",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb",
+        "assets/authored/retrofit-kit.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257,
+        "entrance": 101.09999990463257,
+        "learning-recorded_synthetic": 185.70000004768372,
+        "learning-authored": 165.69999980926514
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          100,
+          280,
+          150
+        ],
+        "fov": 40,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": false
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 800,
+      "kitActive": false,
+      "learning": null,
+      "drawCalls": 0,
+      "triangles": 0,
+      "textures": 49,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 42650646,
+      "meanFps": 60.00200006666893,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.700000000000728,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "kit",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb",
+        "assets/authored/retrofit-kit.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257,
+        "entrance": 101.09999990463257,
+        "learning-recorded_synthetic": 185.70000004768372,
+        "learning-authored": 165.69999980926514
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          8,
+          6,
+          10
+        ],
+        "fov": 46.42962567320841,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": true
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 1752,
+      "kitActive": true,
+      "learning": null,
+      "drawCalls": 23,
+      "triangles": 13790,
+      "textures": 51,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 40242742,
+      "meanFps": 60.00400026668439,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999999272,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    },
+    {
+      "scenario": "compact-reduced",
+      "name": "kit-assembled",
+      "authoredAssets": [
+        "assets/authored/portal-yard.glb",
+        "assets/authored/hauler-close.glb",
+        "assets/authored/hauler-overview.glb",
+        "assets/authored/geology.glb",
+        "assets/authored/excavator.glb",
+        "assets/authored/ore-pile.glb",
+        "assets/authored/reference-loader.glb",
+        "assets/authored/retrofit-kit.glb"
+      ],
+      "preparationMs": {
+        "surface": 522.6000001430511,
+        "flight": 89.5,
+        "mine": 302.09999990463257,
+        "entrance": 101.09999990463257,
+        "learning-recorded_synthetic": 185.70000004768372,
+        "learning-authored": 165.69999980926514
+      },
+      "stage": "trained",
+      "camera": {
+        "position": [
+          8,
+          6,
+          10
+        ],
+        "fov": 45.095446693912415,
+        "moving": false
+      },
+      "earthSettling": false,
+      "globe": {
+        "layers": {
+          "day": true,
+          "night": true,
+          "clouds": true,
+          "station": true
+        },
+        "earthRotation": -2.095427761351723,
+        "sunDirection": [
+          -0.5474330826576996,
+          0.37822649347259246,
+          0.7464996581695904
+        ],
+        "stationSpan": 0.4,
+        "pins": [
+          {
+            "id": "glacier",
+            "normal": [
+              0.22920651885063192,
+              0.9348256763960145,
+              0.27122928762784615
+            ],
+            "world": [
+              -0.23295901929422747,
+              1.746271995869226,
+              0.1519310890473809
+            ]
+          },
+          {
+            "id": "desert",
+            "normal": [
+              0.8960001765711199,
+              0.39714789063478056,
+              -0.19863845687294898
+            ],
+            "world": [
+              0.44881577463387345,
+              0.6177917362395516,
+              2.1262322350844345
+            ]
+          },
+          {
+            "id": "underground",
+            "normal": [
+              0.8650731924569884,
+              -0.031716039514780386,
+              -0.5006420522986169
+            ],
+            "world": [
+              1.4806575507265562,
+              -0.07070994121984014,
+              2.4287775152936786
+            ]
+          },
+          {
+            "id": "deep-sea",
+            "normal": [
+              -0.7747021798719258,
+              0.19680181724739437,
+              -0.6009206080921253
+            ],
+            "world": [
+              3.284449256851792,
+              1.3166009204360622,
+              -0.89791867134102
+            ]
+          }
+        ]
+      },
+      "presentation": "2026-11-07.6",
+      "scenes": {
+        "earth": false,
+        "surface": false,
+        "mine": false,
+        "kit": true
+      },
+      "environment": "underground",
+      "comparison": true,
+      "scrollY": 1752,
+      "kitActive": true,
+      "learning": null,
+      "drawCalls": 23,
+      "triangles": 13790,
+      "textures": 51,
+      "shadows": true,
+      "shadowUpdate": "dynamic",
+      "pixelRatio": 1,
+      "heapUsedBytes": 40168610,
+      "meanFps": 60.00200006666886,
+      "p99FrameMs": 16.80000000000291,
+      "p95FrameMs": 16.799999999995634,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+    }
+  ],
+  "checks": [
+    {
+      "scenario": "retina",
+      "closedShell": {
+        "triangles": 2048,
+        "budget": 12000
+      }
+    },
+    {
+      "scenario": "compact-reduced",
+      "closedShell": {
+        "triangles": 2048,
+        "budget": 12000
+      }
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "scope": "Visual presentation and authored journey. Recorded-demo behaviour deferred by maintainer."
+}
