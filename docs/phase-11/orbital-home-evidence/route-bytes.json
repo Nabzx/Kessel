@@ -1,0 +1,260 @@
+{
+  "scope": "Cold local main route through proposed kit; no optional recorded experiment; DevTools encoded response bytes including headers; cache disabled",
+  "bytes": 17193850,
+  "megabytes": 17.19385,
+  "requests": 63,
+  "rows": [
+    {
+      "url": "http://127.0.0.1:8080/css/recorded.css?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 7034
+    },
+    {
+      "url": "http://127.0.0.1:8080/css/experience.css?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 28478
+    },
+    {
+      "url": "http://127.0.0.1:8080/css/realism.css?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 5633
+    },
+    {
+      "url": "http://127.0.0.1:8080/css/home.css?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 3600
+    },
+    {
+      "url": "http://127.0.0.1:8080/css/hud.css?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 9461
+    },
+    {
+      "url": "http://127.0.0.1:8080/css/orbital-home.css?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 6011
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/brand/kessel-orbital.svg",
+      "encodedBytes": 829
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/fonts/space-grotesk-latin.woff2",
+      "encodedBytes": 22632
+    },
+    {
+      "url": "http://127.0.0.1:8080/",
+      "encodedBytes": 25043
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/experience.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 48517
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/environment-scenes.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 2681
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/globe-stage.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 12117
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/fonts/jetbrains-mono-latin.woff2",
+      "encodedBytes": 31652
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/scene-utils.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 4844
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/vendor/loaders/GLTFLoader.js",
+      "encodedBytes": 108840
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/vendor/utils/BufferGeometryUtils.js",
+      "encodedBytes": 32223
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/vendor/three.module.js",
+      "encodedBytes": 1273291
+    },
+    {
+      "url": "http://127.0.0.1:8080/data/experience.json",
+      "encodedBytes": 40580
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/earth-black-marble-2016.jpg",
+      "encodedBytes": 365968
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/earth-clouds.jpg",
+      "encodedBytes": 829680
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/earth-blue-marble-july.jpg",
+      "encodedBytes": 1618124
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/authored/observation-satellite.glb",
+      "encodedBytes": 2018873
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/models/iss/iss.glb",
+      "encodedBytes": 100436
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/authored/observation-satellite-overview.glb",
+      "encodedBytes": 790088
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/environments/deep-sea-scene.webp",
+      "encodedBytes": 339203
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/environments/glacier-scene.webp",
+      "encodedBytes": 254171
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/environments/underground-scene.webp",
+      "encodedBytes": 354761
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/environments/manifest.json",
+      "encodedBytes": 6432
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/environments/underground.webp",
+      "encodedBytes": 62356
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/surface-stage.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 18196
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/authored-assets.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 1215
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/vehicle.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 9661
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/geology.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 6526
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/vendor/RoundedBoxGeometry.js",
+      "encodedBytes": 4941
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/models/haul-truck.json",
+      "encodedBytes": 14054
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/rutongo/elevation-30m-4km.png",
+      "encodedBytes": 20915
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/rutongo/satellite-2026-08-14.webp",
+      "encodedBytes": 137507
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/materials/rock_face_03_rough.webp",
+      "encodedBytes": 143605
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/materials/rock_face_03_diff.webp",
+      "encodedBytes": 265207
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/materials/rock_face_03_nor_gl.webp",
+      "encodedBytes": 489809
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/textures/brown_mud_dry_nor_gl.jpg",
+      "encodedBytes": 172619
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/materials/rock_face_03_ao.webp",
+      "encodedBytes": 155397
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/textures/brown_mud_dry_diff.jpg",
+      "encodedBytes": 146847
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/textures/aerial_rocks_02_diff.jpg",
+      "encodedBytes": 119925
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/materials/aerial_grass_rock_rough.webp",
+      "encodedBytes": 145459
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/materials/aerial_grass_rock_diff.webp",
+      "encodedBytes": 262833
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/materials/aerial_grass_rock_nor_gl.webp",
+      "encodedBytes": 491407
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/authored/hauler-close.glb",
+      "encodedBytes": 1223285
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/authored/hauler-overview.glb",
+      "encodedBytes": 615684
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/mine-stage.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 11246
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/mine-services.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 5478
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/material-transfer.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 2136
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/loading-machine.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 3132
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/fleet.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 13891
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/underground.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 22224
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/textures/aerial_rocks_02_nor_gl.jpg",
+      "encodedBytes": 133311
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/models/haul-truck.json",
+      "encodedBytes": 14054
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/authored/excavator.glb",
+      "encodedBytes": 2096957
+    },
+    {
+      "url": "blob:http://127.0.0.1:8080/3c4de67b-d38e-4fb7-a6e6-8c3f71ea2202",
+      "encodedBytes": 0
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/authored/ore_ao.webp",
+      "encodedBytes": 90588
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/authored/ore_normal.webp",
+      "encodedBytes": 371813
+    },
+    {
+      "url": "http://127.0.0.1:8080/js/retrofit-stage.js?v=2026-11-08.1-local-52c3d59",
+      "encodedBytes": 7178
+    },
+    {
+      "url": "http://127.0.0.1:8080/assets/lighting/kit-studio.bin",
+      "encodedBytes": 1573192
+    }
+  ]
+}

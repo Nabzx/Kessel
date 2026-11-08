@@ -1,0 +1,8 @@
+{
+  "errors": [],
+  "checks": [
+    "Visible initial keyboard order",
+    "Keyboard Start during arrival",
+    "Study scene selection, transition comparison and play/pause"
+  ]
+}

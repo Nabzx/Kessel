@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { createGlobe } from "./globe-stage.js";
+import { createEnvironmentScenes } from "./environment-scenes.js";
 import { studioEnvironment } from "./scene-utils.js";
 
 const $ = (id) => document.getElementById(id);
@@ -9,6 +10,7 @@ let renderer;
 try {
   renderer = new THREE.WebGLRenderer({
     canvas,
+    alpha: true,
     antialias: true,
     powerPreference: "high-performance",
   });
@@ -33,7 +35,8 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 0, 17);
 camera.lookAt(0, 0, 0);
 const lookTarget = new THREE.Vector3();
-let data, globe, surface, mine, learning, kit;
+let data, globe, surface, mine, learning, kit, environmentScenes;
+let homeHandoff=null, selectorRect=null;
 let stage = "welcome",
   comparison = false,
   environment = 0,
@@ -72,6 +75,8 @@ function duration(seconds) {
 function setStage(next) {
   stage = next;
   $("experience").dataset.stage = next;
+  environmentScenes?.visible(["select","preparing"].includes(next));
+  if(next === "select") { scene.background=null;globe?.mode("select"); }
   if(!renderer.shadowMap.autoUpdate)renderer.shadowMap.needsUpdate=true;
   frameTimes = [];
   const ordered=["select","surface","mine","trained","learning"];
@@ -106,6 +111,7 @@ function updateCamera(now) {
   if (p === 1) cameraMove = null;
 }
 function viewport(mode = stage) {
+  camera.aspect=innerWidth/innerHeight;
   camera.clearViewOffset();
   if (
     innerWidth > 700 &&
@@ -174,12 +180,12 @@ function chooseEnvironment(index) {
   $("environment-name").textContent = item.label;
   $("environment-description").textContent = item.description;
   $("environment-place").textContent = item.place;
-  const preview=$("environment-image");
-  preview.hidden=false; $("environment-icon").hidden=true;
-  preview.alt=item.preview.alt;
-  preview.src=item.preview.path;
+  $("environment-image").alt=item.preview.alt;
+  $("environment-image").src=item.preview.path;
   $("environment-credit").textContent=item.preview.caption;
-  preview.onerror=()=>{preview.hidden=true;$("environment-icon").hidden=false;$("environment-credit").textContent="Preview unavailable";};
+  environmentScenes.select(item);
+  environmentScenes.warm(environment);
+  $("orbit-location").textContent=item.id === "space" ? "Lunar surface · preview" : `${Math.abs(item.latitude).toFixed(2)}° ${item.latitude<0?"S":"N"} / ${Math.abs(item.longitude).toFixed(2)}° ${item.longitude<0?"W":"E"}`;
   $("environment-status").textContent = item.available
     ? "Available"
     : "Planned";
@@ -192,7 +198,7 @@ function chooseEnvironment(index) {
   $("globe-label-name").textContent = item.place;
   globe.highlight(item.id);
   globe.sun.color.set(data.visuals.home.sun_colour);
-  const target = -THREE.MathUtils.degToRad(item.longitude + 90);
+  const target = item.id === "space" ? globe.earth.rotation.y : -THREE.MathUtils.degToRad(item.longitude + 90);
   earthGoal =
     target +
     Math.round((globe.earth.rotation.y - target) / (Math.PI * 2)) * Math.PI * 2;
@@ -200,26 +206,23 @@ function chooseEnvironment(index) {
 }
 function start() {
   if (!data || stage !== "welcome") return;
+  const fromPosition=globe.root.position.clone();cameraMove=null;
   $("welcome").classList.add("leaving");
-  setTimeout(() => {
-    $("welcome").hidden = true;
-  }, 650);
-  $("selector").hidden = false;
-  $("navigation").classList.add("started");
+  $("start-experience").disabled=true;$("restart").tabIndex=0;
+  setTimeout(()=>{if(stage!=="welcome")$("welcome").hidden=true;},reduced?0:650);
+  $("selector").hidden=false;$("navigation").classList.add("started");
   setStage("select");
-  cameraTo([0, 0, 12.8], [0, 0, 0], data.timing.start_seconds, 34);
-  globe.root.position.set(1.45, 0, 0);
+  if(!reduced){homeHandoff={start:performance.now(),fromPosition,duration:900};globe.root.position.copy(fromPosition);}
+  cameraTo([0,0,12.8],[0,0,0],reduced?.01:.9,34);
   chooseEnvironment(0);
+  $("deploy-underground").focus({preventScroll:true});
   setTimeout(()=>{
     if(stage!=="select")return;
-    const warm=()=>{
-      if(stage!=="select")return;
-      for(const item of data.environments){const image=new Image();image.decoding="async";image.src=item.preview.path;}
-      getSurface().then(()=>getMine()).catch(()=>{});
-    };
-    if("requestIdleCallback" in window)requestIdleCallback(warm,{timeout:1000});else warm();
+    const warm=()=>{if(stage==="select")getSurface().then(()=>getMine()).catch(()=>{});};
+    if("requestIdleCallback" in window)requestIdleCallback(warm,{timeout:1200});else warm();
   },reduced?100:data.visuals.home.prefetch_delay_seconds*1000);
 }
+
 const preparationMs={};
 async function prepareTransition(root,name) {
   const started=performance.now(),parent=root.parent,materials=new Map();
@@ -355,65 +358,22 @@ function errorStatus(message) {
   $("flight-label").textContent = message;
 }
 async function beginFlight() {
-  if (stage !== "select" || !data.environments[environment].available) return;
-  setStage("preparing");
-  showOnly(null);
-  $("globe-label").hidden = true;
-  errorStatus("Preparing Rwanda");
-  try {
-    await getSurface();
-  } catch {
-    setStage("select");
-    showOnly("selector");
-    errorStatus("Terrain unavailable. Please try again.");
-    return;
+  if(stage!=="select" || !data.environments[environment].available)return;
+  setStage("preparing");homeHandoff=null;cameraMove=null;
+  showOnly(null);$("globe-label").hidden=true;errorStatus("Preparing Rwanda");
+  const curtain=$("scene-curtain");curtain.classList.add("covered");
+  try{
+    await Promise.all([getSurface(),new Promise(resolve=>setTimeout(resolve,reduced?0:460))]);
+    if(stage!=="preparing")return;
+    arrive();
+    requestAnimationFrame(()=>requestAnimationFrame(()=>curtain.classList.remove("covered")));
+  }catch(error){
+    setStage("select");showOnly("selector");globe.visible(true);curtain.classList.remove("covered");
+    errorStatus("Terrain unavailable. Please try again.");$("deploy-underground").focus({preventScroll:true});
+    console.warn("Surface preparation failed",error.message);
   }
-  getMine().catch(() => {});
-  const location = data.location;
-  const angle = -THREE.MathUtils.degToRad(location.longitude + 90);
-  const earthAngle =
-    angle +
-    Math.round((globe.earth.rotation.y - angle) / (2 * Math.PI)) * 2 * Math.PI;
-  const mountNormal = globe
-    .normal(location.latitude, location.longitude)
-    .applyAxisAngle(new THREE.Vector3(0, 1, 0), earthAngle)
-    .applyQuaternion(globe.root.quaternion)
-    .normalize();
-  const mountPosition = mountNormal
-    .clone()
-    .multiplyScalar(2.4)
-    .add(globe.root.position);
-  const mountRotation = new THREE.Quaternion().setFromUnitVectors(
-    new THREE.Vector3(0, 1, 0),
-    mountNormal,
-  );
-  const far = new THREE.Vector3(0, 9000, 16000),
-    scale = 0.00009;
-  const mountCamera = far
-    .clone()
-    .multiplyScalar(scale)
-    .applyQuaternion(mountRotation)
-    .add(mountPosition);
-  transition = {
-    type: "flight",
-    start: performance.now(),
-    duration: duration(data.timing.flight_seconds) * 1000,
-    fromPosition: camera.position.clone(),
-    fromTarget: lookTarget.clone(),
-    earthFrom: globe.earth.rotation.y,
-    earthAngle,
-    mountPosition,
-    mountRotation,
-    mountCamera,
-    far,
-    scale,
-  };
-  setStage("flight");
-  $("skip-transition").hidden = false;
-  errorStatus("Africa / Rwanda");
-  camera.far = 40000;
-  camera.updateProjectionMatrix();
 }
+
 function arrive() {
   transition = null;
   cameraMove = null;
@@ -428,10 +388,10 @@ function arrive() {
   camera.fov = 43;
   camera.near = 0.5;
   camera.far = 9000;
-  camera.clearViewOffset();
+  viewport("surface");
   camera.updateProjectionMatrix();
   camera.lookAt(lookTarget);
-  scene.background.set("#778c8c");
+  scene.background=new THREE.Color("#778c8c");
   scene.fog = new THREE.Fog("#778c8c", 420, 1800);
   setStage("surface");
   showOnly("surface-panel");
@@ -904,52 +864,50 @@ function resize() {
   renderer.setPixelRatio(quality);
   camera.aspect = innerWidth / innerHeight;
   viewport();
-  if (stage === "welcome") {
-    camera.position.set(0, 0, innerWidth < 700 ? 19 : 17);
-    camera.lookAt(0, 0, 0);
+  if(stage === "welcome") {
+    cameraMove=null;camera.position.fromArray(data?.visuals.home.camera || [0,0,12.8]);lookTarget.set(0,0,0);camera.lookAt(lookTarget);
   }
-  if (stage === "select") {
-    camera.position.set(0, 0, innerWidth < 700 ? 16 : 12.8);
-    globe?.root.position.set(
-      innerWidth < 700 ? 0 : 1.45,
-      innerWidth < 700 ? 1 : 0,
-      0,
-    );
-    camera.lookAt(0, 0, 0);
+  if(stage === "select") {
+    homeHandoff=null;cameraMove=null;globe?.mode("select");camera.position.set(0,0,12.8);lookTarget.set(0,0,0);camera.lookAt(lookTarget);
   }
   updateProduct();
 }
-function pinLabel() {
-  if (stage !== "select") {
-    $("globe-label").hidden = true;
-    return;
-  }
-  const item = data.environments[environment],
-    point = globe.position(item.id);
-  if (!point) return;
-  const normal = point.clone().sub(globe.root.position);
-  const visible =
-    item.id === "space" || normal.dot(camera.position.clone().sub(point)) > 0;
-  const p = point.project(camera);
-  $("globe-label").hidden = !visible || p.z > 1 || Math.abs(p.x) > .96 || Math.abs(p.y) > .84 || p.z < -1;
-  $("globe-label").style.left = `${(p.x * 0.5 + 0.5) * innerWidth}px`;
-  $("globe-label").style.top = `${(-p.y * 0.5 + 0.5) * innerHeight}px`;
-  if(!$("globe-label").hidden){
-    const label=$("globe-label").getBoundingClientRect(),panel=$("selector").getBoundingClientRect();
-    const overlaps=label.left<panel.right+18&&label.right>panel.left-18&&label.top<panel.bottom+18&&label.bottom>panel.top-18;
-    if(overlaps||label.right>innerWidth-24||label.left<24||label.top<80||label.bottom>innerHeight-80)$("globe-label").hidden=true;
-  }
+function pinLabel() { $("globe-label").hidden=true; }
+function drawScene(now) {
+  renderer.setScissorTest(false);renderer.setViewport(0,0,innerWidth,innerHeight);
+  if(["select","preparing"].includes(stage)) {
+    scene.background=null;renderer.setClearColor(0x000000,0);renderer.clear();
+    const frame=$("orbit-panel").querySelector(".orbit-frame").getBoundingClientRect();
+    if(frame.width>0)selectorRect={left:frame.left,top:frame.top,width:frame.width,height:frame.height};
+    let rect=selectorRect || {left:innerWidth-320,top:innerHeight*.3,width:260,height:260};
+    if(homeHandoff){
+      const t=Math.min(1,(now-homeHandoff.start)/homeHandoff.duration),q=t*t*(3-2*t);
+      rect={left:rect.left*q,top:rect.top*q,width:THREE.MathUtils.lerp(innerWidth,rect.width,q),height:THREE.MathUtils.lerp(innerHeight,rect.height,q)};
+      globe.root.position.copy(homeHandoff.fromPosition).multiplyScalar(1-q);
+      if(t===1)homeHandoff=null;
+    }
+    const y=innerHeight-rect.top-rect.height;
+    camera.aspect=rect.width/rect.height;camera.clearViewOffset();camera.updateProjectionMatrix();camera.lookAt(lookTarget);
+    renderer.setViewport(rect.left,y,rect.width,rect.height);renderer.setScissor(rect.left,y,rect.width,rect.height);renderer.setScissorTest(true);
+    globe.lod?.(camera);renderer.render(scene,camera);renderer.setScissorTest(false);renderer.setViewport(0,0,innerWidth,innerHeight);
+  }else{renderer.setClearColor(0x030506,1);globe?.lod?.(camera);renderer.render(scene,camera);}
 }
+
 async function init() {
   try {
     const response = await fetch("data/experience.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Experience data unavailable");
     data = await response.json();
+    const study=new URLSearchParams(location.search).get("home-study");
+    if(study === "instrument"){document.body.dataset.homeDirection="instrument";data.visuals.home.earth_x=2.05;document.querySelector(".welcome-wordmark").src="assets/brand/kessel-instrument.svg";}
     globe = createGlobe(scene, data);
+    environmentScenes=createEnvironmentScenes(data);
     globe.earth.rotation.y = -THREE.MathUtils.degToRad(
       data.location.longitude + 90,
     );
     await globe.load();
+    environmentScenes.warm(0);
+    await renderer.compileAsync(scene,camera);
     const images=await fetch("assets/environments/manifest.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Environment references unavailable");return r.json();});
     for(const image of images.images){
       const li=document.createElement("li"),link=document.createElement("a");
@@ -961,7 +919,7 @@ async function init() {
         concept.description;
     document.body.classList.add("ready");
     $("start-experience").disabled = false;
-    $("start-experience").textContent = "Start experience";
+    $("start-experience").textContent = "Enter experience ↗";
     const points = [];
     for (let i = 0; i < 90; i++) {
       const t = i / 89,
@@ -1019,11 +977,6 @@ function render(now) {
   }
   if (globe && ["welcome", "select", "flight", "preparing"].includes(stage)) {
     if (stage === "select") {
-      const item = data.environments[environment];
-      scene.background.lerp(
-        new THREE.Color(item.background),
-        1 - Math.exp(-delta * 2),
-      );
       if (earthGoal !== null) {
         globe.earth.rotation.y = THREE.MathUtils.damp(globe.earth.rotation.y,earthGoal,3,delta);
         if(Math.abs(globe.earth.rotation.y-earthGoal)<.002){globe.earth.rotation.y=earthGoal;earthGoal=null;}
@@ -1042,7 +995,7 @@ function render(now) {
     updateLearning(learning.sourceMode !== "authored" ? ms / 1000 : delta);
   if (kitActive && kit) kit.update(delta);
   pinLabel();
-  renderer.render(scene, camera);
+  drawScene(now);
 }
 for (const name of ["policy", "forecast"]) {
   const button = $(name + "-tab");
@@ -1119,7 +1072,7 @@ $("scroll-product").addEventListener("click", () =>
 for (const id of ["restart", "replay-experience"])
   $(id).addEventListener("click", () => location.reload());
 for (const id of ["sources-open", "caption-sources"])
-  $(id).addEventListener("click", () => $("sources-dialog").showModal());
+  $(id)?.addEventListener("click", () => $("sources-dialog").showModal());
 $("sources-close").addEventListener("click", () => $("sources-dialog").close());
 document.addEventListener("keydown", (event) => {
   if ($("sources-dialog").open) return;
@@ -1148,6 +1101,9 @@ export function diagnostics() {
     camera: {position:camera.position.toArray(),fov:camera.fov,moving:cameraMove!==null},
     earthSettling:earthGoal!==null,
     globe: globe?.diagnostics?.() ?? null,
+    environmentBackground:environmentScenes?.diagnostics() || null,
+    homeHandoff:homeHandoff!==null,
+    selectorViewport:selectorRect,
     presentation: document.querySelector('meta[name="kessel-presentation"]')?.content || "unversioned",
     scenes: {earth:globe?.root.visible ?? false,surface:surface?.root.visible ?? false,mine:mine?.root.visible ?? false,kit:kit?.root.visible ?? false},
     environment: data?.environments[environment].id,

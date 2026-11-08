@@ -29,6 +29,7 @@ def verify():
             assert len(data.get('nodes',[]))<=80 and len(path.read_bytes())<3_000_000
             counts[path.stem]=triangles
     assert counts['hauler-overview']<counts['hauler-close']
+    assert counts['observation-satellite-overview']<counts['observation-satellite']
     loader,_=glb(ROOT/'assets/authored/reference-loader.glb')
     names={n.get('name') for n in loader['nodes']}
     assert {'ReferenceLoader','FrontJoint','Boom','Bucket','Wheel_0','Wheel_3'}<=names
@@ -39,5 +40,5 @@ def verify():
     assert {'KesselNode_6','KesselNode_10','KesselNode_5'}<={n.get('name') for n in machine['nodes']}
     for script in manifest['scripts']:
         assert hashlib.sha256((ROOT/script['path']).read_bytes()).hexdigest()==script['sha256']
-    print('PASS: eight bounded GLBs, baked detail, source hashes, licensed rig, pivots and distinct hauler LODs')
+    print('PASS: bounded GLBs, baked detail, source hashes, licensed rig, pivots and distinct hauler LODs')
 if __name__=='__main__':verify()

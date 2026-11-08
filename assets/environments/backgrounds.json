@@ -1,0 +1,147 @@
+{
+  "schema": "immersive-backgrounds-v1",
+  "date": "2026-11-08",
+  "images": [
+    {
+      "id": "glacier",
+      "page": "https://science.nasa.gov/photojournal/retreat-of-greenlands-jakobshavn-isbrae-glacier/",
+      "credit": "NASA/USGS",
+      "subject": "Jakobshavn Isbrae, Greenland; Landsat 8, 2022",
+      "notice": "NASA/USGS government imagery; individual record credits NASA/USGS. NASA media guidance applies; no endorsement.",
+      "representative": true,
+      "source_url": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia26/pia26117/PIA26117.jpg",
+      "source_sha256": "339dca8a35f0ba6d34590c2b49e90839c0b00ce8868661f75fef2530a8e465a0",
+      "source_bytes": 231537,
+      "source_dimensions": [
+        1440,
+        960
+      ],
+      "path": "assets/environments/glacier-scene.webp",
+      "dimensions": [
+        1440,
+        810
+      ],
+      "bytes": 253858,
+      "sha256": "ec98084d48677a832f7bd65ad7c786e353e3ea4585a232f313b252e0234f65cb",
+      "colour_space": "srgb",
+      "operation": "EXIF orientation; 16:9 crop at declared focal point; Lanczos downsample; WebP quality 88; no synthesis or upscaling",
+      "focal": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "desert",
+      "page": "https://science.nasa.gov/earth/earth-observatory/dunes-of-the-grand-erg-oriental-87798/",
+      "credit": "Earth Science and Remote Sensing Unit, NASA Johnson Space Center",
+      "subject": "Grand Erg Oriental, Algeria; ISS046-E-48626",
+      "notice": "NASA astronaut photography. Individual record credits NASA/JSC; acknowledge the Earth Science and Remote Sensing Unit. No endorsement.",
+      "representative": true,
+      "source_url": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/87000/87798/iss046e048626_lrg.jpg",
+      "source_sha256": "17f920c03fce9c5346a7d67a5a5913470a6ee48b8d663711d3c284cb8a71cc65",
+      "source_bytes": 4070991,
+      "source_dimensions": [
+        4928,
+        3280
+      ],
+      "path": "assets/environments/desert-scene.webp",
+      "dimensions": [
+        2048,
+        1152
+      ],
+      "bytes": 343592,
+      "sha256": "a21c3eed89ea41b58359fbec212d01d1bec01005381bad9595625ecc8d5086bf",
+      "colour_space": "srgb",
+      "operation": "EXIF orientation; 16:9 crop at declared focal point; Lanczos downsample; WebP quality 88; no synthesis or upscaling",
+      "focal": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "space",
+      "page": "https://science.nasa.gov/resource/apollo-8s-iconic-earthrise/",
+      "credit": "NASA/Bill Anders",
+      "subject": "Apollo 8 Earthrise; 24 December 1968",
+      "notice": "NASA astronaut photograph; individual record credits NASA/Bill Anders. NASA media guidance applies; no endorsement.",
+      "representative": true,
+      "source_url": "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/09/a/as08-14-2383.jpg",
+      "source_sha256": "4b1484e9bb55652e30a56c03c27141938885a09e4b3c0bcabb8841e1e94ed9d9",
+      "source_bytes": 494374,
+      "source_dimensions": [
+        3000,
+        3000
+      ],
+      "path": "assets/environments/space-scene.webp",
+      "dimensions": [
+        2048,
+        1152
+      ],
+      "bytes": 67298,
+      "sha256": "09b5dfc387177901ff7e0d5429a58eaf727566c5566a950a0aee4a8372fc4881",
+      "colour_space": "srgb",
+      "operation": "EXIF orientation; 16:9 crop at declared focal point; Lanczos downsample; WebP quality 88; no synthesis or upscaling",
+      "focal": [
+        0.5,
+        0.8
+      ]
+    },
+    {
+      "id": "deep-sea",
+      "page": "https://oceanexplorer.noaa.gov/multimedia/explorations-ex2405-ex2406-learning-at-sea-1605activevent/",
+      "credit": "NOAA Ocean Exploration, 2016 Deepwater Exploration of the Marianas",
+      "subject": "Active hydrothermal vent, Marianas",
+      "notice": "NOAA public-domain media, no copyright exception on this individual record. Retain the specified credit. No endorsement.",
+      "representative": true,
+      "source_url": "https://oceanexplorer.noaa.gov/wp-content/uploads/2024/10/1605activevent-hires.jpg",
+      "source_sha256": "6e45781eb563e1410f1e7c4c36a0c1ccbe37ea044a535e4ce756686a522f556a",
+      "source_bytes": 1110794,
+      "source_dimensions": [
+        1920,
+        1080
+      ],
+      "path": "assets/environments/deep-sea-scene.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 338890,
+      "sha256": "7e7a3d96765274fce34bf4a9abc0678cef83367ed6dfc578731fa681f73a2379",
+      "colour_space": "srgb",
+      "operation": "EXIF orientation; 16:9 crop at declared focal point; Lanczos downsample; WebP quality 88; no synthesis or upscaling",
+      "focal": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "underground",
+      "page": "https://wwwn.cdc.gov/phil/Details.aspx?pid=19314",
+      "credit": "CDC/NIOSH; Chad Hutson, 2013; PHIL 19314",
+      "subject": "NIOSH research coal mine, Pennsylvania, United States; not Rutongo",
+      "notice": "The individual PHIL record identifies public-domain use with CDC/photographer attribution and CDC as the free source. No deployment or endorsement is implied.",
+      "representative": true,
+      "source_url": "https://wwwn.cdc.gov/phil/Details.aspx?pid=19314#hlHighResDownload",
+      "source_sha256": "c78808a4ebdfb19b9c11ddaa95f6cb3652b6cc9f678e99faf3c3c61743a2d7d0",
+      "source_bytes": 2851276,
+      "source_dimensions": [
+        3200,
+        4800
+      ],
+      "path": "assets/environments/underground-scene.webp",
+      "dimensions": [
+        2048,
+        1152
+      ],
+      "bytes": 354448,
+      "sha256": "645dabf6aad87322503d2679bfe8ebbcc665864a769ab6cc98e42587e23d90dc",
+      "colour_space": "srgb",
+      "operation": "EXIF orientation; 16:9 crop at declared focal point; Lanczos downsample; WebP quality 88; no synthesis or upscaling",
+      "focal": [
+        0.5,
+        0.34
+      ]
+    }
+  ],
+  "total_bytes": 1358086
+}

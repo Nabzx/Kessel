@@ -30,7 +30,7 @@ fs.mkdirSync(out, { recursive: true });
     async function mine(p) {
       await p.goto(base);await p.locator("body.ready").waitFor();await p.click("#start-experience");
       await p.waitForFunction(() => document.querySelector("#experience").dataset.stage === "select");
-      for (let i = 0; i < 3; i++) await p.click("#environment-next");
+
       await p.click("#deploy-underground");await p.waitForFunction(() => document.querySelector("#experience").dataset.stage === "surface", null, { timeout: 60000 });
       await p.click("#enter-mine");await p.waitForFunction(() => document.querySelector("#experience").dataset.stage === "mine");
       await p.click("#compare-trained");await p.waitForFunction(() => document.querySelector("#experience").dataset.stage === "trained");

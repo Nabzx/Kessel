@@ -52,6 +52,28 @@
       "nodes": 12
     },
     {
+      "path": "assets/authored/observation-satellite-overview.glb",
+      "bytes": 789768,
+      "sha256": "a4238a14b7084d480e9e02755c6ce65220b85665d66c8bbfc6bfabb366d63aa8",
+      "source": "tools/blender/source/observation-satellite-overview.blend",
+      "source_sha256": "565bee5c946f3e6970f8bbdaf296e9a894f75ed67d3c097d1562d8240328549a",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; normalised to an illustrative orbital presentation scale in the browser",
+      "triangles": 11219,
+      "nodes": 8
+    },
+    {
+      "path": "assets/authored/observation-satellite.glb",
+      "bytes": 2018552,
+      "sha256": "e0b91529768752dd04d777648174a83b0cb28a260a79f6a453498796e0a34119",
+      "source": "tools/blender/source/observation-satellite.blend",
+      "source_sha256": "f81aa2dbd0f6c9d1080ad2af9a87d5281be6edaff98ac5c36f9abd312f49341f",
+      "licence": "Original Kessel; repository LICENSE",
+      "units": "metres; normalised to an illustrative orbital presentation scale in the browser",
+      "triangles": 29532,
+      "nodes": 8
+    },
+    {
       "path": "assets/authored/ore-pile.glb",
       "bytes": 572568,
       "sha256": "ab52506d172d408bc11d31085a0612266d1ebae7446a1648b615054d9b5f5046",
@@ -141,11 +163,19 @@
     },
     {
       "path": "tools/blender/manifest.py",
-      "sha256": "b6da370737307609c234f59e64ed24afad4add430da6a926f1379d40cd8d3bcc"
+      "sha256": "56f1e3010059d71f5458bdc767473311aa3e6e48a58ca151af26f019ff0d4409"
     },
     {
       "path": "tools/blender/material-library.py",
       "sha256": "b18e4b47fce18f41096c54346f050a48c753db439785f13fc0f41eaddc22442b"
+    },
+    {
+      "path": "tools/blender/orbital-overview.py",
+      "sha256": "ade706e70ed814450aaf8c55d298c60d5ed56b1326535af56d6aaee69fed56cf"
+    },
+    {
+      "path": "tools/blender/orbital.py",
+      "sha256": "dbadd18c88befa090d23075294ecd3c3dbb24f7fee8e7c5631c2bfad6057e946"
     },
     {
       "path": "tools/blender/rigs.py",

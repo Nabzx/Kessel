@@ -16,6 +16,7 @@ def prepare():
              'source':str(source.relative_to(ROOT)),'source_sha256':digest(source),
              'licence':'CC-BY-4.0; mohamed.salaah880; non-destructive rig round trip' if path.stem=='excavator' else 'Original Kessel; repository LICENSE',
              'units':'Original asset units; browser normalises horizontal length to 7 m' if path.stem=='excavator' else 'metres; proposed kit displayed at 10x presentation scale'}
+        if path.stem.startswith('observation-satellite'):row['units']='metres; normalised to an illustrative orbital presentation scale in the browser'
         if path.suffix=='.glb':
             blob=path.read_bytes();size=struct.unpack_from('<I',blob,12)[0];data=json.loads(blob[20:20+size])
             row['triangles']=sum(data['accessors'][p['indices']]['count']//3 for m in data.get('meshes',[]) for p in m['primitives']);row['nodes']=len(data['nodes'])

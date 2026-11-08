@@ -38,11 +38,12 @@ The default site ships a **concept visualisation**. Phase 11 may add isolated
 synthetic training tools and validated recorded experiment bundles under
 ADR-0031. A recorded synthetic result does not validate a machine deployment
 or turn authored operating figures into measured savings.
-The permanent on-screen caption and the "illustrative"
-labelling on HUD values (`index.html`, `js/app.js`) are load-bearing, not
-decoration. A change that would make scripted data read as live inference —
-removing the caption, dropping the "illustrative" label, renaming the scripted
-rollout to imply it is real — needs an ADR, not a drive-by edit.
+ADR-0051 withdraws the permanent global concept footer at the maintainer's
+request. Short contextual source labels, illustrative operating figures, recorded
+run identities, proposed-hardware wording and reachable asset credits remain
+required. Renaming scripted output as live inference or a conventional reference
+as a successful learned policy needs an ADR; removing the global footer does not
+remove those source distinctions.
 
 ### The front end is data-only
 
