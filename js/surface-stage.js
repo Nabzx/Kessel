@@ -292,10 +292,16 @@ export async function createSurface(config) {
     if (Math.abs(x) < 110 && Math.abs(z) < 130) x += x < 0 ? -140 : 140;
     const y = elevation(x, z),
       scale = 2 + rand() * 3;
-    pose.position.set(x, y + 2, z);
-    pose.scale.set(1, 1, 1);
+    // The trunk used to be left at scale 1 whatever the canopy did, so a
+    // five-metre crown sat on a one-metre stem and the tree read as a blob
+    // floating above a stick. Scale it with the crown, with a little
+    // independent slenderness so the stand is not uniform.
+    pose.position.set(x, y + scale * 0.9, z);
+    pose.scale.set(scale * (0.3 + rand() * 0.12), scale * 0.62, scale * (0.3 + rand() * 0.12));
+    pose.rotation.set(0, rand() * Math.PI, 0);
     pose.updateMatrix();
     trunk.setMatrixAt(i, pose.matrix);
+    pose.rotation.set(0, 0, 0);
     for (let lobe = 0; lobe < 3; lobe++) {
       pose.position.set(
         x + (lobe - 1) * scale * 0.55,
@@ -308,10 +314,13 @@ export async function createSurface(config) {
       canopy.setMatrixAt(i * 3 + lobe, pose.matrix);
       canopy.setColorAt(
         i * 3 + lobe,
+        // Lightness used to top out at 0.32, which rendered sunlit hillside
+        // foliage as near-black silhouettes. Opened up and given a wider hue
+        // and saturation spread so the stand reads as varied species.
         new THREE.Color().setHSL(
-          0.21 + rand() * 0.08,
-          0.2 + rand() * 0.15,
-          0.22 + rand() * 0.1,
+          0.19 + rand() * 0.13,
+          0.26 + rand() * 0.22,
+          0.3 + rand() * 0.2,
         ),
       );
     }

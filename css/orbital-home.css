@@ -112,3 +112,15 @@ body[data-home-direction="instrument"] .home-signature { text-align:left; }
 body:has(#experience[data-stage="select"]) .journey,
 body:has(#experience[data-stage="preparing"]) .journey { display:none; }
 .selector[aria-busy="true"] #environment-credit::before { content:"Loading scene · "; color:var(--accent); }
+
+/* #393: the surface copy sat over open terrain with no treatment, so
+   legibility depended on whatever happened to be behind it. A soft
+   directional scrim anchors the block without introducing a panel. */
+.surface-panel { z-index:3; }
+.surface-panel::before {
+  content:""; position:absolute; inset:-9% -24% -14% -46%; z-index:-1; pointer-events:none;
+  background:radial-gradient(120% 90% at 22% 50%, #04070999 0%, #0407096b 42%, transparent 78%);
+}
+.surface-panel h1 { text-shadow:0 2px 26px #000000b8, 0 0 70px #00000080; }
+.surface-panel .section-label,
+.surface-panel > p:not(.section-label) { text-shadow:0 1px 14px #000000cc; }
