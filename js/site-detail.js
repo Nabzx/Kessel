@@ -30,10 +30,10 @@ export function vegetation(root,count,elevation,seed) {
   stems.castShadow=true;leaves.castShadow=true;leaves.receiveShadow=true;root.add(stems,leaves);
 }
 
-export function yardActivity(root) {
+export function yardActivity(root,spec) {
   const group=new THREE.Group();group.name='authored-yard-activity';root.add(group);
   const suit=new THREE.MeshStandardMaterial({color:0xc6a969,roughness:.88}),dark=new THREE.MeshStandardMaterial({color:0x303d3d,roughness:1}),helmet=new THREE.MeshStandardMaterial({color:0xcfc8b4,roughness:.5});
-  for(const [x,z] of [[-8,-71],[-11,-70]]){
+  for(const [x,z] of spec.workers){
     const person=new THREE.Group();person.position.set(x,.12,z);group.add(person);
     box([.43,.64,.27],[0,1.13,0],suit,person);
     for(const side of [-1,1]){box([.15,.69,.17],[side*.13,.49,0],dark,person);box([.13,.55,.14],[side*.3,1.1,0],suit,person);}
@@ -42,5 +42,5 @@ export function yardActivity(root) {
   }
   const positions=new Float32Array(45*3),particles=new THREE.Points(new THREE.BufferGeometry(),new THREE.PointsMaterial({color:0xb9ac91,size:.7,transparent:true,opacity:.12,depthWrite:false,sizeAttenuation:true}));
   particles.geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));group.add(particles);
-  return {update(time,reduced){for(let i=0;i<45;i++){const age=reduced?(i/45):((time*.07+i/45)%1);positions[i*3]=11+age*18;positions[i*3+1]=.4+age*2.5;positions[i*3+2]=-52+Math.sin(i*2.7)*3;}particles.geometry.attributes.position.needsUpdate=true;}};
+  return {update(time,reduced){for(let i=0;i<45;i++){const age=reduced?(i/45):((time*.07+i/45)%1);positions[i*3]=spec.dust_origin[0]+age*18;positions[i*3+1]=spec.dust_origin[1]+age*2.5;positions[i*3+2]=spec.dust_origin[2]+Math.sin(i*2.7)*3;}particles.geometry.attributes.position.needsUpdate=true;}};
 }

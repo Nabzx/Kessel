@@ -350,7 +350,7 @@ export async function createSurface(config) {
     vehicle.root.traverse(o=>{if(o.isMesh&&o.name!=="contact-shadow")o.castShadow=o.receiveShadow=true;});root.add(vehicle.root);
   }
   await Promise.all(workingVehicles.map(v=>v.ready));
-  const activity=yardActivity(root);let siteTime=0;
+  const activity=yardActivity(root,design.activity);let siteTime=0;
   lightRig(root, 120).position.y=120*(design.sky?.sun_height_ratio||1.7);
   heightMap.dispose();
   // #391: the sky was a single flat colour, so distant ridges sat at the same
@@ -392,5 +392,5 @@ export async function createSurface(config) {
   sky.frustumCulled = false;
   root.add(sky);
 
-  return { root, portal: portal.position.clone(), elevation,update(delta,reduced=false){siteTime+=reduced?0:delta;activity.update(siteTime,reduced);workingVehicles.forEach((v,i)=>{const a=siteTime*.055+i;v.root.position.set(7+Math.cos(a)*9,.2,-47+Math.sin(a)*12);v.root.rotation.y=Math.atan2(-Math.sin(a)*9,Math.cos(a)*12);if(!reduced)v.wheels.forEach(w=>{w.rotation.x+=delta*.6/vehicleModel.wheels.radius_m;if(w.userData.mirror)w.userData.mirror.rotation.x=w.rotation.x;});});} };
+  return { root, portal: portal.position.clone(), elevation,update(delta,reduced=false){siteTime+=reduced?0:delta;activity.update(siteTime,reduced);workingVehicles.forEach((v,i)=>{const settings=design.activity,a=siteTime*settings.angular_speed_rad_s+i,[cx,cy,cz]=settings.vehicle_centre,[rx,rz]=settings.vehicle_radii_m;v.root.position.set(cx+Math.cos(a)*rx,cy,cz+Math.sin(a)*rz);v.root.rotation.y=Math.atan2(-Math.sin(a)*rx,Math.cos(a)*rz);const travel=Math.hypot(Math.sin(a)*rx,Math.cos(a)*rz)*settings.angular_speed_rad_s*delta;if(!reduced)v.wheels.forEach(w=>{w.rotation.x+=travel/vehicleModel.wheels.radius_m;if(w.userData.mirror)w.userData.mirror.rotation.x=w.rotation.x;});});} };
 }
