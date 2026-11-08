@@ -69,9 +69,15 @@ body:has(#experience[data-stage="welcome"]) .navigation { top:27px; }
 .environment-preview figcaption { position:absolute; left:5vw; bottom:30px; right:auto; max-width:calc(100vw - 410px); font:8px/1.5 var(--mono); color:#a1ada8; }
 .carousel-navigation { position:absolute; left:5vw; bottom:11%; width:184px; display:flex; gap:17px; }
 .carousel-navigation>span { font:10px var(--mono); min-width:40px; color:#c8d0c8; }
-.round-button { width:42px; height:42px; border:1px solid #eeece552; background:#060d104d; border-radius:50%; font-size:16px; }
+.round-button { width:42px; height:42px; border:1px solid #4ee29b5c; background:#060d104d; border-radius:50%; font-size:16px;
+  color:var(--paper); transition:border-color .25s ease,color .25s ease,background .25s ease; }
+.round-button:hover,.round-button:focus-visible { border-color:#4ee29b; color:#4ee29b; background:#4ee29b14; }
 .environment-action { position:absolute; left:calc(5vw + 218px); bottom:11%; width:224px; margin:0; min-height:42px; }
-.deploy-button { min-height:42px; height:42px; font-size:11px; border-radius:1px; padding:0 18px; }
+.deploy-button { min-height:42px; height:42px; font-size:11px; border-radius:999px; padding:0 24px;
+  border:1px solid transparent; transition:background .25s ease,color .25s ease,border-color .25s ease; }
+.deploy-button:hover,.deploy-button:focus-visible { background:#4ee29b; border-color:#4ee29b; color:#04140c; }
+/* The arrow glyph carried a brown left over from the gold accent. */
+.deploy-button span { color:currentColor; opacity:.7; }
 .orbit-panel { position:absolute; width:280px; height:330px; right:4.5vw; top:30%; border-top:1px solid #e4e9db42; border-bottom:1px solid #e4e9db24; pointer-events:none; }
 .orbit-panel>span { position:absolute; left:0; top:17px; font:8px var(--mono); text-transform:uppercase; letter-spacing:.07em; color:#d4dace; }
 .orbit-panel>p { position:absolute; left:0; right:0; bottom:16px; font:9px var(--mono); color:#aab7ab; text-align:center; }
