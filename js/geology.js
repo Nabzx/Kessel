@@ -95,13 +95,15 @@ export async function rockMaterial(spec) {
 }
 
 export function rockBody(spec, material, parent, seed = 1, relief = 0.8) {
-  const section = material.userData.sectionMaterial ||= new THREE.MeshStandardMaterial({ color: 0x464b43, roughness: 0.98 });
+  const section = material.userData.sectionMaterial ||= new THREE.MeshStandardMaterial({ color: 0x88867a, roughness: 0.98 });
   section.onBeforeCompile=shader=>{
+    shader.uniforms.sectionRock={value:material.userData.colour};
     shader.vertexShader="varying vec3 sectionPosition;\n"+shader.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\nsectionPosition=(modelMatrix*vec4(position,1.0)).xyz;");
-    shader.fragmentShader="varying vec3 sectionPosition;\n"+shader.fragmentShader.replace("#include <color_fragment>",`#include <color_fragment>
+    shader.fragmentShader="uniform sampler2D sectionRock; varying vec3 sectionPosition;\n"+shader.fragmentShader.replace("#include <color_fragment>",`#include <color_fragment>
       float strata=sin(sectionPosition.x*.18+sectionPosition.z*.24+sin(sectionPosition.z*.1)*2.0);
       float grain=sin(sectionPosition.x*11.2)*sin(sectionPosition.z*15.7);
-      diffuseColor.rgb*=mix(.88,1.08,smoothstep(-.6,.6,strata))*(.98+.02*grain);`);
+      vec3 cutTexture=texture2D(sectionRock,sectionPosition.xz/12.0).rgb;float cutGrey=dot(cutTexture,vec3(.2126,.7152,.0722));
+      diffuseColor.rgb*=mix(vec3(sqrt(cutGrey)*.85),cutTexture,.18)*mix(.88,1.08,smoothstep(-.6,.6,strata))*(.98+.02*grain);`);
   };
   const mesh = new THREE.Mesh(rockGeometry(spec.size, seed, relief), [material, section]);
   mesh.position.fromArray(spec.position);

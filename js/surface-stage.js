@@ -1,3 +1,4 @@
+import { vegetation, yardActivity } from "./site-detail.js";
 import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
 import { texture, box, lightRig, seeded, line, varyTexture } from "./scene-utils.js";
@@ -105,7 +106,7 @@ export async function createSurface(config) {
  vec2 groundUV=terrainPosition.xz/15.0;
  vec3 detail=mix(texture2D(detailMap,groundUV).rgb,texture2D(detailMap,groundUV*.73+vec2(.37,.62)).rgb,.4);
  float terrainPatch=sin(terrainPosition.x*.018+sin(terrainPosition.z*.025)*3.0)*sin(terrainPosition.z*.034);
- vec3 localGround=detail*mix(vec3(.58,.8,.48),vec3(.7,.88,.61),smoothstep(-.45,.7,terrainPatch));
+ vec3 localGround=detail*mix(vec3(.73,.78,.64),vec3(.80,.83,.70),smoothstep(-.45,.7,terrainPatch));
  diffuseColor.rgb=mix(localGround,diffuseColor.rgb,smoothstep(180.0,850.0,length(terrainPosition.xz)));
  `,
       );
@@ -216,9 +217,13 @@ export async function createSurface(config) {
   const concrete = new THREE.MeshStandardMaterial({ color: 0x8c8c7d, roughness: .96 });
   const collar = new THREE.Mesh(new THREE.ExtrudeGeometry(outline, { depth: 10, bevelEnabled: true, bevelThickness: .18, bevelSize: .15, bevelSegments: 2, curveSegments: 16 }), concrete);
   collar.position.z = -8; collar.castShadow = collar.receiveShadow = true; portal.add(collar);
-  const tunnel = new THREE.Mesh(new THREE.CylinderGeometry(half, half, 22, 24, 1, true, 0, Math.PI), rockMat);
-  tunnel.rotation.set(Math.PI / 2, 0, Math.PI / 2); tunnel.position.set(0, 3, -12);
-  tunnel.material.side = THREE.DoubleSide; portal.add(tunnel);
+  const tunnelPositions=[],tunnelIndices=[],profile=[[-half,0],[-half,height*.5]];
+  for(let i=1;i<=24;i++){const a=Math.PI-i*Math.PI/24;profile.push([half*Math.cos(a),height*.5+height*.5*Math.sin(a)]);}
+  profile.push([half,0]);
+  for(const z of [0,-22])for(const [x,y] of profile)tunnelPositions.push(x,y,z);
+  for(let i=0;i<profile.length-1;i++){const j=i+profile.length;tunnelIndices.push(i,j,i+1,i+1,j,j+1);}
+  const tunnelGeometry=new THREE.BufferGeometry();tunnelGeometry.setAttribute("position",new THREE.Float32BufferAttribute(tunnelPositions,3));tunnelGeometry.setIndex(tunnelIndices);tunnelGeometry.computeVertexNormals();
+  const tunnel=new THREE.Mesh(tunnelGeometry,new THREE.MeshStandardMaterial({color:0x33372f,map:soil,roughness:1,side:THREE.DoubleSide}));tunnel.castShadow=tunnel.receiveShadow=true;portal.add(tunnel);
   const portalFloor = box([half * 2, .2, 24], [0, .12, -10], yardMat, portal);
   // Occludes daylight behind the mouth so the opening reads as depth. Must
   // survive the authored swap below, or the portal becomes a freestanding arch
@@ -274,6 +279,7 @@ export async function createSurface(config) {
   }
   hillGeometry.computeVertexNormals();
   const hill=new THREE.Mesh(hillGeometry,rockMat);hill.castShadow=hill.receiveShadow=true;root.add(hill);
+  try{const mass=await authoredAsset(config.visuals.authored.portal_hill);if(mass){mass.traverse(o=>{if(o.isMesh)o.material=rockMat;});hill.visible=false;root.add(mass);}}catch(e){console.warn("Detailed portal terrain unavailable",e.message);}
   const roadGeometry = new THREE.PlaneGeometry(12, 750, 2, 80);
   roadGeometry.rotateX(-Math.PI / 2);
   roadGeometry.translate(0, 0, 300);
@@ -296,61 +302,7 @@ export async function createSurface(config) {
   );
   road.receiveShadow = true;
   root.add(road);
-  const rand = seeded(data.tree_seed),
-    count = data.tree_count;
-  const trunk = new THREE.InstancedMesh(
-    new THREE.CylinderGeometry(0.3, 0.55, 4, 5),
-    new THREE.MeshStandardMaterial({ color: 0x544a36, roughness: 1 }),
-    count,
-  );
-  const canopy = new THREE.InstancedMesh(
-    new THREE.IcosahedronGeometry(1, 2),
-    new THREE.MeshStandardMaterial({ color: 0x415a34, roughness: 1 }),
-    count * 3,
-  );
-  const pose = new THREE.Object3D();
-  for (let i = 0; i < count; i++) {
-    let x = (rand() - 0.5) * 1100,
-      z = (rand() - 0.5) * 1000;
-    if (Math.abs(x) < 110 && Math.abs(z) < 130) x += x < 0 ? -140 : 140;
-    const y = elevation(x, z),
-      scale = 2 + rand() * 3;
-    // The trunk used to be left at scale 1 whatever the canopy did, so a
-    // five-metre crown sat on a one-metre stem and the tree read as a blob
-    // floating above a stick. Scale it with the crown, with a little
-    // independent slenderness so the stand is not uniform.
-    pose.position.set(x, y + scale * 0.9, z);
-    pose.scale.set(scale * (0.3 + rand() * 0.12), scale * 0.62, scale * (0.3 + rand() * 0.12));
-    pose.rotation.set(0, rand() * Math.PI, 0);
-    pose.updateMatrix();
-    trunk.setMatrixAt(i, pose.matrix);
-    pose.rotation.set(0, 0, 0);
-    for (let lobe = 0; lobe < 3; lobe++) {
-      pose.position.set(
-        x + (lobe - 1) * scale * 0.55,
-        y + 3 + scale * (lobe === 1 ? 1 : 0.5),
-        z + (rand() - 0.5) * scale,
-      );
-      pose.scale.set(scale * 0.85, scale * (0.65 + rand() * 0.4), scale * 0.85);
-      pose.rotation.set(rand(), rand(), rand());
-      pose.updateMatrix();
-      canopy.setMatrixAt(i * 3 + lobe, pose.matrix);
-      canopy.setColorAt(
-        i * 3 + lobe,
-        // Lightness used to top out at 0.32, which rendered sunlit hillside
-        // foliage as near-black silhouettes. Opened up and given a wider hue
-        // and saturation spread so the stand reads as varied species.
-        new THREE.Color().setHSL(
-          0.19 + rand() * 0.13,
-          0.26 + rand() * 0.22,
-          0.3 + rand() * 0.2,
-        ),
-      );
-    }
-  }
-  trunk.castShadow = true;
-  canopy.castShadow = true;
-  root.add(trunk, canopy);
+  vegetation(root,data.tree_count,elevation,data.tree_seed);
   for (const [x, z] of design.tank_positions) {
     const tank = new THREE.Mesh(
       new THREE.CylinderGeometry(4, 4, 10, 24),
@@ -372,8 +324,8 @@ export async function createSurface(config) {
   for(let i=1;i<fencePoints.length;i++) {
     const a=fencePoints[i-1],b=fencePoints[i],n=Math.ceil(a.distanceTo(b)/4),pose=new THREE.Object3D();
     const posts=new THREE.InstancedMesh(new THREE.CylinderGeometry(.075,.075,3.6,6),fenceMat,n+1);
-    for(let j=0;j<=n;j++){pose.position.copy(a).lerp(b,j/n);pose.updateMatrix();posts.setMatrixAt(j,pose.matrix);}root.add(posts);
-    for(const y of [.5,2,3.3])root.add(line([[a.x,y,a.z],[b.x,y,b.z]],0x6c756c,.65));
+    for(let j=0;j<=n;j++){pose.position.copy(a).lerp(b,j/n);pose.scale.setScalar(Math.abs(pose.position.x)<6?0:1);pose.updateMatrix();posts.setMatrixAt(j,pose.matrix);}root.add(posts);
+    for(const y of [.5,2,3.3]){if(a.x<0&&b.x>0){root.add(line([[a.x,y,a.z],[-6,y,a.z]],0x6c756c,.65));root.add(line([[6,y,a.z],[b.x,y,b.z]],0x6c756c,.65));}else root.add(line([[a.x,y,a.z],[b.x,y,b.z]],0x6c756c,.65));}
   }
   const conveyor = new THREE.Group();conveyor.position.set(33,0,47);conveyor.rotation.z=-.15;root.add(conveyor);
   box([25,.5,2.5],[0,4,0],dark,conveyor);box([25,.12,.2],[0,4.6,1.3],metal,conveyor);box([25,.12,.2],[0,4.6,-1.3],metal,conveyor);
@@ -382,6 +334,7 @@ export async function createSurface(config) {
   for(const x of [-7,7]){
     const drain=box([.35,.08,102],[x,.16,11],metal,root);drain.receiveShadow=true;
   }
+  const workingVehicles=[];
   for (const spec of design.parked_vehicles) {
     const vehicle=createVehicle(spec.id,vehicleModel,{oreMap:aggregate,authoredHauler:config.visuals.authored?.hauler,authoredOverview:config.visuals.authored?.hauler_overview});vehicle.root.position.fromArray(spec.position);
     // Use the overview LOD: it carries the authored hauler body and wheels.
@@ -389,14 +342,16 @@ export async function createSurface(config) {
     // why this vehicle was previously parked outside the arrival framing.
     // The overview LOD's cargo proxy is unlit, so a loaded bed reads as a flat
     // mauve patch in a lit scene. This machine is parked, so it is empty.
-    vehicle.root.rotation.y=spec.heading;vehicle.detail.visible=false;vehicle.overview.visible=true;
+    workingVehicles.push(vehicle);vehicle.root.rotation.y=spec.heading;vehicle.detail.visible=false;vehicle.overview.visible=true;
     vehicle.cargo.visible=false;vehicle.proxyCargo.visible=false;
     // The painted contact shadow must not enter the shadow map: shadow casting
     // ignores the alpha that makes it an ellipse, so the whole 3.4 by 9 quad
     // was casting a crisp black rectangle onto the yard under the machine.
     vehicle.root.traverse(o=>{if(o.isMesh&&o.name!=="contact-shadow")o.castShadow=o.receiveShadow=true;});root.add(vehicle.root);
   }
-  lightRig(root, 120);
+  await Promise.all(workingVehicles.map(v=>v.ready));
+  const activity=yardActivity(root);let siteTime=0;
+  lightRig(root, 120).position.y=120*(design.sky?.sun_height_ratio||1.7);
   heightMap.dispose();
   // #391: the sky was a single flat colour, so distant ridges sat at the same
   // contrast as the foreground and the terrain read as a tilted model. A dome
@@ -431,8 +386,11 @@ export async function createSurface(config) {
         }`,
     }),
   );
+  if(design.sky?.path)try{
+    const photo=await texture(design.sky.path);sky.material.dispose();sky.material=new THREE.MeshBasicMaterial({map:photo,side:THREE.BackSide,depthWrite:false,fog:false,toneMapped:false});sky.rotation.y=design.sky.rotation_y;
+  }catch(error){console.warn("Sky photograph unavailable; using the authored atmosphere",error.message);}
   sky.frustumCulled = false;
   root.add(sky);
 
-  return { root, portal: portal.position.clone(), elevation };
+  return { root, portal: portal.position.clone(), elevation,update(delta,reduced=false){siteTime+=reduced?0:delta;activity.update(siteTime,reduced);workingVehicles.forEach((v,i)=>{const a=siteTime*.055+i;v.root.position.set(7+Math.cos(a)*9,.2,-47+Math.sin(a)*12);v.root.rotation.y=Math.atan2(-Math.sin(a)*9,Math.cos(a)*12);if(!reduced)v.wheels.forEach(w=>{w.rotation.x+=delta*.6/vehicleModel.wheels.radius_m;if(w.userData.mirror)w.userData.mirror.rotation.x=w.rotation.x;});});} };
 }

@@ -9,7 +9,7 @@ for k,spec in enumerate([EXPERIENCE['mine']['base']]+EXPERIENCE['mine']['pillars
  w,h,d=spec['size'];px,py,pz=spec['position'];count=64;layers=7;v=[];f=[]
  for layer in range(layers):
   for i in range(count):
-   a=i*math.tau/count;c=math.cos(a);s=math.sin(a);power=.31 if k else .48
+   a=i*math.tau/count;c=math.cos(a);s=math.sin(a);power=.31 if k else .22
    x=math.copysign(abs(c)**power,c)*w/2;z=math.copysign(abs(s)**power,s)*d/2
    relief=min(w,d)*(.025+.035*math.sin(i*1.73+k+layer*.7)**2)
    x-=math.copysign(relief,x);z-=math.copysign(relief,z)

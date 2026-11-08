@@ -105,7 +105,7 @@ export function createRouteRibbons(network, routes = []) {
   const edges = new Map(network.graph.edges.map((edge) => [edge.id, edge]));
   const narrowestHeading = Math.min(...network.graph.edges.map((edge) => edge.width_m));
   const laneSpacing = Math.max(0.04, Math.min(0.8, (narrowestHeading - 0.4) / routes.length));
-  const ribbonWidth = Math.min(1.1, laneSpacing * 1.35);
+  const ribbonWidth = Math.min(.32, laneSpacing * .5);
 
   routes.forEach((route, routeIndex) => {
     if (route.node_ids.length !== route.edge_ids.length + 1) {

@@ -21,9 +21,9 @@
     {
       "path": "assets/authored/geology.glb",
       "bytes": 372028,
-      "sha256": "578d876d8795c0630ca050eaccfcf63f295ffd147cff94aa564b1f03abef0b41",
+      "sha256": "9b2e16fa4f8a9fa7341080679976affbccd69c153e189e15031ee17533e0affb",
       "source": "tools/blender/source/geology.blend",
-      "source_sha256": "2cce4a688800cc7ef267c801347fdcb23e17a5d049f3b3d1c61251aa05668683",
+      "source_sha256": "da4293d1b07be12cfb9e9a0e4e2b26fa35bfcae9fee79d2d5f31fa66ba5dfa84",
       "licence": "Original Kessel; repository LICENSE",
       "units": "metres; proposed kit displayed at 10x presentation scale",
       "triangles": 7136,
@@ -174,7 +174,7 @@
     },
     {
       "path": "tools/blender/finish-geology.py",
-      "sha256": "74f71e4aba538c802a4cd9c6e4ac465f49b00a83f51f4ad05519eef1bde882fd"
+      "sha256": "81c5f22b8b77a3050b4c7cd85d14808851eb40dd2d80891e71443e59e037182b"
     },
     {
       "path": "tools/blender/inspect-assets.py",
