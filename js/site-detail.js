@@ -40,7 +40,21 @@ export function yardActivity(root,spec) {
     const head=new THREE.Mesh(new THREE.SphereGeometry(.14,10,7),helmet);head.position.set(0,1.63,0);person.add(head);
     box([.44,.045,.29],[0,1.19,0],helmet,person);
   }
-  const positions=new Float32Array(45*3),particles=new THREE.Points(new THREE.BufferGeometry(),new THREE.PointsMaterial({color:0xb9ac91,size:.7,transparent:true,opacity:.12,depthWrite:false,sizeAttenuation:true}));
-  particles.geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));group.add(particles);
-  return {update(time,reduced){for(let i=0;i<45;i++){const age=reduced?(i/45):((time*.07+i/45)%1);positions[i*3]=spec.dust_origin[0]+age*18;positions[i*3+1]=spec.dust_origin[1]+age*2.5;positions[i*3+2]=spec.dust_origin[2]+Math.sin(i*2.7)*3;}particles.geometry.attributes.position.needsUpdate=true;}};
+  const positions=new Float32Array(36*3),ages=new Float32Array(36).fill(10),born=Array.from({length:36},()=>new THREE.Vector3()),drift=born.map(()=>new THREE.Vector3());
+  const stamp=document.createElement('canvas');stamp.width=stamp.height=32;const ctx=stamp.getContext('2d'),radial=ctx.createRadialGradient(16,16,0,16,16,16);radial.addColorStop(0,'#ffffffa0');radial.addColorStop(1,'#ffffff00');ctx.fillStyle=radial;ctx.fillRect(0,0,32,32);
+  const particles=new THREE.Points(new THREE.BufferGeometry(),new THREE.PointsMaterial({map:new THREE.CanvasTexture(stamp),color:0xb1a18b,size:.45,transparent:true,opacity:.13,depthWrite:false,sizeAttenuation:true}));
+  particles.geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));particles.frustumCulled=false;group.add(particles);
+  let previous=0,emission=0,next=0;
+  return {update(time,reduced,vehicles=[]){
+    const dt=Math.max(0,Math.min(.1,time-previous));previous=time;particles.visible=!reduced&&vehicles.length>0;if(!particles.visible)return;
+    emission+=dt;
+    if(emission>.12){emission=0;for(const vehicle of vehicles)for(const side of [-1,1]){
+      const point=new THREE.Vector3(side, .04,-2.55).applyMatrix4(vehicle.matrixWorld);born[next].copy(point);ages[next]=0;
+      // Spawn at the actual rear tyre contact. Retained particles stay in world
+      // coordinates as the truck turns, then settle under a small crosswind.
+      drift[next].set(.23,.22,.06);next=(next+1)%ages.length;
+    }}
+    for(let i=0;i<ages.length;i++){ages[i]+=dt;const age=ages[i],p=born[i];positions[i*3]=p.x+drift[i].x*age;positions[i*3+1]=age>1.6?-100:p.y+drift[i].y*age;positions[i*3+2]=p.z+drift[i].z*age;}
+    particles.geometry.attributes.position.needsUpdate=true;
+  }};
 }
