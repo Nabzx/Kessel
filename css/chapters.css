@@ -101,3 +101,7 @@ body[data-chapter="earth"] .welcome-rule,body:not([data-chapter]) .welcome-rule 
 body[data-chapter="earth"] .home-signature,body:not([data-chapter]) .home-signature { margin-top:12px; }
 body[data-chapter="earth"] .start-button,body:not([data-chapter]) .start-button { margin-top:16px; min-height:42px; padding:11px 30px; }
 @media(max-height:820px){body[data-chapter="earth"] .welcome-stack,body:not([data-chapter]) .welcome-stack { top:68%; }body[data-chapter="earth"] .welcome-wordmark,body:not([data-chapter]) .welcome-wordmark { font-size:clamp(40px,4.6vw,66px); }body[data-chapter="earth"] .welcome-rule,body:not([data-chapter]) .welcome-rule { margin-top:10px; }body[data-chapter="earth"] .home-signature,body:not([data-chapter]) .home-signature { margin-top:10px; }body[data-chapter="earth"] .start-button,body:not([data-chapter]) .start-button { margin-top:12px; min-height:40px; }}
+
+body[data-chapter="surface"] .surface-panel::before { display:none; }
+
+#pause-training:disabled { opacity:.5; cursor:default; }

@@ -620,12 +620,12 @@ function updateLearning(delta){
  const prior=learning.trace.trials.slice(0,state.index).reduce((s,t)=>s+t.rows.at(-1)[10],0);
  $("task-delivered").textContent=`${((prior+state.deliveredKg)/1000).toFixed(2)} t`;
  $("task-time").textContent=`${state.time.toFixed(1)} s`;
- $("action-value").textContent=state.phase===5?"Brake · replan route":state.phase===9?"Hold · bucket tip":state.phase===2?"Hold · hydraulic curl":"Throttle · steer · lift";
+ $("action-value").textContent=({1:"Hold · missed engagement",2:"Hold · bucket curl",3:"Lift · curl",4:"Reverse · steer hold",5:"Brake · replan route",6:"Throttle · articulated steer",8:"Brake · raise bucket",9:"Hold · bucket tip",10:"Brake · task complete",11:"Brake · evaluate pickup"})[state.phase]||"Throttle · steer · lift";
  $("checkpoint-outcome").textContent=state.complete?"Three work orders complete. 6.00 t delivered.":state.index===0?"Bucket too high. The pickup fails.":state.index===1?"Partial pickup. Below the 2 t target.":state.index===4?"Obstacle detected. A clear route to the receiver.":"Scoop. Reverse clear. Haul. Tip into the receiver.";
  $("training-status").textContent=state.complete?"EVALUATION COMPLETE":state.playing?"POLICY EVALUATION / 6×":"REPLAY PAUSED";
  $("training-indicator").textContent=state.complete?"COMPLETE":state.playing?"TRAINING":"PAUSED";
  $("payload-readout").textContent=state.index<2?"PICKUP EVALUATION":`WORK ORDER ${String(state.index-1).padStart(2,"0")} / 03`;
- $("pause-training").textContent=state.playing?"Pause":"Play";
+ $("pause-training").disabled=state.complete;$("pause-training").textContent=state.complete?"Finished":state.playing?"Pause":"Play";
  const progress=Math.min(1,state.elapsed/state.duration);$("training-progress").setAttribute("aria-valuenow",Math.round(progress*100));$("training-progress").firstElementChild.style.width=`${progress*100}%`;
  const points=learning.trace.trials.map((t,i)=>[i*75,62-(t.reward+.41)/1.37*55]);
  $("reward-path").setAttribute("d",points.map((p,i)=>`${i?"L":"M"}${p.join(" ")}`).join(" "));
