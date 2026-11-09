@@ -17,8 +17,8 @@ for the label taxonomy and the Wayfinder workflow.
 - An ADR is written before code for anything touching the rollout data schema,
   the sim/world-model panel split, the renderer's public shape, or the
   hosting/publish mechanism.
-- A build issue is not closed on merge. It carries `pending-release` and
-  closes in a batch when its phase is tagged.
+- ADR-0054 authorises closing merged, verified implementation work before a
+  tag. Review and release tickets retain their own acceptance criteria.
 - Nothing ships that presents scripted data as real model output. See the
   Invariants in `AGENTS.md`.
 
@@ -180,3 +180,12 @@ inspection are available in the optional viewer. The CPU comparison recommends
 float32 ONNX for fidelity; smaller variants regress action accuracy and all
 variants retain zero complete learned cycles. Prototype judgement, remaining
 visual/layout work and the verified Phase 11 release are still pending.
+
+## Resumable cinematic walkthrough (ADR-0054)
+
+The maintainer accepted seven full-screen chapters, a simplified authored
+training progression with three complete jobs and obstacle avoidance, and a
+trial original Blender surface film. Work is tracked in #395–#400 under #349.
+Historical learned failures remain retained; illustrative success is separate.
+See [the implementation and verification report](docs/phase-11/cinematic-chapters.md).
+Release and publication remain outside this work.
