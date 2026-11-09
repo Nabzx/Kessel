@@ -12,9 +12,9 @@ operations. `gh` infers the repo from `git remote -v`.
 - **List**: `gh issue list --state open --label phase-2 --json number,title,labels`.
 - **Comment**: `gh issue comment <n> --body "..."`.
 - **Label**: `gh issue edit <n> --add-label "..."` / `--remove-label "..."`.
-- **Close**: `gh issue close <n> --comment "..."`. A build issue is not closed
-  on merge; it carries `pending-release` and is closed in a batch when its
-  release is tagged. Docs-only and small fixes may close on merge.
+- **Close**: `gh issue close <n> --comment "..."`. ADR-0054 authorises closing merged and verified implementation tickets
+  without a tag. Keep review and release work open until its own acceptance
+  criteria pass. Closing a ticket does not publish a release.
 
 ## Issues are for bugs and maintainer work items
 
@@ -57,8 +57,8 @@ Discussions if enabled; blank issues are disabled.
 - `needs-decision`: blocked on a design decision (an ADR or a grilling).
 - `needs-research`: blocked on a `wayfinder:research` investigation.
 - `regression`: worked on an earlier tagged build, broken now.
-- `pending-release`: merged to `main`, closes when the build that contains it
-  is tagged.
+- `pending-release`: historical merged implementation marker. ADR-0054 permits
+  verified implementation tickets to close before a release tag.
 
 **Area**
 

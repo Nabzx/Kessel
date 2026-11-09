@@ -82,6 +82,6 @@ Commit messages and pull request titles follow Conventional Commits:
 `<type>(<scope>): <description>`, lowercase, imperative, concise, for example
 `feat(renderer): add instanced rock pile to the simulation panel`. The body,
 when present, stays plain and explains why. Reference an issue with
-`refs #<n>` in the body, never a closing keyword; a build issue carries
-`pending-release` and closes in a batch when tagged, not on merge. Docs and
-small fixes may close on merge.
+`refs #<n>` in the body, never a closing keyword; the maintainer authorises closing merged, verified implementation tickets
+without waiting for a tag under ADR-0054. Keep unfinished, visual-review and
+release/publication work open. Closing an issue does not publish a release.
