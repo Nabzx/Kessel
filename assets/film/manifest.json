@@ -1,0 +1,102 @@
+{
+  "source": "Original authored Blender surface. Representative terrain, not a survey or real mine footage.",
+  "blender": "5.2.3 LTS",
+  "assets": [
+    {
+      "path": "assets/film/surface.mp4",
+      "bytes": 1710183,
+      "sha256": "cb7212e68884d1f0d9bb4676a0f7a8a56b950c9366ca39d353df39acf0c6fae0"
+    },
+    {
+      "path": "assets/film/surface-poster.webp",
+      "bytes": 276340,
+      "sha256": "e110266b19826bb38d3674773aa89fea8b3bd992e51689a04f7f8f546b684787"
+    }
+  ],
+  "sources": [
+    {
+      "path": "tools/blender/source/cinematic-surface.blend",
+      "bytes": 7152435,
+      "sha256": "48ffb042d011a998dd6ba23652150bff45bc36db1af9126e6b2506f304e6e433"
+    },
+    {
+      "path": "tools/blender/cinematic-surface.py",
+      "bytes": 16387,
+      "sha256": "089e8de7f5adc65397f53e3d1f3ea70860cd7e3e0ed19a919917345677fe0f3b"
+    },
+    {
+      "path": "tools/blender/render-surface.py",
+      "bytes": 875,
+      "sha256": "25411a1195a01d8cc2f3b605e29ca6e8cacc9f97fa87b3fb49f217f36097cc77"
+    },
+    {
+      "path": "tools/blender/references/surface/README.md",
+      "bytes": 1583,
+      "sha256": "66e42aba1066d836eabff3db2a70f5058f67aefa73f1004718e1a60464ea2858"
+    },
+    {
+      "path": "tools/blender/references/surface/concrete-diff.jpg",
+      "bytes": 79320,
+      "sha256": "c3c936da86d57997d9fc4022371c3798c8d438aeecb8f41546104da6d3947c02"
+    },
+    {
+      "path": "tools/blender/references/surface/concrete-normal.jpg",
+      "bytes": 179270,
+      "sha256": "6f10711d123c8dff26375555196eae9e16d874c137acdacd44d1ba90168b6d46"
+    },
+    {
+      "path": "tools/blender/references/surface/concrete-rough.jpg",
+      "bytes": 156479,
+      "sha256": "d0964c690a8de99fb4f6657e0d3474eea9f9f293d080f4e5c871a55857d9448b"
+    },
+    {
+      "path": "tools/blender/references/surface/corrugated-diff.jpg",
+      "bytes": 719557,
+      "sha256": "7f3649dd0d056a55a910146f09b1d5298370696a90f511a255fb4c5715bb4b58"
+    },
+    {
+      "path": "tools/blender/references/surface/corrugated-normal.jpg",
+      "bytes": 755185,
+      "sha256": "e98b839ae681ba929eb80f07348c70d0731b48239abe69268effab18420cd271"
+    },
+    {
+      "path": "tools/blender/references/surface/corrugated-rough.jpg",
+      "bytes": 455677,
+      "sha256": "1addcfc0210fc101f9f12c8e4dbd7a7d2642a5ef76699a8a485f00b5476af357"
+    },
+    {
+      "path": "tools/blender/references/surface/makehuman-base.obj",
+      "bytes": 1749303,
+      "sha256": "8e761e6624b8f54536409135d1636da63b32486a90d4897f84e121d144f6fb4c"
+    }
+  ],
+  "encoding": {
+    "render_fps": 12,
+    "output_fps": 24,
+    "duration_s": 24,
+    "width": 1296,
+    "height": 810,
+    "codec": "H.264",
+    "operation": "Alternate source frames, linear frame blending to 24 fps, CRF 20, yuv420p, faststart"
+  },
+  "motion": {
+    "rear_axle_circle_centre_m": [
+      10,
+      -53
+    ],
+    "rear_axle_turn_radius_m": 9,
+    "period_s": 24,
+    "wheelbase_m": 5.1,
+    "half_track_m": 1,
+    "tyre_radius_m": 0.51,
+    "speed_m_s": 2.356194490192345,
+    "front_steering": "Ackermann; per-side radius and tyre travel",
+    "dust": "No engine smoke or dust plume in the film. Real-time fallback emits restrained dust at previous rear tyre contacts."
+  },
+  "licences": [
+    "Original Kessel geometry: repository LICENSE",
+    "MakeHuman core base: CC0-1.0",
+    "Poly Haven scans and representative HDR sky: CC0-1.0"
+  ],
+  "rights": "tools/blender/references/surface/README.md; existing assets/materials and assets/textures manifests"
+}

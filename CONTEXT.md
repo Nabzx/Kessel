@@ -20,12 +20,15 @@ partners) who cannot visit a mine or read a policy's weights.
 Phase 10 replaces the Phase 9 presentation with a centred Earth opener,
 themed environment carousel, prepared Rwanda arrival and substantial
 roof-off mine cutaway. Four trucks and a licensed excavator illustrate the
-baseline/trained comparison. The optional technical viewer defaults to a complete, explicitly conventional
-recorded-synthetic reference cycle under ADR-0053. Policy checkpoints, curriculum
-seeds and raw dynamics forecasts remain available in its inspector. Actual failed
-outcomes remain visible; the authored demonstration is an explicit alternate
-source. Ordinary scrolling explains the proposed pipeline, five optional technical
-chapters and an assembled-first engineering breakdown of the proposed kit.
+baseline/trained comparison. ADR-0054 adopts one clearly labelled authored
+training demonstration for the main walkthrough: early mistakes, partial
+pickup and three complete evaluation jobs with obstacle avoidance. It is
+kinematic illustration, not measured policy success. The recorded experiments
+and their unsuccessful learned outcomes remain retained as research evidence.
+Seven full-screen chapters replace ordinary scrolling, retain playback state
+and provide a persistent navigation rail. A local Blender-rendered animated
+surface is being trialled with a still and real-time fallback. The accepted
+observation-to-action chapters and proposed retrofit assembly remain.
 
 `data/experience.json` is the active authored contract. ADR-0031 separates the
 Phase 11 experimental tools and validated recorded-synthetic bundles from the

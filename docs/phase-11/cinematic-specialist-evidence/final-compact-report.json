@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "Final authored endpoint and disabled Finished control",
+    "Compact technical pipeline clears header and rail",
+    "Versioned surface film plays for 24 seconds",
+    "Large Discover Kessel clears the rail",
+    "Outgoing controls recover from preparation"
+  ],
+  "layout": {
+    "feedback": 658.625,
+    "rail": 688,
+    "heading": 92.375,
+    "nav": 70
+  },
+  "film": {
+    "ready": true,
+    "failed": false,
+    "active": true,
+    "paused": false,
+    "time": 1.6277,
+    "duration": 24,
+    "reducedMotion": false
+  },
+  "errors": []
+}

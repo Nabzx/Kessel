@@ -165,6 +165,10 @@
       "sha256": "a8bf51deac387a8541673b5aa000c5278a607a9e4f3d9d15252499b4c3dff68d"
     },
     {
+      "path": "tools/blender/cinematic-surface.py",
+      "sha256": "089e8de7f5adc65397f53e3d1f3ea70860cd7e3e0ed19a919917345677fe0f3b"
+    },
+    {
       "path": "tools/blender/client.py",
       "sha256": "2f4e30193e3d7db07b965570be331dfb6824f3d8c53e9b1c2e1691700c7fec71"
     },
@@ -203,6 +207,10 @@
     {
       "path": "tools/blender/portal.py",
       "sha256": "3239a3faab05f77766b2013a722f537634c30821b2df002ff82adec97c9546f9"
+    },
+    {
+      "path": "tools/blender/render-surface.py",
+      "sha256": "25411a1195a01d8cc2f3b605e29ca6e8cacc9f97fa87b3fb49f217f36097cc77"
     },
     {
       "path": "tools/blender/rigs.py",

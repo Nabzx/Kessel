@@ -11,6 +11,7 @@ export function installChapters(){
  section.innerHTML='<div class="chapter-heading"><p class="section-label">Inside Kessel</p><h2>From observation<br>to onboard action.</h2></div><div class="chapter-links">'+chapters.map((c,i)=>`<button data-chapter="${i}"><span>0${i+1}</span><strong>${c.title}</strong><span>↗</span></button>`).join('')+'</div>';
  const dialog=document.getElementById('technical-dialog'),canvas=document.getElementById('technical-canvas'),ctx=canvas.getContext('2d');
  let index=0,step=0,running=false,elapsed=0,last=0,raf=0,request=0,bundle=null,trigger=null,engineering=null,reference=null;
+ const saved=new Map();
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const $=id=>document.getElementById(id);
  const colour={ink:'#e8e8de',muted:'#829993',green:'#4ee29b',blue:'#8cc5d3',grid:'#18312f',red:'#db8978'};
@@ -85,11 +86,11 @@ export function installChapters(){
  }
  function update(){const c=chapters[index];$('technical-eyebrow').textContent=c.eyebrow;$('technical-title').textContent=c.title;$('technical-source').textContent=c.caption;$('technical-step').textContent=c.steps[step];$('technical-note').textContent=c.note;$('technical-counter').textContent=`0${step+1} / 03`;$('technical-pause').textContent=running?'Pause':'Play';$('technical-next').textContent=step===2?'Next chapter →':'Continue →';draw();}
  function frame(now){if(!dialog.open)return;const dt=last?Math.min(.1,(now-last)/1000):0;last=now;if(running){elapsed+=dt;if(elapsed>=4){elapsed=0;if(step<2)step++;else {running=false;elapsed=4;}update();}if(index===3)draw();}raf=requestAnimationFrame(frame);}
- async function open(i,button){index=i;step=0;elapsed=0;last=0;running=!reduced;trigger=button||trigger;const ticket=++request;if(!dialog.open)dialog.showModal();update();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
+ async function open(i,button){if(dialog.open)saved.set(index,{step,elapsed,running});index=i;const prior=saved.get(i);step=prior?.step||0;elapsed=prior?.elapsed||0;last=0;running=prior?prior.running:!reduced;trigger=button||trigger;const ticket=++request;if(!dialog.open)dialog.showModal();update();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
   try{bundle=await loadExperiment();reference=reference||await loadExperiment(undefined,fetch,'reference-cycle-v1');engineering=engineering||await fetch('data/engineering.json').then(r=>{if(!r.ok)throw Error('Export comparison unavailable');return r.json()});if(ticket===request)update();}catch(e){$('technical-source').textContent='Records unavailable. Try again.';running=false;}
  }
  section.querySelectorAll('[data-chapter]').forEach(button=>button.addEventListener('click',()=>open(Number(button.dataset.chapter),button)));
- $('technical-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{++request;cancelAnimationFrame(raf);running=false;trigger?.focus({preventScroll:true});});
+ $('technical-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{saved.set(index,{step,elapsed,running});++request;cancelAnimationFrame(raf);running=false;trigger?.focus({preventScroll:true});});
  $('technical-next').addEventListener('click',()=>{elapsed=0;if(step<2){step++;running=false;update();}else open((index+1)%chapters.length);});$('technical-prev').addEventListener('click',()=>{elapsed=0;running=false;if(step>0){step--;update();}else open((index+chapters.length-1)%chapters.length);});$('technical-pause').addEventListener('click',()=>{running=!running;last=0;update();});
  window.addEventListener('resize',()=>{if(dialog.open)draw()});
  return {open,diagnostics:()=>({open:dialog.open,chapter:chapters[index].id,step,running,runId:bundle?.run_id})};

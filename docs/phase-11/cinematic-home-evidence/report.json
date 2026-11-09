@@ -1,0 +1,757 @@
+{
+  "date": "2026-11-09T00:34:59.995Z",
+  "sourceCommit": "157be00f1bd924e5e54efab1efe56eecf003181e",
+  "sourceFiles": {
+    "index.html": "e4dfbbd9549b172c731b71b0a1e17ffd659da083c92b08733bb55046eaa48bb4",
+    "js/experience.js": "a04e1d69f9728b12d33458a33c7631cbeaf25db2e2c9c51f8750a01f4f69cc99",
+    "js/globe-stage.js": "336cc920e9601220ea23940b96ef8cedf329f09322747190eb4ea7140fa74438",
+    "js/environment-scenes.js": "fa0bb46d5e446d0da92ad70d4743304f647483d9314063185da2c31dc38330ca",
+    "css/orbital-home.css": "0782940c544f342b025ce0e3296deeb7d9d63218570a9d9cb1c2eafe188cb2c2",
+    "data/experience.json": "f4d74171173a1531b7f3fe1d6c3c898ff1bf8e224fce9a338485ffa68620c1fd"
+  },
+  "checks": [
+    "retina: composition, all backgrounds, default/order, coordinates, rapid input, keyboard, Sources and mine hand-off",
+    "compact: composition, all backgrounds, default/order, coordinates, rapid input, keyboard, Sources and mine hand-off",
+    "reduced: composition, all backgrounds, default/order, coordinates, rapid input, keyboard, Sources and mine hand-off",
+    "Optional spacecraft/cloud/large-photo failure keeps the experience usable with explicit image fallback"
+  ],
+  "errors": [],
+  "profiles": [
+    {
+      "spec": {
+        "name": "retina",
+        "width": 1440,
+        "height": 900,
+        "dpr": 2,
+        "motion": "no-preference"
+      },
+      "readyMs": 708.8999998569489,
+      "coldMaxFrameMs": 333.29999999999995,
+      "hero": {
+        "frames": 181,
+        "meanFps": 60.003315100281796,
+        "p95Ms": 16.700000000000728,
+        "p99Ms": 16.800000000000182,
+        "maxMs": 16.800000000000182
+      },
+      "selection": {
+        "frames": 181,
+        "meanFps": 60.00132599615457,
+        "p95Ms": 16.799999999999272,
+        "p99Ms": 16.80000000000291,
+        "maxMs": 16.80000000000291
+      },
+      "diagnostics": {
+        "authoredAssets": [
+          "assets/authored/observation-satellite.glb",
+          "assets/authored/observation-satellite-overview.glb",
+          "assets/models/iss/iss.glb"
+        ],
+        "preparationMs": {},
+        "stage": "welcome",
+        "chapter": "earth",
+        "chapterBusy": false,
+        "chapterRequest": 0,
+        "surfaceFilm": {
+          "ready": false,
+          "failed": false,
+          "active": false,
+          "paused": true,
+          "time": 0,
+          "duration": null,
+          "reducedMotion": false
+        },
+        "technical": {
+          "open": false,
+          "chapter": "perception",
+          "step": 0,
+          "running": false
+        },
+        "camera": {
+          "position": [
+            0,
+            0,
+            12.8
+          ],
+          "fov": 34,
+          "moving": false
+        },
+        "earthSettling": false,
+        "globe": {
+          "layers": {
+            "day": true,
+            "night": true,
+            "clouds": true,
+            "station": true,
+            "satellite": true
+          },
+          "mode": "welcome",
+          "elapsed": 4.866499999999999,
+          "rootPosition": [
+            0,
+            0.9,
+            0
+          ],
+          "rootScale": [
+            1,
+            1,
+            1
+          ],
+          "earthRotation": -2.0078307613517175,
+          "sunDirection": [
+            -0.5598880335888039,
+            0.27994401679440195,
+            0.7798440467844053
+          ],
+          "stationSpan": 0.68,
+          "spacecraft": [
+            {
+              "kind": "satellite",
+              "position": [
+                3.0950126768387696,
+                1.6623542663367776,
+                0.6342022570169754
+              ],
+              "bounds": {
+                "min": [
+                  2.615046628817798,
+                  1.4276230642328152,
+                  0.36750169848992575
+                ],
+                "max": [
+                  3.572829182288643,
+                  1.899430196767013,
+                  0.9025338370247455
+                ]
+              },
+              "visible": true
+            },
+            {
+              "kind": "station",
+              "position": [
+                -3.026555290420208,
+                -0.8546621432615918,
+                -0.10546960241742659
+              ],
+              "bounds": {
+                "min": [
+                  -3.418626272287667,
+                  -1.146437484685023,
+                  -0.49375939329464924
+                ],
+                "max": [
+                  -2.634484308552749,
+                  -0.5628868018381608,
+                  0.28282018845979595
+                ]
+              },
+              "visible": true
+            }
+          ],
+          "pins": [
+            {
+              "id": "underground",
+              "normal": [
+                0.8650731924569884,
+                -0.031716039514780386,
+                -0.5006420522986169
+              ],
+              "world": [
+                0.22560460154567286,
+                0.9138128146526061,
+                2.419465182620488
+              ]
+            },
+            {
+              "id": "glacier",
+              "normal": [
+                0.22920651885063192,
+                0.9348256763960145,
+                0.27122928762784615
+              ],
+              "world": [
+                -1.6677761061952514,
+                2.6528548174708106,
+                0.22566091481153133
+              ]
+            },
+            {
+              "id": "desert",
+              "normal": [
+                0.8960001765711199,
+                0.39714789063478056,
+                -0.19863845687294898
+              ],
+              "world": [
+                -0.828154329677623,
+                1.5928119202867785,
+                2.176940984350461
+              ]
+            },
+            {
+              "id": "deep-sea",
+              "normal": [
+                -0.7747021798719258,
+                0.19680181724739437,
+                -0.6009206080921253
+              ],
+              "world": [
+                1.7546143944507138,
+                2.1819870980854086,
+                -1.0875373129823678
+              ]
+            }
+          ]
+        },
+        "environmentBackground": {
+          "requested": null,
+          "displayed": null,
+          "state": "idle",
+          "pending": false
+        },
+        "handoffState": "settled",
+        "homeHandoff": false,
+        "selectorViewport": null,
+        "presentation": "2026-11-09.01-local-157be00",
+        "scenes": {
+          "earth": true,
+          "surface": false,
+          "mine": false,
+          "kit": false
+        },
+        "environment": "underground",
+        "comparison": false,
+        "scrollY": 0,
+        "kitActive": false,
+        "kit": null,
+        "learning": null,
+        "drawCalls": 12,
+        "triangles": 59175,
+        "textures": 4,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.5,
+        "heapUsedBytes": 12728430,
+        "meanFps": 60.00400026668446,
+        "p99FrameMs": 16.800000000000182,
+        "p95FrameMs": 16.799999999999727,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "layout": [
+        {
+          "id": ".welcome-wordmark",
+          "x": 532.59375,
+          "y": 643.5,
+          "width": 374.8125,
+          "height": 64.796875
+        },
+        {
+          "id": ".home-signature",
+          "x": 558,
+          "y": 735.296875,
+          "width": 324,
+          "height": 13
+        },
+        {
+          "id": "#start-experience",
+          "x": 613,
+          "y": 764.296875,
+          "width": 214,
+          "height": 42
+        }
+      ],
+      "requests": 92
+    },
+    {
+      "spec": {
+        "name": "compact",
+        "width": 1365,
+        "height": 768,
+        "dpr": 1,
+        "motion": "no-preference"
+      },
+      "readyMs": 678.2000000476837,
+      "coldMaxFrameMs": 366.6,
+      "hero": {
+        "frames": 181,
+        "meanFps": 60.00132599615462,
+        "p95Ms": 16.700000000000728,
+        "p99Ms": 16.800000000000182,
+        "maxMs": 16.800000000000182
+      },
+      "selection": {
+        "frames": 181,
+        "meanFps": 60.003315100281746,
+        "p95Ms": 16.799999999999272,
+        "p99Ms": 16.80000000000109,
+        "maxMs": 16.80000000000291
+      },
+      "diagnostics": {
+        "authoredAssets": [
+          "assets/authored/observation-satellite.glb",
+          "assets/authored/observation-satellite-overview.glb",
+          "assets/models/iss/iss.glb"
+        ],
+        "preparationMs": {},
+        "stage": "welcome",
+        "chapter": "earth",
+        "chapterBusy": false,
+        "chapterRequest": 0,
+        "surfaceFilm": {
+          "ready": false,
+          "failed": false,
+          "active": false,
+          "paused": true,
+          "time": 0,
+          "duration": null,
+          "reducedMotion": false
+        },
+        "technical": {
+          "open": false,
+          "chapter": "perception",
+          "step": 0,
+          "running": false
+        },
+        "camera": {
+          "position": [
+            0,
+            0,
+            12.8
+          ],
+          "fov": 34,
+          "moving": false
+        },
+        "earthSettling": false,
+        "globe": {
+          "layers": {
+            "day": true,
+            "night": true,
+            "clouds": true,
+            "station": true,
+            "satellite": true
+          },
+          "mode": "welcome",
+          "elapsed": 4.816600000000006,
+          "rootPosition": [
+            0,
+            0.9,
+            0
+          ],
+          "rootScale": [
+            1,
+            1,
+            1
+          ],
+          "earthRotation": -2.008728961351716,
+          "sunDirection": [
+            -0.5598880335888039,
+            0.27994401679440195,
+            0.7798440467844053
+          ],
+          "stationSpan": 0.68,
+          "spacecraft": [
+            {
+              "kind": "satellite",
+              "position": [
+                3.095495593344056,
+                1.6620830730325022,
+                0.6321680325553213
+              ],
+              "bounds": {
+                "min": [
+                  2.6155295453230845,
+                  1.4273518709285398,
+                  0.3654674740282716
+                ],
+                "max": [
+                  3.5733120987939295,
+                  1.8991590034627377,
+                  0.9004996125630915
+                ]
+              },
+              "visible": true
+            },
+            {
+              "kind": "station",
+              "position": [
+                -3.0267466181173655,
+                -0.8542411253150305,
+                -0.1069718840095214
+              ],
+              "bounds": {
+                "min": [
+                  -3.4188175999848243,
+                  -1.1460164667384616,
+                  -0.495261674886744
+                ],
+                "max": [
+                  -2.6346756362499066,
+                  -0.5624657838915994,
+                  0.2813179068677012
+                ]
+              },
+              "visible": true
+            }
+          ],
+          "pins": [
+            {
+              "id": "underground",
+              "normal": [
+                0.8650731924569884,
+                -0.031716039514780386,
+                -0.5006420522986169
+              ],
+              "world": [
+                0.22361069522530008,
+                0.9129483211583916,
+                2.4196550576394227
+              ]
+            },
+            {
+              "id": "glacier",
+              "normal": [
+                0.22920651885063192,
+                0.9348256763960145,
+                0.27122928762784615
+              ],
+              "world": [
+                -1.6679617601145602,
+                2.652774323917138,
+                0.2249127302140993
+              ]
+            },
+            {
+              "id": "desert",
+              "normal": [
+                0.8960001765711199,
+                0.39714789063478056,
+                -0.19863845687294898
+              ],
+              "world": [
+                -0.8299481193317704,
+                1.5920341909270013,
+                2.176505179825141
+              ]
+            },
+            {
+              "id": "deep-sea",
+              "normal": [
+                -0.7747021798719258,
+                0.19680181724739437,
+                -0.6009206080921253
+              ],
+              "world": [
+                1.755509825352848,
+                2.1823753280546425,
+                -1.0856328896484126
+              ]
+            }
+          ]
+        },
+        "environmentBackground": {
+          "requested": null,
+          "displayed": null,
+          "state": "idle",
+          "pending": false
+        },
+        "handoffState": "settled",
+        "homeHandoff": false,
+        "selectorViewport": null,
+        "presentation": "2026-11-09.01-local-157be00",
+        "scenes": {
+          "earth": true,
+          "surface": false,
+          "mine": false,
+          "kit": false
+        },
+        "environment": "underground",
+        "comparison": false,
+        "scrollY": 0,
+        "kitActive": false,
+        "kit": null,
+        "learning": null,
+        "drawCalls": 12,
+        "triangles": 59175,
+        "textures": 4,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1,
+        "heapUsedBytes": 12703314,
+        "meanFps": 59.99999999999999,
+        "p99FrameMs": 16.800000000000182,
+        "p95FrameMs": 16.700000000000728,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "layout": [
+        {
+          "id": ".welcome-wordmark",
+          "x": 500.921875,
+          "y": 522.234375,
+          "width": 363.15625,
+          "height": 62.796875
+        },
+        {
+          "id": ".home-signature",
+          "x": 536.6875,
+          "y": 606.03125,
+          "width": 291.609375,
+          "height": 12
+        },
+        {
+          "id": "#start-experience",
+          "x": 575.5,
+          "y": 630.03125,
+          "width": 214,
+          "height": 42
+        }
+      ],
+      "requests": 82
+    },
+    {
+      "spec": {
+        "name": "reduced",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "motion": "reduce"
+      },
+      "readyMs": 850,
+      "coldMaxFrameMs": 399.90000000000003,
+      "hero": {
+        "frames": 181,
+        "meanFps": 60.00132599615462,
+        "p95Ms": 16.799999999999727,
+        "p99Ms": 16.800000000000182,
+        "maxMs": 16.800000000000182
+      },
+      "selection": {
+        "frames": 179,
+        "meanFps": 59.340295043925074,
+        "p95Ms": 16.799999999999272,
+        "p99Ms": 16.80000000000109,
+        "maxMs": 50
+      },
+      "diagnostics": {
+        "authoredAssets": [
+          "assets/authored/observation-satellite.glb",
+          "assets/authored/observation-satellite-overview.glb",
+          "assets/models/iss/iss.glb"
+        ],
+        "preparationMs": {},
+        "stage": "welcome",
+        "chapter": "earth",
+        "chapterBusy": false,
+        "chapterRequest": 0,
+        "surfaceFilm": {
+          "ready": false,
+          "failed": false,
+          "active": false,
+          "paused": true,
+          "time": 0,
+          "duration": null,
+          "reducedMotion": true
+        },
+        "technical": {
+          "open": false,
+          "chapter": "perception",
+          "step": 0,
+          "running": false
+        },
+        "camera": {
+          "position": [
+            0,
+            0,
+            12.8
+          ],
+          "fov": 34,
+          "moving": false
+        },
+        "earthSettling": false,
+        "globe": {
+          "layers": {
+            "day": true,
+            "night": true,
+            "clouds": true,
+            "station": true,
+            "satellite": true
+          },
+          "mode": "welcome",
+          "elapsed": 0,
+          "rootPosition": [
+            0,
+            0.9,
+            0
+          ],
+          "rootScale": [
+            1,
+            1,
+            1
+          ],
+          "earthRotation": -2.095427761351723,
+          "sunDirection": [
+            -0.5598880335888039,
+            0.27994401679440195,
+            0.7798440467844053
+          ],
+          "stationSpan": 0.68,
+          "spacecraft": [
+            {
+              "kind": "satellite",
+              "position": [
+                3.1359495240336908,
+                1.634414282559963,
+                0.43469097561923814
+              ],
+              "bounds": {
+                "min": [
+                  2.655983476012719,
+                  1.3996830804560005,
+                  0.16799041709218857
+                ],
+                "max": [
+                  3.6137660294835645,
+                  1.8714902129901985,
+                  0.7030225556270084
+                ]
+              },
+              "visible": true
+            },
+            {
+              "kind": "station",
+              "position": [
+                -3.042335856192836,
+                -0.8119500006373398,
+                -0.251832748945038
+              ],
+              "bounds": {
+                "min": [
+                  -3.434406838060295,
+                  -1.1037253420607709,
+                  -0.6401225398222605
+                ],
+                "max": [
+                  -2.6502648743253774,
+                  -0.5201746592139087,
+                  0.1364570419321846
+                ]
+              },
+              "visible": true
+            }
+          ],
+          "pins": [
+            {
+              "id": "underground",
+              "normal": [
+                0.8650731924569884,
+                -0.031716039514780386,
+                -0.5006420522986169
+              ],
+              "world": [
+                0.030657550726556182,
+                0.8292900587801599,
+                2.4287775152936786
+              ]
+            },
+            {
+              "id": "glacier",
+              "normal": [
+                0.22920651885063192,
+                0.9348256763960145,
+                0.27122928762784615
+              ],
+              "world": [
+                -1.6829590192942274,
+                2.6462719958692262,
+                0.1519310890473809
+              ]
+            },
+            {
+              "id": "desert",
+              "normal": [
+                0.8960001765711199,
+                0.39714789063478056,
+                -0.19863845687294898
+              ],
+              "world": [
+                -1.0011842253661265,
+                1.5177917362395517,
+                2.1262322350844345
+              ]
+            },
+            {
+              "id": "deep-sea",
+              "normal": [
+                -0.7747021798719258,
+                0.19680181724739437,
+                -0.6009206080921253
+              ],
+              "world": [
+                1.834449256851792,
+                2.216600920436062,
+                -0.89791867134102
+              ]
+            }
+          ]
+        },
+        "environmentBackground": {
+          "requested": null,
+          "displayed": null,
+          "state": "idle",
+          "pending": false
+        },
+        "handoffState": "settled",
+        "homeHandoff": false,
+        "selectorViewport": null,
+        "presentation": "2026-11-09.01-local-157be00",
+        "scenes": {
+          "earth": true,
+          "surface": false,
+          "mine": false,
+          "kit": false
+        },
+        "environment": "underground",
+        "comparison": false,
+        "scrollY": 0,
+        "kitActive": false,
+        "kit": null,
+        "learning": null,
+        "drawCalls": 12,
+        "triangles": 59175,
+        "textures": 4,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1,
+        "heapUsedBytes": 20696164,
+        "meanFps": 60.00200006666889,
+        "p99FrameMs": 16.800000000000182,
+        "p95FrameMs": 16.799999999999727,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "layout": [
+        {
+          "id": ".welcome-wordmark",
+          "x": 469.71875,
+          "y": 544,
+          "width": 340.5625,
+          "height": 58.875
+        },
+        {
+          "id": ".home-signature",
+          "x": 494.1875,
+          "y": 623.875,
+          "width": 291.609375,
+          "height": 12
+        },
+        {
+          "id": "#start-experience",
+          "x": 533,
+          "y": 647.875,
+          "width": 214,
+          "height": 42
+        }
+      ],
+      "requests": 82
+    }
+  ],
+  "browser": "156.0.8078.81"
+}

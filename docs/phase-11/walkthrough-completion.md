@@ -1,5 +1,9 @@
 # Guided walkthrough and engineering chapters
 
+Historical ADR-0053 evidence. The current default and navigation are superseded
+by [ADR-0054 cinematic chapters](cinematic-chapters.md). Retained experiment
+results below are unchanged.
+
 Implements the remaining presentation work in #349 under ADR-0053. Presentation
 revision: `2026-11-08.10`. Release and publication work remains excluded.
 
