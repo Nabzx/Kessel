@@ -13,7 +13,12 @@ export function trainingClock(data,elapsed) {
   const trial=data.trials[i],duration=trial.duration_s/data.replay_speed;
   if(elapsed<=cursor+duration||i===data.trials.length-1){const raw=Math.max(0,(elapsed-cursor)*data.replay_speed),time=raw>=trial.duration_s-1e-7?trial.duration_s:raw;return {...sampleTrial(trial,time),index:i,trial,reset:0,complete:i===data.trials.length-1&&time>=trial.duration_s};}
   cursor+=duration;
-  if(elapsed<cursor+data.reset_seconds)return {...sampleTrial(trial,trial.duration_s),index:i,trial,reset:(elapsed-cursor)/data.reset_seconds,complete:false};
+  if(elapsed<cursor+data.reset_seconds){
+   const reset=(elapsed-cursor)/data.reset_seconds,next=reset>=.5,index=next?i+1:i,selected=data.trials[index];
+   // Switch independent episodes at the fully covered midpoint. Both poses
+   // remain stationary while the source-labelled reset fades out and in.
+   return {...sampleTrial(selected,next?0:trial.duration_s),index,trial:selected,reset,complete:false};
+  }
   cursor+=data.reset_seconds;
  }
 }

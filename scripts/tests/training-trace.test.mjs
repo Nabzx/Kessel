@@ -14,7 +14,7 @@ test('a new episode is explicit, never a moving teleport',()=>{
  let cursor=0;
  for(let i=0;i<data.trials.length-1;i++){
   cursor+=data.trials[i].duration_s/data.replay_speed;
-  const reset=trainingClock(data,cursor+data.reset_seconds/2);assert(reset.reset>0);assert.equal(reset.index,i);assert.equal(reset.pose[3],0);
+  const before=trainingClock(data,cursor+data.reset_seconds*.25),after=trainingClock(data,cursor+data.reset_seconds*.75);assert(before.reset>0&&after.reset>0);assert.equal(before.index,i);assert.equal(after.index,i+1);assert.equal(before.pose[3],0);assert.equal(after.pose[3],0);assert.equal(after.time,0);
   cursor+=data.reset_seconds;assert.equal(trainingClock(data,cursor+.001).index,i+1);
  }
 });
