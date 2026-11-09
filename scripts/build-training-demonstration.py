@@ -48,7 +48,7 @@ for idx,(name,y,r,payload) in enumerate([('Early policy',-6,6,0),('Partial picku
   else:
    if idx==4:hold(2,5)
    # Enter and leave a constant-radius turn at rest, steering stationary first.
-   steering=math.atan(3.4/r)
+   steering=math.atan2(1.8,r)+math.asin(1.6/math.hypot(r,1.8))
    hold(.7,6,{4:steering})
    drive(math.pi*r,6,lambda q:(r*math.sin(math.pi*q),y+r*(1-math.cos(math.pi*q)),math.pi*q,steering))
    hold(.7,6,{4:0})
@@ -62,6 +62,17 @@ for idx,(name,y,r,payload) in enumerate([('Early policy',-6,6,0),('Partial picku
    hold(1,10)
  destination_y=y+2*r
  trials.append({'id':f'episode-{idx+1:02}', 'name':name,'outcome':'success' if idx>1 else 'missed pickup' if idx==0 else 'partial pickup','load_point':[13.8,y], 'receiver':[-9.5,destination_y], 'obstacle':{'centre':[5,8],'half_extents':[.65,.8]} if idx==4 else None,'represented_episodes': [500,48000,320000,1200000,2400000][idx], 'reward':[-.41,.12,.68,.83,.96][idx], 'initial_ore_kg':3000,'goal_kg':2000,'rows':rows,'duration_s':round(t,6)})
+# Integrate each tyre's actual path independently, including reverse travel.
+for trial in trials:
+ angles=[0.,0.,0.,0.];previous=None;previous_speed=0
+ for row in trial['rows']:
+  _,x,y,h,v,a,*_=row;j=(x+1.8*math.cos(h),y+1.8*math.sin(h));f=h+a
+  centres=[(x-side*.65*math.sin(h),y+side*.65*math.cos(h)) for side in [1,-1]]+[(j[0]+1.6*math.cos(f)-side*.65*math.sin(f),j[1]+1.6*math.sin(f)+side*.65*math.cos(f)) for side in [1,-1]]
+  if previous:
+   for k,(point,last) in enumerate(zip(centres,previous)):
+    angles[k]+=math.hypot(point[0]-last[0],point[1]-last[1])/.55*(1 if v+previous_speed>=0 else -1)
+  row.extend(round(a,6) for a in angles);previous=centres;previous_speed=v
+columns.extend(['rear_left_rad','rear_right_rad','front_left_rad','front_right_rad'])
 result={'schema_version':1,'source':'authored kinematic training demonstration','learned_policy_result':False,'replay_speed':6,'reset_seconds':.85,'units':'metres, seconds, radians, kilograms','columns':columns,'phases':phases,'floor_bounds':[-13,-10,18,21],'trials':trials,'notes':'Independent evaluation episodes. Episode progression and rewards are illustrative. No live training, measured policy success or granular dynamics is claimed. New episodes reset the scenario explicitly.'}
 (ROOT/'data/training-demonstration.json').write_text(json.dumps(result,separators=(',',':'))+'\n')
 print(f'{sum(len(t["rows"]) for t in trials)} samples; {sum(t["duration_s"] for t in trials)/6:.1f}s replay plus labelled resets')

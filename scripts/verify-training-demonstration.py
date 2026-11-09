@@ -20,10 +20,13 @@ def rectangle(cx,cy,hx,hy):return [(cx-hx,cy-hy),(cx+hx,cy-hy),(cx+hx,cy+hy),(cx
 for trial in D['trials']:
  previous=None
  for row in trial['rows']:
-  t,x,y,theta,v,steer,boom,bucket,source,load,delivered,travel,phase,inflight=row
+  t,x,y,theta,v,steer,boom,bucket,source,load,delivered,travel,phase,inflight=row[:14]
   assert abs(source+load+delivered+inflight-3000)<.01,(trial['id'],t,'mass')
   assert min(source,load,delivered,inflight)>-.01
   assert abs(v)<=1.6001
+  if phase==6 and abs(v)>.01:
+   r=8 if trial['obstacle'] else 6
+   assert abs(r*math.sin(steer)-(1.8*math.cos(steer)+1.6))<1e-5,'front axle rolling constraint'
   # Dense retained samples cover all travel; no renderer interpolation shortcuts.
   j=(x+1.8*math.cos(theta),y+1.8*math.sin(theta));forward=theta+steer
   body=[corners(x,y,theta),corners(*j,forward,True)]
@@ -31,6 +34,10 @@ for trial in D['trials']:
   pile=rectangle(px,py,1.4,1.1)
   obstacles=[receiver,pile]
   if trial['obstacle']:obstacles.append(rectangle(*trial['obstacle']['centre'],*trial['obstacle']['half_extents']))
+  if trial['obstacle']:
+   base=1.6+1.2*math.cos(boom)-.6*math.cos(bucket)
+   bucket_poly=[(j[0]+(base+d*math.cos(bucket))*math.cos(forward)-side*.75*math.sin(forward),j[1]+(base+d*math.cos(bucket))*math.sin(forward)+side*.75*math.cos(forward)) for d,side in [(.18,-1),(.18,1),(1.08,1),(1.08,-1)]]
+   assert separate(bucket_poly,obstacles[-1]),(trial['id'],t,'bucket obstacle contact')
   for poly in body:
    for ob in obstacles:assert separate(poly,ob),(trial['id'],t,'body collision')
   for axle in [(x,y),(j[0]+1.6*math.cos(forward),j[1]+1.6*math.sin(forward))]:

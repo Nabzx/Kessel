@@ -33,6 +33,8 @@ jobs:
         run: python3 scripts/verify-visual-assets.py
       - name: Check tunnel-reference preparation
         run: python3 -m unittest discover -s scripts/tests -v
+      - name: Verify authored training geometry and material transfer
+        run: python3 scripts/verify-training-demonstration.py && node --test scripts/tests/training-trace.test.mjs
       - name: Verify recorded RL evidence
         run: python3 scripts/verify-rl-evidence.py
       - name: Verify recorded world-model evidence

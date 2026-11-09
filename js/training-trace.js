@@ -5,7 +5,7 @@ export function sampleTrial(trial,time) {
   while(lo<hi){const mid=Math.ceil((lo+hi)/2);if(rows[mid][0]<=t)lo=mid;else hi=mid-1;}
   const a=rows[lo],b=rows[Math.min(lo+1,rows.length-1)],f=b[0]>a[0]?(t-a[0])/(b[0]-a[0]):0;
   const v=a.map((n,i)=>i===12?n:n+(b[i]-n)*f);
-  return {time:t,pose:[v[1],v[2],v[3],v[4],v[5],v[6],v[7]],sourceKg:v[8],payloadKg:v[9],deliveredKg:v[10],travel:v[11],phase:v[12],inflightKg:v[13]};
+  return {time:t,pose:[v[1],v[2],v[3],v[4],v[5],v[6],v[7]],sourceKg:v[8],payloadKg:v[9],deliveredKg:v[10],travel:v[11],phase:v[12],inflightKg:v[13],wheelAngles:v.slice(14,18)};
 }
 export function trainingClock(data,elapsed) {
  let cursor=0;
