@@ -1,0 +1,16 @@
+/* Required scene failure, optional film fallback and cancelled preparation. */
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const base=process.env.KESSEL_URL||'http://127.0.0.1:8080/',out=process.env.KESSEL_QA_DIR||'/private/tmp/kessel-chapter-recovery';fs.mkdirSync(out,{recursive:true});
+(async()=>{const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-gpu','--use-gl=angle','--use-angle=metal']});const report={checks:[],errors:[]};
+try{
+ const page=await browser.newPage({viewport:{width:1365,height:768},reducedMotion:'reduce'});page.on('pageerror',e=>report.errors.push(e.message));
+ await page.route('**/assets/film/surface.mp4*',r=>r.fulfill({status:503,body:'Test fixture: optional media unavailable'}));
+ await page.goto(base);await page.locator('body.ready').waitFor();await page.evaluate(async()=>window.d=(await import('./js/experience.js')).diagnostics);
+ await page.click('[data-scene="surface"]');await page.waitForFunction(()=>d().chapter==='surface'&&!d().chapterBusy);assert.equal((await page.evaluate(()=>d())).surfaceFilm.failed,true);assert.equal((await page.evaluate(()=>d())).scenes.surface,true);await page.screenshot({path:path.join(out,'film-fallback.jpg'),type:'jpeg',quality:86});
+ await page.click('#enter-mine');await page.waitForFunction(()=>d().chapter==='mine'&&!d().chapterBusy);await page.click('#compare-trained');await page.waitForFunction(()=>d().stage==='trained');report.checks.push('Missing film keeps a usable real-time surface and mine entry');await page.close();
+ const cancelled=await browser.newPage({viewport:{width:1365,height:768},reducedMotion:'reduce'});cancelled.on('pageerror',e=>report.errors.push(e.message));
+ await cancelled.route('**/data/training-demonstration.json',async r=>{await new Promise(resolve=>setTimeout(resolve,700));await r.continue();});
+ await cancelled.goto(base);await cancelled.locator('body.ready').waitFor();await cancelled.evaluate(async()=>window.d=(await import('./js/experience.js')).diagnostics);
+ await cancelled.click('[data-scene="training"]');await cancelled.keyboard.press('Escape');await cancelled.waitForTimeout(1800);let state=await cancelled.evaluate(()=>d());assert.equal(state.stage,'welcome');assert.equal(state.chapterBusy,false);assert.equal(await cancelled.locator('#scene-curtain').evaluate(e=>getComputedStyle(e).opacity),'0');
+ await cancelled.click('[data-scene="training"]');await cancelled.waitForFunction(()=>d().stage==='learning'&&!d().chapterBusy);assert.equal((await cancelled.evaluate(()=>d())).learning.playing,false);await cancelled.screenshot({path:path.join(out,'cancelled-training-retry.jpg'),type:'jpeg',quality:86});report.checks.push('Escape cancels prepared navigation; late completion stays hidden; retry reuses the ready destination');await cancelled.close();
+}finally{fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');await browser.close();}assert.deepEqual(report.errors,[]);console.log('PASS: optional media fallback and cancelled chapter preparation');})().catch(e=>{console.error(e);process.exitCode=1});

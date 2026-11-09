@@ -20,9 +20,10 @@ const server=http.createServer((req,res)=>{
  }
  if(url.pathname==='/favicon.ico'){res.writeHead(204);res.end();return;}
  const file=path.join(root,url.pathname);
+ if(fault&&url.pathname==='/assets/textures/aerial_rocks_02_nor_gl.jpg'){res.writeHead(503,{'Content-Type':'text/plain'});res.end('Test fixture: required ore normal unavailable');return;}
  if(!file.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
  if(url.pathname==='/data/experience.json'){
-  dataRequests++;const d=JSON.parse(fs.readFileSync(file));if(legacy)delete d.visuals;if(fault)delete d.visuals.entrance;
+  dataRequests++;const d=JSON.parse(fs.readFileSync(file));if(legacy)delete d.visuals;
   res.setHeader('Cache-Control','public, max-age=3600');res.setHeader('Content-Type','application/json');res.end(JSON.stringify(d));return;
  }
  if(modules.includes(url.pathname)||styles.includes(url.pathname)){
@@ -30,7 +31,7 @@ const server=http.createServer((req,res)=>{
   res.setHeader('Cache-Control','public, max-age=3600');res.setHeader('Content-Type',url.pathname.endsWith('.js')?'text/javascript':'text/css');
   if(legacy){res.end(url.pathname.endsWith('.js')?'window.staleModuleExecuted=(window.staleModuleExecuted||0)+1;export {};':'body{--stale-style:1}');return;}
  }
- if(!res.hasHeader('Content-Type'))res.setHeader('Content-Type',({'.js':'text/javascript','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.json':'application/json','.gltf':'model/gltf+json','.glb':'model/gltf-binary','.bin':'application/octet-stream','.woff2':'font/woff2','.svg':'image/svg+xml'})[path.extname(file)]||'application/octet-stream');
+ if(!res.hasHeader('Content-Type'))res.setHeader('Content-Type',({'.js':'text/javascript','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.json':'application/json','.gltf':'model/gltf+json','.glb':'model/gltf-binary','.bin':'application/octet-stream','.woff2':'font/woff2','.svg':'image/svg+xml','.mp4':'video/mp4'})[path.extname(file)]||'application/octet-stream');
  try{res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}
 });
 (async()=>{
@@ -38,12 +39,12 @@ const server=http.createServer((req,res)=>{
  const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-gpu','--use-gl=angle','--use-angle=metal']});
  const report={date:new Date().toISOString(),version,browser:browser.version(),checks:[],errors:[]};
  try{
-  for(const scenario of ['unversioned-control','warm-cache-upgrade','missing-entrance-recovery']){
+  for(const scenario of ['unversioned-control','warm-cache-upgrade','missing-mine-recovery']){
    const context=await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:2,reducedMotion:'reduce'}),page=await context.newPage();
-   page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
+   page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&!m.text().includes('503'))report.errors.push(m.text());});
    await page.request.get(base+'/__reset?versioned='+(scenario==='unversioned-control'?'0':'1'));
    await page.goto(base);await page.locator('body[data-primed=yes]').waitFor();
-   await page.request.get(base+'/__upgrade?fault='+(scenario==='missing-entrance-recovery'?'1':'0'));await page.reload();
+   await page.request.get(base+'/__upgrade?fault='+(scenario==='missing-mine-recovery'?'1':'0'));await page.reload();
    if(scenario==='unversioned-control'){
     await page.waitForFunction(()=>window.staleModuleExecuted===1);assert.equal(await page.locator('body.ready').count(),0);
     report.checks.push({scenario,result:'Old cached entry module executes without versioned URLs'});await context.close();continue;
@@ -53,10 +54,10 @@ const server=http.createServer((req,res)=>{
    const start=async()=>{await page.click('#start-experience');await page.click('#deploy-underground');await page.waitForFunction(()=>document.getElementById('experience').dataset.stage==='surface');};
    const diag=()=>page.evaluate(async()=>(await import('./js/experience.js')).diagnostics());
    await start();await page.click('#enter-mine');
-   if(scenario==='missing-entrance-recovery'){
-    await page.locator('#enter-mine').filter({hasText:'Reload experience'}).waitFor();assert.equal((await diag()).stage,'surface');assert.equal(await page.locator('#surface-panel').isVisible(),true);assert.equal(await page.locator('#enter-mine').isEnabled(),true);
+   if(scenario==='missing-mine-recovery'){
+    await page.locator('#chapter-rail[data-error]').waitFor();assert.equal((await diag()).stage,'surface');assert.equal(await page.locator('#surface-panel').isVisible(),true);assert.equal(await page.locator('#enter-mine').isEnabled(),true);
     await page.screenshot({path:path.join(out,'recoverable-surface.jpg')});
-    await page.request.get(base+'/__upgrade?fault=0');await page.click('#enter-mine');await page.locator('body.ready').waitFor();await start();await page.click('#enter-mine');
+    await page.request.get(base+'/__upgrade?fault=0');await page.click('#enter-mine');
    }
    await page.waitForFunction(()=>document.getElementById('experience').dataset.stage==='mine');
    let d=await diag();assert.equal(d.scenes.surface,false);assert.equal(d.scenes.mine,true);assert.equal(d.presentation,version);

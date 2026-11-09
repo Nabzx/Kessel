@@ -1,0 +1,7 @@
+{
+  "checks": [
+    "Missing film keeps a usable real-time surface and mine entry",
+    "Escape cancels prepared navigation; late completion stays hidden; retry reuses the ready destination"
+  ],
+  "errors": []
+}
