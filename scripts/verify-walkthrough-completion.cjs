@@ -10,7 +10,7 @@ const out=process.env.KESSEL_QA_DIR||'/private/tmp/kessel-chapter-qa',base=proce
   const context=await browser.newContext({viewport:{width:spec.width,height:spec.height},deviceScaleFactor:spec.dpr,reducedMotion:spec.motion,recordVideo:process.env.KESSEL_QA_VIDEO==='1'&&spec.name==='retina'?{dir:out,size:{width:1280,height:800}}:undefined}),page=await context.newPage(),row={spec,frames:[],checks:[]};
   page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text())});page.on('response',r=>{if(r.status()>=400)report.errors.push(r.status()+' '+r.url())});
   const diag=()=>page.evaluate(()=>window.audit());
-  const shot=name=>page.screenshot({path:path.join(out,spec.name+'-'+name+'.jpg'),type:'jpeg',quality:87});
+  const shot=async name=>{await page.waitForFunction(()=>!document.getElementById('scene-curtain').classList.contains('covered')&&Number(getComputedStyle(document.getElementById('scene-curtain')).opacity)<.01);return page.screenshot({path:path.join(out,spec.name+'-'+name+'.jpg'),type:'jpeg',quality:87});};
   const chapter=async id=>{await page.click(`[data-scene="${id}"]`);await page.waitForFunction(id=>document.body.dataset.chapter===id&&!window.audit().chapterBusy,id,{timeout:45000});};
   const sample=async name=>{await page.waitForTimeout(3100);const d=await diag();row.frames.push({name,meanFps:d.meanFps,p95:d.p95FrameMs,p99:d.p99FrameMs,drawCalls:d.drawCalls,triangles:d.triangles,renderer:d.renderer});await shot(name);};
   await page.goto(base);await page.locator('body.ready').waitFor({timeout:45000});await page.evaluate(async()=>window.audit=(await import('./js/experience.js')).diagnostics);await sample('earth');

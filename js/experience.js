@@ -212,10 +212,12 @@ function updateRail(){
  for(const b of buttons){if(b.dataset.scene===chapter)b.setAttribute("aria-current","step");else b.removeAttribute("aria-current");}
  $("rail-index").textContent=`${String(chapterIds.indexOf(chapter)+1).padStart(2,"0")} / 07`;
 }
+function navigationInert(value){for(const id of ["experience","product","learning-ui","navigation"])$(id).inert=value;}
 async function navigateChapter(next){
  if(!data||!chapterIds.includes(next))return;
  if(next===chapter&&!chapterBusy)return;
- const request=++chapterRequest;++handoffToken;++learningRequest;chapterBusy=true;
+ if(stage==="comparing"){mine.setTrained(comparison);comparisonDone(comparison);}
+ const request=++chapterRequest;++handoffToken;++learningRequest;chapterBusy=true;navigationInert(true);
  transition=null;cameraMove=null;homeHandoff=null;
  const curtain=$("scene-curtain");curtain.classList.add("covered");
  $("chapter-rail").removeAttribute("data-error");$("chapter-rail").setAttribute("aria-busy","true");
@@ -260,11 +262,11 @@ async function navigateChapter(next){
   if(next!=="training")delete document.body.dataset.learningSource;
   camera.updateProjectionMatrix();camera.lookAt(lookTarget);lastTime=0;
   await new Promise(requestAnimationFrame);if(request!==chapterRequest)return;
-  curtain.classList.remove("covered");chapterBusy=false;$("chapter-rail").removeAttribute("aria-busy");
+  curtain.classList.remove("covered");chapterBusy=false;navigationInert(false);$("chapter-rail").removeAttribute("aria-busy");
   for(const b of $("chapter-rail").querySelectorAll("[data-scene]"))b.removeAttribute("data-pending");
   $("rail-state").textContent="Chapter ready";handoffState="settled";
  }catch(error){
-  if(request!==chapterRequest)return;chapterBusy=false;curtain.classList.remove("covered");$("chapter-rail").removeAttribute("aria-busy");$("chapter-rail").setAttribute("data-error","");for(const b of $("chapter-rail").querySelectorAll("[data-scene]"))b.removeAttribute("data-pending");$("rail-state").textContent="Chapter unavailable. Select it to retry.";
+  if(request!==chapterRequest)return;chapterBusy=false;navigationInert(false);curtain.classList.remove("covered");$("chapter-rail").removeAttribute("aria-busy");$("chapter-rail").setAttribute("data-error","");for(const b of $("chapter-rail").querySelectorAll("[data-scene]"))b.removeAttribute("data-pending");$("rail-state").textContent="Chapter unavailable. Select it to retry.";
   errorStatus("Chapter unavailable. Please try again.");console.warn("Chapter preparation failed:",error.message);
  }
 }
@@ -860,7 +862,7 @@ for (const id of ["sources-open", "caption-sources"])
 $("sources-close").addEventListener("click", () => $("sources-dialog").close());
 document.addEventListener("keydown", (event) => {
   if ($("sources-dialog").open) return;
-  if(event.key==="Escape"&&chapterBusy){++chapterRequest;++handoffToken;chapterBusy=false;$("scene-curtain").classList.remove("covered");$("chapter-rail").removeAttribute("aria-busy");for(const b of $("chapter-rail").querySelectorAll("[data-scene]"))b.removeAttribute("data-pending");$("flight-label").hidden=true;if(stage==="comparing")comparisonDone(comparison);return;}
+  if(event.key==="Escape"&&chapterBusy){++chapterRequest;++handoffToken;chapterBusy=false;navigationInert(false);$("scene-curtain").classList.remove("covered");$("chapter-rail").removeAttribute("aria-busy");for(const b of $("chapter-rail").querySelectorAll("[data-scene]"))b.removeAttribute("data-pending");$("flight-label").hidden=true;if(stage==="comparing")comparisonDone(comparison);return;}
   if (event.key === "Escape" && stage === "learning") closeLearning();
   if (stage === "select" && event.key === "ArrowRight")
     chooseEnvironment(environment + 1);

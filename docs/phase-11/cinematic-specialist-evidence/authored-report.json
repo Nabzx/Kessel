@@ -1,0 +1,353 @@
+{
+  "date": "2026-11-09T00:41:15.325Z",
+  "browser": "156.0.8078.81",
+  "checks": [
+    {
+      "scenario": "all authored assets adopted, paused geometry, proposed kit",
+      "diagnostics": {
+        "authoredAssets": [
+          "assets/authored/observation-satellite.glb",
+          "assets/authored/observation-satellite-overview.glb",
+          "assets/models/iss/iss.glb",
+          "assets/authored/portal-yard.glb",
+          "assets/authored/portal-hill.glb",
+          "assets/authored/hauler-close.glb",
+          "assets/authored/hauler-overview.glb",
+          "assets/authored/geology.glb",
+          "assets/authored/excavator.glb",
+          "assets/authored/ore-pile.glb",
+          "assets/authored/reference-loader.glb",
+          "assets/authored/retrofit-kit.glb"
+        ],
+        "preparationMs": {
+          "surface": 846.5999999046326,
+          "flight": 149.10000014305115,
+          "mine": 377.2000000476837,
+          "learning-authored": 148,
+          "kit": 57.5
+        },
+        "stage": "retrofit",
+        "chapter": "retrofit",
+        "chapterBusy": false,
+        "chapterRequest": 6,
+        "surfaceFilm": {
+          "ready": true,
+          "failed": false,
+          "active": false,
+          "paused": true,
+          "time": 0,
+          "duration": 24,
+          "reducedMotion": true
+        },
+        "technical": {
+          "open": false,
+          "chapter": "perception",
+          "step": 0,
+          "running": false
+        },
+        "camera": {
+          "position": [
+            8,
+            6,
+            10
+          ],
+          "fov": 43.343148922171224,
+          "moving": false
+        },
+        "earthSettling": false,
+        "globe": {
+          "layers": {
+            "day": true,
+            "night": true,
+            "clouds": true,
+            "station": true,
+            "satellite": true
+          },
+          "mode": "select",
+          "elapsed": 0,
+          "rootPosition": [
+            0,
+            0,
+            0
+          ],
+          "rootScale": [
+            1,
+            1,
+            1
+          ],
+          "earthRotation": -2.095427761351723,
+          "sunDirection": [
+            -0.5598880335888039,
+            0.27994401679440195,
+            0.7798440467844053
+          ],
+          "stationSpan": 0.68,
+          "spacecraft": [
+            {
+              "kind": "satellite",
+              "position": [
+                3.1359495240336908,
+                0.734414282559963,
+                0.43469097561923814
+              ],
+              "bounds": {
+                "min": [
+                  2.655983476012719,
+                  0.4996830804560005,
+                  0.16799041709218857
+                ],
+                "max": [
+                  3.6137660294835645,
+                  0.9714902129901986,
+                  0.7030225556270084
+                ]
+              },
+              "visible": false
+            },
+            {
+              "kind": "station",
+              "position": [
+                -3.042335856192836,
+                -1.7119500006373398,
+                -0.251832748945038
+              ],
+              "bounds": {
+                "min": [
+                  -3.434406838060295,
+                  -2.003725342060771,
+                  -0.6401225398222605
+                ],
+                "max": [
+                  -2.6502648743253774,
+                  -1.4201746592139088,
+                  0.1364570419321846
+                ]
+              },
+              "visible": false
+            }
+          ],
+          "pins": [
+            {
+              "id": "underground",
+              "normal": [
+                0.8650731924569884,
+                -0.031716039514780386,
+                -0.5006420522986169
+              ],
+              "world": [
+                0.030657550726556182,
+                -0.07070994121984014,
+                2.4287775152936786
+              ]
+            },
+            {
+              "id": "glacier",
+              "normal": [
+                0.22920651885063192,
+                0.9348256763960145,
+                0.27122928762784615
+              ],
+              "world": [
+                -1.6829590192942274,
+                1.746271995869226,
+                0.1519310890473809
+              ]
+            },
+            {
+              "id": "desert",
+              "normal": [
+                0.8960001765711199,
+                0.39714789063478056,
+                -0.19863845687294898
+              ],
+              "world": [
+                -1.0011842253661265,
+                0.6177917362395516,
+                2.1262322350844345
+              ]
+            },
+            {
+              "id": "deep-sea",
+              "normal": [
+                -0.7747021798719258,
+                0.19680181724739437,
+                -0.6009206080921253
+              ],
+              "world": [
+                1.834449256851792,
+                1.3166009204360622,
+                -0.89791867134102
+              ]
+            }
+          ]
+        },
+        "environmentBackground": {
+          "requested": "underground",
+          "displayed": "underground",
+          "state": "ready",
+          "pending": false
+        },
+        "handoffState": "settled",
+        "homeHandoff": false,
+        "selectorViewport": {
+          "left": 1095.203125,
+          "top": 310,
+          "width": 280,
+          "height": 251
+        },
+        "presentation": "2026-11-09.01-local-2908026",
+        "scenes": {
+          "earth": false,
+          "surface": false,
+          "mine": false,
+          "kit": true
+        },
+        "environment": "underground",
+        "comparison": true,
+        "scrollY": 0,
+        "kitActive": true,
+        "kit": {
+          "amount": 0,
+          "target": 0,
+          "playing": true,
+          "assembled": true
+        },
+        "learning": null,
+        "drawCalls": 42,
+        "triangles": 21274,
+        "textures": 50,
+        "shadows": true,
+        "shadowUpdate": "dynamic",
+        "pixelRatio": 1.5,
+        "heapUsedBytes": 47622637,
+        "meanFps": 59.99999999999999,
+        "p99FrameMs": 16.80000000000109,
+        "p95FrameMs": 16.800000000000182,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      }
+    },
+    {
+      "scenario": "missing authored geology",
+      "result": "original closed cutaway remains usable through trained comparison"
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "frameTimes": {
+    "welcome": {
+      "frames": 18,
+      "meanFps": 25.717959708529786,
+      "p95Ms": 333.3,
+      "p99Ms": 333.3
+    },
+    "select": {
+      "frames": 59,
+      "meanFps": 48.49580798947888,
+      "p95Ms": 50,
+      "p99Ms": 66.70000000000005
+    },
+    "surface": {
+      "frames": 27,
+      "meanFps": 47.64425622022234,
+      "p95Ms": 50.00000000000023,
+      "p99Ms": 83.29999999999973
+    },
+    "mine": {
+      "frames": 129,
+      "meanFps": 58.63902904677486,
+      "p95Ms": 16.800000000000182,
+      "p99Ms": 33.30000000000018
+    },
+    "comparing": {
+      "frames": 22,
+      "meanFps": 60.0109110747408,
+      "p95Ms": 16.700000000000728,
+      "p99Ms": 16.700000000000728
+    },
+    "trained": {
+      "frames": 21,
+      "meanFps": 59.99999999999999,
+      "p95Ms": 16.699999999999818,
+      "p99Ms": 16.799999999999272
+    },
+    "learning": {
+      "frames": 22,
+      "meanFps": 54.99999999999999,
+      "p95Ms": 33.30000000000018,
+      "p99Ms": 33.30000000000018
+    },
+    "retrofit": {
+      "frames": 217,
+      "meanFps": 60.002765104382696,
+      "p95Ms": 16.799999999999272,
+      "p99Ms": 16.80000000000109
+    }
+  },
+  "resourceTiming": [
+    {
+      "file": "observation-satellite.glb",
+      "bytes": 2018552,
+      "durationMs": 4.400000095367432
+    },
+    {
+      "file": "observation-satellite-overview.glb",
+      "bytes": 789768,
+      "durationMs": 1.9000000953674316
+    },
+    {
+      "file": "portal-yard.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 710528,
+      "durationMs": 5.200000047683716
+    },
+    {
+      "file": "portal-hill.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 304800,
+      "durationMs": 2.9000000953674316
+    },
+    {
+      "file": "hauler-close.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 1222964,
+      "durationMs": 4.3999998569488525
+    },
+    {
+      "file": "hauler-overview.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 615364,
+      "durationMs": 2.9000000953674316
+    },
+    {
+      "file": "geology.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 372028,
+      "durationMs": 5.599999904632568
+    },
+    {
+      "file": "excavator.glb",
+      "bytes": 2096636,
+      "durationMs": 8.699999809265137
+    },
+    {
+      "file": "ore-pile.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 572568,
+      "durationMs": 7.199999809265137
+    },
+    {
+      "file": "ore_normal.webp",
+      "bytes": 371500,
+      "durationMs": 6.400000095367432
+    },
+    {
+      "file": "ore_ao.webp",
+      "bytes": 90276,
+      "durationMs": 5
+    },
+    {
+      "file": "reference-loader.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 1583152,
+      "durationMs": 3
+    },
+    {
+      "file": "retrofit-kit.glb?v=2026-11-09.01-local-2908026",
+      "bytes": 1444004,
+      "durationMs": 2.700000047683716
+    }
+  ]
+}

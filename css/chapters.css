@@ -85,7 +85,7 @@ body[data-chapter="surface"].surface-fallback #world-canvas { opacity:1; }
 .surface-film::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#050907b8 0,transparent 56%),linear-gradient(0deg,#020505a0,transparent 25%); pointer-events:none; }
 .surface-motion { position:absolute; right:38px; bottom:108px; z-index:2; border:1px solid #fff4; border-radius:25px; padding:9px 16px; font:9px var(--mono); background:#0a131b70; color:#e8e8dd; }
 .surface-source { position:absolute; right:40px; bottom:88px; z-index:2; font:8px var(--mono); color:#c9cfc5; }
-@media(max-height:790px){ .training-panel.learning-panel { top:92px; bottom:99px; padding:18px; }.training-panel h1 { margin:13px 0 16px; font-size:25px; }.training-panel .episode-number strong { font-size:29px; }.training-panel .reward-chart { height:45px; }.training-panel .checkpoint-outcome { margin-top:13px; min-height:20px; }.training-loop { gap:6px; }.training-method { margin-top:9px; }body[data-chapter="inside"] .product { padding-top:95px; }body[data-chapter="inside"] .pipeline { margin-top:22px; row-gap:16px; } }
+@media(max-height:850px){ .training-panel.learning-panel { top:92px; bottom:99px; padding:18px; }.training-panel h1 { margin:13px 0 16px; font-size:25px; }.training-panel .episode-number strong { font-size:29px; }.training-panel .reward-chart { height:45px; }.training-panel .checkpoint-outcome { margin-top:13px; min-height:20px; }.training-loop { gap:6px; }.training-method { margin-top:9px; }body[data-chapter="inside"] .product { padding-top:95px; }body[data-chapter="inside"] .pipeline { margin-top:22px; row-gap:16px; } }
 @media(max-width:1100px){ .rail-index { display:none; }.chapter-rail { gap:0; padding:7px; }.chapter-rail button { font-size:10px; padding:10px; }.chapter-rail button i { display:none; }.training-panel.learning-panel { right:3vw; width:280px; } }
 @media(prefers-reduced-motion:reduce){ .scene-curtain,.chapter-rail { transition:none; } }
 
@@ -105,3 +105,18 @@ body[data-chapter="earth"] .start-button,body:not([data-chapter]) .start-button 
 body[data-chapter="surface"] .surface-panel::before { display:none; }
 
 #pause-training:disabled { opacity:.5; cursor:default; }
+@media(max-height:850px) and (min-width:1000px){
+ .operations .metrics { gap:12px 15px; }
+ .operations .metric { gap:4px; }
+ .operations .connectivity { margin:12px 0; padding-block:10px; }
+ #scroll-product { margin-top:12px; }
+ .learning-header { top:22px; padding-block:8px; }
+}
+@media(max-height:850px){
+ .training-panel .reward-chart { height:33px; }
+ .training-panel .chart-scale { margin-bottom:9px; }
+ .training-panel .checkpoint-outcome { margin-top:9px; }
+ .training-panel .task-continue { min-height:28px; padding-block:4px; }
+ body[data-chapter="inside"] .pipeline-node h3,body[data-chapter="inside"] .pipeline-node p { min-height:0; }
+ body[data-chapter="inside"] .pipeline-node code { margin-top:10px; }
+}

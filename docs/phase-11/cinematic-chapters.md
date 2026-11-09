@@ -6,7 +6,8 @@ Presentation revision: `2026-11-09.01`. Release and publication remain excluded.
 The walkthrough has seven full-screen chapters: Earth, Environments, Surface,
 Mine, Training, Inside Kessel and Retrofit. A persistent keyboard-accessible rail
 allows direct jumps. Destinations prepare before a short fade; the latest request
-wins. Returning retains the environment, mine comparison, film playback position,
+wins. Outgoing controls pause during preparation; cancelling or failing a
+destination restores the last settled mine state and enabled controls. Returning retains the environment, mine comparison, film playback position,
 training clock, technical chapter step and kit assembly. Replay is separate from
 navigation. Document scrolling no longer connects the mine and product pages.
 
@@ -22,7 +23,7 @@ work orders. Each successful order scoops 2 t, reverses clear, hauls along an
 articulated turn, raises the bucket and tips into an open receiver. The last order
 holds at a detected obstacle and follows a wider clear route. Three separate
 evaluation jobs deliver 6 t. Resets between independent episodes are explicitly
-labelled. The complete endpoint holds instead of looping or driving away.
+labelled, with the source pose changing only at the fully covered midpoint. The complete endpoint holds instead of looping or driving away.
 
 Retained samples carry machine pose, velocity, articulation, bucket actuation,
 individual tyre rotation, source mass, payload, material in flight and receiver
@@ -33,7 +34,8 @@ clearance past the obstacle, scoop engagement, tipping height and receiver
 alignment. Minimum tyre clearance to scene obstacles is 0.45 m. Every displayed
 interpolation conserves the per-episode 3,000 kg material ledger.
 
-The compact panel shows represented episodes, relative reward, current work
+Compact layouts keep the enlarged product action and training controls above
+the rail, including the 768- and 800-pixel heights. The compact panel shows represented episodes, relative reward, current work
 order, completed jobs, payload, delivery, simulated time and observation/action/
 reward. Floor labels identify the load, receiver and physical obstacle. The
 transparent rollout boxes and ghost forecasts are absent from this main view.
@@ -85,7 +87,7 @@ chapters, resumed kit assembly, rapid navigation, keyboard controls and the abse
 of document scrolling. An unavailable training trace retains the old chapter and
 recovers on retry. The [HTTP-cache and mine-asset recovery checks](cinematic-cache-evidence/report.json),
 [media fallback and cancellation checks](cinematic-recovery-evidence/report.json),
-and [orbital-home checks](cinematic-home-evidence/report.json) retain separate evidence. The encoded film also passes a full local FFmpeg decode.
+and [orbital-home checks](cinematic-home-evidence/report.json) retain separate evidence. The [specialist HUD and authored-asset checks](cinematic-specialist-evidence/hud-report.json) also verify unclipped actions on all three profiles and adoption of the original assets with a missing-geology fallback. The encoded film passes a full local FFmpeg decode.
 
 The geometry/material audit, interpolation and clock tests, recorded adapters,
 height-field tests, reference preparation tests and static asset/evidence checks
