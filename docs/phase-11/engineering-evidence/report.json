@@ -1,0 +1,577 @@
+{
+  "date": "2026-11-10T02:04:45.009Z",
+  "browser": "157.0.8103.40",
+  "profiles": [
+    {
+      "spec": {
+        "name": "retina",
+        "width": 1440,
+        "height": 900,
+        "dpr": 2,
+        "motion": "no-preference"
+      },
+      "frames": [
+        {
+          "name": "assembled",
+          "fps": 60.00200006666886,
+          "p95": 16.799999999999272,
+          "calls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "exploded",
+          "fps": 60.00200006666886,
+          "p95": 16.799999999999272,
+          "calls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "signal",
+          "fps": 60.00400026668439,
+          "p95": 16.700000000004366,
+          "calls": 58,
+          "triangles": 22642,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "checks": [
+        "Aligned pipeline rows",
+        "Finite turned haul holds and replays",
+        "Assembled/exploded/signal views",
+        "Animated framing remains inside the canvas",
+        "Seven technical component inspectors",
+        "Close inspection and drag rotation",
+        "Paused offline signal path",
+        "Retained CPU evidence",
+        "Resumed hardware state",
+        "Keyboard and reduced motion",
+        "Controls clear the rail"
+      ],
+      "pipeline": [
+        {
+          "x": 72,
+          "y": 366.09375,
+          "w": 306.453125,
+          "h": 166.140625,
+          "children": [
+            {
+              "left": 93,
+              "right": 357.453125,
+              "top": 430.09375,
+              "bottom": 448.84375
+            },
+            {
+              "left": 93,
+              "right": 357.453125,
+              "top": 458.84375,
+              "bottom": 476.234375
+            },
+            {
+              "left": 93,
+              "right": 357.453125,
+              "top": 490.234375,
+              "bottom": 514.234375
+            }
+          ]
+        },
+        {
+          "x": 392.453125,
+          "y": 366.09375,
+          "w": 306.46875,
+          "h": 166.140625,
+          "children": [
+            {
+              "left": 413.453125,
+              "right": 677.921875,
+              "top": 430.09375,
+              "bottom": 448.84375
+            },
+            {
+              "left": 413.453125,
+              "right": 677.921875,
+              "top": 458.84375,
+              "bottom": 476.234375
+            },
+            {
+              "left": 413.453125,
+              "right": 677.921875,
+              "top": 490.234375,
+              "bottom": 514.234375
+            }
+          ]
+        },
+        {
+          "x": 72,
+          "y": 546.234375,
+          "w": 306.453125,
+          "h": 166.140625,
+          "children": [
+            {
+              "left": 93,
+              "right": 357.453125,
+              "top": 610.234375,
+              "bottom": 628.984375
+            },
+            {
+              "left": 93,
+              "right": 357.453125,
+              "top": 638.984375,
+              "bottom": 656.375
+            },
+            {
+              "left": 93,
+              "right": 357.453125,
+              "top": 670.375,
+              "bottom": 694.375
+            }
+          ]
+        },
+        {
+          "x": 392.453125,
+          "y": 546.234375,
+          "w": 306.46875,
+          "h": 166.140625,
+          "children": [
+            {
+              "left": 413.453125,
+              "right": 677.921875,
+              "top": 610.234375,
+              "bottom": 628.984375
+            },
+            {
+              "left": 413.453125,
+              "right": 677.921875,
+              "top": 638.984375,
+              "bottom": 656.375
+            },
+            {
+              "left": 413.453125,
+              "right": 677.921875,
+              "top": 670.375,
+              "bottom": 694.375
+            }
+          ]
+        }
+      ],
+      "layout": [
+        {
+          "id": ".kit-heading",
+          "left": 57.59375,
+          "right": 1382.40625,
+          "bottom": 227.84375,
+          "top": 100,
+          "rail": 820
+        },
+        {
+          "id": ".kit-component-dock",
+          "left": 57.59375,
+          "right": 1382.40625,
+          "bottom": 765,
+          "top": 698,
+          "rail": 820
+        },
+        {
+          "id": ".kit-footer",
+          "left": 57.59375,
+          "right": 1382.40625,
+          "bottom": 797,
+          "top": 787,
+          "rail": 820
+        },
+        {
+          "id": ".kit-inspector",
+          "left": 57.59375,
+          "right": 387.59375,
+          "bottom": 642.484375,
+          "top": 274,
+          "rail": 820
+        }
+      ]
+    },
+    {
+      "spec": {
+        "name": "compact",
+        "width": 1365,
+        "height": 768,
+        "dpr": 1,
+        "motion": "no-preference"
+      },
+      "frames": [
+        {
+          "name": "assembled",
+          "fps": 60.00200006666886,
+          "p95": 16.799999999999272,
+          "calls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "exploded",
+          "fps": 60.00200006666893,
+          "p95": 16.700000000000728,
+          "calls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "signal",
+          "fps": 60.002000066669005,
+          "p95": 16.799999999995634,
+          "calls": 58,
+          "triangles": 22642,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "checks": [
+        "Aligned pipeline rows",
+        "Finite turned haul holds and replays",
+        "Assembled/exploded/signal views",
+        "Animated framing remains inside the canvas",
+        "Seven technical component inspectors",
+        "Close inspection and drag rotation",
+        "Paused offline signal path",
+        "Retained CPU evidence",
+        "Resumed hardware state",
+        "Keyboard and reduced motion",
+        "Controls clear the rail"
+      ],
+      "pipeline": [
+        {
+          "x": 68.25,
+          "y": 311.015625,
+          "w": 291.125,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 85.25,
+              "right": 342.375,
+              "top": 362.015625,
+              "bottom": 379.515625
+            },
+            {
+              "left": 85.25,
+              "right": 342.375,
+              "top": 387.515625,
+              "bottom": 403.453125
+            },
+            {
+              "left": 85.25,
+              "right": 342.375,
+              "top": 415.453125,
+              "bottom": 436.140625
+            }
+          ]
+        },
+        {
+          "x": 371.375,
+          "y": 311.015625,
+          "w": 291.140625,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 388.375,
+              "right": 645.515625,
+              "top": 362.015625,
+              "bottom": 379.515625
+            },
+            {
+              "left": 388.375,
+              "right": 645.515625,
+              "top": 387.515625,
+              "bottom": 403.453125
+            },
+            {
+              "left": 388.375,
+              "right": 645.515625,
+              "top": 415.453125,
+              "bottom": 436.140625
+            }
+          ]
+        },
+        {
+          "x": 68.25,
+          "y": 463.140625,
+          "w": 291.125,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 85.25,
+              "right": 342.375,
+              "top": 514.140625,
+              "bottom": 531.640625
+            },
+            {
+              "left": 85.25,
+              "right": 342.375,
+              "top": 539.640625,
+              "bottom": 555.578125
+            },
+            {
+              "left": 85.25,
+              "right": 342.375,
+              "top": 567.578125,
+              "bottom": 588.265625
+            }
+          ]
+        },
+        {
+          "x": 371.375,
+          "y": 463.140625,
+          "w": 291.140625,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 388.375,
+              "right": 645.515625,
+              "top": 514.140625,
+              "bottom": 531.640625
+            },
+            {
+              "left": 388.375,
+              "right": 645.515625,
+              "top": 539.640625,
+              "bottom": 555.578125
+            },
+            {
+              "left": 388.375,
+              "right": 645.515625,
+              "top": 567.578125,
+              "bottom": 588.265625
+            }
+          ]
+        }
+      ],
+      "layout": [
+        {
+          "id": ".kit-heading",
+          "left": 54.59375,
+          "right": 1310.40625,
+          "bottom": 191.53125,
+          "top": 88,
+          "rail": 688
+        },
+        {
+          "id": ".kit-component-dock",
+          "left": 54.59375,
+          "right": 1310.40625,
+          "bottom": 642,
+          "top": 582,
+          "rail": 688
+        },
+        {
+          "id": ".kit-footer",
+          "left": 54.59375,
+          "right": 1310.40625,
+          "bottom": 669,
+          "top": 660,
+          "rail": 688
+        },
+        {
+          "id": ".kit-inspector",
+          "left": 54.59375,
+          "right": 384.59375,
+          "bottom": 539.25,
+          "top": 226,
+          "rail": 688
+        }
+      ]
+    },
+    {
+      "spec": {
+        "name": "reduced",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "motion": "reduce"
+      },
+      "frames": [
+        {
+          "name": "assembled",
+          "fps": 60.00400026668439,
+          "p95": 16.700000000000728,
+          "calls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "exploded",
+          "fps": 60.00200006666886,
+          "p95": 16.799999999999272,
+          "calls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "signal",
+          "fps": 60.00200006666893,
+          "p95": 16.799999999999272,
+          "calls": 58,
+          "triangles": 22642,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "checks": [
+        "Aligned pipeline rows",
+        "Finite turned haul holds and replays",
+        "Assembled/exploded/signal views",
+        "Animated framing remains inside the canvas",
+        "Seven technical component inspectors",
+        "Close inspection and drag rotation",
+        "Paused offline signal path",
+        "Retained CPU evidence",
+        "Resumed hardware state",
+        "Keyboard and reduced motion",
+        "Controls clear the rail"
+      ],
+      "pipeline": [
+        {
+          "x": 64,
+          "y": 323.796875,
+          "w": 272.625,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 81,
+              "right": 319.625,
+              "top": 374.796875,
+              "bottom": 392.296875
+            },
+            {
+              "left": 81,
+              "right": 319.625,
+              "top": 400.296875,
+              "bottom": 416.234375
+            },
+            {
+              "left": 81,
+              "right": 319.625,
+              "top": 428.234375,
+              "bottom": 448.921875
+            }
+          ]
+        },
+        {
+          "x": 348.625,
+          "y": 323.796875,
+          "w": 272.640625,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 365.625,
+              "right": 604.265625,
+              "top": 374.796875,
+              "bottom": 392.296875
+            },
+            {
+              "left": 365.625,
+              "right": 604.265625,
+              "top": 400.296875,
+              "bottom": 416.234375
+            },
+            {
+              "left": 365.625,
+              "right": 604.265625,
+              "top": 428.234375,
+              "bottom": 448.921875
+            }
+          ]
+        },
+        {
+          "x": 64,
+          "y": 475.921875,
+          "w": 272.625,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 81,
+              "right": 319.625,
+              "top": 526.921875,
+              "bottom": 544.421875
+            },
+            {
+              "left": 81,
+              "right": 319.625,
+              "top": 552.421875,
+              "bottom": 568.359375
+            },
+            {
+              "left": 81,
+              "right": 319.625,
+              "top": 580.359375,
+              "bottom": 601.046875
+            }
+          ]
+        },
+        {
+          "x": 348.625,
+          "y": 475.921875,
+          "w": 272.640625,
+          "h": 140.125,
+          "children": [
+            {
+              "left": 365.625,
+              "right": 604.265625,
+              "top": 526.921875,
+              "bottom": 544.421875
+            },
+            {
+              "left": 365.625,
+              "right": 604.265625,
+              "top": 552.421875,
+              "bottom": 568.359375
+            },
+            {
+              "left": 365.625,
+              "right": 604.265625,
+              "top": 580.359375,
+              "bottom": 601.046875
+            }
+          ]
+        }
+      ],
+      "layout": [
+        {
+          "id": ".kit-heading",
+          "left": 51.1875,
+          "right": 1228.8125,
+          "bottom": 191.53125,
+          "top": 88,
+          "rail": 720
+        },
+        {
+          "id": ".kit-component-dock",
+          "left": 51.1875,
+          "right": 1228.8125,
+          "bottom": 674,
+          "top": 614,
+          "rail": 720
+        },
+        {
+          "id": ".kit-footer",
+          "left": 51.1875,
+          "right": 1228.8125,
+          "bottom": 701,
+          "top": 692,
+          "rail": 720
+        },
+        {
+          "id": ".kit-inspector",
+          "left": 51.1875,
+          "right": 381.1875,
+          "bottom": 539.25,
+          "top": 226,
+          "rail": 720
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "fallback": "Shared route and grounded tyres remain usable without the film",
+  "focused_rerun": {
+    "date": "2026-11-10T02:11:08.676Z",
+    "profile": "reduced",
+    "reason": "Verify focus restoration after the evidence dialog closes"
+  }
+}
