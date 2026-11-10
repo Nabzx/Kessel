@@ -257,7 +257,7 @@ async function navigateChapter(next){
   }else if(next==="inside"){
    setStage("inside");$("nav-location").textContent="Inside Kessel";viewport();
   }else if(next==="retrofit"){
-   setStage("retrofit");kitActive=true;kit.root.visible=true;scene.environment=kitEnvironment;$("nav-location").textContent="Proposed retrofit kit";updateProduct();
+   setStage("retrofit");kit.invalidateFrame?.();kitActive=true;kit.root.visible=true;scene.environment=kitEnvironment;$("nav-location").textContent="Proposed retrofit kit";updateProduct();
   }
   if(next!=="training")delete document.body.dataset.learningSource;
   camera.updateProjectionMatrix();camera.lookAt(lookTarget);lastTime=0;
@@ -643,21 +643,12 @@ async function ensureKit() {
     studioEnvironment(data.kit.lighting),
   ])
     .then(async ([module, environment]) => {
-      const value = await module.createRetrofit(data);
+      const basic = await module.createRetrofit(data);
+      const value=await (await import("./retrofit-lab.js")).attachRetrofitLab(data,basic);
       await prepareStage(value.root,"kit",null,environment);
       kitEnvironment = environment;kit=value;
       scene.add(kit.root);
       kit.root.visible = false;
-      for (const component of data.kit.components) {
-        const button = document.createElement("button");
-        button.textContent = component.name;
-        button.title = component.description;
-        button.addEventListener("mouseenter", () => kit.focus(component.id));
-        button.addEventListener("focus", () => kit.focus(component.id));
-        button.addEventListener("mouseleave", () => kit.focus(null));
-        button.addEventListener("blur", () => kit.focus(null));
-        $("kit-components").append(button);
-      }
       return kit;
     })
     .catch((error) => {
@@ -669,10 +660,7 @@ async function ensureKit() {
 function updateProduct(){
  if(stage!=="retrofit"||!kit)return;
  const rect=$("kit-window").getBoundingClientRect();kitActive=true;kit.root.visible=true;scene.environment=kitEnvironment;
- camera.position.fromArray(data.kit.camera);lookTarget.set(0,kitExploded?2:.7,0);
- const distance=camera.position.distanceTo(lookTarget);
- camera.fov=THREE.MathUtils.radToDeg(2*Math.atan(((4.1/distance)*innerHeight)/Math.max(300,rect.height)));
- camera.near=.05;camera.far=120;camera.clearViewOffset();camera.setViewOffset(innerWidth,innerHeight,innerWidth/2-(rect.left+rect.width/2),innerHeight/2-(rect.top+rect.height/2),innerWidth,innerHeight);camera.updateProjectionMatrix();camera.lookAt(lookTarget);
+ lookTarget.copy(kit.present(camera,rect));
 }
 
 function resize() {
@@ -688,7 +676,7 @@ function resize() {
     homeHandoff=null;cameraMove=null;globe?.mode("select");camera.position.set(0,0,12.8);lookTarget.set(0,0,0);camera.lookAt(lookTarget);
   }
   frameLearning();
-  updateProduct();
+  kit?.invalidateFrame?.();updateProduct();
 }
 function pinLabel() { $("globe-label").hidden=true; }
 function drawScene(now) {
@@ -708,6 +696,8 @@ function drawScene(now) {
     camera.aspect=rect.width/rect.height;camera.clearViewOffset();camera.updateProjectionMatrix();camera.lookAt(lookTarget);
     renderer.setViewport(rect.left,y,rect.width,rect.height);renderer.setScissor(rect.left,y,rect.width,rect.height);renderer.setScissorTest(true);
     globe.lod?.(camera);renderer.render(scene,camera);renderer.setScissorTest(false);renderer.setViewport(0,0,innerWidth,innerHeight);
+  }else if(stage==="retrofit"&&kit){
+    renderer.setClearColor(0x030506,1);renderer.clear();const rect=$("kit-window").getBoundingClientRect();renderer.setScissor(rect.left,innerHeight-rect.bottom,rect.width,rect.height);renderer.setScissorTest(true);renderer.render(scene,camera);renderer.setScissorTest(false);
   }else{renderer.setClearColor(0x030506,1);globe?.lod?.(camera);renderer.render(scene,camera);}
 }
 
@@ -790,7 +780,7 @@ function render(now) {
     mine.update(delta);
   if (stage === "learning" && learning)
     updateLearning(learning.sourceMode !== "authored" ? ms / 1000 : delta);
-  if (kitActive && kit) kit.update(delta);
+  if (kitActive && kit){kit.update(delta);renderer.shadowMap.needsUpdate=true;updateProduct();}
   pinLabel();
   drawScene(now);
 }
@@ -835,17 +825,7 @@ document.querySelectorAll("[data-checkpoint]").forEach((button) =>
     }
   }),
 );
-$("kit-next").addEventListener("click",()=>{if(kit){kitExploded=kit.step(1)>0;updateProduct();}});
-$("kit-prev").addEventListener("click",()=>{if(kit){kitExploded=kit.step(-1)>0;updateProduct();}});
-$("kit-pause").addEventListener("click",()=>{if(kit)$("kit-pause").textContent=kit.pause()?"Pause":"Play";});
-$("assemble-kit").addEventListener("click", () => {
-  if (!kit) return;
-  kitExploded = kit.toggle();
-  $("assemble-kit").textContent = kitExploded
-    ? "Assemble the kit"
-    : "Open the assembly";
-  updateProduct();
-});
+$("kit-runtime-evidence").addEventListener("click",()=>technicalChapters.open(2,$("kit-runtime-evidence")));
 $("scroll-product").addEventListener("click",()=>navigateChapter("inside"));
 $("restart").addEventListener("click",()=>navigateChapter("earth"));
 $("replay-experience").addEventListener("click",()=>location.reload());
@@ -895,7 +875,7 @@ export function diagnostics() {
     authoredAssets:[...authoredAssets],
     preparationMs:{...preparationMs},
     stage,
-    chapter,chapterBusy,chapterRequest,surfaceFilm:surfaceFilm.diagnostics(),technical:technicalChapters?.diagnostics(),
+    chapter,chapterBusy,chapterRequest,surfaceFilm:surfaceFilm.diagnostics(),surfaceMotion:surface?.diagnostics?.(),technical:technicalChapters?.diagnostics(),
     camera: {position:camera.position.toArray(),fov:camera.fov,moving:cameraMove!==null},
     earthSettling:earthGoal!==null,
     globe: globe?.diagnostics?.() ?? null,

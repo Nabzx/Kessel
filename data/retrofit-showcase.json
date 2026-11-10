@@ -1,0 +1,27 @@
+{
+  "source": "Proposed hardware and illustrative local architecture; not a certified or deployed kit",
+  "designation": "K-01",
+  "envelope": "340 × 260 mm",
+  "views": ["assembled", "exploded", "signal"],
+  "components": {
+    "enclosure": {"code":"CHS-01","label":"Chassis","title":"Built around the machine.","description":"A mounting chassis carries the compute, power and vehicle interfaces. A removable gasketed cover provides service access.","facts":[["Packaging study","340 × 260 mm footprint"],["Integration","Machine-mounted retrofit"],["Construction","Metal chassis · captive fasteners"]],"side":"left"},
+    "power": {"code":"PWR-01","label":"Power","title":"Condition the input.","description":"Machine power is filtered and regulated before it reaches the processor and sensor rails.","facts":[["Input","Existing machine DC supply"],["Proposed stages","Transient filter → regulated rails"],["Observation","Voltage and current sensing"]],"side":"left"},
+    "compute": {"code":"COM-01","label":"Compute","title":"The policy stays onboard.","description":"A compact actor maps local observations to machine actions. The sensing and decision loop stays on the machine when the external link disappears.","facts":[["Hardware target","Jetson Orin class · proposed"],["Runtime target","ONNX Runtime / TensorRT"],["Local loop","Observation → policy → command"]],"side":"right"},
+    "controls": {"code":"VIO-01","label":"Vehicle I/O","title":"Connect to existing controls.","description":"A vehicle interface translates bounded policy commands into the machine's control signals, with a separate supervisory path.","facts":[["Proposed interfaces","CAN + machine-specific I/O"],["Supervision","Heartbeat · command limits"],["Integration","Per-machine validation plan"]],"side":"right"},
+    "lidar": {"code":"RNG-01","label":"Range sensing","title":"Geometry, without GPS.","description":"Range and pose inputs describe nearby surfaces and machine motion. Local estimation combines these observations before policy inference.","facts":[["Observation","Range returns + machine pose"],["Estimation","Local geometry · motion state"],["Interface target","Timestamped sensor transport"]],"side":"left"},
+    "camera": {"code":"CAM-01","label":"Stereo vision","title":"Add visual context.","description":"A synchronised image pair supplies visual observations alongside range and motion data.","facts":[["Input","Stereo image pair"],["Role","Scene context + local perception"],["Transport target","Synchronised camera interface"]],"side":"right"},
+    "cover": {"code":"THM-01","label":"Thermal path","title":"Move heat out of the stack.","description":"A thermal spreader links the compute module to the finned metal cover. The conduction path is visible in the exploded assembly.","facts":[["Heat path","Module → spreader → chassis"],["Design direction","Conduction cooling"],["Service","Removable cover · retained fasteners"]],"side":"left"}
+  },
+  "signal_stages": [
+    {"id":"sense","label":"Sense","equation":"oₜ = {range, pose, vision}","description":"Local observations enter the perception stack.","components":["lidar","camera"]},
+    {"id":"estimate","label":"Estimate","equation":"x̂ₜ = f(oₜ, x̂ₜ₋₁)","description":"Fuse geometry and motion into a local state estimate.","components":["compute"]},
+    {"id":"infer","label":"Infer","equation":"aₜ = πθ(oₜ)","description":"The compact actor selects a machine action onboard.","components":["compute"]},
+    {"id":"actuate","label":"Actuate","equation":"uₜ = limit(aₜ)","description":"The vehicle interface applies bounded commands.","components":["controls"]}
+  ],
+  "signal_seconds_per_stage": 2.4,
+  "references": [
+    "https://docs.nvidia.com/jetson/agx-orin-devkit/user-guide/hardware_layout.html",
+    "https://docs.nvidia.com/jetson/archives/r36.4.4/DeveloperGuide/HR/ControllerAreaNetworkCan.html",
+    "https://github.com/cra-ros-pkg/robot_localization/blob/rolling-devel/doc/state_estimation_nodes.rst"
+  ]
+}

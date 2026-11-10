@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="kessel-presentation" content="2026-11-09.01" />
+    <meta name="kessel-presentation" content="2026-11-10.01" />
     <meta name="theme-color" content="#030506" />
     <title>Kessel | Offline autonomy</title>
     <meta
@@ -18,18 +18,19 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/experience.css?v=2026-11-09.01" />
-      <link rel="stylesheet" href="css/recorded.css?v=2026-11-09.01" />
-    <link rel="stylesheet" href="css/realism.css?v=2026-11-09.01" />
-    <link rel="stylesheet" href="css/hud.css?v=2026-11-09.01" />
-    <link rel="stylesheet" href="css/home.css?v=2026-11-09.01" />
-    <link rel="stylesheet" href="css/orbital-home.css?v=2026-11-09.01" />
-    <link rel="stylesheet" href="css/chapters.css?v=2026-11-09.01" />
+    <link rel="stylesheet" href="css/experience.css?v=2026-11-10.01" />
+      <link rel="stylesheet" href="css/recorded.css?v=2026-11-10.01" />
+    <link rel="stylesheet" href="css/realism.css?v=2026-11-10.01" />
+    <link rel="stylesheet" href="css/hud.css?v=2026-11-10.01" />
+    <link rel="stylesheet" href="css/home.css?v=2026-11-10.01" />
+    <link rel="stylesheet" href="css/orbital-home.css?v=2026-11-10.01" />
+    <link rel="stylesheet" href="css/chapters.css?v=2026-11-10.01" />
+    <link rel="stylesheet" href="css/engineering.css?v=2026-11-10.01" />
   </head>
   <body class="story-locked">
     <div id="environment-backdrop" class="environment-backdrop" aria-hidden="true"><img alt="" /><img alt="" /></div>
     <div id="scene-curtain" class="scene-curtain" aria-hidden="true"></div>
-    <div id="surface-film" class="surface-film" hidden><video id="surface-video" muted playsinline loop preload="none" poster="assets/film/surface-poster.webp" aria-label="Original animated illustration of a mine surface"></video><button id="surface-motion" class="surface-motion">Pause scene</button><span class="surface-source">Authored site · Rwanda</span></div>
+    <div id="surface-film" class="surface-film" hidden><video id="surface-video" muted playsinline preload="none" poster="assets/film/surface-poster.webp" aria-label="Original animated illustration of a mine surface"></video><button id="surface-motion" class="surface-motion">Pause scene</button><span class="surface-source">Authored site · Rwanda</span></div>
     <canvas
       id="world-canvas"
       aria-label="Kessel interactive Earth and mine experience"
@@ -214,87 +215,21 @@
           <h2>Autonomy.<br />Underground.</h2>
           <p>Train in simulation. Run on existing machines, offline.</p>
         </div>
-        <div
-          class="pipeline"
-          aria-label="World model, reinforcement learning, policy distillation and offline deployment"
-        >
-          <div class="pipeline-node">
-            <span class="pipeline-index">01</span>
-            <div class="model-glyph" aria-hidden="true">
-              <i></i><i></i><i></i>
-            </div>
-            <h3>World model</h3>
-            <p>Predict environment dynamics.</p>
-            <code>zₜ, aₜ → zₜ₊₁</code>
-          </div>
-          <div class="pipeline-link" aria-hidden="true"></div>
-          <div class="pipeline-node">
-            <span class="pipeline-index">02</span
-            ><svg class="policy-glyph" viewBox="0 0 100 80" aria-hidden="true">
-              <path
-                d="M10 40H32M32 40L55 15M32 40L55 40M32 40L55 65M55 15L85 40M55 40H85M55 65L85 40"
-              />
-              <circle cx="10" cy="40" r="4" />
-              <circle cx="32" cy="40" r="4" />
-              <circle cx="55" cy="15" r="4" />
-              <circle cx="55" cy="40" r="4" />
-              <circle cx="55" cy="65" r="4" />
-              <circle cx="85" cy="40" r="5" />
-            </svg>
-            <h3>Reinforcement learning</h3>
-            <p>Improve through imagined outcomes.</p>
-            <code>max E[Σ γᵗrₜ]</code>
-          </div>
-          <div class="pipeline-link" aria-hidden="true"></div>
-          <div class="pipeline-node">
-            <span class="pipeline-index">03</span
-            ><svg class="distil-glyph" viewBox="0 0 100 80" aria-hidden="true">
-              <path
-                d="M8 18H38V62H8ZM62 29H87V51H62M38 40H62M12 25H33M12 32H33M12 39H33M12 46H33M12 53H33M69 35H81M69 41H81M69 47H81"
-              />
-            </svg>
-            <h3>Policy distillation</h3>
-            <p>Compress into a compact policy.</p>
-            <code>πteacher → πonboard</code>
-          </div>
-          <div class="pipeline-link" aria-hidden="true"></div>
-          <div class="pipeline-node">
-            <span class="pipeline-index">04</span>
-            <div class="compute-glyph" aria-hidden="true"><i></i></div>
-            <h3>Onboard autonomy</h3>
-            <p>Sense and act without a connection.</p>
-            <code>aₜ = π(oₜ)</code>
-          </div>
-        </div>
-        <div class="feedback-loop">
-          <span>Machine data</span><i aria-hidden="true"></i
-          ><span>World-model updates when connected</span>
-        </div>
-        <div class="pipeline-foot">
-          <span>Deployment data returns when a connection does.</span
-          >
-        </div>
+        <div class="autonomy-pipeline" aria-label="Training to offline deployment">
+<article class="pipeline-step"><div class="step-top"><span>01</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 8l12-5 12 5-12 5zM4 15l12 5 12-5M4 22l12 5 12-5"/></svg></div><h3>World model</h3><p>Predict the next state.</p><code>pθ(zₜ₊₁ | zₜ, aₜ)</code></article>
+<article class="pipeline-step"><div class="step-top"><span>02</span><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="6" cy="16" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="17" cy="25" r="3"/><circle cx="28" cy="16" r="3"/><path d="M8 14l6-5m-6 9l6 5m6-14l6 5m-6 9l6-5"/></svg></div><h3>Reinforcement learning</h3><p>Improve actions through rollouts.</p><code>πθ(aₜ | oₜ)</code></article>
+<article class="pipeline-step"><div class="step-top"><span>03</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 5h10v22H3zM22 10h7v12h-7zM13 16h9M6 9h4m-4 5h4m-4 5h4m-4 4h4"/></svg></div><h3>Policy distillation</h3><p>Transfer to a compact actor.</p><code>πteacher → πedge</code></article>
+<article class="pipeline-step"><div class="step-top"><span>04</span><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="8" width="16" height="16" rx="2"/><path d="M12 3v5m8-5v5M12 24v5m8-5v5M3 12h5m-5 8h5m16-8h5m-5 8h5M12 12h8v8h-8z"/></svg></div><h3>Offline control</h3><p>Observe and act on the machine.</p><code>oₜ → aₜ</code></article>
+</div><div class="feedback-loop"><span>Machine data</span><i aria-hidden="true"></i><span>World-model updates when connected</span></div>
       </section>
       <section class="engineering-chapters" id="engineering-chapters" aria-label="Technical chapters"></section>
-      <section class="kit-section" id="kit-section">
-        <div class="kit-copy">
-          <p class="section-label">Proposed retrofit kit</p>
-          <h2>An onboard<br />retrofit.</h2>
-          <p>
-            Local sensing. Rugged compute.<br />Connected to the controls
-            already there.
-          </p>
-          <p id="kit-stage-label" class="kit-stage-label">01 / Assembled unit</p><details class="kit-specifications"><summary>Component roles</summary><div class="kit-components" id="kit-components"></div></details>
-          <button class="secondary" id="assemble-kit">Open the assembly</button><div class="kit-controls"><button id="kit-prev" aria-label="Previous assembly stage">←</button><button id="kit-pause">Pause</button><button id="kit-next" aria-label="Next assembly stage">→</button></div>
-        </div>
-        <div
-          class="kit-window"
-          id="kit-window"
-          aria-label="Exploded concept view of the retrofit kit"
-        ></div>
-        <p class="kit-note">
-          Concept assembly. Components and enclosure are proposed.
-        </p>
+      <section class="kit-section engineering-lab" id="kit-section" aria-label="Proposed onboard retrofit engineering">
+        <header class="kit-heading"><div><p class="section-label">K-01 / Proposed retrofit system</p><h2>Autonomy,<br />onboard.</h2></div><div class="kit-view-controls" role="group" aria-label="Hardware view"><button id="kit-view-assembled" aria-pressed="true">Assembled</button><button id="assemble-kit" aria-pressed="false">Exploded</button><button id="kit-view-signal" aria-pressed="false">Signal path</button></div></header>
+        <aside id="kit-part-panel" class="kit-inspector" role="tabpanel" tabindex="0" aria-labelledby="kit-part-title"><p class="kit-part-code" id="kit-part-code">CHS-01 / Chassis</p><h3 id="kit-part-title">Built around the machine.</h3><p id="kit-part-description"></p><dl id="kit-part-facts"></dl><button class="kit-evidence-link" id="kit-runtime-evidence">Inspect retained CPU export ↗</button></aside>
+        <div class="kit-window" id="kit-window" aria-label="Interactive engineering assembly. Drag to rotate."><svg id="kit-leaders" aria-hidden="true"></svg><div id="kit-callouts"></div><div class="kit-model-caption"><span id="kit-stage-label">01 / Assembled unit</span><span>Drag to inspect</span><button id="kit-focus-part" aria-pressed="false">Focus part ↗</button><button id="kit-reset-view">Reset view ↺</button></div></div>
+        <div class="kit-signal-panel" id="kit-signal-panel" hidden><div class="signal-heading"><span>Local decision loop</span><span class="offline-badge"><i></i>External link offline</span></div><div id="kit-signal-steps" role="group" aria-label="Inspect local signal stages"></div><p class="signal-equation" id="kit-signal-equation"></p><p id="kit-signal-description"></p><div class="signal-transport"><button id="kit-prev" aria-label="Previous signal stage">←</button><button id="kit-pause">Pause</button><button id="kit-next" aria-label="Next signal stage">→</button><span>Illustrative signal flow</span></div></div>
+        <div class="kit-component-dock" id="kit-components" role="tablist" aria-label="Inspect retrofit components"></div>
+        <div class="kit-footer"><span>Proposed hardware · engineering study</span><span>Local sensing → compact policy → vehicle interface</span><span id="kit-envelope">340 × 260 mm / enclosure study</span></div>
       </section>
       <footer class="product-footer">
         <img src="assets/brand/kessel-orbital.svg" alt="Kessel" /><span
@@ -411,37 +346,39 @@
           "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
           "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
           "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js",
-          "./js/app.js": "./js/app.js?v=2026-11-09.01",
-          "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-09.01",
-        "./js/technical-chapters.js": "./js/technical-chapters.js?v=2026-11-09.01",
-          "./js/experience.js": "./js/experience.js?v=2026-11-09.01",
-          "./js/fleet.js": "./js/fleet.js?v=2026-11-09.01",
-          "./js/geology.js": "./js/geology.js?v=2026-11-09.01",
-          "./js/environment-scenes.js": "./js/environment-scenes.js?v=2026-11-09.01",
-          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-09.01",
-          "./js/training-stage.js": "./js/training-stage.js?v=2026-11-09.01",
-          "./js/training-trace.js": "./js/training-trace.js?v=2026-11-09.01",
-          "./js/surface-film.js": "./js/surface-film.js?v=2026-11-09.01",
-          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-09.01",
-          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-09.01",
-          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-09.01",
-          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-09.01",
-          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-09.01",
-          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-09.01",
-          "./js/mission.js": "./js/mission.js?v=2026-11-09.01",
-          "./js/height-field.js": "./js/height-field.js?v=2026-11-09.01",
-          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-09.01",
-          "./js/replay-framing.js": "./js/replay-framing.js?v=2026-11-09.01",
-          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-09.01",
-          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-09.01",
-          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-09.01",
-          "./js/site-detail.js": "./js/site-detail.js?v=2026-11-09.01",
-          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-09.01",
-          "./js/underground.js": "./js/underground.js?v=2026-11-09.01",
-          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-09.01"
+          "./js/app.js": "./js/app.js?v=2026-11-10.01",
+          "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-10.01",
+        "./js/technical-chapters.js": "./js/technical-chapters.js?v=2026-11-10.01",
+          "./js/experience.js": "./js/experience.js?v=2026-11-10.01",
+          "./js/fleet.js": "./js/fleet.js?v=2026-11-10.01",
+          "./js/geology.js": "./js/geology.js?v=2026-11-10.01",
+          "./js/environment-scenes.js": "./js/environment-scenes.js?v=2026-11-10.01",
+          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-10.01",
+          "./js/training-stage.js": "./js/training-stage.js?v=2026-11-10.01",
+          "./js/training-trace.js": "./js/training-trace.js?v=2026-11-10.01",
+          "./js/surface-film.js": "./js/surface-film.js?v=2026-11-10.01",
+          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-10.01",
+          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-10.01",
+          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-10.01",
+          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-10.01",
+          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-10.01",
+          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-10.01",
+          "./js/mission.js": "./js/mission.js?v=2026-11-10.01",
+          "./js/height-field.js": "./js/height-field.js?v=2026-11-10.01",
+          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-10.01",
+          "./js/replay-framing.js": "./js/replay-framing.js?v=2026-11-10.01",
+          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-10.01",
+          "./js/retrofit-lab.js": "./js/retrofit-lab.js?v=2026-11-10.01",
+          "./js/surface-motion.js": "./js/surface-motion.js?v=2026-11-10.01",
+          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-10.01",
+          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-10.01",
+          "./js/site-detail.js": "./js/site-detail.js?v=2026-11-10.01",
+          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-10.01",
+          "./js/underground.js": "./js/underground.js?v=2026-11-10.01",
+          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-10.01"
         }
       }
     </script>
-    <script type="module" src="js/experience.js?v=2026-11-09.01"></script>
+    <script type="module" src="js/experience.js?v=2026-11-10.01"></script>
   </body>
 </html>
