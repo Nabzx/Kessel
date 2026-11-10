@@ -1,3 +1,4 @@
+import {sampleSurfaceHaul} from "./surface-motion.js";
 import { vegetation, yardActivity } from "./site-detail.js";
 import { authoredAsset } from "./authored-assets.js";
 import * as THREE from "three";
@@ -9,7 +10,7 @@ export async function createSurface(config) {
   root.name = "rutongo-surface";
   const data = config.assets.surface;
   const design = config.visuals.surface;
-  const [satellite, heightMap, soil, rockMat, soilNormal, aggregate, vehicleModel, grass, grassNormal, grassRough] = await Promise.all([
+  const [satellite, heightMap, soil, rockMat, soilNormal, aggregate, vehicleModel, grass, grassNormal, grassRough, haul] = await Promise.all([
     texture(data.satellite_image),
     new THREE.TextureLoader().loadAsync(data.elevation_heightmap),
     texture(data.detail_map),
@@ -18,6 +19,7 @@ export async function createSurface(config) {
     texture(config.assets.ore),
     fetch(config.assets.truck, { cache: "no-store" }).then(r => r.json()),
     texture(design.ground.diff), texture(design.ground.normal,1,false), texture(design.ground.roughness,1,false),
+    fetch("data/surface-haul.json").then(r=>{if(!r.ok)throw Error("Surface haul unavailable");return r.json();}),
   ]);
   rockMat.userData.vegetationMap=grass;
   const prepareRock=rockMat.onBeforeCompile;
@@ -350,6 +352,15 @@ export async function createSurface(config) {
     vehicle.root.traverse(o=>{if(o.isMesh&&o.name!=="contact-shadow")o.castShadow=o.receiveShadow=true;});root.add(vehicle.root);
   }
   await Promise.all(workingVehicles.map(v=>v.ready));
+  // Rigid fallback tyres use an explicit horizontal axle. Some imported wheel
+  // meshes carried a flattened attachment transform from the older export.
+  const tyreGeometry=new THREE.CylinderGeometry(vehicleModel.wheels.radius_m,vehicleModel.wheels.radius_m,vehicleModel.wheels.width_m,28),hubGeometry=new THREE.CylinderGeometry(.22,.22,vehicleModel.wheels.width_m+.015,16);
+  const rubber=new THREE.MeshStandardMaterial({color:0x171d1d,roughness:.94}),hubMaterial=new THREE.MeshStandardMaterial({color:0x757c74,roughness:.5,metalness:.7});
+  for(const vehicle of workingVehicles)for(const pivot of vehicle.wheels){
+    for(const child of pivot.children)child.visible=false;
+    for(const [geometry,material] of [[tyreGeometry,rubber],[hubGeometry,hubMaterial]]){const mesh=new THREE.Mesh(geometry,material);mesh.rotation.z=Math.PI/2;mesh.castShadow=mesh.receiveShadow=true;pivot.add(mesh);}
+  }
+
   const activity=yardActivity(root,design.activity);let siteTime=0;
   lightRig(root, 120).position.y=120*(design.sky?.sun_height_ratio||1.7);
   heightMap.dispose();
@@ -392,5 +403,11 @@ export async function createSurface(config) {
   sky.frustumCulled = false;
   root.add(sky);
 
-  return { root, portal: portal.position.clone(), elevation,update(delta,reduced=false){siteTime+=reduced?0:delta;workingVehicles.forEach((v,i)=>{const settings=design.activity,a=siteTime*settings.angular_speed_rad_s+i,[cx,cy,cz]=settings.vehicle_centre,[rx,rz]=settings.vehicle_radii_m;v.root.position.set(cx+Math.cos(a)*rx,cy,cz+Math.sin(a)*rz);v.root.rotation.y=Math.atan2(-Math.sin(a)*rx,Math.cos(a)*rz);const travel=Math.hypot(Math.sin(a)*rx,Math.cos(a)*rz)*settings.angular_speed_rad_s*delta;if(!reduced)v.wheels.forEach(w=>{w.rotation.x+=travel/vehicleModel.wheels.radius_m;if(w.userData.mirror)w.userData.mirror.rotation.x=w.rotation.x;});});root.updateMatrixWorld(true);activity.update(siteTime,reduced,workingVehicles.map(v=>v.root));} };
+  return {root,portal:portal.position.clone(),elevation,update(delta,reduced=false){
+    siteTime=Math.min(haul.duration_s,siteTime+(reduced?0:delta));const pose=sampleSurfaceHaul(haul,siteTime);
+    for(const vehicle of workingVehicles){vehicle.root.position.fromArray(pose.position);vehicle.root.position.y+=yard.position.y-haul.ground_y_m;vehicle.root.rotation.y=pose.heading;
+      vehicle.wheels.forEach((wheel,i)=>{const z=wheel.position.z,front=z>0,side=wheel.position.x<0?0:1;wheel.rotation.x=pose.wheelAngles[(front?2:0)+side];wheel.rotation.y=front?pose.steering[side]:0;if(wheel.userData.mirror){wheel.userData.mirror.rotation.x=wheel.rotation.x;wheel.userData.mirror.rotation.y=wheel.rotation.y;}});
+    }
+    root.updateMatrixWorld(true);activity.update(siteTime,reduced,pose.speed>.05?workingVehicles.map(v=>v.root):[]);
+  },diagnostics(){return {...sampleSurfaceHaul(haul,siteTime),groundY:yard.position.y,tyreBottoms:workingVehicles.flatMap(v=>v.wheels.map(w=>w.getWorldPosition(new THREE.Vector3()).y-vehicleModel.wheels.radius_m))};}};
 }

@@ -174,8 +174,7 @@ export async function createRetrofit(config) {
       lastCableAmount=amount;
     }
     root.rotation.y=-.12;
-    const label=document.getElementById("kit-stage-label");
-    if(label)label.textContent=amount<.1?"01 / Assembled unit":amount<.3?"02 / Sensing and mounting":amount<.58?"03 / Thermal path":"04 / Compute, power and vehicle I/O";
+
   }
 
   return {
@@ -187,14 +186,15 @@ export async function createRetrofit(config) {
     },
     focus(id) {
       for (const entry of components) {
-        entry.group.traverse(object=>{if(object.isMesh)for(const mat of Array.isArray(object.material)?object.material:[object.material]){if(mat.emissive){mat.emissive.set(entry.spec.id===id?0x554124:0);mat.emissiveIntensity=.3;}}});
-        entry.mat.emissive.set(entry.spec.id === id ? 0x554124 : 0x000000);
+        entry.group.traverse(object=>{if(object.isMesh)for(const mat of Array.isArray(object.material)?object.material:[object.material]){if(mat.emissive){mat.emissive.set(entry.spec.id===id?0x24523b:0);mat.emissiveIntensity=.3;}}});
+        entry.mat.emissive.set(entry.spec.id === id ? 0x24523b : 0x000000);
         entry.mat.emissiveIntensity = 0.3;
       }
     },
     step(direction=1){target=THREE.MathUtils.clamp(target+direction*.25,0,1);playing=true;return target;},
     pause(){playing=!playing;return playing;},
     diagnostics(){return {amount,target,playing,assembled:amount===0};},
+    setTarget(value){target=THREE.MathUtils.clamp(value,0,1);playing=true;},
     components,
   };
 }

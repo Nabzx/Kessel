@@ -1,4 +1,4 @@
-"""Original 24-second surface film. Metres, 24 fps, reproducible seed.
+"""Original 16-second surface film. Metres, 24 fps, reproducible seed.
 
 Blender 5.2: run-headless.py -- cinematic-surface. Set KESSEL_RENDER=film to
 render the sequence; default renders one look-development frame. HDR is a
@@ -11,7 +11,7 @@ R=REPO_ROOT
 for o in list(bpy.data.objects):bpy.data.objects.remove(o,do_unlink=True)
 S=bpy.context.scene;S.unit_settings.system='METRIC';S.render.engine='BLENDER_EEVEE'
 S.render.resolution_x=1440;S.render.resolution_y=900;S.render.resolution_percentage=100
-S.render.fps=24;S.frame_start=1;S.frame_end=576
+S.render.fps=24;S.frame_start=1;S.frame_end=384
 S.render.image_settings.file_format='PNG';S.render.image_settings.color_mode='RGB'
 S.render.film_transparent=False
 S.view_settings.view_transform='AgX';S.view_settings.look='AgX - Medium High Contrast'
@@ -191,15 +191,18 @@ world=bpy.data.worlds.new('Cleared Poly Haven sky');world.use_nodes=True;S.world
 bpy.ops.object.light_add(type='SUN',location=(0,0,50));sun=bpy.context.object;sun.rotation_euler=(.5,-.45,-.65);sun.data.energy=2.2;sun.data.angle=.075
 # Locked establishing composition. Interactive chapter transitions handle the cut.
 bpy.ops.object.camera_add(location=xyz((24,6.8,-27)));cam=bpy.context.object;cam.rotation_euler=(Vector(xyz((0,4,-79)))-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.lens=40;S.camera=cam;cam.data.clip_end=2000;cam.data.dof.use_dof=True;cam.data.dof.focus_distance=57;cam.data.dof.aperture_fstop=10
-# Exact seamless motion: 24 s at 2.36 m/s, steering radius 9 m. No smoke emitter.
-# Dust is intentionally restrained to tyre contact; a dirty engine is not implied.
-for frame in range(1,578):
- t=(frame-1)/24;a=t*math.tau/24
- truck.location=xyz((10+9*math.cos(a)-2.55*math.sin(a),.05,-53+9*math.sin(a)+2.55*math.cos(a)));truck.rotation_euler.z=-a
+# One retained directed work order. Blender imports use quaternion mode;
+# explicit Euler mode is required before writing yaw/spin animation keys.
+import json
+haul=json.load(open(R+'/data/surface-haul.json'))
+for o in [truck]+wheels:o.rotation_mode='XYZ';o.rotation_euler=(0,0,0)
+for row in haul['rows']:
+ t,x,y,z,h,v,k,sl,sr,*_=row;frame=round(t*24)+1
+ truck.location=xyz((x,y,z));truck.rotation_euler.z=h
  truck.keyframe_insert(data_path='location',frame=frame);truck.keyframe_insert(data_path='rotation_euler',frame=frame)
  for w in wheels:
-  side=1 if w.location.x>0 else -1;front=w.location.y<0;radius=math.hypot(9+side,5.1 if front else 0)
-  w.rotation_euler.x=(t*radius*math.tau/24)/.51;w.rotation_euler.z=-math.atan2(5.1,9+side) if front else 0;w.keyframe_insert(data_path='rotation_euler',frame=frame)
+  left=w.location.x<0;front=w.location.y<0;j=(2 if front else 0)+(0 if left else 1)
+  w.rotation_euler.x=row[9+j];w.rotation_euler.z=(sl if left else sr) if front else 0;w.keyframe_insert(data_path='rotation_euler',frame=frame)
 for o in [truck]+wheels:
  if o.animation_data and o.animation_data.action:
   for fc in o.animation_data.action.layers[0].strips[0].channelbag(o.animation_data.action_slot).fcurves:

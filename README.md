@@ -26,8 +26,9 @@ Use a static server rather than opening `index.html` directly.
 1. Start below the photographic rotating Earth and original wordmark, with
    detailed spacecraft in illustrative orbits. Browse five full-screen environments;
    Underground is first and Earth moves into a compact context panel.
-2. Choose **Underground**. A prepared fade introduces an original Blender-rendered animated surface,
-   with a still for reduced motion and a prepared real-time fallback.
+2. Choose **Underground**. A prepared fade introduces the original Blender surface. One finite truck
+   haul turns through the yard, brakes and holds. A reduced-motion still,
+   explicit replay and prepared live fallback share the same route.
 3. **Enter the mine** to reveal a tilted rock cutaway with four haul trucks
    and the licensed loading excavator. Red routes show the baseline queue.
 4. **View the trained site**. Compare green haul loops and all six operating
@@ -39,8 +40,9 @@ Use a static server rather than opening `index.html` directly.
 6. **Inside Kessel** retains the proposed pipeline and five optional technical
    chapters: perception, prediction, training/export, offline operation and fleet
    learning. Each technical chapter also resumes its own state.
-7. **Retrofit** starts with the detailed proposed kit assembled. Step through its
-   mechanical breakdown, pause or reassemble it. The seven-stop rail provides
+7. **Retrofit** starts with the detailed proposed kit assembled. Open the exploded engineering view,
+   select any of seven components, focus a part or drag to rotate. The signal
+   view explains local sensing, estimation, policy inference and vehicle I/O. The seven-stop rail provides
    direct access to every chapter without page scrolling.
 
 Allow about 60 seconds for the main story. Optional exploration is separate.
@@ -56,7 +58,7 @@ Rutongo is a real tin operation. NASA Earth imagery, Copernicus surface
 imagery and elevation provide public geographic context. The detailed site,
 portal, underground layout, mine vehicles' behaviour, concept training replay
 and operating figures are authored. Public imagery is regional context, not a surveyed mine
-reconstruction. The surface animation is a locally served 24-second original Blender film.
+reconstruction. The surface animation is a locally served 16-second original Blender film.
 It uses scanned CC0 ground, rock, concrete and metal references, a CC0 MakeHuman
 core mesh with original workwear and PPE, and the original Kessel truck. Its
 visual direction remains a trial for review. It is not real mine footage.
@@ -136,3 +138,7 @@ retains two compositions, a shot animatic and native walkthrough footage.
 
 The [cinematic chapter report](docs/phase-11/cinematic-chapters.md) records
 the downstream scene work, native laptop checks and remaining visual sign-off.
+
+The [engineering showcase report](docs/phase-11/engineering-showcase.md) records
+the corrected evaluated truck orientation, directed route, aligned pipeline cards
+and retrofit component/signal inspection under ADR-0055.

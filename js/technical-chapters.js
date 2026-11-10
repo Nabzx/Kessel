@@ -90,7 +90,7 @@ export function installChapters(){
   try{bundle=await loadExperiment();reference=reference||await loadExperiment(undefined,fetch,'reference-cycle-v1');engineering=engineering||await fetch('data/engineering.json').then(r=>{if(!r.ok)throw Error('Export comparison unavailable');return r.json()});if(ticket===request)update();}catch(e){$('technical-source').textContent='Records unavailable. Try again.';running=false;}
  }
  section.querySelectorAll('[data-chapter]').forEach(button=>button.addEventListener('click',()=>open(Number(button.dataset.chapter),button)));
- $('technical-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{saved.set(index,{step,elapsed,running});++request;cancelAnimationFrame(raf);running=false;trigger?.focus({preventScroll:true});});
+ $('technical-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{saved.set(index,{step,elapsed,running});++request;cancelAnimationFrame(raf);running=false;const active=document.activeElement;if(active===document.body||active===dialog||dialog.contains(active))trigger?.focus({preventScroll:true});});
  $('technical-next').addEventListener('click',()=>{elapsed=0;if(step<2){step++;running=false;update();}else open((index+1)%chapters.length);});$('technical-prev').addEventListener('click',()=>{elapsed=0;running=false;if(step>0){step--;update();}else open((index+chapters.length-1)%chapters.length);});$('technical-pause').addEventListener('click',()=>{running=!running;last=0;update();});
  window.addEventListener('resize',()=>{if(dialog.open)draw()});
  return {open,diagnostics:()=>({open:dialog.open,chapter:chapters[index].id,step,running,runId:bundle?.run_id})};
