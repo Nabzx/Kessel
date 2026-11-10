@@ -26,9 +26,11 @@ pickup and three complete evaluation jobs with obstacle avoidance. It is
 kinematic illustration, not measured policy success. The recorded experiments
 and their unsuccessful learned outcomes remain retained as research evidence.
 Seven full-screen chapters replace ordinary scrolling, retain playback state
-and provide a persistent navigation rail. A local Blender-rendered animated
-surface is being trialled with a still and real-time fallback. The accepted
-observation-to-action chapters and proposed retrofit assembly remain.
+and provide a persistent navigation rail. The local Blender surface now uses one finite, evaluated haul trajectory with
+a still and a matching real-time fallback. ADR-0055 replaces the original kit
+presentation with assembled, exploded and signal views, component inspection,
+spatial labels and a local offline architecture. The accepted observation-to-action
+chapters remain. Hardware interfaces and performance targets remain proposed.
 
 `data/experience.json` is the active authored contract. ADR-0031 separates the
 Phase 11 experimental tools and validated recorded-synthetic bundles from the

@@ -1,5 +1,9 @@
 # Cinematic chapters and illustrative loader training
 
+Historical ADR-0054 implementation. The pipeline, surface motion and hardware
+viewer are refined by [ADR-0055 engineering work](engineering-showcase.md).
+The evidence below records the earlier film and kit presentation.
+
 Implements #395–#400 under [ADR-0054](../adr/0054-cinematic-surface-and-resumable-chapters.md).
 Presentation revision: `2026-11-09.01`. Release and publication remain excluded.
 
