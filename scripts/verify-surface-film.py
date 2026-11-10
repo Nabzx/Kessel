@@ -19,16 +19,18 @@ a,b=next((a,b) for kind,a,b in boxes(*moov) if kind==b'mvhd')
 version=blob[a]
 if version==0:scale,duration=struct.unpack_from('>II',blob,a+12)
 else:scale=struct.unpack_from('>I',blob,a+20)[0];duration=struct.unpack_from('>Q',blob,a+24)[0]
-assert abs(duration/scale-24)<.05,'Encoded duration disagrees with the source clock'
-assert m['encoding']['duration_s']==24 and m['encoding']['output_fps']==24
+assert abs(duration/scale-m['encoding']['duration_s'])<.05,'Encoded duration disagrees with the source clock'
+assert m['encoding']['duration_s']==16 and m['encoding']['output_fps']==24
 assert m['assets'][0]['bytes']<4_000_000
-v=m['motion'];r=v['rear_axle_turn_radius_m'];half=v['half_track_m'];length=v['wheelbase_m'];period=v['period_s']
-assert abs(v['speed_m_s']-r*2*math.pi/period)<1e-12
-# Rear-axle tangent motion and per-wheel Ackermann rolling, independent of
-# Blender / video decoders. Source dimensions exclude impossible pivoting.
-assert r>length and 1<v['speed_m_s']<3
-for side in [-1,1]:
- angle=math.atan2(length,r+side*half);front_radius=math.hypot(r+side*half,length)
- assert abs(math.sin(angle)*front_radius-length)<1e-12
+trace=json.loads((ROOT/'data/surface-haul.json').read_text());audit=json.loads((ROOT/'assets/film/scene-audit.json').read_text())
+assert trace['loop'] is False and m['motion']['loop'] is False and audit['rotation_mode']=='XYZ'
+assert len(audit['samples'])==len(trace['rows'])
+for row,pose in zip(trace['rows'],audit['samples']):
+ assert pose['heading_dot']>.99999
+ assert all(abs(y-trace['ground_y_m'])<.00001 for y in pose['tyre_bottoms'])
+ assert abs(pose['forward'][0]-math.sin(row[4]))<1e-6 and abs(pose['forward'][1]+math.cos(row[4]))<1e-6
+assert trace['rows'][0][5]==0 and trace['rows'][-1][5]==0
+assert trace['rows'][-1][4]-trace['rows'][0][4]>1.5,'Truck must actually turn'
+assert trace['rows'][-1][13]>26,'Haul makes useful progress'
 assert (ROOT/'tools/blender/references/surface/makehuman-base.obj').read_text().find('explicitly released as CC0')>=0
-print('PASS: packed Blender source, CC0 provenance, bounded local film, 24 s loop and axle-based motion')
+print('PASS: packed Blender source, CC0 provenance, bounded local film, finite haul, evaluated orientation and tyre contact')

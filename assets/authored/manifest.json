@@ -166,7 +166,7 @@
     },
     {
       "path": "tools/blender/cinematic-surface.py",
-      "sha256": "089e8de7f5adc65397f53e3d1f3ea70860cd7e3e0ed19a919917345677fe0f3b"
+      "sha256": "46c6d3930cccb0c9649b36f897fc111f63729d9746c5d327ae96b422caba823a"
     },
     {
       "path": "tools/blender/client.py",
@@ -210,7 +210,7 @@
     },
     {
       "path": "tools/blender/render-surface.py",
-      "sha256": "25411a1195a01d8cc2f3b605e29ca6e8cacc9f97fa87b3fb49f217f36097cc77"
+      "sha256": "ffe83c372ce39fa59c1409a6688ad0eca739c115c627d8bb4280c04c0aca5819"
     },
     {
       "path": "tools/blender/rigs.py",
@@ -223,6 +223,10 @@
     {
       "path": "tools/blender/start.py",
       "sha256": "c36d3cb4b109289aa505e0b41ccba3881b6f48efe2a11af1ab2186e29ad814f0"
+    },
+    {
+      "path": "tools/blender/surface-haul.py",
+      "sha256": "00dbb41d35630793dff380532e24b554ec2c61684e60fb18375e3f0770b02afa"
     }
   ]
 }
