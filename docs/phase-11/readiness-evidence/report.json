@@ -1,0 +1,1598 @@
+{
+  "schema": "learning-readiness-v1",
+  "source_mode": "recorded_synthetic",
+  "source": {
+    "package_sha256": "2de6b879b1f4007ea8ecd271667c5af2c0a1ef146d16689b72ed2777ae40693a",
+    "git_commit": "a1dfd43b2c1987219156876ca79552e88a3cfd48",
+    "training_dirty": false
+  },
+  "hardware": {
+    "machine": "arm64",
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "torch": "2.15.0",
+    "torch_threads": 1
+  },
+  "protocol": {
+    "training_updates": 0,
+    "learned_training_seed": 7,
+    "scene_seeds": [
+      200000,
+      200001
+    ],
+    "methods": [
+      "ppo",
+      "history_ppo",
+      "bridged_curriculum",
+      "bc_ppo"
+    ],
+    "selection": "all methods, first declared training seed, both existing test traces",
+    "scope": "reused diagnostic scenes, not independent test evidence or a learning improvement"
+  },
+  "retained_report_sha256": "517b1891c6239583966007c607d779afcfc7c7a87dfa2e3c31f8346d9f95e564",
+  "learned": [
+    {
+      "seed": 200000,
+      "scenario_sha256": "a5f602350177f8c83f88fbe2a3100d755d773a33442bea4cee8e4364f2488233",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 600,
+      "reason": "time_limit",
+      "elapsed_s": 60.00000000000378,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        0.0,
+        -0.042952247510187606,
+        0.291688093991854
+      ],
+      "action_rms": [
+        0.07816924475983826,
+        0.15723968039448583,
+        0.11567171311626974,
+        0.15156658114764687
+      ],
+      "undiscounted_return": -0.12012841973061489,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0001284197306072234,
+        "slip_s": 0.0,
+        "elapsed_s": -0.12000000000000859,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "ppo",
+      "training_seed": 7,
+      "checkpoint": "ppo-7/final.pt",
+      "checkpoint_sha256": "4924c35f161308aba85d8a9bcd356aa2c00d72a2b8c395d07b94b9ce3d6dbf97",
+      "trace_sha256": "1c26fb1eed9ad9f241fafc14eb261c738a6c4adb922b6b0809cb2dd7531c8b30",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    },
+    {
+      "seed": 200001,
+      "scenario_sha256": "c6ab52e4b5020edc7c63ff586cf9c3f16e0dd2113f1eca712bef26a9ef21d49a",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 600,
+      "reason": "time_limit",
+      "elapsed_s": 60.00000000000378,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        0.0,
+        0.08029031542143733,
+        0.2916880939971711
+      ],
+      "action_rms": [
+        0.07834203526118445,
+        0.1571795195639217,
+        0.11582836078085401,
+        0.15152676171095517
+      ],
+      "undiscounted_return": -0.12012843043990512,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.00012843043989759265,
+        "slip_s": 0.0,
+        "elapsed_s": -0.12000000000000859,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "ppo",
+      "training_seed": 7,
+      "checkpoint": "ppo-7/final.pt",
+      "checkpoint_sha256": "4924c35f161308aba85d8a9bcd356aa2c00d72a2b8c395d07b94b9ce3d6dbf97",
+      "trace_sha256": "b20cbd86cdf579bbec9886f1251056803cdd6cf3b1335e510721e141765594bd",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    },
+    {
+      "seed": 200000,
+      "scenario_sha256": "a5f602350177f8c83f88fbe2a3100d755d773a33442bea4cee8e4364f2488233",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 600,
+      "reason": "time_limit",
+      "elapsed_s": 60.00000000000378,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        0.0,
+        -0.042952247510187606,
+        -0.29168810321106653
+      ],
+      "action_rms": [
+        0.08021795103878272,
+        0.05579985741834052,
+        0.23383968471734376,
+        0.06247121952124884
+      ],
+      "undiscounted_return": -0.1200835482281964,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -8.354822818886863e-05,
+        "slip_s": 0.0,
+        "elapsed_s": -0.12000000000000859,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "history_ppo",
+      "training_seed": 7,
+      "checkpoint": "history_ppo-7/final.pt",
+      "checkpoint_sha256": "d0465a7f331a5edac993ef84af287881d730edb88671badfc5672855c640dac4",
+      "trace_sha256": "400c83d6c5fbcf4ae9bcdbb9b6154c2af0ac024ce76853f1271883f6cf21c886",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    },
+    {
+      "seed": 200001,
+      "scenario_sha256": "c6ab52e4b5020edc7c63ff586cf9c3f16e0dd2113f1eca712bef26a9ef21d49a",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 600,
+      "reason": "time_limit",
+      "elapsed_s": 60.00000000000378,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        0.0,
+        0.08029031542143733,
+        -0.2916881031954399
+      ],
+      "action_rms": [
+        0.08015398925085877,
+        0.05622492998895626,
+        0.23356824096993348,
+        0.06265726417463556
+      ],
+      "undiscounted_return": -0.12008354416615677,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -8.354416614915952e-05,
+        "slip_s": 0.0,
+        "elapsed_s": -0.12000000000000859,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "history_ppo",
+      "training_seed": 7,
+      "checkpoint": "history_ppo-7/final.pt",
+      "checkpoint_sha256": "d0465a7f331a5edac993ef84af287881d730edb88671badfc5672855c640dac4",
+      "trace_sha256": "56f786db7fd45e24bc014f70e6c26b84d6531af1732e686564802633710288c3",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    },
+    {
+      "seed": 200000,
+      "scenario_sha256": "a5f602350177f8c83f88fbe2a3100d755d773a33442bea4cee8e4364f2488233",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 61,
+      "reason": "tunnel_wall",
+      "elapsed_s": 6.039999999999959,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 188.20492066426814,
+      "first_load_s": 3.2000000000000024,
+      "final_pose": [
+        9.247231310490983,
+        -0.8555005864582992,
+        -0.29650161291775534
+      ],
+      "action_rms": [
+        0.3335248993580579,
+        0.1207973446942138,
+        0.06766164394039985,
+        0.19355488177780056
+      ],
+      "undiscounted_return": -5.0135790921059655,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0014990921059654853,
+        "slip_s": 0.0,
+        "elapsed_s": -0.012079999999999915,
+        "collision_count": -5.0
+      },
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "bridged_curriculum",
+      "training_seed": 7,
+      "checkpoint": "bridged_curriculum-7/final.pt",
+      "checkpoint_sha256": "a9798dc4d6a78063297675e82db7f5deb2b0446f0343595088b0d9ba78fae8d3",
+      "trace_sha256": "010f8b193593af8607951a6d061433fa756967000a5f53b9186a8dd61daf4fa1",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    },
+    {
+      "seed": 200001,
+      "scenario_sha256": "c6ab52e4b5020edc7c63ff586cf9c3f16e0dd2113f1eca712bef26a9ef21d49a",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 151,
+      "reason": "tunnel_wall",
+      "elapsed_s": 15.099999999999767,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 176.8284198037673,
+      "first_load_s": 4.000000000000003,
+      "final_pose": [
+        7.843713674260945,
+        -0.43994343007338355,
+        -0.36212575817407533
+      ],
+      "action_rms": [
+        0.33701746277148853,
+        0.11673093295447529,
+        0.07188037196709307,
+        0.1996798806278928
+      ],
+      "undiscounted_return": -5.031815363562237,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0016153635622372597,
+        "slip_s": 0.0,
+        "elapsed_s": -0.030199999999999495,
+        "collision_count": -5.0
+      },
+      "max_mass_residual_kg": 1.8189894035458565e-12,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "bridged_curriculum",
+      "training_seed": 7,
+      "checkpoint": "bridged_curriculum-7/final.pt",
+      "checkpoint_sha256": "a9798dc4d6a78063297675e82db7f5deb2b0446f0343595088b0d9ba78fae8d3",
+      "trace_sha256": "e72167c567d12ba8047a71df8ecda7199620bfc485c06a32c0aeaab652082c03",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    },
+    {
+      "seed": 200000,
+      "scenario_sha256": "a5f602350177f8c83f88fbe2a3100d755d773a33442bea4cee8e4364f2488233",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 600,
+      "reason": "time_limit",
+      "elapsed_s": 60.00000000000378,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        -0.9790633426128721,
+        -1.4204743457386868,
+        0.7840466635243963
+      ],
+      "action_rms": [
+        0.20596142279336152,
+        0.1585764557578899,
+        0.07759352799282934,
+        0.46825724575925404
+      ],
+      "undiscounted_return": -0.12076530414026157,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.000765304140254045,
+        "slip_s": 0.0,
+        "elapsed_s": -0.12000000000000859,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "bc_ppo",
+      "training_seed": 7,
+      "checkpoint": "bc_ppo-7/final.pt",
+      "checkpoint_sha256": "f359353988b21b2bb37a4e33fb9d2a03e8a000f60573023d1724e49f1afe5852",
+      "trace_sha256": "eb84557995bc1653e82050b9059c97a7575a9d20c0db67658cfdade642b58bf2",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    },
+    {
+      "seed": 200001,
+      "scenario_sha256": "c6ab52e4b5020edc7c63ff586cf9c3f16e0dd2113f1eca712bef26a9ef21d49a",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "learned_policy",
+      "reference_settings": null,
+      "steps": 600,
+      "reason": "time_limit",
+      "elapsed_s": 60.00000000000378,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        -1.8792209615518647,
+        -1.8814319631263094,
+        0.9264945862103398
+      ],
+      "action_rms": [
+        0.12652311392580365,
+        0.15337914160834462,
+        0.0755602169494557,
+        0.4510683175341154
+      ],
+      "undiscounted_return": -0.12052117843708604,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0005211784370784766,
+        "slip_s": 0.0,
+        "elapsed_s": -0.12000000000000859,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": 0.0,
+      "retained_max_action_error": 0.0,
+      "method": "bc_ppo",
+      "training_seed": 7,
+      "checkpoint": "bc_ppo-7/final.pt",
+      "checkpoint_sha256": "f359353988b21b2bb37a4e33fb9d2a03e8a000f60573023d1724e49f1afe5852",
+      "trace_sha256": "d66d3df5371cf4a487fc135640af04ff4f8743fcb56165f5c78d223fc5b6070c",
+      "original_source": {
+        "package_sha256": "a4c35a37241b3a0b2fac55b98f8858c120a07a17c1d22ae8d669c4a16acb1737",
+        "git_commit": "09e713a5d86076b645c15606651bd9ccc69d5a47",
+        "training_dirty": false
+      }
+    }
+  ],
+  "reference": [
+    {
+      "family": "standard",
+      "seed": 200000,
+      "scenario_sha256": "a5f602350177f8c83f88fbe2a3100d755d773a33442bea4cee8e4364f2488233",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 363,
+      "reason": "success",
+      "elapsed_s": 36.26000000000007,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2009.1069031573888,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2498.3001266940555,
+      "first_load_s": 4.399999999999994,
+      "final_pose": [
+        -5.738661259652883,
+        -0.16518538387431606,
+        0.012123024336522903
+      ],
+      "action_rms": [
+        0.2657907062326475,
+        0.006170204413502574,
+        0.19712274749905337,
+        0.36876933341549334
+      ],
+      "undiscounted_return": 0.49867160288216394,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.574030543759254,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0028389408770899322,
+        "slip_s": 0.0,
+        "elapsed_s": -0.07252000000000064,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 5.4569682106375694e-12,
+      "max_reward_decomposition_error": 1.3877787807814457e-17,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "family": "standard",
+      "seed": 200001,
+      "scenario_sha256": "c6ab52e4b5020edc7c63ff586cf9c3f16e0dd2113f1eca712bef26a9ef21d49a",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 349,
+      "reason": "success",
+      "elapsed_s": 34.83999999999985,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2028.2461026302747,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2555.7839235854763,
+      "first_load_s": 5.199999999999977,
+      "final_pose": [
+        -5.9406259063673295,
+        0.31047458068218653,
+        -0.02214328125898435
+      ],
+      "action_rms": [
+        0.22432644907043822,
+        0.011667112928268147,
+        0.20103777718147176,
+        0.37609312737533773
+      ],
+      "undiscounted_return": 0.507889133443568,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5794988864657928,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0019297530222250007,
+        "slip_s": 0.0,
+        "elapsed_s": -0.06968000000000016,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 1.8189894035458565e-12,
+      "max_reward_decomposition_error": 1.3877787807814457e-17,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "family": "low_grip",
+      "seed": 200000,
+      "scenario_sha256": "6759b52658df2134559fe33771bf1876193e129b56e46282f3bb814b9abf6009",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.12,
+        "grade_rad": 0.04,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 375,
+      "reason": "success",
+      "elapsed_s": 37.46000000000026,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2002.5920072323693,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2490.1989324324168,
+      "first_load_s": 5.699999999999966,
+      "final_pose": [
+        -6.01749968011374,
+        -0.1618926589906203,
+        0.01149210243651888
+      ],
+      "action_rms": [
+        0.25985076206959135,
+        0.005998210900409974,
+        0.19394337442859536,
+        0.3628210509151042
+      ],
+      "undiscounted_return": 0.4813674384702046,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5721691449235341,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0016939481858596413,
+        "slip_s": -0.014187758267469321,
+        "elapsed_s": -0.07492000000000104,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "max_reward_decomposition_error": 6.938893903907228e-18,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "family": "low_grip",
+      "seed": 200001,
+      "scenario_sha256": "e49d0f050ab609da41bec381b0a7ef206e36798c0bb3bce3fc6afba058f4d5cf",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.12,
+        "grade_rad": 0.04,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 375,
+      "reason": "success",
+      "elapsed_s": 37.46000000000026,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2013.3414372283114,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2503.5657185793098,
+      "first_load_s": 6.899999999999941,
+      "final_pose": [
+        -6.257183136003391,
+        0.3059948033766986,
+        -0.020285271417757933
+      ],
+      "action_rms": [
+        0.3633887395919295,
+        0.011110933671724,
+        0.19394338070565675,
+        0.3628210509151042
+      ],
+      "undiscounted_return": 0.483157817087075,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5752404106366604,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0025616859617607415,
+        "slip_s": -0.01460090758782421,
+        "elapsed_s": -0.07492000000000104,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 5.4569682106375694e-12,
+      "max_reward_decomposition_error": 1.3877787807814457e-17,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "family": "occluded",
+      "seed": 200000,
+      "scenario_sha256": "7954b57e250782b1d79fd01995addab372cc8c3bdbad723dd2c95ff3eb16cefa",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 1,
+        "dropout": 0.2,
+        "occlusion": 0.25,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 363,
+      "reason": "success",
+      "elapsed_s": 36.28000000000007,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2012.0747288085556,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2471.9472759962464,
+      "first_load_s": 4.399999999999994,
+      "final_pose": [
+        -5.738015102109139,
+        -0.15780288175802018,
+        0.012316698547087501
+      ],
+      "action_rms": [
+        0.26488517766319875,
+        0.010715018658456333,
+        0.19694808173157463,
+        0.3689210090640232
+      ],
+      "undiscounted_return": 0.4994902652610531,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5748784939453015,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.00282822868424832,
+        "slip_s": 0.0,
+        "elapsed_s": -0.07256000000000064,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "family": "occluded",
+      "seed": 200001,
+      "scenario_sha256": "79d18cf5e746e29df9d74cec9b7e5e4f177b4493ec0ae10a311a8d51a346d41c",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 1,
+        "dropout": 0.2,
+        "occlusion": 0.25,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 349,
+      "reason": "success",
+      "elapsed_s": 34.83999999999985,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2028.0983164809852,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2555.245077379426,
+      "first_load_s": 5.099999999999979,
+      "final_pose": [
+        -5.947285058810892,
+        0.31833584484801114,
+        -0.021341838067063357
+      ],
+      "action_rms": [
+        0.22492819965646701,
+        0.01599535469125808,
+        0.20122288483203926,
+        0.3762040909732613
+      ],
+      "undiscounted_return": 0.5078318029953044,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5794566618517101,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0019448588564060117,
+        "slip_s": 0.0,
+        "elapsed_s": -0.06968000000000016,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "max_reward_decomposition_error": 3.469446951953614e-18,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "family": "blocked",
+      "seed": 200000,
+      "scenario_sha256": "f3e5e63d92a68a839179931a66c465598d557c871ef0fa4fc74ae3b16d039dda",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [
+          [
+            6.0,
+            6.1,
+            -4.2,
+            4.2
+          ]
+        ],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 12,
+      "reason": "obstacle_0",
+      "elapsed_s": 1.1800000000000006,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        0.7893014328066812,
+        -0.04377395118039318,
+        -0.0012884943439130936
+      ],
+      "action_rms": [
+        0.6147757386786572,
+        0.01016019490710482,
+        0.25412161157266744,
+        0.0
+      ],
+      "undiscounted_return": -5.00251808902148,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.00015808902148018486,
+        "slip_s": 0.0,
+        "elapsed_s": -0.0023600000000000006,
+        "collision_count": -5.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "family": "blocked",
+      "seed": 200001,
+      "scenario_sha256": "33690c6a698df8304de17567d85586bf681ae5772b61bceaf7a338b4c3ae605b",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [
+          [
+            6.0,
+            6.1,
+            -4.2,
+            4.2
+          ]
+        ],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 13,
+      "reason": "obstacle_0",
+      "elapsed_s": 1.2200000000000006,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        0.7874415140560499,
+        0.08184964657801862,
+        0.002485643973747287
+      ],
+      "action_rms": [
+        0.6033200802741762,
+        0.018602487127160824,
+        0.24615444690615493,
+        0.0
+      ],
+      "undiscounted_return": -5.002632977428817,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.00019297742881679072,
+        "slip_s": 0.0,
+        "elapsed_s": -0.0024400000000000008,
+        "collision_count": -5.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    }
+  ],
+  "idle": [
+    {
+      "seed": 200000,
+      "scenario_sha256": "a5f602350177f8c83f88fbe2a3100d755d773a33442bea4cee8e4364f2488233",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "idle",
+      "reference_settings": null,
+      "steps": 215,
+      "reason": "tunnel_wall",
+      "elapsed_s": 21.419999999999632,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 1044.5319354756232,
+      "first_load_s": 9.699999999999882,
+      "final_pose": [
+        12.792333479678417,
+        -0.042952247510187606,
+        0.0
+      ],
+      "action_rms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "undiscounted_return": -5.04284,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": 0.0,
+        "slip_s": 0.0,
+        "elapsed_s": -0.0428399999999994,
+        "collision_count": -5.0
+      },
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "seed": 200001,
+      "scenario_sha256": "c6ab52e4b5020edc7c63ff586cf9c3f16e0dd2113f1eca712bef26a9ef21d49a",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "idle",
+      "reference_settings": null,
+      "steps": 600,
+      "reason": "time_limit",
+      "elapsed_s": 60.00000000000378,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 0.0,
+      "first_load_s": null,
+      "final_pose": [
+        0.0,
+        0.08029031542143733,
+        0.0
+      ],
+      "action_rms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "undiscounted_return": -0.12000000000000859,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.0,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": 0.0,
+        "slip_s": 0.0,
+        "elapsed_s": -0.12000000000000859,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 0.0,
+      "max_reward_decomposition_error": 0.0,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    }
+  ],
+  "controller_sensitivity": [
+    {
+      "variant": "default",
+      "seed": 100000,
+      "scenario_sha256": "63c95b8339ef592c2b49fb8cdb746135e7dee2f5004b9c1e24e463133641d737",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.9,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 360,
+      "reason": "success",
+      "elapsed_s": 35.94000000000002,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2026.8523266880477,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2554.027632698682,
+      "first_load_s": 4.399999999999994,
+      "final_pose": [
+        -5.5156740420916295,
+        -0.12198303644613322,
+        0.0094071186570015
+      ],
+      "action_rms": [
+        0.3291173708787085,
+        0.004572683143211572,
+        0.19794166569798452,
+        0.37030268445098374
+      ],
+      "undiscounted_return": 0.5036251434976577,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5791006647680136,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.003595521270355863,
+        "slip_s": 0.0,
+        "elapsed_s": -0.07188000000000053,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "max_reward_decomposition_error": 3.469446951953614e-18,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "variant": "slower_approach",
+      "seed": 100000,
+      "scenario_sha256": "63c95b8339ef592c2b49fb8cdb746135e7dee2f5004b9c1e24e463133641d737",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 0.7,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 362,
+      "reason": "success",
+      "elapsed_s": 36.14000000000005,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2018.7428082332854,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2543.8088644398294,
+      "first_load_s": 4.699999999999988,
+      "final_pose": [
+        -5.517137368022708,
+        -0.12105825269424776,
+        0.00934258863018389
+      ],
+      "action_rms": [
+        0.31819628697459323,
+        0.004549832828609826,
+        0.19739429173614892,
+        0.36927833204756005
+      ],
+      "undiscounted_return": 0.50102335522865,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5767836594952244,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0034803042665742367,
+        "slip_s": 0.0,
+        "elapsed_s": -0.0722800000000006,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 5.4569682106375694e-12,
+      "max_reward_decomposition_error": 1.3877787807814457e-17,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    },
+    {
+      "variant": "faster_approach",
+      "seed": 100000,
+      "scenario_sha256": "63c95b8339ef592c2b49fb8cdb746135e7dee2f5004b9c1e24e463133641d737",
+      "scene": {
+        "max_steps": 600,
+        "success_kg": 2000.0,
+        "stuck_s": 10.0,
+        "half_width_m": 4.2,
+        "ceiling_m": 3.2,
+        "friction": 0.6,
+        "grade_rad": 0.0,
+        "pile_resistance_n_m": 18000.0,
+        "sensor_noise": 0.0,
+        "dropout": 0.0,
+        "occlusion": 0.0,
+        "load_bias_fraction": 0.0,
+        "randomise": true,
+        "obstacles": [],
+        "pile_family": "legacy"
+      },
+      "controller": "observation_only_reference",
+      "reference_settings": {
+        "approach_m_s": 1.1,
+        "fill_m_s": 0.45,
+        "reverse_m_s": 0.8,
+        "target_load_kg": 2450.0,
+        "carry_boom_rad": 0.35,
+        "fill_timeout_s": 22.0
+      },
+      "steps": 358,
+      "reason": "success",
+      "elapsed_s": 35.73999999999999,
+      "initial_payload_kg": 0.0,
+      "delivered_kg": 2024.546808006498,
+      "spilled_kg": 0.0,
+      "peak_load_kg": 2551.1224588274313,
+      "first_load_s": 4.199999999999998,
+      "final_pose": [
+        -5.5158226964341495,
+        -0.12263749993146827,
+        0.00945219620369464
+      ],
+      "action_rms": [
+        0.34094327114773915,
+        0.004590945377641111,
+        0.19849357742541984,
+        0.37133560886872174
+      ],
+      "undiscounted_return": 0.5032144544839859,
+      "weighted_reward_totals": {
+        "delivered_kg": 0.5784419451447137,
+        "spilled_kg": 0.0,
+        "effort_proxy_j": -0.0037474906607277932,
+        "slip_s": 0.0,
+        "elapsed_s": -0.07148000000000046,
+        "collision_count": 0.0
+      },
+      "max_mass_residual_kg": 5.4569682106375694e-12,
+      "max_reward_decomposition_error": 1.3877787807814457e-17,
+      "retained_max_state_error": null,
+      "retained_max_action_error": null
+    }
+  ],
+  "reference_audit": {
+    "path": "reference-audit/report.json",
+    "sha256": "2ceae8ff50c07c087b0fc4c8b8bdd9d5e9580e6114d1041c775f338eadaac3ad",
+    "cases": 10,
+    "outcomes": {
+      "success": 6,
+      "tunnel_wall": 1,
+      "time_limit": 1,
+      "stuck": 2
+    },
+    "integration_comparison_passed": true
+  },
+  "curriculum_gates": [
+    {
+      "method": "ppo",
+      "seed": 7,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 24,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "history_ppo",
+      "seed": 7,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 17,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "bridged_curriculum",
+      "seed": 7,
+      "stages": [
+        "fill",
+        "retract"
+      ],
+      "last_gate": {
+        "stage": "retract",
+        "training_episodes": 8,
+        "training_success_rate": 0.0,
+        "heldout": {},
+        "retention_passed": false,
+        "passed": false
+      },
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 43,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "bc_ppo",
+      "seed": 7,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 3072,
+        "offline_reference_decisions": 1024,
+        "optimiser_updates": 90,
+        "completed_episodes": 5,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 19,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 15,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "history_ppo",
+      "seed": 19,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 24,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "bridged_curriculum",
+      "seed": 19,
+      "stages": [
+        "fill",
+        "retract"
+      ],
+      "last_gate": {
+        "stage": "retract",
+        "training_episodes": 0,
+        "training_success_rate": 0,
+        "heldout": {},
+        "retention_passed": false,
+        "passed": false
+      },
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 46,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "bc_ppo",
+      "seed": 19,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 3072,
+        "offline_reference_decisions": 1024,
+        "optimiser_updates": 89,
+        "completed_episodes": 6,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 41,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 12,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "history_ppo",
+      "seed": 41,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 19,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "bridged_curriculum",
+      "seed": 41,
+      "stages": [
+        "fill",
+        "retract"
+      ],
+      "last_gate": {
+        "stage": "retract",
+        "training_episodes": 9,
+        "training_success_rate": 0.0,
+        "heldout": {},
+        "retention_passed": false,
+        "passed": false
+      },
+      "counters": {
+        "online_reference_decisions": 4096,
+        "offline_reference_decisions": 0,
+        "optimiser_updates": 128,
+        "completed_episodes": 46,
+        "full_successes": 0
+      }
+    },
+    {
+      "method": "bc_ppo",
+      "seed": 41,
+      "stages": [
+        "complete"
+      ],
+      "last_gate": null,
+      "counters": {
+        "online_reference_decisions": 3072,
+        "offline_reference_decisions": 1024,
+        "optimiser_updates": 95,
+        "completed_episodes": 10,
+        "full_successes": 0
+      }
+    }
+  ],
+  "wall_s": 85.61466045794077,
+  "limits": "Uncalibrated cell-centre material contact and conservative swept AABBs. No training, new learned proficiency, real sensor validation or deployment evidence."
+}
