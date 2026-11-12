@@ -23,7 +23,9 @@ training data. Existing held-out failure results remain unchanged.
    1,024 re-executed decisions as diagnostic reconstruction, not extra training.
 2. Measure deterministic action MSE against the existing teacher pairs for
    warm-start and final candidates across seeds 7, 19 and 41. Retain per-action
-   and per-phase errors. Training-pair fit is not generalisation or proficiency.
+   and per-phase errors and saved latent exploration standard deviations.
+   Training-pair fit is not generalisation or proficiency. Latent standard
+   deviation is not the standard deviation of the bounded action after tanh.
 3. Evaluate the warm-start and final candidates from seed 7 on all four task
    stages in both validation scenes: 16 rollouts. Preserve prepared payload,
    actual state/action sequences, material transfers and terminal outcomes.

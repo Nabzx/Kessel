@@ -92,6 +92,7 @@ def teacher_metrics(policy, data):
         prediction = policy.sample(policy.encode(raw_observation(data['observation'])), deterministic=True)['action'].numpy()
     squared = (prediction - data['action'])**2
     return {'training_pair_action_mse': float(squared.mean()),
+            'latent_action_std': policy.log_std.detach().clamp(-4, 1).exp().tolist(),
             'per_action_mse': squared.mean(axis=0).tolist(),
             'per_phase': [{'phase': phase, 'rows': int((data['phase'] == phase).sum()),
                            'action_mse': float(squared[data['phase'] == phase].mean())}

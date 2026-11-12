@@ -1,6 +1,8 @@
 import pytest
+import numpy as np
 
 from kessel_training.inspect_prerequisites import observation_aliases, stage_environment, stage_probe
+from kessel_training.reference_audit import pack
 
 
 def test_unobserved_geometry_changes_do_not_invent_sensor_measurements():
@@ -25,3 +27,13 @@ def test_stage_initialised_reference_retracts_without_claiming_a_full_cycle():
     assert not result['full_success']
     assert result['delivered_kg'] == 0
     assert result['max_mass_residual_kg'] < 1e-7
+
+
+def test_prepared_stage_actions_replay_independently_to_the_same_outcome():
+    result = stage_probe('retract', 100000)
+    replay = stage_environment('retract', 100000)
+    for row in result['records']:
+        np.testing.assert_array_equal(pack(replay)[0], row['state'])
+        replay.step([row['action']])
+        np.testing.assert_array_equal(pack(replay)[0], row['next_state'])
+    assert replay.reason[0] == result['reason']
