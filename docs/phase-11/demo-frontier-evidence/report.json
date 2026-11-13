@@ -1,0 +1,507 @@
+{
+  "schema": "demo-frontier-audit-v1",
+  "source": {
+    "package_sha256": "e063bb59d3ec8a749c78b3b5a061803fb55ea3a716741e77e526d181df3766cf",
+    "git_commit": "a8a21ada29914b54c31c85eb608e0795a92e39c0",
+    "training_dirty": false
+  },
+  "sensor_protocol": {
+    "slots": 2,
+    "steps": 32,
+    "fixed_action": [
+      0.2,
+      0,
+      0,
+      0.2
+    ],
+    "executed_reference_decisions": 576,
+    "scope": "Nine fixed-action diagnostic rollouts, no closed-loop policy robustness or real sensor validation."
+  },
+  "sensors": [
+    {
+      "profile": {
+        "range_latency_steps": 0,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "decisions": 64,
+      "valid_samples": 1600,
+      "possible_samples": 1600,
+      "max_age_s": 0.0,
+      "name": "clean",
+      "physics_max_error_vs_clean": 0.0,
+      "communications_physics_max_error": 0.0,
+      "communications_observation_max_error": 0.0
+    },
+    {
+      "profile": {
+        "range_latency_steps": 2,
+        "dropout": 0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "decisions": 64,
+      "valid_samples": 1550,
+      "possible_samples": 1600,
+      "max_age_s": 0.20000000000000018,
+      "name": "delay",
+      "physics_max_error_vs_clean": 0.0,
+      "communications_physics_max_error": 0.0,
+      "communications_observation_max_error": 0.0
+    },
+    {
+      "profile": {
+        "range_latency_steps": 2,
+        "dropout": 0.25,
+        "occlusion": 0.15,
+        "range_noise_m": 0.01,
+        "communications_available": false
+      },
+      "decisions": 64,
+      "valid_samples": 993,
+      "possible_samples": 1600,
+      "max_age_s": 0.40000000000000036,
+      "name": "impaired",
+      "physics_max_error_vs_clean": 0.0,
+      "communications_physics_max_error": 0.0,
+      "communications_observation_max_error": 0.0
+    },
+    {
+      "profile": {
+        "range_latency_steps": 0,
+        "dropout": 1.0,
+        "occlusion": 0,
+        "range_noise_m": 0,
+        "communications_available": false
+      },
+      "decisions": 64,
+      "valid_samples": 0,
+      "possible_samples": 1600,
+      "max_age_s": 3.2000000000000024,
+      "name": "dropout",
+      "physics_max_error_vs_clean": 0.0,
+      "communications_physics_max_error": 0.0,
+      "communications_observation_max_error": 0.0
+    }
+  ],
+  "observability": {
+    "schema": "observability-v1",
+    "inputs": [
+      {
+        "name": "odometry_x_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "odometry_y_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "heading_sin",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "heading_cos",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "speed_m_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "articulation_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "boom_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "bucket_rad",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "load_kg",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "receiver_forward_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "receiver_left_m",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "range_age_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "range_fresh",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "elapsed_s",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "slip_ratio",
+        "status": "synthetic_onboard_estimate",
+        "availability": "local; independent of communications",
+        "note": "receiver displacement assumes a preloaded local target map; odometry is not GPS"
+      },
+      {
+        "name": "local_height_m[5,5]",
+        "status": "synthetic_local_range",
+        "units": "m",
+        "availability": "delayed/dropout profile; masked invalid cells"
+      },
+      {
+        "name": "range_valid[5,5]",
+        "status": "onboard_validity",
+        "units": "binary",
+        "availability": "local sensor frame"
+      }
+    ],
+    "privileged_baseline_only": [
+      "x_m",
+      "y_m",
+      "yaw_rad",
+      "speed_m_s",
+      "articulation_rad",
+      "boom_rad",
+      "bucket_rad",
+      "carried_kg",
+      "delivered_kg",
+      "spilled_kg",
+      "elapsed_s",
+      "stuck_time_s",
+      "effort_proxy_j",
+      "slip_s",
+      "slip_ratio",
+      "pile_0_0_m",
+      "pile_0_1_m",
+      "pile_0_2_m",
+      "pile_0_3_m",
+      "pile_0_4_m",
+      "pile_0_5_m",
+      "pile_0_6_m",
+      "pile_0_7_m",
+      "pile_1_0_m",
+      "pile_1_1_m",
+      "pile_1_2_m",
+      "pile_1_3_m",
+      "pile_1_4_m",
+      "pile_1_5_m",
+      "pile_1_6_m",
+      "pile_1_7_m",
+      "pile_2_0_m",
+      "pile_2_1_m",
+      "pile_2_2_m",
+      "pile_2_3_m",
+      "pile_2_4_m",
+      "pile_2_5_m",
+      "pile_2_6_m",
+      "pile_2_7_m",
+      "pile_3_0_m",
+      "pile_3_1_m",
+      "pile_3_2_m",
+      "pile_3_3_m",
+      "pile_3_4_m",
+      "pile_3_5_m",
+      "pile_3_6_m",
+      "pile_3_7_m",
+      "pile_4_0_m",
+      "pile_4_1_m",
+      "pile_4_2_m",
+      "pile_4_3_m",
+      "pile_4_4_m",
+      "pile_4_5_m",
+      "pile_4_6_m",
+      "pile_4_7_m",
+      "pile_5_0_m",
+      "pile_5_1_m",
+      "pile_5_2_m",
+      "pile_5_3_m",
+      "pile_5_4_m",
+      "pile_5_5_m",
+      "pile_5_6_m",
+      "pile_5_7_m",
+      "pile_6_0_m",
+      "pile_6_1_m",
+      "pile_6_2_m",
+      "pile_6_3_m",
+      "pile_6_4_m",
+      "pile_6_5_m",
+      "pile_6_6_m",
+      "pile_6_7_m",
+      "pile_7_0_m",
+      "pile_7_1_m",
+      "pile_7_2_m",
+      "pile_7_3_m",
+      "pile_7_4_m",
+      "pile_7_5_m",
+      "pile_7_6_m",
+      "pile_7_7_m",
+      "pile_origin_x_m",
+      "pile_origin_y_m",
+      "density_kg_m3",
+      "initial_mass_kg",
+      "friction",
+      "grade_rad",
+      "pile_resistance_n_m",
+      "half_width_m",
+      "ceiling_m",
+      "receiver_x_m",
+      "receiver_y_m",
+      "receiver_half_x_m",
+      "receiver_half_y_m",
+      "max_steps",
+      "step_index",
+      "success_kg",
+      "stuck_limit_s",
+      "decision_s",
+      "obstacle_x_min_m",
+      "obstacle_x_max_m",
+      "obstacle_y_min_m",
+      "obstacle_y_max_m",
+      "obstacle_present"
+    ],
+    "excluded_inputs": [
+      "future states",
+      "future observations",
+      "held-out scene identities",
+      "communication status as a substitute for sensing"
+    ],
+    "observable_model": "predicts local observation features, reward and events; does not invent full hidden-pile mass or learned pixel perception"
+  },
+  "seed_inventory": {
+    "files_scanned": 436,
+    "distinct_seed_values": 304,
+    "errors": [],
+    "candidates": {
+      "validation": {
+        "first": 108000,
+        "last": 108015,
+        "explicit_reference_hits": {},
+        "reservation_verified": false
+      },
+      "pilot_test": {
+        "first": 208900,
+        "last": 208915,
+        "explicit_reference_hits": {},
+        "reservation_verified": false
+      },
+      "final_test": {
+        "first": 209900,
+        "last": 209931,
+        "explicit_reference_hits": {},
+        "reservation_verified": false
+      }
+    },
+    "coverage": "Explicit JSON/JSON.gz metadata fields in listed directories, including local raw diagnostic runs.",
+    "exclusions": [
+      "NPZ arrays",
+      "PT checkpoints",
+      "JSONL streams",
+      "deleted Git history",
+      "implicit generator offsets and schedules",
+      "external or unretained runs"
+    ],
+    "conclusion": "No metadata hit is not proof of an untouched scenario. Complete the excluded-source audit before reservation."
+  },
+  "scorecards": [
+    {
+      "run_id": "reference-cycle-v1",
+      "bundle_sha256": "d32f06d914bd2f3755b702271bb6d7d38be32b2e58449af10c9ebd51c1c91aed",
+      "agent": "reference_controller",
+      "cases": [
+        {
+          "name": "Baseline",
+          "outcome": "success",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 2026.8523266880477,
+          "steps": 360,
+          "complete_empty_start_success": true
+        },
+        {
+          "name": "Rubble",
+          "outcome": "success",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 2019.7569276134711,
+          "steps": 417,
+          "complete_empty_start_success": true
+        },
+        {
+          "name": "Steep",
+          "outcome": "stuck",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 0.0,
+          "steps": 179,
+          "complete_empty_start_success": false
+        }
+      ],
+      "selection": "First declared held-out seed 100000, predeclared baseline/rubble/steep families, every decision retained; no outcome selection",
+      "limits": "Selected exported episodes, not an aggregate proficiency or generalisation benchmark."
+    },
+    {
+      "run_id": "curriculum-followup-v1",
+      "bundle_sha256": "6159e15db66577611d55d4fcaac911acad65223896bf03c7c6461d3a1d9b275a",
+      "agent": "learned_policy",
+      "cases": [
+        {
+          "name": "Seed 7",
+          "outcome": "tunnel_wall",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 0.0,
+          "steps": 61,
+          "complete_empty_start_success": false
+        },
+        {
+          "name": "Seed 19",
+          "outcome": "tunnel_wall",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 0.0,
+          "steps": 56,
+          "complete_empty_start_success": false
+        },
+        {
+          "name": "Seed 41",
+          "outcome": "tunnel_wall",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 0.0,
+          "steps": 61,
+          "complete_empty_start_success": false
+        }
+      ],
+      "selection": "Post-hoc curriculum illustration, not an efficacy estimate: all three predeclared training seeds, first declared test seed 200000, validation-selected checkpoints. Other methods and the second test scene are retained in the policy study. No favourable test-seed selection.",
+      "limits": "Selected exported episodes, not an aggregate proficiency or generalisation benchmark."
+    },
+    {
+      "run_id": "rl-study-v1-full-7",
+      "bundle_sha256": "c77d962aaf160d496748052c1709e01494f1ecfa2621f2d088fcc54e4dd75ebb",
+      "agent": "learned_policy",
+      "cases": [
+        {
+          "name": "Initial",
+          "outcome": "tunnel_wall",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 0.0,
+          "steps": 116,
+          "complete_empty_start_success": false
+        },
+        {
+          "name": "Intermediate",
+          "outcome": "time_limit",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 0.0,
+          "steps": 600,
+          "complete_empty_start_success": false
+        },
+        {
+          "name": "Final",
+          "outcome": "tunnel_wall",
+          "initial_payload_kg": 0.0,
+          "delivered_kg": 0.0,
+          "steps": 39,
+          "complete_empty_start_success": false
+        }
+      ],
+      "selection": null,
+      "limits": "Selected exported episodes, not an aggregate proficiency or generalisation benchmark."
+    }
+  ],
+  "world_model_report_sha256": "78789ad4fb11c6307985105f0a07d1209efc1dd14b145aa746904583aa11f547",
+  "world_models": {
+    "raw": {
+      "position_mae_m": 0.023657332321033633,
+      "mass_balance_mae_kg": 2.735026007624654,
+      "reward_mae": 0.1569286441009362,
+      "supported_horizon": 0
+    },
+    "material": {
+      "position_mae_m": 0.024354847387359727,
+      "mass_balance_mae_kg": 1.0564145729882395,
+      "reward_mae": 0.15199421212169104,
+      "supported_horizon": 0
+    },
+    "multistep_material": {
+      "position_mae_m": 0.04482294052728663,
+      "mass_balance_mae_kg": 0.3938589225163594,
+      "reward_mae": 0.02063231581461712,
+      "supported_horizon": 0
+    }
+  },
+  "event_failures": {
+    "contact": {
+      "actual": 483,
+      "false_positive": 78,
+      "false_negative": 25,
+      "precision": 0.8544776119402985,
+      "recall": 0.94824016563147
+    },
+    "collision": {
+      "actual": 2,
+      "false_positive": 0,
+      "false_negative": 2,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "success": {
+      "actual": 5,
+      "false_positive": 17,
+      "false_negative": 0,
+      "precision": 0.22727272727272727,
+      "recall": 1.0
+    },
+    "stuck": {
+      "actual": 1,
+      "false_positive": 0,
+      "false_negative": 1,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "truncation": {
+      "actual": 3,
+      "false_positive": 60,
+      "false_negative": 1,
+      "precision": 0.03225806451612903,
+      "recall": 0.6666666666666666
+    }
+  },
+  "assistance": {
+    "full_cycle_successes": 0,
+    "critic_updates": 0,
+    "imagined_transitions": 0
+  }
+}
