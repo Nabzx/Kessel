@@ -1,0 +1,21 @@
+{
+  "docs/phase-11/demo-frontier-evidence/report.json": "c00893f5446cc6f6165b93ffee61dc8e1cfa1e5fa0310e512e59d1e208b3db4f",
+  "docs/research/demo-contracts/evidence-admission.json": "d49dc0cebe1af0153ccbf4d66ab5d5a47407936ff139051bbf8ddaade7474238",
+  "docs/research/demo-contracts/observation-record.json": "39215af9fcb9e4f0e84c2b67837edc646ca48d0caeb9e3bdef59f56052b78742",
+  "docs/research/2026-11-13-demo-runtime-and-controls.md": "5805a741d47663e2b7264d2e2f4196f4f4e11ce769e2e272f46101c136cefbc0",
+  "docs/research/2026-11-13-evidence-admission.md": "bd172c71d5758419040b5f2ef74572e2b19480478293beeb2d55d73398f64adf",
+  "docs/research/2026-11-13-retrofit-observation-contract.md": "ed1570de37884a4de1173197f3e8e6719f0d92e5a607122556344c9d0f6940dd",
+  "docs/research/2026-11-13-scenario-evaluation.md": "708fcb91a8ad94211516c7593613bb7373e8169265361c597ea8638006c3eabe",
+  "docs/research/2026-11-13-walkthrough-narrative.md": "0baf785ecb022e5cd9349ea951cbe9a19df19a0cf8c0c3da3e79c389a8cd6cd8",
+  "docs/research/2026-11-13-world-model-recommendation.md": "8537c46dfa562855e2fcc0cbdb9262f7bec01db92c69651c0a49ab37a3be6e6f",
+  "docs/adr/0059-observation-and-evaluation-boundaries.md": "868d804a597d7fc6c943c6ab7c4548571ac2b3ae3c13641c713113f2955891d8",
+  "docs/adr/0060-recorded-demo-and-model-evidence.md": "8db2a2aa1598fe1844fec623a6c7311f6fdabe025fca41fd9acfcd7d13e4f32a",
+  "training/kessel_training/audit_demo_frontier.py": "98b7379e201ce8c29af895dc3a05745b3612a8e9d532551d35d6ff1e02bf86a5",
+  "training/kessel_training/environment.py": "3de1df5b6c729bf3b99fcdfe1abb373585fd47ea8c1030655c42630ea7e1bdc5",
+  "training/kessel_training/followup_data.py": "62a8010d84c932308e35a0784e2ab62b97218463113daac1a461dcb59e055e3f",
+  "training/kessel_training/wm_state.py": "a6239b83ba015fc9c6fc21a01e32915f68ac2d043da538a727dfa2fe01cdedce",
+  "training/kessel_training/contracts.py": "57fd26986c33060bd4e314838a8910f4fcbd4a9d91b16a57a10a42dc4e352bb9",
+  "training/kessel_training/dynamics.py": "63e345927205a34f6958c39a130044206490427e02ed20958c7e06a2c8cce3e6",
+  "training/kessel_training/kinematics.py": "bf50fc4074e6c7541d3c52378e577456d0a46430a6882af17b68d5185af81998",
+  "training/kessel_training/pile.py": "caa755636ba41d6176c675bd1022cf95b398659b2d19d0a5fa7387754840a2c1"
+}
