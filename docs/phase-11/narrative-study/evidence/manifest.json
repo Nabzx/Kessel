@@ -1,0 +1,32 @@
+{
+  "schema": "narrative-study-evidence-v1",
+  "files": {
+    "docs/phase-11/narrative-study/index.html": "e0ad64824e82f68b35e8e4e67821fc73e6e622ce16b621d6c46622d94e451cde",
+    "docs/phase-11/narrative-study/study.css": "a0bfefcfbe71f3f9c20644ffea783db056771043c23bf42f59b1bc448e0eb037",
+    "docs/phase-11/narrative-study/study.js": "304c68f32ca178eb7367080f00585edc508f4145aae5045dcaefd99d1df96f21",
+    "scripts/research/verify-narrative-study.cjs": "0b3967ff441afbaba03d8e5d83c809665ade1918bec0bd15df4d589cdb58eaa5",
+    "js/recorded-data.js": "8e51c8a3df81740661f7b158c82bda462c161d546bfb7fd171712224793f9275",
+    "js/loader-stage.js": "05dc7d98d7f0c1c8c121088255e3f84d19180c6b19112ea1e3736e7be4bfec95",
+    "js/replay-framing.js": "09f6b5e8f31efddb5ed09965efb82f3a9763e5b1ab7abe9af004130fcde61a3a",
+    "js/height-field.js": "a3d0ebcbb25b6893c529b24c35ce701820308f7ab15d4111b6b24bf7be1ae005",
+    "data/experiments/index.json": "4ba319bfadbcc7dcd1a73d63dcec9ebaf5d7e555810d3f012a5eaf0dac836e4f",
+    "data/experiments/reference-v1.json": "d32f06d914bd2f3755b702271bb6d7d38be32b2e58449af10c9ebd51c1c91aed",
+    "data/experiments/curriculum-v1.json": "6159e15db66577611d55d4fcaac911acad65223896bf03c7c6461d3a1d9b275a",
+    "index.html": "dc358a5237337291e13019486e38d6b9764e0a39a13042685dad31ad7d99feb6",
+    "js/experience.js": "d8db3aa255759c64c5327f6f832603c8a96e8ab9cf7ca2896daa69eab1d45680",
+    "docs/phase-11/narrative-study/evidence/compact.jpg": "73ba7c2e6d1173538feab523c54e1e22969ad06fdd1320fe107a602d4494d453",
+    "docs/phase-11/narrative-study/evidence/contact-detail.jpg": "64a484fe8095cc4de0ae7f9d4cbc12f34d7a205b3deadeb1acfa45c53f2a30cf",
+    "docs/phase-11/narrative-study/evidence/earth.jpg": "5793da8ceda47b277db1b59b12ec4aecce2078f987ee9205bd381a86f7182dc8",
+    "docs/phase-11/narrative-study/evidence/environments.jpg": "a5a15b55f5d52a1bada78101955f4e26c5d09aab2b4bf249954b0f27c26228ee",
+    "docs/phase-11/narrative-study/evidence/narrow.jpg": "730e723ff49714acf3bcb61e08e58ccf9696af9b6cfb2557c39c876cc83207db",
+    "docs/phase-11/narrative-study/evidence/proposed-learn.jpg": "370f2e638794c9e10acd8a42b53bd20bd02b645031c8b7f8cd9f46d8906e47dc",
+    "docs/phase-11/narrative-study/evidence/proposed-observe.jpg": "7b227120a243cc5602647493abd447c21218f85ece78919798d006fd333ca56c",
+    "docs/phase-11/narrative-study/evidence/proposed-predict.jpg": "aac436a57729a38c4493730fb799ddbf2015e42336856f287458f10f9b883f3a",
+    "docs/phase-11/narrative-study/evidence/proposed-retrofit.jpg": "1440a1ee86ad6a1de29d49e1fb33beaa8732a3f53586de5ca6644c7d79e6e4e0",
+    "docs/phase-11/narrative-study/evidence/proposed-task.jpg": "4e7fb2ab0fd5a721042b2c6408e185e43f4db01e6ec15b29313197ecb103ce81",
+    "docs/phase-11/narrative-study/evidence/surface.jpg": "7004cbef688189eec5157401bc2ac2413dd1e73708a58f479218b107bd4342e0",
+    "docs/phase-11/narrative-study/evidence/training.jpg": "fcc48c7e1be62d2c156c713892d13782462f49c902063fb897f1006944b37e36",
+    "docs/phase-11/narrative-study/evidence/report.json": "d38b6371f7f171d752e10b3c5a57b036345b50e8ac2a4b76e23063ba668caff2"
+  },
+  "limits": "Recorded UI research and framing checks. Human comprehension and rendering performance are not qualified."
+}
