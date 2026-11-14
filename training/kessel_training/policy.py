@@ -39,14 +39,20 @@ def network(hidden, outputs, gain):
 
 class ActorCritic(nn.Module):
     feature_size = FEATURES
-    def __init__(self, hidden=64):
+    def __init__(self, hidden=64, initial_log_std=None):
         super().__init__()
         if isinstance(hidden, bool) or not isinstance(hidden, int) or not 8 <= hidden <= 256:
             raise ValueError("hidden width must be an integer from 8 to 256")
         self.hidden = hidden
         self.actor = network(hidden, 4, 0.01)
         self.critic = network(hidden, 1, 1.0)
-        self.log_std = nn.Parameter(torch.full((4,), -0.5))
+        if initial_log_std is None:
+            initial_log_std = [-0.5] * 4
+        if (not isinstance(initial_log_std, (tuple, list)) or len(initial_log_std) != 4
+                or any(isinstance(v, bool) or not isinstance(v, (int, float))
+                       or not math.isfinite(v) or not -4 <= v <= 1 for v in initial_log_std)):
+            raise ValueError("initial_log_std must contain four finite values in [-4,1]")
+        self.log_std = nn.Parameter(torch.tensor(initial_log_std, dtype=torch.float32))
         self.register_buffer("proprio_scale", torch.tensor(
             [12, 4.2, 1, 1, 2, 0.6, 1.1, 1, 3500, 20, 6, 5, 1, 60, 1], dtype=torch.float32))
         self.register_buffer("height_scale", torch.tensor(1.5))

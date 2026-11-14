@@ -1,0 +1,8 @@
+{
+  "setting": "baseline",
+  "validation_medians": {
+    "baseline": 16,
+    "steering": 16
+  },
+  "gate_passed": true
+}

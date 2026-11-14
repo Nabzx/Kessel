@@ -1,0 +1,74 @@
+{
+  "schema": "retraction-pilot-v1",
+  "source": {
+    "package_sha256": "a5d0f7e50465dc567e3c5f7215d973167084cb9a9b31d00549401fe84137d417",
+    "git_commit": "2174bea3d0cda67ac8fbb6bd0175c1fed9cd7f3b",
+    "training_dirty": false
+  },
+  "reservation_sha256": "6fe79a150fba124fcfcedc789f59b4926dd2ad8fd12a1294e0c0c418c1f8ccd6",
+  "settings": {
+    "baseline": [
+      -0.5,
+      -0.5,
+      -0.5,
+      -0.5
+    ],
+    "steering": [
+      -0.5,
+      -2.5,
+      -0.5,
+      -0.5
+    ]
+  },
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "configuration": {
+    "seed": 7,
+    "setting": "baseline",
+    "rollouts": 128,
+    "validation_every": 16,
+    "max_wall_s": 600,
+    "test_reserve_s": 60
+  },
+  "validation_seeds": [
+    108000,
+    108001,
+    108002,
+    108003,
+    108004,
+    108005,
+    108006,
+    108007,
+    108008,
+    108009,
+    108010,
+    108011,
+    108012,
+    108013,
+    108014,
+    108015
+  ],
+  "pilot_test_seeds": [
+    208900,
+    208901,
+    208902,
+    208903,
+    208904,
+    208905,
+    208906,
+    208907,
+    208908,
+    208909,
+    208910,
+    208911,
+    208912,
+    208913,
+    208914,
+    208915
+  ],
+  "selection": "validation successes, fewer collisions, shorter successful duration; earlier exact tie; median configuration, baseline tie",
+  "task": "prepared 1500 kg retraction only; no full-cycle proficiency"
+}
