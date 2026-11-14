@@ -4,6 +4,12 @@ These tools are separate from the static investor experience. No policy or
 world model is trained by the current page. See ADRs 0031-0034 and the
 [interface contract](contracts/README.md).
 
+The [bounded retraction pilot](../docs/phase-11/retraction-pilot.md) is now
+executed. Two selected seed checkpoints pass 16/16 new tests, and one passes
+0/16. It is a prepared 1,500 kg skill, not empty-start delivery. The optional
+per-action exploration setting preserves legacy defaults. The runner provides
+source-bound checkpoints, a fixed validation/test separation and cumulative caps.
+
 The [working-demo scope](../docs/research/2026-11-12-working-demo-scope.md) and
 [readiness diagnosis](../docs/research/2026-11-12-learning-readiness.md) describe
 the next capability milestone. The diagnostic re-executes retained checkpoints,
