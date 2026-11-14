@@ -254,6 +254,17 @@ def run_study(output, reservation, resume=False):
         plan = original
     else:
         plan_path.write_text(json.dumps(plan, indent=2) + '\n')
+    reference_path = output / 'reference-validation.json'
+    if reference_path.exists():
+        reference_validation = json.loads(reference_path.read_text())
+    else:
+        reference_validation = []
+        for seed in validation:
+            case = stage_probe('retract', seed)
+            reference_validation.append({k: v for k, v in case.items() if k != 'records'})
+        reference_path.write_text(json.dumps(reference_validation, indent=2, allow_nan=False) + '\n')
+    if not all(c['reason'] == 'stage_success' for c in reference_validation):
+        raise ValueError('reserved validation reference cannot complete retraction; no policy training started')
     runs = []
     for setting in SETTINGS:
         for seed in (7, 19, 41):
@@ -319,6 +330,8 @@ def run_study(output, reservation, resume=False):
         trainer.pause_clock()
         tests.append(result)
     report = {'plan': plan, 'selection': selection, 'runs': [r.report() for r in runs], 'tests': tests,
+              'shared_reference_validation': reference_validation,
+              'shared_reference_validation_decisions': sum(c['steps'] for c in reference_validation),
               'full_cycle_training_executed': False,
               'limits': 'Prepared retraction is not empty-start full delivery. Tests cannot change the frozen configuration selection. All costs are separate.'}
     (output / 'report.json').write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
