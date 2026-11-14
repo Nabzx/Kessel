@@ -1,9 +1,13 @@
 # ADR-0057: Model-free skill proficiency protocol
 
-Status: Proposed
+Status: Accepted for the bounded retraction pilot. The conditional full-cycle
+study remains proposed and requires the pilot gate and a recorded recommendation.
 
-Refs #410 and #423–#426. Extends proposed ADR-0056. If accepted, this protocol
-supersedes ADR-0049's budget, gate and stage settings only for new named experiments.
+Refs #410 and #423–#426. Extends ADR-0056's scope recommendation. For the new
+named pilot this supersedes ADR-0049's budget and exploration settings only.
+The user requested continuation into the bounded learning pilot after the
+research findings. This does not adopt a new production route or authorise
+automatic execution of the conditional full-cycle study.
 The original study, weights and unsuccessful outcomes remain unchanged.
 
 ## Evidence and hypothesis
