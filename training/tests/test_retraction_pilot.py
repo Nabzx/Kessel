@@ -94,3 +94,12 @@ def test_paused_runs_do_not_charge_other_runs_wall_time(tmp_path):
     assert run.wall() == before
     run.start_clock()
     assert run.wall() >= before
+
+
+def test_training_stops_with_post_selection_test_allowance_intact(tmp_path, monkeypatch):
+    run = PilotRun(tmp_path, Config(rollouts=4, max_wall_s=2, test_reserve_s=1), 'test', [100000])
+    monkeypatch.setattr(run, 'wall', lambda: float(run.counters['rollouts']))
+    run.train()
+    assert run.status == 'training_wall_cap'
+    assert run.counters['rollouts'] == 1 and run.counters['training_decisions'] == 256
+    assert run.counters['test_decisions'] == 0
