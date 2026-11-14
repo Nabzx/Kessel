@@ -7,7 +7,7 @@ import torch
 
 from kessel_training import checkpoints
 from kessel_training.policy import ActorCritic, configure_cpu
-from kessel_training.retraction_pilot import Config, PilotRun, best_candidate
+from kessel_training.retraction_pilot import Config, PilotRun, best_candidate, score
 from kessel_training.reserve_scenarios import inspect, sha
 from kessel_training.wm_state import pack
 
@@ -71,6 +71,11 @@ def test_selection_ignores_reward_and_keeps_earlier_exact_tie():
     late = {'score': [14, 0, -3.0], 'rollout': 32, 'reward': 1000}
     failed = {'score': [0, 0, 0], 'rollout': 128, 'reward': 100000}
     assert best_candidate([early, late, failed]) is early
+
+
+def test_prepared_delivery_cannot_substitute_for_the_retraction_gate():
+    assert score([{'reason': 'success', 'stage_success': True, 'cycle_s': 10}])[0] == 0
+    assert score([{'reason': 'stage_success', 'stage_success': True, 'cycle_s': 3}])[0] == 1
 
 
 def test_archive_scan_detects_seed_and_geometry_reuse_without_outcome_inspection():
