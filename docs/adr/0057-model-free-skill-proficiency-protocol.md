@@ -1,7 +1,8 @@
 # ADR-0057: Model-free skill proficiency protocol
 
-Status: Accepted for the bounded retraction pilot. The conditional full-cycle
-study remains proposed and requires the pilot gate and a recorded recommendation.
+Status: Accepted for the bounded retraction pilot and five-stage task/retention
+implementation. The conditional full-cycle study remains proposed and requires
+a frozen runner, validated gates and a recorded recommendation.
 
 Refs #410 and #423–#426. Extends ADR-0056's scope recommendation. For the new
 named pilot this supersedes ADR-0049's budget and exploration settings only.
@@ -67,6 +68,10 @@ delivery does not substitute for the retraction gate. Wall checks occur between
 complete rollout/update or evaluation-case transactions, with actual overruns
 reported. SIGINT/SIGTERM save a checkpoint at a transaction boundary. Interrupted
 log/checkpoint counter mismatches fail closed rather than fabricating recovery.
+
+The user requested continuation on 16 November 2026 after the pilot results.
+This accepts implementation and reference checks of the five-stage task factory
+and retention gates below. It does not execute the conditional comparison.
 
 ## Conditional full-cycle comparison
 
