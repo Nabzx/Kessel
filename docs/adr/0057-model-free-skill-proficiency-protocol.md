@@ -180,3 +180,15 @@ changing legacy defaults; a bounded stage runner with checkpoint/resume and
 evaluation counters; validated stage gates; and evidence export with independent
 replay. This accepted protocol does not authorise describing an unexecuted study as a
 successful learner or changing the default walkthrough.
+
+## Executed comparison
+
+The [19 November report](../phase-11/full-cycle-study.md) records all six bounded
+runs and 192 final cases. Neither method passes admission. All curriculum seeds
+pass prepared fill and stop at retraction; one fails prior-fill retention.
+The runner source is frozen at `c30167b`. An execution-only scheduling amendment
+records the switch from sequential runs to at most two independent single-thread
+training workers, keeping source, budgets, gates and selection unchanged. Final
+tests remain centralised after all six selections freeze. Per-run caps include
+actual scheduling/contention; no wall-speed comparison is claimed. The final
+test range is now consumed and cannot be presented as untouched in future work.

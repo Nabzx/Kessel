@@ -40,12 +40,19 @@ The main walkthrough has not changed. The narrative prototype is an isolated
 local study; human comprehension review and existing visual acceptance are
 unperformed. It does not qualify phone controls or rendering performance.
 
-The next implementation is the coherent five-stage factory, its reference
-feasibility and retention checks, followed by the separately bounded full-cycle
-comparison. The completed pilot audits 601 unique available archive/history
-blobs; it does not certify unretained external experiments. Validation and pilot
-test cases are consumed, while final-test roles remain reserved and unqueried
-by a policy. Preserve those roles before the next experiment.
+Update, 19 November: the [five-stage task and retention checks](../phase-11/five-stage-contract.md)
+and [bounded full-cycle comparison](../phase-11/full-cycle-study.md) are implemented.
+All six runs and 192 final policy cases have completed. Plain PPO and curriculum
+each score 0/96 complete deliveries. All curriculum seeds pass prepared fill,
+then stop at retraction; one also fails prior-fill retention. No method is admitted
+to the capability demonstration.
+
+The new audit covers 1,462 unique available archive/history blobs and 111 ZIP
+members. Validation remains consumed selection data. The 32 final-test scenes
+are now consumed by all six frozen selections; they are no longer an untouched
+future test set. Preserve their results and reserve new cases before a future
+training/tuning study. The next learning question is skill transfer and retention,
+not implementation of the now-completed comparison runner.
 
 Actual sensor acquisition/calibration, bounded machine logs, a full scenario
 catalogue, live inference and production evidence integration remain implementation

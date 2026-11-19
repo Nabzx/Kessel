@@ -1,0 +1,45 @@
+{
+  "kind": "full-cycle-scheduling-amendment-v1",
+  "recorded_time_ns": 1795110883910907000,
+  "reason": "Reduce elapsed waiting by running at most two independent single-thread configurations concurrently. No policy, budget, validation, stopping or selection rule changes.",
+  "before_worker_start": {
+    "plain-7": {
+      "event": "freeze",
+      "counters": {
+        "gate_decisions": 0,
+        "optimiser_minibatches": 4497,
+        "rollouts": 576,
+        "stage_rollouts": 576,
+        "test_decisions": 0,
+        "training_decisions": 147456,
+        "training_episodes": 324,
+        "training_resets": 328,
+        "validation_decisions": 162343
+      }
+    },
+    "plain-19": {
+      "event": "interrupted",
+      "counters": {
+        "gate_decisions": 0,
+        "optimiser_minibatches": 2023,
+        "rollouts": 256,
+        "stage_rollouts": 256,
+        "test_decisions": 0,
+        "training_decisions": 65536,
+        "training_episodes": 173,
+        "training_resets": 177,
+        "validation_decisions": 73292
+      }
+    }
+  },
+  "worker_1": [
+    "plain-19",
+    "curriculum-7",
+    "curriculum-19"
+  ],
+  "worker_2": [
+    "plain-41",
+    "curriculum-41"
+  ],
+  "wall_interpretation": "Per-run active elapsed caps include actual scheduling/contention. No wall-speed or equal-sample-efficiency claim."
+}

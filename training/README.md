@@ -159,4 +159,6 @@ raw scans, unexported weights or Git metadata. No deployment is performed.
 
 The [five-stage contract and reference checks](../docs/phase-11/five-stage-contract.md)
 implement consistent prepared loads and explicit retention gates. All 80 reference
-cases pass; learned full-cycle training remains a separate next step.
+cases pass. The subsequent [bounded full-cycle study](../docs/phase-11/full-cycle-study.md)
+completed all six runs and 192 final cases without a successful complete delivery.
+Its runner, frozen selections, checkpoints and traces are retained.
