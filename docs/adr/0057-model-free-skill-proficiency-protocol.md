@@ -1,14 +1,15 @@
 # ADR-0057: Model-free skill proficiency protocol
 
-Status: Accepted for the bounded retraction pilot and five-stage task/retention
-implementation. The conditional full-cycle study remains proposed and requires
-a frozen runner, validated gates and a recorded recommendation.
+Status: Accepted for the bounded retraction pilot, five-stage task/retention
+implementation and bounded full-cycle comparison. The user explicitly requested
+completion of the runner, six-run experiment and final evaluation on 19 November
+2026. The pilot gate passed and all 80 reference-feasibility cases passed.
 
 Refs #410 and #423–#426. Extends ADR-0056's scope recommendation. For the new
 named pilot this supersedes ADR-0049's budget and exploration settings only.
 The user requested continuation into the bounded learning pilot after the
 research findings. This does not adopt a new production route or authorise
-automatic execution of the conditional full-cycle study.
+automatic execution beyond the explicitly accepted bounded comparison.
 The original study, weights and unsuccessful outcomes remain unchanged.
 
 ## Evidence and hypothesis
@@ -75,8 +76,24 @@ and retention gates below. It does not execute the conditional comparison.
 
 ## Conditional full-cycle comparison
 
-This is a subsequent experiment, not an automatic continuation after a good
-training return. It requires the pilot gate and a recorded recommendation.
+This subsequent experiment is accepted following the pilot gate and recorded
+recommendation in `docs/phase-11/retraction-pilot.md`. The runner must be tested
+and frozen before collection. On 19 November the user explicitly requested all
+three steps: runner implementation, bounded training and final evaluation.
+
+Execution details frozen before collection: reserve 240 seconds of each run's
+1,200-second active wall allowance for final tests. Training, selection and
+retention stop at the remaining 960-second boundary. Check time between whole
+rollout/update and evaluation-case transactions, retain actual overruns and never
+select from partial validation. Graceful interruption checkpoints the current
+phase and case cursor; unmatched log/checkpoint counters fail closed. The full
+validation set reuses the consumed validation role. Reaudit final-test non-use,
+allowing only its exact prior registration, including local ZIP members. Freeze
+all six independently selected checkpoints before testing either arm. Evaluate
+both arms on all 32 final starts (192 cases total), retaining the three-seed
+admission rule separately for each method. No test-based method reselection.
+Complete-stage curriculum training stops at its 32,768-decision stage budget;
+failed prerequisite stages stop without consuming the remaining global budget.
 
 Compare full-task PPO and held-out-gated curriculum with the selected initial
 exploration setting, seeds 7/19/41, capped at 163,840 on-policy decisions per
@@ -161,5 +178,5 @@ policy coverage gap is measured and its acquisition budget is declared.
 Implementation must add configurable initial per-action exploration without
 changing legacy defaults; a bounded stage runner with checkpoint/resume and
 evaluation counters; validated stage gates; and evidence export with independent
-replay. This proposed ADR and its research are not authorisation to describe an
-unexecuted protocol as a successful learner or to change the default walkthrough.
+replay. This accepted protocol does not authorise describing an unexecuted study as a
+successful learner or changing the default walkthrough.
