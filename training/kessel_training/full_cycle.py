@@ -210,14 +210,14 @@ class CycleRun(PilotRun):
         p = self.pending
         if p['policy_sha256'] != policy_identity(self.policy) or p['training_decisions'] != self.counters['training_decisions']:
             raise ValueError('validation policy provenance changed')
+        stages = ['complete'] if p['purpose'] == 'full' else p['stages']
+        if len(p['cases']) == len(stages)*len(self.validation_seeds):
+            self.complete_evaluation(p)
+            return
         if not self.training_time_available():
             self.stop_reason = 'training_wall_cap'
             self.commit('partial_validation', {'batch': p})
             self.pending = None; self.phase = 'freeze'
-            return
-        stages = ['complete'] if p['purpose'] == 'full' else p['stages']
-        if len(p['cases']) == len(stages)*len(self.validation_seeds):
-            self.complete_evaluation(p)
             return
         index = len(p['cases'])
         stage = stages[index//len(self.validation_seeds)]

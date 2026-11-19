@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import tempfile
+import subprocess
 import zipfile
 
 from . import reserve_scenarios as old
@@ -19,6 +20,18 @@ def reserve(root, output):
         raise FileExistsError(output)
     original_path = root/'docs/phase-11/retraction-pilot-evidence/reservation.json'
     original = json.loads(original_path.read_text())
+    baseline = json.loads(subprocess.check_output(['git', 'show',
+        '07c5615:docs/phase-11/retraction-pilot-evidence/files.json'], cwd=root, text=True))
+    allowed_digests = {}
+    for name in ('reservation.json', 'consumption.json'):
+        data = (original_path.parent/name).read_bytes()
+        digest = old.sha(data)
+        if digest != baseline[name]:
+            raise ValueError('prior registration/non-use declaration changed')
+        allowed_digests[digest] = name
+    consumption = json.loads((original_path.parent/'consumption.json').read_text())
+    if consumption['final_test'] != {'role': 'reserved_initialised_only_no_policy_evaluation', 'seeds': FINAL_TEST}:
+        raise ValueError('prior final-test role differs')
     allowed_digest = old.sha(original_path.read_bytes())
     finals = [r for r in original['identities'] if r['split'] == 'final_test']
     if [r['seed'] for r in finals] != FINAL_TEST:
@@ -36,7 +49,8 @@ def reserve(root, output):
     finally:
         old.identities = identities
     inventory = audit['archive_inventory']
-    allowed_locations = set(inventory.get(allowed_digest, {}).get('locations', []))
+    allowed_locations = {location for digest in allowed_digests
+                         for location in inventory.get(digest, {}).get('locations', [])}
     disallowed = [h for h in audit['hits'] if h['location'] not in allowed_locations]
     fingerprints = {v for r in finals for start in r['starts'].values()
                     for k, v in start.items() if k.endswith('sha256')}
@@ -54,7 +68,7 @@ def reserve(root, output):
                         data = archive.read(name); digest = old.sha(data)
                         location = path.relative_to(root).as_posix()+':'+name
                         zip_inventory.append({'location': location, 'sha256': digest})
-                        if digest in seen or digest == allowed_digest:
+                        if digest in seen or digest in allowed_digests:
                             continue
                         seen.add(digest)
                         hits = old.inspect(data, name, set(FINAL_TEST), fingerprints)
@@ -69,7 +83,7 @@ def reserve(root, output):
     result = {'kind': 'full-cycle-reservation-v1',
         'final_test_verified_unused': not disallowed and not zip_hits and not errors,
         'validation_seeds': VALIDATION, 'validation_role': 'consumed validation reused for selection and retention, never fresh-test evidence',
-        'final_test_seeds': FINAL_TEST, 'prior_registration_sha256': allowed_digest,
+        'final_test_seeds': FINAL_TEST, 'prior_registration_sha256': allowed_digest, 'allowed_prior_documents': allowed_digests,
         'allowed_prior_registration_locations': sorted(allowed_locations),
         'archive_audit': audit, 'zip_inventory': zip_inventory, 'disallowed_hits': disallowed+zip_hits,
         'errors': errors, 'scope': 'available local Git refs/history, local raw archives and ZIP members; unrecorded external runs cannot be ruled out',

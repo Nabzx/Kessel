@@ -128,3 +128,21 @@ def test_checkpoint_log_mismatch_rejected(tmp_path, clean):
     run.log.append('uncommitted', {'counters': dict(run.counters, rollouts=1)})
     with pytest.raises(ValueError, match='counters differ'):
         fc.CycleRun.resume(tmp_path)
+
+
+def test_final_selection_is_immutable_and_completed_tests_resume_without_queries(tmp_path, monkeypatch, clean):
+    def fake(policy, stage, seed, *, records=False):
+        result = case(stage, seed)
+        return (result, []) if records else result
+    monkeypatch.setattr(fc, 'probe', fake)
+    run = fc.CycleRun(tmp_path, fc.Config(max_rollouts=1), 'test'); run.train()
+    with pytest.raises(ValueError, match='frozen'):
+        run.test(dict(run.selected, sha256='wrong'))
+    run.test(run.selected)
+    assert run.phase == 'done' and len(run.test_cases) == 32
+    assert [c['seed'] for c in run.test_cases] == fc.FINAL_TEST
+    counts = dict(run.counters)
+    run = fc.CycleRun.resume(tmp_path)
+    monkeypatch.setattr(fc, 'probe', lambda *_args, **_kwargs: pytest.fail('requeried completed test'))
+    run.train(); run.test(run.selected)
+    assert run.counters == counts
