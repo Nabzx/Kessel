@@ -76,6 +76,16 @@ records before switching source labels. Mine business metrics remain
 illustrative. Do not describe these policies as having demonstrated full
 autonomous haulage.
 
+The 21 November ADR-0061 study adds a separate phase-memory imitation policy.
+It supplies every continuous action through a trained neural network and task
+phase through a conventional observation-derived state machine. It completes
+96/96 nominal final policy/scenario cases across three training seeds; memoryless
+imitation completes 54/96. All outcomes and teacher costs are retained. The
+isolated `docs/phase-11/phase-memory-demo/` plays verified recordings of the
+admitted method. This is reference-simulator evidence, not a learned-world-model
+training result, a production runtime or field qualification. Earlier failed
+PPO/model-assisted results and the authored default remain unchanged.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source
@@ -176,3 +186,8 @@ policies and the concept replay. Its successful delivery is not learned autonomy
 means. Its per-cell triangle integrals preserve source volume and zero-height
 holes. Cargo and event fragments are visual proxies, separate from the kilogram
 ledger and physical collision reference.
+
+**Phase-memory imitation policy**: a learned continuous-action network receiving
+local observations and phase from a conventional observation-derived state
+machine. Teacher queries are restricted to training. The explicit memory is
+not a learned planner or a learned world model.

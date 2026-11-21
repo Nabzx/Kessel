@@ -1,0 +1,8 @@
+{
+  "kind": "phase-static-preview-package-v1",
+  "files": 57,
+  "zip_bytes": 1252168,
+  "zip_sha256": "60016d880358044a7d676bf1c9882faf96b13c3215a1da8ce0519f2b057c4a34",
+  "entrypoint": "docs/phase-11/phase-memory-demo/index.html",
+  "contains_training_tools_or_weights": false
+}

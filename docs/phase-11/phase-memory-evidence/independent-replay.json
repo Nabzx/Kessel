@@ -1,0 +1,46 @@
+{
+  "kind": "phase-imitation-independent-replay-v1",
+  "source": {
+    "package_sha256": "8dac3b56ca990e8c119596a1d199073581b650cd6ed7db119dda6a92588027ba",
+    "git_commit": "5cee52a1e2d85b2bd4f0a6467757067436e7deb2",
+    "training_dirty": false
+  },
+  "runs": [
+    {
+      "run": "memoryless-7",
+      "selected_validation_cases": 16,
+      "final_traces": 32
+    },
+    {
+      "run": "memoryless-19",
+      "selected_validation_cases": 16,
+      "final_traces": 32
+    },
+    {
+      "run": "memoryless-41",
+      "selected_validation_cases": 16,
+      "final_traces": 32
+    },
+    {
+      "run": "phase_memory-7",
+      "selected_validation_cases": 16,
+      "final_traces": 32
+    },
+    {
+      "run": "phase_memory-19",
+      "selected_validation_cases": 16,
+      "final_traces": 32
+    },
+    {
+      "run": "phase_memory-41",
+      "selected_validation_cases": 16,
+      "final_traces": 32
+    }
+  ],
+  "validation_decisions": 42984,
+  "trace_decisions": 89412,
+  "teacher_queries": 0,
+  "max_state_error": 0.0,
+  "max_action_error": 0.0,
+  "max_raw_reward_error": 0.0
+}

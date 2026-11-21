@@ -1,0 +1,372 @@
+{
+  "browser": "157.0.8103.79",
+  "base_url": "http://127.0.0.1:8084/",
+  "runner_sha256": "3a16e8c9b807b121967f2a8e84feaab1a5a8df8691d960bc5b045944273e7b02",
+  "catalogue_sha256": "d15b7e3477b76597900497847e2ebd1243c7cfe3e15313550f64bbc034dab6c5",
+  "profiles": [
+    {
+      "spec": {
+        "name": "laptop",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1,
+        "motion": "no-preference"
+      },
+      "recordings": [
+        {
+          "index": 0,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 369,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2017.088148671999,
+            "peak_load_kg": 2475.0855435299377,
+            "cycle_s": 36.90000000000017,
+            "max_mass_residual_kg": 3.637978807091713e-12,
+            "path": "final-phase_memory-7-207600.json.gz",
+            "sha256": "5dc9d57d3a41a81cf9549b0e0fafc04bc0a7762809e1bd70bd192cc7272af87a"
+          },
+          "checkedPoses": 370,
+          "fit": {
+            "safe": {
+              "left": 28,
+              "right": 1074,
+              "top": 100,
+              "bottom": 566
+            },
+            "projected": {
+              "left": 254.74538318596478,
+              "right": 916.3020729690137,
+              "top": 166.36713574055992,
+              "bottom": 565.9999999994621
+            }
+          }
+        },
+        {
+          "index": 1,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 371,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2024.6167705049763,
+            "peak_load_kg": 2490.630477209182,
+            "cycle_s": 37.1000000000002,
+            "max_mass_residual_kg": 3.637978807091713e-12,
+            "path": "final-phase_memory-19-207600.json.gz",
+            "sha256": "319dc9b2982081da6d4d3f367c4107ecc8ab8f638ba7e36e46d92e66111f8f56"
+          },
+          "checkedPoses": 372,
+          "fit": {
+            "safe": {
+              "left": 28,
+              "right": 1074,
+              "top": 100,
+              "bottom": 566
+            },
+            "projected": {
+              "left": 254.77403463042972,
+              "right": 916.2388033625465,
+              "top": 166.35601980551934,
+              "bottom": 565.999999984285
+            }
+          }
+        },
+        {
+          "index": 2,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 368,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2004.7921086670967,
+            "peak_load_kg": 2481.4663806577355,
+            "cycle_s": 36.78000000000015,
+            "max_mass_residual_kg": 1.8189894035458565e-12,
+            "path": "final-phase_memory-41-207600.json.gz",
+            "sha256": "dfcd658d687cfdf1bd2e219383b5eec5d58bcaba0c7c5b2a4da34a984a85adf9"
+          },
+          "checkedPoses": 369,
+          "fit": {
+            "safe": {
+              "left": 28,
+              "right": 1074,
+              "top": 100,
+              "bottom": 566
+            },
+            "projected": {
+              "left": 254.53515378501078,
+              "right": 916.8317548965578,
+              "top": 166.44520514017972,
+              "bottom": 565.9999999981383
+            }
+          }
+        }
+      ],
+      "performance": {
+        "frames": 301,
+        "mean_fps": 60.05946086615537,
+        "p95_ms": 16.799999999999727,
+        "p99_ms": 16.800000000000182,
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "checks": [
+        "Three finite source identities",
+        "Paused start",
+        "Measured terminal delivery",
+        "Whole-job framing on laptop",
+        "Playback/pause",
+        "Keyboard activation",
+        "Rapid selection coherence",
+        "No horizontal overflow"
+      ]
+    },
+    {
+      "spec": {
+        "name": "compact-retina",
+        "width": 1365,
+        "height": 768,
+        "dpr": 2,
+        "motion": "reduce"
+      },
+      "recordings": [
+        {
+          "index": 0,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 369,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2017.088148671999,
+            "peak_load_kg": 2475.0855435299377,
+            "cycle_s": 36.90000000000017,
+            "max_mass_residual_kg": 3.637978807091713e-12,
+            "path": "final-phase_memory-7-207600.json.gz",
+            "sha256": "5dc9d57d3a41a81cf9549b0e0fafc04bc0a7762809e1bd70bd192cc7272af87a"
+          },
+          "checkedPoses": 370,
+          "fit": {
+            "safe": {
+              "left": 28,
+              "right": 999,
+              "top": 100,
+              "bottom": 447
+            },
+            "projected": {
+              "left": 286.48934004000347,
+              "right": 786.9177922286451,
+              "top": 144.7478178305681,
+              "bottom": 446.99999999167187
+            }
+          }
+        },
+        {
+          "index": 1,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 371,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2024.6167705049763,
+            "peak_load_kg": 2490.630477209182,
+            "cycle_s": 37.1000000000002,
+            "max_mass_residual_kg": 3.637978807091713e-12,
+            "path": "final-phase_memory-19-207600.json.gz",
+            "sha256": "319dc9b2982081da6d4d3f367c4107ecc8ab8f638ba7e36e46d92e66111f8f56"
+          },
+          "checkedPoses": 372,
+          "fit": {
+            "safe": {
+              "left": 28,
+              "right": 999,
+              "top": 100,
+              "bottom": 447
+            },
+            "projected": {
+              "left": 286.5132537682719,
+              "right": 786.8701650393831,
+              "top": 144.74004081894037,
+              "bottom": 446.99999999219295
+            }
+          }
+        },
+        {
+          "index": 2,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 368,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2004.7921086670967,
+            "peak_load_kg": 2481.4663806577355,
+            "cycle_s": 36.78000000000015,
+            "max_mass_residual_kg": 1.8189894035458565e-12,
+            "path": "final-phase_memory-41-207600.json.gz",
+            "sha256": "dfcd658d687cfdf1bd2e219383b5eec5d58bcaba0c7c5b2a4da34a984a85adf9"
+          },
+          "checkedPoses": 369,
+          "fit": {
+            "safe": {
+              "left": 28,
+              "right": 999,
+              "top": 100,
+              "bottom": 447
+            },
+            "projected": {
+              "left": 286.31238187771027,
+              "right": 787.3123978412883,
+              "top": 144.80244003293717,
+              "bottom": 446.9999999985974
+            }
+          }
+        }
+      ],
+      "checks": [
+        "Three finite source identities",
+        "Paused start",
+        "Measured terminal delivery",
+        "Whole-job framing on laptop",
+        "Playback/pause",
+        "Keyboard activation",
+        "Rapid selection coherence",
+        "No horizontal overflow"
+      ]
+    },
+    {
+      "spec": {
+        "name": "narrow",
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "motion": "reduce"
+      },
+      "recordings": [
+        {
+          "index": 0,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 369,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2017.088148671999,
+            "peak_load_kg": 2475.0855435299377,
+            "cycle_s": 36.90000000000017,
+            "max_mass_residual_kg": 3.637978807091713e-12,
+            "path": "final-phase_memory-7-207600.json.gz",
+            "sha256": "5dc9d57d3a41a81cf9549b0e0fafc04bc0a7762809e1bd70bd192cc7272af87a"
+          },
+          "checkedPoses": 0,
+          "fit": {
+            "safe": {
+              "left": 16,
+              "right": 374,
+              "top": 16,
+              "bottom": 346.90625
+            },
+            "projected": {
+              "left": 55.507699987397416,
+              "right": 373.99999998330355,
+              "top": 104.04760993005003,
+              "bottom": 296.6635541350373
+            }
+          }
+        },
+        {
+          "index": 1,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 371,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2024.6167705049763,
+            "peak_load_kg": 2490.630477209182,
+            "cycle_s": 37.1000000000002,
+            "max_mass_residual_kg": 3.637978807091713e-12,
+            "path": "final-phase_memory-19-207600.json.gz",
+            "sha256": "319dc9b2982081da6d4d3f367c4107ecc8ab8f638ba7e36e46d92e66111f8f56"
+          },
+          "checkedPoses": 0,
+          "fit": {
+            "safe": {
+              "left": 16,
+              "right": 374,
+              "top": 16,
+              "bottom": 346.90625
+            },
+            "projected": {
+              "left": 55.50057110987658,
+              "right": 373.99999999146655,
+              "top": 104.03228369406317,
+              "bottom": 296.68432659691524
+            }
+          }
+        },
+        {
+          "index": 2,
+          "case": {
+            "seed": 207600,
+            "stage": "complete",
+            "initial_payload_kg": 0,
+            "steps": 368,
+            "reason": "success",
+            "full_success": true,
+            "delivered_kg": 2004.7921086670967,
+            "peak_load_kg": 2481.4663806577355,
+            "cycle_s": 36.78000000000015,
+            "max_mass_residual_kg": 1.8189894035458565e-12,
+            "path": "final-phase_memory-41-207600.json.gz",
+            "sha256": "dfcd658d687cfdf1bd2e219383b5eec5d58bcaba0c7c5b2a4da34a984a85adf9"
+          },
+          "checkedPoses": 0,
+          "fit": {
+            "safe": {
+              "left": 16,
+              "right": 374,
+              "top": 16,
+              "bottom": 346.90625
+            },
+            "projected": {
+              "left": 55.58341573613403,
+              "right": 373.99999999884585,
+              "top": 104.16914103265846,
+              "bottom": 296.48676664301263
+            }
+          }
+        }
+      ],
+      "checks": [
+        "Three finite source identities",
+        "Paused start",
+        "Measured terminal delivery",
+        "Whole-job framing on laptop",
+        "Playback/pause",
+        "Keyboard activation",
+        "Rapid selection coherence",
+        "No horizontal overflow"
+      ]
+    }
+  ],
+  "errors": [],
+  "recovery": [
+    "Corrupt record fails SHA-256 verification",
+    "No fallback to a different source",
+    "Retry recovers matching recording"
+  ]
+}
