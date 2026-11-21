@@ -156,3 +156,7 @@ Serve that directory with `python3 -m http.server 8080 --bind 127.0.0.1`.
 The package contains only the static entry point, scene code/data, supported
 assets and their notices. It does not include Python tools, environments,
 raw scans, unexported weights or Git metadata. No deployment is performed.
+
+The [five-stage contract and reference checks](../docs/phase-11/five-stage-contract.md)
+implement consistent prepared loads and explicit retention gates. All 80 reference
+cases pass; learned full-cycle training remains a separate next step.
