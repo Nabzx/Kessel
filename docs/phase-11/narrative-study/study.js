@@ -20,6 +20,7 @@ const beats = {
 const core = ['task','observe','predict','learn','retrofit'];
 let route='mine', index=0, lens='job', elapsed=0, playing=false, horizon=4, loaded=false;
 let bundle, learnedBundle, episode, loader, envelope, source, receiver, observationDots, fit, anchor;
+const walls=[];
 const scene=new THREE.Scene();scene.background=new THREE.Color('#050a0c');
 const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,200);
 const renderer=new THREE.WebGLRenderer({canvas:$('world'),antialias:true,powerPreference:'high-performance'});
@@ -81,6 +82,7 @@ function draw(){
   if(!loaded)return;
   const sampled=sampleEpisode(episode,elapsed),r=sampled.frame,s=r.state;
   loader.apply(sampled.pose,sampled.wheelAngles,s[7]);
+  walls[0].position.z=-s[86]-.25;walls[1].position.z=s[86]+.2;
   source(s.slice(15,79),s[79],s[80]);
   const weights=Array.from({length:64},(_,k)=>Math.exp(-((k%8-3.5)**2+(Math.floor(k/8)-3.5)**2)/5)),sum=weights.reduce((a,b)=>a+b,0);
   receiver(weights.map(w=>w*s[8]/(s[81]*(s[90]*s[91]/16)*sum)),s[88]-s[90],s[89]-s[91],s[90]/4,s[91]/4);
@@ -122,7 +124,7 @@ async function start(){
     const [ore,floor,model,authored]=await Promise.all([texture(config.assets.ore),texture(config.assets.floor,8),fetch(config.assets.loader).then(r=>r.json()),authoredAsset(config.visuals.authored.reference_loader)]);
     loader=createReferenceLoader(model,ore,authored);root.add(loader.root);source=surface(ore,0xb1a08a);receiver=surface(ore,0xa99c86);
     const ground=new THREE.Mesh(new THREE.PlaneGeometry(34,12),new THREE.MeshStandardMaterial({map:floor,color:0x67736d,roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.set(3.5,-.012,0);ground.receiveShadow=true;root.add(ground);
-    const concrete=new THREE.MeshStandardMaterial({color:0x47514c,roughness:1});box([29,1,.5],[3.5,.5,-4.5],concrete,root);box([29,.25,.4],[3.5,.125,4.5],concrete,root);
+    const concrete=new THREE.MeshStandardMaterial({color:0x47514c,roughness:1});walls.push(box([29,1,.5],[3.5,.5,0],concrete,root),box([29,.25,.4],[3.5,.125,0],concrete,root));
     observationDots=new THREE.InstancedMesh(new THREE.SphereGeometry(.09,8,6),new THREE.MeshBasicMaterial({color:0x9cd6bc,depthTest:false}),25);observationDots.renderOrder=2;observationDots.frustumCulled=false;root.add(observationDots);
     const s=bundle.episodes[0].records[0].state,steel=new THREE.MeshStandardMaterial({color:0x596560,roughness:.7,metalness:.5});
     for(const side of [-1,1])box([s[90]*2,.5,.12],[s[88],.25,-s[89]+side*s[91]],steel,root);
@@ -141,6 +143,6 @@ addEventListener('resize',refit);new ResizeObserver(()=>{if(loaded)refit();}).ob
 let last=performance.now();
 function frame(now){const raw=(now-last)/1000,dt=Math.min(.1,raw);last=now;frames.push(raw);if(frames.length>180)frames.shift();if(playing&&loaded){elapsed=Math.min(episode.records.at(-1).t_s,elapsed+dt);if(elapsed===episode.records.at(-1).t_s){playing=false;$('play').textContent='Play recording';}draw();}requestAnimationFrame(frame);}
 requestAnimationFrame(frame);start();
-window.narrativeStudy={step:id=>selectStep(schedule().indexOf(id)),diagnostics:()=>({loaded,route,step:current(),lens,elapsed,playing,fit,source:current()==='learn'?learnedBundle?.run_id:bundle?.run_id,episode:episode?.name,frameIndex:episode?sampleEpisode(episode,elapsed).index:null,sourceMode:'recorded_synthetic',authoredOutcome:false,pose:episode?sampleEpisode(episode,elapsed).pose:null,meanFps:frames.length/frames.reduce((a,b)=>a+b,0),gpu:renderer.getContext().getParameter(renderer.getContext().getExtension('WEBGL_debug_renderer_info')?.UNMASKED_RENDERER_WEBGL||renderer.getContext().RENDERER)}),auditFrames(){
+window.narrativeStudy={step:id=>selectStep(schedule().indexOf(id)),diagnostics:()=>({loaded,route,step:current(),lens,elapsed,playing,fit,source:current()==='learn'?learnedBundle?.run_id:bundle?.run_id,episode:episode?.name,frameIndex:episode?sampleEpisode(episode,elapsed).index:null,geometrySourceMode:'recorded_synthetic',viewSourceMode:beats[current()].image?'authored_context':current()==='retrofit'?'proposed_architecture':'recorded_synthetic',authoredOutcome:false,pose:episode?sampleEpisode(episode,elapsed).pose:null,meanFps:frames.length/frames.reduce((a,b)=>a+b,0),gpu:renderer.getContext().getParameter(renderer.getContext().getExtension('WEBGL_debug_renderer_info')?.UNMASKED_RENDERER_WEBGL||renderer.getContext().RENDERER)}),auditFrames(){
   const projections=[];for(const time of poseTimes(episode)){const p=sampleEpisode(episode,time);loader.apply(p.pose,p.wheelAngles,p.frame.state[7]);const b=visibleBounds(loader.root),points=boxCorners(b).map(screen);projections.push({time,left:Math.min(...points.map(p=>p.x)),right:Math.max(...points.map(p=>p.x)),top:Math.min(...points.map(p=>p.y)),bottom:Math.max(...points.map(p=>p.y))});}draw();return projections;
 }};

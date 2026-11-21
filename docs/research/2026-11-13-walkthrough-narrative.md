@@ -140,6 +140,11 @@ context and preserve the recording time/pose when switching lenses. An automatic
 follow camera is not recommended here because it changes orientation and hides
 the source-to-receiver relationship.
 
+Wall positions follow the current record's corridor half-width; source changes
+must not leave the learner colliding with an invisible wall at an old width.
+These selected records do not exercise explicit obstacle-box scenes. Add those
+camera fixtures before qualifying a future obstacle scenario catalogue.
+
 Show the observed heights in their recorded bucket-relative frame. Invalid
 samples remain absent. These points represent pile heights; they do not prove
 wall, person or obstacle detection. Put drive/steer/boom/bucket values in a

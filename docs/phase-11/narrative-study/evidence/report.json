@@ -1,6 +1,6 @@
 {
   "browser": "157.0.8103.52",
-  "created": "2026-11-13T16:21:30.098Z",
+  "created": "2026-11-13T17:34:26.704Z",
   "profiles": [
     {
       "spec": {
@@ -218,7 +218,8 @@
         "source": "reference-cycle-v1",
         "episode": "Baseline",
         "frameIndex": 44,
-        "sourceMode": "recorded_synthetic",
+        "geometrySourceMode": "recorded_synthetic",
+        "viewSourceMode": "recorded_synthetic",
         "authoredOutcome": false,
         "pose": [
           2.8398389345971364,
@@ -229,7 +230,7 @@
           -0.09903022627021241,
           0.941203906977792
         ],
-        "meanFps": 54.147266772804315,
+        "meanFps": 55.91930631935342,
         "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
       }
     },
@@ -449,7 +450,8 @@
         "source": "reference-cycle-v1",
         "episode": "Baseline",
         "frameIndex": 44,
-        "sourceMode": "recorded_synthetic",
+        "geometrySourceMode": "recorded_synthetic",
+        "viewSourceMode": "recorded_synthetic",
         "authoredOutcome": false,
         "pose": [
           2.8398389345971364,
@@ -460,7 +462,7 @@
           -0.09903022627021241,
           0.941203906977792
         ],
-        "meanFps": 53.663344652895546,
+        "meanFps": 55.880588058805955,
         "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
       }
     },
@@ -519,7 +521,8 @@
         "source": "reference-cycle-v1",
         "episode": "Baseline",
         "frameIndex": 44,
-        "sourceMode": "recorded_synthetic",
+        "geometrySourceMode": "recorded_synthetic",
+        "viewSourceMode": "recorded_synthetic",
         "authoredOutcome": false,
         "pose": [
           2.8398389345971364,
@@ -530,7 +533,7 @@
           -0.09903022627021241,
           0.941203906977792
         ],
-        "meanFps": 54.846885775032035,
+        "meanFps": 56.8720379135236,
         "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
       }
     }
@@ -730,10 +733,10 @@
         "shadows": true,
         "shadowUpdate": "dynamic",
         "pixelRatio": 1,
-        "heapUsedBytes": 19176530,
-        "meanFps": 38.8233832531454,
-        "p99FrameMs": 416.7,
-        "p95FrameMs": 50,
+        "heapUsedBytes": 19621702,
+        "meanFps": 39.03708523096942,
+        "p99FrameMs": 400,
+        "p95FrameMs": 50.10000000000002,
         "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
       },
       "headings": [
@@ -934,14 +937,14 @@
         "learning": null,
         "drawCalls": 15,
         "triangles": 42464,
-        "textures": 14,
+        "textures": 16,
         "shadows": true,
         "shadowUpdate": "dynamic",
         "pixelRatio": 1,
-        "heapUsedBytes": 28407974,
-        "meanFps": 53.48291155752673,
+        "heapUsedBytes": 27925778,
+        "meanFps": 56,
         "p99FrameMs": 50,
-        "p95FrameMs": 33.29999999999973,
+        "p95FrameMs": 16.799999999999955,
         "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
       },
       "headings": [
@@ -963,9 +966,9 @@
           "assets/authored/ore-pile.glb"
         ],
         "preparationMs": {
-          "surface": 655.2000000476837,
-          "flight": 102.5,
-          "mine": 300.40000009536743
+          "surface": 733,
+          "flight": 106.29999995231628,
+          "mine": 310.59999990463257
         },
         "stage": "surface",
         "chapter": "surface",
@@ -1190,9 +1193,9 @@
         "shadows": true,
         "shadowUpdate": "dynamic",
         "pixelRatio": 1,
-        "heapUsedBytes": 42583014,
-        "meanFps": 58.46153846153847,
-        "p99FrameMs": 33.40000000000009,
+        "heapUsedBytes": 40428523,
+        "meanFps": 56.997150142492856,
+        "p99FrameMs": 50,
         "p95FrameMs": 16.800000000000182,
         "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
       },
@@ -1216,10 +1219,10 @@
           "assets/authored/reference-loader.glb"
         ],
         "preparationMs": {
-          "surface": 655.2000000476837,
-          "flight": 102.5,
-          "mine": 300.40000009536743,
-          "learning-authored": 140.40000009536743
+          "surface": 733,
+          "flight": 106.29999995231628,
+          "mine": 310.59999990463257,
+          "learning-authored": 149.5
         },
         "stage": "learning",
         "chapter": "training",
@@ -1488,10 +1491,10 @@
         "shadows": true,
         "shadowUpdate": "dynamic",
         "pixelRatio": 1,
-        "heapUsedBytes": 44645423,
-        "meanFps": 55.90400872647944,
+        "heapUsedBytes": 47767687,
+        "meanFps": 57.26752113444235,
         "p99FrameMs": 50,
-        "p95FrameMs": 16.800000000000182,
+        "p95FrameMs": 16.700000000000728,
         "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
       },
       "headings": [

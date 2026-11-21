@@ -3,7 +3,7 @@
   "files": {
     "docs/phase-11/narrative-study/index.html": "e0ad64824e82f68b35e8e4e67821fc73e6e622ce16b621d6c46622d94e451cde",
     "docs/phase-11/narrative-study/study.css": "a0bfefcfbe71f3f9c20644ffea783db056771043c23bf42f59b1bc448e0eb037",
-    "docs/phase-11/narrative-study/study.js": "304c68f32ca178eb7367080f00585edc508f4145aae5045dcaefd99d1df96f21",
+    "docs/phase-11/narrative-study/study.js": "b28dd561c8f57193cdfd6f02fcb64937932730a83c0002bcf145df5791354bfa",
     "scripts/research/verify-narrative-study.cjs": "0b3967ff441afbaba03d8e5d83c809665ade1918bec0bd15df4d589cdb58eaa5",
     "js/recorded-data.js": "8e51c8a3df81740661f7b158c82bda462c161d546bfb7fd171712224793f9275",
     "js/loader-stage.js": "05dc7d98d7f0c1c8c121088255e3f84d19180c6b19112ea1e3736e7be4bfec95",
@@ -14,19 +14,19 @@
     "data/experiments/curriculum-v1.json": "6159e15db66577611d55d4fcaac911acad65223896bf03c7c6461d3a1d9b275a",
     "index.html": "dc358a5237337291e13019486e38d6b9764e0a39a13042685dad31ad7d99feb6",
     "js/experience.js": "d8db3aa255759c64c5327f6f832603c8a96e8ab9cf7ca2896daa69eab1d45680",
-    "docs/phase-11/narrative-study/evidence/compact.jpg": "73ba7c2e6d1173538feab523c54e1e22969ad06fdd1320fe107a602d4494d453",
-    "docs/phase-11/narrative-study/evidence/contact-detail.jpg": "64a484fe8095cc4de0ae7f9d4cbc12f34d7a205b3deadeb1acfa45c53f2a30cf",
+    "docs/phase-11/narrative-study/evidence/compact.jpg": "ecbe97d82cfd66ae9f2d28f71f33f6587ebf10c992643ee1378599a728f11d73",
+    "docs/phase-11/narrative-study/evidence/contact-detail.jpg": "bd71620130f51ecdf36fdd3850d6f642614d37edd916a56e3da1b668068b5270",
     "docs/phase-11/narrative-study/evidence/earth.jpg": "5793da8ceda47b277db1b59b12ec4aecce2078f987ee9205bd381a86f7182dc8",
     "docs/phase-11/narrative-study/evidence/environments.jpg": "a5a15b55f5d52a1bada78101955f4e26c5d09aab2b4bf249954b0f27c26228ee",
-    "docs/phase-11/narrative-study/evidence/narrow.jpg": "730e723ff49714acf3bcb61e08e58ccf9696af9b6cfb2557c39c876cc83207db",
-    "docs/phase-11/narrative-study/evidence/proposed-learn.jpg": "370f2e638794c9e10acd8a42b53bd20bd02b645031c8b7f8cd9f46d8906e47dc",
-    "docs/phase-11/narrative-study/evidence/proposed-observe.jpg": "7b227120a243cc5602647493abd447c21218f85ece78919798d006fd333ca56c",
-    "docs/phase-11/narrative-study/evidence/proposed-predict.jpg": "aac436a57729a38c4493730fb799ddbf2015e42336856f287458f10f9b883f3a",
-    "docs/phase-11/narrative-study/evidence/proposed-retrofit.jpg": "1440a1ee86ad6a1de29d49e1fb33beaa8732a3f53586de5ca6644c7d79e6e4e0",
-    "docs/phase-11/narrative-study/evidence/proposed-task.jpg": "4e7fb2ab0fd5a721042b2c6408e185e43f4db01e6ec15b29313197ecb103ce81",
+    "docs/phase-11/narrative-study/evidence/narrow.jpg": "a63deab4186d599685d4347836a7cfe775fbd9ae60d1646a6bd47b722d369005",
+    "docs/phase-11/narrative-study/evidence/proposed-learn.jpg": "b63ece461c49bfd3bdc804b421fe1e5549c8688f70c9bc0414df0a040ef58d14",
+    "docs/phase-11/narrative-study/evidence/proposed-observe.jpg": "2ab07a0f0b8910ba0a7cd1afc1898a104c5d7c2e96a400a4f52c5d3d2adcab61",
+    "docs/phase-11/narrative-study/evidence/proposed-predict.jpg": "f30579c7f93704ba7c0c4ed7acdb46b9188c66d31e80cf8f9bc4d6e65ad3f130",
+    "docs/phase-11/narrative-study/evidence/proposed-retrofit.jpg": "1edff22b7eb505e42c354ebb37dce8883470b81d37c642b2032aa3d57fd9175c",
+    "docs/phase-11/narrative-study/evidence/proposed-task.jpg": "fcd51d82bc5e0175e4729118ce4c9401ed6c7c5e8216153aea65b390d18c262c",
     "docs/phase-11/narrative-study/evidence/surface.jpg": "7004cbef688189eec5157401bc2ac2413dd1e73708a58f479218b107bd4342e0",
     "docs/phase-11/narrative-study/evidence/training.jpg": "fcc48c7e1be62d2c156c713892d13782462f49c902063fb897f1006944b37e36",
-    "docs/phase-11/narrative-study/evidence/report.json": "d38b6371f7f171d752e10b3c5a57b036345b50e8ac2a4b76e23063ba668caff2"
+    "docs/phase-11/narrative-study/evidence/report.json": "d4a1308e26502e81216ceb3d67e4820334d5b7a8076639321803cfe4c85c46d9"
   },
   "limits": "Recorded UI research and framing checks. Human comprehension and rendering performance are not qualified."
 }

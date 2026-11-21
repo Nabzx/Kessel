@@ -1,0 +1,12 @@
+{
+  "status": "research_proposal_not_implemented",
+  "version": "machine-observation-record-v1",
+  "mode": "observation_only_before_shadow_or_applied_control",
+  "identity_fields": ["run_id", "clock_id", "sequence", "sensor_id", "capture_time_ns", "delivery_time_ns", "frame_id", "calibration_sha256", "configuration_sha256"],
+  "policy_input": {"proprio": {"shape": [15], "names_source": "training/kessel_training/environment.py:PROPRIO_NAMES"}, "local_height_m": {"shape": [5, 5], "units": "m"}, "range_valid": {"shape": [5, 5], "values": [0, 1]}},
+  "coordinate_contract": "existing planar physical frame; metres, radians, calibrated bucket-relative sample locations",
+  "required_separation": ["observation", "policy_proposal", "applied_command"],
+  "missing_data": "Record validity and capture age; an invalid range return is not a measured zero.",
+  "offline_integrity": ["sequence and loss markers", "source/configuration/calibration identity", "bounded storage and explicit quota loss", "restart and incomplete-tail handling", "replay bound to the original checkpoint"],
+  "exclusions": ["raw stereo input is not an implemented policy feature", "privileged simulator state is not an onboard observation", "zero commands are not a validated stopping response"]
+}

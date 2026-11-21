@@ -1,0 +1,10 @@
+{
+  "status": "research_proposal_not_implemented",
+  "version": "demo-evidence-admission-v1",
+  "structural_admission": ["source and simulator/task versions", "configuration and realised scenario identity", "split and episode identity", "prepared-start flag and initial payload", "executed controller/checkpoint identity", "actual trajectories and terminal outcome", "raw/filter forecast identity and reference pairing", "data/training/evaluation costs and selection rule", "independent replay within declared tolerances", "export bytes/hash and matching source labels"],
+  "proficiency_admission": {"requires": "a separately predeclared complete-task evaluation", "proposal_reference": "docs/adr/0057-model-free-skill-proficiency-protocol.md", "current_gate_met": false},
+  "admissible_sources": ["recorded_reference_success", "recorded_reference_failure", "recorded_learned_success_if_measured", "recorded_learned_failure"],
+  "separate_presentation_source": "authored_concept_visualisation",
+  "invalidate_after_changes_to": ["source", "simulator", "task", "scenario", "weights", "observation_normalisation"],
+  "missing_or_invalid_result": "Retain the previous artefact under its original identity; do not substitute a different source or borrow its outcome."
+}
