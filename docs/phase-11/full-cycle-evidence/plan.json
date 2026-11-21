@@ -1,0 +1,113 @@
+{
+  "kind": "full-cycle-v1",
+  "source": {
+    "package_sha256": "7530ad902b2840c75769fad62cf9430652f12528e1971334cec5c02c600c804c",
+    "git_commit": "c30167bf0908b0f12706a16a1a413174d9dd8a29",
+    "training_dirty": false
+  },
+  "reservation_sha256": "003aec85b6fb9ecac92d000ab33a7a39833e13387874f3313452bb3808a7315c",
+  "configurations": [
+    {
+      "seed": 7,
+      "method": "plain",
+      "max_rollouts": 640,
+      "stage_rollouts": 128,
+      "max_wall_s": 1200,
+      "test_reserve_s": 240
+    },
+    {
+      "seed": 19,
+      "method": "plain",
+      "max_rollouts": 640,
+      "stage_rollouts": 128,
+      "max_wall_s": 1200,
+      "test_reserve_s": 240
+    },
+    {
+      "seed": 41,
+      "method": "plain",
+      "max_rollouts": 640,
+      "stage_rollouts": 128,
+      "max_wall_s": 1200,
+      "test_reserve_s": 240
+    },
+    {
+      "seed": 7,
+      "method": "curriculum",
+      "max_rollouts": 640,
+      "stage_rollouts": 128,
+      "max_wall_s": 1200,
+      "test_reserve_s": 240
+    },
+    {
+      "seed": 19,
+      "method": "curriculum",
+      "max_rollouts": 640,
+      "stage_rollouts": 128,
+      "max_wall_s": 1200,
+      "test_reserve_s": 240
+    },
+    {
+      "seed": 41,
+      "method": "curriculum",
+      "max_rollouts": 640,
+      "stage_rollouts": 128,
+      "max_wall_s": 1200,
+      "test_reserve_s": 240
+    }
+  ],
+  "validation_seeds": [
+    108000,
+    108001,
+    108002,
+    108003,
+    108004,
+    108005,
+    108006,
+    108007,
+    108008,
+    108009,
+    108010,
+    108011,
+    108012,
+    108013,
+    108014,
+    108015
+  ],
+  "final_test_seeds": [
+    209900,
+    209901,
+    209902,
+    209903,
+    209904,
+    209905,
+    209906,
+    209907,
+    209908,
+    209909,
+    209910,
+    209911,
+    209912,
+    209913,
+    209914,
+    209915,
+    209916,
+    209917,
+    209918,
+    209919,
+    209920,
+    209921,
+    209922,
+    209923,
+    209924,
+    209925,
+    209926,
+    209927,
+    209928,
+    209929,
+    209930,
+    209931
+  ],
+  "selection": "each run independently: complete validation successes, fewer collisions, shorter successful duration, earlier tie",
+  "test_rule": "freeze all six selections before any final policy test; report both arms without test-based reselection"
+}

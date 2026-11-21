@@ -1,0 +1,17 @@
+{
+  "README.md": "e767a52c79f7375803cad3b0ecd6c61d809cf53072790ac4048f8e6876fec942",
+  "artifacts.zip": "0954702a6d7e4256d211c25f09cadae3d755f262e0b18cb916e9510325a360be",
+  "consumption.json": "bd012f866f7f9ae0cb195ac4248b35d1c00df42eb7ba40ca2272ceaf2baf0a92",
+  "hardware.json": "b06ce05e204278a5c6c56a4310bddb676f32867974e16d8bd39834fb70caa8af",
+  "independent-replay.json": "b348662d93c8d78990565e603055991141576363538cbc8c71905e538fefd3a6",
+  "interruption-check.json": "ddbedb15f2874e42d1743f94365add6c40a7b49a1b398946b89412f5fe140f75",
+  "learning-curves.svg": "4e2f35583ae7c9a6e16e8aad6fc3ba00d1af51d74bbb8b3c0b007612dbc68b3c",
+  "plan.json": "f76798a565f43998361142ab69b4668cfef41e0c4aa6b0f0c3f0236a1310ec10",
+  "pre-test-freeze.json": "6c5a7ea60bada841de0b7e24ce9b0998134d16baba7df3c7980d4488d9e0fbef",
+  "report.json": "bb7011392edd170e771f0c329f9f0e68e3b0a6304d7f6f847e4a8b223cd87938",
+  "reservation.json": "003aec85b6fb9ecac92d000ab33a7a39833e13387874f3313452bb3808a7315c",
+  "resume-check.json": "c701912763a91a194622cfd9174da3b8da4e68429cd24ff83eeea4094284ef1e",
+  "scheduling-amendment.json": "26b0ba9c00fa933dba98b75733fda8c9306b4444b894e38004b46dcf85a5f977",
+  "selection.json": "b487ade65b0edcc4d68a09d574a4cd8803a9ffe6c64d4ae75d9f70382e79483a",
+  "source.zip": "6cab022478d80b856fda162fb66dcb8c940258cea43f8dd064083f02820d07ab"
+}

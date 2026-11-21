@@ -1,0 +1,9 @@
+{
+  "system": "Darwin",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "torch": "2.15.0",
+  "numpy": "2.5.4",
+  "logical_cpus": 8,
+  "execution": "Sequential initially, then at most two independent single-thread workers; final testing centralised after all six frozen selections. Caps include actual scheduling/contention."
+}

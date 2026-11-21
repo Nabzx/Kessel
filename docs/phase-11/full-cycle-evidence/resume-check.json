@@ -1,0 +1,74 @@
+{
+  "kind": "completed-full-cycle-resume-v1",
+  "selection_unchanged": true,
+  "test_outcomes_unchanged": true,
+  "counter_deltas": [
+    {
+      "rollouts": 0,
+      "training_decisions": 0,
+      "optimiser_minibatches": 0,
+      "training_episodes": 0,
+      "training_resets": 0,
+      "stage_rollouts": 0,
+      "validation_decisions": 0,
+      "gate_decisions": 0,
+      "test_decisions": 0
+    },
+    {
+      "rollouts": 0,
+      "training_decisions": 0,
+      "optimiser_minibatches": 0,
+      "training_episodes": 0,
+      "training_resets": 0,
+      "stage_rollouts": 0,
+      "validation_decisions": 0,
+      "gate_decisions": 0,
+      "test_decisions": 0
+    },
+    {
+      "rollouts": 0,
+      "training_decisions": 0,
+      "optimiser_minibatches": 0,
+      "training_episodes": 0,
+      "training_resets": 0,
+      "stage_rollouts": 0,
+      "validation_decisions": 0,
+      "gate_decisions": 0,
+      "test_decisions": 0
+    },
+    {
+      "rollouts": 0,
+      "training_decisions": 0,
+      "optimiser_minibatches": 0,
+      "training_episodes": 0,
+      "training_resets": 0,
+      "stage_rollouts": 0,
+      "validation_decisions": 0,
+      "gate_decisions": 0,
+      "test_decisions": 0
+    },
+    {
+      "rollouts": 0,
+      "training_decisions": 0,
+      "optimiser_minibatches": 0,
+      "training_episodes": 0,
+      "training_resets": 0,
+      "stage_rollouts": 0,
+      "validation_decisions": 0,
+      "gate_decisions": 0,
+      "test_decisions": 0
+    },
+    {
+      "rollouts": 0,
+      "training_decisions": 0,
+      "optimiser_minibatches": 0,
+      "training_episodes": 0,
+      "training_resets": 0,
+      "stage_rollouts": 0,
+      "validation_decisions": 0,
+      "gate_decisions": 0,
+      "test_decisions": 0
+    }
+  ],
+  "stdout": "Study finished {'plain': False, 'curriculum': False}\n"
+}

@@ -1,0 +1,75 @@
+{
+  "kind": "full-cycle-independent-replay-v1",
+  "source": {
+    "package_sha256": "7530ad902b2840c75769fad62cf9430652f12528e1971334cec5c02c600c804c",
+    "git_commit": "c30167bf0908b0f12706a16a1a413174d9dd8a29",
+    "training_dirty": false
+  },
+  "runs": [
+    {
+      "run": "plain-7",
+      "selected_validation_cases": 16,
+      "held_out_traces": 32,
+      "test_score": [
+        0,
+        0,
+        0.0
+      ]
+    },
+    {
+      "run": "plain-19",
+      "selected_validation_cases": 16,
+      "held_out_traces": 32,
+      "test_score": [
+        0,
+        0,
+        0.0
+      ]
+    },
+    {
+      "run": "plain-41",
+      "selected_validation_cases": 16,
+      "held_out_traces": 32,
+      "test_score": [
+        0,
+        0,
+        0.0
+      ]
+    },
+    {
+      "run": "curriculum-7",
+      "selected_validation_cases": 16,
+      "held_out_traces": 32,
+      "test_score": [
+        0,
+        0,
+        0.0
+      ]
+    },
+    {
+      "run": "curriculum-19",
+      "selected_validation_cases": 16,
+      "held_out_traces": 32,
+      "test_score": [
+        0,
+        -3,
+        0.0
+      ]
+    },
+    {
+      "run": "curriculum-41",
+      "selected_validation_cases": 16,
+      "held_out_traces": 32,
+      "test_score": [
+        0,
+        -19,
+        0.0
+      ]
+    }
+  ],
+  "validation_decisions": 53203,
+  "trace_decisions": 104903,
+  "max_state_error": 0.0,
+  "max_action_error": 0.0,
+  "max_raw_reward_error": 0.0
+}
