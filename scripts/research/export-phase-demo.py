@@ -4,6 +4,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import zipfile
 from pathlib import Path
 
 
@@ -19,6 +20,8 @@ def export(study, output):
     method=methods[0]
     if (output/'catalogue.json').exists():
         raise FileExistsError('catalogue already exists; do not replace recorded identity silently')
+    packed=zipfile.ZipFile(study/'artifacts.zip') if (study/'artifacts.zip').exists() else None
+    def read(name):return packed.read(name) if packed else (study/name).read_bytes()
     selected=json.loads((study/'selection.json').read_text())
     assert selected==report['selection']
     catalogue={'kind':'phase-imitation-recorded-v1','admitted':True,'method':method,'final_cases':96,
@@ -32,13 +35,13 @@ def export(study, output):
         if len(cases)!=32 or len(good)<28 or sum(collision(c) for c in cases)>1:
             raise ValueError('method does not meet all per-seed admission requirements')
         chosen=min(good,key=lambda c:c['seed'])
-        path=study/chosen['path']
-        if hashlib.sha256(path.read_bytes()).hexdigest()!=chosen['sha256']:
+        trace_bytes=read(chosen['path'])
+        if hashlib.sha256(trace_bytes).hexdigest()!=chosen['sha256']:
             raise ValueError('test trace hash differs')
-        candidate=selected[name];weights=study/candidate['path']
-        if hashlib.sha256(weights.read_bytes()).hexdigest()!=candidate['sha256']:
+        candidate=selected[name]
+        if hashlib.sha256(read(candidate['path'])).hexdigest()!=candidate['sha256']:
             raise ValueError('checkpoint identity differs')
-        raw=json.loads(gzip.decompress(path.read_bytes()));records=raw['records']
+        raw=json.loads(gzip.decompress(trace_bytes));records=raw['records']
         if not records or len(records)!=chosen['steps']:
             raise ValueError('test trace is incomplete')
         frames=[{'t_s':row['state'][10],'state':row['state'],'action':row['action'],'phase':row['phase'],'wheel_angles_rad':[0,0,0,0]} for row in records]
@@ -57,6 +60,7 @@ def export(study, output):
         catalogue['successes']+=len(good);catalogue['collisions']+=sum(collision(c) for c in cases)
         catalogue['all_cases'].extend({'training_seed':seed,**c} for c in cases)
     (output/'catalogue.json').write_text(json.dumps(catalogue,indent=2)+'\n')
+    if packed is not None:packed.close()
     print('Exported admitted',method,'with',catalogue['successes'],'/96 deliveries and three finite recordings')
 
 
