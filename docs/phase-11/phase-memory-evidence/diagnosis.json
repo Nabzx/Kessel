@@ -1,0 +1,107 @@
+{
+  "kind": "phase-memory-diagnosis-v1",
+  "input_report_sha256": "bb7011392edd170e771f0c329f9f0e68e3b0a6304d7f6f847e4a8b223cd87938",
+  "curriculum": [
+    {
+      "seed": 7,
+      "end_stage": "retract",
+      "last_window_successes": 0,
+      "window_episodes": 32,
+      "gates": [
+        {
+          "advance": true,
+          "contract": "five-stage-potential-v2",
+          "policy_sha256": "660d7586f97227161038181986df8e351d7ff5220afceb1beb7b7077e6b97050",
+          "reasons": [],
+          "stage": "fill",
+          "stage_decisions": 4096,
+          "training_decisions": 4096,
+          "validation_successes": {
+            "fill": 16
+          },
+          "window_episodes": 32,
+          "window_successes": 25
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "end_stage": "retract",
+      "last_window_successes": 0,
+      "window_episodes": 32,
+      "gates": [
+        {
+          "advance": true,
+          "contract": "five-stage-potential-v2",
+          "policy_sha256": "a7e322afd435fe40c99974e1297f3625297994aa28a4ea43c1f0d4e86401457b",
+          "reasons": [],
+          "stage": "fill",
+          "stage_decisions": 8192,
+          "training_decisions": 8192,
+          "validation_successes": {
+            "fill": 16
+          },
+          "window_episodes": 32,
+          "window_successes": 31
+        }
+      ]
+    },
+    {
+      "seed": 41,
+      "end_stage": "retract",
+      "last_window_successes": 23,
+      "window_episodes": 32,
+      "gates": [
+        {
+          "advance": true,
+          "contract": "five-stage-potential-v2",
+          "policy_sha256": "0817ffde219c63e9a06a1a53cf7ec8cdd918240e559f2db2fadec60ec01e70c0",
+          "reasons": [],
+          "stage": "fill",
+          "stage_decisions": 8192,
+          "training_decisions": 8192,
+          "validation_successes": {
+            "fill": 16
+          },
+          "window_episodes": 32,
+          "window_successes": 28
+        },
+        {
+          "advance": false,
+          "contract": "five-stage-potential-v2",
+          "policy_sha256": "c155772a516dfb745bebf31e3175edf9975e9afc0419f07911c0046ccff1ae86",
+          "reasons": [
+            "current_validation",
+            "prior_retention"
+          ],
+          "stage": "retract",
+          "stage_decisions": 32768,
+          "training_decisions": 40960,
+          "validation_successes": {
+            "fill": 0,
+            "retract": 12
+          },
+          "window_episodes": 32,
+          "window_successes": 23
+        }
+      ],
+      "actor_weight_l2_change": 1.346954760448811
+    }
+  ],
+  "phase_alias_probe": {
+    "same_observation": true,
+    "approach_action": [
+      1.0,
+      0.014298130519784723,
+      -0.4,
+      0.0
+    ],
+    "carry_action": [
+      -1.0,
+      -0.014298130519784723,
+      1.0,
+      1.0
+    ],
+    "limit": "Counterfactual phase assignment; this does not establish reachable observation aliasing or impossibility of a memoryless policy."
+  }
+}
