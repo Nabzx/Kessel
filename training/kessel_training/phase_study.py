@@ -154,6 +154,8 @@ def study(output, reservation):
     if source['training_dirty']:
         raise ValueError('commit training source before study')
     reserved = json.loads(reservation.read_text())
+    if reserved['validation'] != VALIDATION or reserved['final'] != FINAL:
+        raise ValueError('reservation scene ranges differ')
     if not reserved['verified']:
         raise ValueError('unverified reservation')
     plan = {'kind': 'phase-imitation-v1', 'source': source, 'reservation_sha256': checkpoints.sha256(reservation),

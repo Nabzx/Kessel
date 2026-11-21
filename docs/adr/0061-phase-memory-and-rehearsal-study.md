@@ -73,6 +73,9 @@ smaller actual budget and failure rather than expanding it silently.
 ## Presentation and review
 
 Only an admitted method can supply a successful learned-action technical demo.
+If both methods pass, prefer memoryless imitation because it needs no phase
+state for its actions; otherwise use the sole admitted method. This preference
+is frozen before collection, not chosen by which test score looks better.
 Retain finite recordings, model/split/source identity and matching measured
 metrics. Use the first successful final case by seed order, never hide failure
 counts or the conventional memory. Verify all final traces independently. The
