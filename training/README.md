@@ -16,6 +16,19 @@ uv run --locked python -m kessel_training.diagnose_readiness --output runs/readi
 Its zero-command baseline is not a parking brake. Grade-driven movement remains
 possible. Retained cases are reused diagnostics, not fresh held-out evidence.
 
+The [prerequisite report](../docs/research/2026-11-12-learning-prerequisites.md)
+compares teacher fit, warm-start/final stage outcomes, observation aliases and
+CPU execution costs. Its bounded diagnostic command is:
+
+```sh
+uv run --locked python -m kessel_training.inspect_prerequisites --output runs/prerequisites-new
+```
+
+It reconstructs training teacher pairs and probes reused validation scenes.
+The three small PPO timing workloads discard their weights and establish no
+task improvement. [Proposed ADR-0057](../docs/adr/0057-model-free-skill-proficiency-protocol.md)
+defines the next task-proficiency experiment; it has not been executed.
+
 Use Python 3.12 and uv 0.12.18 or later. The lock file supports Apple Silicon
 macOS and x86-64 Linux. Linux resolves PyTorch from its official CPU index;
 no CUDA environment is installed. All experiment commands use CPU explicitly.
