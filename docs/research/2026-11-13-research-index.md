@@ -30,15 +30,22 @@ is open; proposed ADRs, visual judgement and future experiments remain distinct.
 
 ## Work still required
 
+Update, 14 November: the [bounded retraction pilot](../phase-11/retraction-pilot.md)
+has now run. Its selected baseline checkpoints score 16/16, 0/16 and 16/16 on
+separate pilot tests. The runner, source-bound checkpoint/resume and available-
+archive reservation audit are implemented. The pilot gate passes; a learned
+full-cycle result remains unproven.
+
 The main walkthrough has not changed. The narrative prototype is an isolated
 local study; human comprehension review and existing visual acceptance are
 unperformed. It does not qualify phone controls or rendering performance.
 
-No new task-proficiency experiment has run. Next implement the bounded stage
-runner, configurable exploration and coherent five-stage factory, after settling
-the proposed protocol. Finish excluded-source/history/generator auditing before
-certifying untouched validation/test reservations. Then execute and retain the
-pilot, including failures and its no-go gate.
+The next implementation is the coherent five-stage factory, its reference
+feasibility and retention checks, followed by the separately bounded full-cycle
+comparison. The completed pilot audits 601 unique available archive/history
+blobs; it does not certify unretained external experiments. Validation and pilot
+test cases are consumed, while final-test roles remain reserved and unqueried
+by a policy. Preserve those roles before the next experiment.
 
 Actual sensor acquisition/calibration, bounded machine logs, a full scenario
 catalogue, live inference and production evidence integration remain implementation

@@ -1,0 +1,9 @@
+{
+  "schema": "pilot-independent-replay-v1",
+  "checkpoint_validation_cases": 96,
+  "heldout_traces": 48,
+  "diagnostic_reference_decisions": 11405,
+  "maximum_state_error": 0.0,
+  "maximum_action_error": 0.0,
+  "scope": "Post-study verification only; no training, selection change or new proficiency estimate."
+}

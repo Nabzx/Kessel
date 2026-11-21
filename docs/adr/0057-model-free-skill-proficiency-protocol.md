@@ -1,9 +1,13 @@
 # ADR-0057: Model-free skill proficiency protocol
 
-Status: Proposed
+Status: Accepted for the bounded retraction pilot. The conditional full-cycle
+study remains proposed and requires the pilot gate and a recorded recommendation.
 
-Refs #410 and #423–#426. Extends proposed ADR-0056. If accepted, this protocol
-supersedes ADR-0049's budget, gate and stage settings only for new named experiments.
+Refs #410 and #423–#426. Extends ADR-0056's scope recommendation. For the new
+named pilot this supersedes ADR-0049's budget and exploration settings only.
+The user requested continuation into the bounded learning pilot after the
+research findings. This does not adopt a new production route or authorise
+automatic execution of the conditional full-cycle study.
 The original study, weights and unsuccessful outcomes remain unchanged.
 
 ## Evidence and hypothesis
@@ -52,6 +56,17 @@ If exhausted, retain the last complete transaction and report the smaller actual
 budget. Do not silently increase it or compare censored runs as equal-budget
 evidence. Evaluate the frozen selected checkpoint once on a separate 16-start
 pilot test set; this test cannot change checkpoint or configuration selection.
+
+Execution details for this pilot: reserve 60 seconds of each run's wall allowance
+for the post-selection test. Count shared reference validation separately and
+require every reserved validation start to be reference-feasible before training.
+Only the validation-selected configuration is tested, across its three frozen
+seed checkpoints. A partial/capped validation batch cannot select a checkpoint.
+Only the explicit retraction `stage_success` reason counts; a prepared-load base
+delivery does not substitute for the retraction gate. Wall checks occur between
+complete rollout/update or evaluation-case transactions, with actual overruns
+reported. SIGINT/SIGTERM save a checkpoint at a transaction boundary. Interrupted
+log/checkpoint counter mismatches fail closed rather than fabricating recovery.
 
 ## Conditional full-cycle comparison
 

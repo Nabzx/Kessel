@@ -1,0 +1,10 @@
+{
+  "schema": "completed-pilot-resume-check-v1",
+  "training_decision_delta": 0,
+  "validation_decision_delta": 0,
+  "test_decision_delta": 0,
+  "selected_checkpoint_hashes_unchanged": true,
+  "frozen_selection_unchanged": true,
+  "test_results_unchanged": true,
+  "scope": "Completed-study resume check only; retained primary report is the original completed run."
+}
