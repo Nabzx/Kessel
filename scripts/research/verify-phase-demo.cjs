@@ -1,7 +1,7 @@
 /* Native Chrome QA for finite admitted recordings. No model inference in the browser. */
 const {chromium}=require('playwright'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'../..'),base=process.env.KESSEL_URL||'http://127.0.0.1:8082/',route='docs/phase-11/phase-memory-demo/';
-const out=path.join(root,route,'evidence');fs.mkdirSync(out,{recursive:true});
+const out=path.resolve(process.env.KESSEL_PHASE_QA_OUT||path.join(root,route,'evidence'));fs.mkdirSync(out,{recursive:true});
 (async()=>{const catalogue=JSON.parse(fs.readFileSync(path.join(root,route,'catalogue.json')));assert(catalogue.admitted);const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-gpu','--use-gl=angle','--use-angle=metal']});const report={browser:browser.version(),catalogue_sha256:crypto.createHash('sha256').update(fs.readFileSync(path.join(root,route,'catalogue.json'))).digest('hex'),profiles:[],errors:[]};
 try{for(const spec of [{name:'laptop',width:1440,height:900,dpr:1,motion:'no-preference'},{name:'compact-retina',width:1365,height:768,dpr:2,motion:'reduce'},{name:'narrow',width:390,height:844,dpr:1,motion:'reduce'}]){
 const page=await browser.newPage({viewport:{width:spec.width,height:spec.height},deviceScaleFactor:spec.dpr,reducedMotion:spec.motion});page.on('pageerror',e=>report.errors.push(e.message));page.on('response',r=>{if(r.status()>=400)report.errors.push(`${r.status()} ${r.url()}`);});await page.goto(base+route);await page.waitForFunction(()=>document.body.dataset.ready==='true',{},{timeout:60000});await page.evaluate(()=>document.fonts.ready);const entry={spec,recordings:[]};
