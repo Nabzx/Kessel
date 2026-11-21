@@ -18,7 +18,7 @@ class PhaseMemory:
         entered = (self.phase == 0) & contact
         self.fill_start[entered] = p[entered, 13]; self.phase[entered] = 1
         self.phase[(self.phase == 1) & ((load >= 2450) | (p[:, 13]-self.fill_start >= 22))] = 2
-        self.phase[(self.phase == 2) & (boom >= .33) & (curl >= .6)] = 3
+        self.phase[(self.phase == 2) & (boom >= .35-.02) & (curl >= .6)] = 3
         reach = 1.8+(1.6+1.2*np.cos(boom))*np.cos(art)
         self.phase[(self.phase == 3) & (np.abs(p[:, 9]-reach) < .5) & (np.abs(speed) < .08)] = 4
         return self.phase.copy()

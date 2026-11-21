@@ -31,7 +31,7 @@ def test_masked_phase_cannot_affect_memoryless_actions_and_initial_weights_match
 def test_evaluation_has_no_teacher_queries(monkeypatch):
     configure_cpu(7);actor=PhaseActor()
     monkeypatch.setattr(ReferenceController,'act',lambda *_:pytest.fail('teacher queried in evaluation'))
-    result=episode(108100,actor,record=True)
+    result=episode(108000,actor,record=True)
     assert result['case']['steps']>0 and len(result['records'])==result['case']['steps']
     assert result['data']==[]
 
