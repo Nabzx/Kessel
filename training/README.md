@@ -162,3 +162,12 @@ implement consistent prepared loads and explicit retention gates. All 80 referen
 cases pass. The subsequent [bounded full-cycle study](../docs/phase-11/full-cycle-study.md)
 completed all six runs and 192 final cases without a successful complete delivery.
 Its runner, frozen selections, checkpoints and traces are retained.
+
+## Phase memory and shared imitation replay
+
+The [21 November follow-up](../docs/phase-11/phase-memory-study.md) completes all
+192 final cases. Phase-conditioned imitation with rule-based memory scores 96/96
+and passes the nominal three-seed gate; memoryless imitation scores 54/96.
+The earlier PPO failures remain retained. Use the dedicated recorded viewer or
+static preview packager for presentation. Fresh experiments need new reserved
+final cases; both old and new final ranges are now consumed.

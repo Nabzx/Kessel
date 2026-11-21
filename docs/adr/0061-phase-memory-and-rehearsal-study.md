@@ -85,3 +85,13 @@ Review and merge the completed PR stack in dependency order after required check
 Review the task-first prototype in native Chrome for framing, source transitions,
 keyboard/reduced-motion behaviour and readability. Agent visual review does not
 constitute a human comprehension study or certify target hardware performance.
+
+## Executed outcome
+
+The [study](../phase-11/phase-memory-study.md) completes all four training rounds
+and all 192 final cases. Phase-memory imitation scores 96/96 without collisions;
+memoryless imitation scores 54/96. The former passes the predeclared gate and
+supplies three finite verified recordings. Independent replay has zero errors
+and no teacher queries. Native M1 Chrome and the portable static bundle pass
+functional/source-integrity checks. Original source is frozen at `5cee52a`.
+The main authored concept and its acceptance work remain separate.

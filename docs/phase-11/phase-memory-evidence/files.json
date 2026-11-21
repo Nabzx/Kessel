@@ -1,0 +1,20 @@
+{
+  "README.md": "0552fd2eef5e81b6a752eeba52dfac6089b72baffee2edff23654d8b188f427e",
+  "artifacts.zip": "6bb07fff9f0c7f7d2c58ed04f6b6548aa345d869b781586e11550f285b7da290",
+  "consumption.json": "e782fc56ed4c3d418dc249bc094c75c30115c3a73b271f2c0b4a0a74c48802ee",
+  "diagnosis.json": "73d2153feb91712e39295a04c4671bbe7a838679c718b4ee280218a45ed7717e",
+  "hardware.json": "31c79f0f8d11a4c3125cf3fc63de3c06e9e4fd59d45df9426488f5ddf3a8e4f6",
+  "independent-replay.json": "4b827613072b7d285663c5ba0712fff5a42c8ad357f05b9d00067c208161852d",
+  "learning-curves.svg": "bc429d3693fa12373226d222751cc4ec46167235ce952a62d4383451a15c5e7a",
+  "plan.json": "03dabb5b9289b146042b200188ba9bf106c5ce84b61f120d90adcee893c16c49",
+  "portable-package-manifest.json": "3c41b8cf49261a53d4d8acb5b07c9e1dc6f68c3dbc628e8e7d63cbb2dda43ea6",
+  "portable-package-qa.json": "3722929cb236902b0fa45db7069552d8f52b056963b5f846a84d75788581b5bc",
+  "portable-package.json": "793683ca4baaaea1d3c9ec55568d7e96bc403342bb35243d1eefbc38e435c826",
+  "rejected-ranges.json": "c749ec20c4b9501ef538b53bc77e54637e7aa09d6ca6325e7ced7477928bc8d4",
+  "rejected-reservation.json": "5f19f708eb4c20acd2b4389ac3cbe70bd1f5e05bcc7d23028793a15294ab5b8d",
+  "report.json": "559b5ebd505734e712dad233d47926e2697be11b739161c63442c9ff81288634",
+  "reservation.json": "a091d1cb1e3032817f7769cdaf226f06392274ac28710e0054a4069a4afffb8b",
+  "resume-check.json": "7bdad44c7d41f7b0508754a6322c8de50025337274fb0ac90dfe9f069d3334fd",
+  "selection.json": "9ee7d7a638614f6b7ea75eac6c105b5d5fb23209a093da9fb7ca1bdfb3e4ff3f",
+  "source.zip": "50c7799f4d2835b6284cf2b04d66adfced69c1ddf0c4e690ecfb5636f0d51c29"
+}

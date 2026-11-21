@@ -15,6 +15,21 @@ def score(cases):
 def verify():
     manifest=json.loads((E/'files.json').read_text())
     for name,digest in manifest.items():assert sha((E/name).read_bytes())==digest,name
+    demo_manifest=json.loads((DEMO/'files.json').read_text())
+    for name,digest in demo_manifest.items():assert sha((DEMO/name).read_bytes())==digest,name
+    hardware=json.loads((E/'hardware.json').read_text());assert hardware['python'].startswith('3.12.')
+    package=json.loads((E/'portable-package-manifest.json').read_text())
+    package_qa=json.loads((E/'portable-package-qa.json').read_text())
+    assert package['catalogue_sha256']==package_qa['catalogue_sha256']==sha((DEMO/'catalogue.json').read_bytes())
+    assert not package_qa['errors']
+    assert package_qa['runner_sha256']==sha((ROOT/'scripts/research/verify-phase-demo.cjs').read_bytes())
+    preview=json.loads((E/'portable-package.json').read_text())
+    assert sha((DEMO/'offline-preview.zip').read_bytes())==preview['zip_sha256']
+    with zipfile.ZipFile(DEMO/'offline-preview.zip') as z:
+        assert json.loads(z.read('package-manifest.json'))==package
+        for name,digest in package['files'].items():assert sha(z.read(name))==digest
+    for name in ('viewer.js','viewer.css'):
+        assert package['files']['docs/phase-11/phase-memory-demo/'+name]==sha((DEMO/name).read_bytes())
     report=json.loads((E/'report.json').read_text());selection=json.loads((E/'selection.json').read_text());audit=json.loads((E/'reservation.json').read_text())
     assert report['plan']['source']['training_dirty'] is False
     assert audit['verified'] and not audit['archive_audit']['hits'] and not audit['archive_audit']['failures'] and not audit['zip_hits'] and not audit['zip_errors']
@@ -58,6 +73,9 @@ def verify():
     assert sum(r['selected_validation_cases'] for r in replay['runs'])==96 and sum(r['final_traces'] for r in replay['runs'])==192
     assert replay['max_state_error']==replay['max_action_error']==replay['max_raw_reward_error']==0
     assert replay['trace_decisions']==report['test_decisions']
+    resume=json.loads((E/'resume-check.json').read_text())
+    assert not any(resume['counter_deltas'].values()) and resume['selection_unchanged'] and resume['test_outcomes_unchanged']
+    assert resume['new_episode_teacher_and_optimiser_calls_blocked']
     with zipfile.ZipFile(E/'source.zip') as z:
         digest=hashlib.sha256()
         for name in sorted(n for n in z.namelist() if n.startswith('kessel_training/') and n.endswith('.py')):digest.update(Path(name).name.encode());digest.update(z.read(name))
@@ -66,13 +84,19 @@ def verify():
     if admitted:
         catalogue=json.loads((DEMO/'catalogue.json').read_text());assert catalogue['admitted'] and catalogue['method']==admitted[0]
         assert catalogue['report_sha256']==sha((E/'report.json').read_bytes()) and catalogue['final_cases']==96 and len(catalogue['recordings'])==3
-        method=admitted[0];assert catalogue['successes']==sum(score(report['tests'][f'{method}-{s}'])[0] for s in (7,19,41))
+        method=admitted[0]
+        assert catalogue['source']==report['plan']['source']
+        assert catalogue['all_cases']==[{'training_seed':s,**c} for s in (7,19,41) for c in report['tests'][f'{method}-{s}']]
+        if method=='phase_memory':assert 'rule-based phase memory' in catalogue['control_description']
+        assert catalogue['successes']==sum(score(report['tests'][f'{method}-{s}'])[0] for s in (7,19,41))
         for record in catalogue['recordings']:
             data=(DEMO/record['path']).read_bytes();assert sha(data)==record['sha256'];actual=json.loads(data)
             assert actual['frames'][0]['state'][7]==0 and actual['frames'][-1]['state'][8]>=2000
             selected=selection[f'{method}-{record["training_seed"]}'];assert record['checkpoint_sha256']==actual['checkpoint_sha256']==selected['sha256']
             good=[c for c in report['tests'][f'{method}-{record["training_seed"]}'] if c['full_success']]
             assert actual['case']['seed']==min(c['seed'] for c in good)
+    else:
+        assert not (DEMO/'catalogue.json').exists(), 'unqualified study must not retain a success catalogue'
     print('Phase study verified: six policies, 192 final cases, teacher-free independent replay and admission-bound demo')
 
 

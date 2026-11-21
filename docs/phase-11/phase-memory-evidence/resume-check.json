@@ -1,0 +1,13 @@
+{
+  "kind": "phase-study-completed-resume-v1",
+  "counter_deltas": {
+    "teacher_queries": 0,
+    "collection_decisions": 0,
+    "supervised_updates": 0,
+    "validation_decisions": 0,
+    "test_decisions": 0
+  },
+  "selection_unchanged": true,
+  "test_outcomes_unchanged": true,
+  "new_episode_teacher_and_optimiser_calls_blocked": true
+}

@@ -1,0 +1,17 @@
+{
+  "system": "Darwin",
+  "machine": "arm64",
+  "python": "3.12.14",
+  "logical_cpus": 8,
+  "torch": "2.15.0",
+  "numpy": "2.5.4",
+  "training_execution": "one sequential single-thread Torch study; no inference/rendering benchmark claim from training wall time",
+  "browser": "157.0.8103.79",
+  "render_check": {
+    "frames": 301,
+    "mean_fps": 60.05946086615537,
+    "p95_ms": 16.799999999999727,
+    "p99_ms": 16.800000000000182,
+    "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+  }
+}

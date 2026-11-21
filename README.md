@@ -21,6 +21,14 @@ or build step is needed. The presentation target is a MacBook Pro M1. Fonts,
 Three.js, geographic textures, mine materials and models are served locally.
 Use a static server rather than opening `index.html` directly.
 
+## Recorded technical demo
+
+Open [the measured policy recordings](docs/phase-11/phase-memory-demo/index.html)
+from the same local server. Three seed policies each complete 32/32 nominal final
+scenarios using imitation-trained controls and disclosed rule-based phase memory.
+The [study report](docs/phase-11/phase-memory-study.md) retains the 54/96 memoryless
+comparator and all data costs. Playback is finite recorded evidence.
+
 ## Experience
 
 1. Start below the photographic rotating Earth and original wordmark, with
@@ -65,8 +73,12 @@ visual direction remains a trial for review. It is not real mine footage.
 
 Isolated CPU tools and retained experiment evidence include synthetic PPO
 policies and learned state-dynamics ensembles. Retained research tools and the technical chapters use
-identified synthetic decisions and raw forecasts; the bounded runs demonstrate
-no complete learned delivery cycle. The browser performs no live training or
+identified synthetic decisions and raw forecasts; the earlier PPO/model-assisted
+runs demonstrate no complete learned delivery cycle. The new
+[phase-memory imitation study](docs/phase-11/phase-memory-study.md) completes
+96/96 nominal final cases with learned continuous actions and rule-based task
+memory. Its [recorded technical demo](docs/phase-11/phase-memory-demo/index.html)
+is separate from the authored concept. The browser performs no live training or
 policy inference. Contextual source labels and Sources
 explain the boundary. The [replay follow-up](docs/phase-11/cycle-inspection.md)
 adds checked reference cycles, volume-preserving ore and event inspection.

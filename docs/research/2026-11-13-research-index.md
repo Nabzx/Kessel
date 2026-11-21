@@ -28,7 +28,7 @@ is open; proposed ADRs, visual judgement and future experiments remain distinct.
   source-separated scorecard in the frontier evidence.
 - Draft observation-record and evidence-admission contracts, explicitly unimplemented.
 
-## Work still required
+## Current outcomes and remaining work
 
 Update, 14 November: the [bounded retraction pilot](../phase-11/retraction-pilot.md)
 has now run. Its selected baseline checkpoints score 16/16, 0/16 and 16/16 on
@@ -54,7 +54,17 @@ future test set. Preserve their results and reserve new cases before a future
 training/tuning study. The next learning question is skill transfer and retention,
 not implementation of the now-completed comparison runner.
 
-Actual sensor acquisition/calibration, bounded machine logs, a full scenario
-catalogue, live inference and production evidence integration remain implementation
-work. Hardware deployment, a successful learned full cycle and model-assisted
-learning gains are not demonstrated by these research reports.
+Update, 21 November: [phase memory and shared imitation replay](../phase-11/phase-memory-study.md)
+complete 96/96 nominal final policy/scenario cases with zero collisions, versus
+54/96 for memoryless imitation. The admitted controls use a neural action network
+and disclosed conventional phase memory. All 192 final cases independently replay
+with zero action/state/reward error. Teacher queries occur only on training data.
+The [recorded technical demo](../phase-11/phase-memory-demo/index.html) is isolated
+from the authored default, hash-verified, native-Chrome checked and statically
+packaged. The [agent narrative review](../phase-11/narrative-review-2026-11-21/README.md)
+is retained; human comprehension remains unmeasured. PRs #435–#441 are merged.
+
+Actual sensor acquisition/calibration, bounded machine logs, broad scenario
+coverage, live inference and production evidence integration remain separate
+work. Field deployment and model-assisted learning gains remain unproven.
+The new conventional phase memory must not be described as learned planning.
