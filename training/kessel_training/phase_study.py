@@ -25,7 +25,7 @@ from .wm_state import pack
 METHODS = ('memoryless', 'phase_memory')
 SEEDS = (7, 19, 41)
 VALIDATION = list(range(108200, 108216))
-FINAL = list(range(209800, 209832))
+FINAL = list(range(209600, 209632))
 
 
 def write_json(path, value):

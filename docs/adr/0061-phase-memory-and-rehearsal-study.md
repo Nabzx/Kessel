@@ -49,10 +49,12 @@ changes. Save optimiser/RNG/source/data identities and resumable progress every
 requeried on resume. Retain all round candidates and all outcomes.
 
 Audit available Git/local JSON/PT/NPZ archives and ZIP members before collection.
-Reserve validation 108200–108215 and final 209800–209831. The original
+Reserve validation 108200–108215 and final 209600–209631. The original
 108100 proposal was touched by a unit-test policy fixture before collection,
 so it is excluded rather than represented as unused. Fixtures now use the old
-consumed validation range. No final-case teacher/policy query was made. If used, choose unused
+consumed validation range. The original final proposal 209800–209831 was rejected because the archive
+audit found seed 209800 in the older world-model contact dataset. No query was
+made on the replacement final cases. If used, choose unused
 ranges before any outcomes and record the change. Freeze realised initial-state
 and pile fingerprints. The old final range is consumed and excluded.
 
