@@ -4,6 +4,18 @@ These tools are separate from the static investor experience. No policy or
 world model is trained by the current page. See ADRs 0031-0034 and the
 [interface contract](contracts/README.md).
 
+The [working-demo scope](../docs/research/2026-11-12-working-demo-scope.md) and
+[readiness diagnosis](../docs/research/2026-11-12-learning-readiness.md) describe
+the next capability milestone. The diagnostic re-executes retained checkpoints,
+checks reward/material accounting and reruns the reference audit without training:
+
+```sh
+uv run --locked python -m kessel_training.diagnose_readiness --output runs/readiness-new
+```
+
+Its zero-command baseline is not a parking brake. Grade-driven movement remains
+possible. Retained cases are reused diagnostics, not fresh held-out evidence.
+
 Use Python 3.12 and uv 0.12.18 or later. The lock file supports Apple Silicon
 macOS and x86-64 Linux. Linux resolves PyTorch from its official CPU index;
 no CUDA environment is installed. All experiment commands use CPU explicitly.

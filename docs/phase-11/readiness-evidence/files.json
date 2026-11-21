@@ -1,0 +1,15 @@
+{
+  "reference-audit/geometry-fixtures.json": "6c24c157ae210cd48338e1c9187928fa104600215cb7be28ae7608ccdaa307fe",
+  "reference-audit/legacy-100000.json.gz": "52034c75298c5bdcd96b7dbac3e914ceb1722e6b9c42ac7a6990ba6ff0e11945",
+  "reference-audit/legacy-100001.json.gz": "75bb80631187a4f5eeeef7633bfc204b994e295f1fd5190d339ea3236f358861",
+  "reference-audit/low-100000.json.gz": "65dc37801de7cc31dbd7d1427008910c9a8b0e28b938c3c8fba87348ddac7092",
+  "reference-audit/low-100001.json.gz": "af535e726dc8e7367ccb50f04b301bcc87ed602ccb6f0740795cc83eec004d20",
+  "reference-audit/report.json": "2ceae8ff50c07c087b0fc4c8b8bdd9d5e9580e6114d1041c775f338eadaac3ad",
+  "reference-audit/ridge-100000.json.gz": "dec602680ad3e814bf987cd11c32a422193c868461c5878db7f8b108ddfa31ab",
+  "reference-audit/ridge-100001.json.gz": "55ed083102fd399cae8aee8b270485c31f5bd13b7e20cf5636732e3b21c3afd5",
+  "reference-audit/rubble-100000.json.gz": "546541fd99693adfe08653058857856961b1940413dc89c0efab6af43d6ea53f",
+  "reference-audit/rubble-100001.json.gz": "07950707f8445484bc0f0f93d49e514e00675e9ef6fec8fe4b690e7897273440",
+  "reference-audit/steep-100000.json.gz": "998e142fdd983c97f978867ac7a71e49f8d33c1f40240740ef23b4c4ec6a3ab4",
+  "reference-audit/steep-100001.json.gz": "c6daf7686e090aa61404e587a95ac2a2b2af7c306986edf9903d04ddcd2939d3",
+  "report.json": "3b59d4a78746e3c9350cb6e730ed4e420aff2ac967cb27da67ad5c4cde3190b6"
+}
