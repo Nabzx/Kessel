@@ -49,6 +49,9 @@ class Recorder:
                 if prefix.exists():prefix.unlink()
             tail=self.path.with_suffix(self.path.suffix+'.recovered-tail')
             with tail.open('xb') as f: f.write(data[cut:]);f.flush();os.fsync(f.fileno())
+            directory=os.open(self.path.parent,os.O_RDONLY)
+            try:os.fsync(directory)
+            finally:os.close(directory)
             with self.path.open('r+b') as f:f.truncate(cut);f.flush();os.fsync(f.fileno())
         if self.path.exists():
             self.rows=scan(self.path,identity=identity);self.expected_size=self.path.stat().st_size

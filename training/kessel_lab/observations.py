@@ -3,6 +3,7 @@ import numpy as np
 from kessel_training.environment import PROPRIO_NAMES
 
 SHAPES={'proprio':(15,), 'local_height_m':(5,5), 'range_valid':(5,5)}
+UNITS={'proprio':'proprio-fields-v1','local_height_m':'m','range_valid':'boolean'}
 CONTRACT={'version':'loader-observation-1','frame':'loader-local-metres-radians',
           'proprio_fields':list(PROPRIO_NAMES),'grid_spacing_m':.75,
           'grid_along_m':[-.75,0,.75,1.5,2.25],'grid_across_m':[-1.5,-.75,0,.75,1.5],
@@ -10,6 +11,7 @@ CONTRACT={'version':'loader-observation-1','frame':'loader-local-metres-radians'
 
 
 def adapt(packet, *, clock, calibration, use_time_s, max_age_s=.2):
+    if packet.get('version')!=CONTRACT['version']:raise ValueError('observation schema version differs')
     if packet['clock']!=clock or packet['calibration']!=calibration or packet['frame']!=CONTRACT['frame']:
         raise ValueError('clock, frame or calibration identity differs')
     if not isinstance(packet['sequence'],int) or isinstance(packet['sequence'],bool) or packet['sequence']<0:
@@ -19,6 +21,7 @@ def adapt(packet, *, clock, calibration, use_time_s, max_age_s=.2):
     result={};ages={}
     for name,shape in SHAPES.items():
         channel=packet['channels'][name]
+        if channel.get('units')!=UNITS[name]:raise ValueError('channel units differ: '+name)
         capture=float(channel['capture_s']);delivery=float(channel['delivery_s'])
         if not np.isfinite([capture,delivery]).all() or capture>delivery or delivery>use_time_s:
             raise ValueError('timestamps are unordered or outside the use clock')

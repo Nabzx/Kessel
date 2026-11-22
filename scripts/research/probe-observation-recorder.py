@@ -9,7 +9,7 @@ import tempfile
 import time
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'training'))
 from kessel_lab.runtime import Run,checkpoint
-from kessel_lab.observations import adapt,CONTRACT
+from kessel_lab.observations import adapt,CONTRACT,UNITS
 from kessel_lab.recorder import Recorder,scan
 from kessel_training.policy import configure_cpu
 import numpy as np
@@ -26,8 +26,8 @@ def execute(output):
             obs=run.env.observe();use=100.+float(run.env.elapsed[0]);channels={}
             for name,values in obs.items():
                 delay=.3 if name!='proprio' and 30<=sequence<40 else .02 if name=='proprio' else .05
-                channels[name]={'values':values[0].tolist(),'capture_s':use-delay,'delivery_s':use-.005,'sensor_id':'synthetic-'+name}
-            packet={'clock':identity['clock'],'calibration':identity['calibration'],'frame':CONTRACT['frame'],
+                channels[name]={'values':values[0].tolist(),'capture_s':use-delay,'delivery_s':use-.005,'sensor_id':'synthetic-'+name,'units':UNITS[name]}
+            packet={'version':CONTRACT['version'],'clock':identity['clock'],'calibration':identity['calibration'],'frame':CONTRACT['frame'],
                     'sequence':sequence,'channels':channels}
             start=time.perf_counter_ns();adapted,meta=adapt(packet,clock=identity['clock'],calibration=identity['calibration'],use_time_s=use)
             adapt_us.append((time.perf_counter_ns()-start)/1000);masked+=int(not adapted['range_valid'].any())

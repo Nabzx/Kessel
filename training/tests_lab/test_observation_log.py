@@ -3,13 +3,13 @@ from pathlib import Path
 import tempfile
 import unittest
 import numpy as np
-from kessel_lab.observations import adapt, CONTRACT
+from kessel_lab.observations import adapt, CONTRACT, UNITS
 from kessel_lab.recorder import Recorder, scan
 
 
 def packet():
-    return {'clock':'local-monotonic','calibration':'rig-v1','frame':CONTRACT['frame'],'sequence':0,
-            'channels':{name:{'capture_s':1.,'delivery_s':1.01,'sensor_id':name,'values':values}
+    return {'version':CONTRACT['version'],'clock':'local-monotonic','calibration':'rig-v1','frame':CONTRACT['frame'],'sequence':0,
+            'channels':{name:{'capture_s':1.,'delivery_s':1.01,'sensor_id':name,'units':UNITS[name],'values':values}
             for name,values in {'proprio':[0.]*15,'local_height_m':np.ones((5,5)).tolist(),
                                 'range_valid':np.ones((5,5)).tolist()}.items()}}
 
@@ -28,7 +28,7 @@ class ObservationTests(unittest.TestCase):
         self.assertAlmostEqual(meta['channel_age_s']['proprio'],.05)
         self.assertEqual(obs['range_valid'].sum(),25)
     def test_invalid_clock_calibration_stale_proprio_and_future(self):
-        for mutation in (lambda p:p.update(clock='other'),lambda p:p.update(calibration='rig-v2'),
+        for mutation in (lambda p:p.update(version='other'),lambda p:p['channels']['local_height_m'].update(units='mm'),lambda p:p.update(clock='other'),lambda p:p.update(calibration='rig-v2'),
                          lambda p:p['channels']['proprio'].update(capture_s=0),
                          lambda p:p['channels']['range_valid'].update(delivery_s=2)):
             p=packet();mutation(p)
