@@ -1,0 +1,136 @@
+{
+  "kind": "kessel-retained-visual-review-v1",
+  "visual_acceptance": "open",
+  "mode": "planned storyboard using retained captures; not a new live recording",
+  "routes": {
+    "core": [
+      {
+        "title": "Earth",
+        "image": "../continuation-evidence/earth.jpg",
+        "seconds": 8,
+        "source": "Authored concept",
+        "caption": "The orbital opening establishes the long-term ambition."
+      },
+      {
+        "title": "Choose Underground",
+        "image": "../cinematic-evidence/retina-environments.jpg",
+        "seconds": 7,
+        "source": "Authored concept",
+        "caption": "Underground is the first available environment. Other settings are future directions."
+      },
+      {
+        "title": "Surface arrival",
+        "image": "../cinematic-evidence/retina-surface.jpg",
+        "seconds": 7,
+        "source": "Authored Blender film",
+        "caption": "A prepared fade establishes place. This is an original rendered scene, not mine footage."
+      },
+      {
+        "title": "The mine",
+        "image": "../cinematic-evidence/retina-mine.jpg",
+        "seconds": 8,
+        "source": "Illustrative operating scenario",
+        "caption": "The cutaway introduces the operational task and baseline."
+      },
+      {
+        "title": "Operating comparison",
+        "image": "../cinematic-evidence/retina-trained.jpg",
+        "seconds": 7,
+        "source": "Illustrative comparison",
+        "caption": "Operating figures are authored assumptions, not measured deployment savings."
+      },
+      {
+        "title": "Learn the work",
+        "image": "../continuation-evidence/training-complete.jpg",
+        "seconds": 10,
+        "source": "Authored training illustration",
+        "caption": "Three represented jobs explain the learning loop. These are not measured policy results."
+      },
+      {
+        "title": "Inside Kessel",
+        "image": "../cinematic-evidence/retina-inside.jpg",
+        "seconds": 6,
+        "source": "Proposed architecture",
+        "caption": "The system overview closes the main explanation. Detailed chapters are optional."
+      },
+      {
+        "title": "Proposed retrofit",
+        "image": "../cinematic-evidence/retina-retrofit-open.jpg",
+        "seconds": 7,
+        "source": "Proposed hardware",
+        "caption": "The assembly explains sensing and local compute. It does not validate installed equipment."
+      }
+    ],
+    "technical": [
+      {
+        "title": "One task",
+        "image": "../narrative-study/evidence/proposed-task.jpg",
+        "seconds": 10,
+        "source": "Recorded conventional reference",
+        "caption": "A conventional controller completes a recorded synthetic task. It is a separate source from the learned policies."
+      },
+      {
+        "title": "Observe",
+        "image": "../narrative-study/evidence/proposed-observe.jpg",
+        "seconds": 10,
+        "source": "Recorded local observations",
+        "caption": "The crop and validity mask show recorded numeric inputs, not implemented image perception."
+      },
+      {
+        "title": "Predict",
+        "image": "../narrative-study/evidence/proposed-predict.jpg",
+        "seconds": 12,
+        "source": "Historical raw learned forecast",
+        "caption": "The retained forecast and reference residual share a recorded anchor. No missing forecasts are fabricated."
+      },
+      {
+        "title": "Retain the failures",
+        "image": "../narrative-study/evidence/proposed-learn.jpg",
+        "seconds": 10,
+        "source": "Historical failed learned policy",
+        "caption": "The historical PPO run fails to deliver. It remains separate from the reference and later imitation study."
+      },
+      {
+        "title": "The nominal milestone",
+        "image": "../phase-memory-demo/evidence/seed-7.jpg",
+        "seconds": 14,
+        "source": "Recorded imitation with rule-based phase memory",
+        "caption": "Three selected policies pass 32/32 nominal final cases each. Continuous commands are learned; phase context is conventional."
+      },
+      {
+        "title": "Test the limits",
+        "image": "../shift-evidence/scorecard.svg",
+        "seconds": 12,
+        "source": "Frozen-policy stress evaluation",
+        "caption": "Only nominal and left-shifted receiver families pass the all-seed gate. The 416-case catalogue retains failures and collisions."
+      },
+      {
+        "title": "Keep forecasts experimental",
+        "image": "../narrative-study/evidence/proposed-predict.jpg",
+        "seconds": 12,
+        "source": "Assistance gate: no-go",
+        "caption": "The working-policy diagnostic admits zero forecast horizon. No assisted-training benefit is claimed."
+      },
+      {
+        "title": "Offline execution",
+        "image": "../continuation-evidence/retrofit.jpg",
+        "seconds": 10,
+        "source": "Proposed architecture and local prototypes",
+        "caption": "Observation, shadow-logging and synthetic execution prototypes exist. Real perception, calibration and machine control remain separate."
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "title": "Orbital opening",
+      "previous": "../visual-evidence/frames/retina-hero.jpg",
+      "current": "../continuation-evidence/earth.jpg"
+    },
+    {
+      "title": "Mine composition",
+      "previous": "../visual-evidence/frames/retina-mine.jpg",
+      "current": "../cinematic-evidence/retina-mine.jpg"
+    }
+  ],
+  "capture_note": "Previous captures are 1440 \u00d7 900; current captures are 2880 \u00d7 1800 at the same 16:10 composition. They are displayed at matched sizes. Current frames were retained on 8\u201322 November; the new fix concerns keyboard focus and reduced motion."
+}

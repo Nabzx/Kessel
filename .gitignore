@@ -30,3 +30,6 @@ tools/blender/source/*.blend2
 tools/blender/.venv/
 
 !tools/blender/bakes/*.png
+
+# Repo-local review and release-candidate outputs
+.local/
