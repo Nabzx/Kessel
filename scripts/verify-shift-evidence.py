@@ -16,6 +16,7 @@ def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':')
 
 def verify():
     report=json.loads((E/'report.json').read_text());plan=report['plan']
+    assert json.loads((E/'plan.json').read_text())==plan
     reservation=json.loads((E/'reservation.json').read_text())
     assert reservation['verified'] and not reservation['zip_hits'] and not reservation['zip_errors']
     assert plan['reservation_sha256']==sha((E/'reservation.json').read_bytes())
@@ -66,18 +67,32 @@ def verify():
         assert report['family_admission'][family]==all(r['successes']>=7 and r['collisions']==0 for r in rows)
     with zipfile.ZipFile(E/'source.zip') as source:
         for name,digest in plan['lab_files'].items():assert sha(source.read('training/kessel_lab/'+name))==digest
+        core=hashlib.sha256()
+        for name in sorted(n for n in source.namelist() if n.startswith('training/kessel_training/') and n.endswith('.py')):
+            core.update(Path(name).name.encode());core.update(source.read(name))
+        assert core.hexdigest()==plan['source']['package_sha256']
     files=json.loads((E/'files.json').read_text())
     for name,digest in files.items():assert sha((ROOT/name).read_bytes())==digest,name
     model=json.loads((ROOT/'docs/phase-11/working-policy-model-evidence/report.json').read_text())
     assert model['plan']['new_model_updates']==model['plan']['actor_updates']==model['assisted_updates']==0
     assert model['coverage']['test_episodes']==104
+    for name,digest in model['plan']['models'].items():assert sha((ROOT/f'docs/phase-11/world-followup-evidence/{name}.pt').read_bytes())==digest
+    assert model['plan']['protocol_sha256']==sha((ROOT/'docs/phase-11/world-model-shift-protocol.md').read_bytes())
+    assert model['plan']['runner_sha256']==sha((ROOT/'scripts/research/evaluate-working-policy-models.py').read_bytes())
+    calibration=ROOT/'docs/phase-11/working-policy-model-evidence'
+    assert sha((calibration/'calibration.zip').read_bytes())==json.loads((calibration/'calibration-manifest.json').read_text())['sha256']
+    replay=json.loads((E/'action-replay.json').read_text())
+    assert replay['shift_cases']==312 and replay['calibration_cases']==8 and replay['max_action_error']==replay['max_calibration_state_error']==replay['teacher_queries']==0
+    assert replay['calibration_physics_decisions']==model['calibration_decisions']
     assert model['calibration_decisions']<=4800
     assert len(model['families'])==13 and model['observable']['excluded_terminal_rows']==104
     if not model['assistance_qualified']:assert model['assistance_decision'].startswith('no-go')
     log_report=json.loads((ROOT/'docs/phase-11/continuation-evidence/recorder.json').read_text())
     assert sha((ROOT/'docs/phase-11/continuation-evidence/shadow.jsonl').read_bytes())==log_report['sha256']
+    assert log_report['replayed_proposals']==100 and log_report['max_replayed_action_error']==0
     assert log_report['applied_machine_commands']==0 and log_report['explicit_tail_recovery'] and log_report['quota_preserves_records']
     qa=json.loads((ROOT/'docs/phase-11/live-demo/evidence/report.json').read_text())
+    for name,digest in qa['sources'].items():assert sha((ROOT/name).read_bytes())==digest,name
     assert not qa['errors'] and len(qa['profiles'])==3 and qa['nominal']['full_success'] and not qa['blocked']['full_success']
     print(f'PASS: all 416 shift cases, {decisions} decisions, exact replay, source archives and local runtime evidence')
 
