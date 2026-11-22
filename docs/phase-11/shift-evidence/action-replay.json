@@ -1,0 +1,16 @@
+{
+  "shift_cases": 312,
+  "calibration_cases": 8,
+  "policy_queries": 121530,
+  "calibration_physics_decisions": 2224,
+  "checkpoints": {
+    "phase_memory-7": "f5816663e73c4826b7c6cd09c629354f742061fbada427ff69c8e9367b721e4e",
+    "phase_memory-19": "3fcbffba07946a4ebc8d573bf55d8db6d346da36406f7db552a9e6099a6ddf89",
+    "phase_memory-41": "80daf137926f73fcca348db79cfbdfea17a4aac6316df9cd237c63464d06d312"
+  },
+  "max_action_error": 0.0,
+  "max_calibration_state_error": 0.0,
+  "teacher_queries": 0,
+  "new_held_out_cases": 0,
+  "role": "verification of consumed cases, not another generalisation test"
+}
