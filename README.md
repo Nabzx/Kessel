@@ -39,7 +39,8 @@ PYTHONPATH=training training/.venv/bin/python -m kessel_lab.server --port 8090
 ```
 
 Open <http://127.0.0.1:8090/docs/phase-11/live-demo/>. Choose a scenario and
-controller, then run, pause, step or reset. Changed scenarios may fail. This is
+controller, then run, pause, step or reset. The [416-case stress test](docs/phase-11/shift-study.md)
+retains the limits of the frozen policies; changed scenarios may fail. This is
 an isolated, uncalibrated synthetic runtime with no machine connection.
 The static main experience and recorded viewer do not require this service.
 

@@ -1,0 +1,21 @@
+{
+  "protocol_sha256": "6d147fab09ac9267a84e73e3eef8c2aeb2ace073a06f94533f721d750f5ee3a0",
+  "models": {
+    "multistep_material": "3dc076cf58651107e0d6b6e9638df3d1e54ca5021fc74b75b1f591cd6c6ac38c",
+    "observable": "bd1980bd5dc516547cbf7a615d35dffe145796f621dd0bd2b74f9f6ea34243ae"
+  },
+  "new_model_updates": 0,
+  "actor_updates": 0,
+  "calibration_seeds": [
+    108400,
+    108401,
+    108402,
+    108403,
+    108404,
+    108405,
+    108406,
+    108407
+  ],
+  "test_source": "phase_memory-7 from all 104 shift episodes",
+  "runner_sha256": "1513e90b429442f6897d680c14614639f1e375494f155be0232699c017741943"
+}

@@ -86,6 +86,16 @@ admitted method. This is reference-simulator evidence, not a learned-world-model
 training result, a production runtime or field qualification. Earlier failed
 PPO/model-assisted results and the authored default remain unchanged.
 
+The 22 November ADR-0062 continuation adds isolated localhost synthetic execution
+under `training/kessel_lab/` and `docs/phase-11/live-demo/`. It executes new physics
+and frozen neural actions, with conventional phase memory, and has no machine
+interface. A thirteen-family stress study retains all 416 cases; only nominal
+and left-shifted receiver families pass its all-seed gate. Existing learned
+world-model forecasts fail the new working-policy calibration gate and are not
+used for assistance. Numeric observation validation and durable shadow logging
+are prototypes, not implemented perception or qualified retrofit hardware.
+Human visual acceptance and publication remain open at the maintainer's request.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source
