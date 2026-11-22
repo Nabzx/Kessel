@@ -1,5 +1,13 @@
 {
   "browser": "157.0.8103.79",
+  "sources": {
+    "docs/phase-11/live-demo/index.html": "51962241957b04552dfa8e2efbd689f3f3486c675499779ed1a46789620ef2b0",
+    "docs/phase-11/live-demo/viewer.js": "4a6266fc6169d84ade7649831926069a84ba08fe3205689836034b2cb91560d4",
+    "docs/phase-11/live-demo/viewer.css": "97791242872e4e7147bc766054e70251b9df3121f0ecb2b4aca09e6cbb3ef96f",
+    "training/kessel_lab/server.py": "c88a36872ee0dce9acf9ce08d87b2c5f590497129a92fe00d8bc504fd0bc39ce",
+    "training/kessel_lab/runtime.py": "1fd052d1f36f1c306b3898e1c94d94729cbbed7d118feecc890ab876ea6c9433",
+    "scripts/research/verify-live-demo.cjs": "936deddcac6c651b78e89de57a8ec9d10d954e716ce72c6233ffff083cd80506"
+  },
   "profiles": [
     {
       "spec": {
