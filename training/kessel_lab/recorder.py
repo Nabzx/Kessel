@@ -1,5 +1,7 @@
 """Bounded, fsync-backed observation/proposal records with explicit tail recovery."""
 import hashlib
+import fcntl
+import tempfile
 import json
 import os
 from pathlib import Path
@@ -38,18 +40,20 @@ class Recorder:
             data=self.path.read_bytes();cut=data.rfind(b'\n')+1
             if cut==0: raise ValueError('incomplete header cannot be resumed')
             # Verify the intact prefix before modifying either file.
-            prefix=self.path.with_suffix(self.path.suffix+'.prefix-check')
+            with tempfile.NamedTemporaryFile(dir=self.path.parent,delete=False) as check:
+                prefix=Path(check.name)
             try:
-                with prefix.open('xb') as f: f.write(data[:cut])
+                with prefix.open('wb') as f: f.write(data[:cut])
                 scan(prefix,identity=identity)
             finally:
                 if prefix.exists():prefix.unlink()
             tail=self.path.with_suffix(self.path.suffix+'.recovered-tail')
             with tail.open('xb') as f: f.write(data[cut:]);f.flush();os.fsync(f.fileno())
             with self.path.open('r+b') as f:f.truncate(cut);f.flush();os.fsync(f.fileno())
-        if self.path.exists(): self.rows=scan(self.path,identity=identity)
+        if self.path.exists():
+            self.rows=scan(self.path,identity=identity);self.expected_size=self.path.stat().st_size
         else:
-            self.path.touch(exist_ok=False);self.rows=[]
+            self.path.touch(exist_ok=False);self.rows=[];self.expected_size=0
             self._append('header',0,identity)
             directory=os.open(self.path.parent,os.O_RDONLY)
             try:os.fsync(directory)
@@ -67,6 +71,9 @@ class Recorder:
              'stream':stream,'sequence':sequence,'gap_before':sequence-previous-1,'payload':payload}
         row['sha256']=hashlib.sha256(canonical_json(row).encode()).hexdigest()
         data=(canonical_json(row)+'\n').encode()
-        if self.path.stat().st_size+len(data)>self.quota: raise BufferError('quota exhausted; unexported records preserved')
-        with self.path.open('ab') as f:f.write(data);f.flush();os.fsync(f.fileno())
+        with self.path.open('ab') as f:
+            fcntl.flock(f.fileno(),fcntl.LOCK_EX)
+            if os.fstat(f.fileno()).st_size!=self.expected_size:raise ValueError('log changed through another writer; reopen before appending')
+            if self.expected_size+len(data)>self.quota:raise BufferError('quota exhausted; unexported records preserved')
+            f.write(data);f.flush();os.fsync(f.fileno());self.expected_size+=len(data)
         self.rows.append(row)

@@ -56,6 +56,12 @@ class LogTests(unittest.TestCase):
         log=Recorder(self.path,self.identity,quota_bytes=600);before=self.path.read_bytes()
         with self.assertRaises(BufferError):log.append('observation',0,{'large':'x'*1000})
         self.assertEqual(self.path.read_bytes(),before)
+    def test_stale_second_writer_is_rejected(self):
+        first=Recorder(self.path,self.identity);second=Recorder(self.path,self.identity)
+        first.append('observation',0,{})
+        with self.assertRaises(ValueError):second.append('proposal',0,{})
+        self.assertEqual(len(scan(self.path)),2)
+
     def test_corruption_is_not_recovered_as_tail(self):
         Recorder(self.path,self.identity);data=self.path.read_bytes().replace(b'abc',b'xyz');self.path.write_bytes(data)
         with self.assertRaises(ValueError):Recorder(self.path,self.identity,recover=True)
