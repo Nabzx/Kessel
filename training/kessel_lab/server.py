@@ -59,13 +59,15 @@ class Handler(SimpleHTTPRequestHandler):
                      'applied_machine_commands':False})
         if path.startswith('/api/'):return self.json(404,{'error':'unknown endpoint'})
         # Static serving is intentionally limited to viewer dependencies, never training weights or dotfiles.
-        if any(part.startswith('.') for part in path.split('/') if part) or not path.startswith(('/docs/phase-11/live-demo/','/assets/','/js/','/data/')):
+        if any(part.startswith('.') for part in path.split('/') if part) or not path.startswith(('/docs/phase-11/live-demo/','/docs/phase-11/phase-memory-demo/','/docs/phase-11/narrative-study/','/docs/phase-11/phase-memory-study.md','/index.html','/css/','/assets/','/js/','/data/')):
             return self.json(404,{'error':'open /docs/phase-11/live-demo/'})
         if '..' in self.path or '%2e' in self.path.lower() or not path.endswith(('/','.html','.js','.css','.json','.glb','.jpg','.png','.webp','.woff2','.txt','.md')):
             return self.json(404,{'error':'unsupported asset'})
-        if self.translate_path(self.path).endswith('/') and path!='/docs/phase-11/live-demo/':
-            return self.json(404,{'error':'directory listing disabled'})
-        super().do_GET()
+                super().do_GET()
+    def list_directory(self,path):
+        return self.json(404,{'error':'directory listing disabled'})
+    def do_HEAD(self):
+        return self.json(405,{'error':'use GET for supported assets'})
     def do_POST(self):
         origin=self.headers.get('Origin')
         if not self.valid_host() or origin is not None and origin not in (f'http://127.0.0.1:{self.server.server_port}',f'http://localhost:{self.server.server_port}'):

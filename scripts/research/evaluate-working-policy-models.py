@@ -52,8 +52,8 @@ class Baseline:
     def predict(self,state,action):return simple_prediction(state,action,self.name)
 
 
-def execute(study,output):
-    output.mkdir(parents=True,exist_ok=False);configure_cpu(7);started=time.perf_counter()
+def execute(study,output,calibration_only=False):
+    output.mkdir(parents=True,exist_ok=True);configure_cpu(7);started=time.perf_counter()
     protocol=ROOT/'docs/phase-11/world-model-shift-protocol.md'
     files={}
     for name in ('multistep_material','observable'):
@@ -64,16 +64,28 @@ def execute(study,output):
     plan={'protocol_sha256':hashlib.sha256(protocol.read_bytes()).hexdigest(),'models':files,'new_model_updates':0,'actor_updates':0,
           'calibration_seeds':list(range(108400,108408)),'test_source':'phase_memory-7 from all 104 shift episodes',
           'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
-    (output/'plan.json').write_text(json.dumps(plan,indent=2)+'\n')
+    if (output/'report.json').exists(): raise FileExistsError('completed evaluation already exists')
+    if (output/'plan.json').exists():
+        if json.loads((output/'plan.json').read_text())!=plan: raise ValueError('resumed protocol or source differs')
+    else: (output/'plan.json').write_text(json.dumps(plan,indent=2)+'\n')
     calibration=[]
     families=('nominal','nominal','low','ridge','rubble','steep','blocked','range_dropout')
-    with zipfile.ZipFile(output/'calibration.zip','w',compression=zipfile.ZIP_DEFLATED) as z:
-        for seed,family in zip(plan['calibration_seeds'],families):
-            run=Run(family,seed,'phase_memory-7')
-            while not run.done:run.step()
-            row={'scenario':run.scenario,'outcome':run.outcome(),'frames':run.records+[run.frame()]}
-            calibration.append(row);z.writestr(f'{seed}.json',json.dumps(row,separators=(',',':')))
-            print('Calibrated corpus',family,seed,run.outcome()['reason'],flush=True)
+    if (output/'calibration-manifest.json').exists():
+        manifest=json.loads((output/'calibration-manifest.json').read_text())
+        if hashlib.sha256((output/'calibration.zip').read_bytes()).hexdigest()!=manifest['sha256']:raise ValueError('calibration archive differs')
+        with zipfile.ZipFile(output/'calibration.zip') as z:
+            calibration=[json.loads(z.read(f'{seed}.json')) for seed in plan['calibration_seeds']]
+    else:
+        with zipfile.ZipFile(output/'calibration.zip','w',compression=zipfile.ZIP_DEFLATED) as z:
+            for seed,family in zip(plan['calibration_seeds'],families):
+                run=Run(family,seed,'phase_memory-7')
+                while not run.done:run.step()
+                row={'scenario':run.scenario,'outcome':run.outcome(),'frames':run.records+[run.frame()]}
+                calibration.append(row);z.writestr(f'{seed}.json',json.dumps(row,separators=(',',':')))
+                print('Calibrated corpus',family,seed,run.outcome()['reason'],flush=True)
+        (output/'calibration-manifest.json').write_text(json.dumps({'sha256':hashlib.sha256((output/'calibration.zip').read_bytes()).hexdigest(),'seeds':plan['calibration_seeds']},indent=2)+'\n')
+    if calibration_only:
+        print('Calibration retained; no test traces opened',flush=True);return
     validation,ve=data(calibration)
     report=json.loads((study/'report.json').read_text());test_episodes=[]
     with zipfile.ZipFile(study/'traces.zip') as z:
@@ -117,4 +129,4 @@ def execute(study,output):
     (output/'report.json').write_text(json.dumps(result,indent=2,allow_nan=False)+'\n');print(result['assistance_decision'],flush=True)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--study',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();execute(a.study,a.output)
+    p=argparse.ArgumentParser();p.add_argument('--study',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--calibration-only',action='store_true');a=p.parse_args();execute(a.study,a.output,a.calibration_only)
