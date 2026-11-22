@@ -69,10 +69,10 @@ recorder stopped; this is a single-host research implementation.
 
 The retained synthetic probe executes 100 physics decisions while separately
 making shadow proposals from mixed-rate observations. Ten decisions have stale
-range. It verifies explicit tail recovery and quota refusal. The final log has
-201 records and 218,035 bytes: about **78.49 MB/hour at 10 Hz**, including JSON,
+range. It independently replays all 100 shadow proposals with zero action error, and verifies explicit tail recovery and quota refusal. The final log has
+201 records and 223,683 bytes: about **80.53 MB/hour at 10 Hz**, including JSON,
 metadata and checksums. It excludes raw images and raw range returns. Median
-paired append/fsync time is about 652 microseconds; p95 about 976 microseconds
+paired append/fsync time is about 401 microseconds; p95 about 526 microseconds
 on this local filesystem. This is not edge-hardware throughput or sudden-power-
 loss qualification. The machine-applied command count is zero.
 

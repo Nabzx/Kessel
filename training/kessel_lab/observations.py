@@ -38,5 +38,5 @@ def adapt(packet, *, clock, calibration, use_time_s, max_age_s=.2):
     result['proprio'][0,12]=float(range_age<=max_age_s and result['range_valid'].any())
     # Stale proprio cannot be repaired by masking geometry. Caller receives an error.
     if ages['proprio']>max_age_s: raise ValueError('proprioception is stale; no policy proposal produced')
-    return result, {'channel_age_s':ages,'sequence':packet['sequence'],'calibration':calibration,
+    return result, {'clock':clock,'use_time_s':use_time_s,'channel_age_s':ages,'sequence':packet['sequence'],'calibration':calibration,
                     'claim':'numeric alignment only; missing-data handling is not a stopping guarantee'}

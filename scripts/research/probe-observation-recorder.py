@@ -36,6 +36,14 @@ def execute(output):
             log.append('proposal',sequence,{'action':action,'checkpoint_sha256':sha,'applied_to_machine':False})
             latencies.append((time.perf_counter_ns()-start)/1000)
             run.step() # Reference physics advances independently of the shadow proposal.
+        replay_actor,_=checkpoint('phase_memory-7');maximum_action_error=0.;replayed=0
+        rows=scan(path,identity=identity)
+        for index in range(1,len(rows),2):
+            observation=rows[index]['payload'];proposal=rows[index+1]['payload']
+            adapted,_=adapt(observation['packet'],clock=identity['clock'],calibration=identity['calibration'],use_time_s=observation['alignment']['use_time_s'])
+            actual=replay_actor.act(adapted)[0]
+            maximum_action_error=max(maximum_action_error,float(np.abs(actual-proposal['action']).max()));replayed+=1
+        if maximum_action_error!=0.:raise AssertionError('shadow proposal replay differs')
         size=path.stat().st_size;before=path.read_bytes();path.write_bytes(before+b'{"power_loss":')
         log=Recorder(path,identity,recover=True)
         assert path.read_bytes()==before and len(scan(path,identity=identity))==201
@@ -46,7 +54,7 @@ def execute(output):
         assert path.read_bytes()==before
         output.mkdir(parents=True,exist_ok=False);(output/'shadow.jsonl').write_bytes(before)
         result={'source':'synthetic mixed-rate shadow probe; no hardware connection','decisions':100,'records':201,
-                'range_stale_decisions':masked,'log_bytes':size,'bytes_per_decision':size/100,
+                'range_stale_decisions':masked,'replayed_proposals':replayed,'max_replayed_action_error':maximum_action_error,'log_bytes':size,'bytes_per_decision':size/100,
                 'estimated_mb_per_hour_at_10hz':size/100*36000/1e6,
                 'fsync_pair_us':{'median':float(np.median(latencies)),'p95':float(np.quantile(latencies,.95))},
                 'alignment_us':{'median':float(np.median(adapt_us)),'p95':float(np.quantile(adapt_us,.95))},
