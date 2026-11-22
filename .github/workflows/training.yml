@@ -21,7 +21,7 @@ jobs:
       - name: Install locked CPU dependencies
         run: uv sync --locked --all-groups
       - name: Test experiment contracts and packaging
-        run: uv run --locked --all-groups pytest
+        run: uv run --locked --all-groups pytest tests tests_lab
       - name: Run bounded CPU workload smoke check
         run: uv run --locked python -m kessel_training.benchmark --smoke --output /tmp/kessel-cpu-smoke.json
       - name: Check real loader PPO execution
