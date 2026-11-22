@@ -1,0 +1,1308 @@
+{
+  "browser": "157.0.8103.79",
+  "runner_sha256": "81a165a723f559b53300f22302cc9db8ca778b0c34b8cbb0d7af2aedcfc87689",
+  "cycles": 50,
+  "dwellMs": 1000,
+  "errors": [],
+  "samples": [
+    {
+      "cycle": 0,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36932998,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 1,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36033738,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 2,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36223334,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 3,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36251850,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 4,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36262706,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 5,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36265730,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 6,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36267818,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 7,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36354874,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 8,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36370702,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 9,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36358622,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 10,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36395510,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 11,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36400590,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 12,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36406590,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 13,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36408258,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 14,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36429106,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 15,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36431770,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 16,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36502554,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 17,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36459018,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 18,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36464514,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 19,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36447782,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 20,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36458250,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 21,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36481766,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 22,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36470290,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 23,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36471998,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 24,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36503754,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 25,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36530454,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 26,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36539182,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 27,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36543650,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 28,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36545290,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 29,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36603338,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 30,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36557686,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 31,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36561986,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 32,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36565802,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 33,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36566190,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 34,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36570282,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 35,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36570646,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 36,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36567558,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 37,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36585942,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 38,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36593714,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 39,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36599970,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 40,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36597198,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 41,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36601434,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 42,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36655190,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 43,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36590210,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 44,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36588506,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 45,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36608806,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 46,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36634098,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 47,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36634538,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 48,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36635938,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    },
+    {
+      "cycle": 49,
+      "explicitGC": true,
+      "presentation": "2026-11-22.01",
+      "domNodes": 455,
+      "textures": 38,
+      "heapUsedBytes": 36641094,
+      "preparationMs": {
+        "learning-authored": 175.30000019073486,
+        "kit": 86.90000009536743,
+        "mine": 307.09999990463257
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "pixelRatio": 1.5
+    }
+  ],
+  "limits": [
+    "Browser-reported texture count, not measured VRAM bytes",
+    "Explicit image.decode/createImageBitmap calls only; native implicit decode is not separately observable",
+    "Local transfer and synthetic presentation, not network or edge-hardware qualification"
+  ],
+  "cold": {
+    "readyAtNavigationMs": 970.1999998092651,
+    "initialisationMs": 660.1999998092651,
+    "frameMeasurement": "Visible frames after readiness; initialisation recorded separately"
+  },
+  "totalWallS": 217.198,
+  "resources": [
+    {
+      "name": "http://127.0.0.1:8092/assets/fonts/space-grotesk-latin.woff2",
+      "initiator": "link",
+      "durationMs": 14.800000190734863,
+      "transferBytes": 22620,
+      "decodedHttpBodyBytes": 22320
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/experience.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 8.700000286102295,
+      "transferBytes": 28785,
+      "decodedHttpBodyBytes": 28485
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/recorded.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 12.800000190734863,
+      "transferBytes": 7026,
+      "decodedHttpBodyBytes": 6726
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/realism.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 13.300000190734863,
+      "transferBytes": 5626,
+      "decodedHttpBodyBytes": 5326
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/hud.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 14.800000190734863,
+      "transferBytes": 9454,
+      "decodedHttpBodyBytes": 9154
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/orbital-home.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 15.900000095367432,
+      "transferBytes": 15948,
+      "decodedHttpBodyBytes": 15648
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/chapters.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 18.700000286102295,
+      "transferBytes": 12271,
+      "decodedHttpBodyBytes": 11971
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/home.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 18.800000190734863,
+      "transferBytes": 3591,
+      "decodedHttpBodyBytes": 3291
+    },
+    {
+      "name": "http://127.0.0.1:8092/css/engineering.css?v=2026-11-22.01",
+      "initiator": "link",
+      "durationMs": 25.200000286102295,
+      "transferBytes": 9607,
+      "decodedHttpBodyBytes": 9307
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/film/surface-poster.webp",
+      "initiator": "video",
+      "durationMs": 30.90000009536743,
+      "transferBytes": 221854,
+      "decodedHttpBodyBytes": 221554
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/brand/kessel-orbital.svg",
+      "initiator": "img",
+      "durationMs": 29.299999713897705,
+      "transferBytes": 816,
+      "decodedHttpBodyBytes": 516
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/experience.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 21.90000009536743,
+      "transferBytes": 45013,
+      "decodedHttpBodyBytes": 44713
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/surface-film.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 8.600000381469727,
+      "transferBytes": 2690,
+      "decodedHttpBodyBytes": 2390
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/technical-chapters.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 14,
+      "transferBytes": 13186,
+      "decodedHttpBodyBytes": 12886
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/vendor/three.module.js",
+      "initiator": "script",
+      "durationMs": 21.5,
+      "transferBytes": 1273272,
+      "decodedHttpBodyBytes": 1272972
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/environment-scenes.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 17.899999618530273,
+      "transferBytes": 2665,
+      "decodedHttpBodyBytes": 2365
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/scene-utils.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 22.399999618530273,
+      "transferBytes": 4828,
+      "decodedHttpBodyBytes": 4528
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/globe-stage.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 22.299999713897705,
+      "transferBytes": 12100,
+      "decodedHttpBodyBytes": 11800
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/fonts/jetbrains-mono-latin.woff2",
+      "initiator": "css",
+      "durationMs": 64.40000009536743,
+      "transferBytes": 31640,
+      "decodedHttpBodyBytes": 31340
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/fonts/orbitron-latin.woff2",
+      "initiator": "css",
+      "durationMs": 27.899999618530273,
+      "transferBytes": 12068,
+      "decodedHttpBodyBytes": 11768
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/recorded-data.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 47.30000019073486,
+      "transferBytes": 11036,
+      "decodedHttpBodyBytes": 10736
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/vendor/loaders/GLTFLoader.js",
+      "initiator": "script",
+      "durationMs": 50.09999990463257,
+      "transferBytes": 108822,
+      "decodedHttpBodyBytes": 108522
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/vendor/utils/BufferGeometryUtils.js",
+      "initiator": "script",
+      "durationMs": 6.699999809265137,
+      "transferBytes": 32206,
+      "decodedHttpBodyBytes": 31906
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/film/surface-poster.webp?v=2026-11-22.01",
+      "initiator": "video",
+      "durationMs": 28.40000009536743,
+      "transferBytes": 221854,
+      "decodedHttpBodyBytes": 221554
+    },
+    {
+      "name": "http://127.0.0.1:8092/data/experience.json",
+      "initiator": "fetch",
+      "durationMs": 32.90000009536743,
+      "transferBytes": 42167,
+      "decodedHttpBodyBytes": 41867
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/earth-blue-marble-july.jpg",
+      "initiator": "img",
+      "durationMs": 24.90000009536743,
+      "transferBytes": 1618110,
+      "decodedHttpBodyBytes": 1617810
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/earth-black-marble-2016.jpg",
+      "initiator": "img",
+      "durationMs": 21.800000190734863,
+      "transferBytes": 365955,
+      "decodedHttpBodyBytes": 365655
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/earth-clouds.jpg",
+      "initiator": "img",
+      "durationMs": 23.90000009536743,
+      "transferBytes": 829667,
+      "decodedHttpBodyBytes": 829367
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/observation-satellite.glb",
+      "initiator": "fetch",
+      "durationMs": 13,
+      "transferBytes": 2018852,
+      "decodedHttpBodyBytes": 2018552
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/models/iss/iss.glb",
+      "initiator": "fetch",
+      "durationMs": 7,
+      "transferBytes": 100416,
+      "decodedHttpBodyBytes": 100116
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/observation-satellite-overview.glb",
+      "initiator": "fetch",
+      "durationMs": 3.1999998092651367,
+      "transferBytes": 790068,
+      "decodedHttpBodyBytes": 789768
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/environments/deep-sea-scene.webp",
+      "initiator": "img",
+      "durationMs": 7.100000381469727,
+      "transferBytes": 339190,
+      "decodedHttpBodyBytes": 338890
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/environments/underground-scene.webp",
+      "initiator": "img",
+      "durationMs": 9,
+      "transferBytes": 354748,
+      "decodedHttpBodyBytes": 354448
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/environments/glacier-scene.webp",
+      "initiator": "img",
+      "durationMs": 8.899999618530273,
+      "transferBytes": 254158,
+      "decodedHttpBodyBytes": 253858
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/environments/manifest.json",
+      "initiator": "fetch",
+      "durationMs": 1.799999713897705,
+      "transferBytes": 6415,
+      "decodedHttpBodyBytes": 6115
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/training-stage.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 1.4000000953674316,
+      "transferBytes": 7930,
+      "decodedHttpBodyBytes": 7630
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/authored-assets.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 7.5,
+      "transferBytes": 1303,
+      "decodedHttpBodyBytes": 1003
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/replay-framing.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 8.099999904632568,
+      "transferBytes": 2501,
+      "decodedHttpBodyBytes": 2201
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/training-trace.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 8.200000286102295,
+      "transferBytes": 2008,
+      "decodedHttpBodyBytes": 1708
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/loader-stage.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 10,
+      "transferBytes": 9142,
+      "decodedHttpBodyBytes": 8842
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/vendor/RoundedBoxGeometry.js",
+      "initiator": "script",
+      "durationMs": 2.1999998092651367,
+      "transferBytes": 4925,
+      "decodedHttpBodyBytes": 4625
+    },
+    {
+      "name": "http://127.0.0.1:8092/data/training-demonstration.json",
+      "initiator": "fetch",
+      "durationMs": 7,
+      "transferBytes": 494759,
+      "decodedHttpBodyBytes": 494459
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/models/kessel-loader.json",
+      "initiator": "fetch",
+      "durationMs": 3.5,
+      "transferBytes": 2487,
+      "decodedHttpBodyBytes": 2187
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/textures/aerial_rocks_02_diff.jpg",
+      "initiator": "img",
+      "durationMs": 8.200000286102295,
+      "transferBytes": 119912,
+      "decodedHttpBodyBytes": 119612
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/reference-loader.glb?v=2026-11-22.01",
+      "initiator": "fetch",
+      "durationMs": 15.599999904632568,
+      "transferBytes": 1583452,
+      "decodedHttpBodyBytes": 1583152
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/textures/brown_mud_dry_diff.jpg",
+      "initiator": "img",
+      "durationMs": 8.800000190734863,
+      "transferBytes": 146834,
+      "decodedHttpBodyBytes": 146534
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/textures/brown_mud_dry_nor_gl.jpg",
+      "initiator": "img",
+      "durationMs": 10.700000286102295,
+      "transferBytes": 172606,
+      "decodedHttpBodyBytes": 172306
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/retrofit-stage.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 2.9000000953674316,
+      "transferBytes": 8673,
+      "decodedHttpBodyBytes": 8373
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/lighting/kit-studio.bin",
+      "initiator": "fetch",
+      "durationMs": 6.799999713897705,
+      "transferBytes": 1573164,
+      "decodedHttpBodyBytes": 1572864
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/retrofit-kit.glb?v=2026-11-22.01",
+      "initiator": "fetch",
+      "durationMs": 9.400000095367432,
+      "transferBytes": 1444304,
+      "decodedHttpBodyBytes": 1444004
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/retrofit-lab.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 2.4000000953674316,
+      "transferBytes": 15236,
+      "decodedHttpBodyBytes": 14936
+    },
+    {
+      "name": "http://127.0.0.1:8092/data/retrofit-showcase.json",
+      "initiator": "fetch",
+      "durationMs": 2,
+      "transferBytes": 4324,
+      "decodedHttpBodyBytes": 4024
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/mine-stage.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 3.8999996185302734,
+      "transferBytes": 11828,
+      "decodedHttpBodyBytes": 11528
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/material-transfer.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 4.399999618530273,
+      "transferBytes": 2120,
+      "decodedHttpBodyBytes": 1820
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/geology.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 4.899999618530273,
+      "transferBytes": 6779,
+      "decodedHttpBodyBytes": 6479
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/fleet.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 5.699999809265137,
+      "transferBytes": 13874,
+      "decodedHttpBodyBytes": 13574
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/mine-services.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 6,
+      "transferBytes": 5462,
+      "decodedHttpBodyBytes": 5162
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/underground.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 6.699999809265137,
+      "transferBytes": 22205,
+      "decodedHttpBodyBytes": 21905
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/loading-machine.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 7.099999904632568,
+      "transferBytes": 3116,
+      "decodedHttpBodyBytes": 2816
+    },
+    {
+      "name": "http://127.0.0.1:8092/js/vehicle.js?v=2026-11-22.01",
+      "initiator": "script",
+      "durationMs": 1.8999996185302734,
+      "transferBytes": 9729,
+      "decodedHttpBodyBytes": 9429
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/models/haul-truck.json",
+      "initiator": "fetch",
+      "durationMs": 3.5,
+      "transferBytes": 14036,
+      "decodedHttpBodyBytes": 13736
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/textures/aerial_rocks_02_nor_gl.jpg",
+      "initiator": "img",
+      "durationMs": 4.300000190734863,
+      "transferBytes": 133298,
+      "decodedHttpBodyBytes": 132998
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/materials/rock_face_03_diff.webp",
+      "initiator": "img",
+      "durationMs": 4.599999904632568,
+      "transferBytes": 265194,
+      "decodedHttpBodyBytes": 264894
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/materials/rock_face_03_rough.webp",
+      "initiator": "img",
+      "durationMs": 8,
+      "transferBytes": 143592,
+      "decodedHttpBodyBytes": 143292
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/materials/rock_face_03_ao.webp",
+      "initiator": "img",
+      "durationMs": 8.400000095367432,
+      "transferBytes": 155384,
+      "decodedHttpBodyBytes": 155084
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/materials/rock_face_03_nor_gl.webp",
+      "initiator": "img",
+      "durationMs": 8.800000190734863,
+      "transferBytes": 489796,
+      "decodedHttpBodyBytes": 489496
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/geology.glb?v=2026-11-22.01",
+      "initiator": "fetch",
+      "durationMs": 2.9000000953674316,
+      "transferBytes": 372328,
+      "decodedHttpBodyBytes": 372028
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/hauler-close.glb?v=2026-11-22.01",
+      "initiator": "fetch",
+      "durationMs": 8.099999904632568,
+      "transferBytes": 1223264,
+      "decodedHttpBodyBytes": 1222964
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/hauler-overview.glb?v=2026-11-22.01",
+      "initiator": "fetch",
+      "durationMs": 6.200000286102295,
+      "transferBytes": 615664,
+      "decodedHttpBodyBytes": 615364
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/excavator.glb",
+      "initiator": "fetch",
+      "durationMs": 5.300000190734863,
+      "transferBytes": 2096936,
+      "decodedHttpBodyBytes": 2096636
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/ore-pile.glb?v=2026-11-22.01",
+      "initiator": "fetch",
+      "durationMs": 10.300000190734863,
+      "transferBytes": 572868,
+      "decodedHttpBodyBytes": 572568
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/ore_normal.webp",
+      "initiator": "img",
+      "durationMs": 9.599999904632568,
+      "transferBytes": 371800,
+      "decodedHttpBodyBytes": 371500
+    },
+    {
+      "name": "http://127.0.0.1:8092/assets/authored/ore_ao.webp",
+      "initiator": "img",
+      "durationMs": 10.799999713897705,
+      "transferBytes": 90576,
+      "decodedHttpBodyBytes": 90276
+    }
+  ],
+  "explicitImageDecode": [
+    {
+      "kind": "image.decode",
+      "source": "http://127.0.0.1:8092/assets/environments/underground-scene.webp",
+      "ms": 46.5
+    },
+    {
+      "kind": "image.decode",
+      "source": "http://127.0.0.1:8092/assets/environments/deep-sea-scene.webp",
+      "ms": 79.5
+    },
+    {
+      "kind": "image.decode",
+      "source": "http://127.0.0.1:8092/assets/environments/glacier-scene.webp",
+      "ms": 104.7000002861023
+    },
+    {
+      "kind": "createImageBitmap",
+      "ms": 10.800000190734863
+    }
+  ],
+  "texturePlateau": {
+    "minimum": 38,
+    "maximum": 38
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "browser": "157.0.8103.79",
+  "visibilityMode": "Synthetic document.hidden change and visibilitychange event in native Chrome; not an OS sleep or real background-throttling test",
+  "errors": [],
+  "visibility": {
+    "before": 0.16669999999999985,
+    "after": 0.2499999999999991,
+    "heldWhileHidden": true,
+    "noCatchupJump": true
+  },
+  "resize": {
+    "latestChapterWins": true,
+    "pausedClockRetained": true,
+    "frame": {
+      "target": {
+        "x": 2,
+        "y": 1.5,
+        "z": -5
+      },
+      "safe": {
+        "left": 32,
+        "right": 979.40625,
+        "top": 129,
+        "bottom": 680
+      },
+      "projected": {
+        "left": 140.83632335971933,
+        "right": 844.0835922190711,
+        "top": 250.74047353237114,
+        "bottom": 679.9999998178637
+      },
+      "distance": 55.743776060882496
+    }
+  }
+}
