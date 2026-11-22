@@ -1,0 +1,67 @@
+{
+  "browser": "157.0.8103.79",
+  "profiles": [
+    {
+      "spec": {
+        "name": "laptop",
+        "width": 1440,
+        "height": 900
+      },
+      "keyboard": true,
+      "pause": true,
+      "reset": true,
+      "noOverflow": true
+    },
+    {
+      "spec": {
+        "name": "compact",
+        "width": 1365,
+        "height": 768
+      },
+      "keyboard": true,
+      "pause": true,
+      "reset": true,
+      "noOverflow": true
+    },
+    {
+      "spec": {
+        "name": "narrow",
+        "width": 390,
+        "height": 844
+      },
+      "keyboard": true,
+      "pause": true,
+      "reset": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": [],
+  "nominal": {
+    "reason": "success",
+    "done": true,
+    "full_success": true,
+    "collision": false,
+    "initial_payload_kg": 0,
+    "delivered_kg": 2016.1439954398095,
+    "carried_kg": 490.82372227198107,
+    "peak_load_kg": 2506.9677177117896,
+    "spilled_kg": 0,
+    "cycle_s": 37.88000000000032,
+    "decisions": 379,
+    "max_mass_residual_kg": 3.637978807091713e-12
+  },
+  "blocked": {
+    "reason": "obstacle_0",
+    "done": true,
+    "full_success": false,
+    "collision": true,
+    "initial_payload_kg": 0,
+    "delivered_kg": 0,
+    "carried_kg": 0,
+    "peak_load_kg": 0,
+    "spilled_kg": 0,
+    "cycle_s": 1.2400000000000007,
+    "decisions": 13,
+    "max_mass_residual_kg": 0
+  }
+}
