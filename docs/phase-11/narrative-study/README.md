@@ -42,3 +42,8 @@ have been tested.
 The source/evidence manifest is checked by
 `python3 scripts/verify-narrative-evidence.py`. Screenshots are research artefacts;
 their underlying asset credits remain those of the existing repository.
+
+The original comparison baseline is frozen under `evidence/baseline-source/`
+with its original hashes. The 22 November timing-boundary correction and cache
+version are a separate main-walkthrough change, checked by the continuation
+review. Historical captures do not silently certify the changed source.
