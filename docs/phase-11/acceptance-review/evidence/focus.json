@@ -1,0 +1,703 @@
+{
+  "mode": "headless",
+  "desktopAutomation": false,
+  "timeoutSeconds": 45,
+  "checks": [
+    {
+      "chapter": "earth",
+      "tabStops": [
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "02Environments",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 469.328125,
+            "top": 697,
+            "right": 586.25,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "03Surface",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 589.25,
+            "top": 697,
+            "right": 675.515625,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "04Mine",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 678.515625,
+            "top": 697,
+            "right": 748.59375,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "05Training",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 751.59375,
+            "top": 697,
+            "right": 838.0625,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "06Inside Kessel",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 841.0625,
+            "top": 697,
+            "right": 953.8125,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "07Retrofit",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 956.8125,
+            "top": 697,
+            "right": 1042.609375,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "start-experience",
+          "text": "Enter experience ↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 575.5,
+            "top": 630.03125,
+            "right": 789.5,
+            "bottom": 672.03125
+          }
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Pause sceneAuthored site · Rwanda\n    \n    \n    \n      \n        S",
+          "visible": true,
+          "outline": "none",
+          "width": 3,
+          "rect": {
+            "left": 0,
+            "top": 0,
+            "right": 1365,
+            "bottom": 768
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "sources-open",
+          "text": "Sources",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1280.953125,
+            "top": 31,
+            "right": 1324.0625,
+            "bottom": 69
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "01Earth",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 393.234375,
+            "top": 697,
+            "right": 466.328125,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "02Environments",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 469.328125,
+            "top": 697,
+            "right": 586.25,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "03Surface",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 589.25,
+            "top": 697,
+            "right": 675.515625,
+            "bottom": 735
+          }
+        }
+      ]
+    },
+    {
+      "chapter": "mine",
+      "tabStops": [
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "05Training",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 751.59375,
+            "top": 697,
+            "right": 838.0625,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "06Inside Kessel",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 841.0625,
+            "top": 697,
+            "right": 953.8125,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "07Retrofit",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 956.8125,
+            "top": 697,
+            "right": 1042.609375,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "compare-trained",
+          "text": "View the trained site",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1035.0625,
+            "top": 542.90625,
+            "right": 1303.0625,
+            "bottom": 586.90625
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "sources-open",
+          "text": "Sources",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1280.953125,
+            "top": 32,
+            "right": 1324.0625,
+            "bottom": 70
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "01Earth",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 393.234375,
+            "top": 697,
+            "right": 466.328125,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "02Environments",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 469.328125,
+            "top": 697,
+            "right": 586.25,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "03Surface",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 589.25,
+            "top": 697,
+            "right": 675.515625,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "04Mine",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 678.515625,
+            "top": 697,
+            "right": 748.59375,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "05Training",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 751.59375,
+            "top": 697,
+            "right": 838.0625,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "06Inside Kessel",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 841.0625,
+            "top": 697,
+            "right": 953.8125,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "07Retrofit",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 956.8125,
+            "top": 697,
+            "right": 1042.609375,
+            "bottom": 735
+          }
+        }
+      ]
+    },
+    {
+      "chapter": "inside",
+      "tabStops": [
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "07Retrofit",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 956.8125,
+            "top": 697,
+            "right": 1042.609375,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "01What the machine sees.↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 772.703125,
+            "top": 315.859375,
+            "right": 1296.75,
+            "bottom": 368.859375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "02Predict before contact.↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 772.703125,
+            "top": 368.859375,
+            "right": 1296.75,
+            "bottom": 421.859375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "03Train. Evaluate. Compress.↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 772.703125,
+            "top": 421.859375,
+            "right": 1296.75,
+            "bottom": 474.859375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "04The link can disappear.↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 772.703125,
+            "top": 474.859375,
+            "right": 1296.75,
+            "bottom": 527.859375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "05One deployment informs the next.↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 772.703125,
+            "top": 527.859375,
+            "right": 1296.75,
+            "bottom": 580.859375
+          }
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "Pause sceneAuthored site · Rwanda\n    \n    \n    \n      \n        I",
+          "visible": true,
+          "outline": "none",
+          "width": 3,
+          "rect": {
+            "left": 0,
+            "top": 0,
+            "right": 1365,
+            "bottom": 768
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "sources-open",
+          "text": "Sources",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1280.953125,
+            "top": 32,
+            "right": 1324.0625,
+            "bottom": 70
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "01Earth",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 393.234375,
+            "top": 697,
+            "right": 466.328125,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "02Environments",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 469.328125,
+            "top": 697,
+            "right": 586.25,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "03Surface",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 589.25,
+            "top": 697,
+            "right": 675.515625,
+            "bottom": 735
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "04Mine",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 678.515625,
+            "top": 697,
+            "right": 748.59375,
+            "bottom": 735
+          }
+        }
+      ]
+    },
+    {
+      "chapter": "retrofit",
+      "tabStops": [
+        {
+          "tag": "BUTTON",
+          "id": "kit-view-assembled",
+          "text": "Assembled",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 961.359375,
+            "top": 188,
+            "right": 1053.21875,
+            "bottom": 222
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "assemble-kit",
+          "text": "Exploded",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1056.21875,
+            "top": 188,
+            "right": 1140.1875,
+            "bottom": 222
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "kit-view-signal",
+          "text": "Signal path",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1143.1875,
+            "top": 188,
+            "right": 1237.15625,
+            "bottom": 222
+          }
+        },
+        {
+          "tag": "ASIDE",
+          "id": "kit-part-panel",
+          "text": "CHS-01 / ChassisBuilt around the machine.A mounting chassis carri",
+          "visible": true,
+          "outline": "solid",
+          "width": 3,
+          "rect": {
+            "left": 122.84375,
+            "top": 321,
+            "right": 452.84375,
+            "bottom": 634.25
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "kit-runtime-evidence",
+          "text": "Inspect retained CPU export ↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 54.59375,
+            "top": 512.25,
+            "right": 228.625,
+            "bottom": 537.25
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "CHS-01",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 458.4375,
+            "top": 349.328125,
+            "right": 512.84375,
+            "bottom": 371.328125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "RNG-01",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 458.4375,
+            "top": 259.703125,
+            "right": 512.84375,
+            "bottom": 281.703125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "CAM-01",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1234.0625,
+            "top": 302.28125,
+            "right": 1288.46875,
+            "bottom": 324.28125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "THM-01",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 458.4375,
+            "top": 316.921875,
+            "right": 512.84375,
+            "bottom": 338.921875
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "kit-focus-part",
+          "text": "Focus part ↗",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 661.640625,
+            "top": 524,
+            "right": 741.265625,
+            "bottom": 548
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "kit-reset-view",
+          "text": "Reset view ↺",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 1246.4375,
+            "top": 525,
+            "right": 1316.0625,
+            "bottom": 547
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "kit-part-enclosure",
+          "text": "01 / CHS-01Chassis",
+          "visible": true,
+          "outline": "solid",
+          "width": 2,
+          "rect": {
+            "left": 54.59375,
+            "top": 582,
+            "right": 227.125,
+            "bottom": 642
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "reducedMotionEntrance": true,
+  "dialogReturnFocus": true,
+  "normalMotionEarlyFocus": true
+}

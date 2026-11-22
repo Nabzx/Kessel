@@ -1,0 +1,14 @@
+{
+  "headless": true,
+  "desktopAutomation": false,
+  "timeoutSeconds": 30,
+  "mainSeconds": 60,
+  "technicalSeconds": 90,
+  "pauseHolds": true,
+  "matchedComparisonWidths": [
+    606,
+    606
+  ],
+  "narrowOverflow": false,
+  "errors": []
+}

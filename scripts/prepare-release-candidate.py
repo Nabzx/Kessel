@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def prepare(output):
     output = output.resolve()
     allowed = (ROOT / ".local").resolve()
-    if not output.is_relative_to(allowed) or output == allowed:
+    if not allowed.is_relative_to(ROOT) or not output.is_relative_to(allowed) or output == allowed:
         raise ValueError("candidate output must be a child of the repo's .local directory")
     spec = importlib.util.spec_from_file_location("package_static", ROOT / "scripts/package-static.py")
     package = importlib.util.module_from_spec(spec)
