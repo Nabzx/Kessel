@@ -39,7 +39,6 @@
   "docs/phase-11/working-policy-model-evidence/report.json": "aed4b822bce5695a674ecde348d5964828927e263094387c4fb42725a9c38107",
   "docs/phase-11/working-policy-models.md": "7ebbf97661d3e8bfc1b29beff9143fdfc4612bd18abda9a0312f93dc81c3c91b",
   "docs/phase-11/world-model-shift-protocol.md": "6d147fab09ac9267a84e73e3eef8c2aeb2ace073a06f94533f721d750f5ee3a0",
-  "index.html": "293a9a7ea57dfb0a1a59b5644b91bbbcfdb883aa2caed9f41d8dca4c01b78073",
   "js/experience.js": "451324e07240ef88658548fab14e90daafd7cfcfe36a83635c94d3913db54e8f",
   "scripts/research/audit-simulator-extensions.py": "8d2d3e63a90a2609b83c9a6d5d2b488c69d7b91305e657b16a4a1ae0500ce484",
   "scripts/research/evaluate-working-policy-models.py": "1513e90b429442f6897d680c14614639f1e375494f155be0232699c017741943",
@@ -62,5 +61,6 @@
   "training/kessel_lab/shift_study.py": "1f97c245a127cfa15042fa010622f451f7755dc2a5ec907d91a7525c84ea5259",
   "training/tests_lab/test_observation_log.py": "5cb4ebc6e5e028dfd32c37ab4c8674c1989797195dec771779729f0b018032f8",
   "training/tests_lab/test_runtime.py": "3fec2140e9c7481682c57c34ba959299f39a6989feec8246da2d3dbf777d3e8d",
-  "training/tests_lab/test_server.py": "61bfb34b35d71e56e614703387d20a82c0b5839e82247b72422b6143f54083de"
+  "training/tests_lab/test_server.py": "61bfb34b35d71e56e614703387d20a82c0b5839e82247b72422b6143f54083de",
+  "docs/phase-11/shift-evidence/baseline-index.html.txt": "293a9a7ea57dfb0a1a59b5644b91bbbcfdb883aa2caed9f41d8dca4c01b78073"
 }

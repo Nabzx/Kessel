@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="kessel-presentation" content="2026-11-22.01" />
+    <meta name="theme-color" content="#030506" />
+    <title>Kessel | Offline autonomy</title>
+    <meta
+      name="description"
+      content="Physical AI for extreme environments. Explore Kessel's underground autonomy concept."
+    />
+    <link rel="icon" href="data:," />
+    <link
+      rel="preload"
+      href="assets/fonts/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/experience.css?v=2026-11-22.01" />
+      <link rel="stylesheet" href="css/recorded.css?v=2026-11-22.01" />
+    <link rel="stylesheet" href="css/realism.css?v=2026-11-22.01" />
+    <link rel="stylesheet" href="css/hud.css?v=2026-11-22.01" />
+    <link rel="stylesheet" href="css/home.css?v=2026-11-22.01" />
+    <link rel="stylesheet" href="css/orbital-home.css?v=2026-11-22.01" />
+    <link rel="stylesheet" href="css/chapters.css?v=2026-11-22.01" />
+    <link rel="stylesheet" href="css/engineering.css?v=2026-11-22.01" />
+  </head>
+  <body class="story-locked">
+    <div id="environment-backdrop" class="environment-backdrop" aria-hidden="true"><img alt="" /><img alt="" /></div>
+    <div id="scene-curtain" class="scene-curtain" aria-hidden="true"></div>
+    <div id="surface-film" class="surface-film" hidden><video id="surface-video" muted playsinline preload="none" poster="assets/film/surface-poster.webp" aria-label="Original animated illustration of a mine surface"></video><button id="surface-motion" class="surface-motion">Pause scene</button><span class="surface-source">Authored site · Rwanda</span></div>
+    <canvas
+      id="world-canvas"
+      aria-label="Kessel interactive Earth and mine experience"
+    ></canvas>
+    <div class="cinema-shade" aria-hidden="true"></div>
+    <header class="navigation" id="navigation">
+      <button
+        class="brand-button"
+        id="restart"
+        tabindex="-1"
+        aria-label="Restart the experience"
+      >
+        <img src="assets/brand/kessel-orbital.svg" alt="Kessel" /></button
+      ><span id="nav-location"></span
+      ><button class="text-button" id="sources-open">Sources</button>
+    </header>
+    <nav id="chapter-rail" class="chapter-rail" aria-label="Demo chapters">
+      <span class="rail-index" id="rail-index" aria-hidden="true">01 / 07</span>
+      <div role="group" aria-label="Jump to chapter"><button data-scene="earth" aria-current="step"><i aria-hidden="true">01</i>Earth</button><button data-scene="environments"><i aria-hidden="true">02</i>Environments</button><button data-scene="surface"><i aria-hidden="true">03</i>Surface</button><button data-scene="mine"><i aria-hidden="true">04</i>Mine</button><button data-scene="training"><i aria-hidden="true">05</i>Training</button><button data-scene="inside"><i aria-hidden="true">06</i>Inside Kessel</button><button data-scene="retrofit"><i aria-hidden="true">07</i>Retrofit</button></div><span class="rail-state" id="rail-state" role="status">Explore in any order</span>
+    </nav>
+    <main id="experience" data-stage="welcome">
+      <section
+        class="welcome scene-panel"
+        id="welcome"
+        aria-label="Welcome to Kessel"
+      >
+        <div class="welcome-stack">
+          <h1 class="welcome-wordmark" aria-label="Kessel"><span aria-hidden="true">K</span><span
+            aria-hidden="true">E</span><span aria-hidden="true">S</span><span
+            aria-hidden="true">S</span><span aria-hidden="true">E</span><span
+            aria-hidden="true">L</span></h1>
+          <span class="welcome-rule" aria-hidden="true"></span>
+          <p class="home-signature">Physical AI for extreme environments</p>
+          <button class="primary start-button" id="start-experience" disabled>
+            Preparing Earth
+          </button>
+        </div>
+      </section>
+      <section
+        class="selector scene-panel"
+        id="selector"
+        hidden
+        aria-label="Choose a deployment environment"
+      >
+        <p class="section-label">Choose a deployment environment</p>
+        <aside class="orbit-panel" id="orbit-panel" aria-label="Rotating Earth and geographic context"><span>Earth</span><div class="orbit-frame" aria-hidden="true"></div><p id="orbit-location">01.82° S / 30.06° E</p></aside>
+        <figure class="environment-preview">
+          <img id="environment-image" width="768" height="432" alt="" decoding="async" />
+          <div class="environment-illustration" id="environment-icon" aria-hidden="true" hidden></div>
+          <figcaption id="environment-credit"></figcaption>
+        </figure>
+        <div class="environment-title">
+          <h1 id="environment-name" aria-live="polite">Underground</h1>
+          <span id="environment-status">Available</span>
+        </div>
+        <p class="environment-place" id="environment-place"></p>
+        <p class="environment-description" id="environment-description"></p>
+        <div class="carousel-navigation">
+          <button
+            class="round-button"
+            id="environment-prev"
+            aria-label="Previous environment"
+          >
+            &#8592;</button
+          ><span id="environment-count">01 / 05</span
+          ><button
+            class="round-button"
+            id="environment-next"
+            aria-label="Next environment"
+          >
+            &#8594;
+          </button>
+        </div>
+        <div class="environment-action"><button class="primary deploy-button" id="deploy-underground" hidden>
+          Explore underground <span aria-hidden="true">↗</span>
+        </button></div>
+      </section>
+      <div class="globe-label" id="globe-label" hidden>
+        <i></i><span id="globe-label-name"></span>
+      </div>
+      <section class="surface-panel scene-panel" id="surface-panel" hidden>
+        <p class="section-label">01.82° S, 30.06° E</p>
+        <h1>Rutongo.<br />Below the surface.</h1>
+        <p>Rwanda / illustrative mine site</p>
+        <button class="primary" id="enter-mine">Enter the mine</button>
+      </section>
+      <aside
+        class="operations scene-panel"
+        id="operations"
+        hidden
+        aria-labelledby="operations-title"
+      >
+        <div class="operations-heading">
+          <div>
+            <p class="section-label">Rutongo, Rwanda</p>
+            <h1 id="operations-title">Underground.</h1>
+          </div>
+          <span class="state-label" id="comparison-state">Baseline</span>
+        </div>
+        <div class="connectivity">
+          <span class="signal-bars" aria-hidden="true"
+            ><i></i><i></i><i></i><i></i></span
+          ><span>Weak connectivity</span
+          ><span class="local-status" id="local-status">No GPS</span>
+        </div>
+        <div class="metrics" id="metrics">
+          <div class="metric">
+            <span>Ore hauled</span
+            ><strong id="value-throughput">88 <small>t/h</small></strong
+            ><span class="metric-delta" id="delta-throughput"></span>
+          </div>
+          <div class="metric">
+            <span>Schedule</span
+            ><strong id="value-schedule">1h <small>late</small></strong
+            ><span class="metric-delta" id="delta-schedule"></span>
+          </div>
+          <div class="metric">
+            <span>Idle time</span
+            ><strong id="value-idle">38<small>%</small></strong
+            ><span class="metric-delta" id="delta-idle"></span>
+          </div>
+          <div class="metric">
+            <span>Operating cost</span
+            ><strong id="value-cost">£12.95<small>/t</small></strong
+            ><span class="metric-delta" id="delta-cost"></span>
+          </div>
+          <div class="metric metric-savings">
+            <span>Money saved</span><strong id="value-money">£0</strong
+            ><span class="metric-delta">Same ore batch</span>
+          </div>
+          <div class="metric metric-savings">
+            <span>Time saved</span
+            ><strong id="value-time">0<small>min</small></strong
+            ><span class="metric-delta">Same ore batch</span>
+          </div>
+        </div>
+        <div
+          class="comparison-switch"
+          id="comparison-switch"
+          hidden
+          role="group"
+          aria-label="Compare site policies"
+        >
+          <button id="show-before" aria-pressed="false">Before</button
+          ><button id="show-after" aria-pressed="true">Trained site</button>
+        </div>
+        <button class="primary" id="compare-trained">
+          View the trained site
+        </button>
+        <button class="secondary" id="explore-world-model" hidden>
+          Explore the world model <span>↗</span>
+        </button>
+        <p class="scenario-note">Illustrative operating scenario</p>
+        <button class="scroll-product" id="scroll-product" hidden>
+          Discover Kessel <span>↗</span>
+        </button>
+      </aside>
+      <section
+        class="model-transition"
+        id="model-transition"
+        hidden
+        aria-live="polite"
+      >
+        <p>Deploying the trained policy</p>
+        <div class="transition-flow">
+          <span>World model</span><i></i><span>Policy</span><i></i
+          ><span>Onboard</span>
+        </div>
+        <p class="small">Comparing an illustrative trained policy</p>
+      </section>
+      <p class="flight-label" id="flight-label" hidden role="status">
+        Approaching Rwanda
+      </p>
+      <button class="skip-button" id="skip-transition" hidden>
+        Skip flight
+      </button>
+    </main>
+    <article id="product" class="product" hidden>
+      <section class="product-overview" id="product-overview">
+        <div class="product-heading">
+          <p class="section-label">Physical AI. Existing machines.</p>
+          <h2>Autonomy.<br />Underground.</h2>
+          <p>Train in simulation. Run on existing machines, offline.</p>
+        </div>
+        <div class="autonomy-pipeline" aria-label="Training to offline deployment">
+<article class="pipeline-step"><div class="step-top"><span>01</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 8l12-5 12 5-12 5zM4 15l12 5 12-5M4 22l12 5 12-5"/></svg></div><h3>World model</h3><p>Predict the next state.</p><code>pθ(zₜ₊₁ | zₜ, aₜ)</code></article>
+<article class="pipeline-step"><div class="step-top"><span>02</span><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="6" cy="16" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="17" cy="25" r="3"/><circle cx="28" cy="16" r="3"/><path d="M8 14l6-5m-6 9l6 5m6-14l6 5m-6 9l6-5"/></svg></div><h3>Reinforcement learning</h3><p>Improve actions through rollouts.</p><code>πθ(aₜ | oₜ)</code></article>
+<article class="pipeline-step"><div class="step-top"><span>03</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 5h10v22H3zM22 10h7v12h-7zM13 16h9M6 9h4m-4 5h4m-4 5h4m-4 4h4"/></svg></div><h3>Policy distillation</h3><p>Transfer to a compact actor.</p><code>πteacher → πedge</code></article>
+<article class="pipeline-step"><div class="step-top"><span>04</span><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="8" width="16" height="16" rx="2"/><path d="M12 3v5m8-5v5M12 24v5m8-5v5M3 12h5m-5 8h5m16-8h5m-5 8h5M12 12h8v8h-8z"/></svg></div><h3>Offline control</h3><p>Observe and act on the machine.</p><code>oₜ → aₜ</code></article>
+</div><div class="feedback-loop"><span>Machine data</span><i aria-hidden="true"></i><span>World-model updates when connected</span></div>
+      </section>
+      <section class="engineering-chapters" id="engineering-chapters" aria-label="Technical chapters"></section>
+      <section class="kit-section engineering-lab" id="kit-section" aria-label="Proposed onboard retrofit engineering">
+        <header class="kit-heading"><div><p class="section-label">K-01 / Proposed retrofit system</p><h2>Autonomy,<br />onboard.</h2></div><div class="kit-view-controls" role="group" aria-label="Hardware view"><button id="kit-view-assembled" aria-pressed="true">Assembled</button><button id="assemble-kit" aria-pressed="false">Exploded</button><button id="kit-view-signal" aria-pressed="false">Signal path</button></div></header>
+        <aside id="kit-part-panel" class="kit-inspector" role="tabpanel" tabindex="0" aria-labelledby="kit-part-title"><p class="kit-part-code" id="kit-part-code">CHS-01 / Chassis</p><h3 id="kit-part-title">Built around the machine.</h3><p id="kit-part-description"></p><dl id="kit-part-facts"></dl><button class="kit-evidence-link" id="kit-runtime-evidence">Inspect retained CPU export ↗</button></aside>
+        <div class="kit-window" id="kit-window" aria-label="Interactive engineering assembly. Drag to rotate."><svg id="kit-leaders" aria-hidden="true"></svg><div id="kit-callouts"></div><div class="kit-model-caption"><span id="kit-stage-label">01 / Assembled unit</span><span>Drag to inspect</span><button id="kit-focus-part" aria-pressed="false">Focus part ↗</button><button id="kit-reset-view">Reset view ↺</button></div></div>
+        <div class="kit-signal-panel" id="kit-signal-panel" hidden><div class="signal-heading"><span>Local decision loop</span><span class="offline-badge"><i></i>External link offline</span></div><div id="kit-signal-steps" role="group" aria-label="Inspect local signal stages"></div><p class="signal-equation" id="kit-signal-equation"></p><p id="kit-signal-description"></p><div class="signal-transport"><button id="kit-prev" aria-label="Previous signal stage">←</button><button id="kit-pause">Pause</button><button id="kit-next" aria-label="Next signal stage">→</button><span>Illustrative signal flow</span></div></div>
+        <div class="kit-component-dock" id="kit-components" role="tablist" aria-label="Inspect retrofit components"></div>
+        <div class="kit-footer"><span>Proposed hardware · engineering study</span><span>Local sensing → compact policy → vehicle interface</span><span id="kit-envelope">340 × 260 mm / enclosure study</span></div>
+      </section>
+      <footer class="product-footer">
+        <img src="assets/brand/kessel-orbital.svg" alt="Kessel" /><span
+          >Physical AI for extreme environments.</span
+        ><button class="text-button" id="replay-experience">
+          Replay experience
+        </button>
+      </footer>
+    </article>
+    <section id="learning-ui" class="learning-ui" hidden aria-labelledby="learning-title">
+      <header class="learning-header"><button class="text-button" id="exit-world-model">← Return to mine</button><span>World-model training</span><span class="replay-label">Illustrative training · 6× replay</span></header>
+      <aside class="learning-panel training-panel">
+        <div class="training-topline"><p class="section-label">Reinforcement learning</p><span class="training-indicator" id="training-indicator">TRAINING</span></div>
+        <h1 id="learning-title">Learn the work.</h1>
+        <div class="episode-number"><strong id="episode-count">0</strong><span>represented episodes</span></div>
+        <svg id="reward-chart" class="reward-chart" viewBox="0 0 300 72" role="img" aria-label="Illustrative policy reward progression"><path class="chart-axis" d="M0 68H300M0 0V68"/><path class="chart-line" id="reward-path" d="M0 65L300 5"/><circle id="reward-point" cx="0" cy="65" r="3"/></svg>
+        <div class="chart-scale"><span>Reward / relative</span><strong id="reward-value">−0.41</strong></div>
+        <div class="training-order"><span id="training-order">Early policy</span><strong id="training-jobs">0 / 3 jobs</strong></div>
+        <p id="task-phase" class="task-phase">Approach the face</p>
+        <dl class="task-metrics"><div><dt>Payload</dt><dd id="task-payload">0.00 t</dd></div><div><dt>Delivered</dt><dd id="task-delivered">0.00 t</dd></div><div><dt>Sim time</dt><dd id="task-time">0.0 s</dd></div></dl>
+        <dl class="training-loop"><div><dt>oₜ / Observe</dt><dd>Geometry · pose · payload</dd></div><div><dt>aₜ / Act</dt><dd id="action-value">Throttle · steer · bucket</dd></div><div><dt>rₜ / Improve</dt><dd>Delivery − contact − delay</dd></div></dl>
+        <p id="checkpoint-outcome" class="checkpoint-outcome">Early policy. Bucket too high.</p>
+        <div class="training-progress" role="progressbar" aria-label="Training demonstration" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="training-progress"><i></i></div>
+        <div class="training-controls"><button class="primary" id="replay-training">Replay</button><button class="secondary" id="pause-training">Pause</button></div>
+        <button class="text-button task-continue" id="task-continue">Inside Kessel →</button>
+        <details class="training-method"><summary>Source &amp; method</summary><p>Authored kinematic demonstration. Episode counts and rewards are illustrative. Each work order is a separate evaluation episode. No live training or measured policy success is shown.</p></details>
+      </aside>
+      <div class="simulation-caption"><span>LOCAL MAP / 1 m GRID</span><span id="training-status">Policy evaluation</span><span id="payload-readout">WORK ORDER 01</span></div>
+      <div id="training-reset" class="training-reset" hidden><span>NEW EVALUATION EPISODE</span><strong>Resetting the work order</strong></div>
+    </section>
+    <dialog id="technical-dialog" class="technical-dialog" aria-labelledby="technical-title">
+      <header><span id="technical-eyebrow"></span><button id="technical-close" aria-label="Close technical chapter">Close ×</button></header>
+      <div class="technical-layout"><canvas id="technical-canvas" aria-label="Technical visualisation from the stated source"></canvas><aside><p class="section-label" id="technical-source"></p><h2 id="technical-title"></h2><p id="technical-step"></p><span id="technical-counter"></span><details><summary>Source &amp; method</summary><p id="technical-note"></p></details><nav><button id="technical-prev" aria-label="Previous step">←</button><button id="technical-pause">Pause</button><button id="technical-next">Continue →</button></nav></aside></div>
+    </dialog>
+    <span id="caption-detail" hidden>Public geography. Illustrative mission.</span>
+    <dialog id="sources-dialog">
+      <button
+        class="dialog-close"
+        id="sources-close"
+        aria-label="Close sources"
+      >
+        ×
+      </button>
+      <p>Surface sky: <a href="https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky" target="_blank" rel="noopener">Greg Zaal / Jarod Guest, Poly Haven</a>. CC0. Representative sky.</p>
+        <p class="section-label">What you are seeing</p>
+      <h2>A real location.<br />An illustrative mission.</h2>
+      <p>
+        Kessel is developing physical AI for extreme environments. This
+        experience illustrates the approach. The training chapter is an authored kinematic demonstration. Technical
+        chapters use identified experiment records and explain the proposed
+        architecture. The site performs no live training or machine control.
+      </p>
+      <dl>
+        <dt>Geography</dt>
+        <dd>
+          NASA Blue Marble, Black Marble and clouds; modified Copernicus
+          Sentinel data 2026 and Copernicus WorldDEM-30. The portal, site layout
+          and underground cutaway are authored.
+          <a
+            href="https://trinity-metals.com/en/projects/rutongo-mine"
+            target="_blank"
+            rel="noreferrer"
+            >Rutongo Mines</a
+          >
+        </dd>
+        <dt>Environment references</dt>
+        <dd><ul id="environment-sources"></ul></dd>
+        <dt>Orbit</dt>
+        <dd>Original observation spacecraft: Kessel, with solar-array and insulation detail. ISS structure: NASA / VTAD. Both use illustrative presentation orbits and apparent scales, not live tracking.
+          <a href="https://science.nasa.gov/resource/international-space-station-3d-model/" target="_blank" rel="noopener">NASA model</a></dd>
+        <dt>Mine assets</dt>
+        <dd>
+          Poly Haven Rock Face 03 by Dario Barresi and Rico Cilliers; Aerial Grass Rock by Rob Tuytel; Brown Mud Dry and Aerial Rocks 02, CC0.
+          Excavator 3d Rigging by mohamed.salaah880, CC BY 4.0; scaled and
+          animated. The truck and training loader are original Kessel geometry. Surface film: original Blender scene with CC0 MakeHuman core body, original workwear and PPE; Poly Haven Corrugated Iron and Concrete Wall 001.
+          <a
+            href="https://sketchfab.com/3d-models/excavator-3d-rigging-f82f787abd304dea89667e078ccf7052"
+            target="_blank"
+            rel="noreferrer"
+            >Excavator source</a
+          >
+        </dd>
+        <dt>Learning and performance</dt>
+        <dd>
+          Mine operating figures and savings are illustrative. The retained research
+          uses actual synthetic policy decisions and raw model forecasts; its
+          bounded runs completed no full learned delivery cycle. The main training demonstration is authored, with illustrative episode
+          counts, rewards and separate evaluation episodes. The displayed kit and onboard deployment are proposed.
+          <a
+            href="https://danijar.com/project/dreamerv3/"
+            target="_blank"
+            rel="noreferrer"
+            >World-model research</a
+          >;
+          <a
+            href="https://arxiv.org/abs/1511.06295"
+            target="_blank"
+            rel="noreferrer"
+            >policy distillation</a
+          >.
+        </dd>
+      </dl>
+      <p class="source-small">
+        Contains modified Copernicus Sentinel data 2026. Produced using
+        Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and
+        Space GmbH 2014-2018, provided under COPERNICUS by the European Union
+        and ESA; all rights reserved.
+      </p>
+    </dialog>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./assets/vendor/three.module.js",
+          "three/addons/geometries/RoundedBoxGeometry.js": "./assets/vendor/RoundedBoxGeometry.js",
+          "three/addons/loaders/GLTFLoader.js": "./assets/vendor/loaders/GLTFLoader.js",
+          "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/utils/BufferGeometryUtils.js",
+          "./js/app.js": "./js/app.js?v=2026-11-22.01",
+          "./js/authored-assets.js": "./js/authored-assets.js?v=2026-11-22.01",
+        "./js/technical-chapters.js": "./js/technical-chapters.js?v=2026-11-22.01",
+          "./js/experience.js": "./js/experience.js?v=2026-11-22.01",
+          "./js/fleet.js": "./js/fleet.js?v=2026-11-22.01",
+          "./js/geology.js": "./js/geology.js?v=2026-11-22.01",
+          "./js/environment-scenes.js": "./js/environment-scenes.js?v=2026-11-22.01",
+          "./js/globe-stage.js": "./js/globe-stage.js?v=2026-11-22.01",
+          "./js/training-stage.js": "./js/training-stage.js?v=2026-11-22.01",
+          "./js/training-trace.js": "./js/training-trace.js?v=2026-11-22.01",
+          "./js/surface-film.js": "./js/surface-film.js?v=2026-11-22.01",
+          "./js/learning-stage.js": "./js/learning-stage.js?v=2026-11-22.01",
+          "./js/loader-stage.js": "./js/loader-stage.js?v=2026-11-22.01",
+          "./js/loading-machine.js": "./js/loading-machine.js?v=2026-11-22.01",
+          "./js/material-transfer.js": "./js/material-transfer.js?v=2026-11-22.01",
+          "./js/mine-services.js": "./js/mine-services.js?v=2026-11-22.01",
+          "./js/mine-stage.js": "./js/mine-stage.js?v=2026-11-22.01",
+          "./js/mission.js": "./js/mission.js?v=2026-11-22.01",
+          "./js/height-field.js": "./js/height-field.js?v=2026-11-22.01",
+          "./js/recorded-data.js": "./js/recorded-data.js?v=2026-11-22.01",
+          "./js/replay-framing.js": "./js/replay-framing.js?v=2026-11-22.01",
+          "./js/recorded-stage.js": "./js/recorded-stage.js?v=2026-11-22.01",
+          "./js/retrofit-lab.js": "./js/retrofit-lab.js?v=2026-11-22.01",
+          "./js/surface-motion.js": "./js/surface-motion.js?v=2026-11-22.01",
+          "./js/retrofit-stage.js": "./js/retrofit-stage.js?v=2026-11-22.01",
+          "./js/scene-utils.js": "./js/scene-utils.js?v=2026-11-22.01",
+          "./js/site-detail.js": "./js/site-detail.js?v=2026-11-22.01",
+          "./js/surface-stage.js": "./js/surface-stage.js?v=2026-11-22.01",
+          "./js/underground.js": "./js/underground.js?v=2026-11-22.01",
+          "./js/vehicle.js": "./js/vehicle.js?v=2026-11-22.01"
+        }
+      }
+    </script>
+    <script type="module" src="js/experience.js?v=2026-11-22.01"></script>
+  </body>
+</html>

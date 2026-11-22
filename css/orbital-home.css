@@ -101,8 +101,14 @@ body:has(#experience[data-stage="welcome"]) .journey { display:none; }
  .environment-title h1 { font-size:72px; }
  .environment-preview figcaption { max-width:calc(100vw - 310px); }
 }
+/* A keyboard user must see the control before its decorative entrance ends. */
+body.ready .start-button:focus-visible { animation:none; opacity:1; transform:none; }
 @media(prefers-reduced-motion:reduce) {
  .environment-backdrop,.environment-backdrop img,.scene-curtain,#world-canvas,.welcome { transition:none; }
+ body.ready .welcome-wordmark span,body.ready .home-signature,body.ready .start-button {
+  animation:none; opacity:1; transform:none; filter:none;
+ }
+ body.ready .welcome-rule { animation:none; transform:scaleX(1); }
 }
 body[data-home-direction="instrument"] .welcome-stack { left:5vw; top:43%; transform:none;
   align-items:flex-start; width:min(46vw,520px); }

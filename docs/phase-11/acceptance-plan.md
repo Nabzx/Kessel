@@ -8,11 +8,12 @@ existing restrained comparison colours. Review composition, machinery framing,
 controls, source identity and transitions at 1440 × 900, 1365 × 768 and 1280 × 800.
 Change presentation only when an observed fault warrants it.
 
-Use a dedicated native Chrome session for real background/foreground tab tests.
-Remove automation's focus emulation and background-throttling bypasses; require
-actual browser-generated visibility events. Synthetic document.hidden changes
-cannot satisfy that check. Check training, local surface video, navigation and
-paused states for catch-up jumps, unwanted resume or duplicate clocks.
+The maintainer subsequently restricted this work to the repo and bounded
+headless checks after visible tab automation disrupted his workflow. Do not
+launch visible browsers, automate the desktop, create native browser profiles
+or publish remotely. The attempted native interaction run did not finish; it
+does not satisfy real background/foreground acceptance. Retain that check as
+a manual review item rather than substituting synthetic visibility events.
 
 Audit visible text contrast against computed panel colours and separately inspect
 scene-backed text in screenshots. Check focus traversal, focus visibility,
@@ -25,8 +26,8 @@ Keep authored illustration, conventional reference, learned failures, admitted
 imitation recordings and raw learned forecasts distinct. Preserve unsuccessful
 outcomes and model-assistance limits.
 
-Prepare a reproducible static candidate ZIP, hash manifest, release notes and a
-draft release after checks pass. No public publication or maintainer visual
+Prepare the review page, local release notes and a reproducible candidate
+manifest inside the repository. Do not create a remote release or deploy. No public publication or maintainer visual
 acceptance is inferred from agent review. The maintainer explicitly kept visual
 reviews #351/#385 open on 22 November; that decision remains in force until he
 judges the concrete candidate.
