@@ -19,7 +19,7 @@ def execute(output):
     for family in ('legacy','rubble','steep'):
         for substeps in (1,5,10):
             row=trace(SceneConfig(randomise=True,pile_family=family),207600,replace(LoaderConfig(),substeps=substeps))
-            cycles.append({'family':family,'substeps':substeps,**{k:row[k] for k in ('outcome','delivered_kg','spilled_kg','cycle_s','max_mass_residual_kg','independent_max_state_error')}})
+            cycles.append({'family':family,'configured_substeps':substeps,'effective_substeps':max(substeps,5),**{k:row[k] for k in ('outcome','delivered_kg','spilled_kg','cycle_s','max_mass_residual_kg','independent_max_state_error')}})
     actuators=[]
     for axis,name in enumerate(('drive','articulation','boom','bucket')):
         for sign in (-1,1):
