@@ -1,0 +1,329 @@
+{
+  "browser": "157.0.8103.79",
+  "date": "2026-11-22T18:25:11.051Z",
+  "profiles": [
+    {
+      "spec": {
+        "name": "retina",
+        "width": 1440,
+        "height": 900,
+        "dpr": 2,
+        "motion": "no-preference"
+      },
+      "frames": [
+        {
+          "name": "earth",
+          "meanFps": 60.00200006666889,
+          "p95": 16.799999999999727,
+          "p99": 16.800000000000182,
+          "drawCalls": 12,
+          "triangles": 59175,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "mine",
+          "meanFps": 59.66982695750182,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000109,
+          "drawCalls": 175,
+          "triangles": 56334,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "training-complete",
+          "meanFps": 60.002000066669005,
+          "p95": 16.799999999995634,
+          "p99": 16.80000000000291,
+          "drawCalls": 55,
+          "triangles": 43240,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "retrofit-open",
+          "meanFps": 60.00400026668439,
+          "p95": 16.70000000001164,
+          "p99": 16.80000000000291,
+          "drawCalls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "checks": [
+        "All seven direct chapters",
+        "Rounded green entry and larger product action",
+        "Paused film resumes",
+        "Baseline/trained state retained",
+        "Training pause and resume",
+        "Three jobs and 6 t endpoint",
+        "Replay resets",
+        "Five technical chapters resume",
+        "Kit assembly resumes",
+        "Latest navigation wins",
+        "Keyboard chapter rail",
+        "No document scrolling"
+      ],
+      "final": {
+        "sourceMode": "authored",
+        "source": "authored kinematic training demonstration",
+        "learnedPolicyResult": false,
+        "elapsed": 37.735890999999995,
+        "duration": 37.735890999999995,
+        "playing": false,
+        "index": 4,
+        "phase": "Task complete",
+        "jobs": 3,
+        "payloadKg": 0,
+        "deliveredKg": 2000,
+        "sourceKg": 1000,
+        "inflightKg": 0,
+        "completed": true,
+        "pose": [
+          -3.9,
+          16,
+          3.141593,
+          0,
+          0,
+          0.45,
+          -0.8
+        ],
+        "frame": {
+          "target": {
+            "x": 2,
+            "y": 1.5,
+            "z": -5
+          },
+          "safe": {
+            "left": 32,
+            "right": 1054.40625,
+            "top": 129,
+            "bottom": 812
+          },
+          "projected": {
+            "left": 97.24606957460894,
+            "right": 955.5008902292484,
+            "top": 284.6488705653511,
+            "bottom": 811.9999999639957
+          },
+          "distance": 53.56305450565432
+        }
+      }
+    },
+    {
+      "spec": {
+        "name": "compact",
+        "width": 1365,
+        "height": 768,
+        "dpr": 1,
+        "motion": "no-preference"
+      },
+      "frames": [
+        {
+          "name": "earth",
+          "meanFps": 60.00400026668444,
+          "p95": 16.700000000000273,
+          "p99": 16.799999999999955,
+          "drawCalls": 12,
+          "triangles": 59175,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "mine",
+          "meanFps": 60.00200006666888,
+          "p95": 16.799999999999272,
+          "p99": 16.80000000000109,
+          "drawCalls": 175,
+          "triangles": 56334,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "training-complete",
+          "meanFps": 60.00200006666886,
+          "p95": 16.700000000004366,
+          "p99": 16.799999999995634,
+          "drawCalls": 55,
+          "triangles": 43240,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "retrofit-open",
+          "meanFps": 60.00400026668453,
+          "p95": 16.70000000001164,
+          "p99": 16.80000000000291,
+          "drawCalls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "checks": [
+        "All seven direct chapters",
+        "Rounded green entry and larger product action",
+        "Paused film resumes",
+        "Baseline/trained state retained",
+        "Training pause and resume",
+        "Three jobs and 6 t endpoint",
+        "Replay resets",
+        "Five technical chapters resume",
+        "Kit assembly resumes",
+        "Latest navigation wins",
+        "Keyboard chapter rail",
+        "No document scrolling"
+      ],
+      "final": {
+        "sourceMode": "authored",
+        "source": "authored kinematic training demonstration",
+        "learnedPolicyResult": false,
+        "elapsed": 37.735890999999995,
+        "duration": 37.735890999999995,
+        "playing": false,
+        "index": 4,
+        "phase": "Task complete",
+        "jobs": 3,
+        "payloadKg": 0,
+        "deliveredKg": 2000,
+        "sourceKg": 1000,
+        "inflightKg": 0,
+        "completed": true,
+        "pose": [
+          -3.9,
+          16,
+          3.141593,
+          0,
+          0,
+          0.45,
+          -0.8
+        ],
+        "frame": {
+          "target": {
+            "x": 2,
+            "y": 1.5,
+            "z": -5
+          },
+          "safe": {
+            "left": 32,
+            "right": 982.40625,
+            "top": 105,
+            "bottom": 680
+          },
+          "projected": {
+            "left": 130.46907635411063,
+            "right": 855.7664030612582,
+            "top": 235.0732069921357,
+            "bottom": 679.9999998295903
+          },
+          "distance": 54.07694391100257
+        }
+      }
+    },
+    {
+      "spec": {
+        "name": "reduced",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "motion": "reduce"
+      },
+      "frames": [
+        {
+          "name": "earth",
+          "meanFps": 60.00200006666889,
+          "p95": 16.799999999999727,
+          "p99": 16.800000000000182,
+          "drawCalls": 12,
+          "triangles": 59175,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "mine",
+          "meanFps": 60.00200006666888,
+          "p95": 16.700000000000728,
+          "p99": 16.800000000000182,
+          "drawCalls": 175,
+          "triangles": 56334,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "training-complete",
+          "meanFps": 60.00400026668439,
+          "p95": 16.799999999995634,
+          "p99": 16.80000000000291,
+          "drawCalls": 55,
+          "triangles": 43240,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        },
+        {
+          "name": "retrofit-open",
+          "meanFps": 60.00400026668453,
+          "p95": 16.700000000004366,
+          "p99": 16.80000000000291,
+          "drawCalls": 50,
+          "triangles": 22082,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+        }
+      ],
+      "checks": [
+        "All seven direct chapters",
+        "Rounded green entry and larger product action",
+        "Paused film resumes",
+        "Baseline/trained state retained",
+        "Training pause and resume",
+        "Three jobs and 6 t endpoint",
+        "Replay resets",
+        "Five technical chapters resume",
+        "Kit assembly resumes",
+        "Latest navigation wins",
+        "Keyboard chapter rail",
+        "No document scrolling"
+      ],
+      "final": {
+        "sourceMode": "authored",
+        "source": "authored kinematic training demonstration",
+        "learnedPolicyResult": false,
+        "elapsed": 37.735890999999995,
+        "duration": 37.735890999999995,
+        "playing": false,
+        "index": 4,
+        "phase": "Task complete",
+        "jobs": 3,
+        "payloadKg": 0,
+        "deliveredKg": 2000,
+        "sourceKg": 1000,
+        "inflightKg": 0,
+        "completed": true,
+        "pose": [
+          -3.9,
+          16,
+          3.141593,
+          0,
+          0,
+          0.45,
+          -0.8
+        ],
+        "frame": {
+          "target": {
+            "x": 2,
+            "y": 1.5,
+            "z": -5
+          },
+          "safe": {
+            "left": 32,
+            "right": 900.8125,
+            "top": 105,
+            "bottom": 712
+          },
+          "projected": {
+            "left": 70.05396841284387,
+            "right": 832.8470044256287,
+            "top": 243.31545166098348,
+            "bottom": 711.9999998296125
+          },
+          "distance": 53.56996534085512
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "recovery": [
+    "Missing destination retains the current chapter",
+    "Retry prepares the destination"
+  ]
+}

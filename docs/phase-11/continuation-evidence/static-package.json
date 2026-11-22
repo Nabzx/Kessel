@@ -1,6 +1,7 @@
 {
   "source_mode": "authored_concept",
   "runtime_excluded": true,
+  "presentation_version": "2026-11-22.01",
   "files": {
     "LICENSE": {
       "sha256": "e226c366612b466bde079ac4c0bd3915fa6db39c83b17afd128ec2923ebd23b8",
@@ -455,7 +456,7 @@
       "bytes": 37528
     },
     "index.html": {
-      "sha256": "dc358a5237337291e13019486e38d6b9764e0a39a13042685dad31ad7d99feb6",
+      "sha256": "293a9a7ea57dfb0a1a59b5644b91bbbcfdb883aa2caed9f41d8dca4c01b78073",
       "bytes": 24672
     },
     "js/app.js": {
@@ -471,8 +472,8 @@
       "bytes": 2365
     },
     "js/experience.js": {
-      "sha256": "d8db3aa255759c64c5327f6f832603c8a96e8ab9cf7ca2896daa69eab1d45680",
-      "bytes": 44372
+      "sha256": "451324e07240ef88658548fab14e90daafd7cfcfe36a83635c94d3913db54e8f",
+      "bytes": 44713
     },
     "js/fleet.js": {
       "sha256": "0a1a7b29555671bf4aa295b7df89c70824272435cc27d9435a82818c3e012097",
@@ -579,5 +580,5 @@
       "bytes": 9429
     }
   },
-  "total_bytes": 43999639
+  "total_bytes": 43999980
 }
