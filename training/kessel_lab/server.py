@@ -63,7 +63,7 @@ class Handler(SimpleHTTPRequestHandler):
             return self.json(404,{'error':'open /docs/phase-11/live-demo/'})
         if '..' in self.path or '%2e' in self.path.lower() or not path.endswith(('/','.html','.js','.css','.json','.glb','.jpg','.png','.webp','.woff2','.txt','.md')):
             return self.json(404,{'error':'unsupported asset'})
-                super().do_GET()
+        super().do_GET()
     def list_directory(self,path):
         return self.json(404,{'error':'directory listing disabled'})
     def do_HEAD(self):
