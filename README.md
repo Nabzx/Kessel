@@ -29,6 +29,21 @@ scenarios using imitation-trained controls and disclosed rule-based phase memory
 The [study report](docs/phase-11/phase-memory-study.md) retains the 54/96 memoryless
 comparator and all data costs. Playback is finite recorded evidence.
 
+## Interactive synthetic simulation
+
+The [local interactive route](docs/phase-11/live-demo/README.md) runs new physics
+and frozen-policy inference through Python. Start it from the repository root:
+
+```sh
+PYTHONPATH=training training/.venv/bin/python -m kessel_lab.server --port 8090
+```
+
+Open <http://127.0.0.1:8090/docs/phase-11/live-demo/>. Choose a scenario and
+controller, then run, pause, step or reset. The [416-case stress test](docs/phase-11/shift-study.md)
+retains the limits of the frozen policies; changed scenarios may fail. This is
+an isolated, uncalibrated synthetic runtime with no machine connection.
+The static main experience and recorded viewer do not require this service.
+
 ## Experience
 
 1. Start below the photographic rotating Earth and original wordmark, with

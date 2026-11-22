@@ -1,0 +1,57 @@
+{
+  "kind": "frozen-policy-shift-v1",
+  "seeds": [
+    206200,
+    206201,
+    206202,
+    206203,
+    206204,
+    206205,
+    206206,
+    206207
+  ],
+  "families": [
+    "nominal",
+    "low",
+    "ridge",
+    "rubble",
+    "steep",
+    "receiver_far",
+    "receiver_left",
+    "start_offset",
+    "low_grip",
+    "high_resistance",
+    "range_dropout",
+    "range_impaired",
+    "blocked"
+  ],
+  "sources": [
+    "phase_memory-7",
+    "phase_memory-19",
+    "phase_memory-41",
+    "reference"
+  ],
+  "source": {
+    "package_sha256": "8dac3b56ca990e8c119596a1d199073581b650cd6ed7db119dda6a92588027ba",
+    "git_commit": "644f52e32d8f7eb7afda8bd369c7f15198395ec7",
+    "training_dirty": false
+  },
+  "lab_files": {
+    "__init__.py": "189b419fc89e3ab903d87f40a7d8716a8ab185b0e69c4f9b29b296d32f7e3017",
+    "observations.py": "e0c7316affbd645a09f293d2a66bcfc3a16870239f648200e6bc61ae859e5db9",
+    "recorder.py": "3a5ff5bfcc73d1f9a1a067bc7f6eaa66f7bcfb20b2ab41f2f19652417be1d6bb",
+    "reserve.py": "a658dcc9d29bdf8eb6fd5780b73f8a64c0c445cb1b8d951405eccdd166255f13",
+    "runtime.py": "1fd052d1f36f1c306b3898e1c94d94729cbbed7d118feecc890ab876ea6c9433",
+    "server.py": "0a296922189f8c527f66b4f9399ac5dddf6f3c05a3435fe19a19b2dd1ac00394",
+    "shift_study.py": "1f97c245a127cfa15042fa010622f451f7755dc2a5ec907d91a7525c84ea5259"
+  },
+  "protocol_sha256": "7660668313cd9bc9e30445756e2f3b36a68a91f222bd0d08162e25753d0ae102",
+  "reservation_sha256": "9c894ec1f7f08f1ded60d3b8d428341aee76c021c41e4990cd114ca3de795cae",
+  "software": {
+    "torch": "2.15.0",
+    "numpy": "2.5.4"
+  },
+  "policy_updates": 0,
+  "teacher_queries_for_learned": 0,
+  "selection": "all frozen ADR-0061 phase-memory actors; no new selection"
+}

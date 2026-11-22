@@ -1,0 +1,15 @@
+{
+  "external_network_blocked": true,
+  "loopback_available": true,
+  "external_attempts": [],
+  "chapters": [
+    "earth",
+    "environments",
+    "surface",
+    "mine",
+    "training",
+    "inside",
+    "retrofit"
+  ],
+  "errors": []
+}

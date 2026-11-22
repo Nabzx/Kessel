@@ -55,6 +55,8 @@ let surfacePromise,
   kitEnvironment,
   earthGoal = null,
   entryContext = null;
+const initialisationStarted=performance.now();
+let initialisationMs=null;
 let lastTime = 0,
   globalTime = 0,
   quality = Math.min(devicePixelRatio || 1, 1.5),
@@ -723,6 +725,8 @@ async function init() {
       li.append(document.createTextNode(image.credit+". "+image.subject+". "));
       link.href=image.page;link.textContent="Free source";link.target="_blank";link.rel="noopener";li.append(link);$("environment-sources").append(li);
     }
+    initialisationMs=performance.now()-initialisationStarted;
+    frameTimes=[];qualityFrames=[];lastTime=0;
     document.body.classList.add("ready");
     $("start-experience").disabled = false;
     $("start-experience").textContent = "Enter experience ↗";
@@ -742,7 +746,7 @@ function render(now) {
     delta = lastTime ? Math.min(ms / 1000, 0.1) : 0;
   lastTime = now;
   if (document.hidden || $("technical-dialog").open) return;
-  if (ms) {
+  if (ms && document.body.classList.contains("ready")) {
     frameTimes.push(ms);
     if (frameTimes.length > 180) frameTimes.shift();
     qualityFrames.push(ms);
@@ -873,6 +877,8 @@ export function diagnostics() {
   const authoredAssets=new Set();scene.traverse(o=>{const path=o.userData.authoredAsset||o.userData.assetPath;if(path)authoredAssets.add(path);});
   return {
     authoredAssets:[...authoredAssets],
+    initialisationMs,
+    frameMeasurement:"Visible frames after readiness; initialisation recorded separately",
     preparationMs:{...preparationMs},
     stage,
     chapter,chapterBusy,chapterRequest,surfaceFilm:surfaceFilm.diagnostics(),surfaceMotion:surface?.diagnostics?.(),technical:technicalChapters?.diagnostics(),

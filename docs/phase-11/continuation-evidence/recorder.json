@@ -1,0 +1,24 @@
+{
+  "source": "synthetic mixed-rate shadow probe; no hardware connection",
+  "decisions": 100,
+  "records": 201,
+  "range_stale_decisions": 10,
+  "replayed_proposals": 100,
+  "max_replayed_action_error": 0.0,
+  "log_bytes": 223683,
+  "bytes_per_decision": 2236.83,
+  "estimated_mb_per_hour_at_10hz": 80.52588,
+  "fsync_pair_us": {
+    "median": 401.187,
+    "p95": 525.6422999999999
+  },
+  "alignment_us": {
+    "median": 51.625,
+    "p95": 68.5645999999999
+  },
+  "explicit_tail_recovery": true,
+  "quota_preserves_records": true,
+  "applied_machine_commands": 0,
+  "sha256": "53923caa1984951d9ec38df10e038e7e0023053beea5b425813576510f2c5fa9",
+  "limits": "Local filesystem fsync measurement, not sudden-power-loss hardware qualification; no image or raw-range storage."
+}

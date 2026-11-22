@@ -1,0 +1,256 @@
+{
+  "kind": "simulator-extension-audit-v1",
+  "seed": 207600,
+  "source": "consumed nominal scene; not new held-out evidence",
+  "cycles": [
+    {
+      "family": "legacy",
+      "configured_substeps": 1,
+      "effective_substeps": 5,
+      "outcome": "success",
+      "delivered_kg": 2020.8929571455656,
+      "spilled_kg": 0.0,
+      "cycle_s": 36.38000000000009,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "legacy",
+      "configured_substeps": 5,
+      "effective_substeps": 5,
+      "outcome": "success",
+      "delivered_kg": 2020.8929571455656,
+      "spilled_kg": 0.0,
+      "cycle_s": 36.38000000000009,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "legacy",
+      "configured_substeps": 10,
+      "effective_substeps": 10,
+      "outcome": "success",
+      "delivered_kg": 2003.8621863661554,
+      "spilled_kg": 0.0,
+      "cycle_s": 36.38000000000133,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "rubble",
+      "configured_substeps": 1,
+      "effective_substeps": 5,
+      "outcome": "tunnel_wall",
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "cycle_s": 23.519999999999587,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "rubble",
+      "configured_substeps": 5,
+      "effective_substeps": 5,
+      "outcome": "tunnel_wall",
+      "delivered_kg": 0.0,
+      "spilled_kg": 0.0,
+      "cycle_s": 23.519999999999587,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "rubble",
+      "configured_substeps": 10,
+      "effective_substeps": 10,
+      "outcome": "time_limit",
+      "delivered_kg": 1378.7622651464296,
+      "spilled_kg": 0.0,
+      "cycle_s": 59.99999999999663,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "steep",
+      "configured_substeps": 1,
+      "effective_substeps": 5,
+      "outcome": "success",
+      "delivered_kg": 2012.0788215332452,
+      "spilled_kg": 0.0,
+      "cycle_s": 36.16000000000005,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "steep",
+      "configured_substeps": 5,
+      "effective_substeps": 5,
+      "outcome": "success",
+      "delivered_kg": 2012.0788215332452,
+      "spilled_kg": 0.0,
+      "cycle_s": 36.16000000000005,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    },
+    {
+      "family": "steep",
+      "configured_substeps": 10,
+      "effective_substeps": 10,
+      "outcome": "success",
+      "delivered_kg": 2007.5677718601783,
+      "spilled_kg": 0.0,
+      "cycle_s": 36.360000000001335,
+      "max_mass_residual_kg": 3.637978807091713e-12,
+      "independent_max_state_error": 0.0
+    }
+  ],
+  "actuators": [
+    {
+      "axis": "drive",
+      "command": -1,
+      "speed_m_s": -1.5,
+      "joints_rad": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "reason": "",
+      "decisions": 30
+    },
+    {
+      "axis": "drive",
+      "command": 1,
+      "speed_m_s": 2.0,
+      "joints_rad": [
+        0.0,
+        0.0,
+        -0.1
+      ],
+      "reason": "",
+      "decisions": 30
+    },
+    {
+      "axis": "articulation",
+      "command": -1,
+      "speed_m_s": 0.0,
+      "joints_rad": [
+        -0.6,
+        0.0,
+        -0.1
+      ],
+      "reason": "",
+      "decisions": 30
+    },
+    {
+      "axis": "articulation",
+      "command": 1,
+      "speed_m_s": 0.0,
+      "joints_rad": [
+        0.6,
+        0.0,
+        -0.1
+      ],
+      "reason": "",
+      "decisions": 30
+    },
+    {
+      "axis": "boom",
+      "command": -1,
+      "speed_m_s": 0.0,
+      "joints_rad": [
+        0.0,
+        -0.1,
+        -0.1
+      ],
+      "reason": "",
+      "decisions": 30
+    },
+    {
+      "axis": "boom",
+      "command": 1,
+      "speed_m_s": 0.0,
+      "joints_rad": [
+        0.0,
+        0.7500000000000006,
+        -0.1
+      ],
+      "reason": "",
+      "decisions": 30
+    },
+    {
+      "axis": "bucket",
+      "command": -1,
+      "speed_m_s": 0.0,
+      "joints_rad": [
+        0.0,
+        0.0,
+        -0.7
+      ],
+      "reason": "",
+      "decisions": 30
+    },
+    {
+      "axis": "bucket",
+      "command": 1,
+      "speed_m_s": 0.0,
+      "joints_rad": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "reason": "",
+      "decisions": 30
+    }
+  ],
+  "reward_probes": [
+    {
+      "probe": "idle_60s",
+      "reward": -0.12,
+      "terms": {
+        "elapsed_s": 60
+      }
+    },
+    {
+      "probe": "delivery_2000kg",
+      "reward": 0.4914285714285715,
+      "terms": {
+        "delivered_kg": 2000,
+        "elapsed_s": 40
+      }
+    },
+    {
+      "probe": "spill_2000kg",
+      "reward": -0.6514285714285715,
+      "terms": {
+        "spilled_kg": 2000,
+        "elapsed_s": 40
+      }
+    },
+    {
+      "probe": "collision",
+      "reward": -5.0,
+      "terms": {
+        "collision_count": 1
+      }
+    },
+    {
+      "probe": "pickup_only",
+      "reward": 0.0,
+      "terms": {}
+    },
+    {
+      "probe": "high_effort_delivery",
+      "reward": 0.4314285714285715,
+      "terms": {
+        "delivered_kg": 2000,
+        "elapsed_s": 40,
+        "effort_proxy_j": 2000000.0
+      }
+    }
+  ],
+  "wall_s": 44.298106625210494,
+  "limits": [
+    "height-field contact; no granular fracture or calibrated hydraulics",
+    "substep sensitivity is a discretisation diagnostic, not proof of physical fidelity",
+    "reward ranking does not prove a reward-only optimiser can find complete cycles"
+  ]
+}

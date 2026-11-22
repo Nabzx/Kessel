@@ -106,3 +106,7 @@ and controlled local fade while retaining contextual source distinctions.
 [Guided task and engineering chapters](0053-guided-task-and-engineering-chapters.md)
 sets the conventional reference entry, full-machine fitting, prepared fades,
 progressive disclosure, detailed proposed hardware and source-aware technical chapters.
+
+[Phase-memory imitation](0061-phase-memory-and-rehearsal-study.md) qualifies finite
+nominal recorded evidence. [Shift evaluation and local runtime](0062-interactive-synthetic-runtime.md)
+adds frozen-policy stress tests, fresh localhost execution and separate observation/logging prototypes.
