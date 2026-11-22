@@ -63,5 +63,23 @@
     "cycle_s": 1.2400000000000007,
     "decisions": 13,
     "max_mass_residual_kg": 0
-  }
+  },
+  "http": [
+    {
+      "url": "/training/kessel_lab/server.py",
+      "status": 404
+    },
+    {
+      "url": "/assets/",
+      "status": 404
+    },
+    {
+      "url": "/api/info",
+      "status": 403
+    },
+    {
+      "origin": "external",
+      "status": 403
+    }
+  ]
 }
