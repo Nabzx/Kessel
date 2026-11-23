@@ -9,13 +9,14 @@ NOMINAL_RECEIVER_X_M = -1.5
 
 
 def encode(observation, phase):
-    p = np.asarray(observation["proprio"])
+    p = np.asarray(observation["proprio"], dtype=np.float64)
     phase = np.asarray(phase)
     if p.ndim != 2 or p.shape[1] != 15 or phase.shape != (len(p),):
         raise ValueError("observation and phase batch shapes differ")
     if not np.isin(phase, np.arange(5)).all():
         raise ValueError("invalid phase")
     result = {k: np.asarray(v).copy() for k, v in observation.items()}
+    result["proprio"] = p.copy()
     carrying = phase >= 3
     result["proprio"][carrying, 0] = (
         NOMINAL_RECEIVER_X_M - p[carrying, 9] * p[carrying, 3]

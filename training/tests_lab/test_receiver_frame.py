@@ -30,6 +30,10 @@ class ReceiverFrameTests(unittest.TestCase):
         first = observation();second = observation();second["proprio"][0, 0] += 2.
         np.testing.assert_array_equal(encode(first, [3])["proprio"], encode(second, [3])["proprio"])
 
+    def test_integer_packets_do_not_truncate_the_receiver_frame(self):
+        obs=observation();obs["proprio"]=obs["proprio"].astype(int)
+        self.assertEqual(encode(obs,[3])["proprio"][0,0],-3.5)
+
     def test_phase_uses_original_goal_and_never_calls_teacher(self):
         torch.set_num_threads(1)
         raw = PhaseActor(True);actor = ReceiverFrameActor(raw)
