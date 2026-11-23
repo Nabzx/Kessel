@@ -1,0 +1,84 @@
+{
+  "verified": true,
+  "role": "supplemental historical-ZIP check after outcome freeze; no new policy queries",
+  "reservation_sha256": "b2fe7564da079575cc25662baaa0d9607306de86d2b871db84b8a7129f9f4a92",
+  "inventory": [
+    {
+      "oid": "04066b26de0c781726f6570c572c1400684a7c0b",
+      "path": "docs/phase-11/five-stage-evidence/source.zip",
+      "sha256": "35faa3538c84b2fe5dadb9b99630b8e9abcd8f1174c36f302c60174c90f23129"
+    },
+    {
+      "oid": "27a20ef6998cf5db3361c5fd7d3d9368cf75fad5",
+      "path": "docs/phase-11/full-cycle-evidence/artifacts.zip",
+      "sha256": "0954702a6d7e4256d211c25f09cadae3d755f262e0b18cb916e9510325a360be"
+    },
+    {
+      "oid": "fa79168ee69d44db3d01c768f638312b1fbce403",
+      "path": "docs/phase-11/full-cycle-evidence/source.zip",
+      "sha256": "6cab022478d80b856fda162fb66dcb8c940258cea43f8dd064083f02820d07ab"
+    },
+    {
+      "oid": "d0d00dddd4fa98be1e9374ef7808367e55b0d595",
+      "path": "docs/phase-11/phase-memory-demo/offline-preview.zip",
+      "sha256": "60016d880358044a7d676bf1c9882faf96b13c3215a1da8ce0519f2b057c4a34"
+    },
+    {
+      "oid": "62ebc1c921ede73925b682b665a3f92e1cdf0918",
+      "path": "docs/phase-11/phase-memory-evidence/artifacts.zip",
+      "sha256": "6bb07fff9f0c7f7d2c58ed04f6b6548aa345d869b781586e11550f285b7da290"
+    },
+    {
+      "oid": "9c6e2923a2a06e829a07cedfdbdee3319fc627d2",
+      "path": "docs/phase-11/phase-memory-evidence/source.zip",
+      "sha256": "50c7799f4d2835b6284cf2b04d66adfced69c1ddf0c4e690ecfb5636f0d51c29"
+    },
+    {
+      "oid": "8681e53b857edff2e9ef5226cac4bac66938bac4",
+      "path": "docs/phase-11/receiver-evidence/pilot-traces.zip",
+      "sha256": "738e84412236a7b7575567c3038ca4301c2afe56229a95b53405371d526793c2"
+    },
+    {
+      "oid": "3c9bea69b2ce7475fe5b79ac843e78bd59e6b6e2",
+      "path": "docs/phase-11/retraction-pilot-evidence/artifacts.zip",
+      "sha256": "53689848e5e9fff96ca3c6e34ca2387dd57fccd8d6df3ac1eaba5c0cf46dc457"
+    },
+    {
+      "oid": "79e7fdb051bf43e47d7cf9d7325adf1e02a934c2",
+      "path": "docs/phase-11/retraction-pilot-evidence/source.zip",
+      "sha256": "66a184b1dee0c98728e1ea96ac6cf0326be9502764c164fa660dca74ef1e5cbd"
+    },
+    {
+      "oid": "c69bdb27151a05b12ca07527997b0603f19b4749",
+      "path": "docs/phase-11/shift-evidence/source.zip",
+      "sha256": "5023168e7442c7a4a249564f2a71fbf5e67a1f4bd9624da1a5b87e6b293cf44a"
+    },
+    {
+      "oid": "1eca72226915fd9f2a5025a4f6a1d956f53a376e",
+      "path": "docs/phase-11/shift-evidence/traces.zip",
+      "sha256": "118b5786a66d86a285ab2c922b9a1f67d326db66a15a2df1ba6a227602c53dd9"
+    },
+    {
+      "oid": "c9f152545b69b1b5bda0db02499c81bc5ea638f3",
+      "path": "docs/phase-11/working-policy-model-evidence/calibration.zip",
+      "sha256": "444c5581f58d2bba1b58c3b550feb043646ca43a3818713ce713993029186853"
+    }
+  ],
+  "excluded_current_outputs": [
+    {
+      "oid": "13840d0b69ab16d210afbe3f893b776fa41c2963",
+      "path": "docs/phase-11/receiver-evidence/qualification-source.zip",
+      "reason": "current qualification output"
+    },
+    {
+      "oid": "586aac590a3335cc7fb2d3c39a5bfe0b94b3d89c",
+      "path": "docs/phase-11/receiver-evidence/qualification-traces.zip",
+      "reason": "current qualification output"
+    }
+  ],
+  "new_member_blobs": 0,
+  "hits": [],
+  "wall_s": 1.5848227087408304,
+  "cap_s": 15,
+  "new_policy_queries": 0
+}

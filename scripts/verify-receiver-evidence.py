@@ -31,6 +31,10 @@ def verify():
     assert cert["verified"] and not cert["hits"] and not cert["errors"]
     assert cert["base"]["reservation_verified"] and not cert["base"]["hits"] and not cert["base"]["failures"]
     assert cert["seeds"]==list(range(205800,205808)) and cert["new_policy_queries"]==0
+    supplement=json.loads((D/"zip-history.json").read_text())
+    assert supplement["verified"] and not supplement["hits"]
+    assert supplement["reservation_sha256"]==sha((D/"reservation.json").read_bytes())
+    assert supplement["new_policy_queries"]==0 and supplement["wall_s"]<=supplement["cap_s"]==15
     report=json.loads((D/"qualification.json").read_text());plan=report["plan"]
     assert json.loads((D/"qualification-plan.json").read_text())==plan
     assert sha((D/"reservation.json").read_bytes())==plan["reservation_sha256"]
@@ -40,6 +44,9 @@ def verify():
     assert report["adapted_physical_replay_cases"]==48 and report["learned_action_replay_cases"]==96
     assert report["max_state_error"]==report["max_action_error"]==0
     assert report["teacher_training_queries"]==report["optimiser_updates"]==0
+    evaluation=json.loads((D/"qualification-evaluation.json").read_text())
+    assert evaluation["cases"]==report["cases"] and evaluation["budget_stop"] is None
+    assert evaluation["environment_decisions"]==report["evaluation_decisions"]
     expected={(f,seed,"phase_memory-"+str(p),m) for f in ("nominal","receiver_far")
               for seed in cert["seeds"] for p in (7,19,41) for m in ("original",METHOD)}
     expected|={(f,seed,"reference","reference") for f in ("nominal","receiver_far") for seed in cert["seeds"]}
@@ -76,6 +83,7 @@ def verify():
             if case["method"]==METHOD:physical_queries+=case["decisions"]
     assert max_mass<1e-7 and decisions==report["evaluation_decisions"]
     assert action_queries==report["action_replay_queries"] and physical_queries==report["physics_replay_decisions"]
+    assert decisions-action_queries==report["reference_controller_queries"]
     passed=all(len(rows:=[c for c in report["cases"] if c["method"]==METHOD and
                          c["source"]=="phase_memory-"+str(p) and c["family"]==f])==8
                and sum(c["full_success"] for c in rows)>=7 and not any(c["collision"] for c in rows)
