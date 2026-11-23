@@ -1,0 +1,2321 @@
+{
+  "kind": "receiver-retained-diagnosis-v1",
+  "role": "diagnosis of already consumed cases; no qualification",
+  "retained_cases": 64,
+  "cases": [
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206200,
+      "trace_sha256": "28af53f620912b274147fb2d4525f1e1ef63d157758c3e60806d62d94fdfeaa1",
+      "reason": "success",
+      "phase_counts": {
+        "0": 11,
+        "1": 76,
+        "2": 33,
+        "3": 196,
+        "4": 33
+      },
+      "delivered_kg": 2005.3903622871906,
+      "terminal_x_m": -5.529958033550412,
+      "terminal_speed_m_s": 0.07648899098682194,
+      "terminal_load_kg": 787.5397271734535,
+      "mouth_error_m": -0.4945029553296756,
+      "observed_receiver_x_m": -1.4999999999999993,
+      "drive_command": -0.1343243569135666,
+      "force": {
+        "requested_n": -2955.135852098465,
+        "drive_n": -2955.135852098465,
+        "slope_n": -5091.889077294717,
+        "free_force_n": 2136.753225196252,
+        "rolling_n": 2212.2722325926075,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206201,
+      "trace_sha256": "6ccc3469a215703820634823d44793b9863ea777dcb1658d65ebf3d226e35cbd",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 110,
+        "2": 35,
+        "3": 193,
+        "4": 34
+      },
+      "delivered_kg": 2001.1995167652956,
+      "terminal_x_m": -5.900424038144453,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 595.3622887139446,
+      "mouth_error_m": -0.1258896281880526,
+      "observed_receiver_x_m": -1.5000000000000004,
+      "drive_command": -0.0070068733766674995,
+      "force": {
+        "requested_n": -154.151214286685,
+        "drive_n": -154.151214286685,
+        "slope_n": -1583.8784860647318,
+        "free_force_n": 1429.7272717780468,
+        "rolling_n": 2176.679588811957,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206202,
+      "trace_sha256": "177687de946850cce71bb0e92569b06358a3e51e0cfc23123d173980aa9917a2",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 96,
+        "2": 34,
+        "3": 187,
+        "4": 34
+      },
+      "delivered_kg": 2018.3278176718688,
+      "terminal_x_m": -5.901507238560517,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 594.7946023837882,
+      "mouth_error_m": -0.12456698111231379,
+      "observed_receiver_x_m": -1.4999999999999993,
+      "drive_command": -7.643550634384155e-05,
+      "force": {
+        "requested_n": -1.6815811395645142,
+        "drive_n": -1.6815811395645142,
+        "slope_n": -2037.331106452659,
+        "free_force_n": 2035.6495253130945,
+        "rolling_n": 2176.417307353664,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206203,
+      "trace_sha256": "75c5ec0dd0dae794e4d9d845068c169bed6dacdbe1ed31e646a43d6cc605806c",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 98,
+        "2": 33,
+        "3": 163,
+        "4": 34
+      },
+      "delivered_kg": 2017.2823374092402,
+      "terminal_x_m": -5.998902696820629,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 606.4894491813022,
+      "mouth_error_m": -0.02784548220699179,
+      "observed_receiver_x_m": -1.5000000000000002,
+      "drive_command": 0.0037684484850615263,
+      "force": {
+        "requested_n": 82.90586667135358,
+        "drive_n": 82.90586667135358,
+        "slope_n": 590.0276134141072,
+        "free_force_n": -507.12174674275366,
+        "rolling_n": 2179.0612776173925,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206204,
+      "trace_sha256": "f38614e6cc1249ad586e0d10af9464ab10f5cadbe4fad0a28d7abe4f712ea1a9",
+      "reason": "success",
+      "phase_counts": {
+        "0": 15,
+        "1": 122,
+        "2": 34,
+        "3": 150,
+        "4": 34
+      },
+      "delivered_kg": 2017.8437261362753,
+      "terminal_x_m": -6.111524985106977,
+      "terminal_speed_m_s": -0.002803158925480339,
+      "terminal_load_kg": 603.3292719227317,
+      "mouth_error_m": 0.08480518874676068,
+      "observed_receiver_x_m": -1.5,
+      "drive_command": 0.017604030668735504,
+      "force": {
+        "requested_n": 387.2886747121811,
+        "drive_n": 387.2886747121811,
+        "slope_n": 2887.919427981785,
+        "free_force_n": -2500.6307532696037,
+        "rolling_n": 2177.7073873521977,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206205,
+      "trace_sha256": "6c205e82ce05715a622cd04f43242244d0e18db0c39c57a17dadb2fcb77b37d2",
+      "reason": "success",
+      "phase_counts": {
+        "0": 16,
+        "1": 193,
+        "2": 34,
+        "3": 137,
+        "4": 34
+      },
+      "delivered_kg": 2011.5673324899255,
+      "terminal_x_m": -6.527917051977152,
+      "terminal_speed_m_s": -0.09475937575692708,
+      "terminal_load_kg": 599.6326525808122,
+      "mouth_error_m": 0.5008338512951616,
+      "observed_receiver_x_m": -1.4999999999999996,
+      "drive_command": 0.19206729531288147,
+      "force": {
+        "requested_n": 4225.480496883392,
+        "drive_n": 4225.480496883392,
+        "slope_n": 6026.765885922966,
+        "free_force_n": -1801.2853890395736,
+        "rolling_n": 2174.409595265998,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206206,
+      "trace_sha256": "d4b5004172cf36eaaa05975f491021f3c400b1147eb94c5081829fb8c28b1d4a",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 140,
+        "2": 34,
+        "3": 157,
+        "4": 34
+      },
+      "delivered_kg": 2004.5622162681752,
+      "terminal_x_m": -6.118452862963512,
+      "terminal_speed_m_s": -0.00012528930692016883,
+      "terminal_load_kg": 597.1068671126015,
+      "mouth_error_m": 0.09209662813938913,
+      "observed_receiver_x_m": -1.4999999999999998,
+      "drive_command": 0.023601336404681206,
+      "force": {
+        "requested_n": 519.2294009029865,
+        "drive_n": 519.2294009029865,
+        "slope_n": 2837.238007460723,
+        "free_force_n": -2318.0086065577366,
+        "rolling_n": 2176.512770688091,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-7",
+      "seed": 206207,
+      "trace_sha256": "6e2e40c76dab38cef0cad10e634a04ba77e1d6ed78b41cec69248bb10d6e74d5",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 131,
+        "2": 34,
+        "3": 157,
+        "4": 34
+      },
+      "delivered_kg": 2010.3526541767544,
+      "terminal_x_m": -6.116128272323557,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 589.2798256823769,
+      "mouth_error_m": 0.09178709421886211,
+      "observed_receiver_x_m": -1.4999999999999998,
+      "drive_command": 0.03880372270941734,
+      "force": {
+        "requested_n": 853.6818996071815,
+        "drive_n": 853.6818996071815,
+        "slope_n": 2661.4730177956862,
+        "free_force_n": -1807.7911181885047,
+        "rolling_n": 2175.0654159774904,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206200,
+      "trace_sha256": "a56df051a4a07ee571403d9c7f74069a65aa9c66aa32ab4657ddffb5ae8e2b8b",
+      "reason": "success",
+      "phase_counts": {
+        "0": 11,
+        "1": 79,
+        "2": 32,
+        "3": 193,
+        "4": 34
+      },
+      "delivered_kg": 2021.3254320658045,
+      "terminal_x_m": -5.568741841672826,
+      "terminal_speed_m_s": 0.03910402499303845,
+      "terminal_load_kg": 626.0416796709715,
+      "mouth_error_m": -0.45245243134474045,
+      "observed_receiver_x_m": -1.499999999999999,
+      "drive_command": -0.14175423979759216,
+      "force": {
+        "requested_n": -3118.5932755470276,
+        "drive_n": -3118.5932755470276,
+        "slope_n": -5018.5555086857685,
+        "free_force_n": 1899.9622331387409,
+        "rolling_n": 2180.6198393569443,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206201,
+      "trace_sha256": "80086cdab2a8a65fd698f5b85fae0b43b3c8f2d18e97974df9a6ce460c110167",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 112,
+        "2": 33,
+        "3": 193,
+        "4": 34
+      },
+      "delivered_kg": 2015.8940910411477,
+      "terminal_x_m": -5.923660906720784,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 606.7203453926309,
+      "mouth_error_m": -0.10292837311985004,
+      "observed_receiver_x_m": -1.5000000000000004,
+      "drive_command": -0.020582249388098717,
+      "force": {
+        "requested_n": -452.80948653817177,
+        "drive_n": -452.80948653817177,
+        "slope_n": -1585.4801283191498,
+        "free_force_n": 1132.670641780978,
+        "rolling_n": 2178.907803582935,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206202,
+      "trace_sha256": "d2a43fc3a6b6ce04e7669d2e1ecf60be297e800da88f2795c073fde1fe1a9fc1",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 97,
+        "2": 33,
+        "3": 187,
+        "4": 34
+      },
+      "delivered_kg": 2022.157243216962,
+      "terminal_x_m": -5.904768706633298,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 606.4237426618607,
+      "mouth_error_m": -0.12251445626399526,
+      "observed_receiver_x_m": -1.4999999999999993,
+      "drive_command": -0.0063821254298090935,
+      "force": {
+        "requested_n": -140.40675945580006,
+        "drive_n": -140.40675945580006,
+        "slope_n": -2039.4535284323324,
+        "free_force_n": 1899.0467689765323,
+        "rolling_n": 2178.69854491397,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206203,
+      "trace_sha256": "467893272b19117d8a01ea8f26c7d80a282d730a569c07395acb55846cf52089",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 99,
+        "2": 33,
+        "3": 167,
+        "4": 34
+      },
+      "delivered_kg": 2017.2494906762802,
+      "terminal_x_m": -6.071432956147593,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 615.3328921342844,
+      "mouth_error_m": 0.04666552146181324,
+      "observed_receiver_x_m": -1.4999999999999993,
+      "drive_command": 0.019258419051766396,
+      "force": {
+        "requested_n": 423.6852191388607,
+        "drive_n": 423.6852191388607,
+        "slope_n": 590.4796699913226,
+        "free_force_n": -166.79445085246186,
+        "rolling_n": 2180.7963356830246,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206204,
+      "trace_sha256": "0a96e5b580153984dc7c63c0f80d3cb47af3e4d97508729a48a34f0896c25f72",
+      "reason": "success",
+      "phase_counts": {
+        "0": 15,
+        "1": 124,
+        "2": 32,
+        "3": 156,
+        "4": 34
+      },
+      "delivered_kg": 2006.3985639682544,
+      "terminal_x_m": -6.192856830569637,
+      "terminal_speed_m_s": -0.0034402502442673704,
+      "terminal_load_kg": 609.4924858072898,
+      "mouth_error_m": 0.17039184082482794,
+      "observed_receiver_x_m": -1.4999999999999998,
+      "drive_command": 0.04157022014260292,
+      "force": {
+        "requested_n": 914.5448431372643,
+        "drive_n": 914.5448431372643,
+        "slope_n": 2889.3409889902655,
+        "free_force_n": -1974.7961458530012,
+        "rolling_n": 2178.916184828841,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206205,
+      "trace_sha256": "c6de8020d106639b188d655f85e25a1057a6a1a61cf6591942294559fa300803",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 221,
+        "2": 32,
+        "3": 144,
+        "4": 38
+      },
+      "delivered_kg": 2008.6302734078238,
+      "terminal_x_m": -6.595065736693961,
+      "terminal_speed_m_s": -0.06251461014142387,
+      "terminal_load_kg": 196.66348837331188,
+      "mouth_error_m": 0.5712472404132471,
+      "observed_receiver_x_m": -1.4999999999999998,
+      "drive_command": 0.20559364557266235,
+      "force": {
+        "requested_n": 4523.060202598572,
+        "drive_n": 4523.060202598572,
+        "slope_n": 5807.845710571156,
+        "free_force_n": -1284.7855079725841,
+        "rolling_n": 2095.4682424595726,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206206,
+      "trace_sha256": "9acb05b34d5998d890fe7b15ae755f3401a83d787cbe1e6bc4d3327c5a789a38",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 143,
+        "2": 33,
+        "3": 162,
+        "4": 34
+      },
+      "delivered_kg": 2021.1639974841296,
+      "terminal_x_m": -6.193960892476186,
+      "terminal_speed_m_s": -0.002929281597237429,
+      "terminal_load_kg": 607.5558545539836,
+      "mouth_error_m": 0.16846926058747425,
+      "observed_receiver_x_m": -1.4999999999999996,
+      "drive_command": 0.03363920748233795,
+      "force": {
+        "requested_n": 740.0625646114349,
+        "drive_n": 740.0625646114349,
+        "slope_n": 2839.8977731926216,
+        "free_force_n": -2099.8352085811866,
+        "rolling_n": 2178.5621656231197,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-19",
+      "seed": 206207,
+      "trace_sha256": "19b49d13635c00393028611616bb642dbb928fb1417bbc68a8a07bdcfa3e123a",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 131,
+        "2": 33,
+        "3": 159,
+        "4": 34
+      },
+      "delivered_kg": 2000.9617390260012,
+      "terminal_x_m": -6.138674271485266,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 599.6066329754701,
+      "mouth_error_m": 0.1126694713209373,
+      "observed_receiver_x_m": -1.4999999999999996,
+      "drive_command": 0.03934449329972267,
+      "force": {
+        "requested_n": 865.5788525938988,
+        "drive_n": 865.5788525938988,
+        "slope_n": 2663.9249996900517,
+        "free_force_n": -1798.346147096153,
+        "rolling_n": 2177.09092906344,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206200,
+      "trace_sha256": "4e589f58b63d4c6d6244982a26ba76dbd73dfd9cb11875129ca7e8b9b2223864",
+      "reason": "success",
+      "phase_counts": {
+        "0": 11,
+        "1": 76,
+        "2": 36,
+        "3": 192,
+        "4": 34
+      },
+      "delivered_kg": 2028.1797772611965,
+      "terminal_x_m": -5.589886243030109,
+      "terminal_speed_m_s": 0.041360207854117086,
+      "terminal_load_kg": 596.6697529897438,
+      "mouth_error_m": -0.43680733592467647,
+      "observed_receiver_x_m": -1.5000000000000007,
+      "drive_command": -0.15922769904136658,
+      "force": {
+        "requested_n": -3503.0093789100647,
+        "drive_n": -3503.0093789100647,
+        "slope_n": -5005.769275038553,
+        "free_force_n": 1502.7598961284884,
+        "rolling_n": 2174.8631643520093,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206201,
+      "trace_sha256": "3de7612ea8d5a002437050fce309d7a8039dd2abfead5c29940409d5b0316261",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 113,
+        "2": 33,
+        "3": 190,
+        "4": 34
+      },
+      "delivered_kg": 2023.8100536576226,
+      "terminal_x_m": -5.990627242653415,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 585.285126756645,
+      "mouth_error_m": -0.0344475944221454,
+      "observed_receiver_x_m": -1.4999999999999991,
+      "drive_command": -0.022999338805675507,
+      "force": {
+        "requested_n": -505.98545372486115,
+        "drive_n": -505.98545372486115,
+        "slope_n": -1582.3372061542862,
+        "free_force_n": 1076.351752429425,
+        "rolling_n": 2174.702658976334,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206202,
+      "trace_sha256": "f661933c2a209555d96120e65f0100ce92e97616ac633206d7270f253cd7e174",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 98,
+        "2": 36,
+        "3": 185,
+        "4": 34
+      },
+      "delivered_kg": 2020.6876175546556,
+      "terminal_x_m": -5.974780687692834,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 585.8426985123086,
+      "mouth_error_m": -0.0506302131607832,
+      "observed_receiver_x_m": -1.5000000000000004,
+      "drive_command": -0.018555324524641037,
+      "force": {
+        "requested_n": -408.2171395421028,
+        "drive_n": -408.2171395421028,
+        "slope_n": -2035.5770303911142,
+        "free_force_n": 1627.3598908490114,
+        "rolling_n": 2174.6612515438997,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206203,
+      "trace_sha256": "7e727d4518582467fa77bf83b4acbf9c9250ab5a4474595c3d43c76712a2de55",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 99,
+        "2": 35,
+        "3": 165,
+        "4": 34
+      },
+      "delivered_kg": 2003.434509290768,
+      "terminal_x_m": -6.1074468548590675,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 589.450355952426,
+      "mouth_error_m": 0.08067474536716368,
+      "observed_receiver_x_m": -1.4999999999999998,
+      "drive_command": 0.01836104318499565,
+      "force": {
+        "requested_n": 403.9429500699043,
+        "drive_n": 403.9429500699043,
+        "slope_n": 589.0972371483608,
+        "free_force_n": -185.1542870784565,
+        "rolling_n": 2175.7182565457347,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206204,
+      "trace_sha256": "4756a29b39adb434c1eaf7cdf4ea10c4d4e41f64b21479deed19ffc07bb07595",
+      "reason": "success",
+      "phase_counts": {
+        "0": 15,
+        "1": 124,
+        "2": 36,
+        "3": 155,
+        "4": 34
+      },
+      "delivered_kg": 2012.6895470757963,
+      "terminal_x_m": -6.237797677978376,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 587.268566503967,
+      "mouth_error_m": 0.2118760553319472,
+      "observed_receiver_x_m": -1.5000000000000002,
+      "drive_command": 0.03908149525523186,
+      "force": {
+        "requested_n": 859.7928956151009,
+        "drive_n": 859.7928956151009,
+        "slope_n": 2883.6043898175635,
+        "free_force_n": -2023.8114942024627,
+        "rolling_n": 2174.5573846836314,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206205,
+      "trace_sha256": "74ea2bfb055aa0a13b3eb21e35d7640038bba95b0c035b77d884bf3bceaffc3a",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 204,
+        "2": 38,
+        "3": 144,
+        "4": 34
+      },
+      "delivered_kg": 2021.4655419178712,
+      "terminal_x_m": -6.674471194866426,
+      "terminal_speed_m_s": -0.04937896511672542,
+      "terminal_load_kg": 578.7598311885243,
+      "mouth_error_m": 0.6488119377486212,
+      "observed_receiver_x_m": -1.4999999999999996,
+      "drive_command": 0.19121351838111877,
+      "force": {
+        "requested_n": 4206.697404384613,
+        "drive_n": 4206.697404384613,
+        "slope_n": 6015.431273530683,
+        "free_force_n": -1808.73386914607,
+        "rolling_n": 2170.320625429225,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206206,
+      "trace_sha256": "2d65aa1ed8c47ba156cc6e93fff6dd0ef3b89e87eb65d52181caa73f95d520c7",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 141,
+        "2": 35,
+        "3": 160,
+        "4": 34
+      },
+      "delivered_kg": 2003.916292039589,
+      "terminal_x_m": -6.253166795702607,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 582.877010256836,
+      "mouth_error_m": 0.22617697780841173,
+      "observed_receiver_x_m": -1.5,
+      "drive_command": 0.03505402058362961,
+      "force": {
+        "requested_n": 771.1884528398514,
+        "drive_n": 771.1884528398514,
+        "slope_n": 2833.6006237279703,
+        "free_force_n": -2062.412170888119,
+        "rolling_n": 2173.721821160208,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "phase_memory-41",
+      "seed": 206207,
+      "trace_sha256": "7a16e1b6886e7c1dbc2277ec4aaf377c4fb575f8be50b6af987265e8e8f82a67",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 131,
+        "2": 35,
+        "3": 159,
+        "4": 34
+      },
+      "delivered_kg": 2007.2564414168128,
+      "terminal_x_m": -6.229419934143418,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 579.9760365277932,
+      "mouth_error_m": 0.20475306515059177,
+      "observed_receiver_x_m": -1.5000000000000004,
+      "drive_command": 0.037094034254550934,
+      "force": {
+        "requested_n": 816.0687536001205,
+        "drive_n": 816.0687536001205,
+        "slope_n": 2659.1209813646924,
+        "free_force_n": -1843.0522277645719,
+        "rolling_n": 2173.2405589673162,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206200,
+      "trace_sha256": "2c85e128e7676f8bb3b2ffc4a03f21455debea3660a19f805c5af75f4cd9d09c",
+      "reason": "success",
+      "phase_counts": {
+        "0": 11,
+        "1": 77,
+        "2": 32,
+        "3": 190,
+        "4": 33
+      },
+      "delivered_kg": 2013.9199805492822,
+      "terminal_x_m": -5.471761992618161,
+      "terminal_speed_m_s": 0.07626594992233698,
+      "terminal_load_kg": 770.0709880931842,
+      "mouth_error_m": -0.5462930306018765,
+      "observed_receiver_x_m": -1.5000000000000002,
+      "drive_command": -0.13727870986020657,
+      "force": {
+        "requested_n": -3020.1316169245447,
+        "drive_n": -3020.1316169245447,
+        "slope_n": -5082.39832390614,
+        "free_force_n": 2062.2667069815952,
+        "rolling_n": 2208.848492137223,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206201,
+      "trace_sha256": "dc89cf0662656eff4c1ebbe9214060ec0daaaa37dd1889f372014a7a0817bd0c",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 112,
+        "2": 32,
+        "3": 188,
+        "4": 34
+      },
+      "delivered_kg": 2000.3510524487806,
+      "terminal_x_m": -5.880759959650763,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 569.8029331906083,
+      "mouth_error_m": -0.14634846723076844,
+      "observed_receiver_x_m": -1.5,
+      "drive_command": 0.0,
+      "force": {
+        "requested_n": 0.0,
+        "drive_n": 0.0,
+        "slope_n": -1580.221606612504,
+        "free_force_n": 1580.221606612504,
+        "rolling_n": 2171.665374221828,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206202,
+      "trace_sha256": "836574217b7d44d2075a326824bf8278b3ed44c20399b04d07db70cd7e0d6436",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 98,
+        "2": 32,
+        "3": 181,
+        "4": 34
+      },
+      "delivered_kg": 2021.9719975254325,
+      "terminal_x_m": -5.865809636074421,
+      "terminal_speed_m_s": -0.0036688275027504666,
+      "terminal_load_kg": 575.9616911285955,
+      "mouth_error_m": -0.159031605048904,
+      "observed_receiver_x_m": -1.4999999999999993,
+      "drive_command": 0.00660388950495084,
+      "force": {
+        "requested_n": 145.28556910891848,
+        "drive_n": 145.28556910891848,
+        "slope_n": -2033.6872543512268,
+        "free_force_n": 2178.9728234601453,
+        "rolling_n": 2172.722937563812,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206203,
+      "trace_sha256": "ee7700f25b3b2ed8f2c4646ab3dc2cf9ee028c8e14374b12588fe677efad04e9",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 100,
+        "2": 32,
+        "3": 160,
+        "4": 34
+      },
+      "delivered_kg": 2003.379825683413,
+      "terminal_x_m": -5.979243172465267,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 578.2873300949212,
+      "mouth_error_m": -0.045116161349891826,
+      "observed_receiver_x_m": -1.5,
+      "drive_command": 0.0,
+      "force": {
+        "requested_n": 0.0,
+        "drive_n": 0.0,
+        "slope_n": 588.4646922359824,
+        "free_force_n": -588.4646922359824,
+        "rolling_n": 2173.5281029874545,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206204,
+      "trace_sha256": "6a164bd6f559b60f4e1f062a022778dd860089565508956cf19cd6ffd5b6d1ad",
+      "reason": "success",
+      "phase_counts": {
+        "0": 15,
+        "1": 126,
+        "2": 32,
+        "3": 145,
+        "4": 34
+      },
+      "delivered_kg": 2017.4605032708316,
+      "terminal_x_m": -6.111770522085907,
+      "terminal_speed_m_s": -0.01864436576875481,
+      "terminal_load_kg": 567.5265095789634,
+      "mouth_error_m": 0.09194656165062565,
+      "observed_receiver_x_m": -1.4999999999999998,
+      "drive_command": 0.033559858383758655,
+      "force": {
+        "requested_n": 738.3168844426904,
+        "drive_n": 738.3168844426904,
+        "slope_n": 2877.8173770867065,
+        "free_force_n": -2139.500492644016,
+        "rolling_n": 2170.6853547587134,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206205,
+      "trace_sha256": "72a586cafee0c0b9a3e903eec45727cc3b1bd10ec51dd225e524a98c054b5934",
+      "reason": "success",
+      "phase_counts": {
+        "0": 16,
+        "1": 196,
+        "2": 32,
+        "3": 131,
+        "4": 34
+      },
+      "delivered_kg": 2003.7490104860387,
+      "terminal_x_m": -6.439850682457339,
+      "terminal_speed_m_s": -0.10118418113507953,
+      "terminal_load_kg": 563.6693655958945,
+      "mouth_error_m": 0.41887266059968997,
+      "observed_receiver_x_m": -1.5000000000000004,
+      "drive_command": 0.18213152604314314,
+      "force": {
+        "requested_n": 4006.893572949149,
+        "drive_n": 4006.893572949149,
+        "slope_n": 6006.044938424564,
+        "free_force_n": -1999.1513654754149,
+        "rolling_n": 2167.3644146960696,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206206,
+      "trace_sha256": "4caa0f817e5243fc8c17f1b99a344a92f96c4be36b10ebd20ed053255ae67204",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 143,
+        "2": 32,
+        "3": 151,
+        "4": 34
+      },
+      "delivered_kg": 2005.0281271465988,
+      "terminal_x_m": -6.118192132884137,
+      "terminal_speed_m_s": -0.01738691441891352,
+      "terminal_load_kg": 571.1352047827905,
+      "mouth_error_m": 0.0909776646478786,
+      "observed_receiver_x_m": -1.5000000000000007,
+      "drive_command": 0.031296445954044336,
+      "force": {
+        "requested_n": 688.5218109889754,
+        "drive_n": 688.5218109889754,
+        "slope_n": 2830.62166230696,
+        "free_force_n": -2142.0998513179848,
+        "rolling_n": 2171.418861490519,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "nominal",
+      "source": "reference",
+      "seed": 206207,
+      "trace_sha256": "cc9005b750468ace54c3d328e9db459b6c81b34132f29f76997e72494ccac53d",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 133,
+        "2": 32,
+        "3": 151,
+        "4": 34
+      },
+      "delivered_kg": 2017.9558881247456,
+      "terminal_x_m": -6.0916691290398575,
+      "terminal_speed_m_s": -0.012781870363421564,
+      "terminal_load_kg": 567.6658649896808,
+      "mouth_error_m": 0.07223605965869417,
+      "observed_receiver_x_m": -1.4999999999999993,
+      "drive_command": 0.023007366654158815,
+      "force": {
+        "requested_n": 506.1620663914939,
+        "drive_n": 506.1620663914939,
+        "slope_n": 2655.6169132583564,
+        "free_force_n": -2149.4548468668627,
+        "rolling_n": 2170.8260263016978,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206200,
+      "trace_sha256": "4f80e9293ea30a8bbb73079c9960b1620bd7f4d2adaaed542a27ec0f8c98a57c",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 11,
+        "1": 77,
+        "2": 34,
+        "3": 478
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.479470557472107,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2623.912765239057,
+      "mouth_error_m": -1.5417486375934017,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": -0.31013792753219604,
+      "force": {
+        "requested_n": -6823.034405708313,
+        "drive_n": -6823.034405708313,
+        "slope_n": -5918.574022471376,
+        "free_force_n": -904.4603832369367,
+        "rolling_n": 2572.1874292597886,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.8127502202987671
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.31013792753219604
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9511834979057312
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206201,
+      "trace_sha256": "d2fe26f8a0347d5100369dcc0d4ebefd605602cd2feca05779d7a7330450061e",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 111,
+        "2": 34,
+        "3": 438
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.627672355895529,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2473.164120588822,
+      "mouth_error_m": -1.4006869565119144,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": -0.12609058618545532,
+      "force": {
+        "requested_n": -2773.992896080017,
+        "drive_n": -2773.992896080017,
+        "slope_n": -1851.9343451912498,
+        "free_force_n": -922.0585508887673,
+        "rolling_n": 2545.065299248233,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.866156816482544
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.12609058618545532
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9410430192947388
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206202,
+      "trace_sha256": "dbe71da2c8be30280e2f7be4937b060559d1ea3c4a8f3df9e7e37bb4770c61bd",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 98,
+        "2": 34,
+        "3": 451
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.634300873753012,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2512.106480373061,
+      "mouth_error_m": -1.3936864415254204,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": -0.14014899730682373,
+      "force": {
+        "requested_n": -3083.277940750122,
+        "drive_n": -3083.277940750122,
+        "slope_n": -2389.401183214772,
+        "free_force_n": -693.87675753535,
+        "rolling_n": 2552.5279884792108,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.8639792203903198
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.14014899730682373
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.941939651966095
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206203,
+      "trace_sha256": "e39a53b0fa842f8c94cd28e83196f77c735475ac11851c1ed70b3b88869abe38",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 100,
+        "2": 34,
+        "3": 449
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.734328193013435,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2547.0722292816226,
+      "mouth_error_m": -1.292523961593163,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": 0.0006897597340866923,
+      "force": {
+        "requested_n": 15.174714149907231,
+        "drive_n": 15.174714149907231,
+        "slope_n": 693.0834120468838,
+        "free_force_n": -677.9086978969766,
+        "rolling_n": 2559.798036201305,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.883704662322998
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.0006897597340866923
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9299935698509216
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206204,
+      "trace_sha256": "254943810da933970b4274bc5ef5f1f1085f950304294451672d2d632e92ae39",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 15,
+        "1": 124,
+        "2": 34,
+        "3": 427
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.797661907583963,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2479.975478350657,
+      "mouth_error_m": -1.2282945033008712,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": 0.11580794304609299,
+      "force": {
+        "requested_n": 2547.7747470140457,
+        "drive_n": 2547.7747470140457,
+        "slope_n": 3375.7147060388106,
+        "free_force_n": -827.9399590247649,
+        "rolling_n": 2545.775937522905,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.896732747554779
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.11580794304609299
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9171186685562134
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206205,
+      "trace_sha256": "20863f5b968d32a1efa6719d5a3379f81d84b0d7ff665051de0ff9290f6f90ee",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 196,
+        "2": 35,
+        "3": 352
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.919065291896309,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2468.3995896704346,
+      "mouth_error_m": -1.1075760369064858,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.24807263910770416,
+      "force": {
+        "requested_n": 5457.598060369492,
+        "drive_n": 5457.598060369492,
+        "slope_n": 7041.228440005797,
+        "free_force_n": -1583.6303796363054,
+        "rolling_n": 2540.499617027098,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.911141574382782
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.24807263910770416
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8947314023971558
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206206,
+      "trace_sha256": "879fee8a9998b11a5e960f9840ad0aa79d7813ac34701c1c014a5fc863244b0a",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 13,
+        "1": 142,
+        "2": 34,
+        "3": 411
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.817458906435967,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2488.070765071564,
+      "mouth_error_m": -1.2107134178888295,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.11336047947406769,
+      "force": {
+        "requested_n": 2493.930548429489,
+        "drive_n": 2493.930548429489,
+        "slope_n": 3320.738936797029,
+        "free_force_n": -826.8083883675399,
+        "rolling_n": 2547.3938590747525,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.8989169001579285
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.11336047947406769
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9193862676620483
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-7",
+      "seed": 206207,
+      "trace_sha256": "9f2a4359936b47acd765a51828be6b77d050604a0afd797531b4f203d71b2413",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 13,
+        "1": 133,
+        "2": 34,
+        "3": 420
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.834692259802121,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2490.813647918006,
+      "mouth_error_m": -1.1908327222395427,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.1118616983294487,
+      "force": {
+        "requested_n": 2460.9573632478714,
+        "drive_n": 2460.9573632478714,
+        "slope_n": 3117.6123193675853,
+        "free_force_n": -656.6549561197139,
+        "rolling_n": 2548.034672689497,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.900495707988739
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.1118616983294487
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9200634956359863
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206200,
+      "trace_sha256": "989db74b9d186f4d8ed10e9eb6e884e657b82afe2fe73b829c53013f53d6aa31",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 11,
+        "1": 77,
+        "2": 34,
+        "3": 478
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.699036731536028,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2630.67049257919,
+      "mouth_error_m": -1.3188542123421567,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": -0.368641197681427,
+      "force": {
+        "requested_n": -8110.106348991394,
+        "drive_n": -8110.106348991394,
+        "slope_n": -5920.040401735532,
+        "free_force_n": -2190.065947255862,
+        "rolling_n": 2573.511892598245,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.6338613629341125
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.368641197681427
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9127985835075378
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206201,
+      "trace_sha256": "9e345417f89c3d6c589e0b45fdbfd8744fc6faf50a2526b9ee82673ee955ad09",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 109,
+        "2": 34,
+        "3": 440
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.802054348309526,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2474.419749261646,
+      "mouth_error_m": -1.2242621579742736,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": -0.17490048706531525,
+      "force": {
+        "requested_n": -3847.8107154369354,
+        "drive_n": -3847.8107154369354,
+        "slope_n": -1851.974761063776,
+        "free_force_n": -1995.8359543731594,
+        "rolling_n": 2545.3116275097295,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7157734632492065
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.17490048706531525
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8849319219589233
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206202,
+      "trace_sha256": "c4f2ad909ed889fd518682ec306d32213787a8488be4e6d925117e7e32561049",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 94,
+        "2": 35,
+        "3": 454
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.746429298607187,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2494.582811893596,
+      "mouth_error_m": -1.280026807409977,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": -0.19604094326496124,
+      "force": {
+        "requested_n": -4312.900751829147,
+        "drive_n": -4312.900751829147,
+        "slope_n": -2386.14424858998,
+        "free_force_n": -1926.7565032391672,
+        "rolling_n": 2549.0904471155486,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7113872170448303
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.19604094326496124
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8921430706977844
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206203,
+      "trace_sha256": "431ef43c3a4994d6b38fcf1d267d6d85f74790a8bf6c84171da3566b4ab6b2df",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 95,
+        "2": 35,
+        "3": 453
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.963507544413241,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2528.684737850181,
+      "mouth_error_m": -1.060018789219236,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": -0.05472085624933243,
+      "force": {
+        "requested_n": -1203.8588374853134,
+        "drive_n": -1203.8588374853134,
+        "slope_n": 691.9706541538935,
+        "free_force_n": -1895.829491639207,
+        "rolling_n": 2556.1904632815176,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7568632364273071
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.05472085624933243
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8523924350738525
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206204,
+      "trace_sha256": "b6fc2c3e9eca6b9f505f82f42f3e9f24720f6af4c2081b9bc4adcacf29c44516",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 15,
+        "1": 118,
+        "2": 34,
+        "3": 433
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.083605396630033,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2474.964576559317,
+      "mouth_error_m": -0.9353448268204958,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.06489244103431702,
+      "force": {
+        "requested_n": 1427.6337027549744,
+        "drive_n": 1427.6337027549744,
+        "slope_n": 3373.0005204024765,
+        "free_force_n": -1945.366817647502,
+        "rolling_n": 2544.793144201996,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7880887389183044
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.06489244103431702
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8104667663574219
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206205,
+      "trace_sha256": "aaa0beabcc60786f24ce81badb5b65633a30e876e0ec9d7064661c69029059b0",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 221,
+        "2": 35,
+        "3": 327
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.22505511396022,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2399.7944051126046,
+      "mouth_error_m": -0.7899805692303965,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.2046990841627121,
+      "force": {
+        "requested_n": 4503.379851579666,
+        "drive_n": 4503.379851579666,
+        "slope_n": 6998.962921796689,
+        "free_force_n": -2495.5830702170233,
+        "rolling_n": 2527.0599135471048,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.8199639916419983
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.2046990841627121
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.7444313764572144
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206206,
+      "trace_sha256": "9d1b25e41d8037df40cae7ca91aeb450cda80d04ecdc4fe933a80de0c8fcbe5f",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 13,
+        "1": 137,
+        "2": 35,
+        "3": 415
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.051862991953362,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2486.1197015273633,
+      "mouth_error_m": -0.9729131137454057,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.06166454032063484,
+      "force": {
+        "requested_n": 1356.6198870539665,
+        "drive_n": 1356.6198870539665,
+        "slope_n": 3319.656333579057,
+        "free_force_n": -1963.0364465250905,
+        "rolling_n": 2547.011190441276,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7893721461296082
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.06166454032063484
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8216717839241028
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-19",
+      "seed": 206207,
+      "trace_sha256": "6c1f15d6b5fc703ef83d46ad30419cadf5313862c01554f839d9126c96ccb26b",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 13,
+        "1": 126,
+        "2": 35,
+        "3": 426
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.972700234535188,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2490.1237704741184,
+      "mouth_error_m": -1.051813741820209,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.05211837589740753,
+      "force": {
+        "requested_n": 1146.6042697429657,
+        "drive_n": 1146.6042697429657,
+        "slope_n": 3117.474818382202,
+        "free_force_n": -1970.8705486392364,
+        "rolling_n": 2547.8993592522816,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7936571836471558
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.05211837589740753
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8280830383300781
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206200,
+      "trace_sha256": "4beac5dd48e91386159a55428924a4df7be860d7b01aa3acc096d6daad96145b",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 11,
+        "1": 80,
+        "2": 35,
+        "3": 474
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.818240209637394,
+      "terminal_speed_m_s": -0.002427906610505635,
+      "terminal_load_kg": 2572.8475516535295,
+      "mouth_error_m": -1.2101645089316464,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": -0.38456109166145325,
+      "force": {
+        "requested_n": -8460.344016551971,
+        "drive_n": -8460.344016551971,
+        "slope_n": -5897.653678504286,
+        "free_force_n": -2562.690338047685,
+        "rolling_n": 2562.17903444593,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.5885711312294006
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.38456109166145325
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.9116629362106323
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206201,
+      "trace_sha256": "fcb059d12f8d8125bd06dd847a323470a5a08385cb0182b53ce993049923f855",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 18,
+        "1": 118,
+        "2": 33,
+        "3": 431
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.98577001900878,
+      "terminal_speed_m_s": -0.002474633724258517,
+      "terminal_load_kg": 2475.785556991683,
+      "mouth_error_m": -1.0357261659148973,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": -0.19995227456092834,
+      "force": {
+        "requested_n": -4398.950040340424,
+        "drive_n": -4398.950040340424,
+        "slope_n": -1851.3906644443857,
+        "free_force_n": -2547.5593758960376,
+        "rolling_n": 2545.579570613421,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.6569554209709167
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.19995227456092834
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8705704808235168
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206202,
+      "trace_sha256": "cdfd9eea68cb5f790889f7a7ad01fc25eb2e1fd0ef1b4d56ae83a7beb16ee44d",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 18,
+        "1": 102,
+        "2": 35,
+        "3": 445
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -6.967409364865522,
+      "terminal_speed_m_s": -0.002263869388976271,
+      "terminal_load_kg": 2494.012028331498,
+      "mouth_error_m": -1.0535934358571568,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": -0.22490455210208893,
+      "force": {
+        "requested_n": -4947.900146245956,
+        "drive_n": -4947.900146245956,
+        "slope_n": -2384.9114927547103,
+        "free_force_n": -2562.988653491246,
+        "rolling_n": 2548.9784790018675,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.650009036064148
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.22490455210208893
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8767350912094116
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206203,
+      "trace_sha256": "d8dcc9fd85ea6b3baf25015eaeabe89c85c473e1a51e221c7f58a011f325d006",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 106,
+        "2": 34,
+        "3": 443
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.1068500902128,
+      "terminal_speed_m_s": -0.001997271850821989,
+      "terminal_load_kg": 2504.687836695701,
+      "mouth_error_m": -0.9216631624174956,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": -0.08586587756872177,
+      "force": {
+        "requested_n": -1889.049306511879,
+        "drive_n": -1889.049306511879,
+        "slope_n": 690.8670177964605,
+        "free_force_n": -2579.9163243083394,
+        "rolling_n": 2551.4823403118066,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.6760870218276978
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": -0.08586587756872177
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.839645266532898
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206204,
+      "trace_sha256": "8dbec628d53fca54804c545d99e8c38d1e74bbc70cc242500cd046fceea61565",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 15,
+        "1": 134,
+        "2": 35,
+        "3": 416
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.221197647944505,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2487.1325386885333,
+      "mouth_error_m": -0.806781790797996,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.033299099653959274,
+      "force": {
+        "requested_n": 732.580192387104,
+        "drive_n": 732.580192387104,
+        "slope_n": 3377.8272164672235,
+        "free_force_n": -2645.2470240801194,
+        "rolling_n": 2547.1796591263824,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7008991241455078
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.033299099653959274
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8000683784484863
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206205,
+      "trace_sha256": "0be1752c6b37380ad77a90d08f62beaa0a74bb2c86c77641d62163de2c4a5e13",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 17,
+        "1": 221,
+        "2": 36,
+        "3": 326
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.294823358785872,
+      "terminal_speed_m_s": -0.0025889473435209837,
+      "terminal_load_kg": 2277.153669076602,
+      "mouth_error_m": -0.7342612037468368,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.20136207342147827,
+      "force": {
+        "requested_n": 4429.965615272522,
+        "drive_n": 4429.965615272522,
+        "slope_n": 6937.642613055847,
+        "free_force_n": -2507.6769977833246,
+        "rolling_n": 2503.03468662708,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7437208294868469
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.20136207342147827
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.7302334308624268
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206206,
+      "trace_sha256": "4f8c6a427261bd87e1655c4e54bf82a4a729b2cb7c2c3bf316bdccb5b48e1dc4",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 13,
+        "1": 153,
+        "2": 35,
+        "3": 399
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.222674282169148,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 2482.838094854253,
+      "mouth_error_m": -0.8046160882109366,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.031021788716316223,
+      "force": {
+        "requested_n": 682.4793517589569,
+        "drive_n": 682.4793517589569,
+        "slope_n": 3318.9905309479564,
+        "free_force_n": -2636.5111791889994,
+        "rolling_n": 2546.3675579235464,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7084217071533203
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.031021788716316223
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8016386032104492
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "phase_memory-41",
+      "seed": 206207,
+      "trace_sha256": "d2cbc77bd1e08622b77c6f887dc352bf7464529542e4f1d063f45e4316f919a5",
+      "reason": "time_limit",
+      "phase_counts": {
+        "0": 13,
+        "1": 141,
+        "2": 35,
+        "3": 411
+      },
+      "delivered_kg": 0.0,
+      "terminal_x_m": -7.213643614436931,
+      "terminal_speed_m_s": -0.0006957610804908202,
+      "terminal_load_kg": 2477.9810911964805,
+      "mouth_error_m": -0.8070713323913368,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.022702118381857872,
+      "force": {
+        "requested_n": 499.4466044008732,
+        "drive_n": 499.4466044008732,
+        "slope_n": 3113.334207544191,
+        "free_force_n": -2613.887603143318,
+        "rolling_n": 2545.51767873116,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      },
+      "fixed_goal_input_interventions": [
+        {
+          "odometry_delta_x_m": -2.0,
+          "drive_command": 0.7081109285354614
+        },
+        {
+          "odometry_delta_x_m": 0.0,
+          "drive_command": 0.022702118381857872
+        },
+        {
+          "odometry_delta_x_m": 2.0,
+          "drive_command": -0.8038903474807739
+        }
+      ]
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206200,
+      "trace_sha256": "1f516c664dc012fe4f35896b2ef3013edbf4d1ae5f044436c412f5e68cf33df2",
+      "reason": "success",
+      "phase_counts": {
+        "0": 11,
+        "1": 77,
+        "2": 32,
+        "3": 220,
+        "4": 33
+      },
+      "delivered_kg": 2013.9199805492822,
+      "terminal_x_m": -7.460746021129191,
+      "terminal_speed_m_s": 0.07623192885102652,
+      "terminal_load_kg": 770.0709880931842,
+      "mouth_error_m": -0.5514249966596259,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": -0.13721747193184775,
+      "force": {
+        "requested_n": -3018.7843825006503,
+        "drive_n": -3018.7843825006503,
+        "slope_n": -5081.176378321202,
+        "free_force_n": 2062.3919958205515,
+        "rolling_n": 2208.848492137223,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206201,
+      "trace_sha256": "16014473abcd352dda61c1a43a96020f088ff6ab8138043441f087bcc6b1a027",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 112,
+        "2": 32,
+        "3": 214,
+        "4": 34
+      },
+      "delivered_kg": 2000.3510524487806,
+      "terminal_x_m": -7.877536861419718,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 569.8029331906083,
+      "mouth_error_m": -0.14948283830030196,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.0,
+      "force": {
+        "requested_n": 0.0,
+        "drive_n": 0.0,
+        "slope_n": -1580.2164321871999,
+        "free_force_n": 1580.2164321871999,
+        "rolling_n": 2171.665374221828,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206202,
+      "trace_sha256": "8686940ce0a5d0191290cf2ac054a8c71bec9abedbaa793d5ebf82ce47598e18",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 98,
+        "2": 32,
+        "3": 208,
+        "4": 34
+      },
+      "delivered_kg": 2021.9719975254325,
+      "terminal_x_m": -7.864059100743373,
+      "terminal_speed_m_s": -0.003672062744833816,
+      "terminal_load_kg": 575.9616911285955,
+      "mouth_error_m": -0.15924262503062803,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.006609712940700869,
+      "force": {
+        "requested_n": 145.4136846954191,
+        "drive_n": 145.4136846954191,
+        "slope_n": -2033.572238058893,
+        "free_force_n": 2178.985922754312,
+        "rolling_n": 2172.722937563812,
+        "stationary": true,
+        "within_rolling_resistance": false,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206203,
+      "trace_sha256": "08f746c98beb6f03e030a54dba12c42c16358c7206dcc8cc37f01c9ec9f77075",
+      "reason": "success",
+      "phase_counts": {
+        "0": 17,
+        "1": 100,
+        "2": 32,
+        "3": 184,
+        "4": 34
+      },
+      "delivered_kg": 2003.379825683413,
+      "terminal_x_m": -7.974233530724594,
+      "terminal_speed_m_s": 0.0,
+      "terminal_load_kg": 578.2873300949212,
+      "mouth_error_m": -0.04828693300496223,
+      "observed_receiver_x_m": -3.500000000000001,
+      "drive_command": 0.0,
+      "force": {
+        "requested_n": 0.0,
+        "drive_n": 0.0,
+        "slope_n": 588.4248251836552,
+        "free_force_n": -588.4248251836552,
+        "rolling_n": 2173.5281029874545,
+        "stationary": true,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206204,
+      "trace_sha256": "eac96fb073a3652a9db420ef17919467d445799599b3df5e32b8a12a60e9990f",
+      "reason": "success",
+      "phase_counts": {
+        "0": 15,
+        "1": 126,
+        "2": 32,
+        "3": 168,
+        "4": 34
+      },
+      "delivered_kg": 2017.4605032708316,
+      "terminal_x_m": -8.109176470074617,
+      "terminal_speed_m_s": -0.018630568285074395,
+      "terminal_load_kg": 567.5265095789634,
+      "mouth_error_m": 0.09407647177619793,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.03353502291313391,
+      "force": {
+        "requested_n": 737.770504088946,
+        "drive_n": 737.770504088946,
+        "slope_n": 2877.330232724218,
+        "free_force_n": -2139.559728635272,
+        "rolling_n": 2170.6853547587134,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206205,
+      "trace_sha256": "83c493ca2af5aff6b6cb95f32a0582658d9c92ccc19e440f36de5f262a9b2e5f",
+      "reason": "success",
+      "phase_counts": {
+        "0": 16,
+        "1": 196,
+        "2": 32,
+        "3": 152,
+        "4": 34
+      },
+      "delivered_kg": 2003.7490104860387,
+      "terminal_x_m": -8.44195158378267,
+      "terminal_speed_m_s": -0.10116207260964563,
+      "terminal_load_kg": 563.6693655958945,
+      "mouth_error_m": 0.42495330242022433,
+      "observed_receiver_x_m": -3.5,
+      "drive_command": 0.18209173069736215,
+      "force": {
+        "requested_n": 4006.0180753419672,
+        "drive_n": 4006.0180753419672,
+        "slope_n": 6005.286736972833,
+        "free_force_n": -1999.2686616308656,
+        "rolling_n": 2167.3644146960696,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206206,
+      "trace_sha256": "dc0671abca63eb9bb5627b0d373a71d00715f47ced686541f48c2f98c6a4f347",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 143,
+        "2": 32,
+        "3": 174,
+        "4": 34
+      },
+      "delivered_kg": 2005.0281271465988,
+      "terminal_x_m": -8.121544382032681,
+      "terminal_speed_m_s": -0.017386836128445746,
+      "terminal_load_kg": 571.1352047827905,
+      "mouth_error_m": 0.09435081909461474,
+      "observed_receiver_x_m": -3.4999999999999996,
+      "drive_command": 0.03129630503120234,
+      "force": {
+        "requested_n": 688.5187106864515,
+        "drive_n": 688.5187106864515,
+        "slope_n": 2830.619538628752,
+        "free_force_n": -2142.1008279423004,
+        "rolling_n": 2171.418861490519,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    },
+    {
+      "family": "receiver_far",
+      "source": "reference",
+      "seed": 206207,
+      "trace_sha256": "0d6a2c533b9e928757095ed24b31d81691444bfb7cb711c65cd8b7a59ca6997e",
+      "reason": "success",
+      "phase_counts": {
+        "0": 13,
+        "1": 133,
+        "2": 32,
+        "3": 173,
+        "4": 34
+      },
+      "delivered_kg": 2017.9558881247456,
+      "terminal_x_m": -8.079937643500731,
+      "terminal_speed_m_s": -0.012768543406599928,
+      "terminal_load_kg": 567.6658649896808,
+      "mouth_error_m": 0.06544821407607149,
+      "observed_receiver_x_m": -3.5000000000000004,
+      "drive_command": 0.02298337813187987,
+      "force": {
+        "requested_n": 505.6343189013572,
+        "drive_n": 505.6343189013572,
+        "slope_n": 2655.1438949367953,
+        "free_force_n": -2149.509576035438,
+        "rolling_n": 2170.8260263016978,
+        "stationary": false,
+        "within_rolling_resistance": true,
+        "scope": "carry-state probe with bucket clear of the pile; not a general traction replacement"
+      }
+    }
+  ],
+  "training_acquisition_episodes": 176,
+  "training_carry_rows": 40815,
+  "training_odometry_x_range_m": [
+    -8.131663084030151,
+    13.16954755783081
+  ],
+  "training_receiver_x_range_m": [
+    -1.5000015745267226,
+    -1.4999981194089138
+  ],
+  "training_x_receiver_forward_correlation": -0.9999860125563055,
+  "counterfactual_policy_queries": 72,
+  "new_environment_decisions": 0,
+  "teacher_queries": 0,
+  "optimiser_updates": 0,
+  "cpu_threads": 1,
+  "process_nice_increment": 0,
+  "wall_s": 9.076961709186435
+}
