@@ -33,6 +33,15 @@ def verify_qualification(report):
         raise ValueError("unexpected training during qualification")
     if report["plan"]["source"]["package_sha256"]!=source_identity()["package_sha256"]:
         raise ValueError("reference source changed since qualification")
+    if not 0<=report["evaluation_decisions"]<=67200 or not 0<=report["physics_replay_decisions"]<=28800:
+        raise ValueError("qualification decision budget differs")
+    if not 0<=report["active_wall_s"]<=420:
+        raise ValueError("qualification execution budget differs")
+    required={"training/kessel_lab/runtime.py","training/kessel_lab/receiver_frame.py",
+              "training/kessel_lab/receiver_qualification.py","docs/adr/0064-receiver-frame-qualification.md",
+              "docs/phase-11/phase-memory-evidence/selection.json"}
+    if set(report["plan"]["files"])!=required:
+        raise ValueError("qualification source inventory differs")
     for name,sha in report["plan"]["files"].items():
         if hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=sha:
             raise ValueError("qualified source changed: "+name)
