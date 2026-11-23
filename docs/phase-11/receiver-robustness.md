@@ -43,3 +43,22 @@ runs at the unchanged priority rather than escalating.
 Existing weights, physics, recorded outcomes and the default demo remain intact.
 Any new method must be named separately and tested without reusing these
 consumed cases as untouched final evidence.
+
+## Training-partition pilot
+
+[ADR-0063](../adr/0063-receiver-frame-pilot.md) freezes a conventional input
+adapter: during carry/tip, reconstruct odometry x in the nominal receiver
+frame from the observed relative goal and heading. Other inputs, phase
+transitions, model weights and all physical dynamics stay unchanged.
+
+The fourteen-case pilot on training seed 19000 completes within 30.8 seconds
+using one CPU thread and 6,103 environment decisions. Each of the three
+original policies completes the nominal task and fails the farther receiver.
+Each adapted policy completes both cases; the separate reference does too.
+All weights remain byte-identical. There are no training labels, optimiser
+updates or held-out cases. The pilot supports the hypothesis but does not
+qualify robustness or replace the existing demo's controller.
+
+The [report](receiver-evidence/pilot.json) and all pilot traces are retained.
+The fresh qualification protocol is separate and must freeze before any new
+test policy query.
