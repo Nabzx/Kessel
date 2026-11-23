@@ -100,11 +100,13 @@ def execute():
                          "checkpoint_sha256":run.checkpoint_sha256,"outcome":run.outcome(),
                          "frames":run.records+[run.frame()]}
                 raw=gzip.compress(json.dumps(payload,separators=(",",":"),allow_nan=False).encode(),mtime=0)
-                path=str(index).zfill(3)+".json.gz";z.writestr(path,raw)
+                path=str(index).zfill(3)+".json.gz"
+                if z.fp.tell()+len(raw)>32*1024*1024:
+                    budget_stop="archive cap";path=None
+                else:z.writestr(path,raw)
                 rows.append({**job,"identity":identity,"scenario":run.scenario,
                              "checkpoint_sha256":run.checkpoint_sha256,"weights_unchanged":True,
-                             "trace":path,"sha256":hashlib.sha256(raw).hexdigest(),**run.outcome()})
-                if z.fp.tell()>32*1024*1024:budget_stop="archive cap"
+                             "trace":path,"sha256":hashlib.sha256(raw).hexdigest() if path else None,**run.outcome()})
                 if budget_stop:break
                 if index%7==6:
                     print("Evaluated",job["family"],job["seed"],len(rows),"/112",flush=True)
