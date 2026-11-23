@@ -44,6 +44,12 @@ retains the limits of the frozen policies; changed scenarios may fail. This is
 an isolated, uncalibrated synthetic runtime with no machine connection.
 The static main experience and recorded viewer do not require this service.
 
+The [receiver-frame follow-up](docs/phase-11/receiver-robustness.md) retains
+24/24 nominal and 24/24 farther-receiver successes with unchanged neural weights
+and an explicit engineered input adapter. A separate optional runtime offers
+only those qualified synthetic families; its start command and limits are in
+the report. Other stress families remain unqualified for the adapted method.
+
 ## Experience
 
 1. Start below the photographic rotating Earth and original wordmark, with

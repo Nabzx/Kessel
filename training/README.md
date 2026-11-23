@@ -171,3 +171,12 @@ and passes the nominal three-seed gate; memoryless imitation scores 54/96.
 The earlier PPO failures remain retained. Use the dedicated recorded viewer or
 static preview packager for presentation. Fresh experiments need new reserved
 final cases; both old and new final ranges are now consumed.
+
+The [receiver-frame follow-up](../docs/phase-11/receiver-robustness.md) diagnoses
+the farther-receiver carry failure and qualifies an engineered input adapter
+with unchanged phase-memory weights. All three seeds pass 8/8 nominal and
+8/8 farther cases each, with exact adapted physical and neural-action replay.
+The optional `kessel_lab.receiver_runtime` gates access on the retained evidence
+and permits practice seeds only. It is separate from the original runtime.
+The report records the bounded pilot, fresh-case audit, evaluation and replay
+costs. This is neither a new RL result nor general robustness qualification.

@@ -110,3 +110,8 @@ progressive disclosure, detailed proposed hardware and source-aware technical ch
 [Phase-memory imitation](0061-phase-memory-and-rehearsal-study.md) qualifies finite
 nominal recorded evidence. [Shift evaluation and local runtime](0062-interactive-synthetic-runtime.md)
 adds frozen-policy stress tests, fresh localhost execution and separate observation/logging prototypes.
+
+[Receiver-frame pilot](0063-receiver-frame-pilot.md) freezes a bounded
+training-partition test of an engineered input adapter.
+[Narrow receiver qualification](0064-receiver-frame-qualification.md) freezes
+fresh-case audit, all-seed nominal/farther gates, replay and resource limits.

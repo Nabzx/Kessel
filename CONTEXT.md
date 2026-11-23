@@ -96,6 +96,16 @@ used for assistance. Numeric observation validation and durable shadow logging
 are prototypes, not implemented perception or qualified retrofit hardware.
 Human visual acceptance and publication remain open at the maintainer's request.
 
+The 23 November ADRs 0063/0064 add a separately named receiver-frame input
+adapter, preserving the same neural weights, conventional phase memory and
+reference physics. On eight fresh bases per family, each of the three adapted
+seeds completes 8/8 nominal and 8/8 farther-receiver cases with zero collisions.
+The original actors complete 24/24 nominal and 0/24 farther cases. This qualifies
+only nominal/2 m farther synthetic receiver settings. It is an engineered input
+representation, not new learning or a learned-world-model result. The optional
+`kessel_lab.receiver_runtime` verifies the retained evidence and serves only
+these families on practice seeds. The default runtime remains unchanged.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source
