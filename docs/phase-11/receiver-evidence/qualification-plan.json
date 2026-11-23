@@ -1,0 +1,701 @@
+{
+  "kind": "receiver-frame-qualification-v1",
+  "cases": [
+    {
+      "family": "nominal",
+      "seed": 205800,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205800,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205800,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205800,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205800,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205800,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205800,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "nominal",
+      "seed": 205801,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205801,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205801,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205801,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205801,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205801,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205801,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "nominal",
+      "seed": 205802,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205802,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205802,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205802,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205802,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205802,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205802,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "nominal",
+      "seed": 205803,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205803,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205803,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205803,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205803,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205803,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205803,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "nominal",
+      "seed": 205804,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205804,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205804,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205804,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205804,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205804,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205804,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "nominal",
+      "seed": 205805,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205805,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205805,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205805,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205805,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205805,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205805,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "nominal",
+      "seed": 205806,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205806,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205806,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205806,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205806,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205806,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205806,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "nominal",
+      "seed": 205807,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205807,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205807,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205807,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205807,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "nominal",
+      "seed": 205807,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "nominal",
+      "seed": 205807,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205800,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205800,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205800,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205800,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205800,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205800,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205800,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205801,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205801,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205801,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205801,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205801,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205801,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205801,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205802,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205802,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205802,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205802,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205802,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205802,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205802,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205803,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205803,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205803,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205803,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205803,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205803,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205803,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205804,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205804,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205804,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205804,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205804,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205804,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205804,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205805,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205805,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205805,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205805,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205805,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205805,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205805,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205806,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205806,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205806,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205806,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205806,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205806,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205806,
+      "source": "reference",
+      "method": "reference"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205807,
+      "source": "phase_memory-7",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205807,
+      "source": "phase_memory-7",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205807,
+      "source": "phase_memory-19",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205807,
+      "source": "phase_memory-19",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205807,
+      "source": "phase_memory-41",
+      "method": "original"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205807,
+      "source": "phase_memory-41",
+      "method": "receiver_x_frame"
+    },
+    {
+      "family": "receiver_far",
+      "seed": 205807,
+      "source": "reference",
+      "method": "reference"
+    }
+  ],
+  "source": {
+    "package_sha256": "8dac3b56ca990e8c119596a1d199073581b650cd6ed7db119dda6a92588027ba",
+    "git_commit": "1d4a09aff306c3530de75bbfb4a58cc66b204784",
+    "training_dirty": false
+  },
+  "files": {
+    "training/kessel_lab/runtime.py": "1fd052d1f36f1c306b3898e1c94d94729cbbed7d118feecc890ab876ea6c9433",
+    "training/kessel_lab/receiver_frame.py": "b65e83028c7baa4e1dd90117a7cafead4b7b090b0d998c4511b695ac22e57de0",
+    "training/kessel_lab/receiver_qualification.py": "0c766b19bbafb8d6949c0ffdfb9ae38081d9aca47b8d7602016dcba03d9ef0c3",
+    "docs/adr/0064-receiver-frame-qualification.md": "af044f033b0084888006110f67c8dea8f5cabf5d4c9f636608f42988ecc081ab",
+    "docs/phase-11/phase-memory-evidence/selection.json": "9ee7d7a638614f6b7ea75eac6c105b5d5fb23209a093da9fb7ca1bdfb3e4ff3f"
+  },
+  "reservation_sha256": "b2fe7564da079575cc25662baaa0d9607306de86d2b871db84b8a7129f9f4a92",
+  "wall_cap_s": 420,
+  "evaluation_decision_cap": 67200,
+  "adapted_physics_replay_cap": 28800,
+  "cpu_threads": 1,
+  "software": {
+    "torch": "2.15.0",
+    "numpy": "2.5.4"
+  },
+  "optimiser_updates": 0,
+  "teacher_training_queries": 0,
+  "selection": "fixed ADR-0061 checkpoints; no test selection"
+}

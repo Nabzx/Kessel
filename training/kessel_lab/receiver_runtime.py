@@ -3,6 +3,10 @@ import argparse
 import hashlib
 from http.server import ThreadingHTTPServer
 import json
+import zipfile
+
+import numpy as np
+import torch
 from urllib.parse import urlsplit
 
 from kessel_training.evaluate import source_identity
@@ -31,6 +35,10 @@ def verify_qualification(report):
         raise ValueError("qualification verification failed")
     if report["teacher_training_queries"] or report["optimiser_updates"]:
         raise ValueError("unexpected training during qualification")
+    software=report["plan"]["software"]
+    if (software["torch"].split("+")[0]!=str(torch.__version__).split("+")[0]
+            or software["numpy"]!=np.__version__):
+        raise ValueError("numerical library releases differ from qualification")
     if report["plan"]["source"]["package_sha256"]!=source_identity()["package_sha256"]:
         raise ValueError("reference source changed since qualification")
     if not 0<=report["evaluation_decisions"]<=67200 or not 0<=report["physics_replay_decisions"]<=28800:
@@ -55,6 +63,12 @@ class Session(BaseSession):
         trace=ROOT/"docs/phase-11/receiver-evidence/qualification-traces.zip"
         if hashlib.sha256(trace.read_bytes()).hexdigest()!=self.qualification["trace_archive_sha256"]:
             raise ValueError("qualification traces changed")
+        source=ROOT/"docs/phase-11/receiver-evidence/qualification-source.zip"
+        if hashlib.sha256(source.read_bytes()).hexdigest()!=self.qualification["source_archive_sha256"]:
+            raise ValueError("qualification source archive changed")
+        with zipfile.ZipFile(source) as archive:
+            if archive.read("training/uv.lock")!=(ROOT/"training/uv.lock").read_bytes():
+                raise ValueError("numerical dependency lock changed")
         self.qualification_sha256=hashlib.sha256(raw).hexdigest()
         self.adapter_sha256=self.qualification["plan"]["files"]["training/kessel_lab/receiver_frame.py"]
         super().__init__()
