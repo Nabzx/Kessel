@@ -49,7 +49,9 @@ class RetainedInterpretationTests(unittest.TestCase):
 
     def test_broken_continuity_and_material_ledger_are_rejected(self):
         case, trace = fixture()
-        bad = copy.deepcopy(trace); bad["frames"][-1]["state"][0] += 1
+        bad = copy.deepcopy(trace)
+        bad["frames"][-1]["state"] = list(bad["frames"][-1]["state"])
+        bad["frames"][-1]["state"][0] += 1
         with self.assertRaisesRegex(ValueError, "continuity"):
             RANKING.metrics(case, bad)
         bad = copy.deepcopy(trace); bad["frames"][0]["transfer"]["loaded_kg"] = 9
