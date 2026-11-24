@@ -106,6 +106,13 @@ representation, not new learning or a learned-world-model result. The optional
 `kessel_lab.receiver_runtime` verifies the retained evidence and serves only
 these families on practice seeds. The default runtime remains unchanged.
 
+The 24 November retained-failure ranking analyses all 416 original stress cases
+without new policy or simulator queries. Missing-range cases physically collect
+material while remaining in approach; blocked boxes are absent from the pile-
+height observation contract. Impaired sensing also exposes a distinct neural
+lift/carry gap against the reference. The ranking proposes explicit missing-range
+behaviour next. It implements no supervisor and admits no additional family.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

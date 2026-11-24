@@ -49,6 +49,9 @@ The [receiver-frame follow-up](docs/phase-11/receiver-robustness.md) retains
 and an explicit engineered input adapter. A separate optional runtime offers
 only those qualified synthetic families; its start command and limits are in
 the report. Other stress families remain unqualified for the adapted method.
+The [remaining-failure ranking](docs/phase-11/failure-ranking.md) diagnoses the
+original retained traces and prioritises explicit missing-range behaviour,
+obstacle observability and shared collection/traction limits.
 
 ## Experience
 

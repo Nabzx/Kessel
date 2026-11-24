@@ -1,0 +1,8 @@
+{
+  "docs/phase-11/failure-ranking-evidence/report.json": "ba3d6d268e23dea974127df0acc4af455cdf86d96b4e7e6165f21e0b9e8a0128",
+  "docs/phase-11/failure-ranking-plan.md": "05c5549c3068ff2dbece03be1475d8320f3b932a76ecef720b6828607c95cccd",
+  "docs/phase-11/failure-ranking.md": "f75cacd233c018e3b28f55022e9b172069d4d585381decc9d193ba8429ad32d0",
+  "scripts/research/rank-robustness-failures.py": "f9d5b83abcf766a18a0f14a667c4ea35b4d6eb6c22bfa76834ea172b67a30c0a",
+  "scripts/tests/test_failure_ranking.py": "4c9b3e6a7f8f3a8d108d396fcfc294e5f8b5b4262df24682004033f892fd4ae9",
+  "scripts/verify-failure-ranking.py": "82abfe833695b0300bf7d052144bf38e01a6a3d0493929cd7d96a47bc525d23d"
+}

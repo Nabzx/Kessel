@@ -180,3 +180,10 @@ The optional `kessel_lab.receiver_runtime` gates access on the retained evidence
 and permits practice seeds only. It is separate from the original runtime.
 The report records the bounded pilot, fresh-case audit, evaluation and replay
 costs. This is neither a new RL result nor general robustness qualification.
+
+The [remaining-failure ranking](../docs/phase-11/failure-ranking.md) analyses all
+416 original stress traces without executing any actor or simulator. It separates
+collision cases, policy-specific impaired-sensing gaps and shared pile/traction
+failures, and proposes explicit missing-range behaviour as the next bounded task.
+It neither changes controllers nor qualifies the receiver-frame adapter on
+additional families.
