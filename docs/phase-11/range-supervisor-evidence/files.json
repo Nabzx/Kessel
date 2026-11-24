@@ -1,0 +1,14 @@
+{
+  "docs/adr/0065-missing-range-supervisor-pilot.md": "3bb86d325596a568761d12ea5d83f5c3877c7c9e6d9ff79b1a53415f921c1fd1",
+  "docs/phase-11/range-supervisor-evidence/evaluation.json": "a3618ad6f5f50be91176301b8ebca1a74bce83eaff57433f1a0fd653965dd329",
+  "docs/phase-11/range-supervisor-evidence/plan.json": "73801388e679c51e0fba889b21cba9890e6362d0997dabd92eb5460bbe04bcfc",
+  "docs/phase-11/range-supervisor-evidence/report.json": "053585a2385a59bfeb26ce9234a74b45415def680d2648bdb998e7ea9385f785",
+  "docs/phase-11/range-supervisor-evidence/source.zip": "91948322917ec197709666057d4e8d1fcef2bba4c45f00d941c75543e0c131c9",
+  "docs/phase-11/range-supervisor-evidence/traces.zip": "391a5286538e29507bdf044ac76c6c3c8cf88bb8e0f54b8e8fa5125e4d4671e9",
+  "docs/phase-11/range-supervisor-study.md": "2e9c7fb2967ddb5defd881c6e6dd07146d52383e07b71a5e2856ca120c61f8fa",
+  "scripts/verify-range-supervisor.py": "6dd814e0af488fcdfeaa113f0e976a0d65eba5f24baccf5aa5940a64c7604950",
+  "training/kessel_lab/range_pilot.py": "ae0c7fe4cf2d5b6d23f0b0da5c7f9d18d470db2b4154e748bf3fe87d58d858a3",
+  "training/kessel_lab/range_supervisor.py": "02900555087be54ac8bb156452e9e6ff1523ebb14481e07773af8f600573fd6e",
+  "training/tests_lab/test_range_pilot.py": "bb47b7ad3099581708d694c294b3c9009b0fc988d3bf519d3b224bb3a3217b25",
+  "training/tests_lab/test_range_supervisor.py": "047ff38b1a27d098e22b8fe689fa2199d86df5e76f1f7eb7b6d3a71fefd581d3"
+}

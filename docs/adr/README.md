@@ -115,3 +115,7 @@ adds frozen-policy stress tests, fresh localhost execution and separate observat
 training-partition test of an engineered input adapter.
 [Narrow receiver qualification](0064-receiver-frame-qualification.md) freezes
 fresh-case audit, all-seed nominal/farther gates, replay and resource limits.
+
+[Missing-range supervisor pilot](0065-missing-range-supervisor-pilot.md) freezes
+observation-health rules, conventional stopping/recovery, distinct hold/delivery
+criteria and a bounded training-partition comparison with exact replay.

@@ -113,6 +113,14 @@ height observation contract. Impaired sensing also exposes a distinct neural
 lift/carry gap against the reference. The ranking proposes explicit missing-range
 behaviour next. It implements no supervisor and admits no additional family.
 
+ADR-0065 adds a separate conventional missing-range supervisor around the
+original phase-memory actors. Its 33-case practice pilot meets all 15 declared
+stop/hold criteria and preserves healthy/transient/recovered deliveries, but
+fails all three partial-occlusion deliveries, including one collision. The
+overall gate fails: no runtime admission or fresh qualification follows.
+The wrapper freezes phase and pauses the task clock during overrides. All
+neural proposals, applied synthetic actions and negative outcomes remain retained.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

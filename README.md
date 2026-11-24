@@ -52,6 +52,9 @@ the report. Other stress families remain unqualified for the adapted method.
 The [remaining-failure ranking](docs/phase-11/failure-ranking.md) diagnoses the
 original retained traces and prioritises explicit missing-range behaviour,
 obstacle observability and shared collection/traction limits.
+The [missing-range pilot](docs/phase-11/range-supervisor-study.md) meets its
+declared stop/hold criteria but fails partial-occlusion delivery. Its conventional
+supervisor remains experimental and is not available in either runtime.
 
 ## Experience
 

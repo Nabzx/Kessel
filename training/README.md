@@ -187,3 +187,10 @@ collision cases, policy-specific impaired-sensing gaps and shared pile/traction
 failures, and proposes explicit missing-range behaviour as the next bounded task.
 It neither changes controllers nor qualifies the receiver-frame adapter on
 additional families.
+
+The [missing-range follow-up](../docs/phase-11/range-supervisor-study.md) tests a
+separate conventional supervisor. All 15 sustained-loss cases meet their physical
+stop/hold criteria, with healthy actions exactly preserved, but three occluded
+cases fail delivery. The full gate fails. This prototype is not admitted, and no
+fresh qualification or existing-runtime change is implied. All 33 traces and
+independent replay costs are retained.
