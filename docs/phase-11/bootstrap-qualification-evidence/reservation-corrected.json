@@ -1,0 +1,291 @@
+{
+  "kind": "combined-bootstrap-fresh-reservation-v1",
+  "verified": true,
+  "seeds": [
+    208701,
+    208702,
+    208703,
+    208704,
+    208705,
+    208706,
+    208707,
+    208708
+  ],
+  "excluded_consumed_bases": [
+    208700
+  ],
+  "identities": [
+    {
+      "seed": 208701,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208701,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "8059c5e0d3014c3cf4387c5b82fd106fc34f575ee1744ddf11ba36f9afa030a8"
+      },
+      "fingerprints": {
+        "state<f8": "8059c5e0d3014c3cf4387c5b82fd106fc34f575ee1744ddf11ba36f9afa030a8",
+        "pile<f8": "070a60e02dc004f914f4684c2985d0a868a2e149d287d2b7ab350f0ca6b64605",
+        "state<f4": "bfa817bac90183fdf4d343c6d43a574330ef40717442b7b9590bb0ca88039c85",
+        "pile<f4": "fe2c21ab442fc4c92a00b8da23362de3cd6e6b0437e886f02c641f9eeef1e6c7"
+      }
+    },
+    {
+      "seed": 208702,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208702,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "297c32a84cfe49717451c45225519f75ee1da755d875bb5da8687d32db080b0d"
+      },
+      "fingerprints": {
+        "state<f8": "297c32a84cfe49717451c45225519f75ee1da755d875bb5da8687d32db080b0d",
+        "pile<f8": "8ed551459e66e6b2324146c13b2ee940d60e25bffcdf1abc347e81c9594a19a6",
+        "state<f4": "6ca2008160f26079ea0a7e14c6570d86a908ad8f061905a88991c05a09f43c37",
+        "pile<f4": "c2d284c04ab142d620c705fff2b65ee0113058cf9fb8963684b709b0ac4de850"
+      }
+    },
+    {
+      "seed": 208703,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208703,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "bfce68db0bcd0b6c4b389e254b90fd44701fbe71d7dde0e5c8e074c363e7341d"
+      },
+      "fingerprints": {
+        "state<f8": "bfce68db0bcd0b6c4b389e254b90fd44701fbe71d7dde0e5c8e074c363e7341d",
+        "pile<f8": "e984e36149657988f903bf96b9c224985c70d4707bb012dae17f7b1a5391f224",
+        "state<f4": "9557822a59fc6bc834606a2d970943c8d57de50280da54be592c685e7198a4b9",
+        "pile<f4": "e21b24775f0cc078170100598c09b5cd7fd1dd1fba9ded9ff57ddd7dff676103"
+      }
+    },
+    {
+      "seed": 208704,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208704,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "96ae64a92e8f3423932fe00b4e7ce0fefbd70fe55a992d0e95ed422de92da08e"
+      },
+      "fingerprints": {
+        "state<f8": "96ae64a92e8f3423932fe00b4e7ce0fefbd70fe55a992d0e95ed422de92da08e",
+        "pile<f8": "498f70a4da973f8bc391d1e1af479e4b8f281e1a87e6ac99138ca4fb6d051b45",
+        "state<f4": "eef58ea1dd2ae093656787b281b3b3ff62c406c71cf152bf78a72c05f3e5172c",
+        "pile<f4": "cf3079bbae0bcdf2fe18b853afcd6f56a5772b58c4544b1ae4e6a25ad7c1f4fc"
+      }
+    },
+    {
+      "seed": 208705,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208705,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "874cd0a7b928b9caf5913329485cecbbb6032396f833b12c8764b9c7776a4bbf"
+      },
+      "fingerprints": {
+        "state<f8": "874cd0a7b928b9caf5913329485cecbbb6032396f833b12c8764b9c7776a4bbf",
+        "pile<f8": "db9a13769408c8915d66c486fdc6d8d1f124f5794a28960cb07e52201bac36e0",
+        "state<f4": "5535b544bda2a63782a405898d71334973b74f75c645c17d6179c9f8b246caa2",
+        "pile<f4": "82969379a92afd05fcbbcca203ba5f581e19c7611a6a53f2ac85f30105dea9d4"
+      }
+    },
+    {
+      "seed": 208706,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208706,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "a177375a3a8d309fa9bd5baeacb80f2f90902c90a76775571229d7ea7ed6dfcb"
+      },
+      "fingerprints": {
+        "state<f8": "a177375a3a8d309fa9bd5baeacb80f2f90902c90a76775571229d7ea7ed6dfcb",
+        "pile<f8": "16329a085281de34fb93462c8262206afb7e3ec09c4efbfe70238e8dfded95a2",
+        "state<f4": "c05ea23027fd065dfb1af105a2e234a1891c57dd22df839e91f0a62316298b3c",
+        "pile<f4": "0951a687c5d01efd195a00b15d1f136139062f9afa8c207e70fe776d99136510"
+      }
+    },
+    {
+      "seed": 208707,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208707,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "a71e51fd08be51d6bc2a0aff7439710cad7902b21ff00b0eb02f6843a0b42051"
+      },
+      "fingerprints": {
+        "state<f8": "a71e51fd08be51d6bc2a0aff7439710cad7902b21ff00b0eb02f6843a0b42051",
+        "pile<f8": "28673e70a32eb6c1c46c2c7bdac5fdaeee6f0bbf9743430a6e789221fa48aca9",
+        "state<f4": "df82b5671f07114da556144896c1b694fe5ace04c7949bbb3886e1b991f72215",
+        "pile<f4": "c3136c8d0ff836821cc39839621d920a9e461f9c80c73a3e706f24ec8046c6f0"
+      }
+    },
+    {
+      "seed": 208708,
+      "scenario": {
+        "family": "nominal",
+        "seed": 208708,
+        "scene": {
+          "max_steps": 600,
+          "success_kg": 2000.0,
+          "stuck_s": 10.0,
+          "half_width_m": 4.2,
+          "ceiling_m": 3.2,
+          "friction": 0.6,
+          "grade_rad": 0.0,
+          "pile_resistance_n_m": 18000.0,
+          "sensor_noise": 0.0,
+          "dropout": 0.0,
+          "occlusion": 0.0,
+          "load_bias_fraction": 0.0,
+          "randomise": true,
+          "obstacles": [],
+          "pile_family": "legacy"
+        },
+        "initial_state_sha256": "3918b46ebe446639c52051e55f500a1130e2956f6c1000d862ce1c689ee4189f"
+      },
+      "fingerprints": {
+        "state<f8": "3918b46ebe446639c52051e55f500a1130e2956f6c1000d862ce1c689ee4189f",
+        "pile<f8": "97580027be73f5b1d7bcfbff3155a1b86a315d830561c5f4f74b87e0083ab3f9",
+        "state<f4": "69a30b07db3194c16605df7dbc8cc73cf78d50534cc3e090c245b1be4b1f48a2",
+        "pile<f4": "6e4bef3c4d60da66586c3d7e7f60981593ba5bd12bc93a56d7305f75a3f47c29"
+      }
+    }
+  ],
+  "audits": [
+    {
+      "path": "docs/phase-11/bootstrap-qualification-evidence/reservation.json",
+      "sha256": "e93225807c8de61275abf0309127dda73181d9327bfef0ccf3df87e896ddb720"
+    },
+    {
+      "path": "docs/phase-11/bootstrap-qualification-evidence/reservation-replacement.json",
+      "sha256": "0270c18300b7ba7d1d60966b56331abdee33068cc7a521fc486b1d273031d25c"
+    }
+  ],
+  "audit_files": {
+    "training/kessel_lab/reserve_bootstrap.py": "dfda0033664017bdedc6d222afb17fb7d55d01ab789f55ea0a1e83b0446c9829",
+    "training/kessel_lab/runtime.py": "1fd052d1f36f1c306b3898e1c94d94729cbbed7d118feecc890ab876ea6c9433",
+    "training/kessel_training/environment.py": "3de1df5b6c729bf3b99fcdfe1abb373585fd47ea8c1030655c42630ea7e1bdc5",
+    "training/kessel_training/pile.py": "caa755636ba41d6176c675bd1022cf95b398659b2d19d0a5fa7387754840a2c1",
+    "training/kessel_training/wm_state.py": "a6239b83ba015fc9c6fc21a01e32915f68ac2d043da538a727dfa2fe01cdedce",
+    "docs/adr/0070-bootstrap-hold-fresh-qualification.md": "098594af8e8faa9de8301c0ed565fb4a90c88f008e6b06b26a42851235d3c1c7",
+    "training/kessel_lab/reserve_bootstrap_replacement.py": "5fece28b430f3a363e88d6945a30cebd00e43a44096495ba3a910a980fee1d40",
+    "docs/adr/0071-fresh-qualification-logging-erratum.md": "04b8b2fc43e0ccfe8936cd74bfe28f3824315a11c0179f94f591a4fbb96c3390"
+  },
+  "hits": [],
+  "errors": [],
+  "new_policy_queries": 0,
+  "scope": "208701-208707 from original pre-query audit; 208708 from separate full replacement audit; 208700 excluded as consumed"
+}

@@ -65,7 +65,7 @@ def execute():
         "training/kessel_lab/range_contract.py","training/kessel_lab/range_pilot.py","training/kessel_lab/bootstrap_hold_pilot.py","training/kessel_lab/bootstrap_qualification.py","training/kessel_lab/motion_hold.py","training/kessel_lab/bootstrap_hold.py",
         "training/uv.lock","docs/adr/0066-spatial-range-contract-and-pilot.md",
         "docs/adr/0068-observed-motion-holding-pilot.md","docs/adr/0069-bootstrap-motion-holding-pilot.md","docs/adr/0070-bootstrap-hold-fresh-qualification.md",
-        "docs/adr/0071-fresh-qualification-logging-erratum.md","training/kessel_lab/reserve_bootstrap_replacement.py",
+        "docs/adr/0071-fresh-qualification-logging-erratum.md","training/kessel_lab/reserve_bootstrap_replacement.py","training/kessel_lab/reserve_bootstrap.py",
         "docs/phase-11/phase-memory-evidence/selection.json","docs/phase-11/bootstrap-qualification-evidence/reservation-corrected.json",
         "docs/phase-11/bootstrap-qualification-evidence/reservation.json","docs/phase-11/bootstrap-qualification-evidence/reservation-replacement.json")]
     files = {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
