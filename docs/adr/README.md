@@ -129,3 +129,8 @@ aborted attempt and freezes a reduced-budget correction without control retuning
 reference-specific force observer and unchanged practice gates.
 [Bootstrap holding](0069-bootstrap-motion-holding-pilot.md) freezes the separately
 named probing/integral-reset law and adds cold-start grade fixtures.
+
+[Fresh stopping qualification](0070-bootstrap-hold-fresh-qualification.md) freezes
+the unchanged controller, audited bases and moving-carry stop/recovery gates.
+[Logging erratum](0071-fresh-qualification-logging-erratum.md) excludes the consumed
+aborted base and binds a separately audited replacement without control retuning.

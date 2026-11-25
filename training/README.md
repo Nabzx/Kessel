@@ -208,3 +208,11 @@ passes all 57 declared practice cases with exact replay, including loaded
 forward/reverse/cold-start grade holds. Every applied override remains conventional;
 the original neural weights and healthy actions are unchanged. These are consumed
 practice conditions, not fresh qualification or runtime admission.
+
+The [subsequent fresh qualification](../docs/phase-11/bootstrap-qualification.md)
+passes the frozen healthy/partial-carry/full-loss/recovery gates on eight audited
+new bases. All 96 supervised cases pass and 24 original healthy comparators
+match exactly. The logging-aborted base is retained as consumed and excluded,
+with an independently audited replacement. Independent replay, source identity,
+costs and per-seed gates are retained. This narrow synthetic qualification does
+not qualify other fault phases, field equipment or a runtime integration.

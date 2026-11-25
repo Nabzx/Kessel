@@ -1,0 +1,23 @@
+{
+  "docs/adr/0070-bootstrap-hold-fresh-qualification.md": "098594af8e8faa9de8301c0ed565fb4a90c88f008e6b06b26a42851235d3c1c7",
+  "docs/adr/0071-fresh-qualification-logging-erratum.md": "04b8b2fc43e0ccfe8936cd74bfe28f3824315a11c0179f94f591a4fbb96c3390",
+  "docs/phase-11/bootstrap-qualification-evidence/aborted-attempt/abort.json": "c1d4f06462372aec8d1953eada45049501de210adbce8878ebd253f5a943f4e3",
+  "docs/phase-11/bootstrap-qualification-evidence/aborted-attempt/plan.json": "88d095a371c2702f7bc49413943e50d38a03e4f20f8abd378d439e61315ba7b2",
+  "docs/phase-11/bootstrap-qualification-evidence/aborted-attempt/source.zip": "a4bacfe8ecab4f3bee5c9b3cc104eaa218e8dad11f8ddce41cf216917c42374a",
+  "docs/phase-11/bootstrap-qualification-evidence/aborted-attempt/traces.zip": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+  "docs/phase-11/bootstrap-qualification-evidence/evaluation.json": "c21dcb8ebef7886bda403cd902a8f64c114bdd8e7a9c8afbfdbe10f77f77d2b2",
+  "docs/phase-11/bootstrap-qualification-evidence/plan.json": "8360829ab4b75b46d7eede9e44699e684c83bfe2b636e4b55c90f814f3881ab8",
+  "docs/phase-11/bootstrap-qualification-evidence/report.json": "4642dbb711242b6e19e7a59d00fede4dcbda062289ab4f184b54f2ac14d057cf",
+  "docs/phase-11/bootstrap-qualification-evidence/reservation-corrected.json": "11b369e6cea1d2756478612ba8fddf9c1cc816dd28a7b0a57e39b902d028f8fd",
+  "docs/phase-11/bootstrap-qualification-evidence/reservation-replacement.json": "0270c18300b7ba7d1d60966b56331abdee33068cc7a521fc486b1d273031d25c",
+  "docs/phase-11/bootstrap-qualification-evidence/reservation.json": "e93225807c8de61275abf0309127dda73181d9327bfef0ccf3df87e896ddb720",
+  "docs/phase-11/bootstrap-qualification-evidence/source.zip": "4ca236d023d0ec2603db968ddb36e4d5e653418878dcbad86cad85ee411ec58c",
+  "docs/phase-11/bootstrap-qualification-evidence/traces.zip": "988dbd636ec037951a1533e26230ff04c7957bd09bc48003df43a3324e82e5cd",
+  "docs/phase-11/bootstrap-qualification.md": "498fe58358df05d38f894fbe9cb0083c21bf8bfd6be67c93717ce1b48ab315ad",
+  "scripts/verify-bootstrap-qualification.py": "38669e42168f36650143476758cda66f7766cac0a64ba02c7753b0fc9f5afc86",
+  "training/kessel_lab/bootstrap_qualification.py": "f102685ac094c0939261d06b1174d93b79f365f7e28f8d08e06341ba524043d5",
+  "training/kessel_lab/reserve_bootstrap.py": "dfda0033664017bdedc6d222afb17fb7d55d01ab789f55ea0a1e83b0446c9829",
+  "training/kessel_lab/reserve_bootstrap_replacement.py": "5fece28b430f3a363e88d6945a30cebd00e43a44096495ba3a910a980fee1d40",
+  "training/tests_lab/test_bootstrap_qualification.py": "23549833d3839ef3a5a5a5d1657ff4e72ff1e62f845c56cbb5107a10bf7c980e",
+  "training/tests_lab/test_bootstrap_reservation.py": "420e31b3d1167baf5679fbcdaa554c0856f3045758c09e05fbde3545e0af618b"
+}

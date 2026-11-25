@@ -139,6 +139,16 @@ This includes loaded +/-0.8 m/s and cold-start fixtures on +/-0.06 rad grades.
 It is conventional reference-specific control, not learned dynamics or fresh
 qualification. Neither prototype is available in the existing runtimes.
 
+ADRs 0070/0071 qualify the unchanged bootstrap controller on eight audited fresh
+nominal-physics bases: all 24 healthy deliveries, 24 partial-carry stops, 24
+complete-loss carry stops and 24 recovered deliveries pass, with zero collisions.
+All 24 original healthy comparisons match exactly and replay is exact. A logging
+abort consumes base 208700; it is excluded and replaced only after a separate
+audit of 208708. The final cohort is 208701–208708. Qualification covers only
+those four synthetic families, not noisy proprioception, low grip, other fault
+phases, field equipment or composition with the receiver-frame adapter. Existing
+runtimes and human visual/publication decisions remain separate.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

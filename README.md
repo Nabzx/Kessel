@@ -60,7 +60,9 @@ incomplete coverage but fails stronger loaded-grade holding probes. It also
 remains experimental; controlled stops do not count as deliveries.
 The subsequent [bootstrap holding prototype](docs/phase-11/bootstrap-hold-study.md)
 passes its 57-case practice gate, including loaded grade stops and cold starts.
-It still requires fresh qualification and is not enabled in the runtimes.
+Its [fresh qualification](docs/phase-11/bootstrap-qualification.md) passes all
+96 supervised nominal/moving-carry fault cases with exact replay and 24 exact
+original healthy comparisons. It is not enabled in the existing runtimes.
 
 ## Experience
 
