@@ -1,0 +1,1058 @@
+{
+  "protocol": "ADR-0070 with ADR-0071 logging correction and replacement",
+  "reservation_sha256": "11b369e6cea1d2756478612ba8fddf9c1cc816dd28a7b0a57e39b902d028f8fd",
+  "cases": [
+    {
+      "source": "phase_memory-7",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208701,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208702,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208703,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208704,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208705,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208706,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208707,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "partial_carry_zeroed",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "carry_loss",
+      "criterion": "stop"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208708,
+      "method": "bootstrapped_motion_hold",
+      "kind": "task",
+      "pattern": "recovery",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208701,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208701,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208701,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208702,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208702,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208702,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208703,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208703,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208703,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208704,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208704,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208704,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208705,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208705,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208705,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208706,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208706,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208706,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208707,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208707,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208707,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-7",
+      "seed": 208708,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-19",
+      "seed": 208708,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    },
+    {
+      "source": "phase_memory-41",
+      "seed": 208708,
+      "method": "original",
+      "kind": "task",
+      "pattern": "healthy",
+      "criterion": "delivery"
+    }
+  ],
+  "files": {
+    "training/kessel_training/__init__.py": "a53f5f4b96988563cca2f4e055a30fe4bf607c5c04db1373527f8190cbd2b16d",
+    "training/kessel_training/adversarial.py": "03069b3c71f43b17f98d0accadfa18c1c2b166551ac7fbbdb65d302a09ba85c1",
+    "training/kessel_training/audit_demo_frontier.py": "98b7379e201ce8c29af895dc3a05745b3612a8e9d532551d35d6ff1e02bf86a5",
+    "training/kessel_training/audit_run.py": "82118b4ac7dc6e1e8cc7f3929923ebb735d69ee46b9615fc9260ac4bec2a5572",
+    "training/kessel_training/benchmark.py": "5e7ceb50de108459180a8ca39272d964c6b3a9de91588d213c52044664e65b06",
+    "training/kessel_training/checkpoints.py": "803d7bc12532b60c8499ba7ee164532a2238c456408f20242beb7f5ee2deb88b",
+    "training/kessel_training/constrained_model.py": "4e47ca43f0fa328b5c748cbd44f7110c735af092e29506c318ba399ee5e2e2b0",
+    "training/kessel_training/contracts.py": "57fd26986c33060bd4e314838a8910f4fcbd4a9d91b16a57a10a42dc4e352bb9",
+    "training/kessel_training/controller.py": "305386a2c9c956fb50f0d919b5a289f66a6367ad5fb50acf310099eae5c1e7af",
+    "training/kessel_training/core_smoke.py": "030c62f443cb897a2d67420907c3c7f99763da89dce90808345caee53c605da0",
+    "training/kessel_training/curriculum.py": "5b38caa2c827822449e20b34d83efef7964d412a398c20881536ff4b8abb3e0b",
+    "training/kessel_training/diagnose_readiness.py": "f83ecdb79c3cfc5a3680b11dd69e2b8e0716e41c4d90b8d548690fad830b2657",
+    "training/kessel_training/dynamics.py": "63e345927205a34f6958c39a130044206490427e02ed20958c7e06a2c8cce3e6",
+    "training/kessel_training/environment.py": "3de1df5b6c729bf3b99fcdfe1abb373585fd47ea8c1030655c42630ea7e1bdc5",
+    "training/kessel_training/evaluate.py": "5b84c81df581e852ec1d74ce4734a7b5f1ddfd27f5bb29f3e804185acbee8edb",
+    "training/kessel_training/evaluation.py": "02ffab778e90cc632019addd6e2cc70e6f760a873b900c97b145fc8dad45c9e5",
+    "training/kessel_training/export_curriculum_viewer.py": "48c487e1b91b85fc82379a6fa452f2a7d0be4dad4b72ad8d922eeba8e40a0c0a",
+    "training/kessel_training/export_reference_viewer.py": "a565ef7823c709642046e487c53a32b69e673bd8f66fb6c43a729dfa65411d57",
+    "training/kessel_training/export_viewer.py": "7212ce8d691141c16c51e8bb92d57eb2ba2c52bd5e2207a52caf8e2906dafd93",
+    "training/kessel_training/five_stage.py": "b39e6c04e4ff927523b497b07afc1b6f7b0d13e8b3d90dc366f297217840f943",
+    "training/kessel_training/followup_data.py": "62a8010d84c932308e35a0784e2ab62b97218463113daac1a461dcb59e055e3f",
+    "training/kessel_training/followup_models.py": "dc092b383e2d7b81a2ae853ed17e2439bb23ab357ce2b1961bb6bb891ea5ee48",
+    "training/kessel_training/followup_policy.py": "8d755c6f67d75025daea3f1c0d80679f3465c4992f3a9ea632da9657a4a2c652",
+    "training/kessel_training/followup_study.py": "0414f96d4d54458cc5283705a9bf4e8844fc3ef05e43dc6cc62b6c097366f1fc",
+    "training/kessel_training/followup_world_study.py": "f952d1c2f371e69ecb1f5a0b3556692a0815c956f14696056d913bceac71df46",
+    "training/kessel_training/full_cycle.py": "49dc1d2d2aefb9ca74131bd90a45797781074e50cc84b2a437bebf7e59da78d5",
+    "training/kessel_training/imagination.py": "a27cf028ba15fbccd67121ceffd9f4ab9d6e539f535f7430b3eb41572f59f464",
+    "training/kessel_training/inspect_prerequisites.py": "d1a234616c7f2bd2601c820428f0e6ca25558638518e322083aa65e6a93b6749",
+    "training/kessel_training/kinematics.py": "bf50fc4074e6c7541d3c52378e577456d0a46430a6882af17b68d5185af81998",
+    "training/kessel_training/model_assisted.py": "525fde4883fb95bf951de47129e3f1daaad0dd8618ef23812799e20084e4fa1b",
+    "training/kessel_training/offline_experiment.py": "821c688c419f34f9df9da9a4a7cca9d35c19d25d3aa2fea3af1b3c5039d13741",
+    "training/kessel_training/offline_policy.py": "59b22d9ec37ab3656dc494acd752939743e3721e932e4ad7b3f2236eb6720c21",
+    "training/kessel_training/offline_runtime.py": "9092778bf169556048662d54ed309a136597c83f254e1ca0aad251484819c24c",
+    "training/kessel_training/phase_memory.py": "f4134729259c7d626d8be5c4260eb1e9c1d60e0f46342de57b0ed389aad130ba",
+    "training/kessel_training/phase_study.py": "1bcf58cf566964ecaa66825d881b0ef0ad65c6fa72924d7b3e3bdc920569c3ca",
+    "training/kessel_training/pile.py": "caa755636ba41d6176c675bd1022cf95b398659b2d19d0a5fa7387754840a2c1",
+    "training/kessel_training/policy.py": "7c2e4b82cb497c3e2563d1d8724d6720f4a128b23af462987681510ac5689adb",
+    "training/kessel_training/ppo.py": "9ec9a2aee45b7e1dd4c5587a0cc096704f15116916be5ef8a0614ad8d6c40e79",
+    "training/kessel_training/profile.py": "cdb5ae27fa51aa8f476f8022ef35ab6dc0526c55f9759cffc81a36d0a6599635",
+    "training/kessel_training/reference_audit.py": "e311908107795bad588933c6ed65680089b0e36f3d128c093c3532c0fb1aa100",
+    "training/kessel_training/reserve_full_cycle.py": "55af6ef0fbcf631d53b57b7639d37cf694c68620678e2daab51770c65e73ed1c",
+    "training/kessel_training/reserve_phase_study.py": "6089d53a6c680982bf82ab48a70848603610b723b63f4db151160a5613746f48",
+    "training/kessel_training/reserve_scenarios.py": "2750fab4949c0ff9e44e2bf9b8909b57ecceda108e09f54ed512e0afaf6f61ba",
+    "training/kessel_training/retraction_pilot.py": "792496bebabea37237d22648da286ac7655b1fb523a05f7569b537ba529bfed5",
+    "training/kessel_training/rewards.py": "efed0fed26cb20eb021398fbb2958f9cc6386808316dc7a44645f879e44b0273",
+    "training/kessel_training/scenarios.py": "e53bff8417303476537c3959f52e241dff81a2cbfec513251e2012f06491bea7",
+    "training/kessel_training/study.py": "1eda699febb77d21fe04183efde8526f513a7457fcef1b5cb8758628eba1e5d5",
+    "training/kessel_training/telemetry.py": "4efc204fd161617bf06356464705e8b725012c6f4c4cec8355be277e165560d8",
+    "training/kessel_training/train.py": "3bec6001d0cba34fd7487d5951ca59dcfaa2f9a99cfaeb1d8d5a1944ba49a281",
+    "training/kessel_training/verify_five_stage.py": "88437120f9a1c968103a1790883d7698a93a7556ab63d86db938807b862b9b6b",
+    "training/kessel_training/viewer_bundle.py": "bc8fcaf396bb91abe765f1961e1d8930e5e95ba4f9d49675493f812d0efac0f0",
+    "training/kessel_training/wm_data.py": "a2f1184e7eddf303348a01626a53edfc8732ff12014ea11bb119befaeb2eccc0",
+    "training/kessel_training/wm_evaluate.py": "d9e052df88af3ac64c040346fee749bf8bda8499c3a188945aa8b8ee740aed09",
+    "training/kessel_training/wm_experiment.py": "09a4152e75fe83ddd901b4e764608e9dce911872a281cd82c7ebb0a3bce25735",
+    "training/kessel_training/wm_export.py": "93559df3458f48d563d80006039f38c11f027008a6f273562c234d7c2cffb15b",
+    "training/kessel_training/wm_filter_experiment.py": "b91f963e3d9313be38bab7de7de3f1019be741f3f89e4ec36738eab5294a89f1",
+    "training/kessel_training/wm_plots.py": "13ce97499dd5312fd7a4d30f198b17c26faf67f5b4f6f8fffe4bd680bb7e2bcf",
+    "training/kessel_training/wm_state.py": "a6239b83ba015fc9c6fc21a01e32915f68ac2d043da538a727dfa2fe01cdedce",
+    "training/kessel_training/world_model.py": "022db856863361660286dbd66eaee18369ccaf693cbde218b6b0a04a03aa3c38",
+    "training/kessel_lab/runtime.py": "1fd052d1f36f1c306b3898e1c94d94729cbbed7d118feecc890ab876ea6c9433",
+    "training/kessel_lab/range_supervisor.py": "02900555087be54ac8bb156452e9e6ff1523ebb14481e07773af8f600573fd6e",
+    "training/kessel_lab/range_contract.py": "5ff25a4aeeee52c7ad15e238ad2ac02495c9a6897770fd8b5c34d5ac18573bde",
+    "training/kessel_lab/range_pilot.py": "ae0c7fe4cf2d5b6d23f0b0da5c7f9d18d470db2b4154e748bf3fe87d58d858a3",
+    "training/kessel_lab/bootstrap_hold_pilot.py": "34f0e7771ae95470dc4163ef5ca8f2372a8c5c39eee1cf6e7540bfc7ce8569ef",
+    "training/kessel_lab/bootstrap_qualification.py": "f102685ac094c0939261d06b1174d93b79f365f7e28f8d08e06341ba524043d5",
+    "training/kessel_lab/motion_hold.py": "c8138fb12fc2475c3d518ee4c21e8e64977ab68277ccecef2aa8d8156e805780",
+    "training/kessel_lab/bootstrap_hold.py": "6bcd32accac2b67a7c74bc0cff9f544b91869bbc5db77a6b0b50a22e4d4cf8e8",
+    "training/uv.lock": "f2dd3cb4a9ab02677266e358ad17f875245daf56aa8330f2b7f61cef6390d50c",
+    "docs/adr/0066-spatial-range-contract-and-pilot.md": "67fcc1ea9c6f658dea3ce07d3d97ffdc1208e4546d5bcc75dc19be791560796c",
+    "docs/adr/0068-observed-motion-holding-pilot.md": "7ec0452b050125f7a0265c279bb74474d8446888a33e2d6768fb23b71341a309",
+    "docs/adr/0069-bootstrap-motion-holding-pilot.md": "e4ac4357b81219168c9e9241e7155465f4bb367d9f29efcf1979fd235080c182",
+    "docs/adr/0070-bootstrap-hold-fresh-qualification.md": "098594af8e8faa9de8301c0ed565fb4a90c88f008e6b06b26a42851235d3c1c7",
+    "docs/adr/0071-fresh-qualification-logging-erratum.md": "04b8b2fc43e0ccfe8936cd74bfe28f3824315a11c0179f94f591a4fbb96c3390",
+    "training/kessel_lab/reserve_bootstrap_replacement.py": "5fece28b430f3a363e88d6945a30cebd00e43a44096495ba3a910a980fee1d40",
+    "training/kessel_lab/reserve_bootstrap.py": "dfda0033664017bdedc6d222afb17fb7d55d01ab789f55ea0a1e83b0446c9829",
+    "docs/phase-11/phase-memory-evidence/selection.json": "9ee7d7a638614f6b7ea75eac6c105b5d5fb23209a093da9fb7ca1bdfb3e4ff3f",
+    "docs/phase-11/bootstrap-qualification-evidence/reservation-corrected.json": "11b369e6cea1d2756478612ba8fddf9c1cc816dd28a7b0a57e39b902d028f8fd",
+    "docs/phase-11/bootstrap-qualification-evidence/reservation.json": "e93225807c8de61275abf0309127dda73181d9327bfef0ccf3df87e896ddb720",
+    "docs/phase-11/bootstrap-qualification-evidence/reservation-replacement.json": "0270c18300b7ba7d1d60966b56331abdee33068cc7a521fc486b1d273031d25c"
+  },
+  "cpu_threads": 1,
+  "wall_cap_s": 400,
+  "evaluation_cap": 71400,
+  "physics_replay_cap": 57600,
+  "action_replay_cap": 72000,
+  "trace_archive_cap": 33554432,
+  "commit": "46f1b69d613166d08e066c83a3b19cb4208dfb52",
+  "software": {
+    "torch": "2.15.0",
+    "numpy": "2.5.4"
+  }
+}
