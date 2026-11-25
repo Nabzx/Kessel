@@ -1,0 +1,18 @@
+{
+  "kind": "spatial-pilot-serialization-abort-v1",
+  "commit": "ce96ddc",
+  "stage": "serialising first case before trace retention",
+  "error": "TypeError: NumPy boolean is not JSON serialisable",
+  "retained_cases": 0,
+  "case_started_upper_bound": 1,
+  "environment_decisions_upper_bound": 600,
+  "neural_queries_upper_bound": 600,
+  "physics_replay_decisions": 0,
+  "action_replay_queries": 0,
+  "active_wall_s": "not measured after exception",
+  "artefact_timestamp_span_s": 1.8002326488494873,
+  "missing_data": "first-case trajectory and exact query counts were not written before the exception",
+  "source_archive_sha256": "cebde700be395e39b9a93eec6ac346c9bd2069723017021d660d00a1b244429c",
+  "plan_sha256": "28448a162a3a098bc0d2c76fa01adb77896c959ad4556256ef2086eb1c6399fe",
+  "trace_archive_sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+}

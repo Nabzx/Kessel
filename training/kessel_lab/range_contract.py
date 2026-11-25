@@ -18,7 +18,7 @@ def canonicalize(observation):
     fraction = float(obs["range_valid"].mean())
     kind = "stale" if not fresh else "fresh_complete" if fraction == 1 else "fresh_partial"
     return obs, {"kind":kind,"valid_fraction":fraction,
-                 "usable":kind == "fresh_complete" and p[11] <= .2+1e-9}
+                 "usable":bool(kind == "fresh_complete" and p[11] <= .2+1e-9)}
 
 
 class CompleteRangeSupervisor(RangeSupervisor):

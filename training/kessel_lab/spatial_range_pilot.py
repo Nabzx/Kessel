@@ -20,7 +20,7 @@ from .range_contract import METHOD, CompleteRangeSupervisor
 from .range_pilot import stop_metrics, weights
 from .runtime import ROOT, Run, digest
 
-OUTPUT = ROOT/".local/spatial-range-pilot-2026-11-25"
+OUTPUT = ROOT/".local/spatial-range-pilot-2026-11-25-corrected"
 PATTERNS = ("healthy","transient","recovery","partial_reset_retained","partial_reset_zeroed",
             "partial_fill_retained","partial_fill_zeroed","partial_lift_retained","partial_lift_zeroed",
             "partial_carry_retained","partial_carry_zeroed","carry_loss")
@@ -106,10 +106,12 @@ def execute():
     paths += [ROOT/n for n in ("training/kessel_lab/runtime.py","training/kessel_lab/range_supervisor.py",
         "training/kessel_lab/range_contract.py","training/kessel_lab/range_pilot.py","training/kessel_lab/spatial_range_pilot.py",
         "training/uv.lock","docs/adr/0066-spatial-range-contract-and-pilot.md",
+        "docs/adr/0067-spatial-pilot-serialization-erratum.md",
+        "docs/phase-11/spatial-range-evidence/aborted-attempt/abort.json",
         "docs/phase-11/phase-memory-evidence/selection.json","docs/phase-11/spatial-range-evidence/diagnostic.json")]
     files = {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
-    plan = {"protocol":"ADR-0066","cases":jobs(),"files":files,"cpu_threads":1,"wall_cap_s":180,
-            "evaluation_cap":30600,"physics_replay_cap":28800,"action_replay_cap":30600,"trace_archive_cap":16*1024**2,
+    plan = {"protocol":"ADR-0066 with ADR-0067 serialization erratum","cases":jobs(),"files":files,"cpu_threads":1,"wall_cap_s":150,
+            "evaluation_cap":30000,"physics_replay_cap":28800,"action_replay_cap":30600,"trace_archive_cap":16*1024**2,
             "commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),
             "software":{"torch":str(torch.__version__),"numpy":np.__version__}}
     (OUTPUT/"plan.json").write_text(json.dumps(plan,indent=2)+"\n")
@@ -119,7 +121,7 @@ def execute():
     physical_cases = action_cases = 0; state_error = action_error = observation_error = 0.; stop = None; trace_bytes = 0
     class BudgetStop(Exception): pass
     def budget():
-        if time.monotonic()-started >= 180: raise BudgetStop("wall_cap")
+        if time.monotonic()-started >= 150: raise BudgetStop("wall_cap")
     original = ReferenceController.act
     def reject(*args,**kwargs): raise AssertionError("teacher/reference call")
     ReferenceController.act = reject
@@ -131,7 +133,7 @@ def execute():
                 try:
                     while not run.done:
                         budget()
-                        if decisions >= 30600: raise BudgetStop("evaluation_cap")
+                        if decisions >= 30000: raise BudgetStop("evaluation_cap")
                         actual = run.env.observe(); obs,fault = injector.apply(actual)
                         action = run.actor.act(obs); record = run.frame()
                         record.update(observation={k:v[0].tolist() for k,v in obs.items()},

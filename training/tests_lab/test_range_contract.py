@@ -1,4 +1,5 @@
 import copy
+import json
 import unittest
 import numpy as np
 import torch
@@ -18,6 +19,7 @@ class CompleteRangeContractTests(unittest.TestCase):
         self.assertEqual(encoded["local_height_m"][0,0,0],0)
         self.assertFalse(health["usable"])
         self.assertEqual(health["kind"],"fresh_partial")
+        json.dumps(health)
         for k in obs: np.testing.assert_array_equal(obs[k],saved[k])
         obs["proprio"][0,12] = 0
         stale,health = canonicalize(obs)
@@ -33,12 +35,14 @@ class CompleteRangeContractTests(unittest.TestCase):
             obs = observation(i*.1)
             np.testing.assert_array_equal(s.act(obs),original.act(obs))
             self.assertFalse(s.last["override"])
+            json.dumps(s.last)
 
     def test_one_missing_cell_stops_immediately_and_recovery_needs_stable_inputs(self):
         s = CompleteRangeSupervisor(PhaseActor(True).eval())
         s.act(observation())
         bad = observation(.1); bad["range_valid"][0,4,4] = 0
         s.act(bad); self.assertTrue(s.last["override"])
+        json.dumps(s.last)
         s.act(observation(.2)); s.act(observation(.3)); self.assertTrue(s.last["override"])
         s.act(observation(.4)); self.assertFalse(s.last["override"])
         self.assertAlmostEqual(s.last["paused_s"],.3)
