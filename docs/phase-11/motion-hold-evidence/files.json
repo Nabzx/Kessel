@@ -1,0 +1,13 @@
+{
+  "docs/adr/0068-observed-motion-holding-pilot.md": "7ec0452b050125f7a0265c279bb74474d8446888a33e2d6768fb23b71341a309",
+  "docs/phase-11/motion-hold-evidence/evaluation.json": "0aeee0bc9180c4f0b593e362217b932c4fff97d64865c877a86c1fe2683ac765",
+  "docs/phase-11/motion-hold-evidence/plan.json": "25fba479429e327d7aa3e9a3903a42dfd1db36929ae019d14658c76112f320a8",
+  "docs/phase-11/motion-hold-evidence/report.json": "58ed02e9082d837266d36cdad2f4dc6a9fa96093279c280679cac7db8bd2663e",
+  "docs/phase-11/motion-hold-evidence/source.zip": "03f1de8c633e849e1629bd67236e03827243a6f544d538cddfed20c201abdf33",
+  "docs/phase-11/motion-hold-evidence/traces.zip": "2fa526be1e4cea0b69efc455fccabef07483aa37a74772fc25635c8b2f3dd2e4",
+  "docs/phase-11/motion-hold-study.md": "67e3b3cb6a54bf1c28177b3af6ee75f5ea209bc408480d2aa6dc8388e3042f82",
+  "scripts/verify-motion-hold.py": "8dd19a8b17842f276e4edd9b17a0c2338df2673c84873909c819bf35640e866d",
+  "training/kessel_lab/motion_hold.py": "c8138fb12fc2475c3d518ee4c21e8e64977ab68277ccecef2aa8d8156e805780",
+  "training/kessel_lab/motion_hold_pilot.py": "7e49cefaa954f5bf3107ac7e0c4a63efeaddba8199368cfbca44bdcf79fd6385",
+  "training/tests_lab/test_motion_hold.py": "61a58427e6c9d50b5f79cdf61859b3e4eed44e562c68fc74fc3b7ce74eb975c5"
+}
