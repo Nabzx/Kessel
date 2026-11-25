@@ -1,6 +1,7 @@
 import copy
+import json
 import unittest
-from kessel_lab.bootstrap_qualification import METHOD, jobs, admitted
+from kessel_lab.bootstrap_qualification import METHOD, jobs, admitted, trace_identity
 
 
 class FreshStoppingAdmissionTests(unittest.TestCase):
@@ -25,6 +26,17 @@ class FreshStoppingAdmissionTests(unittest.TestCase):
         self.assertFalse(admitted(duplicate,True,True))
         wrong = copy.deepcopy(rows); wrong[0]["seed"] = 1
         self.assertFalse(admitted(wrong,True,True))
+
+    def test_practice_journal_and_identity_survive_source_hash_values(self):
+        from kessel_lab.bootstrap_hold_pilot import make_run
+        job = {"method":METHOD,"source":"phase_memory-7","seed":19000,"kind":"task","pattern":"healthy","criterion":"delivery"}
+        run = make_run(job); obs = run.env.observe(); action = run.actor.act(obs)
+        payload = {"identity":trace_identity(job,run.scenario,{"source":"some hash"}),
+                   "job":job,"observation":{k:v.tolist() for k,v in obs.items()},
+                   "supervision":run.actor.last,"action":action.tolist()}
+        json.dumps(payload,allow_nan=False)
+        self.assertEqual(len(payload["identity"]),64)
+        self.assertNotEqual(payload["identity"],trace_identity(job,run.scenario,{"source":"different hash"}))
 
 
 if __name__ == "__main__": unittest.main()

@@ -17,8 +17,8 @@ from .range_pilot import weights
 from .runtime import ROOT, digest
 from .bootstrap_hold_pilot import make_run, SpatialFault, stopping
 
-OUTPUT = ROOT/".local/bootstrap-fresh-qualification-2026-11-25"
-SEEDS = tuple(range(208700,208708))
+OUTPUT = ROOT/".local/bootstrap-fresh-qualification-2026-11-25-corrected"
+SEEDS = tuple(range(208701,208709))
 PATTERNS = ("healthy","partial_carry_zeroed","carry_loss","recovery")
 EVIDENCE = ROOT/"docs/phase-11/bootstrap-qualification-evidence"
 
@@ -48,23 +48,29 @@ def admitted(cases, complete, healthy_exact):
         for policy in (7,19,41) for pattern in PATTERNS))
 
 
+def trace_identity(job, scenario, files):
+    return digest({"job":job,"scenario":scenario,"files":files})
+
+
 def execute():
-    cert_path = EVIDENCE/"reservation.json"
+    cert_path = EVIDENCE/"reservation-corrected.json"
     cert = json.loads(cert_path.read_text())
     if not cert.get("verified") or cert.get("seeds") != list(SEEDS) or cert.get("hits") or cert.get("errors"):
         raise ValueError("matching verified fresh reservation required")
-    for name,digest in cert["audit_files"].items():
-        if hashlib.sha256((ROOT/name).read_bytes()).hexdigest() != digest: raise ValueError("audit source changed: "+name)
+    for name,expected_digest in cert["audit_files"].items():
+        if hashlib.sha256((ROOT/name).read_bytes()).hexdigest() != expected_digest: raise ValueError("audit source changed: "+name)
     configure_cpu(7,threads=1); OUTPUT.mkdir(parents=True,exist_ok=False)
     paths = sorted((ROOT/"training/kessel_training").glob("*.py"))
     paths += [ROOT/n for n in ("training/kessel_lab/runtime.py","training/kessel_lab/range_supervisor.py",
         "training/kessel_lab/range_contract.py","training/kessel_lab/range_pilot.py","training/kessel_lab/bootstrap_hold_pilot.py","training/kessel_lab/bootstrap_qualification.py","training/kessel_lab/motion_hold.py","training/kessel_lab/bootstrap_hold.py",
         "training/uv.lock","docs/adr/0066-spatial-range-contract-and-pilot.md",
         "docs/adr/0068-observed-motion-holding-pilot.md","docs/adr/0069-bootstrap-motion-holding-pilot.md","docs/adr/0070-bootstrap-hold-fresh-qualification.md",
-        "docs/phase-11/phase-memory-evidence/selection.json","docs/phase-11/bootstrap-qualification-evidence/reservation.json")]
+        "docs/adr/0071-fresh-qualification-logging-erratum.md","training/kessel_lab/reserve_bootstrap_replacement.py",
+        "docs/phase-11/phase-memory-evidence/selection.json","docs/phase-11/bootstrap-qualification-evidence/reservation-corrected.json",
+        "docs/phase-11/bootstrap-qualification-evidence/reservation.json","docs/phase-11/bootstrap-qualification-evidence/reservation-replacement.json")]
     files = {str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
-    plan = {"protocol":"ADR-0070","reservation_sha256":hashlib.sha256(cert_path.read_bytes()).hexdigest(),"cases":jobs(),"files":files,"cpu_threads":1,"wall_cap_s":420,
-            "evaluation_cap":72000,"physics_replay_cap":57600,"action_replay_cap":72000,"trace_archive_cap":32*1024**2,
+    plan = {"protocol":"ADR-0070 with ADR-0071 logging correction and replacement","reservation_sha256":hashlib.sha256(cert_path.read_bytes()).hexdigest(),"cases":jobs(),"files":files,"cpu_threads":1,"wall_cap_s":400,
+            "evaluation_cap":71400,"physics_replay_cap":57600,"action_replay_cap":72000,"trace_archive_cap":32*1024**2,
             "commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),
             "software":{"torch":str(torch.__version__),"numpy":np.__version__}}
     (OUTPUT/"plan.json").write_text(json.dumps(plan,indent=2)+"\n")
@@ -74,7 +80,7 @@ def execute():
     physical_cases = action_cases = 0; state_error = action_error = observation_error = 0.; stop = None; trace_bytes = 0
     class BudgetStop(Exception): pass
     def budget():
-        if time.monotonic()-started >= 420: raise BudgetStop("wall_cap")
+        if time.monotonic()-started >= 400: raise BudgetStop("wall_cap")
     original = ReferenceController.act
     def reject(*args,**kwargs): raise AssertionError("teacher/reference call")
     ReferenceController.act = reject
@@ -86,7 +92,7 @@ def execute():
                 try:
                     while not run.done:
                         budget()
-                        if decisions >= 72000: raise BudgetStop("evaluation_cap")
+                        if decisions >= 71400: raise BudgetStop("evaluation_cap")
                         actual = run.env.observe(); obs,fault = injector.apply(actual)
                         action = run.actor.act(obs); record = run.frame()
                         record.update(observation={k:v[0].tolist() for k,v in obs.items()},
@@ -117,7 +123,7 @@ def execute():
                 passed = bool(metric and metric["passed"] and not outcome["collision"]) if job["criterion"] == "stop" else outcome["full_success"]
                 if job["pattern"] != "healthy": passed = passed and injector.started is not None
                 if job["pattern"] == "recovery": passed = passed and bool(overrides) and resumed
-                identity = digest({"job":job,"scenario":run.scenario,"files":files})
+                identity = trace_identity(job,run.scenario,files)
                 payload = {"job":job,"identity":identity,"scenario":run.scenario,"checkpoint_sha256":run.checkpoint_sha256,
                            "outcome":outcome,"weights_before":before,"weights_after":after,"frames":run.records+[final]}
                 raw = gzip.compress(json.dumps(payload,separators=(",",":"),allow_nan=False).encode(),mtime=0)
@@ -174,7 +180,7 @@ def execute():
     trace_sha = hashlib.sha256((OUTPUT/"traces.zip").read_bytes()).hexdigest()
     source_sha = hashlib.sha256((OUTPUT/"source.zip").read_bytes()).hexdigest()
     duration = time.monotonic()-started
-    if duration >= 420 and stop is None: stop = "final_verification_wall_cap"
+    if duration >= 400 and stop is None: stop = "final_verification_wall_cap"
     complete = stop is None and len(rows) == 120 and physical_cases == 96 and action_cases == 120
     r = {"kind":"bootstrap-hold-fresh-qualification-v1","plan":plan,"cases":rows,"complete":complete,"budget_stop":stop,
          "admitted":admitted(rows,complete,bool(exact)),"healthy_exact":bool(exact),
