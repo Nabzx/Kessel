@@ -58,6 +58,9 @@ supervisor remains experimental and is not available in either runtime.
 The [spatial-input follow-up](docs/phase-11/spatial-range-study.md) stops on
 incomplete coverage but fails stronger loaded-grade holding probes. It also
 remains experimental; controlled stops do not count as deliveries.
+The subsequent [bootstrap holding prototype](docs/phase-11/bootstrap-hold-study.md)
+passes its 57-case practice gate, including loaded grade stops and cold starts.
+It still requires fresh qualification and is not enabled in the runtimes.
 
 ## Experience
 

@@ -124,3 +124,8 @@ criteria and a bounded training-partition comparison with exact replay.
 invalid-height semantics, input sensitivity and conservative stopping criteria.
 [Serialization erratum](0067-spatial-pilot-serialization-erratum.md) retains the
 aborted attempt and freezes a reduced-budget correction without control retuning.
+
+[Observed-motion holding](0068-observed-motion-holding-pilot.md) freezes the
+reference-specific force observer and unchanged practice gates.
+[Bootstrap holding](0069-bootstrap-motion-holding-pilot.md) freezes the separately
+named probing/integral-reset law and adds cold-start grade fixtures.

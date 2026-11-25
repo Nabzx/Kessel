@@ -1,0 +1,13 @@
+{
+  "docs/adr/0069-bootstrap-motion-holding-pilot.md": "e4ac4357b81219168c9e9241e7155465f4bb367d9f29efcf1979fd235080c182",
+  "docs/phase-11/bootstrap-hold-evidence/evaluation.json": "54c5f182cb17e506cf97ec783716eeda39fd347e5552b9518c009d027c0aef9d",
+  "docs/phase-11/bootstrap-hold-evidence/plan.json": "312a3d2c1cfe75177914dae1d1f1269a01d32d4a57dcf18421dda3a58d6f54bb",
+  "docs/phase-11/bootstrap-hold-evidence/report.json": "d0ffa592ec82e82edc7aa2660073994c542eca17e4938874278c8b19be28e903",
+  "docs/phase-11/bootstrap-hold-evidence/source.zip": "dbbfa096e9b237dca098b1dbfa9da32d717665e262d631af040b8f88816a2c6b",
+  "docs/phase-11/bootstrap-hold-evidence/traces.zip": "e428f737a32ae3980e00fde248e6ec190ca33045d4921f213e581d3cef0e1d27",
+  "docs/phase-11/bootstrap-hold-study.md": "ec5d75a76670719dcc1d4a3b8738494e173049472681c9cea345662f50c780ec",
+  "scripts/verify-bootstrap-hold.py": "821ad7bbb13bac4573a2f05c6e46f20e6e81b033e1b477baf2875b0606825aef",
+  "training/kessel_lab/bootstrap_hold.py": "6bcd32accac2b67a7c74bc0cff9f544b91869bbc5db77a6b0b50a22e4d4cf8e8",
+  "training/kessel_lab/bootstrap_hold_pilot.py": "34f0e7771ae95470dc4163ef5ca8f2372a8c5c39eee1cf6e7540bfc7ce8569ef",
+  "training/tests_lab/test_bootstrap_hold.py": "4710b51826577b812b77823052a4e7d33d5fb80a5e3c9937919955367b186e24"
+}

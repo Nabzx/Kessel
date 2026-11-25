@@ -130,6 +130,15 @@ No fresh qualification or runtime admission follows. Partial-input delivery is
 not restored: the new method stops when coverage is incomplete. The aborted
 serialization attempt and corrected capped run are both retained.
 
+ADR-0068's first observed-motion holding law fails all twelve loaded-grade
+criteria and remains rejected. ADR-0069 adds a distinct bootstrap law using
+an initial gentle braking sample and an integral reset on transition to holding.
+Its 57-case practice suite passes all 45 stops, nine supervised deliveries and
+three original healthy comparisons, with exact replay and unchanged weights.
+This includes loaded +/-0.8 m/s and cold-start fixtures on +/-0.06 rad grades.
+It is conventional reference-specific control, not learned dynamics or fresh
+qualification. Neither prototype is available in the existing runtimes.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

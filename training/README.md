@@ -201,3 +201,10 @@ and runs a separate complete-coverage supervisor. All partial-coverage stop
 criteria pass, but loaded-grade holding fails in six records. The overall pilot
 gate fails. Both the serialization-aborted attempt and corrected execution are
 retained with separate cost accounting; no existing runtime is changed.
+
+The [observed-motion study](../docs/phase-11/motion-hold-study.md) retains a
+rejected force-estimation controller. The distinct [bootstrap follow-up](../docs/phase-11/bootstrap-hold-study.md)
+passes all 57 declared practice cases with exact replay, including loaded
+forward/reverse/cold-start grade holds. Every applied override remains conventional;
+the original neural weights and healthy actions are unchanged. These are consumed
+practice conditions, not fresh qualification or runtime admission.
