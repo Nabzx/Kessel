@@ -194,3 +194,10 @@ stop/hold criteria, with healthy actions exactly preserved, but three occluded
 cases fail delivery. The full gate fails. This prototype is not admitted, and no
 fresh qualification or existing-runtime change is implied. All 33 traces and
 independent replay costs are retained.
+
+The [spatial-input follow-up](../docs/phase-11/spatial-range-study.md) defines
+canonical invalid/stale heights, retains 255 frozen-phase diagnostic queries
+and runs a separate complete-coverage supervisor. All partial-coverage stop
+criteria pass, but loaded-grade holding fails in six records. The overall pilot
+gate fails. Both the serialization-aborted attempt and corrected execution are
+retained with separate cost accounting; no existing runtime is changed.

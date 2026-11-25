@@ -1,0 +1,23 @@
+{
+  "docs/adr/0066-spatial-range-contract-and-pilot.md": "67fcc1ea9c6f658dea3ce07d3d97ffdc1208e4546d5bcc75dc19be791560796c",
+  "docs/adr/0067-spatial-pilot-serialization-erratum.md": "6625e4bae09391aff5254df3041fdc9fd0e8e1e7969491b04172ca5e1df80885",
+  "docs/phase-11/spatial-range-evidence/aborted-attempt/abort.json": "37c844c731bd41b194d9c55cf622c93939f7283b98da82d07585884a935be6d8",
+  "docs/phase-11/spatial-range-evidence/aborted-attempt/plan.json": "28448a162a3a098bc0d2c76fa01adb77896c959ad4556256ef2086eb1c6399fe",
+  "docs/phase-11/spatial-range-evidence/aborted-attempt/source.zip": "cebde700be395e39b9a93eec6ac346c9bd2069723017021d660d00a1b244429c",
+  "docs/phase-11/spatial-range-evidence/aborted-attempt/traces.zip": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+  "docs/phase-11/spatial-range-evidence/diagnostic-plan.json": "43e3755b5ce0ea4970a3636b147f6bcc71df5e09844afcc51ab715cdeaa14a48",
+  "docs/phase-11/spatial-range-evidence/diagnostic-source.zip": "9f5848232691811641707bfe7f9b02b1f82031cfdc617a85d65042c94d13b5b3",
+  "docs/phase-11/spatial-range-evidence/diagnostic.json": "860585296630811a0b922d00d1a799eb5c0e4cbb7478a4af33dfc0a5f80a542d",
+  "docs/phase-11/spatial-range-evidence/evaluation.json": "197514990b95addbbe46fe4cb4fad6495344483fbaf94806d59b52f3ab1bbf1b",
+  "docs/phase-11/spatial-range-evidence/plan.json": "7702477b03f6eef651ce2162c2203e3680689f45db74f008966560a1a86e35fa",
+  "docs/phase-11/spatial-range-evidence/report.json": "1069d5996d807dfcd431c823288e8e21c0f03c7f13e727d64a4428dca6c9e071",
+  "docs/phase-11/spatial-range-evidence/source.zip": "780b329674a65198a2dad0ad71c76d84272f3e7f874398f7f5dcf9fbec3e7e26",
+  "docs/phase-11/spatial-range-evidence/traces.zip": "7c3ff7f2440efe34aa49760609f954679d166e85b9f8eeac46280344efb17fae",
+  "docs/phase-11/spatial-range-study.md": "ac6344512209d6c3bf785e42594fd4705d930b4216eb041cbabece77ffd28790",
+  "scripts/research/diagnose-spatial-coverage.py": "8432602fc5ac9065e0d758e89925077a2906389e6dd635793dc80cf2cf36d366",
+  "scripts/verify-spatial-range.py": "65be081b82d2e316baa6a614d722a7413bce85b01c592d2950e5d7221136286b",
+  "training/kessel_lab/range_contract.py": "5ff25a4aeeee52c7ad15e238ad2ac02495c9a6897770fd8b5c34d5ac18573bde",
+  "training/kessel_lab/spatial_range_pilot.py": "a6576193bd61c1b86f68b6600ffd28c6e98fff1d83c905c8ad0bb65d9923adc5",
+  "training/tests_lab/test_range_contract.py": "7e88106a345835c55bd28fe0b55aa2cb76196dd3f8f57f79777b35bdc4febb6e",
+  "training/tests_lab/test_spatial_range_pilot.py": "8693d38c8d568b7d91f6ef6742c0af46c8bc4febb5c8e318ba9bcde52297a054"
+}

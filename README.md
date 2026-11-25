@@ -55,6 +55,9 @@ obstacle observability and shared collection/traction limits.
 The [missing-range pilot](docs/phase-11/range-supervisor-study.md) meets its
 declared stop/hold criteria but fails partial-occlusion delivery. Its conventional
 supervisor remains experimental and is not available in either runtime.
+The [spatial-input follow-up](docs/phase-11/spatial-range-study.md) stops on
+incomplete coverage but fails stronger loaded-grade holding probes. It also
+remains experimental; controlled stops do not count as deliveries.
 
 ## Experience
 

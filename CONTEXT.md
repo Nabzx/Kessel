@@ -121,6 +121,15 @@ overall gate fails: no runtime admission or fresh qualification follows.
 The wrapper freezes phase and pauses the task clock during overrides. All
 neural proposals, applied synthetic actions and negative outcomes remain retained.
 
+ADRs 0066/0067 add a separate canonical range adapter and complete-coverage
+supervisor. Invalid/stale heights are zeroed without inventing valid cells.
+The revised practice pilot meets all 24 partial-coverage stops and three moving-
+carry complete-loss stops, with nine successful healthy/transient/recovered
+deliveries. Six of twelve loaded-grade fixtures fail the ten-second holding gate.
+No fresh qualification or runtime admission follows. Partial-input delivery is
+not restored: the new method stops when coverage is incomplete. The aborted
+serialization attempt and corrected capped run are both retained.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

@@ -119,3 +119,8 @@ fresh-case audit, all-seed nominal/farther gates, replay and resource limits.
 [Missing-range supervisor pilot](0065-missing-range-supervisor-pilot.md) freezes
 observation-health rules, conventional stopping/recovery, distinct hold/delivery
 criteria and a bounded training-partition comparison with exact replay.
+
+[Spatial range contract](0066-spatial-range-contract-and-pilot.md) separates
+invalid-height semantics, input sensitivity and conservative stopping criteria.
+[Serialization erratum](0067-spatial-pilot-serialization-erratum.md) retains the
+aborted attempt and freezes a reduced-budget correction without control retuning.
