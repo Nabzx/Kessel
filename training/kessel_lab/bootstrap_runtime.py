@@ -248,7 +248,8 @@ class Session(BaseSession):
 class Handler(BaseHandler):
     STATIC = {"/docs/phase-11/qualified-demo/","/docs/phase-11/qualified-demo/index.html",
               "/docs/phase-11/qualified-demo/viewer.js","/docs/phase-11/qualified-demo/viewer.css",
-              "/docs/phase-11/qualified-demo/client.mjs","/docs/phase-11/qualified-demo/presentation.mjs"}
+              "/docs/phase-11/qualified-demo/client.mjs","/docs/phase-11/qualified-demo/presentation.mjs",
+              "/docs/phase-11/bootstrap-qualification.md"}
 
     def do_GET(self):
         if not self.valid_host(): return self.json(403,{"error":"loopback host required"})
