@@ -304,3 +304,8 @@ ledger and physical collision reference.
 local observations and phase from a conventional observation-derived state
 machine. Teacher queries are restricted to training. The explicit memory is
 not a learned planner or a learned world model.
+
+**Structured local dynamics predictor**: a privileged synthetic hybrid with
+learned local acceleration/extraction heads and explicitly known kinematic,
+geometry, event and material-accounting priors. Its passing practice forecast gate
+does not qualify perception, deployment or policy assistance.
