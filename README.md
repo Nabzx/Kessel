@@ -74,6 +74,10 @@ The [broader robustness refit](docs/phase-11/robustness-repair.md) retains a rej
 neural candidate and a separate conventional steering correction. Low-pile,
 noisy-input and shifted-start delivery remain unresolved; existing qualified
 controllers are unchanged.
+The [working-policy world-model refit](docs/phase-11/working-policy-refit.md)
+improves position and observation forecasts but fails the all-family gate.
+Raw material errors and rare-failure coverage still fall short; assistance stays
+disabled. Training-only data, weights and all predictions are retained.
 
 ## Experience
 
