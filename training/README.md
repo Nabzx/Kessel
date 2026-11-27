@@ -225,3 +225,11 @@ Startup verifies qualification and source identities. Its four synthetic pattern
 explicit controls, sensor/control status and exports remain limited to practice
 seeds and nominal physics. Exact consumed-practice comparisons verify integration;
 they do not create a new held-out result or field safety claim.
+
+The subsequent [clearance stopping](../docs/phase-11/clearance-stopping.md),
+[all-family robustness repair](../docs/phase-11/robustness-repair.md) and
+[working-policy model refit](../docs/phase-11/working-policy-refit.md) retain their
+complete bounded practice outcomes. Clearance stops pass but delivery compatibility
+fails; neural robustness candidates regress and are rejected; refitted forecasts
+improve some errors but fail final eligibility. No new method is admitted to the
+existing services. Their sources, traces, failures and cost caps are checked in CI.

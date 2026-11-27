@@ -81,6 +81,8 @@ jobs:
         run: python3 scripts/verify-clearance-evidence.py
       - name: Verify the bounded robustness refit and steering correction
         run: python3 scripts/verify-robustness-repair.py
+      - name: Verify working-policy refit errors and calibration gates
+        run: python3 scripts/verify-forecast-refit.py
       - name: Verify bounded walkthrough acceptance review
         run: python3 scripts/verify-acceptance-review.py && node --check docs/phase-11/acceptance-review/review.js
       - name: Verify recorded demo bundles

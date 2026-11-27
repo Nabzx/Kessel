@@ -173,6 +173,15 @@ a conventional stability defect but its retest still fails delivery. All 221
 episodes, source/weights and exact candidate/physical replay remain retained.
 No existing runtime or qualification changes.
 
+ADR-0075 refits models on isolated working-policy practice episodes. Position
+MAE improves from 0.04416 to 0.02236 m and the observation model improves speed,
+load and valid-height errors, but raw material errors worsen. Validation admits
+a two-decision horizon; the all-family evaluation gate still fails, including
+68.35% accepted high-error on left-receiver cases and zero coverage in several
+other families.
+All raw/filtered predictions and rare-class coverage shortfalls remain retained.
+No assisted updates, fresh qualification or runtime admission follow.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source
