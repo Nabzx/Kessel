@@ -15,19 +15,27 @@ def frame(env,actor):
             "wheel_angles_rad":env.wheel_angles[0].tolist()}
 
 
+def clearance_packet(env,pattern):
+    packet = synthetic_clearance(env); now = float(env.elapsed[0])
+    if pattern == "stale_clearance": packet["capture_s"] -= .3
+    if pattern == "old_clearance" and now >= 3.-1e-8: packet["capture_s"] = 2.9
+    if pattern == "missing_clearance" and now >= 3.-1e-8: return None
+    return packet
+
+
 def run(family,seed,budget,pattern=None,replay=False,actuator=None,lateral_gain=.15):
     env,scenario = environment(family,seed); actor = ProgressSupervisor(actuator=actuator,lateral_gain=lateral_gain); records = []
     fault_start = None; loss_start = None; settled = None; slow = 0; done = False; override_count = 0; resumed = False; previous_override = False
-    stop_check = family in ("blocked","range_dropout") or pattern == "carry_loss"
+    stop_check = family in ("blocked","range_dropout") or pattern in ("carry_loss","stale_clearance","old_clearance","missing_clearance")
     end = None; mass_error = 0.
     while not done:
         budget.charge("environment"); budget.charge("teacher")
         actual = env.observe(); observed = {k:v.copy() for k,v in actual.items()}; now = float(env.elapsed[0])
-        if pattern and fault_start is None and actor.task.mode == "carry" and actual["proprio"][0,4] <= -.5: fault_start = now
+        if pattern in ("recovery","carry_loss") and fault_start is None and actor.task.mode == "carry" and actual["proprio"][0,4] <= -.5: fault_start = now
         injected = fault_start is not None and (pattern != "recovery" or now-fault_start < 2.-1e-8)
         if injected:
             observed["range_valid"][:] = 0; observed["proprio"][0,12] = 0; observed["proprio"][0,11] = now-fault_start+.1
-        packet = synthetic_clearance(env); action = actor.act(observed,packet)
+        packet = clearance_packet(env,pattern); action = actor.act(observed,packet)
         overridden = actor.last["override"]; override_count += overridden
         resumed |= previous_override and not overridden; previous_override = overridden
         active = bool(injected or family == "range_dropout" or not actor.last["clearance"]["usable"])
@@ -64,7 +72,7 @@ def run(family,seed,budget,pattern=None,replay=False,actuator=None,lateral_gain=
         independent,_ = environment(family,seed); controller = ProgressSupervisor(actuator=actuator,lateral_gain=lateral_gain)
         for record in records:
             budget.charge("replay")
-            assert synthetic_clearance(independent) == record["clearance"]
+            assert clearance_packet(independent,pattern) == record["clearance"]
             assert {k:v[0].tolist() for k,v in independent.observe().items()} == record["actual_observation"]
             obs = {k:np.asarray([v]) for k,v in record["observation"].items()}
             assert controller.act(obs,record["clearance"])[0].tolist() == record["action"]
