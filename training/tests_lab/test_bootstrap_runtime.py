@@ -54,6 +54,23 @@ class QualifiedRuntimeTests(unittest.TestCase):
         self.assertEqual(baseline["method"],"original")
         self.assertFalse(baseline["playback"]["running"])
 
+    def test_midfault_reset_clears_observer_fault_and_task_clock(self):
+        s = self.session; self.reset(family="recovery")
+        for _ in range(200):
+            s.step({"run_id":s.run_id,"after":s.run.base.decisions,"steps":1})
+            if s.run.previous_override: break
+        self.assertTrue(s.run.previous_override)
+        self.assertFalse(s.run.finished)
+        old = s.run; old_id = s.run_id; records = copy.deepcopy(old.base.records)
+        ready = self.reset(family="recovery")
+        self.assertNotEqual(s.run_id,old_id)
+        self.assertEqual(old.base.records,records)
+        self.assertIsNone(s.run.base.actor.previous_motion)
+        self.assertIsNone(s.run.injector.started)
+        self.assertEqual(s.run.base.actor.disturbance,0.)
+        self.assertEqual(ready["telemetry"]["task_time_s"],0.)
+        self.assertEqual(s.run.base.records,[])
+
     def test_evidence_flags_cannot_replace_complete_per_seed_source_and_replay_checks(self):
         report = json.loads(REPORT.read_text())
         for mutate in (lambda r:r.update(admitted=False),lambda r:r.update(physics_replay_cases=0),
