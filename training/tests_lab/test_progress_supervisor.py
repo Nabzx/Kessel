@@ -7,6 +7,15 @@ from kessel_lab.ordered_clearance import OrderedClearanceStop
 
 
 class ProgressSupervisorTests(unittest.TestCase):
+    def test_previously_intercepted_healthy_case_delivers_with_the_guard_active(self):
+        from kessel_lab.progress_rollout import run
+        from kessel_lab.study_tools import Budget
+        result = run("nominal",19001,Budget(20,environment=600,teacher=600,replay=600),replay=True)
+        self.assertTrue(result["evaluation"]["passed"])
+        self.assertTrue(result["outcome"]["full_success"])
+        self.assertGreaterEqual(result["outcome"]["delivered_kg"],2000)
+        self.assertFalse(result["outcome"]["collision"])
+
     def test_monitor_matches_ordered_contract_and_old_input_cannot_clear_a_latch(self):
         env,_ = environment("nominal",19020); packet = synthetic_clearance(env)
         monitor = ClearanceMonitor(); old = OrderedClearanceStop(checkpoint("phase_memory-7")[0])

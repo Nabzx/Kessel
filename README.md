@@ -78,6 +78,10 @@ The [working-policy world-model refit](docs/phase-11/working-policy-refit.md)
 improves position and observation forecasts but fails the all-family gate.
 Raw material errors and rare-failure coverage still fall short; assistance stays
 disabled. Training-only data, weights and all predictions are retained.
+The [progress-driven conventional repair](docs/phase-11/progress-control.md)
+passes eighteen frozen task/stop/recovery checks and delivers on the previously
+intercepted healthy scenario with its guard active. A hard development low-grip
+failure remains retained; the new method has no inherited fresh qualification.
 
 ## Experience
 
