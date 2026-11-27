@@ -39,7 +39,17 @@ is solved. No obstacle avoidance, dynamic sensing, machine safety or field
 perception is established. All original numerical sources and viewers remain
 unchanged. No browser or listening service was used.
 
+The separate [ADR-0077 capture-order guard](../adr/0077-clearance-capture-order-guard.md)
+completes an input-contract gap found in final review. A fresh-looking packet can
+still be old or duplicated. `OrderedClearanceStop` rejects non-increasing or
+negative capture timestamps before they can release a blockage latch, records
+the accepted clock and permits recovery on later correctly ordered input. Its
+three contract tests cover all frozen checkpoints and exact ordered-command
+agreement with the pilot wrapper. This adds no physical efficacy evidence or
+runtime admission; the frozen pilot sources/results remain intact.
+
 ```sh
 python3 scripts/verify-clearance-evidence.py
 PYTHONPATH=training training/.venv/bin/python -m unittest discover -s training/tests_lab -p test_clearance_stop.py -v
+PYTHONPATH=training training/.venv/bin/python -m unittest discover -s training/tests_lab -p test_ordered_clearance.py -v
 ```
