@@ -4,12 +4,20 @@ import unittest
 
 import numpy as np
 
-from kessel_lab.clearance_stop import ClearanceStop, health, synthetic_clearance
+from kessel_lab.clearance_stop import ClearanceStop, LatchedClearanceStop, health, synthetic_clearance
 from kessel_lab.runtime import checkpoint, environment
 from kessel_training.environment import LoaderEnv, SceneConfig
 
 
 class ClearanceTests(unittest.TestCase):
+    def test_stopping_does_not_reduce_the_release_clearance(self):
+        env,_ = environment("nominal",19000); packet = synthetic_clearance(env)
+        wrapper = LatchedClearanceStop(checkpoint("phase_memory-7")[0])
+        blocked = {**packet,"distance_m":[1.2,10,3,3]}
+        self.assertFalse(wrapper.channel_health(blocked,0,.8)["usable"])
+        self.assertFalse(wrapper.channel_health(blocked,0,0)["usable"])
+        cleared = {**blocked,"distance_m":[3,10,3,3]}
+        self.assertTrue(wrapper.channel_health(cleared,0,0)["usable"])
     def test_packet_detects_boxes_but_does_not_mistake_the_pile_for_an_obstacle(self):
         env,_ = environment("nominal",19000)
         packet = synthetic_clearance(env)

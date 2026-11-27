@@ -55,9 +55,10 @@ class ClearanceStop:
     def __init__(self,actor): self.supervisor = BootstrapHoldSupervisor(actor); self.last = None
     @property
     def memory(self): return self.supervisor.memory
+    def channel_health(self,packet,now,speed): return health(packet,now,speed)
     def act(self,observation,packet):
         obs,range_health = canonicalize(observation)
-        p = obs["proprio"][0]; channel = health(packet,float(p[13]),float(p[4]))
+        p = obs["proprio"][0]; channel = self.channel_health(packet,float(p[13]),float(p[4]))
         handoff = {k:v.copy() for k,v in obs.items()}
         if not channel["usable"]:
             handoff["range_valid"][:] = 0; handoff["local_height_m"][:] = 0
@@ -67,3 +68,18 @@ class ClearanceStop:
                      "proposal_input":"clearance_handoff_mask" if not channel["usable"] else "canonical_range",
                      "packet":copy.deepcopy(packet),"supervision":copy.deepcopy(self.supervisor.last)}
         return action
+
+
+class LatchedClearanceStop(ClearanceStop):
+    """A stopped machine cannot reduce its own obstacle-release margin."""
+    def __init__(self,actor): super().__init__(actor); self.release_m = None
+    def channel_health(self,packet,now,speed):
+        result = health(packet,now,speed)
+        if result["reason"] == "blocked_envelope":
+            self.release_m = max(self.release_m or 0.,result["threshold_m"]+.5,1.5)
+        if self.release_m is not None and result["usable"]:
+            distances = packet["distance_m"]
+            if min(distances[:2]) <= self.release_m or min(distances[2:]) <= .8:
+                result = {**result,"usable":False,"reason":"blocked_latched"}
+            else: self.release_m = None
+        return {**result,"release_margin_m":self.release_m}

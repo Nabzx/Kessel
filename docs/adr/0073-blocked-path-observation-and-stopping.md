@@ -57,3 +57,19 @@ change follows. Retain the aborted source, empty trace archive, report and cost
 in `clearance-evidence`. The corrected run uses `clearance-stop-evidence`, records
 only the three named kilogram transfers and reduces its evaluation cap to 11,999
 and wall cap to 179 seconds. Combined costs stay within the original limits.
+
+## Blockage-latch correction
+
+The completed first pilot uses 5,706 evaluation and 5,706 replay decisions in
+59.04 seconds. It reveals a shrinking stopping envelope can release the neural
+policy while an obstacle is still present. Retain every failed hold. Add the
+separately named latched wrapper: on entry preserve a release distance of at
+least 1.5 m or the entry threshold +0.5 m, whichever is larger; release only
+when both longitudinal clearances exceed it and lateral clearances exceed 0.8 m.
+Missing/stale channels cannot clear the latch.
+
+Repeat the declared 30 practice cases once, with no other retuning, capped at
+6,200 evaluation and 6,200 replay decisions and 119 seconds. The combined abort,
+first pilot and correction stay below 12,000 evaluation/replay decisions and
+180 seconds. Healthy-practice failures remain failures even if a wall stop
+prevents a collision. No fresh qualification or runtime admission follows.

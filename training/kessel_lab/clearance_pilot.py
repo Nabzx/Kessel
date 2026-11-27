@@ -10,11 +10,11 @@ from kessel_training.kinematics import footprints
 from kessel_training.policy import configure_cpu
 from kessel_training.wm_state import pack
 from .bootstrap_hold_pilot import stopping
-from .clearance_stop import ClearanceStop, synthetic_clearance
+from .clearance_stop import LatchedClearanceStop as ClearanceStop, synthetic_clearance
 from .runtime import ROOT, checkpoint, environment
 from .study_tools import Budget, begin, encode, retain, seal
 
-D = ROOT/"docs/phase-11/clearance-stop-evidence"
+D = ROOT/"docs/phase-11/clearance-latched-evidence"
 KINDS = ("healthy","blocked","forward_loaded","reverse_loaded","stale")
 
 
@@ -37,14 +37,15 @@ def frame(env,actor):
 
 
 def execute():
-    configure_cpu(7,threads=1); budget = Budget(179,evaluation=11999,replay=12000)
+    configure_cpu(7,threads=1); budget = Budget(119,evaluation=6200,replay=6200)
     names = [str(p.relative_to(ROOT)) for p in (ROOT/"training/kessel_training").glob("*.py")]
     names += ["training/kessel_lab/"+n+".py" for n in ("clearance_stop","clearance_pilot","runtime","bootstrap_hold",
              "range_contract","range_supervisor","motion_hold","bootstrap_hold_pilot","range_pilot")]
     plan = begin(D,"docs/adr/0073-blocked-path-observation-and-stopping.md",names,
                  {"kind":"clearance-stop-practice-v1","bases":[19000,19001],"policy_seeds":[7,19,41],"kinds":list(KINDS),
-                  "wall_cap_s":179,"decision_caps":{"evaluation":11999,"replay":12000},"runtime_admitted":False,
-                  "preceding_abort":"docs/phase-11/clearance-evidence/report.json"})
+                  "wall_cap_s":119,"decision_caps":{"evaluation":6200,"replay":6200},"runtime_admitted":False,
+                  "preceding_abort":"docs/phase-11/clearance-evidence/report.json",
+                  "preceding_pilot":"docs/phase-11/clearance-stop-evidence/report.json"})
     report = {"plan":plan,"cases":[],"complete":False,"errors":[],"budget_stop":None,"teacher_queries":0,"optimiser_updates":0,
               "runtime_admitted":False,"fresh_qualification":False,"max_replay_state_error":0.,"max_mass_residual_kg":0.}
     try:

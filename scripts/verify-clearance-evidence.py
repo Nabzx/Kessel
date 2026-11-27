@@ -8,7 +8,7 @@ from pathlib import Path
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-D = ROOT/"docs/phase-11/clearance-stop-evidence"
+D = ROOT/"docs/phase-11/clearance-latched-evidence"
 
 
 def sha(raw): return hashlib.sha256(raw).hexdigest()
@@ -24,11 +24,14 @@ def verify():
     assert not report["runtime_admitted"] and not report["fresh_qualification"]
     assert report["teacher_queries"] == report["optimiser_updates"] == 0
     assert report["max_replay_state_error"] == 0 and report["max_mass_residual_kg"] < 1e-7
-    assert plan["cpu_threads"] == 1 and report["cost"]["wall_s"] <= report["cost"]["wall_cap_s"] == 179
-    assert report["cost"]["limits"] == {"evaluation":11999,"replay":12000}
+    assert plan["cpu_threads"] == 1 and report["cost"]["wall_s"] <= report["cost"]["wall_cap_s"] == 119
+    assert report["cost"]["limits"] == {"evaluation":6200,"replay":6200}
     aborted = json.loads((ROOT/plan["preceding_abort"]).read_text())
     assert not aborted["complete"] and aborted["cost"]["counts"] == {"evaluation":1,"replay":0}
-    assert aborted["cost"]["wall_s"]+report["cost"]["wall_s"] <= 180
+    preceding = json.loads((ROOT/plan["preceding_pilot"]).read_text())
+    assert preceding["complete"] and not preceding["pilot_passed"]
+    assert preceding["cost"]["counts"] == {"evaluation":5706,"replay":5706}
+    assert aborted["cost"]["wall_s"]+preceding["cost"]["wall_s"]+report["cost"]["wall_s"] <= 180
     with zipfile.ZipFile(D/"source.zip") as archive:
         assert set(archive.namelist()) == set(plan["files"])
         for name,digest in plan["files"].items(): assert sha(archive.read(name)) == sha((ROOT/name).read_bytes()) == digest,name
@@ -72,7 +75,7 @@ def verify():
                 assert not outcome["full_success"]
             assert outcome["passed"] == passed
     count = sum(c["outcome"]["decisions"] for c in report["cases"])
-    assert report["cost"]["counts"] == {"evaluation":count,"replay":count} and count+1 <= 12000
+    assert report["cost"]["counts"] == {"evaluation":count,"replay":count} and count+5707 <= 12000
     assert report["pilot_passed"] == all(c["outcome"]["passed"] for c in report["cases"])
     print("Clearance evidence: 30 complete practice cases, exact replay, explicit stop/delivery outcomes; pilot passed:",report["pilot_passed"])
 
