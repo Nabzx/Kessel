@@ -43,6 +43,7 @@ class ProgressSupervisor:
         self.task = ProgressTask(); self.monitor = ClearanceMonitor(); self.brake = None
         self.previous_t = None; self.paused_s = 0.; self.overridden = False
         self.seen_range = False; self.good_samples = self.slow_samples = 0; self.last = None
+        self.bad_range_since = None
     @property
     def memory(self): return self.task.memory
     def act(self,observation,packet):
@@ -52,8 +53,9 @@ class ProgressSupervisor:
         if self.overridden: self.paused_s += dt
         self.previous_t = now; clearance = self.monitor.update(packet,now,speed)
         fresh = bool(p[12] and p[11] <= .2+1e-9 and obs["range_valid"].sum() >= 5)
-        if fresh: self.seen_range = True
-        grace = bool(self.seen_range and not fresh and p[11] <= .2+1e-9)
+        if fresh: self.seen_range = True; self.bad_range_since = None
+        elif self.bad_range_since is None: self.bad_range_since = now-min(.1,float(p[11]))
+        grace = bool(self.seen_range and not fresh and p[11] <= .2+1e-9 and now-self.bad_range_since <= .2+1e-9)
         healthy = clearance["usable"] and (fresh or grace)
         if not healthy and not self.overridden:
             self.overridden = True; self.good_samples = self.slow_samples = 0

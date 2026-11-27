@@ -10,6 +10,7 @@ class ProgressTask:
         self.lane_changes = lane_changes; self.lane = 0.; self.lanes = [1.1,-1.1]
         self.cut_start = None; self.contact_at = None; self.last_progress = None; self.progress_load = 0.
         self.integral = 0.; self.previous_t = None; self.collection_pass = 0; self.last = None
+        self.sweep_at = None
 
     def act(self,observation):
         obs = RangeSupervisor.validate(observation); p = obs["proprio"][0]
@@ -20,11 +21,13 @@ class ProgressTask:
         if self.mode == "approach" and near:
             self.mode = "collect"; self.cut_start = x; self.contact_at = now
             self.last_progress = now; self.progress_load = load
-        if self.mode == "collect":
+        if self.mode in ("collect","sweep"):
             if load-self.progress_load >= 25:
                 self.progress_load = load; self.last_progress = now
             if load >= 2250: self.mode = "lift"
-            elif x-self.cut_start >= 3.8 or now-self.last_progress >= 3.:
+            elif self.mode == "collect" and now-self.last_progress >= 3.:
+                self.mode = "sweep"; self.sweep_at = now
+            elif self.mode == "collect" and x-self.cut_start >= 3.8 or self.mode == "sweep" and now-self.sweep_at >= 6.:
                 if self.lane_changes and self.lanes:
                     self.mode = "back_out"; self.collection_pass += 1; self.lane = self.lanes.pop(0)
                 else: self.mode = "lift"
@@ -35,10 +38,10 @@ class ProgressTask:
         if self.mode == "lift" and boom >= .33 and curl >= .6: self.mode = "carry"
         reach = 1.8+(1.6+1.2*np.cos(boom))*np.cos(art); mouth_error = p[9]-reach
         if self.mode == "carry" and abs(mouth_error) < .4 and abs(speed) < .08: self.mode = "tip"
-        self.phase[0] = 0 if self.mode in ("approach","shift","back_out") else 1 if self.mode == "collect" else 2 if self.mode == "lift" else 3 if self.mode == "carry" else 4
+        self.phase[0] = 0 if self.mode in ("approach","shift","back_out") else 1 if self.mode in ("collect","sweep") else 2 if self.mode == "lift" else 3 if self.mode == "carry" else 4
         if self.mode == "approach": target = 1.2; target_boom = -.1; target_curl = -.1 if load < 20 else .95
-        elif self.mode == "collect":
-            target = .7; target_boom = -.1
+        elif self.mode in ("collect","sweep"):
+            target = .2 if self.mode == "sweep" else .7; target_boom = -.1
             target_curl = .95 if int((now-self.contact_at)/.8)%2 == 0 else .65
         elif self.mode in ("back_out","shift"):
             target = -1.1; target_boom = .2; target_curl = .95
@@ -49,6 +52,7 @@ class ProgressTask:
         direction = -1. if target < 0 else 1.
         desired_yaw = -direction*np.arctan(.4*(y-lane))
         desired_art = np.clip(-direction*.8*(heading-desired_yaw),-.25,.25)
+        if self.mode == "sweep": desired_art = (.4 if abs(self.lane) < .2 else .25)*(1 if int((now-self.sweep_at)/1.5)%2 == 0 else -1)
         steer = float(np.clip((desired_art-art)*2,-1,1))
         candidate = float(np.clip(self.integral+(target-speed)*dt,-.4,.4))
         drive = float(np.clip(1.8*(target-speed)+candidate+np.sign(target)*.12,-1,1)); self.integral = candidate
