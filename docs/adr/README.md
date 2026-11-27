@@ -138,3 +138,10 @@ aborted base and binds a separately audited replacement without control retuning
 [Qualified live simulator](0072-qualified-stopping-live-simulator.md) adds an
 isolated interface for the frozen controller, explicit playback and complete
 exports, with bounded consumed-practice regression and human visual review open.
+
+[Blocked-path stopping](0073-blocked-path-observation-and-stopping.md) adds an
+explicit synthetic clearance boundary and a bounded latched-stop pilot.
+[Robustness repair](0074-bounded-robustness-repair.md) freezes the separate task,
+rehearsal and full-family practice comparison.
+[Working-policy refit](0075-working-policy-world-model-refit.md) freezes new
+training-only model fitting and unchanged calibration gates on practice episodes.
