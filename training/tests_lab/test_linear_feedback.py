@@ -1,7 +1,10 @@
 import unittest
 import numpy as np
+from pathlib import Path
+import json
 
-from kessel_lab.linear_feedback import fit
+from kessel_lab.linear_feedback import fit, load
+from kessel_lab.runtime import ROOT
 
 
 class LinearFeedbackTests(unittest.TestCase):
@@ -14,6 +17,13 @@ class LinearFeedbackTests(unittest.TestCase):
         with self.assertRaises(ValueError): model.action([[float("nan")]*6])
     def test_constant_labels_cannot_hide_an_underdetermined_fit(self):
         with self.assertRaises(ValueError): fit(np.ones((20,6)),np.zeros((20,4)))
+    def test_retained_weights_match_fit_metadata_and_training_actions(self):
+        directory = ROOT/"docs/phase-11/linear-feedback-evidence"
+        if not (directory/"feedback.pt").exists(): self.skipTest("retained fit not present")
+        model,metadata = load(directory/"feedback.pt")
+        np.testing.assert_array_equal(model.network.weight.detach().numpy(),metadata["weight_matrix"])
+        with np.load(directory/"training.npz") as data:
+            np.testing.assert_allclose(model.action(data["features"]),data["labels"],atol=1e-10,rtol=0)
 
 
 if __name__ == "__main__": unittest.main()

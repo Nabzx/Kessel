@@ -82,6 +82,9 @@ The [progress-driven conventional repair](docs/phase-11/progress-control.md)
 passes eighteen frozen task/stop/recovery checks and delivers on the previously
 intercepted healthy scenario with its guard active. A hard development low-grip
 failure remains retained; the new method has no inherited fresh qualification.
+The [learned feedback comparison](docs/phase-11/linear-feedback.md) fits bounded
+actuator gains and matches its conventional planner on 12/13 final practice
+criteria. The remaining underfilled low-pile case stays failed for both sources.
 
 ## Experience
 

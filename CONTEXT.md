@@ -193,6 +193,12 @@ exact replay; a separate regression delivers on previously intercepted base
 19001. The selected rehearsal still fails one low-grip case, retained explicitly.
 No physics, original weights, existing runtime or qualification is changed.
 
+ADR-0080 fits a sparse learned linear feedback layer from successful progress
+demonstrations. Conventional planning/braking remain explicit. Reference and
+learned feedback each meet 12/13 final practice criteria, with the low-pile miss
+retained. Applied learned commands, saved weights and physical replay verify;
+no deep-RL, task-planning or assistance benefit is inferred.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source
