@@ -14,7 +14,7 @@ from .clearance_stop import ClearanceStop, synthetic_clearance
 from .runtime import ROOT, checkpoint, environment
 from .study_tools import Budget, begin, encode, retain, seal
 
-D = ROOT/"docs/phase-11/clearance-evidence"
+D = ROOT/"docs/phase-11/clearance-stop-evidence"
 KINDS = ("healthy","blocked","forward_loaded","reverse_loaded","stale")
 
 
@@ -37,13 +37,14 @@ def frame(env,actor):
 
 
 def execute():
-    configure_cpu(7,threads=1); budget = Budget(180,evaluation=12000,replay=12000)
+    configure_cpu(7,threads=1); budget = Budget(179,evaluation=11999,replay=12000)
     names = [str(p.relative_to(ROOT)) for p in (ROOT/"training/kessel_training").glob("*.py")]
     names += ["training/kessel_lab/"+n+".py" for n in ("clearance_stop","clearance_pilot","runtime","bootstrap_hold",
              "range_contract","range_supervisor","motion_hold","bootstrap_hold_pilot","range_pilot")]
     plan = begin(D,"docs/adr/0073-blocked-path-observation-and-stopping.md",names,
                  {"kind":"clearance-stop-practice-v1","bases":[19000,19001],"policy_seeds":[7,19,41],"kinds":list(KINDS),
-                  "wall_cap_s":180,"decision_caps":{"evaluation":12000,"replay":12000},"runtime_admitted":False})
+                  "wall_cap_s":179,"decision_caps":{"evaluation":11999,"replay":12000},"runtime_admitted":False,
+                  "preceding_abort":"docs/phase-11/clearance-evidence/report.json"})
     report = {"plan":plan,"cases":[],"complete":False,"errors":[],"budget_stop":None,"teacher_queries":0,"optimiser_updates":0,
               "runtime_admitted":False,"fresh_qualification":False,"max_replay_state_error":0.,"max_mass_residual_kg":0.}
     try:
@@ -67,7 +68,7 @@ def execute():
                                           fault={"active":active,"started_s":loss},supervision=supervision,action=action[0].tolist())
                             _,reward,term,trunc,info = env.step(action); done = bool((term|trunc)[0])
                             before.update(next_state=pack(env)[0].tolist(),reward=float(reward[0]),
-                                          transfer={k:float(v[0]) for k,v in info["transfer"].items()})
+                                          transfer={k:float(info["transfer"][k][0]) for k in ("loaded_kg","delivered_kg","spilled_kg")})
                             records.append(before)
                             residual = abs(float(env.pile.mass()[0]+env.payload[0]+env.delivered[0]+env.spilled[0])-initial_mass)
                             report["max_mass_residual_kg"] = max(report["max_mass_residual_kg"],residual)

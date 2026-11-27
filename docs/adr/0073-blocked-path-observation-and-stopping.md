@@ -48,3 +48,12 @@ This consumed-practice pilot grants no fresh qualification/runtime admission.
 Use in-process contract/controller tests and a standard-library evidence
 verifier in CI. No browser, desktop automation or listening service. Merge the
 verified implementation and honest results before the next stage.
+
+## Logging erratum
+
+The first execution stops after one physical decision because the transfer log
+tries to serialise the removed-cell grid as a scalar. No controller or numerical
+change follows. Retain the aborted source, empty trace archive, report and cost
+in `clearance-evidence`. The corrected run uses `clearance-stop-evidence`, records
+only the three named kilogram transfers and reduces its evaluation cap to 11,999
+and wall cap to 179 seconds. Combined costs stay within the original limits.
