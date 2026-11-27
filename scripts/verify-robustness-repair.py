@@ -90,4 +90,35 @@ def verify():
     print("Robustness repair: 208 complete practice cases, three trained candidates, validation-only selection and all negative outcomes verified")
 
 
-if __name__ == "__main__": verify()
+def verify_correction():
+    directory = ROOT/"docs/phase-11/damped-reference-evidence"
+    report = json.loads((directory/"report.json").read_text()); plan = report["plan"]
+    for name,digest in json.loads((directory/"files.json").read_text()).items(): assert sha((ROOT/name).read_bytes()) == digest,name
+    assert report["complete"] and not report["errors"] and report["budget_stop"] is None
+    assert report["optimiser_updates"] == 0 and not report["runtime_admitted"]
+    with zipfile.ZipFile(directory/"source.zip") as archive:
+        for name,digest in plan["files"].items(): assert sha(archive.read(name)) == sha((ROOT/name).read_bytes()) == digest,name
+    assert plan["base"] == 19014 and plan["fill_timeout_s"] == 12 and plan["cpu_threads"] == 1
+    assert len(report["cases"]) == 13 and {c["family"] for c in report["cases"]} == set(plan["families"])
+    with zipfile.ZipFile(directory/"traces.zip") as archive:
+        for c in report["cases"]:
+            raw = archive.read(c["trace"]); assert sha(raw) == c["sha256"]
+            trace = json.loads(gzip.decompress(raw)); frames = trace["frames"]
+            assert trace["scenario"]["seed"] == 19014 and trace["outcome"] == c["outcome"]
+            assert frames[0]["state"][7] == 0 and len(frames) == c["outcome"]["decisions"]+1
+            assert c["outcome"]["full_success"] == (c["outcome"]["reason"] == "success")
+            for a,b in zip(frames,frames[1:]):
+                assert a["next_state"] == b["state"] and a["supervision"]["method"] == "damped_retry_reference"
+                s = a["state"]; assert abs(sum(s[15:79])*.25*s[81]+sum(s[7:10])-s[82]) < 1e-7
+    previous = json.loads((D/"report.json").read_text())["cost"]
+    count = sum(c["outcome"]["decisions"] for c in report["cases"])
+    assert report["cost"]["counts"] == {"environment":count,"teacher":count,"replay":count} and count <= 7800
+    for key,limit in (("environment",100000),("teacher",30000),("replay",25000)):
+        assert report["cost"]["counts"][key]+previous["counts"][key] <= limit
+    assert report["cost"]["wall_s"] <= 180 and report["cost"]["wall_s"]+previous["wall_s"] <= 600
+    assert report["max_replay_state_error"] == 0
+    print("Forward-steering correction: 13 complete conventional practice cases and exact replay remain within the original combined caps")
+
+
+if __name__ == "__main__":
+    verify(); verify_correction()
