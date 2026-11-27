@@ -39,8 +39,8 @@ class _NeutralProposal:
 
 
 class ProgressSupervisor:
-    def __init__(self,actuator=None):
-        self.task = ProgressTask(actuator=actuator); self.monitor = ClearanceMonitor(); self.brake = None
+    def __init__(self,actuator=None,lateral_gain=.15):
+        self.task = ProgressTask(actuator=actuator,lateral_gain=lateral_gain); self.monitor = ClearanceMonitor(); self.brake = None
         self.previous_t = None; self.paused_s = 0.; self.overridden = False
         self.seen_range = False; self.good_samples = self.slow_samples = 0; self.last = None
         self.bad_range_since = None

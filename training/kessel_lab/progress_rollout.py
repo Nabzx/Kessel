@@ -15,8 +15,8 @@ def frame(env,actor):
             "wheel_angles_rad":env.wheel_angles[0].tolist()}
 
 
-def run(family,seed,budget,pattern=None,replay=False,actuator=None):
-    env,scenario = environment(family,seed); actor = ProgressSupervisor(actuator=actuator); records = []
+def run(family,seed,budget,pattern=None,replay=False,actuator=None,lateral_gain=.15):
+    env,scenario = environment(family,seed); actor = ProgressSupervisor(actuator=actuator,lateral_gain=lateral_gain); records = []
     fault_start = None; loss_start = None; settled = None; slow = 0; done = False; override_count = 0; resumed = False; previous_override = False
     stop_check = family in ("blocked","range_dropout") or pattern == "carry_loss"
     end = None; mass_error = 0.
@@ -61,7 +61,7 @@ def run(family,seed,budget,pattern=None,replay=False,actuator=None):
     evaluation = {"criterion":"stop" if stop_check else "delivery","passed":passed,"stop":stopping,"override_decisions":override_count,
                   "resumed":resumed,"fault_trigger_s":fault_start}
     if replay:
-        independent,_ = environment(family,seed); controller = ProgressSupervisor(actuator=actuator)
+        independent,_ = environment(family,seed); controller = ProgressSupervisor(actuator=actuator,lateral_gain=lateral_gain)
         for record in records:
             budget.charge("replay")
             assert synthetic_clearance(independent) == record["clearance"]

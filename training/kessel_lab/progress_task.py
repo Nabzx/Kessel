@@ -5,13 +5,14 @@ from .range_supervisor import RangeSupervisor
 
 
 class ProgressTask:
-    def __init__(self,lane_changes=True,actuator=None):
+    def __init__(self,lane_changes=True,actuator=None,lateral_gain=.15):
         self.mode = "approach"; self.phase = np.zeros(1,dtype=int); self.memory = self
         self.lane_changes = lane_changes; self.lane = 0.; self.lanes = [1.1,-1.1]
         self.cut_start = None; self.contact_at = None; self.last_progress = None; self.progress_load = 0.
         self.integral = 0.; self.previous_t = None; self.collection_pass = 0; self.last = None
         self.sweep_at = None
         self.actuator = actuator; self.traction_lane_selected = False
+        self.lateral_gain = lateral_gain
 
     def act(self,observation):
         obs = RangeSupervisor.validate(observation); p = obs["proprio"][0]
@@ -53,7 +54,7 @@ class ProgressTask:
         else: target = 0.; target_boom = .35; target_curl = -.7
         lane = 0. if self.mode in ("carry","tip","lift") else self.lane
         direction = -1. if target < 0 else 1.
-        desired_yaw = -direction*np.arctan(.4*(y-lane))
+        desired_yaw = -direction*np.arctan(self.lateral_gain*(y-lane))
         desired_art = np.clip(-direction*.8*(heading-desired_yaw),-.25,.25)
         if self.mode == "sweep": desired_art = (.55 if abs(self.lane) < .2 else .25)*(1 if int((now-self.sweep_at)/4.)%2 == 0 else -1)
         steer = float(np.clip((desired_art-art)*2,-1,1))
