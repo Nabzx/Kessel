@@ -4,9 +4,11 @@ import unittest
 import numpy as np
 
 from kessel_lab.runtime import environment
+from kessel_lab.runtime import ROOT
+from kessel_lab.structured_fit import load
 from kessel_lab.structured_model import StructuredModel, cell_features, decode, local_features
 from kessel_training.environment import LoaderEnv
-from kessel_training.wm_state import INDEX, TARGET_FLOORS, pack, violations
+from kessel_training.wm_state import INDEX, TARGET_FLOORS, delta_target, pack, violations
 
 
 class StructuredModelTests(unittest.TestCase):
@@ -29,6 +31,21 @@ class StructuredModelTests(unittest.TestCase):
         self.assertLess(abs(violations(output)["mass_error_kg"][0]),1e-7)
         self.assertLess(output[0,7],2500)
         self.assertAlmostEqual(output[0,7:10].sum(),2500)
+
+    def test_saved_weights_replay_predictions_and_training_only_scales(self):
+        directory = ROOT/"docs/phase-11/structured-dynamics-evidence"
+        model,training = load(directory/"structured.pt")
+        with np.load(directory/"train.npz",allow_pickle=False) as data:
+            scale = np.maximum(delta_target(data["state"],data["next_state"],data["reward"]).std(axis=0),TARGET_FLOORS)
+        np.testing.assert_array_equal(model.target_scale.numpy(),scale)
+        np.testing.assert_array_equal(training["target_scale"],scale)
+        with np.load(directory/"evaluation.npz",allow_pickle=False) as data:
+            ids = np.linspace(0,len(data["state"])-1,32,dtype=int)
+            with patch.object(LoaderEnv,"step",side_effect=AssertionError("oracle transition")):
+                actual = model.predict(data["state"][ids],data["action"][ids])
+        with np.load(directory/"predictions-structured.npz",allow_pickle=False) as expected:
+            for field in ("next_state","reward","events","disagreement"):
+                np.testing.assert_allclose(actual[field],expected[field][ids],rtol=1e-5,atol=1e-6)
 
 
 if __name__ == "__main__": unittest.main()

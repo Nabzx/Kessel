@@ -211,3 +211,7 @@ the downstream scene work, native laptop checks and remaining visual sign-off.
 The [engineering showcase report](docs/phase-11/engineering-showcase.md) records
 the corrected evaluated truck orientation, directed route, aligned pipeline cards
 and retrofit component/signal inspection under ADR-0055.
+
+[Structured local dynamics](docs/phase-11/structured-dynamics.md) passes the
+synthetic practice forecast gate with explicit kinematic and event priors.
+Its learned-only event head remains rejected; runtime admission is separate.
