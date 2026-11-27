@@ -27,7 +27,7 @@ class ProgressTask:
             if load >= 2250: self.mode = "lift"
             elif self.mode == "collect" and now-self.last_progress >= 3.:
                 self.mode = "sweep"; self.sweep_at = now
-            elif self.mode == "collect" and x-self.cut_start >= 3.8 or self.mode == "sweep" and now-self.sweep_at >= 6.:
+            elif (self.mode == "collect" and x-self.cut_start >= 3.8) or (self.mode == "sweep" and now-self.sweep_at >= 8.):
                 if self.lane_changes and self.lanes:
                     self.mode = "back_out"; self.collection_pass += 1; self.lane = self.lanes.pop(0)
                 else: self.mode = "lift"
@@ -52,7 +52,7 @@ class ProgressTask:
         direction = -1. if target < 0 else 1.
         desired_yaw = -direction*np.arctan(.4*(y-lane))
         desired_art = np.clip(-direction*.8*(heading-desired_yaw),-.25,.25)
-        if self.mode == "sweep": desired_art = (.4 if abs(self.lane) < .2 else .25)*(1 if int((now-self.sweep_at)/1.5)%2 == 0 else -1)
+        if self.mode == "sweep": desired_art = (.55 if abs(self.lane) < .2 else .25)*(1 if int((now-self.sweep_at)/4.)%2 == 0 else -1)
         steer = float(np.clip((desired_art-art)*2,-1,1))
         candidate = float(np.clip(self.integral+(target-speed)*dt,-.4,.4))
         drive = float(np.clip(1.8*(target-speed)+candidate+np.sign(target)*.12,-1,1)); self.integral = candidate
