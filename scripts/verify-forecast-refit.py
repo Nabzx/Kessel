@@ -63,6 +63,9 @@ def verify():
     assert plan["cpu_threads"] == 1 and report["cost"]["wall_s"] <= report["cost"]["wall_cap_s"] == 300
     assert report["cost"]["limits"] == {"environment":31200,"updates":6000}
     assert report["cost"]["counts"]["environment"] <= 31200 and report["cost"]["counts"]["updates"] <= 6000
+    assert plan["windows_per_split"] == 128 and plan["windows_per_method_cap"] == 256
+    assert sha((ROOT/"docs/phase-11/world-followup-evidence/multistep_material.pt").read_bytes()) == plan["old_model_sha256"]
+    assert sha((ROOT/"docs/phase-11/world-followup-evidence/observable.pt").read_bytes()) == plan["old_observable_sha256"]
     with zipfile.ZipFile(D/"source.zip") as archive:
         assert set(archive.namelist()) == set(plan["files"])
         for name,digest in plan["files"].items(): assert sha(archive.read(name)) == sha((ROOT/name).read_bytes()) == digest,name
@@ -85,6 +88,7 @@ def verify():
         fields = ["next_state","reward","events","disagreement"]
         if name == "refit_bounded_filter": fields.append("filter_rejected")
         predicted = npz(D/f"predictions-{name}.npz",fields); measured = errors(data,predicted); metric = entry["one_step"]
+        assert len(entry["drift"]) == 4 and all(r["rows"] <= 128 for r in entry["drift"])
         assert metric["rows"] == len(data["state"])
         for key,values in (("position_mae_m",measured["position"]),("pile_height_mae_m",measured["pile"]),
                            ("reward_mae",measured["reward"]),("high_error_fraction",measured["high"]),("mass_balance_mae_kg",measured["ledger"])):
@@ -105,6 +109,10 @@ def verify():
         eligible = [r for r in gate["tradeoffs"] if r["accepted"] >= 20 and r["accepted_high_error_fraction"] <= .1]
         selected = max(eligible,key=lambda r:r["coverage"]) if eligible else None
         assert gate["threshold"] == (selected["threshold"] if selected else None)
+        supported = [r["horizon_decisions"] for r in gate["validation_drift"] if r["rows"] >= 20 and r["position_mae_m"] <= .1
+                     and r["state_mae"]["carried_kg"] <= 100 and r["pile_height_mae_m"] <= .02 and r["reward_mae"] <= .1]
+        assert gate["supported_horizon"] == (min(2,max(supported)) if selected and supported else 0)
+        assert all(r["rows"] <= 128 for r in gate["validation_drift"])
         family_gate = True
         for family in entry["families"]:
             episodes = [e for e in report["datasets"]["evaluation"]["episodes"] if e["family"] == family["family"]]
@@ -125,6 +133,20 @@ def verify():
     assert state_training["normalisers_fitted_on"] == "training_only" and len(state_training["episode_bootstraps"]) == 3
     assert state_training["training_dataset_sha256"] == report["datasets"]["train"]["logical_sha256"]
     assert state_training["configuration"]["epochs"] == 30 and state_training["configuration"]["hidden"] == 64
+    observed_training = json.loads((D/"observable-training.json").read_text())
+    train_data = npz(D/"train.npz",("observable_target_present",))
+    expected_updates = state_training["optimiser_updates"]+20*math.ceil(sum(train_data["observable_target_present"])/256)
+    assert report["cost"]["counts"]["updates"] == expected_updates
+    assert observed_training["normalisers_fitted_on"] == "training_only" and observed_training["epochs"] == 20
+    observation_data = npz(D/"evaluation.npz",("observable_target_present","next_observation"))
+    target = [r for r,present in zip(observation_data["next_observation"],observation_data["observable_target_present"]) if present]
+    for name,metric in report["observable"].items():
+        predicted = npz(D/f"observable-{name}-predictions.npz",("observation",))["observation"]
+        assert len(predicted) == len(target) == metric["rows"] and metric["hidden_material_prediction"] is None
+        for column in range(15): close(metric["proprio_mae"][column],mean([abs(p[column]-t[column]) for p,t in zip(predicted,target)]))
+        range_errors = [abs(p[column]-t[column]) for p,t in zip(predicted,target) for column in range(15,40) if t[column+25]]
+        close(metric["valid_range_mae_m"],mean(range_errors))
+        close(metric["range_validity_accuracy"],mean([(p[column] >= .5) == bool(t[column]) for p,t in zip(predicted,target) for column in range(40,65)]))
     assert report["rare_failure_training_goal"]["target_per_class"] == 128 and not report["rare_failure_training_goal"]["met"]
     print("Forecast refit: 52 isolated practice episodes; raw errors, validation-only calibration and all-family eligibility recomputed; eligible:",eligible_methods)
 
