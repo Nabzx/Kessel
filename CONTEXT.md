@@ -166,6 +166,13 @@ The full pilot fails and no runtime admission follows. Failed first-pilot holds
 and a logging abort remain retained. This is synthetic geometric sensing, not
 implemented perception or obstacle avoidance.
 
+ADRs 0074/0076 retain a rejected all-family robustness refit. Original policies
+complete 17/39 practice deliveries with eight collisions; candidates complete
+5/39 with 27 collisions. A separate forward-steering damping correction resolves
+a conventional stability defect but its retest still fails delivery. All 221
+episodes, source/weights and exact candidate/physical replay remain retained.
+No existing runtime or qualification changes.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

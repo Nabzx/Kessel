@@ -70,6 +70,10 @@ do not change the qualification scope or close human visual acceptance.
 The separate [clearance stopping pilot](docs/phase-11/clearance-stopping.md)
 passes 24 obstacle/stale-input holds but intercepts three healthy deliveries.
 Its failed full gate keeps the new method outside existing runtimes.
+The [broader robustness refit](docs/phase-11/robustness-repair.md) retains a rejected
+neural candidate and a separate conventional steering correction. Low-pile,
+noisy-input and shifted-start delivery remain unresolved; existing qualified
+controllers are unchanged.
 
 ## Experience
 

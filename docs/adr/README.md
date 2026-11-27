@@ -145,3 +145,5 @@ explicit synthetic clearance boundary and a bounded latched-stop pilot.
 rehearsal and full-family practice comparison.
 [Working-policy refit](0075-working-policy-world-model-refit.md) freezes new
 training-only model fitting and unchanged calibration gates on practice episodes.
+[Forward-steering correction](0076-forward-steering-stability-correction.md)
+uses only the remaining robustness budget and retains the rejected refit.
