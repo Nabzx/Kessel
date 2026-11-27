@@ -63,6 +63,10 @@ passes its 57-case practice gate, including loaded grade stops and cold starts.
 Its [fresh qualification](docs/phase-11/bootstrap-qualification.md) passes all
 96 supervised nominal/moving-carry fault cases with exact replay and 24 exact
 original healthy comparisons. It is not enabled in the existing runtimes.
+The separate [qualified stopping simulator](docs/phase-11/qualified-live-simulator.md)
+now executes those four patterns with visible input health, supervisor ownership,
+explicit playback controls and full trace export. Its practice integration checks
+do not change the qualification scope or close human visual acceptance.
 
 ## Experience
 

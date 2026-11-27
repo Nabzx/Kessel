@@ -1,0 +1,37 @@
+{
+  "protocol": "ADR-0072",
+  "role": "consumed practice regression; no new qualification",
+  "seed": 19000,
+  "cpu_threads": 1,
+  "evaluation_cap": 9000,
+  "wall_cap_s": 120,
+  "files": {
+    "scripts/research/verify-qualified-runtime.py": "aba7b913596c8be9630afcb48e01c7fe764ba1efd1d697ee680ac3e7c1294b6b",
+    "docs/adr/0072-qualified-stopping-live-simulator.md": "d0bdbe980b4bb63608636a3acfde765ba88ff98d7c6cd7d6f77606b9413a3384",
+    "training/kessel_lab/bootstrap_runtime.py": "50a739d968c7f4b3b7d695b63bb818bcbfd4d72e1ac40ede2de4c1bc14323e89",
+    "training/tests_lab/test_bootstrap_runtime.py": "91adcc1067f08cd0f1f000fba52739725b6e430251568b90fa866e8dd28e7975",
+    "scripts/tests/qualified-client.test.mjs": "6d74c235ae3c1cf27a28d413d2acc8928bf5fc664719ad2bb4af8b3c87e64a4a",
+    "docs/phase-11/qualified-demo/client.mjs": "e0b2fde0caeb8bd74663d035f1c03626c9cfe46717be0b0855e41c806437cf6a",
+    "docs/phase-11/qualified-demo/index.html": "cd3fd36f2a389c41ce63f2fee1515f2efd910daaac400a345481d28336024fc3",
+    "docs/phase-11/qualified-demo/presentation.mjs": "d230bb15afcbf5aa5f1dc9931bf80c4fdab8aafde05771bc047e21ee66e8fe88",
+    "docs/phase-11/qualified-demo/viewer.css": "bb5df40f6cc8a21609270974d62c6977b9eaa6197661f3435c88a314d0bbdb3c",
+    "docs/phase-11/qualified-demo/viewer.js": "4b6bb16ad8f8eb09dbfb5e8f9641576a74b797802db34ceb0ef11c658a1ca845"
+  },
+  "commit": "8d61aa9c42b1eeb3fdac9b94214a52a3f7d0b40c",
+  "sources": [
+    "bootstrapped_motion_hold-7",
+    "bootstrapped_motion_hold-19",
+    "bootstrapped_motion_hold-41",
+    "phase_memory-7",
+    "phase_memory-19",
+    "phase_memory-41"
+  ],
+  "families": [
+    "healthy",
+    "partial_carry_zeroed",
+    "carry_loss",
+    "recovery"
+  ],
+  "reference_archive_sha256": "e428f737a32ae3980e00fde248e6ec190ca33045d4921f213e581d3cef0e1d27",
+  "reference_report_sha256": "d0ffa592ec82e82edc7aa2660073994c542eca17e4938874278c8b19be28e903"
+}

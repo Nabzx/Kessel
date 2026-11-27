@@ -134,3 +134,7 @@ named probing/integral-reset law and adds cold-start grade fixtures.
 the unchanged controller, audited bases and moving-carry stop/recovery gates.
 [Logging erratum](0071-fresh-qualification-logging-erratum.md) excludes the consumed
 aborted base and binds a separately audited replacement without control retuning.
+
+[Qualified live simulator](0072-qualified-stopping-live-simulator.md) adds an
+isolated interface for the frozen controller, explicit playback and complete
+exports, with bounded consumed-practice regression and human visual review open.
