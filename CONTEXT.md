@@ -149,6 +149,16 @@ those four synthetic families, not noisy proprioception, low grip, other fault
 phases, field equipment or composition with the receiver-frame adapter. Existing
 runtimes and human visual/publication decisions remain separate.
 
+ADR-0072 adds a separate qualified-stopping service, `kessel_lab.bootstrap_runtime`,
+on loopback port 8095 and `/docs/phase-11/qualified-demo/`. It checks the retained
+qualification/source identities before admitting the same four synthetic patterns.
+Live sensor health and control ownership distinguish neural proposals from
+conventional applied overrides. Explicit play/pause/step/reset and trace export
+operate only on practice seeds. Ten-second hold endings do not count as deliveries
+or physical termination. Consumed-practice integration checks are separate from
+fresh qualification and human visual acceptance. No prior viewer or numerical
+source is changed.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

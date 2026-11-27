@@ -216,3 +216,12 @@ match exactly. The logging-aborted base is retained as consumed and excluded,
 with an independently audited replacement. Independent replay, source identity,
 costs and per-seed gates are retained. This narrow synthetic qualification does
 not qualify other fault phases, field equipment or a runtime integration.
+
+The separate [qualified live interface](../docs/phase-11/qualified-live-simulator.md)
+adds the runtime integration under ADR-0072. Start it with
+`PYTHONPATH=training training/.venv/bin/python -m kessel_lab.bootstrap_runtime --port 8095`
+from the repository root, then open `/docs/phase-11/qualified-demo/` on that port.
+Startup verifies qualification and source identities. Its four synthetic patterns,
+explicit controls, sensor/control status and exports remain limited to practice
+seeds and nominal physics. Exact consumed-practice comparisons verify integration;
+they do not create a new held-out result or field safety claim.
