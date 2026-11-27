@@ -16,17 +16,18 @@ from .study_tools import Budget, begin, retain, seal, write
 BASE = ROOT/"docs/phase-11/progress-development-evidence"
 
 
-def execute(label,families):
+def execute(label,families,supervised=False):
     configure_cpu(7,threads=1)
     prior = [json.loads(p.read_text()) for p in BASE.glob("*/report.json")]
     used = sum(r["cost"]["counts"]["environment"] for r in prior); elapsed = sum(r["cost"]["wall_s"] for r in prior)
     if len(prior) >= 6: raise ValueError("six-revision practice cap")
     budget = Budget(max(0.,300-elapsed),environment=40000-used,teacher=40000-used)
     names = ["training/kessel_lab/"+n+".py" for n in ("progress_task","progress_development","runtime","robustness_study","range_supervisor")]
+    if supervised: names += ["training/kessel_lab/"+n+".py" for n in ("progress_rollout","progress_supervisor","clearance_stop","bootstrap_hold","range_contract","motion_hold","range_pilot")]
     names += [str(p.relative_to(ROOT)) for p in (ROOT/"training/kessel_training").glob("*.py")]
     directory = BASE/label
     plan = begin(directory,"docs/adr/0078-progress-driven-task-and-clearance-compatibility.md",names,
-                 {"kind":"adaptive-progress-practice-v1","bases":[19020,19021],"families":families,"preceding_decisions":used,"preceding_wall_s":elapsed})
+                 {"kind":"adaptive-progress-practice-v1","bases":[19020,19021],"families":families,"preceding_decisions":used,"preceding_wall_s":elapsed,"supervised":supervised})
     report = {"plan":plan,"cases":[],"complete":False,"errors":[],"budget_stop":None}
     try:
         with zipfile.ZipFile(directory/"traces.zip","w",compression=zipfile.ZIP_STORED) as archive:
@@ -35,7 +36,10 @@ def execute(label,families):
                     env,_ = environment(family,seed)
                     bottom = .35+2*np.sin(LoaderConfig().boom_min_rad)
                     upper = float(np.maximum(env.pile.height[0]-bottom,0).sum()*.25*env.pile.density[0])
-                    payload = rollout(family,seed,ProgressTask(),budget,teacher=True)
+                    if supervised:
+                        from .progress_rollout import run
+                        payload = run(family,seed,budget)
+                    else: payload = rollout(family,seed,ProgressTask(),budget,teacher=True)
                     row = {"seed":seed,"family":family,"recoverable_material_upper_bound_kg":upper,"outcome":payload["outcome"],
                            **retain(archive,f"{seed}-{family}.json.gz",payload)}
                     report["cases"].append(row)
@@ -51,4 +55,5 @@ def execute(label,families):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(); parser.add_argument("--label",required=True)
     parser.add_argument("--families",nargs="+",default=["nominal","low","steep","start_offset"])
-    args = parser.parse_args(); execute(args.label,args.families)
+    parser.add_argument("--supervised",action="store_true")
+    args = parser.parse_args(); execute(args.label,args.families,args.supervised)

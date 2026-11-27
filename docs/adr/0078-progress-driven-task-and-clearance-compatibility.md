@@ -52,3 +52,14 @@ qualification before considering an isolated runtime. Only a feasible teacher
 may supply another neural candidate's labels. No broad neural refit is authorised
 merely to repeat the rejected data recipe. Record split and cost ledgers before
 any fitting. All browser tabs and services remain untouched.
+
+The new task composition accepts a fresh partial crop with at least five valid
+cells. After initialisation it permits at most 0.2 seconds of explicitly recorded
+missing-range grace while independent clearance remains usable. It never invents
+valid cells. Uninitialised absence or longer loss requests the unchanged numeric
+bootstrap brake law, with a zero conventional interface placeholder, not a neural
+proposal. Phase/task time pauses during stopping. Require three usable and slow
+samples before resumption. This new transient-input contract does not inherit the
+old complete-coverage qualification or its detection timing. Persistent loss from
+reset and blocked-path detection remain immediate; a moving range outage has
+the declared grace plus at most one decision (0.3 seconds) to trigger stopping.
