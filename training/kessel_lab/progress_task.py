@@ -5,12 +5,13 @@ from .range_supervisor import RangeSupervisor
 
 
 class ProgressTask:
-    def __init__(self,lane_changes=True):
+    def __init__(self,lane_changes=True,actuator=None):
         self.mode = "approach"; self.phase = np.zeros(1,dtype=int); self.memory = self
         self.lane_changes = lane_changes; self.lane = 0.; self.lanes = [1.1,-1.1]
         self.cut_start = None; self.contact_at = None; self.last_progress = None; self.progress_load = 0.
         self.integral = 0.; self.previous_t = None; self.collection_pass = 0; self.last = None
         self.sweep_at = None
+        self.actuator = actuator; self.traction_lane_selected = False
 
     def act(self,observation):
         obs = RangeSupervisor.validate(observation); p = obs["proprio"][0]
@@ -18,6 +19,8 @@ class ProgressTask:
         dt = 0. if self.previous_t is None else now-self.previous_t; self.previous_t = now
         if dt < 0 or dt > .11: raise ValueError("task clock must be consecutive")
         near = bool((obs["local_height_m"][:,:2,:]*obs["range_valid"][:,:2,:]).max() > .08)
+        if self.mode == "approach" and self.collection_pass == 0 and not self.traction_lane_selected and p[14] > .45:
+            self.lane = 1.1; self.lanes = [-1.1,0.]; self.traction_lane_selected = True
         if self.mode == "approach" and near:
             self.mode = "collect"; self.cut_start = x; self.contact_at = now
             self.last_progress = now; self.progress_load = load
@@ -57,8 +60,11 @@ class ProgressTask:
         candidate = float(np.clip(self.integral+(target-speed)*dt,-.4,.4))
         drive = float(np.clip(1.8*(target-speed)+candidate+np.sign(target)*.12,-1,1)); self.integral = candidate
         action = np.array([[drive,steer,np.clip((target_boom-boom)*4,-1,1),np.clip((target_curl-curl)*4,-1,1)]])
-        self.last = {"method":"progress_task_reference","mode":self.mode,"phase":int(self.phase[0]),
+        control_features = [float(target-speed),candidate,float(np.sign(target)),float(desired_art-art),float(target_boom-boom),float(target_curl-curl)]
+        if self.actuator is not None: action = self.actuator(np.asarray([control_features]))
+        self.last = {"method":"progress_task_reference" if self.actuator is None else "progress_task_learned_linear","mode":self.mode,"phase":int(self.phase[0]),
                      "lane_y_m":lane,"collection_pass":self.collection_pass,"load_progress_kg":float(self.progress_load),
                      "cut_start_x_m":None if self.cut_start is None else float(self.cut_start),"task_time_s":now,
-                     "proposal_source":"conventional_task","applied_action":action[0].tolist()}
+                     "proposal_source":"conventional_task" if self.actuator is None else "learned_linear_feedback",
+                     "control_features":control_features,"traction_lane_selected":self.traction_lane_selected,"applied_action":action[0].tolist()}
         return action

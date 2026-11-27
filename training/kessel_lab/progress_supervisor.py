@@ -39,8 +39,8 @@ class _NeutralProposal:
 
 
 class ProgressSupervisor:
-    def __init__(self):
-        self.task = ProgressTask(); self.monitor = ClearanceMonitor(); self.brake = None
+    def __init__(self,actuator=None):
+        self.task = ProgressTask(actuator=actuator); self.monitor = ClearanceMonitor(); self.brake = None
         self.previous_t = None; self.paused_s = 0.; self.overridden = False
         self.seen_range = False; self.good_samples = self.slow_samples = 0; self.last = None
         self.bad_range_since = None
@@ -75,7 +75,8 @@ class ProgressSupervisor:
             task_input = {k:v.copy() for k,v in obs.items()}; task_input["proprio"][0,13] = now-self.paused_s
             action = self.task.act(task_input); proposal = action[0].tolist(); observer = None; mode = self.task.mode
         self.last = {"method":"progress_task_with_ordered_clearance","mode":mode,"override":self.overridden,
-                     "proposal_source":"conventional_task","conventional_proposal":proposal,"applied_action":action[0].tolist(),
+                     "proposal_source":"conventional_task" if self.task.actuator is None else "learned_linear_feedback",
+                     "task_proposal":proposal,"conventional_proposal":proposal if self.task.actuator is None else None,"applied_action":action[0].tolist(),
                      "task":copy.deepcopy(self.task.last),"task_time_s":now-self.paused_s,"paused_s":self.paused_s,
                      "clearance":clearance,"range_fresh":fresh,"range_grace":grace,"valid_cells":int(obs["range_valid"].sum()),
                      "stop_observer":observer,"accepted_capture_s":self.monitor.accepted_capture_s}
