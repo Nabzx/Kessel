@@ -17,7 +17,7 @@ class ProgressTask:
         dt = 0. if self.previous_t is None else now-self.previous_t; self.previous_t = now
         if dt < 0 or dt > .11: raise ValueError("task clock must be consecutive")
         near = bool((obs["local_height_m"][:,:2,:]*obs["range_valid"][:,:2,:]).max() > .08)
-        if self.mode == "approach" and (near or load > 50):
+        if self.mode == "approach" and near:
             self.mode = "collect"; self.cut_start = x; self.contact_at = now
             self.last_progress = now; self.progress_load = load
         if self.mode == "collect":
@@ -25,10 +25,11 @@ class ProgressTask:
                 self.progress_load = load; self.last_progress = now
             if load >= 2250: self.mode = "lift"
             elif x-self.cut_start >= 3.8 or now-self.last_progress >= 3.:
-                if self.lane_changes and self.lanes: self.mode = "back_out"; self.collection_pass += 1
+                if self.lane_changes and self.lanes:
+                    self.mode = "back_out"; self.collection_pass += 1; self.lane = self.lanes.pop(0)
                 else: self.mode = "lift"
         if self.mode == "back_out" and x <= self.cut_start-1.5:
-            self.lane = self.lanes.pop(0); self.mode = "shift"
+            self.mode = "shift"
         if self.mode == "shift" and x <= self.cut_start-4.:
             self.mode = "approach"; self.cut_start = None; self.contact_at = None
         if self.mode == "lift" and boom >= .33 and curl >= .6: self.mode = "carry"
