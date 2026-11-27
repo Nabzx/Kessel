@@ -187,6 +187,12 @@ cannot release a blockage latch even inside the freshness age limit. Contract
 tests preserve ordered commands across all three checkpoints; frozen numerical
 evidence and existing runtimes remain unchanged.
 
+ADRs 0078/0079 add progress-driven conventional collection and ordered clearance
+stopping. All eighteen frozen base-19022 task/stop/recovery/input checks pass with
+exact replay; a separate regression delivers on previously intercepted base
+19001. The selected rehearsal still fails one low-grip case, retained explicitly.
+No physics, original weights, existing runtime or qualification is changed.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source

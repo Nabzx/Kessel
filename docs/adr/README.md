@@ -149,3 +149,10 @@ training-only model fitting and unchanged calibration gates on practice episodes
 uses only the remaining robustness budget and retains the rejected refit.
 [Clearance capture ordering](0077-clearance-capture-order-guard.md) completes the
 input contract through a separate wrapper without changing the frozen pilot.
+[Progress-driven collection](0078-progress-driven-task-and-clearance-compatibility.md)
+and [lateral stability correction](0079-lateral-feedback-stability-correction.md)
+separate feasible conventional control from fresh qualification.
+[Linear feedback imitation](0080-linear-feedback-imitation.md) bounds a sparse
+learned actuator with explicit conventional planner context.
+[Structured local dynamics](0081-structured-local-dynamics-and-rare-events.md)
+bounds local learned heads, known priors and independent rare-event acquisition.
