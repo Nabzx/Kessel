@@ -69,7 +69,8 @@ def verify():
                 if case["kind"] == "stale": assert channel["reason"] == "stale_or_future_clearance"
             if case["kind"] == "healthy":
                 passed = outcome["full_success"] and outcome["healthy_exact"]
-                assert all(not f["supervision"]["override"] for f in frames[:-1])
+                if outcome["healthy_exact"]: assert all(not f["supervision"]["override"] for f in frames[:-1])
+                else: assert not passed and any(f["supervision"]["override"] for f in frames[:-1])
             else:
                 passed = holds.stop_pass(frames,outcome["done"]) and not outcome["collision"]
                 assert not outcome["full_success"]

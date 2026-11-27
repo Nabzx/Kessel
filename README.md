@@ -67,6 +67,9 @@ The separate [qualified stopping simulator](docs/phase-11/qualified-live-simulat
 now executes those four patterns with visible input health, supervisor ownership,
 explicit playback controls and full trace export. Its practice integration checks
 do not change the qualification scope or close human visual acceptance.
+The separate [clearance stopping pilot](docs/phase-11/clearance-stopping.md)
+passes 24 obstacle/stale-input holds but intercepts three healthy deliveries.
+Its failed full gate keeps the new method outside existing runtimes.
 
 ## Experience
 

@@ -159,6 +159,13 @@ or physical termination. Consumed-practice integration checks are separate from
 fresh qualification and human visual acceptance. No prior viewer or numerical
 source is changed.
 
+ADR-0073 adds a separate idealised clearance channel and latched conventional
+stopping wrapper. All 24 declared obstacle/stale-input stops pass with exact
+replay, but three healthy practice deliveries are intercepted by the wall guard.
+The full pilot fails and no runtime admission follows. Failed first-pilot holds
+and a logging abort remain retained. This is synthetic geometric sensing, not
+implemented perception or obstacle avoidance.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source
