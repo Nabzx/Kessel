@@ -147,3 +147,5 @@ rehearsal and full-family practice comparison.
 training-only model fitting and unchanged calibration gates on practice episodes.
 [Forward-steering correction](0076-forward-steering-stability-correction.md)
 uses only the remaining robustness budget and retains the rejected refit.
+[Clearance capture ordering](0077-clearance-capture-order-guard.md) completes the
+input contract through a separate wrapper without changing the frozen pilot.

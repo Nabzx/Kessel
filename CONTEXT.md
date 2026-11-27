@@ -182,6 +182,11 @@ other families.
 All raw/filtered predictions and rare-class coverage shortfalls remain retained.
 No assisted updates, fresh qualification or runtime admission follow.
 
+ADR-0077 adds a separate clearance capture-order guard. Old/duplicate packets
+cannot release a blockage latch even inside the freshness age limit. Contract
+tests preserve ordered commands across all three checkpoints; frozen numerical
+evidence and existing runtimes remain unchanged.
+
 ## Glossary
 
 **Recorded synthetic experiment** — a reproducible simulator run with source
