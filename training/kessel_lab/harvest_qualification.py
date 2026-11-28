@@ -15,7 +15,7 @@ from .linear_feedback import load as load_feedback
 from .runtime import ROOT, FAMILIES
 from .harvest_scenarios import environment
 from .start_rollout import run
-from .structured_data import arrays, collect_fixture
+from .structured_data import arrays, collect_fixture, fixture
 from .structured_fit import load as load_forecast
 from .study_tools import Budget, begin, retain, seal, sha
 
@@ -80,6 +80,9 @@ def execute(fresh):
             if fresh:
                 for kind,seeds in (("collision",range(207450,207458)),("stuck",range(207458,207466))):
                     for seed in seeds:
+                        initial = fixture(kind,seed)
+                        reserved, = [r for r in reservation["identities"] if r["seed"] == seed and r["family"] == "prepared_"+kind]
+                        if sha(pack(initial)[0].astype("<f8").tobytes()) != reserved["fingerprints"]["state<f8"]: raise ValueError("prepared reservation mismatch")
                         value = collect_fixture(kind,seed,budget); episodes.append(value)
                         report["fixtures"].append({"family":"prepared_"+kind,"seed":seed,"outcome":value["outcome"],"fixture_gate_passed":value["fixture_gate_passed"],
                             **retain(archive,f"fixture-{kind}-{seed}.json.gz",value)})
