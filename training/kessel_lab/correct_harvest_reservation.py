@@ -20,7 +20,8 @@ def execute():
     digest = sha(literal)
     if digest not in report["inventory"] or expected not in report["inventory"][digest]["locations"]: raise ValueError("fixture is absent from the completed audit inventory")
     test_path = "training/tests/test_static_package.py"
-    if '(source / name).write_text(name)' not in (ROOT/test_path).read_text(): raise ValueError("packaging test no longer establishes literal file contents")
+    test_source = (ROOT/test_path).read_text()
+    if 'file = source / name' not in test_source or 'file.write_text(name)' not in test_source: raise ValueError("packaging test no longer establishes literal file contents")
     audit_wall = source.stat().st_mtime-(ROOT/".local/harvest-reservation-work").stat().st_mtime
     if not report["worker_wall_s"] <= audit_wall <= 240: raise ValueError("original parent audit cap exceeded")
     corrected = {**report,"kind":"harvest-fresh-reservation-corrected-v1","verified":True,"errors":[],"error":None,
