@@ -5,6 +5,14 @@ are separate synthetic evidence. Keep source labels visible when recording or
 editing. A successful conventional cycle does not establish learned planning.
 The hybrid forecast includes explicitly known kinematics, events and accounting.
 
+For the current technical simulation insert, the deliberately launched
+[harvest service](phase-11/harvest-live.md) is separate from the authored
+walkthrough. Its port-8096 view shows executed control and privileged hybrid
+shadow forecasts. The optional [sensor inspection](phase-11/sensor-forecasts.md)
+at port 8097 shows a failed-gate experimental predictor only after an explicit
+inspection toggle. Keep that failed-gate caption visible; do not edit either
+view into a claim of field sensing, model-assisted control benefit or RL success.
+
 ## Prepared routes
 
 The [review page](phase-11/acceptance-review/index.html) supplies the retained

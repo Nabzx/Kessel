@@ -242,3 +242,5 @@ pairs with exact replay but no demonstrated control benefit. The
 [sensor-only forecast study and recording importer](docs/phase-11/sensor-forecasts.md)
 retain a failed fresh prediction gate and complete numeric lineage. These
 predictors remain separate from qualified control and field validation.
+The optional sensor live inspection keeps the failed predictor hidden until an
+explicit inspection toggle and checks its control wrapper separately.
