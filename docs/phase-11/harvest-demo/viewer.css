@@ -1,0 +1,8 @@
+@import url('../qualified-demo/viewer.css');
+.forecast-summary{border-block-end:1px solid var(--rule);padding-block-end:12px;margin-block:16px}
+.forecast-summary h2{font-size:19px;margin:0 0 8px}.forecast-summary p{font-size:13px;line-height:1.5;margin:5px 0}
+.forecast-summary dl{display:grid;grid-template-columns:1fr auto;gap:5px 14px;font-size:14px;margin:12px 0}
+.forecast-summary dt{color:var(--muted)}.forecast-summary dd{margin:0;font-variant-numeric:tabular-nums}
+#forecast-status{color:var(--ore)}#forecast-source{color:var(--muted)}
+.settings label{grid-column:1/-1}select:disabled{opacity:.6}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
