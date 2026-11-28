@@ -67,7 +67,8 @@ prepared no-progress starts for each source and independent collision/stuck
 fixtures. Original delivery, supported-envelope performance, guard stability
 and frozen forecast gates remain separate.
 
-The fresh report and independently reconstructed gate results are recorded in
-`harvest-qualification-evidence` after the audit and fixed study complete. No
+The [completed fresh qualification](harvest-qualification.md) retains 288/288
+supported task/stop/recovery checks, 16/16 prepared start holds and a passing
+frozen forecast gate. Original failed-delivery outcomes stay separate. No
 new service, browser capture, public release or visual acceptance follows from
 these numerical results.

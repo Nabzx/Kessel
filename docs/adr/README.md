@@ -164,3 +164,6 @@ retains two fixed task variants and matched final practice, including misses.
 preserves bounded recovery attempts and distinct proposed start refusals.
 [Fresh harvest/forecast qualification](0084-frozen-harvest-and-forecast-qualification.md)
 freezes initial feasibility screening, unused-case audit and separate endpoints.
+
+[Literal QA fixture audit erratum](0085-literal-qa-fixture-audit-erratum.md)
+preserves the rejected audit and narrows correction to a hash-pinned packaging fixture.

@@ -1,5 +1,10 @@
 # Controller, forecast and review preparation status
 
+The later [harvest and forecast qualification](harvest-qualification.md)
+supersedes the controller/forecast follow-up rows below. This earlier handover
+and its original failed outcomes remain preserved. Visual/release acceptance is
+still open.
+
 The bounded engineering work and review preparation are complete. Some research
 and human acceptance gates remain open. This record does not claim all scenarios
 are solved, fresh qualification or publication.

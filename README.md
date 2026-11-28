@@ -226,3 +226,8 @@ recording/hosting handover. Human visual reviews remain open.
 [Harvest and traction repair](docs/phase-11/harvest-repair.md) restores the known
 low-pile and recoverable low-grip deliveries. Negative-margin starts, impossible
 material requests and fresh qualification have explicit separate criteria.
+
+[Fresh harvest and forecast qualification](docs/phase-11/harvest-qualification.md)
+passes 288/288 task/stop/recovery checks inside an explicit feasible-request
+envelope, 16/16 prepared hold challenges and the frozen hybrid forecast gate.
+Original failed-delivery outcomes and pending refusal acceptance remain separate.
