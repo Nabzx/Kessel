@@ -65,8 +65,11 @@ seconds with zero drift or speed. Its original delivery outcome remains failed.
 The same distinction applies to all sixteen fresh guard challenges. Their hold
 windows are not environment terminals and are never counted as successful hauls.
 The original full-delivery gate therefore remains false even though the separate
-supported-task and guard-stability gates pass. Maintainer acceptance of refusal
-as the desired outcome is pending; no approval is inferred from these tests.
+supported-task and guard-stability gates pass. On 28 November the maintainer explicitly accepted a detected stop and stable
+hold as the outcome for this start. The [acceptance record](harvest-qualification-evidence/start-refusal-acceptance.json)
+pins this exact qualification and guard source. It does not alter any recorded
+delivery result, qualification threshold, controller or weight. The frozen study
+plan retains its historical pending status from before that decision.
 
 The known recoverable cases are fixed: [the repair report](harvest-repair.md)
 retains 2,000.04 kg delivered in 59.08 seconds on low-pile 19023 and 2,000.98 kg in

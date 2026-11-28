@@ -56,6 +56,12 @@ def prepare(output):
             "scope":"synthetic: >=3200 kg above blade and >=200 N empty forward margin; eight initial-screened cases per family",
             "start_refusal_acceptance":"pending; delivery and refusal remain separate"}
         summary["historical_gate_fields"] = ["linear_feedback_full_gate_passed","collection_full_gate_passed"]
+        decision_path = ROOT/"docs/phase-11/harvest-qualification-evidence/start-refusal-acceptance.json"
+        if decision_path.is_file():
+            decision = json.loads(decision_path.read_text())
+            if decision["status"] != "accepted" or decision["qualification_report_sha256"] != summary["current_harvest"]["report_sha256"]:
+                raise ValueError("refusal decision does not match this qualification")
+            summary["current_harvest"]["start_refusal_acceptance"] = "accepted by maintainer "+decision["decision_date"]+"; delivery and refusal remain separate"
     (output/"status.json").write_text(json.dumps(summary,indent=2)+"\n")
     (output/"README.txt").write_text("Kessel review handover\n\n"
         "static/kessel-static-candidate.zip: verified concept presentation, not a deployed site.\n"

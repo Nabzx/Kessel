@@ -1,0 +1,14 @@
+{
+  "kind": "harvest-start-refusal-acceptance-v1",
+  "status": "accepted",
+  "decision_date": "2026-11-28",
+  "decision_source": "explicit maintainer response in this conversation",
+  "user_response": "Allow a detected stop and stable hold",
+  "accepted_outcome": "detected initial no-progress stop with stable hold, scored separately from delivery",
+  "qualification_report_sha256": "cfb8f6bac6663189d42d3cd5aae290fc130c0f974d33043472a30e5411aa3b1b",
+  "guard_source_sha256": "c7ca2cdc7fae4d8b3bbef12a30fa4b367cd5d65ce38287e920151d8fdda49092",
+  "original_delivery_goal_kg": 2000,
+  "original_full_delivery_gate_remains_failed": true,
+  "runtime_or_field_admission": false,
+  "visual_reviews": "remain open"
+}
