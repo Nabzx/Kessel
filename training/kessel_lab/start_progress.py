@@ -39,5 +39,5 @@ class StartProgressSupervisor(ProgressSupervisor):
     def act(self,observation,packet):
         action = super().act(observation,packet)
         if not self.last["override"] and self.task.mode == "no_progress_hold":
-            self.last.update(proposal_source="conventional_initial_no_progress_hold",conventional_proposal=action[0].tolist())
+            self.last.update(override=True,override_reason="initial_no_progress",proposal_source="conventional_initial_no_progress_hold",conventional_proposal=action[0].tolist())
         return action

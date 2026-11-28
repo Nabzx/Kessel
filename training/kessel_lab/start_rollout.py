@@ -37,7 +37,7 @@ def run(family,seed,budget,pattern=None,replay=False,actuator=None,lateral_gain=
             observed["range_valid"][:] = 0; observed["proprio"][0,12] = 0; observed["proprio"][0,11] = now-fault_start+.1
         packet = clearance_packet(env,pattern); action = actor.act(observed,packet)
         overridden = actor.last["override"]; override_count += overridden
-        progress_hold = actor.task.mode == "no_progress_hold" and not overridden
+        progress_hold = actor.task.mode == "no_progress_hold" and actor.last["proposal_source"] == "conventional_initial_no_progress_hold"
         resumed |= previous_override and not overridden; previous_override = overridden
         active = bool(injected or family == "range_dropout" or not actor.last["clearance"]["usable"])
         active = bool(active or progress_hold)
