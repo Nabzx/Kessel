@@ -1,0 +1,27 @@
+{
+  "kind": "recorded-synthetic-hybrid-forecast-film-v1",
+  "evidence_report_sha256": "d4caf455441387fd310a632dfa1d1d09c4304e38f4f34b74a54afd125c980d23",
+  "renderer_sha256": "eff141ee73165f808d5456e8375fcf63c2ff420d6747d86868436e649411fd41",
+  "matplotlib_version": "3.11.2",
+  "episode": {
+    "done": true,
+    "family": "nominal",
+    "id": 0,
+    "reason": "success",
+    "seed": 19023,
+    "source": "learned_linear_progress_task",
+    "start": 0,
+    "stop": 236
+  },
+  "frames": 236,
+  "fps": 10,
+  "duration_s": 23.6,
+  "render_wall_s": 24.78015337511897,
+  "source": "recorded synthetic comparison, not a new browser walkthrough capture",
+  "manual_visual_acceptance": "open",
+  "publication": "not_performed",
+  "files": {
+    "synthetic-forecast-comparison.mp4": "9f8c4963ed361c0e1450131133d09022fa0697f19f7e9f02241c86beb1e59e0d",
+    "terminal-frame.png": "dd9eb1bcf80f81978edbbf27f0ae52ebc081c039b71bb9f36c9ed0776d844383"
+  }
+}

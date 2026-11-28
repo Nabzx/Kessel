@@ -13,6 +13,7 @@ package-lock.json
 # local QA artefacts
 *.png
 !assets/**/*.png
+!docs/phase-11/forecast-film/terminal-frame.png
 shot*.js
 __pycache__/
 
