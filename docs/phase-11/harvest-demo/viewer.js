@@ -19,7 +19,7 @@ function fit(){const mobile=innerWidth<=700,rect=$('world').getBoundingClientRec
 renderer.setSize(w,h,false);camera.aspect=w/h;const safe=mobile?{l:12,r:w-12,t:15,b:h-15}:{l:24,r:panel.left-24,t:90,b:controls.top-16};
 camera.setViewOffset(w,h,w/2-(safe.l+safe.r)/2,h/2-(safe.t+safe.b)/2,w,h);
 const centre=new THREE.Vector3(3.5,1,0),direction=new THREE.Vector3(21,20.5,28).normalize();
-const corners=[];for(const x of [-9,15])for(const y of [0,3.4])for(const z of [-6,6])corners.push(new THREE.Vector3(x,y,z));
+const corners=[];for(const x of [-11,18])for(const y of [0,3.4])for(const z of [-6,6])corners.push(new THREE.Vector3(x,y,z));
 let lo=5,hi=220;for(let i=0;i<36;i++){const d=(lo+hi)/2;camera.position.copy(centre).addScaledVector(direction,d);camera.lookAt(centre);camera.updateMatrixWorld();camera.updateProjectionMatrix();const p=corners.map(v=>v.clone().project(camera));if(p.every(v=>(v.x+1)*w/2>=safe.l&&(v.x+1)*w/2<=safe.r&&(1-v.y)*h/2>=safe.t&&(1-v.y)*h/2<=safe.b))hi=d;else lo=d;}
 renderer.render(scene,camera);}
 function rebuild(){while(boundaries.children.length){const o=boundaries.children[0];boundaries.remove(o);o.geometry?.dispose();o.material?.dispose();}const s=frame.state,steel=new THREE.MeshStandardMaterial({color:0x596560,roughness:.8});for(const side of [-1,1])box([2*s[90],.5,.12],[s[88],.25,-s[89]+side*s[91]],steel,boundaries);box([.12,.5,2*s[91]],[s[88]+s[90],.25,-s[89]],steel,boundaries);
@@ -93,7 +93,7 @@ async function start(){
     const response=await fetch('data/experience.json');if(!response.ok)throw Error('Scene configuration unavailable.');const config=await response.json();
     const [ore,floor,model,asset]=await Promise.all([texture(config.assets.ore),texture(config.assets.floor,8),fetch(config.assets.loader).then(r=>r.json()),authoredAsset(config.visuals.authored.reference_loader)]);
     loader=createReferenceLoader(model,ore,asset);root.add(loader.root);
-    ghost=createReferenceLoader(model,ore,asset.clone());ghost.root.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshBasicMaterial({color:0xd6a867,wireframe:true,transparent:true,opacity:.6,depthTest:false});o.renderOrder=2;}});ghost.root.visible=false;root.add(ghost.root);pile=surface(ore,0xb1a08a);receiver=surface(ore,0xa99c86);
+    ghost=createReferenceLoader(model,ore,asset?.clone()||null);ghost.root.traverse(o=>{if(o.isMesh){o.material=new THREE.MeshBasicMaterial({color:0xd6a867,wireframe:true,transparent:true,opacity:.6,depthTest:false});o.renderOrder=2;}});ghost.root.visible=false;root.add(ghost.root);pile=surface(ore,0xb1a08a);receiver=surface(ore,0xa99c86);
     const ground=new THREE.Mesh(new THREE.PlaneGeometry(36,14),new THREE.MeshStandardMaterial({map:floor,color:0x67736d,roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.set(3,-.012,0);ground.receiveShadow=true;root.add(ground);
     await document.fonts.ready;await client.reset(selection());fit();document.body.dataset.ready='true';
   }catch(e){error(Error(`Start the harvest simulation service, then reconnect. ${e.message}`));}

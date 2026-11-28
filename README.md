@@ -232,3 +232,7 @@ passes 288/288 task/stop/recovery checks inside an explicit feasible-request
 envelope, 16/16 prepared hold challenges and the frozen hybrid forecast gate.
 Original failed-delivery outcomes remain separate from the maintainer-accepted
 no-progress stop and stable hold.
+
+[Qualified harvest live view](docs/phase-11/harvest-live.md) adds an isolated,
+request-driven runtime with causal hybrid shadow forecasts and a verified
+frozen-control equivalence receipt. It starts only on deliberate local launch.

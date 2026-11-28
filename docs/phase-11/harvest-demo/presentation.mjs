@@ -1,4 +1,4 @@
-export {command} from '../qualified-demo/presentation.mjs';
+export function command(value) { return value == null ? 'Not run' : (Math.abs(value) < .005 ? 0 : value).toFixed(2); }
 export function present(run, frame) {
   const t = run.telemetry, forecast = frame.forecast;
   const sensor = !t.sensor.fresh || t.sensor.age_s > .2 ? 'Range stale' : t.sensor.valid_cells >= 5 ? 'Range usable' : 'Range unavailable';
