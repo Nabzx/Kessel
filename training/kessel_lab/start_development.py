@@ -22,7 +22,7 @@ def execute(revision,regression=False):
     directory = BASE/f"revision-{revision}"
     paths = [str(p.relative_to(ROOT)) for p in (ROOT/"training/kessel_training").glob("*.py")]
     paths += ["training/kessel_lab/"+n+".py" for n in ("harvest_task","harvest_rollout","harvest_development","start_progress","start_rollout","start_development","progress_task","progress_supervisor",
-        "runtime","clearance_stop","bootstrap_hold","range_supervisor","range_contract","motion_hold","range_pilot")]
+        "runtime","harvest_scenarios","clearance_stop","bootstrap_hold","range_supervisor","range_contract","motion_hold","range_pilot")]
     jobs = [("low",19023),("low_grip",19021),("low_grip",19024),("nominal",19020)]
     if regression: jobs = [(f,s) for s in (19020,19021) for f in FAMILIES]+[("low",19023),("low_grip",19024)]
     plan = begin(directory,"docs/adr/0083-harvest-recovery-and-traction-feasibility.md",paths,

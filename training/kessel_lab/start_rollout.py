@@ -7,7 +7,7 @@ from kessel_training.wm_state import pack
 from .clearance_stop import synthetic_clearance
 from .start_progress import StartProgressSupervisor as ProgressSupervisor
 from .range_pilot import stop_metrics
-from .runtime import environment
+from .harvest_scenarios import environment
 
 
 def frame(env,actor):
