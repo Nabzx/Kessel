@@ -20,6 +20,10 @@ class HarvestTask(ProgressTask):
         try: action = super().act(obs)
         finally: self.actuator = actuator
         features = np.asarray([self.last["control_features"]])
+        if self.mode in ("collect","sweep"):
+            curl_target = .95 if int((p[13]-self.contact_at)/1.8)%2 == 0 else -.1
+            features[0,5] = curl_target-p[7]
+            action[0,3] = np.clip(features[0,5]*4,-1,1)
         if self.mode == "back_out" and p[0] >= self.cut_start-.3:
             curl_target = .95 if int(p[13]/1.2)%2 == 0 else .25
             features[0,4] = -.1-p[6]; features[0,5] = curl_target-p[7]
