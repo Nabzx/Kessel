@@ -167,3 +167,8 @@ freezes initial feasibility screening, unused-case audit and separate endpoints.
 
 [Literal QA fixture audit erratum](0085-literal-qa-fixture-audit-erratum.md)
 preserves the rejected audit and narrows correction to a hash-pinned packaging fixture.
+
+[Qualified harvest live integration](0086-qualified-harvest-live-integration.md),
+[matched forecast assistance](0087-matched-forecast-control-assistance.md) and
+[recorded sensor forecasts](0088-recorded-sensor-only-forecast.md) separate runtime
+admission, policy-benefit experiments and observation-only prediction.

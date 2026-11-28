@@ -97,6 +97,8 @@ jobs:
         run: python3 scripts/verify-harvest-qualification.py
       - name: Verify complete harvest development evidence
         run: python3 scripts/verify-harvest-development.py
+      - name: Verify qualified harvest live execution and presentation
+        run: python3 scripts/verify-harvest-live.py && node --check docs/phase-11/harvest-demo/viewer.js && node --test scripts/tests/harvest-presentation.test.mjs
       - name: Verify bounded walkthrough acceptance review
         run: python3 scripts/verify-acceptance-review.py && node --check docs/phase-11/acceptance-review/review.js
       - name: Verify recorded demo bundles
