@@ -49,3 +49,8 @@ Record the actual reviewer, date, source commit, viewport, browser/GPU and speci
 remaining defects in the issue. Keep visual judgement distinct from numerical
 gates and targeted accessibility checks. #276 requires the complete real
 walkthrough capture and explicit acceptance before release can be complete.
+
+The retained [numerical film](phase-11/forecast-film/synthetic-forecast-comparison.mp4)
+and [terminal still](phase-11/forecast-film/terminal-frame.png) are independently
+checked by `python3 scripts/verify-forecast-film.py`, including encoded frame count
+and duration. They remain separate from the uncompleted native browser capture.

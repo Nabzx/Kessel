@@ -218,3 +218,7 @@ Its learned-only event head remains rejected; runtime admission is separate.
 
 [Collection coverage comparison](docs/phase-11/collection-coverage.md) retains
 complete matched task/stop/recovery runs and the remaining low-pile/low-grip misses.
+
+[Current engineering and review status](docs/phase-11/completion-status-2026-11-28.md)
+links passed evidence, retained failures, the complete numerical film and the local
+recording/hosting handover. Human visual reviews remain open.
