@@ -172,3 +172,7 @@ preserves the rejected audit and narrows correction to a hash-pinned packaging f
 [matched forecast assistance](0087-matched-forecast-control-assistance.md) and
 [recorded sensor forecasts](0088-recorded-sensor-only-forecast.md) separate runtime
 admission, policy-benefit experiments and observation-only prediction.
+
+[Partial terminal clock conversion](0089-sensor-terminal-clock-conversion.md)
+retains a rejected import and excludes partial terminal snapshots without
+relaxing packet validation or changing prediction gates.
