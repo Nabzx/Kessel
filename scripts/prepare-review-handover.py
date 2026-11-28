@@ -21,6 +21,9 @@ def prepare(output):
     package.prepare(output/"static")
     copies = {"docs/HOSTING.md":"HOSTING.md","docs/RECORDING.md":"RECORDING.md",
               "docs/phase-11/structured-dynamics.md":"structured-dynamics.md","docs/phase-11/collection-coverage.md":"collection-coverage.md"}
+    for name in ("harvest-repair.md","harvest-qualification.md"):
+        source = ROOT/"docs/phase-11"/name
+        if source.is_file(): copies[str(source.relative_to(ROOT))] = name
     film_dir = ROOT/"docs/phase-11/forecast-film"
     film = json.loads((film_dir/"film.json").read_text())
     for name,digest in film["files"].items():
@@ -43,6 +46,16 @@ def prepare(output):
                "manual_checks":{"274":"real background/foreground and readability remain open","351":"maintainer visual judgement remains open",
                                 "385":"maintainer visual judgement remains open","276":"real walkthrough capture and release acceptance remain open"},
                "publication":"not_performed","browsers_started":0,"services_started":0}
+    current = ROOT/"docs/phase-11/harvest-qualification-evidence/fresh/report.json"
+    if current.is_file():
+        qualified = json.loads(current.read_text())
+        summary["current_harvest"] = {"report_sha256":hashlib.sha256(current.read_bytes()).hexdigest(),
+            "complete":qualified["complete"],"supported_envelope_gate":qualified.get("supported_envelope_gate",False),
+            "start_guard_qualified":qualified.get("start_guard_qualified",False),"forecast_gate":qualified.get("forecast",{}).get("gate_passed",False),
+            "original_full_delivery_gate":qualified.get("original_full_gate",False),"runtime_admitted":qualified["runtime_admitted"],
+            "scope":"synthetic: >=3200 kg above blade and >=200 N empty forward margin; eight initial-screened cases per family",
+            "start_refusal_acceptance":"pending; delivery and refusal remain separate"}
+        summary["historical_gate_fields"] = ["linear_feedback_full_gate_passed","collection_full_gate_passed"]
     (output/"status.json").write_text(json.dumps(summary,indent=2)+"\n")
     (output/"README.txt").write_text("Kessel review handover\n\n"
         "static/kessel-static-candidate.zip: verified concept presentation, not a deployed site.\n"
@@ -51,6 +64,7 @@ def prepare(output):
         "RECORDING.md: core/technical routes and missing native review.\n"
         "HOSTING.md: concrete publication and rollback procedure after acceptance.\n"
         "status.json: passed and failed gates, source commit and open human criteria.\n\n"
+        "When present, current_harvest gives the later scoped qualification; historical gate fields preserve earlier failed studies.\n"
         "The existing full visual review remains in docs/phase-11/acceptance-review/index.html in the repository.\n"
         "This kit does not record a new browser walkthrough, accept visuals or publish anything.\n")
     paths = sorted(p for p in output.rglob("*") if p.is_file())
