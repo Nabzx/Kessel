@@ -30,6 +30,27 @@ branch, preserving all source labels, credits and licences. Keep its source
 manifest with the deployment. Set Pages to that branch/root and HTTPS. The
 relative asset paths and import map support a repository subpath.
 
+For the first accepted candidate:
+
+1. Confirm the owner/name and create or select the public mirror. Clone it into
+   a new ignored `.local/public-mirror` directory. Do not reuse another checkout
+   or push the source repository into it.
+2. Extract only the verified static archive into that mirror root. Review its
+   manifest and `git status` for presentation files, credits and licence. There
+   should be no training code, raw research, credentials or source docs.
+3. Commit the candidate with its source commit in the message and push the
+   publishing branch. For updates, review removed files too, to avoid stale assets.
+4. In the mirror's Settings, select Pages, then Deploy from a branch. Choose the
+   actual publishing branch and `/(root)`, then Save. GitHub's
+   [publishing-source instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+   cover these settings and the deployment run.
+5. Wait for successful deployment and use the URL shown by Pages. Complete the
+   checks below before sharing it or closing the hosting ticket.
+
+Automatic mirror synchronisation is not configured by this work. Regenerate,
+verify and publish subsequent accepted candidates through this same procedure.
+Preserve the preceding verified candidate for rollback.
+
 Check the actual published URL after deployment: main route, cold/cached assets,
 source switching, replay, failed-asset retry, keyboard focus and reduced motion.
 Capture response headers, source commit and deployment identity. For rollback,

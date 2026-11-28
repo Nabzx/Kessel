@@ -45,6 +45,36 @@ evidence report and output hashes; the terminal still makes its ending reviewabl
 
 ## Acceptance record
 
+For an agreed manual capture session, use the existing local server. If none is
+running, the reviewer can deliberately run this from the repository root:
+
+    python3 -m http.server 8091 --bind 127.0.0.1
+
+Open `http://127.0.0.1:8091/` in the chosen Chrome window. Use 100% zoom and a
+1440x900 content area, close DevTools and silence notifications. Load assets once,
+then reset the route. Press Shift-Command-5, choose Record Selected Portion and
+select the browser content. Under Options choose `.local/manual-recording` as
+the destination, a five-second timer, no microphone for a silent insert and no
+mouse-click indicators. Click Record and park the pointer.
+
+| Target time | Capture |
+| --- | --- |
+| 0–5 s | Welcome and Kessel identity |
+| 5–12 s | Descent and Underground selection |
+| 12–20 s | Surface arrival and cutaway reveal |
+| 20–44 s | Chosen complete reference cycle, including terminal delivery |
+| 44–50 s | Learning/forecast source and its stated limitation |
+| 50–58 s | Proposed retrofit kit and ending |
+
+This is an editing target, not a newly verified unedited route duration. Capture
+slower passages separately and retain complete success/failure endings. Trim the
+application insert to at most 58 seconds without changing numerical outcomes.
+Use the menu-bar Stop control. Check the saved file for readable source labels,
+delivery and uncropped controls. Keep its original resolution and unedited copy.
+Apple's [recorder instructions](https://support.apple.com/guide/mac-help/take-a-screenshot-or-screen-recording-mh26782/mac)
+describe the available options. Stop only a server started for this session with
+Control-C; leave existing services alone. No capture command is run by this work.
+
 Record the actual reviewer, date, source commit, viewport, browser/GPU and specific
 remaining defects in the issue. Keep visual judgement distinct from numerical
 gates and targeted accessibility checks. #276 requires the complete real
