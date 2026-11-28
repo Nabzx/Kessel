@@ -23,6 +23,16 @@ def encode(value): return json.dumps(value,sort_keys=True,separators=(",",":"),a
 def sha(raw): return hashlib.sha256(raw).hexdigest()
 
 
+def strict_json(raw):
+    def unique(items):
+        result = {}
+        for key,value in items:
+            if key in result: raise ValueError("duplicate JSON field")
+            result[key] = value
+        return result
+    return json.loads(raw,object_pairs_hook=unique)
+
+
 def require_keys(value,expected,name):
     if not isinstance(value,dict) or set(value) != expected: raise ValueError("unexpected or missing "+name+" fields")
 
@@ -35,7 +45,7 @@ def parse(raw):
     if len(decoded) > 16*1024**2: raise ValueError("decoded recording exceeds 16 MiB")
     lines = decoded.splitlines()
     if not 3 <= len(lines) <= 100001: raise ValueError("header and at least two samples required; 100000 sample cap")
-    header = json.loads(lines[0]); require_keys(header,HEADER_KEYS,"header")
+    header = strict_json(lines[0]); require_keys(header,HEADER_KEYS,"header")
     if header["kind"] != "header" or header["schema"] != SCHEMA or header["frame"] != CONTRACT["frame"] or header["action_units"] != "normalised" or header["decision_s"] != .1:
         raise ValueError("recording schema, units, frame or decision interval differs")
     if header["source_kind"] not in ("recorded_synthetic","claimed_field_recording"): raise ValueError("explicit recording provenance required")
@@ -50,7 +60,7 @@ def parse(raw):
     if not isinstance(case["family"],str) or case["pattern"] is not None and not isinstance(case["pattern"],str): raise ValueError("invalid source case metadata")
     rows = []; previous_sequence = previous_time = None; gaps = 0; captures = {}; deliveries = {}
     for line in lines[1:]:
-        row = json.loads(line); require_keys(row,ROW_KEYS,"sample")
+        row = strict_json(line); require_keys(row,ROW_KEYS,"sample")
         if row["kind"] != "sample" or isinstance(row["use_time_s"],bool): raise ValueError("invalid sample clock")
         now = float(row["use_time_s"]); packet = row["observation_packet"]; require_keys(packet,PACKET_KEYS,"packet")
         require_keys(packet["channels"],set(SHAPES),"channel")
@@ -86,6 +96,8 @@ def packet(observation,sequence,header):
 
 def from_episode(episode,*,archive,member,source_sha256):
     frames = episode["frames"]; case = episode["scenario"]
+    if len(frames) > 2 and frames[-1]["observation"]["proprio"][13]-frames[-2]["observation"]["proprio"][13] < .09:
+        frames = frames[:-1]
     header = {"kind":"header","schema":SCHEMA,"recording_id":sha((archive+":"+member).encode()),"source_kind":"recorded_synthetic",
               "source_archive":archive,"source_member":member,"source_sha256":source_sha256,
               "source_case":{"seed":case["seed"],"family":case["family"],"pattern":episode.get("pattern")},
@@ -122,6 +134,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("path",type=Path); args = parser.parse_args()
     path = args.path.resolve()
     if not path.is_relative_to(ROOT): raise ValueError("recording must be inside the repository")
+    if path.stat().st_size > 16*1024**2: raise ValueError("recording exceeds 16 MiB")
     raw = path.read_bytes(); header,rows,stats = parse(raw); data,_,skipped = pairs([(header,rows)])
     print(json.dumps({"recording_id":header["recording_id"],"source_sha256":sha(raw),"causal_pairs":len(data["action"]),"skipped_pairs":skipped,**stats},indent=2))
 

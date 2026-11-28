@@ -12,7 +12,7 @@ from .sensor_model import fit, load, save, observations
 from .sensor_records import from_episode, parse, pairs
 from .study_tools import Budget, begin, seal, sha, write
 
-D = ROOT/"docs/phase-11/sensor-forecast-evidence"
+D = ROOT/"docs/phase-11/sensor-forecast-v2-evidence"
 
 
 def measurements(data,prediction):
@@ -49,7 +49,7 @@ def execute():
     configure_cpu(7,threads=1); budget = Budget(240,updates=2250)
     inputs = (("train",ROOT/"docs/phase-11/harvest-development-evidence/revision-7"),
               ("validation",ROOT/"docs/phase-11/harvest-practice-evidence"),("evaluation",ROOT/"docs/phase-11/harvest-qualification-evidence/fresh"))
-    paths = ["training/kessel_lab/"+name+".py" for name in ("sensor_records","sensor_model","sensor_study","observations","range_supervisor")]
+    paths = ["docs/adr/0089-sensor-terminal-clock-conversion.md"]+["training/kessel_lab/"+name+".py" for name in ("sensor_records","sensor_model","sensor_study","observations","range_supervisor")]
     plan = begin(D,"docs/adr/0088-recorded-sensor-only-forecast.md",paths,{"kind":"recorded_sensor_forecast_v1","source_archives":{str((d/"traces.zip").relative_to(ROOT)):sha((d/"traces.zip").read_bytes()) for _,d in inputs},
         "training_bases":[19020,19021],"validation_bases":[19025],"evaluation_bases":list(range(207400,207432))+list(range(207470,207478)),"physical_queries":0,
         "source_kind":"recorded_synthetic","field_recordings_supplied":False,"optimiser_updates":2250})
@@ -74,7 +74,8 @@ def execute():
                         if header["recording_id"] in identity_seen: raise ValueError("recording split overlap")
                         identity_seen.add(header["recording_id"]); collected.append((header,rows))
                         name = split+"-"+header["recording_id"]+".jsonl.gz"; output.writestr(name,recording)
-                        report["recordings"].append({"split":split,"member":name,"sha256":sha(recording),"header":header,"stats":stats})
+                        report["recordings"].append({"split":split,"member":name,"sha256":sha(recording),"header":header,"stats":stats,
+                            "omitted_partial_terminal_snapshots":len(episode["frames"])-len(rows)})
                 data,metadata,skipped = pairs(collected); splits[split] = (data,metadata)
                 if not len(data["action"]): raise ValueError("empty recorded pair split")
                 write_archive(D/f"{split}.npz",data)

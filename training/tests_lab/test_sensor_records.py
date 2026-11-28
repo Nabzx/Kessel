@@ -27,6 +27,20 @@ def modify(raw,change):
 
 
 class SensorRecordingTests(unittest.TestCase):
+    def test_terminal_partial_snapshot_is_omitted_without_repairing_its_clock(self):
+        episode,_ = recording(); last = copy.deepcopy(episode["frames"][-1])
+        last["observation"]["proprio"][13] = .22
+        last["observation"]["proprio"][11] = .1
+        episode["frames"].append(last)
+        raw = from_episode(episode,archive="a",member="b",source_sha256="0"*64)
+        _,rows,_ = parse(raw)
+        self.assertEqual(len(rows),3)
+        _,raw = recording()
+        with self.assertRaises(ValueError):
+            parse(modify(raw,lambda v:v[3]["observation_packet"]["channels"]["local_height_m"].update(capture_s=-.1)))
+        with self.assertRaises(ValueError):
+            parse(gzip.decompress(raw).replace(b'"kind":"header"',b'"kind":"header","kind":"header"'))
+
     def test_privileged_source_state_cannot_change_exported_sensor_stream(self):
         episode,raw = recording(); changed = copy.deepcopy(episode)
         for frame in changed["frames"]: frame["state"] = [-500.]*102; frame["friction"] = 100
