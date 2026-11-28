@@ -222,3 +222,7 @@ complete matched task/stop/recovery runs and the remaining low-pile/low-grip mis
 [Current engineering and review status](docs/phase-11/completion-status-2026-11-28.md)
 links passed evidence, retained failures, the complete numerical film and the local
 recording/hosting handover. Human visual reviews remain open.
+
+[Harvest and traction repair](docs/phase-11/harvest-repair.md) restores the known
+low-pile and recoverable low-grip deliveries. Negative-margin starts, impossible
+material requests and fresh qualification have explicit separate criteria.
