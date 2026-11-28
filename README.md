@@ -215,3 +215,6 @@ and retrofit component/signal inspection under ADR-0055.
 [Structured local dynamics](docs/phase-11/structured-dynamics.md) passes the
 synthetic practice forecast gate with explicit kinematic and event priors.
 Its learned-only event head remains rejected; runtime admission is separate.
+
+[Collection coverage comparison](docs/phase-11/collection-coverage.md) retains
+complete matched task/stop/recovery runs and the remaining low-pile/low-grip misses.

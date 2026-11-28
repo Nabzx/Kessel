@@ -156,3 +156,6 @@ separate feasible conventional control from fresh qualification.
 learned actuator with explicit conventional planner context.
 [Structured local dynamics](0081-structured-local-dynamics-and-rare-events.md)
 bounds local learned heads, known priors and independent rare-event acquisition.
+
+[Collection coverage correction](0082-bounded-collection-coverage-correction.md)
+retains two fixed task variants and matched final practice, including misses.
