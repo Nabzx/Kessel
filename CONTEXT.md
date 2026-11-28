@@ -317,5 +317,5 @@ holds. Qualification is conditioned before policy queries on >=3200 kg above
 the blade and >=200 N initial forward margin, not the whole random generator.
 The privileged initial certificate is not a controller input or field perception.
 The frozen hybrid passes its fresh forecast gate on 26,325 transitions. Original
-delivery failures, pending refusal acceptance, field/runtime admission and visual
-review remain separate. See docs/phase-11/harvest-qualification.md.
+delivery failures remain separate from the maintainer-accepted initial stop/hold
+outcome. Field/runtime admission and visual review remain separate. See docs/phase-11/harvest-qualification.md.

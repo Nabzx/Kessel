@@ -50,6 +50,13 @@ def verify():
     fit_dir = ROOT/"docs/phase-11/linear-feedback-evidence"
     weights = json.loads((fit_dir/"fit.json").read_text())["weight_matrix"]
     forecast_dir = ROOT/"docs/phase-11/structured-dynamics-evidence"
+    decision_path = BASE/"start-refusal-acceptance.json"
+    if decision_path.exists():
+        decision = json.loads(decision_path.read_text())
+        assert decision["status"] == "accepted" and decision["user_response"] == "Allow a detected stop and stable hold"
+        assert decision["qualification_report_sha256"] == base.sha((BASE/"fresh/report.json").read_bytes())
+        assert decision["guard_source_sha256"] == base.sha((ROOT/"training/kessel_lab/start_progress.py").read_bytes())
+        assert decision["original_full_delivery_gate_remains_failed"] and not decision["runtime_or_field_admission"]
     for fresh in (False,True):
         directory = BASE/"fresh" if fresh else ROOT/"docs/phase-11/harvest-practice-evidence"
         report = base.capsule(directory,current=True); plan = report["plan"]

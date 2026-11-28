@@ -45,8 +45,8 @@ crop. In both negative-margin cases it detects at 3.1 seconds and holds for ten
 seconds with zero drift, zero speed and no collision. The hold is explicitly
 conventional. It is specific to empty synthetic starts with the declared grade
 bound, not a general brake or onboard terrain estimator. Range/clearance braking
-retains precedence. Maintainer acceptance of refusal as an outcome remains a
-separate question; the original delivery gate is unchanged.
+retains precedence. The maintainer explicitly accepted detected refusal and stable holding on
+28 November; the original delivery gate and its failed outcomes remain unchanged.
 
 ## Fresh qualification boundary
 
