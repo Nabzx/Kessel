@@ -17,6 +17,16 @@ partners) who cannot visit a mine or read a policy's weights.
 
 ## Current experience
 
+The 28 November follow-up adds a separate qualified harvest runtime with causal
+privileged hybrid shadow forecasts (ADR-0086). Its 38 complete in-process cases
+match frozen control exactly. The matched candidate-refinement study (ADR-0087)
+passes both arms' scoped criteria but shows only 0.0811% median delivery cycle
+reduction, below its 10% benefit gate. Refinement is not live-admitted. The
+observation-only model and strict numeric recording importer (ADRs 0088/0089)
+retain 196 recorded synthetic episodes; the model fails its fresh high-error and
+persistence-benefit gates. No actual machine recording was supplied. These
+results do not change the main walkthrough's authored source or visual acceptance.
+
 Phase 10 replaces the Phase 9 presentation with a centred Earth opener,
 themed environment carousel, prepared Rwanda arrival and substantial
 roof-off mine cutaway. Four trucks and a licensed excavator illustrate the

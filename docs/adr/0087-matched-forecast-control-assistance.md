@@ -25,7 +25,7 @@ start_offset, low_grip, high_resistance, range_impaired and blocked, plus nomina
 recovery/carry-loss. Screen both arms by the same existing initial certificate,
 retaining every rejected initial case. Run all admitted pairs and preserve failures.
 Cap at 30,000 physical decisions, 30,000 independent replay decisions, 300,000
-candidate rows including replay, 480 s, one CPU thread and 96 MiB evidence. Stop
+model rows including replay (five candidates plus the standard applied-action shadow per usable decision), 600 s, one CPU thread and 96 MiB evidence. Stop
 on an exhausted cap and retain incomplete/failed gates. No seed replacement.
 
 Report all actual neural, forecast and physical costs, success/stop/hold/collision
@@ -35,3 +35,8 @@ reduction among paired successful deliveries. Otherwise report no demonstrated
 benefit. Retain every candidate forecast, ranking, gate, chosen action and exact
 independent replay. Changing applied controls creates a new method with no
 inherited qualification; do not silently activate it in the live runtime.
+
+Both arms may reuse a candidate prediction for the identical applied action/state.
+Cache hits are reported separately and are not charged as new model rows. The
+cache never crosses a state/action identity or run. This avoids duplicate shadow
+inference without changing candidate coverage or equal per-case allocation.

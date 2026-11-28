@@ -236,3 +236,9 @@ no-progress stop and stable hold.
 [Qualified harvest live view](docs/phase-11/harvest-live.md) adds an isolated,
 request-driven runtime with causal hybrid shadow forecasts and a verified
 frozen-control equivalence receipt. It starts only on deliberate local launch.
+
+[Matched forecast assistance](docs/phase-11/forecast-assistance.md) completes 24
+pairs with exact replay but no demonstrated control benefit. The
+[sensor-only forecast study and recording importer](docs/phase-11/sensor-forecasts.md)
+retain a failed fresh prediction gate and complete numeric lineage. These
+predictors remain separate from qualified control and field validation.
