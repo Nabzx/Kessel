@@ -176,3 +176,7 @@ admission, policy-benefit experiments and observation-only prediction.
 [Partial terminal clock conversion](0089-sensor-terminal-clock-conversion.md)
 retains a rejected import and excludes partial terminal snapshots without
 relaxing packet validation or changing prediction gates.
+
+[Experimental sensor live inspection](0090-experimental-sensor-live-inspection.md)
+keeps failed model qualification visible while requiring complete unchanged-control
+equivalence before the optional local wrapper may serve.

@@ -56,3 +56,36 @@ pair from original hashed episodes, checks split lineage, training-only scales,
 validation selection, fresh errors, persistence and family support. Checkpoint
 tests replay saved predictions with simulator transition/state access disabled.
 Neither numerical verification nor this experiment closes visual reviews.
+
+## Optional live inspection
+
+The isolated [sensor viewer](sensor-demo/index.html) uses the same qualified
+harvest control and stopping guards. The predictor receives observed numeric
+channels, applied actions and one causal history sample. Its predicted pose is
+hidden by default; an explicit inspection checkbox reveals the experimental
+wireframe only with usable range. The failed-gate label remains visible. Global
+pile and delivered mass belong to executed reference physics, not this model.
+
+    PYTHONPATH=training training/.venv/bin/python -m kessel_lab.sensor_runtime --port 8097
+
+Open `http://127.0.0.1:8097/docs/phase-11/sensor-demo/` only when you choose to.
+This work starts no service or browser. Port 8096 remains the separate qualified
+control/privileged-hybrid shadow view. The wrapper checks both the sensor study
+and its own frozen-control equivalence before binding. A control receipt does
+not admit the failed predictor. Forecast comparisons use the next received
+numeric observation; unavailable range is masked and partial terminal intervals
+withhold nominal-horizon errors. Exports retain all input/action history,
+predicted local channels, validity probabilities and final observations.
+
+The [complete wrapper receipt](sensor-live-evidence/report.json) passes all 38
+cases, including both controllers, primary families, accepted no-progress hold
+and five nominal fault/recovery patterns. Every applied command, observation,
+supervisor record and physical state matches an independently executed frozen
+harvest run. It used 7,740 live and 7,740 replay decisions in 189.08 seconds on
+one CPU, within its 360-second/30,000-decision cap. The verifier withholds errors
+on all 22 partial terminal intervals. This is unchanged-control evidence; the
+sensor predictor remains rejected for qualified use.
+
+    python3 scripts/verify-sensor-live.py
+    PYTHONPATH=training training/.venv/bin/python -m pytest training/tests_lab/test_sensor_runtime.py -q
+    node --test scripts/tests/sensor-presentation.test.mjs

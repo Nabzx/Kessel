@@ -1,5 +1,21 @@
 # Controller, forecast and review preparation status
 
+## Latest follow-up
+
+The qualified controller/guards and causal hybrid shadows are integrated in the
+isolated [harvest runtime](harvest-live.md), with 38 complete exact-equivalence
+runs. The [matched assistance study](forecast-assistance.md) is complete: all 48
+arm-runs pass, but its 0.0811% median cycle reduction fails the benefit gate.
+No assistance is enabled. The [sensor recording importer and forecast study](sensor-forecasts.md)
+are implemented with complete lineage and no privileged inference input. The
+sensor predictor fails fresh error and persistence gates; its separate live
+inspection wrapper keeps it experimental and hidden by default. No actual
+machine recording was supplied, so field validation remains unperformed.
+
+These results supersede the research follow-up rows below. All original failures
+remain retained. Main walkthrough visual reviews #351/#385, manual native capture
+and publication remain open under the maintainer's existing instructions.
+
 The later [harvest and forecast qualification](harvest-qualification.md)
 supersedes the controller/forecast follow-up rows below. This earlier handover
 and its original failed outcomes remain preserved. Visual/release acceptance is
