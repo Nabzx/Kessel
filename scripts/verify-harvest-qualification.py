@@ -25,7 +25,17 @@ def verify():
     reservation = json.loads((BASE/"reservation.json").read_text())
     assert reservation["verified"] and not reservation["hits"] and not reservation["errors"] and reservation["new_policy_queries"] == 0
     assert reservation["seeds"] == list(range(207400,207432)) and reservation["rare_seeds"] == list(range(207450,207466))
-    assert reservation["guard_seeds"] == list(range(207470,207478)) and reservation["audit_wall_s"] <= 240
+    assert reservation["guard_seeds"] == list(range(207470,207478)) and reservation["audit_wall_s"] <= 250
+    original = json.loads((BASE/"reservation-attempt-1.json").read_text())
+    assert not original["verified"] and not original["hits"] and len(original["errors"]) == 1
+    assert reservation["original_certificate_sha256"] == base.sha((BASE/"reservation-attempt-1.json").read_bytes())
+    assert reservation["original_errors"] == original["errors"] and reservation["inventory"] == original["inventory"]
+    assert reservation["identities"] == original["identities"] and reservation["selected_by_family"] == original["selected_by_family"]
+    correction = reservation["correction"]
+    assert correction["literal_utf8"] == "data/example.json" and correction["sha256"] == base.sha(b"data/example.json")
+    assert correction["location"] == original["errors"][0]["location"] and correction["sha256"] in original["inventory"]
+    assert original["worker_wall_s"] <= 235 and reservation["original_parent_wall_s"] <= 240 and correction["wall_s"] <= 10
+    assert correction["new_policy_queries"] == correction["new_physics_queries"] == 0
     assert len(reservation["identities"]) == 440 and reservation["inventory"]
     for name,digest in reservation["audit_files"].items(): assert base.sha((ROOT/name).read_bytes()) == digest
     for family,seeds in reservation["selected_by_family"].items():
