@@ -33,5 +33,17 @@ class StartProgressTests(unittest.TestCase):
         env,_ = environment("nominal",19020)
         self.assertTrue(certificate(pack(env)[0])["supported"])
 
+    def test_declared_empty_grade_bound_supports_the_holding_prior(self):
+        mass_g = 10500*9.81
+        checked = 0
+        for mu in np.linspace(.084,.144,31):
+            for grade in np.linspace(-.02,.1,61):
+                grip = mu*mass_g*np.cos(grade); slope = mass_g*np.sin(grade)
+                rolling = .02*mass_g*np.cos(grade)
+                if abs(min(22000,grip)-slope) <= rolling:
+                    self.assertLessEqual(abs(min(.39*22000,grip)-slope),rolling+1e-9)
+                    checked += 1
+        self.assertGreater(checked,0)
+
 
 if __name__ == "__main__": unittest.main()

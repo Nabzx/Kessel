@@ -1,0 +1,18 @@
+{
+  "kind": "harvest-execution-environment-v1",
+  "recorded_during": "fresh execution",
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+  "platform": "Darwin",
+  "platform_release": "25.2.0",
+  "machine": "arm64",
+  "distributions": {
+    "torch": "2.15.0",
+    "numpy": "2.5.4"
+  },
+  "cpu_threads": 1,
+  "package_installs_performed": false,
+  "files": {
+    "training/uv.lock": "f2dd3cb4a9ab02677266e358ad17f875245daf56aa8330f2b7f61cef6390d50c",
+    "training/pyproject.toml": "a79f4c77eb67b7dcc09073440e14b721ab3782b9e55f3b37e6f6724ae3754415"
+  }
+}

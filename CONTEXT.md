@@ -309,3 +309,13 @@ not a learned planner or a learned world model.
 learned local acceleration/extraction heads and explicitly known kinematic,
 geometry, event and material-accounting priors. Its passing practice forecast gate
 does not qualify perception, deployment or policy assistance.
+
+ADRs 0083–0085 repair the known thin-pile and recoverable low-grip deliveries
+without changing physics or task limits. Fresh qualification passes 288/288
+supported task/stop/recovery checks and 16/16 separately scored prepared start
+holds. Qualification is conditioned before policy queries on >=3200 kg above
+the blade and >=200 N initial forward margin, not the whole random generator.
+The privileged initial certificate is not a controller input or field perception.
+The frozen hybrid passes its fresh forecast gate on 26,325 transitions. Original
+delivery failures, pending refusal acceptance, field/runtime admission and visual
+review remain separate. See docs/phase-11/harvest-qualification.md.

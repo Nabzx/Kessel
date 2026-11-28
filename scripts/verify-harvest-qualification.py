@@ -25,8 +25,21 @@ def verify():
     reservation = json.loads((BASE/"reservation.json").read_text())
     assert reservation["verified"] and not reservation["hits"] and not reservation["errors"] and reservation["new_policy_queries"] == 0
     assert reservation["seeds"] == list(range(207400,207432)) and reservation["rare_seeds"] == list(range(207450,207466))
-    assert reservation["guard_seeds"] == list(range(207470,207478)) and reservation["audit_wall_s"] <= 240
+    assert reservation["guard_seeds"] == list(range(207470,207478)) and reservation["audit_wall_s"] <= 250
+    original = json.loads((BASE/"reservation-attempt-1.json").read_text())
+    assert not original["verified"] and not original["hits"] and len(original["errors"]) == 1
+    assert reservation["original_certificate_sha256"] == base.sha((BASE/"reservation-attempt-1.json").read_bytes())
+    assert reservation["original_errors"] == original["errors"] and reservation["inventory"] == original["inventory"]
+    assert reservation["identities"] == original["identities"] and reservation["selected_by_family"] == original["selected_by_family"]
+    correction = reservation["correction"]
+    assert correction["literal_utf8"] == "data/example.json" and correction["sha256"] == base.sha(b"data/example.json")
+    assert correction["location"] == original["errors"][0]["location"] and correction["sha256"] in original["inventory"]
+    assert original["worker_wall_s"] <= 235 and reservation["original_parent_wall_s"] <= 240 and correction["wall_s"] <= 10
+    assert correction["new_policy_queries"] == correction["new_physics_queries"] == 0
     assert len(reservation["identities"]) == 440 and reservation["inventory"]
+    environment = json.loads((BASE/"execution-environment.json").read_text())
+    assert environment["cpu_threads"] == 1 and not environment["package_installs_performed"]
+    for name,digest in environment["files"].items(): assert base.sha((ROOT/name).read_bytes()) == digest
     for name,digest in reservation["audit_files"].items(): assert base.sha((ROOT/name).read_bytes()) == digest
     for family,seeds in reservation["selected_by_family"].items():
         rows = [r for r in reservation["identities"] if r["family"] == family]
@@ -48,7 +61,7 @@ def verify():
         assert {(c["source"],c["family"],c["pattern"],c["seed"],c["split"]) for c in report["cases"]} == {tuple(j) for j in plan["jobs"]}
         assert len(report["cases"]) == (304 if fresh else 42) and len(report["fixtures"]) == (16 if fresh else 0)
         if fresh: assert plan["reservation_sha256"] == base.sha((BASE/"reservation.json").read_bytes())
-        physical = planning = 0; passed = []; payload_by_key = {}
+        physical = planning = 0; passed = []
         combined = {"cases":report["cases"]+report["fixtures"]}
         for case,value in base.payloads(directory,combined):
             physical += case["outcome"]["decisions"]
@@ -87,11 +100,12 @@ def verify():
                     assert max(abs(a-b) for a,b in zip(expected,f["action"])) <= 1e-10
                     calls += 1
                 assert calls == case["neural_queries"] == value["neural_queries"] == value["action_replay_queries"]
-            payload_by_key[case["source"],case["family"],case["pattern"],case["seed"]] = value
         assert report["original_full_gate"] == all(passed) and report["max_replay_state_error"] == 0
         assert report["cost"]["counts"] == {"environment":physical,"teacher":planning,"replay":physical}
         cap = 100000 if fresh else 12000
         assert physical <= cap and report["cost"]["wall_s"] <= (900 if fresh else 180)
+        expected_groups = {(c["source"],c["family"],c["pattern"]) for c in report["cases"] if c["split"] not in ("known_regression","start_guard_challenge")}
+        assert len(report["groups"]) == 36 and {(g["source"],g["family"],g["pattern"]) for g in report["groups"]} == expected_groups
         for group in report["groups"]:
             cases = [c for c in report["cases"] if c["split"] not in ("known_regression","start_guard_challenge") and (c["source"],c["family"],c["pattern"]) == (group["source"],group["family"],group["pattern"])]
             supported = [c for c in cases if c["certificate"]["supported"] or c["evaluation"]["criterion"] == "stop"]
@@ -111,6 +125,11 @@ def verify():
         assert [r["horizon_decisions"] for r in entry["drift"]] == [1,2,4,8] and all(r["rows"] <= 128 for r in entry["drift"])
         for key,values in (("position_mae_m",measured["position"]),("pile_height_mae_m",measured["pile"]),("reward_mae",measured["reward"]),
                            ("mass_balance_mae_kg",measured["ledger"]),("high_error_fraction",measured["high"])): numpy.close(metric[key],numpy.mean(values))
+        for column,event in enumerate(("terminated","truncated","contact","collision")):
+            pairs = [(p[column],y[column]) for p,y in zip(prediction["events"],data["events"])]
+            numpy.close(metric["events"][event]["brier"],numpy.mean([(p-y)**2 for p,y in pairs]))
+            assert metric["events"][event]["false_positives"] == sum(p >= .5 and not y for p,y in pairs)
+            assert metric["events"][event]["false_negatives"] == sum(p < .5 and y for p,y in pairs)
         gate = json.loads((forecast_dir/"report.json").read_text())["methods"]["structured"]["calibration_gate"]
         assert entry["calibration_gate"] == gate and len(entry["families"]) == 16
         qualified = True
