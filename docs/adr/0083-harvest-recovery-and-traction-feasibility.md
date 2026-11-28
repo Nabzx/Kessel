@@ -37,3 +37,17 @@ Qualification must retain delivery, stopping, input-fault/recovery and forecast
 criteria separately. No final-driven threshold fitting, fresh-seed replacement,
 physics change, hidden-state task inputs or runtime admission is inferred from a
 partial result. Do not describe a conventional recovery as learned planning.
+
+## Separate proposed start refusal
+
+The maintainer has been asked whether controlled refusal is an acceptable outcome
+for the negative-traction start. Until an answer, keep the delivery gate unchanged.
+A proposed guard may be built and measured without treating it as accepted task
+success. It latches only after three seconds of saturated drive/high slip,
+<0.02 m observed movement, speed <=0.01 m/s, empty load and no nearby crop. Hold
+uses explicit conventional 0.39 - 1.8*speed drive and stationary joints. Within
+the empty synthetic low-grip scene's grade <=0.1 rad envelope, 0.39*22,000 N is
+above maximum slope minus rolling resistance. This is a reference-specific
+holding prior, not estimated friction or field certification. Keep the independent
+clearance/range brake precedence. Log actual hold source and all unused/delivered
+queries correctly. Measure ten-second stability separately from failed delivery.
