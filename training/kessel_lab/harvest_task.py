@@ -13,7 +13,12 @@ class HarvestTask(ProgressTask):
 
     def act(self,observation):
         obs = RangeSupervisor.validate(observation); p = obs["proprio"][0]
-        if self.mode in ("collect","sweep","back_out","shift") and p[8] >= 2100: self.mode = "lift"
+        if self.mode in ("collect","sweep","back_out","shift") and p[8] >= 2030: self.mode = "lift"
+        reach = 1.6+1.2*np.cos(p[6])
+        mouth_error = p[9]-1.8-reach*np.cos(p[5])
+        lateral_error = p[10]-reach*np.sin(p[5])
+        if self.mode == "carry" and abs(mouth_error) < .9 and abs(lateral_error) < .9 and abs(p[4]) < .08:
+            self.mode = "tip"
         if self.mode == "shift" and p[0] <= self.cut_start-3.:
             self.mode = "approach"; self.cut_start = None; self.contact_at = None
         actuator = self.actuator; self.actuator = None
