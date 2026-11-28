@@ -159,3 +159,8 @@ bounds local learned heads, known priors and independent rare-event acquisition.
 
 [Collection coverage correction](0082-bounded-collection-coverage-correction.md)
 retains two fixed task variants and matched final practice, including misses.
+
+[Harvest and traction repair](0083-harvest-recovery-and-traction-feasibility.md)
+preserves bounded recovery attempts and distinct proposed start refusals.
+[Fresh harvest/forecast qualification](0084-frozen-harvest-and-forecast-qualification.md)
+freezes initial feasibility screening, unused-case audit and separate endpoints.
